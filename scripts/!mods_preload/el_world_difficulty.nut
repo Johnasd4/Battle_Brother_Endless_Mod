@@ -10,6 +10,28 @@ local gt = getroottable();
 		o.m.EL_CurrentUpdateDay <- 0;
 	});
 
+	::mods_hookExactClass("states/world/asset_manager", function ( o )
+	{
+		local onSerialize = o.onSerialize;
+		o.onSerialize = function ( _out )
+		{
+			onSerialize(_out);
+			_out.writeI32(this.m.EL_WorldLevel);
+			_out.writeI32(this.m.EL_WorldStrength);
+			_out.writeI32(this.m.EL_CurrentUpdateDay);
+		}
+
+		local onDeserialize = o.onDeserialize;
+		o.onDeserialize = function ( _in )
+		{
+			onDeserialize(_in);
+			this.m.EL_WorldLevel = _in.readI32();
+			this.m.EL_WorldStrength = _in.readI32();
+			this.m.EL_CurrentUpdateDay = _in.readI32();
+		}
+	});
+
+
 	::mods_hookExactClass("entity/world/player_party", function ( o )
 	{
 		local updateStrength = o.updateStrength;
@@ -45,23 +67,23 @@ local gt = getroottable();
 
 				local difficult_mult = 1;
 				if(this.World.Flags.has("EL_WorldDifficultyEvent")) {
-					difficult_mult *= gt.Const.EL_WorldDifficulty.EL_WorldDifficultyMultFactor[this.World.Flags.get("EL_WorldDifficultyEvent")];
+					difficult_mult *= gt.Const.EL_WorldDifficulty.EL_WorldDifficultyEventMultFactor[this.World.Flags.get("EL_WorldDifficultyEvent")];
 				}
 				if (this.World.Assets.getCombatDifficulty() == gt.Const.Difficulty.Easy)
 				{
-					difficult_mult *= 0.4;
+					difficult_mult *= gt.Const.EL_WorldDifficulty.EL_WorldDifficultyStartMultFactor[0];
 				}
 				else if (this.World.Assets.getCombatDifficulty() == gt.Const.Difficulty.Normal)
 				{
-					difficult_mult *= 0.6;
+					difficult_mult *= gt.Const.EL_WorldDifficulty.EL_WorldDifficultyStartMultFactor[1];
 				}
 				else if (this.World.Assets.getCombatDifficulty() == gt.Const.Difficulty.Hard)
 				{
-					difficult_mult *= 0.8;
+					difficult_mult *= gt.Const.EL_WorldDifficulty.EL_WorldDifficultyStartMultFactor[2];
 				}
 				else if (this.World.Assets.getCombatDifficulty() == gt.Const.Difficulty.Legendary)
 				{
-					difficult_mult *= 1;
+					difficult_mult *= gt.Const.EL_WorldDifficulty.EL_WorldDifficultyStartMultFactor[3];
 				}
 
 				temp_world_strength *= difficult_mult;
@@ -74,10 +96,15 @@ local gt = getroottable();
 				}
 				this.logInfo("Day " + day + " : World Level " + this.World.Assets.m.EL_WorldLevel);
 				this.logInfo("Day " + day + " : World Strength " + this.World.Assets.m.EL_WorldStrength);
+
+				//Test levelXP
+				// for(local level = 0; level < this.Const.LevelXP.len(); ++level){
+				// 	this.logInfo("LV" + level + " : " + this.Const.LevelXP[level]);
+				// }
+
 			}
 			this.m.Strength = this.World.Assets.m.EL_WorldStrength;
 		};
 	});
-
 
 });
