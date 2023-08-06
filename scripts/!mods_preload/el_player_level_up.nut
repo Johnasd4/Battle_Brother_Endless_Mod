@@ -90,4 +90,52 @@ local gt = getroottable();
 			return ret;
 		});
 	});
+
+	::mods_hookNewObject("entity/tactical/player", function(o) {
+		::mods_override(o, "addXP", function ( _xp, _scale = true )
+		{
+			if (this.m.Level >= this.Const.LevelXP.len() || this.isGuest())
+			{
+				return;
+			}
+
+			if (_scale)
+			{
+				_xp = _xp * this.Const.Combat.GlobalXPMult;
+			}
+
+			// multiply xp if more than 12 fielded
+			local roster = World.getPlayerRoster().getAll();
+			local in_battle_num = 0;
+			foreach(brother in roster)
+			{
+				in_battle_num++;
+			}
+
+			if(inBattle > this.Const.EL_PlayerLevelUp.EL_CombatXPMaxDivFactor){
+				_xp *= in_battle_num / this.Const.EL_PlayerLevelUp.EL_CombatXPMaxDivFactor;
+			}
+
+			//multiply xp if player level is lower then the world level
+			if(this.m.Level < this.World.Assets.m.EL_WorldLevel){
+				_xp *= 1 + this.Math.pow((this.World.Assets.m.EL_WorldLevel - this.m.Level) * this.Const.EL_PlayerLevelUp.EL_CombatXPBelowWorldLevelMultFactor, 2);
+			}
+			else{
+				_xp /= 1 + this.Math.pow((this.m.Level - this.World.Assets.m.EL_WorldLevel) * this.Const.EL_PlayerLevelUp.EL_CombatXPOverWorldLevelMultactor, 2);
+			}
+
+			// xp multiplying end
+			if (this.m.XP + _xp * this.m.CurrentProperties.XPGainMult >= this.Const.LevelXP[this.Const.LevelXP.len() - 1])
+			{
+				// Now, the XP will be wasted, hhhh
+				//this.m.CombatStats.XPGained += this.Const.LevelXP[this.Const.LevelXP.len() - 1] - this.m.XP;
+				this.m.XP = this.Const.LevelXP[this.Const.LevelXP.len() - 1];
+				return;
+			}
+			this.m.XP += this.Math.floor(_xp * this.m.CurrentProperties.XPGainMult);
+			this.m.CombatStats.XPGained += this.Math.floor(_xp * this.m.CurrentProperties.XPGainMult);
+		});
+	});
+
+
 });

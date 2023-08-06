@@ -19,8 +19,11 @@ gt.Const.EL_PlayerLevelUp <- {
     EL_PlayerDisplayMeleeSkillMax = 500,
     EL_PlayerDisplayRangeSkillMax = 500,
     EL_PlayerDisplayMeleeDefenseMax = 950,
-    EL_PlayerDisplayRangeDefenseMax = 950
+    EL_PlayerDisplayRangeDefenseMax = 950,
 
+    EL_CombatXPMaxDivFactor = 12.0,
+    EL_CombatXPBelowWorldLevelMultFactor = 0.1,
+    EL_CombatXPOverWorldLevelMultactor = 0.2
 };
 
 while (gt.Const.LevelXP.len() != 0)

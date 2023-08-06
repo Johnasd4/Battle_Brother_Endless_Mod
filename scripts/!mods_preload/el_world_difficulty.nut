@@ -10,6 +10,28 @@ local gt = getroottable();
 		o.m.EL_CurrentUpdateDay <- 0;
 	});
 
+	::mods_hookExactClass("states/world/asset_manager", function ( o )
+	{
+		local onSerialize = o.onSerialize;
+		o.onSerialize = function ( _out )
+		{
+			onSerialize(_out);
+			_out.writeI32(this.m.EL_WorldLevel);
+			_out.writeI32(this.m.EL_WorldStrength);
+			_out.writeI32(this.m.EL_CurrentUpdateDay);
+		}
+
+		local onDeserialize = o.onDeserialize;
+		o.onDeserialize = function ( _in )
+		{
+			onDeserialize(_in);
+			this.m.EL_WorldLevel = _in.readI32();
+			this.m.EL_WorldStrength = _in.readI32();
+			this.m.EL_CurrentUpdateDay = _in.readI32();
+		}
+	});
+
+
 	::mods_hookExactClass("entity/world/player_party", function ( o )
 	{
 		local updateStrength = o.updateStrength;
@@ -84,6 +106,5 @@ local gt = getroottable();
 			this.m.Strength = this.World.Assets.m.EL_WorldStrength;
 		};
 	});
-
 
 });
