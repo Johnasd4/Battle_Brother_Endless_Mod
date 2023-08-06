@@ -35,7 +35,14 @@ gt.Const.EL_WorldDifficulty <- {
 
     EL_WorldStrengthOffset = [],
 
-    EL_WorldDifficultyMultFactor = [
+    EL_WorldDifficultyStartMultFactor = [
+        0.4,
+        0.6,
+        0.8,
+        1
+    ],
+
+    EL_WorldDifficultyEventMultFactor = [
         0.1,
         0.4,
         0.7,
