@@ -12,7 +12,7 @@ gt.Const.EL_WorldDifficulty <- {
     EL_WorldLevelMin = 0,
     EL_WorldLevelMax = 100,
     EL_WorldLevelLevelUpBaseDay = 7,
-    EL_WorldLevelLevelUpMultFactor = 1.03,
+    EL_WorldLevelLevelUpMultFactor = 1.028,
 
     EL_WorldStrengthMin = 40,
     EL_WorldStrengthOffsetBase = 0,
