@@ -61,30 +61,31 @@ local gt = getroottable();
 					this.m.Attributes[count].insert(0, this.Math.rand(this.Const.AttributesLevelUp[count].Min + (this.m.Talents[count] == 3 ? 2 : this.m.Talents[count]), this.Const.AttributesLevelUp[count].Max + (this.m.Talents[count] == 3 ? 1 : 0)));
 				}
 			}
-
+			local base_properties = this.getBaseProperties();
 			local ret = {
-				hitpoints = b.Hitpoints,
+				hitpoints = base_properties.Hitpoints,
 				hitpointsMax = this.Const.EL_PlayerLevelUp.EL_PlayerDisplayHitpointsMax,
 				hitpointsIncrease = this.m.Attributes[this.Const.Attributes.Hitpoints][0],
-				bravery = b.Bravery,
+				bravery = base_properties.Bravery,
 				braveryMax = this.Const.EL_PlayerLevelUp.EL_PlayerDisplayBraveryMax,
 				braveryIncrease = this.m.Attributes[this.Const.Attributes.Bravery][0],
-				fatigue = b.Stamina,
-				fatigueMax = this.Const.EL_PlayerLevelUp.EL_PlayerDisplayStaminaMax,
+				fatigue = base_properties.Stamina,
+				fatigueMax = this.Const.EL_PlayerLevelUp.EL_PlayerDisplayFatigueMax,
 				fatigueIncrease = this.m.Attributes[this.Const.Attributes.Fatigue][0],
-				initiative = b.Initiative,
+				initiative = base_properties.Initiative,
 				initiativeMax = this.Const.EL_PlayerLevelUp.EL_PlayerDisplayInitiativeMax,
 				initiativeIncrease = this.m.Attributes[this.Const.Attributes.Initiative][0],
+				meleeSkill = base_properties.MeleeSkill,
 				meleeSkillMax = this.Const.EL_PlayerLevelUp.EL_PlayerDisplayMeleeSkillMax,
 				meleeSkillIncrease = this.m.Attributes[this.Const.Attributes.MeleeSkill][0],
-				rangeSkill = b.RangedSkill,
-				rangeSkillMax = this.Const.EL_PlayerLevelUp.EL_PlayerDisplayRangedSkillMax,
+				rangeSkill = base_properties.RangedSkill,
+				rangeSkillMax = this.Const.EL_PlayerLevelUp.EL_PlayerDisplayRangeSkillMax,
 				rangeSkillIncrease = this.m.Attributes[this.Const.Attributes.RangedSkill][0],
-				meleeDefense = b.MeleeDefense,
+				meleeDefense = base_properties.MeleeDefense,
 				meleeDefenseMax = this.Const.EL_PlayerLevelUp.EL_PlayerDisplayMeleeDefenseMax,
 				meleeDefenseIncrease = this.m.Attributes[this.Const.Attributes.MeleeDefense][0],
-				rangeDefense = b.RangedDefense,
-				rangeDefenseMax = this.Const.EL_PlayerLevelUp.EL_PlayerDisplayRangedDefenseMax,
+				rangeDefense = base_properties.RangedDefense,
+				rangeDefenseMax = this.Const.EL_PlayerLevelUp.EL_PlayerDisplayRangeDefenseMax,
 				rangeDefenseIncrease = this.m.Attributes[this.Const.Attributes.RangedDefense][0]
 			};
 			return ret;

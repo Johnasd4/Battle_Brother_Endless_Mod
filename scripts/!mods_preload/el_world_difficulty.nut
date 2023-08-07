@@ -43,8 +43,16 @@ local gt = getroottable();
 				//Calculate world level.
 				if(this.World.Assets.m.EL_WorldLevel < gt.Const.EL_WorldDifficulty.EL_WorldLevelMax){
 					if(day > gt.Const.EL_WorldDifficulty.EL_WorldLevelDay[this.World.Assets.m.EL_WorldLevel]){
-						this.logInfo("Day " + day + " : World Level level up, next level need day " + gt.Const.EL_WorldDifficulty.EL_WorldLevelDay[this.World.Assets.m.EL_WorldLevel]);
 						this.World.Assets.m.EL_WorldLevel += 1;
+						if(day == gt.Const.EL_WorldDifficulty.EL_WorldLevelMax)
+						{
+							this.logInfo("Day " + day + " : World Level level up, next level need day " +
+										 this.Math.floor(gt.Const.EL_WorldDifficulty.EL_WorldLevelDay[this.World.Assets.m.EL_WorldLevel] + 1));
+						}
+						else
+						{
+							this.logInfo("Day " + day + " : World Level max");
+						}
 					}
 				}
 
