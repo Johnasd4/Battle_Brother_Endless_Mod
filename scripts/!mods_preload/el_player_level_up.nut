@@ -84,7 +84,7 @@ local gt = getroottable();
 				meleeDefenseMax = this.Const.EL_PlayerLevelUp.EL_PlayerDisplayMeleeDefenseMax,
 				meleeDefenseIncrease = this.m.Attributes[this.Const.Attributes.MeleeDefense][0],
 				rangeDefense = base_properties.RangedDefense,
-				rangeDefenseMax = this.Const.EL_PlayerLevelUp.EL_PlayerDisplayRangedDefenseMax,
+				rangeDefenseMax = this.Const.EL_PlayerLevelUp.EL_PlayerDisplayRangeDefenseMax,
 				rangeDefenseIncrease = this.m.Attributes[this.Const.Attributes.RangedDefense][0]
 			};
 			return ret;
