@@ -1,12 +1,12 @@
-this.el_world_difficulty_event <- this.inherit("scripts/events/event", {
+this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 	m = {},
 	function create()
 	{
-		this.m.ID = "event.el_world_difficulty_event";
+		this.m.ID = "event.el_world_difficulty_select_event";
 		this.m.Title = "Difficulty Customization";
 		this.m.Cooldown = this.Const.EL_WorldDifficulty.EL_WorldDifficultySelectDistanceDay * this.World.getTime().SecondsPerDay;
 		this.m.Screens.push({
-			ID = "el_world_difficulty_event_select",
+			ID = "el_world_difficulty_select_event_select",
 			Text = "[img]gfx/ui/events/event_91.png[/img]没有什么特别的发生，只是调整世界难度。根据难度选择会有额外奖励",
 			Image = "",
 			List = [],
@@ -16,7 +16,7 @@ this.el_world_difficulty_event <- this.inherit("scripts/events/event", {
 					Text = "弱鸡(10%)。",
 					function getResult( _event )
 					{
-						return "el_world_difficulty_event_0";
+						return "el_world_difficulty_select_event_0";
 					}
 
 				},
@@ -24,7 +24,7 @@ this.el_world_difficulty_event <- this.inherit("scripts/events/event", {
 					Text = "新手(40%)。",
 					function getResult( _event )
 					{
-						return "el_world_difficulty_event_1";
+						return "el_world_difficulty_select_event_1";
 					}
 
 				},
@@ -32,7 +32,7 @@ this.el_world_difficulty_event <- this.inherit("scripts/events/event", {
 					Text = "简单(70%)。",
 					function getResult( _event )
 					{
-						return "el_world_difficulty_event_2";
+						return "el_world_difficulty_select_event_2";
 					}
 
 				},
@@ -40,7 +40,7 @@ this.el_world_difficulty_event <- this.inherit("scripts/events/event", {
 					Text = "一般(100%)。",
 					function getResult( _event )
 					{
-						return "el_world_difficulty_event_3";
+						return "el_world_difficulty_select_event_3";
 					}
 
 				},
@@ -48,7 +48,7 @@ this.el_world_difficulty_event <- this.inherit("scripts/events/event", {
 					Text = "困难(150%)。",
 					function getResult( _event )
 					{
-						return "el_world_difficulty_event_4";
+						return "el_world_difficulty_select_event_4";
 					}
 
 				},
@@ -56,7 +56,7 @@ this.el_world_difficulty_event <- this.inherit("scripts/events/event", {
 					Text = "专家(220%)。",
 					function getResult( _event )
 					{
-						return "el_world_difficulty_event_5";
+						return "el_world_difficulty_select_event_5";
 					}
 
 				},
@@ -64,7 +64,7 @@ this.el_world_difficulty_event <- this.inherit("scripts/events/event", {
 					Text = "疯狂(330%)。",
 					function getResult( _event )
 					{
-						return "el_world_difficulty_event_6";
+						return "el_world_difficulty_select_event_6";
 					}
 
 				},
@@ -72,7 +72,7 @@ this.el_world_difficulty_event <- this.inherit("scripts/events/event", {
 					Text = "传奇(500%)。",
 					function getResult( _event )
 					{
-						return "el_world_difficulty_event_7";
+						return "el_world_difficulty_select_event_7";
 					}
 
 				},
@@ -80,7 +80,7 @@ this.el_world_difficulty_event <- this.inherit("scripts/events/event", {
 					Text = "神(750%)。",
 					function getResult( _event )
 					{
-						return "el_world_difficulty_event_8";
+						return "el_world_difficulty_select_event_8";
 					}
 
 				},
@@ -88,7 +88,7 @@ this.el_world_difficulty_event <- this.inherit("scripts/events/event", {
 					Text = "???(1000%)。",
 					function getResult( _event )
 					{
-						return "el_world_difficulty_event_9";
+						return "el_world_difficulty_select_event_9";
 					}
 
 				}
@@ -99,7 +99,7 @@ this.el_world_difficulty_event <- this.inherit("scripts/events/event", {
 			}
 		});
 		this.m.Screens.push({
-			ID = "el_world_difficulty_event_0",
+			ID = "el_world_difficulty_select_event_0",
 			Text = "[img]gfx/ui/events/event_85.png[/img]弱鸡难度。",
 			Image = "",
 			List = [],
@@ -184,7 +184,7 @@ this.el_world_difficulty_event <- this.inherit("scripts/events/event", {
 			}
 		});
 		this.m.Screens.push({
-			ID = "el_world_difficulty_event_1",
+			ID = "el_world_difficulty_select_event_1",
 			Text = "[img]gfx/ui/events/event_85.png[/img]新手。",
 			Image = "",
 			List = [],
@@ -269,7 +269,7 @@ this.el_world_difficulty_event <- this.inherit("scripts/events/event", {
 			}
 		});
 		this.m.Screens.push({
-			ID = "el_world_difficulty_event_2",
+			ID = "el_world_difficulty_select_event_2",
 			Text = "[img]gfx/ui/events/event_69.png[/img]简单。",
 			Image = "",
 			List = [],
@@ -354,7 +354,7 @@ this.el_world_difficulty_event <- this.inherit("scripts/events/event", {
 			}
 		});
 		this.m.Screens.push({
-			ID = "el_world_difficulty_event_3",
+			ID = "el_world_difficulty_select_event_3",
 			Text = "[img]gfx/ui/events/event_69.png[/img]普通。",
 			Image = "",
 			List = [],
@@ -440,7 +440,7 @@ this.el_world_difficulty_event <- this.inherit("scripts/events/event", {
 			}
 		});
 		this.m.Screens.push({
-			ID = "el_world_difficulty_event_4",
+			ID = "el_world_difficulty_select_event_4",
 			Text = "[img]gfx/ui/events/event_69.png[/img]困难。",
 			Image = "",
 			List = [],
@@ -525,7 +525,7 @@ this.el_world_difficulty_event <- this.inherit("scripts/events/event", {
 			}
 		});
 		this.m.Screens.push({
-			ID = "el_world_difficulty_event_5",
+			ID = "el_world_difficulty_select_event_5",
 			Text = "[img]gfx/ui/events/event_69.png[/img]专家。",
 			Image = "",
 			List = [],
@@ -610,7 +610,7 @@ this.el_world_difficulty_event <- this.inherit("scripts/events/event", {
 			}
 		});
 		this.m.Screens.push({
-			ID = "el_world_difficulty_event_6",
+			ID = "el_world_difficulty_select_event_6",
 			Text = "[img]gfx/ui/events/event_69.png[/img]疯狂。",
 			Image = "",
 			List = [],
@@ -697,7 +697,7 @@ this.el_world_difficulty_event <- this.inherit("scripts/events/event", {
 			}
 		});
 		this.m.Screens.push({
-			ID = "el_world_difficulty_event_7",
+			ID = "el_world_difficulty_select_event_7",
 			Text = "[img]gfx/ui/events/event_69.png[/img]传说。",
 			Image = "",
 			List = [],
@@ -782,7 +782,7 @@ this.el_world_difficulty_event <- this.inherit("scripts/events/event", {
 			}
 		});
 		this.m.Screens.push({
-			ID = "el_world_difficulty_event_8",
+			ID = "el_world_difficulty_select_event_8",
 			Text = "[img]gfx/ui/events/event_69.png[/img]神。",
 			Image = "",
 			List = [],
@@ -872,7 +872,7 @@ this.el_world_difficulty_event <- this.inherit("scripts/events/event", {
 			}
 		});
 		this.m.Screens.push({
-			ID = "el_world_difficulty_event_9",
+			ID = "el_world_difficulty_select_event_9",
 			Text = "[img]gfx/ui/events/event_69.png[/img]???。",
 			Image = "",
 			List = [],
@@ -983,46 +983,46 @@ this.el_world_difficulty_event <- this.inherit("scripts/events/event", {
 	{
 		if (this.World.Flags.get("EL_WorldDifficultyEvent") == 0)
 		{
-			return "el_world_difficulty_event_0";
+			return "el_world_difficulty_select_event_0";
 		}
 		else if (this.World.Flags.get("EL_WorldDifficultyEvent") == 1)
 		{
-			return "el_world_difficulty_event_1";
+			return "el_world_difficulty_select_event_1";
 		}
 		else if (this.World.Flags.get("EL_WorldDifficultyEvent") == 2)
 		{
-			return "el_world_difficulty_event_2";
+			return "el_world_difficulty_select_event_2";
 		}
 		else if (this.World.Flags.get("EL_WorldDifficultyEvent") == 3)
 		{
-			return "el_world_difficulty_event_3";
+			return "el_world_difficulty_select_event_3";
 		}
 		else if (this.World.Flags.get("EL_WorldDifficultyEvent") == 4)
 		{
-			return "el_world_difficulty_event_4";
+			return "el_world_difficulty_select_event_4";
 		}
 		else if (this.World.Flags.get("EL_WorldDifficultyEvent") == 5)
 		{
-			return "el_world_difficulty_event_5";
+			return "el_world_difficulty_select_event_5";
 		}
 		else if (this.World.Flags.get("EL_WorldDifficultyEvent") == 6)
 		{
-			return "el_world_difficulty_event_6";
+			return "el_world_difficulty_select_event_6";
 		}
 		else if (this.World.Flags.get("EL_WorldDifficultyEvent") == 7)
 		{
-			return "el_world_difficulty_event_7";
+			return "el_world_difficulty_select_event_7";
 		}
 		else if (this.World.Flags.get("EL_WorldDifficultyEvent") == 8)
 		{
-			return "el_world_difficulty_event_8";
+			return "el_world_difficulty_select_event_8";
 		}
 		else if (this.World.Flags.get("EL_WorldDifficultyEvent") == 9)
 		{
-			return "el_world_difficulty_event_9";
+			return "el_world_difficulty_select_event_9";
 		}
 
-		return "el_world_difficulty_event_3";
+		return "el_world_difficulty_select_event_3";
 	}
 
 });
