@@ -13,7 +13,7 @@ gt.Const.EL_PlayerLevelUp <- {
     EL_PlayerLevelPart2PerkFrequency = 4,
 
     EL_PlayerDisplayHitpointsMax = 600,
-    EL_PlayerDisplayBraveryMax = 600,
+    EL_PlayerDisplayBraveryMax = 120,
     EL_PlayerDisplayFatigueMax = 600,
     EL_PlayerDisplayInitiativeMax = 720,
     EL_PlayerDisplayMeleeSkillMax = 500,
