@@ -75,6 +75,7 @@ local gt = getroottable();
 				initiative = base_properties.Initiative,
 				initiativeMax = this.Const.EL_PlayerLevelUp.EL_PlayerDisplayInitiativeMax,
 				initiativeIncrease = this.m.Attributes[this.Const.Attributes.Initiative][0],
+				meleeSkill = base_properties.MeleeSkill,
 				meleeSkillMax = this.Const.EL_PlayerLevelUp.EL_PlayerDisplayMeleeSkillMax,
 				meleeSkillIncrease = this.m.Attributes[this.Const.Attributes.MeleeSkill][0],
 				rangeSkill = base_properties.RangedSkill,
