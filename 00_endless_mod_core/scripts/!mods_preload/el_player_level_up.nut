@@ -19,10 +19,10 @@ local gt = getroottable();
 			}
 		};
 	});
-	::mods_hookClass("entity/tactical/player", function (o)
+
+	::mods_hookExactClass("entity/tactical/player", function(obj)
 	{
-		while(!("updateLevel" in o)) o = o[o.SuperName];
-		o.updateLevel = function()
+		::mods_override(obj, "updateLevel", function ()
 		{
 			while (this.m.Level < this.Const.LevelXP.len() && this.m.XP >= this.Const.LevelXP[this.m.Level])
 			{
@@ -48,17 +48,49 @@ local gt = getroottable();
 					this.updateAchievement("TooStubbornToDie", 1, 1);
 				}
 			}
-		}
-	});
-	::mods_hookExactClass("entity/tactical/player", function(obj)
-	{
+		});
+
+		::mods_override(obj, "fillAttributeLevelUpValues", function ( _amount, _maxOnly = false, _minOnly = false )
+		{
+			if (this.m.Attributes.len() == 0)
+			{
+				this.m.Attributes.resize(this.Const.Attributes.COUNT);
+
+				for( local i = 0; i != this.Const.Attributes.COUNT; i = ++i )
+				{
+					this.m.Attributes[i] = [];
+				}
+			}
+
+			for( local i = 0; i != this.Const.Attributes.COUNT; i = ++i )
+			{
+				for( local j = 0; j < _amount; j = ++j )
+				{
+					if (_minOnly)
+					{
+						this.m.Attributes[i].insert(0, 1);
+					}
+					else if (_maxOnly)
+					{
+						this.m.Attributes[i].insert(0, this.Const.AttributesLevelUp[i].Max[this.m.Talents[count]]);
+					}
+					else
+					{
+						this.m.Attributes[count].insert(0, this.Math.rand(this.Const.EL_PlayerLevelUp.EL_LevelUpAttributes[count].Min[this.m.Talents[count]],
+																		  this.Const.EL_PlayerLevelUp.EL_LevelUpAttributes[count].Max[this.m.Talents[count]]));
+					}
+				}
+			}
+		});
+
 		::mods_override(obj, "getAttributeLevelUpValues", function ()
 		{
 			if (this.m.Attributes.len() == 0)
 			{
 				for( local count = 0; count != this.Const.Attributes.COUNT; ++count )
 				{
-					this.m.Attributes[count].insert(0, this.Math.rand(this.Const.AttributesLevelUp[count].Min + (this.m.Talents[count] == 3 ? 2 : this.m.Talents[count]), this.Const.AttributesLevelUp[count].Max + (this.m.Talents[count] == 3 ? 1 : 0)));
+					this.m.Attributes[count].insert(0, this.Math.rand(this.Const.EL_PlayerLevelUp.EL_LevelUpAttributes[count].Min[this.m.Talents[count]],
+																	  this.Const.EL_PlayerLevelUp.EL_LevelUpAttributes[count].Max[this.m.Talents[count]]));
 				}
 			}
 			local base_properties = this.getBaseProperties();
@@ -118,11 +150,11 @@ local gt = getroottable();
 			}
 
 			//multiply xp if player level is lower then the world level
-			if(this.m.Level < this.World.Assets.m.EL_WorldLevel){
-				_xp *= 1 + this.Math.pow((this.World.Assets.m.EL_WorldLevel - this.m.Level) * this.Const.EL_PlayerLevelUp.EL_CombatXPBelowWorldLevelMultFactor, 2);
+			if(this.m.Level < this.World.Assets.m.EL_WorldLevel - this.Const.EL_PlayerLevelUp.EL_CombatXPBelowWorldLevelOffset){
+				_xp *= 1 + this.Math.pow((this.World.Assets.m.EL_WorldLevel - this.m.Level - this.Const.EL_PlayerLevelUp.EL_CombatXPBelowWorldLevelOffset) * this.Const.EL_PlayerLevelUp.EL_CombatXPBelowWorldLevelMultFactor, 2);
 			}
-			else{
-				_xp /= 1 + this.Math.pow((this.m.Level - this.World.Assets.m.EL_WorldLevel) * this.Const.EL_PlayerLevelUp.EL_CombatXPOverWorldLevelMultactor, 2);
+			else if (this.m.Level > this.World.Assets.m.EL_WorldLevel + this.Const.EL_PlayerLevelUp.EL_CombatXPOverWorldLevelOffset){
+				_xp /= 1 + this.Math.pow((this.m.Level - this.World.Assets.m.EL_WorldLevel - this.Const.EL_PlayerLevelUp.EL_CombatXPOverWorldLevelOffset) * this.Const.EL_PlayerLevelUp.EL_CombatXPOverWorldLevelMultactor, 2);
 			}
 
 			// xp multiplying end
