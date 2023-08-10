@@ -912,6 +912,7 @@ this.character_background <- this.inherit("scripts/skills/skill", {
 	{
 	}
 
+	//EL_OVERRIDE
 	function buildAttributes( _tag = null, _attrs = null )
 	{
 		local a = [];
@@ -1029,6 +1030,9 @@ this.character_background <- this.inherit("scripts/skills/skill", {
 		}
 
 		local c = this.onChangeAttributes();
+
+		local EL_rank = this.getContainer().getActor().EL_getRankLevel();
+
 		a.Hitpoints[0] += c.Hitpoints[0];
 		a.Hitpoints[1] += c.Hitpoints[1];
 		a.Bravery[0] += c.Bravery[0];
@@ -1045,6 +1049,27 @@ this.character_background <- this.inherit("scripts/skills/skill", {
 		a.RangedDefense[1] += c.RangedDefense[1];
 		a.Initiative[0] += c.Initiative[0];
 		a.Initiative[1] += c.Initiative[1];
+
+		if(EL_rank == 1) {
+			a.Hitpoints[0] = this.Math.round((a.Hitpoints[0] + a.Hitpoints[1]) * 0.5);
+			a.Bravery[0] = this.Math.round((a.Bravery[0] + a.Bravery[1]) * 0.5);
+			a.Stamina[0] = this.Math.round((a.Stamina[0] + a.Stamina[1]) * 0.5);
+			a.MeleeSkill[0] = this.Math.round((a.MeleeSkill[0] + a.MeleeSkill[1]) * 0.5);
+			a.MeleeDefense[0] = this.Math.round((a.MeleeDefense[0] + a.MeleeDefense[1]) * 0.5);
+			a.RangedSkill[0] = this.Math.round((a.RangedSkill[0] + a.RangedSkill[1]) * 0.5);
+			a.RangedDefense[0] = this.Math.round((a.RangedDefense[0] + a.RangedDefense[1]) * 0.5);
+			a.Initiative[0] = this.Math.round((a.Initiative[0] + a.Initiative[1]) * 0.5);
+		}
+		else if(EL_rank == 2) {
+			a.Hitpoints[0] = a.Hitpoints[1];
+			a.Bravery[0] = a.Bravery[1];
+			a.Stamina[0] = a.Stamina[1];
+			a.MeleeSkill[0] = a.MeleeSkill[1];
+			a.MeleeDefense[0] = a.MeleeDefense[1];
+			a.RangedSkill[0] = a.RangedSkill[1];
+			a.RangedDefense[0] = a.RangedDefense[1];
+			a.Initiative[0] = a.Initiative[1];
+		}
 
 		if (_attrs != null)
 		{
@@ -1289,6 +1314,7 @@ this.character_background <- this.inherit("scripts/skills/skill", {
 		this.adjustHiringCostBasedOnEquipment();
 	}
 
+	//EL_OVERRIDE
 	function onUpdate( _properties )
 	{
 		if (this.m.DailyCost == 0 || this.getContainer().hasSkill("trait.player"))
@@ -1302,15 +1328,10 @@ this.character_background <- this.inherit("scripts/skills/skill", {
 				this.m.DailyCost = 4;
 			}
 
-			local level = this.getContainer().getActor().getLevel();
+			local actor = this.getContainer().getActor();
 			local wage = this.Math.round(this.m.DailyCost * this.m.DailyCostMult);
-			_properties.DailyWage += wage * this.Math.pow(1.1, this.Math.min(10, level - 1));
-
-			if (level > 11)
-			{
-				local previous = wage * this.Math.pow(1.1, 10);
-				_properties.DailyWage += previous * this.Math.pow(1.03, level - 1 - 10) - previous;
-			}
+			_properties.DailyWage += wage * (1 + actor.getLevel() * this.Const.EL_Player.EL_DailyCostLevelMultFactor);
+			_properties.DailyWage *= this.Const.EL_Player.EL_PlayerExtraDailyCostMult[actor.EL_getRankLevel()];
 		}
 
 		if (("State" in this.World) && this.World.State != null && this.World.Assets.getOrigin() != null && this.World.Assets.getOrigin().getID() == "scenario.manhunters" && this.getID() != "background.slave")
@@ -1319,23 +1340,49 @@ this.character_background <- this.inherit("scripts/skills/skill", {
 		}
 	}
 
+	//EL_OVERRIDE
 	function adjustHiringCostBasedOnEquipment()
 	{
 		local actor = this.getContainer().getActor();
-		actor.m.HiringCost = this.Math.floor(this.m.HiringCost + 500 * this.Math.pow(this.m.Level - 1, 1.5));
+		if (this.m.HiringCost <= this.Const.EL_Player.EL_HiringCostPricePart1) {
+			actor.m.HiringCost = this.m.HiringCost;
+		}
+		else if (this.m.HiringCost <= this.Const.EL_Player.EL_HiringCostPricePart2) {
+			actor.m.HiringCost = this.Math.ceil(this.Math.pow(this.m.HiringCost / 10, 2));
+		}
+		else if (this.m.HiringCost <= this.Const.EL_Player.EL_HiringCostPricePart3) {
+			actor.m.HiringCost = this.Math.ceil(
+				(this.m.HiringCost - this.Const.EL_Player.EL_HiringCostPricePart2)*
+				(this.Const.EL_Player.EL_HiringCostFactorPart3 - this.Const.EL_Player.EL_HiringCostFactorPart4) /
+				(this.Const.EL_Player.EL_HiringCostPricePart3 - this.Const.EL_Player.EL_HiringCostPricePart4)
+			);
+		}
+		else if (this.m.HiringCost <= this.Const.EL_Player.EL_HiringCostPricePart3) {
+			actor.m.HiringCost = this.Math.ceil(
+				(this.m.HiringCost - this.Const.EL_Player.EL_HiringCostPricePart2)*
+				(this.Const.EL_Player.EL_HiringCostFactorPart3 - this.Const.EL_Player.EL_HiringCostFactorPart4) /
+				(this.Const.EL_Player.EL_HiringCostPricePart3 - this.Const.EL_Player.EL_HiringCostPricePart4)
+			);
+		}
+		else if (this.m.HiringCost <= this.Const.EL_Player.EL_HiringCostPricePart4) {
+			actor.m.HiringCost = this.Math.ceil(
+				(this.m.HiringCost - this.Const.EL_Player.EL_HiringCostPricePart3)*
+				(this.Const.EL_Player.EL_HiringCostFactorPart4 - this.Const.EL_Player.EL_HiringCostFactorPart5) /
+				(this.Const.EL_Player.EL_HiringCostPricePart4 - this.Const.EL_Player.EL_HiringCostPricePart5)
+			);
+		}
+		else{
+			actor.m.HiringCost = this.m.HiringCost;
+		}
 		local items = actor.getItems().getAllItems();
 		local cost = 0;
-
 		foreach( i in items )
 		{
 			cost = cost + i.getValue();
 		}
-
-		cost = cost * 1.25;
-		actor.m.HiringCost = actor.m.HiringCost + cost;
-		actor.m.HiringCost *= 0.1;
+		actor.m.HiringCost *= this.Const.EL_Player.EL_PlayerExtraHiringCostMult[actor.m.EL_RankLevel];
+		actor.m.HiringCost += cost * this.Const.EL_Player.EL_HiringCostItemCostMult;
 		actor.m.HiringCost = this.Math.ceil(actor.m.HiringCost);
-		actor.m.HiringCost *= 10;
 	}
 
 	function setAppearance( _tag = null )
@@ -1491,32 +1538,11 @@ this.character_background <- this.inherit("scripts/skills/skill", {
 
 	function calculateAdditionalRecruitmentLevels()
 	{
-		if (::Legends.Mod.ModSettings.getSetting("RecruitScaling").getValue())
-		{
-			local roster = this.World.getPlayerRoster().getAll();
-			local levels = 0;
-			local count = 0;
-
-			foreach( i, bro in roster )
-			{
-				local brolevel = bro.getLevel();
-				levels = levels + brolevel;
-				count = count + 1;
-			}
-
-			local avgLevel = this.Math.floor(levels / count);
-			local busRep = this.World.Assets.getBusinessReputation();
-			local repPoints = this.Math.floor(busRep / 1000);
-			local repLevelAvg = this.Math.floor((avgLevel + repPoints) / 4);
-			local broLevel = this.Math.rand(1, repLevelAvg);
-			return broLevel - 1;
-		}
-		else
-		{
-			return 0;
-		}
+		return this.Math.rand(0, this.World.Assets.m.EL_WorldLevel);
 	}
 
+
+	//EL_OVERRIDE
 	function onAdded()
 	{
 		if (this.m.DailyCost > 0)
@@ -1611,10 +1637,11 @@ this.character_background <- this.inherit("scripts/skills/skill", {
 					actor.m.PerkPoints = 10 + this.Math.floor((this.m.Level - 11) / this.getContainer().getActor().getVeteranPerks());
 				}
 			}
-
-			actor.m.PerkPoints = this.m.Level - 1;
+			actor.m.HiringCost *= (1 + this.Const.El_Player.EL_HiringCostLevelMultFactor * this.m.Level);
+			actor.m.PerkPoints = this.m.Level - 1 + this.Const.El_Player.EL_PlayerExtraPerkPoints[actor.m.EL_RankLevel];
 			actor.m.LevelUps = this.m.Level - 1;
 			actor.m.Level = this.m.Level;
+			actor.m.EL_BattleLevel = this.m.Level + this.Const.El_Player.EL_PlayerExtraBattleLevel[actor.m.EL_RankLevel];
 			actor.m.XP = this.Const.LevelXP[this.m.Level - 1];
 		}
 	}

@@ -3946,7 +3946,7 @@ this.actor <- this.inherit("scripts/entity/tactical/entity", {
 
 	function EL_setRankLevel( _EL_rankLevel )
 	{
-		return this.m.EL_RankLevel = _EL_rankLevel;
+		this.m.EL_RankLevel = _EL_rankLevel;
 	}
 
 	function EL_getBattleLevel()
@@ -3956,7 +3956,7 @@ this.actor <- this.inherit("scripts/entity/tactical/entity", {
 
 	function EL_setBattleLevel( _EL_battleLevel )
 	{
-		return this.m.EL_BattleLevel = _EL_battleLevel;
+		this.m.EL_BattleLevel = _EL_battleLevel;
 	}
 
 });
