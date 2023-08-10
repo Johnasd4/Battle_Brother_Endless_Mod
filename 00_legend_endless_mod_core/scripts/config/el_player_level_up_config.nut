@@ -28,9 +28,11 @@ gt.Const.EL_PlayerLevelUp <- {
     // XP * (1 + (WorldLevel - Level - 5) * 0.2) ^ 2 (Level < WorldLevel - 5)
     EL_CombatXPBelowWorldLevelOffset = 5,
     EL_CombatXPBelowWorldLevelMultFactor = 0.2,
+    EL_CombatXPBelowWorldLevelMultFactorMax = 10,
     // XP / (1 + (Level - WorldLevel - 0) * 0.2) ^ 2 (Level > WorldLevel - 0)
     EL_CombatXPOverWorldLevelOffset = 0,
-    EL_CombatXPOverWorldLevelMultactor = 0.2
+    EL_CombatXPOverWorldLevelMultFactor = 0.2
+    EL_CombatXPOverWorldLevelMultFactorMin = 0.1
 
     EL_Attributes = {
         Hitpoints = 0,

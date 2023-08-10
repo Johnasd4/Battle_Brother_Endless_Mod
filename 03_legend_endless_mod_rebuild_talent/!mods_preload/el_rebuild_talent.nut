@@ -56,7 +56,7 @@ local gt = getroottable();
 					{
 						this.m.Talents[i] = 3;
 					}
-
+					this.m.Talents[i] += this.Const.EL_RebuildTalent.EL_RankToTalentBonus[this.m.EL_BattleLevel];
 					attributes.push(i);
 					weights.push(this.m.StarWeights[i]);
 					totalWeight = totalWeight + this.m.StarWeights[i];
@@ -76,26 +76,25 @@ local gt = getroottable();
 					{
 						local r = this.Math.rand(1, 100);
 						local j = attributes[i];
-
+						local temp_talent = this.Const.EL_RebuildTalent.EL_RankToTalentBonus[this.m.EL_BattleLevel];
 						if (r <= this.Const.EL_RebuildTalent.EL_TalentChance[1])
 						{
-							if(this.m.Talents[j] < 1){
-								this.m.Talents[j] = 1;
-							}
+							temp_talent += 1;
 						}
 						else if (r <= this.Const.EL_RebuildTalent.EL_TalentChance[2])
 						{
-							if(this.m.Talents[j] < 2){
-								this.m.Talents[j] = 2;
-							}
+							temp_talent += 2;
 						}
 						else
 						{
-							if(this.m.Talents[j] < 3){
-								this.m.Talents[j] = 3;
-							}
+							temp_talent += 3;
 						}
-
+						if(this.m.Talents[j] < temp_talent) {
+							this.m.Talents[j] = temp_talent;
+						}
+						if(this.m.Talents[j] > this.Const.EL_RebuildTalent.EL_TalentMax) {
+							this.m.Talents[j] = this.Const.EL_RebuildTalent.EL_TalentMax;
+						}
 						attributes.remove(i);
 						totalWeight = totalWeight - weights[i];
 						weights.remove(i);

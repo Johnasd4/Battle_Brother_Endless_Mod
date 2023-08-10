@@ -35,6 +35,7 @@ local gt = getroottable();
 				}
 				++this.m.Level;
 				++this.m.LevelUps;
+				++this.m.EL_BattleLevel;
 
 				this.m.Skills.onUpdateLevel();
 
@@ -151,10 +152,18 @@ local gt = getroottable();
 
 			//multiply xp if player level is lower then the world level
 			if(this.m.Level < this.World.Assets.m.EL_WorldLevel - this.Const.EL_PlayerLevelUp.EL_CombatXPBelowWorldLevelOffset){
-				_xp *= 1 + this.Math.pow((this.World.Assets.m.EL_WorldLevel - this.m.Level - this.Const.EL_PlayerLevelUp.EL_CombatXPBelowWorldLevelOffset) * this.Const.EL_PlayerLevelUp.EL_CombatXPBelowWorldLevelMultFactor, 2);
+				local mult_factor = 1 + this.Math.pow((this.World.Assets.m.EL_WorldLevel - this.m.Level - this.Const.EL_PlayerLevelUp.EL_CombatXPBelowWorldLevelOffset) * this.Const.EL_PlayerLevelUp.EL_CombatXPBelowWorldLevelMultFactor, 2);
+				if(mult_factor > this.Const.EL_PlayerLevelUp.EL_CombatXPBelowWorldLevelMultFactorMax) {
+					mult_factor = this.Const.EL_PlayerLevelUp.EL_CombatXPBelowWorldLevelMultFactorMax;
+				}
+				_xp *= mult_factor;
 			}
 			else if (this.m.Level > this.World.Assets.m.EL_WorldLevel + this.Const.EL_PlayerLevelUp.EL_CombatXPOverWorldLevelOffset){
-				_xp /= 1 + this.Math.pow((this.m.Level - this.World.Assets.m.EL_WorldLevel - this.Const.EL_PlayerLevelUp.EL_CombatXPOverWorldLevelOffset) * this.Const.EL_PlayerLevelUp.EL_CombatXPOverWorldLevelMultactor, 2);
+				local mult_factor = 1.0/(1 + this.Math.pow((this.m.Level - this.World.Assets.m.EL_WorldLevel - this.Const.EL_PlayerLevelUp.EL_CombatXPOverWorldLevelOffset) * this.Const.EL_PlayerLevelUp.EL_CombatXPOverWorldLevelMultFactor, 2));
+				if(mult_factor < this.Const.EL_PlayerLevelUp.EL_CombatXPOverWorldLevelMultFactorMin) {
+					mult_factor = this.Const.EL_PlayerLevelUp.EL_CombatXPOverWorldLevelMultFactorMin;
+				}
+				_xp *= mult_factor;
 			}
 
 			// xp multiplying end
