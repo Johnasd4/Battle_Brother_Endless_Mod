@@ -3905,6 +3905,7 @@ this.actor <- this.inherit("scripts/entity/tactical/entity", {
 		this.Time.scheduleEvent(this.TimeUnit.Real, 10, corpse_data.onCorpseEffect, corpse_data);
 	}
 
+	//EL_OVERRIDE
 	function onSerialize( _out )
 	{
 		this.entity.onSerialize(_out);
@@ -3915,8 +3916,12 @@ this.actor <- this.inherit("scripts/entity/tactical/entity", {
 		_out.writeString(this.m.Title);
 		_out.writeF32(this.getHitpointsPct());
 		_out.writeI32(this.m.XP);
+
+		_out.writeF32(this.m.EL_BattleLevel);
+		_out.writeI32(this.m.EL_RankLevel);
 	}
 
+	//EL_OVERRIDE
 	function onDeserialize( _in )
 	{
 		this.entity.onDeserialize(_in);
@@ -3927,29 +3932,31 @@ this.actor <- this.inherit("scripts/entity/tactical/entity", {
 		this.m.Title = _in.readString();
 		this.setHitpointsPct(this.Math.maxf(0.0, _in.readF32()));
 		this.m.XP = _in.readI32();
+
+		this.m.EL_BattleLevel = _in.readF32();
+		this.m.EL_RankLevel = _in.readI32();
+	}
+
+
+
+	function EL_getRankLevel()
+	{
+		return this.m.EL_RankLevel;
+	}
+
+	function EL_setRankLevel( _EL_rankLevel )
+	{
+		return this.m.EL_RankLevel = _EL_rankLevel;
+	}
+
+	function EL_getBattleLevel()
+	{
+		return this.m.EL_BattleLevel;
+	}
+
+	function EL_setBattleLevel( _EL_battleLevel )
+	{
+		return this.m.EL_BattleLevel = _EL_battleLevel;
 	}
 
 });
-
-
-
-
-function EL_getRankLevel()
-{
-	return this.m.EL_RankLevel;
-}
-
-function EL_setRankLevel( _EL_rankLevel )
-{
-	return this.m.EL_RankLevel = _EL_rankLevel;
-}
-
-function EL_getBattleLevel()
-{
-	return this.m.EL_BattleLevel;
-}
-
-function EL_setBattleLevel( _EL_battleLevel )
-{
-	return this.m.EL_BattleLevel = _EL_battleLevel;
-}
