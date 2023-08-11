@@ -1,7 +1,7 @@
 local gt = getroottable();
 
 ::mods_registerMod("el_world_difficulty", 1, "el_world_difficulty");
-::mods_queue(null, ">Chirutiru_balance", function ()
+::mods_queue(null, ">endless_mod", function ()
 {
 	::mods_hookNewObjectOnce("states/world/asset_manager", function ( o )
 	{

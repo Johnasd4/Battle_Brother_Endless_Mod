@@ -1,11 +1,11 @@
 local gt = getroottable();
 
-if (!("EL_RebuildTalent" in gt.Const))
+if (!("EL_Player" in gt.Const))
 {
-	gt.Const.EL_RebuildTalent <- {};
+	gt.Const.EL_Player <- {};
 }
 
-gt.Const.EL_RebuildTalent <- {
+gt.Const.EL_Player <- {
 
     EL_TalentMax = 3,
 
