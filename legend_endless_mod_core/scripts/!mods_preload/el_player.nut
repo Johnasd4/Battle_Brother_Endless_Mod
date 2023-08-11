@@ -214,15 +214,15 @@ local gt = getroottable();
 
 					local r = this.Math.rand(1, 100);
 
-					if (r <= this.Const.EL_RebuildTalent.EL_TalentChance[0])
+					if (r <= this.Const.EL_Player.EL_TalentChance[0])
 					{
 						this.m.Talents[i] = 0;
 					}
-					else if (r <= this.Const.EL_RebuildTalent.EL_TalentChance[1])
+					else if (r <= this.Const.EL_Player.EL_TalentChance[1])
 					{
 						this.m.Talents[i] = 1;
 					}
-					else if (r <= this.Const.EL_RebuildTalent.EL_TalentChance[2])
+					else if (r <= this.Const.EL_Player.EL_TalentChance[2])
 					{
 						this.m.Talents[i] = 2;
 					}
@@ -230,7 +230,7 @@ local gt = getroottable();
 					{
 						this.m.Talents[i] = 3;
 					}
-					this.m.Talents[i] += this.Const.EL_RebuildTalent.EL_RankToTalentBonus[this.m.EL_BattleLevel];
+					this.m.Talents[i] += this.Const.EL_Player.EL_RankToTalentBonus[this.m.EL_BattleLevel];
 					attributes.push(i);
 					weights.push(this.m.StarWeights[i]);
 					totalWeight = totalWeight + this.m.StarWeights[i];
@@ -250,12 +250,12 @@ local gt = getroottable();
 					{
 						local r = this.Math.rand(1, 100);
 						local j = attributes[i];
-						local temp_talent = this.Const.EL_RebuildTalent.EL_RankToTalentBonus[this.m.EL_BattleLevel];
-						if (r <= this.Const.EL_RebuildTalent.EL_TalentChance[1])
+						local temp_talent = this.Const.EL_Player.EL_RankToTalentBonus[this.m.EL_BattleLevel];
+						if (r <= this.Const.EL_Player.EL_TalentChance[1])
 						{
 							temp_talent += 1;
 						}
-						else if (r <= this.Const.EL_RebuildTalent.EL_TalentChance[2])
+						else if (r <= this.Const.EL_Player.EL_TalentChance[2])
 						{
 							temp_talent += 2;
 						}
@@ -266,8 +266,8 @@ local gt = getroottable();
 						if(this.m.Talents[j] < temp_talent) {
 							this.m.Talents[j] = temp_talent;
 						}
-						if(this.m.Talents[j] > this.Const.EL_RebuildTalent.EL_TalentMax) {
-							this.m.Talents[j] = this.Const.EL_RebuildTalent.EL_TalentMax;
+						if(this.m.Talents[j] > this.Const.EL_Player.EL_TalentMax) {
+							this.m.Talents[j] = this.Const.EL_Player.EL_TalentMax;
 						}
 						attributes.remove(i);
 						totalWeight = totalWeight - weights[i];
@@ -322,7 +322,7 @@ local gt = getroottable();
 			else if(rank_1_chance * 10 >= this.Math.rand(1, 1000)) {
 				this.m.EL_RankLevel = 1;
 			}
-			this.m.CurrentProperties.DailyFood += this.Const.EL_Player.EL_PlayerExtraDailyFoodCost[tthis.m.EL_RankLevel];
+			this.m.CurrentProperties.DailyFood *= this.Const.EL_Player.EL_PlayerExtraDailyFoodMult[tthis.m.EL_RankLevel];
 			setStartValuesEx(_backgrounds, _addTraits, _gender, _addEquipment);
 		}
 

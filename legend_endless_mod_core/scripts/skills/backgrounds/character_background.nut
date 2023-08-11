@@ -1536,6 +1536,7 @@ this.character_background <- this.inherit("scripts/skills/skill", {
 	{
 	}
 
+	//EL_OVERRIDE
 	function calculateAdditionalRecruitmentLevels()
 	{
 		return this.Math.rand(0, this.World.Assets.m.EL_WorldLevel);
@@ -1618,32 +1619,35 @@ this.character_background <- this.inherit("scripts/skills/skill", {
 
 		this.m.Level += actor.m.Background.calculateAdditionalRecruitmentLevels();
 
-		if (this.m.Level != 1)
-		{
-			if (this.m.Level <= 11)
-			{
-				actor.m.PerkPoints = this.m.Level - 1;
-			}
-			else
-			{
-				local vetPerk = this.getContainer().getActor().getVeteranPerks();
 
-				if (vetPerk == 0)
-				{
-					actor.m.PerkPoints = 10;
-				}
-				else
-				{
-					actor.m.PerkPoints = 10 + this.Math.floor((this.m.Level - 11) / this.getContainer().getActor().getVeteranPerks());
-				}
-			}
-			actor.m.HiringCost *= (1 + this.Const.El_Player.EL_HiringCostLevelMultFactor * this.m.Level);
-			actor.m.PerkPoints = this.m.Level - 1 + this.Const.El_Player.EL_PlayerExtraPerkPoints[actor.m.EL_RankLevel];
-			actor.m.LevelUps = this.m.Level - 1;
-			actor.m.Level = this.m.Level;
-			actor.m.EL_BattleLevel = this.m.Level + this.Const.El_Player.EL_PlayerExtraBattleLevel[actor.m.EL_RankLevel];
-			actor.m.XP = this.Const.LevelXP[this.m.Level - 1];
+		if (this.m.Level <= 11)
+		{
+			actor.m.PerkPoints = this.m.Level - 1;
 		}
+		else
+		{
+			actor.m.PerkPoints = 10;
+		}
+
+		local bg = actor.getBackground();
+		local exclude = [];
+		foreach (category in bg.m.CustomPerkTreeMap)
+		{
+			foreach (treeInMap in category)
+			{
+				exclude.push(tree.ID);
+			}
+		}
+
+		actor.m.HiringCost *= (1 + this.Const.El_Player.EL_HiringCostLevelMultFactor * this.m.Level);
+		actor.m.PerkPoints = this.m.Level - 1 + this.Const.El_Player.EL_PlayerExtraPerkPoints[actor.m.EL_RankLevel];
+		actor.m.LevelUps = this.m.Level - 1;
+		actor.m.Level = this.m.Level;
+		actor.m.EL_BattleLevel = this.m.Level + this.Const.El_Player.EL_PlayerExtraBattleLevel[actor.m.EL_RankLevel];
+		actor.m.XP = this.Const.LevelXP[this.m.Level - 1];
+
+
+
 	}
 
 	function onBuildDescription()
