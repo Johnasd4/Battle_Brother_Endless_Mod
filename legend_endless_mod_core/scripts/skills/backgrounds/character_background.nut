@@ -1380,8 +1380,9 @@ this.character_background <- this.inherit("scripts/skills/skill", {
 		{
 			cost = cost + i.getValue();
 		}
-		actor.m.HiringCost *= this.Const.EL_Player.EL_PlayerExtraHiringCostMult[actor.m.EL_RankLevel];
-		actor.m.HiringCost += cost * this.Const.EL_Player.EL_HiringCostItemCostMult;
+		this.logInfo("HiringCost 1 : " + actor.m.HiringCost);
+		actor.m.HiringCost *= this.Const.EL_Player.EL_PlayerExtraHiringCostMult[actor.m.EL_RankLevel] + this.Const.EL_Player.EL_PlayerExtraHiringCostOffset[actor.m.EL_RankLevel];
+		actor.m.HiringCost += cost * this.Const.EL_Player.EL_HiringCostItemCostMultFactor;
 		actor.m.HiringCost = this.Math.ceil(actor.m.HiringCost);
 	}
 
@@ -1627,16 +1628,6 @@ this.character_background <- this.inherit("scripts/skills/skill", {
 		else
 		{
 			actor.m.PerkPoints = 10;
-		}
-
-		local bg = actor.getBackground();
-		local exclude = [];
-		foreach (category in bg.m.CustomPerkTreeMap)
-		{
-			foreach (treeInMap in category)
-			{
-				exclude.push(tree.ID);
-			}
 		}
 
 		actor.m.HiringCost *= (1 + this.Const.El_Player.EL_HiringCostLevelMultFactor * this.m.Level);

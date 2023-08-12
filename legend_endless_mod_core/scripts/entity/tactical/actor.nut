@@ -84,8 +84,8 @@ this.actor <- this.inherit("scripts/entity/tactical/entity", {
 		IsMiniboss = false,
 
 
-		EL_RankLevel = 0,
-		EL_BattleLevel = 0
+		//EL_RankLevel = 0,
+		//EL_BattleLevel = 0
 	},
 	function getType()
 	{
