@@ -13,54 +13,6 @@ gt.Const.EL_Player <- {
     EL_PlayerLevelPart1Factor = 200,
     //Part2, XP(level) = XP(level - 1) * 1.1
     EL_PlayerLevelPart2Factor = 1.1,
-    EL_PlayerLevelPart2PerkFrequency = [
-        8,
-        6,
-        4
-    ],
-
-    EL_XPMult = [
-        1,
-        0.333,
-        0.1
-    ],
-
-    EL_PlayerExtraHiringCostMult = [
-        1,
-        3,
-        10
-    ],
-
-    EL_PlayerExtraDailyCostMult = [
-        1,
-        3,
-        10
-    ],
-
-    EL_PlayerExtraDailyFoodMult = [
-        0,
-        2,
-        5
-    ],
-
-    EL_PlayerExtraBattleLevel = [
-        0,
-        3,
-        10
-    ],
-
-    EL_PlayerExtraPerkPoints = [
-        0,
-        2,
-        5
-    ],
-
-    EL_PlayerExtraPerks = [
-        0,
-        14,
-        35
-    ],
-
 
     EL_PlayerDisplayHitpointsMax = 600,
     EL_PlayerDisplayBraveryMax = 120,
@@ -80,6 +32,61 @@ gt.Const.EL_Player <- {
     EL_CombatXPOverWorldLevelOffset = 0,
     EL_CombatXPOverWorldLevelMultFactor = 0.2
     EL_CombatXPOverWorldLevelMultFactorMin = 0.1
+
+    EL_PlayerXPMult = [
+        1,
+        0.333,
+        0.1
+    ],
+
+    EL_PlayerExtraHiringCostMult = [
+        1,
+        3,
+        10
+    ],
+
+    EL_PlayerExtraHiringCostOffset = [
+        0,
+        3000,
+        10000
+    ],
+
+    EL_PlayerExtraDailyCostMult = [
+        1,
+        3,
+        10
+    ],
+
+    EL_PlayerExtraDailyFoodMult = [
+        1,
+        2,
+        5
+    ],
+
+    EL_PlayerExtraBattleLevel = [
+        0,
+        3,
+        10
+    ],
+
+    EL_PlayerExtraPerkPoints = [
+        0,
+        2,
+        5
+    ],
+
+    EL_PlayerExtraPerkPointFrequency = [
+        8,
+        6,
+        4
+    ],
+
+    EL_PlayerExtraPerks = [
+        0,
+        14,
+        35
+    ],
+
 
     EL_Attributes = {
         Hitpoints = 0,
@@ -128,19 +135,22 @@ gt.Const.EL_Player <- {
         }
     ],
 
-    EL_HiringCostItemCostMult = 0,
+    EL_TryoutCostMultFactor = 7.0,
+
+    EL_HiringCostItemCostMultFactor = 1.0,
     EL_HiringCostLevelMultFactor = 0.04,
 
-    EL_HiringCostPricePart1 = 100,
-    EL_HiringCostPricePart2 = 1000,
-    EL_HiringCostPricePart3 = 10000,
-    EL_HiringCostPricePart4 = 100000,
+    EL_HiringCostPricePart1 = 0.0,
+    EL_HiringCostPricePart2 = 100.0,
+    EL_HiringCostPricePart3 = 1000.0,
+    EL_HiringCostPricePart4 = 10000.0,
+    EL_HiringCostPricePart5 = 100000.0,
 
-    EL_HiringCostFactorPart1 = 1,
-    EL_HiringCostFactorPart2 = 2,
-    EL_HiringCostFactorPart3 = 10,
-    EL_HiringCostFactorPart4 = 5,
-    EL_HiringCostFactorPart5 = 1,
+    EL_HiringCostFactorPart1 = 1.0,
+    EL_HiringCostFactorPart2 = 2.0,
+    EL_HiringCostFactorPart3 = 10.0,
+    EL_HiringCostFactorPart4 = 5.0,
+    EL_HiringCostFactorPart5 = 1.0,
 
     EL_DailyCostLevelMultFactor = 0.04,
 
@@ -159,7 +169,7 @@ gt.Const.EL_Player <- {
     ],
 
     EL_Rank1ChanceOffset = [
-        0,
+        50,
         -10,
         -30,
         30
@@ -180,7 +190,7 @@ gt.Const.EL_Player <- {
     ],
 
     EL_Rank2ChanceOffset = [
-        0,
+        50,
         -2,
         -5,
         3
@@ -201,7 +211,13 @@ gt.Const.EL_Player <- {
         2
     ],
 
-    EL_TalentTreeType = {
+    EL_RankToExtraPerks = [
+        0,
+        20,
+        50
+    ],
+
+    EL_PerkTreeType = {
         Style = 0,
         Perfession = 1,
         Special = 2,
@@ -214,7 +230,7 @@ gt.Const.EL_Player <- {
         Count = 9
     },
 
-    EL_TalentTreeRankNeeded = [
+    EL_PerkTreeRankNeeded = [
         1,
         2,
         2,
@@ -226,10 +242,13 @@ gt.Const.EL_Player <- {
         0
     ],
 
-    function EL_AddRandomPerkTreeToPlayer( _player, _num ) {
+    function EL_AddRandomPerkTreeToPlayer( _player, _perk_num ) {
         local type_tree_len = [];
         local type_tree_offset = [];
+        local excluded_list = [];
         local total_weight = 0;
+        local rank = _player.EL_getRankLevel();
+        local background = _player.getBackground();
         type_tree_len.push(gt.Const.Perks.StylesTrees.Tree.len());
         type_tree_len.push(gt.Const.Perks.ProfessionTrees.Tree.len());
         type_tree_len.push(gt.Const.Perks.SpecialTrees.Tree.len());
@@ -239,11 +258,19 @@ gt.Const.EL_Player <- {
         type_tree_len.push(gt.Const.Perks.MagicTrees.Tree.len());
         type_tree_len.push(gt.Const.Perks.TraitsTrees.Tree.len());
         type_tree_len.push(gt.Const.Perks.WeaponTrees.Tree.len());
-        local rank = _player.EL_getRankLevel();
-        local background = _player.getBackground();
+        if(background.m.CustomPerkTreeMap != null) {
+            foreach (category in background.m.CustomPerkTreeMap)
+            {
+                foreach (tree_in_map in category)
+                {
+                    excluded_list.push(tree_in_map.ID);
+                }
+            }
+        }
+
         for(local type_count = 0; type_count < type_tree_len.len(); ++type_count) {
             type_tree_offset.push(total_weight);
-            if(rank >= gt.Const.EL_Player.EL_TalentTreeRankNeeded[type_count]) {
+            if(rank >= gt.Const.EL_Player.EL_PerkTreeRankNeeded[type_count]) {
                 total_weight += type_tree_len[type_count];
             }
         }
@@ -251,11 +278,11 @@ gt.Const.EL_Player <- {
         if(total_weight == 0){
             return;
         }
-        while( _num > 0 ) {
-            local roll = rand(0, total_weight - 1);
+        while( _perk_num > 0 ) {
+            local roll = this.Math.rand(0, total_weight - 1);
             local tree_list = null;
             local add_tree = null;
-            local excluded_list = [];
+
             local add_tree_list = [];
             if(roll >= type_tree_offset[0] && roll < type_tree_offset[1]) {
                 tree_list = this.Const.Perks.StylesTrees.Tree;
@@ -287,19 +314,6 @@ gt.Const.EL_Player <- {
             if(tree_list != null){
                 foreach (tree in tree_list)
                 {
-                    foreach (category in background.m.CustomPerkTreeMap)
-                    {
-                        foreach (tree_in_map in category)
-                        {
-                            if (tree_in_map.ID == tree.ID)
-                            {
-                                excluded_list.push(tree.ID);
-                            }
-                        }
-                    }
-                }
-                foreach (tree in tree_list)
-                {
                     if (excluded_list.find(tree.ID) == null)
                     {
                         add_tree_list.push(tree);
@@ -307,12 +321,29 @@ gt.Const.EL_Player <- {
                 }
                 if (add_tree_list.len() != 0)
                 {
-                    add_tree = add_tree_list[this.Math.rand(0, add_tree_list.len() - 1)].Tree;
-                }
-                if (add_tree.len() != 0)
-                {
-                    background.addPerkGroup(add_tree);
-                    _num -= add_tree.len();
+                    add_tree = add_tree_list[this.Math.rand(0, add_tree_list.len() - 1)];
+                    if (add_tree.Tree.len() != 0)
+                    {
+                        foreach( perk_level, perk_list in add_tree.Tree )
+                        {
+                            foreach( perk in perk_list )
+                            {
+                                if(background.addPerk(perk, perk_level) == true) {
+                                    _perk_num -= 1;
+                                     //this.logInfo("_perk_num : " + _perk_num);
+                                }
+                                else {
+                                    //this.logInfo("add failed");
+                                }
+                            }
+                        }
+
+                        // background.addPerkGroup(add_tree.Tree);
+                        // _perk_num -= add_tree.Tree.len();
+
+                        excluded_list.push(add_tree.ID);
+
+                    }
                 }
             }
         }

@@ -8,10 +8,7 @@ local gt = getroottable();
 		o.m.EL_WorldLevel <- gt.Const.EL_WorldDifficulty.EL_WorldLevelMin;
 		o.m.EL_WorldStrength <- gt.Const.EL_WorldDifficulty.EL_WorldStrengthMin;
 		o.m.EL_CurrentUpdateDay <- 0;
-	});
 
-	::mods_hookExactClass("states/world/asset_manager", function ( o )
-	{
 		local onSerialize = o.onSerialize;
 		o.onSerialize = function ( _out )
 		{
@@ -31,10 +28,8 @@ local gt = getroottable();
 		}
 	});
 
-
 	::mods_hookExactClass("entity/world/player_party", function ( o )
 	{
-		local updateStrength = o.updateStrength;
 		o.updateStrength = function ()
 		{
 			local day = this.World.getTime().Days;
