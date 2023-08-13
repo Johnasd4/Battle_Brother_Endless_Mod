@@ -10,7 +10,8 @@ gt.Const.EL_WorldDifficulty <- {
     EL_WorldDifficultySelectDistanceDay = 40,
 
     EL_WorldLevelMin = 0,
-    EL_WorldLevelMax = 100,
+    EL_WorldLevelStableLevel = 100,
+    EL_WorldLevelStableGrowthMultFactor = 27,
     EL_WorldLevelLevelUpBaseDay = 7,
     //1.1/1.085
     EL_WorldLevelLevelUpMultFactor = 1.013825,
@@ -60,7 +61,7 @@ gt.Const.EL_WorldDifficulty <- {
 
 //World level
 for( local level = 0, current_level_day_needed = this.Const.EL_WorldDifficulty.EL_WorldLevelLevelUpBaseDay, level_day_need = 0;
-    level < this.Const.EL_WorldDifficulty.EL_WorldLevelMax; ++level )
+    level < this.Const.EL_WorldDifficulty.EL_WorldLevelStableLevel; ++level )
 {
 	level_day_need += current_level_day_needed;
     current_level_day_needed *= this.Const.EL_WorldDifficulty.EL_WorldLevelLevelUpMultFactor;
