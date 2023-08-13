@@ -7,52 +7,51 @@ local gt = getroottable();
 	::mods_hookExactClass("entity/tactical/actor", function(o){
 
 		o.m.EL_RankLevel <- 0;
-		o.m.EL_BattleLevel <- 0;
 
-		o.getFatigueRecovery <- function(){
-			local base_offset = this.m.CurrentProperties.FatigueRecoveryRate - 15; //increase/decrease based on traits, wounds, enemies with more than default
-			local base_recovery = 3 + base_offset;
-			local baseFatigue = this.m.BaseProperties.Stamina;
-			local fatigueFromPercentage = (baseFatigue/10).tointeger();
-			local totalRecovery = base_recovery + fatigueFromPercentage;
-			return totalRecovery;
-		};
-		local onTurnStart = o.onTurnStart;
+		local onTurnStart = o.onTurnStart
 		o.onTurnStart = function(){
+			onTurnStart();
 			if (!this.isAlive())
 			{
-				return onTurnStart();
+				return;
 			}
-			local oldFatigue = this.m.Fatigue;
-			local result = onTurnStart();
-			this.m.Fatigue = oldFatigue;
-			local totalRecovery = this.getFatigueRecovery();
-			local p = this.m.CurrentProperties;
+			this.logInfo("this.m.Fatigue 1: " + this.m.Fatigue);
+			this.m.Fatigue -= this.Math.floor(this.m.CurrentProperties.Stamina / this.Const.EL_Player.EL_ExtraFatigueRecoveryDivFactor + this.Const.EL_Player.EL_ExtraFatigueRecoveryOffset);
+			if(this.m.Fatigue < 0) {
+				this.m.Fatigue = 0;
+			}
+			if(this.m.Fatigue > this.getFatigueMax()) {
+				this.m.Fatigue = this.getFatigueMax();
+			}
+			this.logInfo("this.m.Fatigue 2: " + this.m.Fatigue);
+			return;
+		}
 
-			this.m.Fatigue = this.Math.max(0, this.Math.min(this.getFatigueMax() - totalRecovery, this.Math.max(0, this.m.Fatigue - this.Math.max(0, totalRecovery) * p.FatigueRecoveryRateMult)));
-			this.m.PreviewFatigue = this.m.Fatigue;
-			return result;
-		};
-
-		o.EL_getRankLevel = function ()
+		o.EL_getRankLevel <- function ()
 		{
 			return this.m.EL_RankLevel;
 		}
 
-		o.EL_setRankLevel = function ( _EL_rankLevel )
+		o.EL_getCombatLevel <- function ()
 		{
-			this.m.EL_RankLevel = _EL_rankLevel;
+			return this.m.CurrentProperties.EL_CombatLevel;
 		}
 
-		o.EL_getBattleLevel = function ()
+		local onSerialize = o.onSerialize;
+		o.onSerialize = function ( _out )
 		{
-			return this.m.EL_BattleLevel;
+			onSerialize( _out );
+			_out.writeI32(this.m.EL_RankLevel);
+			//this.logInfo("this.EL_RankLevel : " + this.m.EL_RankLevel);
+		}
+		local onDeserialize = o.onDeserialize;
+		o.onDeserialize = function ( _in )
+		{
+			onDeserialize( _in );
+			this.m.EL_RankLevel = _in.readI32();
+			//this.logInfo("this.EL_RankLevel : " + this.m.EL_RankLevel);
 		}
 
-		o.EL_setBattleLevel = function ( _EL_battleLevel )
-		{
-			this.m.EL_BattleLevel = _EL_battleLevel;
-		}
 
 	});
 
@@ -86,7 +85,7 @@ local gt = getroottable();
 				}
 				++this.m.Level;
 				++this.m.LevelUps;
-				++this.m.EL_BattleLevel;
+				++this.m.BaseProperties.EL_CombatLevel;
 
 				local background = this.getBackground();
 				if(background.getNameOnly() == "Donkey") {
@@ -556,7 +555,7 @@ local gt = getroottable();
 			actor.m.PerkPoints = this.m.Level - 1 + this.Const.EL_Player.EL_PlayerExtraPerkPoints[actor.m.EL_RankLevel];
 			actor.m.LevelUps = this.m.Level - 1;
 			actor.m.Level = this.m.Level;
-			actor.m.EL_BattleLevel = this.m.Level + this.Const.EL_Player.EL_PlayerExtraBattleLevel[actor.m.EL_RankLevel];
+			actor.m.BaseProperties.EL_CombatLevel = this.m.Level + this.Const.EL_Player.EL_PlayerExtraCombatLevel[actor.m.EL_RankLevel];
 			actor.m.XP = this.Const.LevelXP[this.m.Level - 1];
 		};
 
