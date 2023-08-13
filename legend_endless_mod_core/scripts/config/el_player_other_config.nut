@@ -24,7 +24,7 @@ gt.Const.EL_PlayerOther <- {
     ],
 
     EL_DonkeyAmmoMultFactor = 0.04,
-    EL_DonkeyArmorMultFactor = 0.04,
+    EL_DonkeyArmorPartsMultFactor = 0.04,
     EL_DonkeyMedsMultFactor = 0.04,
     EL_DonkeyStashMultFactor = 0.04,
     EL_DonkeyTerrainMultFactor = 0.04,

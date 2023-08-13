@@ -36,18 +36,17 @@ local gt = getroottable();
 			if(this.World.Assets.m.EL_CurrentUpdateDay != day) {
 				this.World.Assets.m.EL_CurrentUpdateDay = day;
 				//Calculate world level.
-				if(this.World.Assets.m.EL_WorldLevel < gt.Const.EL_WorldDifficulty.EL_WorldLevelMax){
-					if(day > gt.Const.EL_WorldDifficulty.EL_WorldLevelDay[this.World.Assets.m.EL_WorldLevel]){
+				if(this.World.Assets.m.EL_WorldLevel < this.Const.EL_WorldDifficulty.EL_WorldLevelStableLevel){
+					if(day > this.Const.EL_WorldDifficulty.EL_WorldLevelDay[this.World.Assets.m.EL_WorldLevel]){
 						this.World.Assets.m.EL_WorldLevel += 1;
-						if(day == gt.Const.EL_WorldDifficulty.EL_WorldLevelMax)
-						{
-							this.logInfo("Day " + day + " : World Level level up, next level need day " +
-										 this.Math.floor(gt.Const.EL_WorldDifficulty.EL_WorldLevelDay[this.World.Assets.m.EL_WorldLevel] + 1));
-						}
-						else
-						{
-							this.logInfo("Day " + day + " : World Level max");
-						}
+						this.logInfo("Day " + day + " : World Level max");
+					}
+				}
+				else {
+					if(day > this.Const.EL_WorldDifficulty.EL_WorldLevelDay[this.Const.EL_WorldDifficulty.EL_WorldLevelStableLevel - 1] +
+						     (this.World.Assets.m.EL_WorldLevel - 100) * this.Const.EL_WorldDifficulty.EL_WorldLevelStableGrowthMultFactor){
+						this.World.Assets.m.EL_WorldLevel += 1;
+						this.logInfo("Day " + day + " : World Level max");
 					}
 				}
 
