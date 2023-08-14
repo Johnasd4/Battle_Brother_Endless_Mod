@@ -44,7 +44,7 @@ local gt = getroottable();
 				}
 				else {
 					if(day > this.Const.EL_WorldDifficulty.EL_WorldLevelDay[this.Const.EL_WorldDifficulty.EL_WorldLevelStableLevel - 1] +
-						     (this.World.Assets.m.EL_WorldLevel - 100) * this.Const.EL_WorldDifficulty.EL_WorldLevelStableGrowthMultFactor){
+						     (this.World.Assets.m.EL_WorldLevel - this.Const.EL_WorldDifficulty.EL_WorldLevelStableLevel) * this.Const.EL_WorldDifficulty.EL_WorldLevelStableGrowthMultFactor){
 						this.World.Assets.m.EL_WorldLevel += 1;
 						this.logInfo("Day " + day + " : World Level max");
 					}
