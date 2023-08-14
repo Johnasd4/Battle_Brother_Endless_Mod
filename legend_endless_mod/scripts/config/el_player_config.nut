@@ -87,10 +87,6 @@ gt.Const.EL_Player <- {
         35
     ],
 
-
-    EL_ExtraFatigueRecoveryDivFactor = 20,
-    EL_ExtraFatigueRecoveryOffset = -3,
-
     EL_Attributes = {
         Hitpoints = 0,
         Bravery = 1,

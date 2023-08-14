@@ -16,8 +16,47 @@ gt.Const.EL_NPC <- {
         RangedSkill = 5,
         MeleeDefense = 6,
         RangedDefense = 7,
-        COUNT = 8
+        XP = 8,
+        CombatLevel = 9,
+        MovePoints = 10,
+        COUNT = 11
     },
+
+    EL_SubmitXPMultFactor = [
+        1,
+        3,
+        10
+    ],
+
+    EL_ChampionXP = {
+        Offset = [
+            0,
+            200,
+            500
+        ],
+        MultFactor = [
+            1,
+            1.5,
+            2.25
+        ]
+    }.
+
+    EL_ChampionCombatLevelOffset = [
+        0,
+        3,
+        10
+    ].
+
+    EL_ChampionAttributes = {
+        LevelToOffsetMult = [
+            [0,2,3],
+            []
+        ],
+        MultFactor = [
+            []
+        ]
+    },
+
 
 };
 
