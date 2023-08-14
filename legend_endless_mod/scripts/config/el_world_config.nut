@@ -42,32 +42,47 @@ gt.Const.EL_World <- {
         1
     ],
 
-    EL_WorldChangeEventCooldown = 40,
+    EL_WorldChangeEventCooldown = 1,
+    EL_WorldChangeEventOptionNum = 16,
+    EL_WorldChangeEventOptionNumPurPage = 4,
+    EL_WorldChangeEventRewardTimesPurLevel = 1,
 
     EL_WorldChangeEventDifficultyMultFactor = [
         0.1,
+        0.25,
         0.4,
+        0.55,
         0.7,
+        0.85,
         1,
-        1.5,
-        2.2,
-        3.3,
-        5,
-        7.5,
-        10
+        1.2,
+        1.4,
+        1.6,
+        1.8,
+        2,
+        2.25,
+        2.5,
+        2.75,
+        3,
     ],
 
     EL_WorldChangeEventWorldLevelOffset = [
         -3,
         -2,
+        -2,
+        -1,
         -1,
         0,
+        0,
+        1,
         1,
         2,
+        2,
+        3,
         3,
         4,
-        5,
-        6
+        4,
+        5
     ]
 
 };

@@ -3,6 +3,16 @@ local gt = getroottable();
 ::mods_registerMod("el_world", 1, "el_world");
 ::mods_queue(null, ">endless_mod", function ()
 {
+
+	::mods_hookExactClass("states/world_state", function ( o )
+	{
+		local onInit = o.onInit;
+		o.onInit = function() {
+			onInit();
+			this.m.Events.m.Events.push(this.new("scripts/events/mods/special/el_world_change_event"));
+		}
+	});
+
 	::mods_hookNewObjectOnce("states/world/asset_manager", function ( o )
 	{
 		o.m.EL_BaseWorldLevel <- this.Const.EL_World.EL_WorldLevelMin;
@@ -33,7 +43,7 @@ local gt = getroottable();
 			this.m.EL_CurrentUpdateDay = _in.readI32();
 		}
 
-		o.EL_RenewWorldStrengthAndLevel <- function() {
+		o.EL_UpdateWorldStrengthAndLevel <- function() {
 			local day = this.World.getTime().Days;
 			this.m.EL_CurrentUpdateDay = day;
 			//Calculate world level.
@@ -52,7 +62,7 @@ local gt = getroottable();
 					this.logInfo("Day " + day + " : World Level max");
 				}
 			}
-			this.m.EL_WorldLevel = this.m.EL_BaseWorldLevel + this.m.EL_BaseWorldLevelOffset;
+			this.m.EL_WorldLevel = this.m.EL_BaseWorldLevel + this.m.EL_WorldLevelOffset;
 			if(this.m.EL_WorldLevel < this.Const.EL_World.EL_WorldLevelMin){
 				this.m.EL_WorldLevel = this.Const.EL_World.EL_WorldLevelMin;
 			}
@@ -89,7 +99,13 @@ local gt = getroottable();
 			}
 			this.logInfo("Day " + day + " : World Level " + this.m.EL_WorldLevel);
 			this.logInfo("Day " + day + " : World Strength " + this.m.EL_WorldStrength);
+
+			// if(day == 1){
+			// 	this.World.Events.m.Events.push(this.new("scripts/mods/special/el_world_change_event"));
+			// 	this.logInfo("push event");
+			// }
 		}
+
 	});
 
 	::mods_hookExactClass("entity/world/player_party", function ( o )
@@ -98,7 +114,7 @@ local gt = getroottable();
 		{
 			local day = this.World.getTime().Days;
 			if(this.World.Assets.m.EL_CurrentUpdateDay != day) {
-				this.World.Assets.EL_RenewWorldStrengthAndLevel();
+				this.World.Assets.EL_UpdateWorldStrengthAndLevel();
 			}
 			this.m.Strength = this.World.Assets.m.EL_WorldStrength;
 		};
