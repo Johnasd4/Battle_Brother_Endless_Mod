@@ -1,7 +1,7 @@
 local gt = getroottable();
 
 ::mods_registerMod("el_player_npc", 1, "el_player_npc");
-::mods_queue(null, ">el_world_difficulty", function ()
+::mods_queue(null, ">el_world", function ()
 {
 
 	::mods_hookExactClass("entity/tactical/actor", function(o){
