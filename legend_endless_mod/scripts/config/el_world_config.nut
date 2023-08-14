@@ -7,8 +7,6 @@ if (!("EL_World" in gt.Const))
 
 gt.Const.EL_World <- {
 
-    EL_WorldSelectDistanceDay = 40,
-
     EL_WorldLevelMin = 0,
     EL_BaseWorldLevelStableLevel = 100,
     EL_BaseWorldLevelStableGrowthMultFactor = 27,
@@ -44,7 +42,9 @@ gt.Const.EL_World <- {
         1
     ],
 
-    EL_WorldEventDifficultyMultFactor = [
+    EL_WorldChangeEventCooldown = 40,
+
+    EL_WorldChangeEventDifficultyMultFactor = [
         0.1,
         0.4,
         0.7,

@@ -74,8 +74,8 @@ local gt = getroottable();
 			}
 
 			local difficult_mult = 1;
-			if(this.World.Flags.has("EL_WorldEvent")) {
-				difficult_mult *= this.Const.EL_World.EL_WorldEventDifficultyMultFactor[this.World.Flags.get("EL_WorldEvent")];
+			if(this.World.Flags.has("EL_WorldChangeEvent")) {
+				difficult_mult *= this.Const.EL_World.EL_WorldChangeEventDifficultyMultFactor[this.World.Flags.get("EL_WorldChangeEvent")];
 			}
 			difficult_mult *= this.Const.EL_World.EL_WorldStartMultFactor[this.getCombatDifficulty()];
 

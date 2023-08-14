@@ -4,7 +4,7 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 	{
 		this.m.ID = "event.el_world_difficulty_select_event";
 		this.m.Title = "Difficulty Customization";
-		this.m.Cooldown = this.Const.EL_World.EL_WorldSelectDistanceDay * this.World.getTime().SecondsPerDay;
+		this.m.Cooldown = this.Const.EL_World.EL_WorldChangeEventCooldown * this.World.getTime().SecondsPerDay;
 		this.m.Screens.push({
 			ID = "el_world_difficulty_select_event_select",
 			Text = "[img]gfx/ui/events/event_91.png[/img]没有什么特别的发生，只是调整世界难度。根据难度选择会有额外奖励",
@@ -116,7 +116,7 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 			],
 			function start( _event )
 			{
-				this.World.Flags.set("EL_WorldEvent", 0);
+				this.World.Flags.set("EL_WorldChangeEvent", 0);
 				local brothers = this.World.getPlayerRoster().getAll();
 				foreach( bro in brothers )
 				{
@@ -181,7 +181,7 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 						});
 					}
 				}
-				this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEventWorldLevelOffset[this.World.Flags.get("EL_WorldEvent")];
+				this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEventWorldLevelOffset[this.World.Flags.get("EL_WorldChangeEvent")];
 				this.World.Assets.EL_RenewWorldStrengthAndLevel();
 			}
 		});
@@ -203,7 +203,7 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 			],
 			function start( _event )
 			{
-				this.World.Flags.set("EL_WorldEvent", 1);
+				this.World.Flags.set("EL_WorldChangeEvent", 1);
 				local brothers = this.World.getPlayerRoster().getAll();
 				foreach( bro in brothers )
 				{
@@ -268,7 +268,7 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 						});
 					}
 				}
-				this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEventWorldLevelOffset[this.World.Flags.get("EL_WorldEvent")];
+				this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEventWorldLevelOffset[this.World.Flags.get("EL_WorldChangeEvent")];
 				this.World.Assets.EL_RenewWorldStrengthAndLevel();
 			}
 		});
@@ -290,7 +290,7 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 			],
 			function start( _event )
 			{
-				this.World.Flags.set("EL_WorldEvent", 2);
+				this.World.Flags.set("EL_WorldChangeEvent", 2);
 				local brothers = this.World.getPlayerRoster().getAll();
 				foreach( bro in brothers )
 				{
@@ -355,7 +355,7 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 						});
 					}
 				}
-				this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEventWorldLevelOffset[this.World.Flags.get("EL_WorldEvent")];
+				this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEventWorldLevelOffset[this.World.Flags.get("EL_WorldChangeEvent")];
 				this.World.Assets.EL_RenewWorldStrengthAndLevel();
 			}
 		});
@@ -377,7 +377,7 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 			],
 			function start( _event )
 			{
-				this.World.Flags.set("EL_WorldEvent", 3);
+				this.World.Flags.set("EL_WorldChangeEvent", 3);
 				local brothers = this.World.getPlayerRoster().getAll();
 
 				foreach( bro in brothers )
@@ -443,7 +443,7 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 						});
 					}
 				}
-				this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEventWorldLevelOffset[this.World.Flags.get("EL_WorldEvent")];
+				this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEventWorldLevelOffset[this.World.Flags.get("EL_WorldChangeEvent")];
 				this.World.Assets.EL_RenewWorldStrengthAndLevel();
 			}
 		});
@@ -465,7 +465,7 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 			],
 			function start( _event )
 			{
-				this.World.Flags.set("EL_WorldEvent", 4);
+				this.World.Flags.set("EL_WorldChangeEvent", 4);
 				local brothers = this.World.getPlayerRoster().getAll();
 				foreach( bro in brothers )
 				{
@@ -530,7 +530,7 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 						});
 					}
 				}
-				this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEventWorldLevelOffset[this.World.Flags.get("EL_WorldEvent")];
+				this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEventWorldLevelOffset[this.World.Flags.get("EL_WorldChangeEvent")];
 				this.World.Assets.EL_RenewWorldStrengthAndLevel();
 			}
 		});
@@ -552,7 +552,7 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 			],
 			function start( _event )
 			{
-				this.World.Flags.set("EL_WorldEvent", 5);
+				this.World.Flags.set("EL_WorldChangeEvent", 5);
 				local brothers = this.World.getPlayerRoster().getAll();
 				foreach( bro in brothers )
 				{
@@ -617,7 +617,7 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 						});
 					}
 				}
-				this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEventWorldLevelOffset[this.World.Flags.get("EL_WorldEvent")];
+				this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEventWorldLevelOffset[this.World.Flags.get("EL_WorldChangeEvent")];
 				this.World.Assets.EL_RenewWorldStrengthAndLevel();
 			}
 		});
@@ -639,7 +639,7 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 			],
 			function start( _event )
 			{
-				this.World.Flags.set("EL_WorldEvent", 6);
+				this.World.Flags.set("EL_WorldChangeEvent", 6);
 				foreach( bro in brothers )
 				{
 					local initiative = this.Math.rand(2, 3);
@@ -706,7 +706,7 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 						});
 					}
 				}
-				this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEventWorldLevelOffset[this.World.Flags.get("EL_WorldEvent")];
+				this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEventWorldLevelOffset[this.World.Flags.get("EL_WorldChangeEvent")];
 				this.World.Assets.EL_RenewWorldStrengthAndLevel();
 			}
 		});
@@ -728,7 +728,7 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 			],
 			function start( _event )
 			{
-				this.World.Flags.set("EL_WorldEvent", 7);
+				this.World.Flags.set("EL_WorldChangeEvent", 7);
 				local brothers = this.World.getPlayerRoster().getAll();
 				foreach( bro in brothers )
 				{
@@ -793,7 +793,7 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 						});
 					}
 				}
-				this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEventWorldLevelOffset[this.World.Flags.get("EL_WorldEvent")];
+				this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEventWorldLevelOffset[this.World.Flags.get("EL_WorldChangeEvent")];
 				this.World.Assets.EL_RenewWorldStrengthAndLevel();
 			}
 		});
@@ -815,7 +815,7 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 			],
 			function start( _event )
 			{
-				this.World.Flags.set("EL_WorldEvent", 8);
+				this.World.Flags.set("EL_WorldChangeEvent", 8);
 				local brothers = this.World.getPlayerRoster().getAll();
 				foreach( bro in brothers )
 				{
@@ -885,7 +885,7 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 						});
 					}
 				}
-				this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEventWorldLevelOffset[this.World.Flags.get("EL_WorldEvent")];
+				this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEventWorldLevelOffset[this.World.Flags.get("EL_WorldChangeEvent")];
 				this.World.Assets.EL_RenewWorldStrengthAndLevel();
 			}
 		});
@@ -907,7 +907,7 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 			],
 			function start( _event )
 			{
-				this.World.Flags.set("EL_WorldEvent", 9);
+				this.World.Flags.set("EL_WorldChangeEvent", 9);
 				local brothers = this.World.getPlayerRoster().getAll();
 				foreach( bro in brothers )
 				{
@@ -977,7 +977,7 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 						});
 					}
 				}
-				this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEventWorldLevelOffset[this.World.Flags.get("EL_WorldEvent")];
+				this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEventWorldLevelOffset[this.World.Flags.get("EL_WorldChangeEvent")];
 				this.World.Assets.EL_RenewWorldStrengthAndLevel();
 			}
 		});
@@ -985,7 +985,7 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 
 	function onUpdateScore()
 	{
-		if (this.World.getTime().Days < this.Const.EL_World.EL_WorldSelectDistanceDay)
+		if (this.World.getTime().Days < this.Const.EL_World.EL_WorldChangeEventCooldown)
 		{
 			return;
 		}
@@ -1001,43 +1001,43 @@ this.el_world_difficulty_select_event <- this.inherit("scripts/events/event", {
 
 	function onDetermineStartScreen()
 	{
-		if (this.World.Flags.get("EL_WorldEvent") == 0)
+		if (this.World.Flags.get("EL_WorldChangeEvent") == 0)
 		{
 			return "el_world_difficulty_select_event_0";
 		}
-		else if (this.World.Flags.get("EL_WorldEvent") == 1)
+		else if (this.World.Flags.get("EL_WorldChangeEvent") == 1)
 		{
 			return "el_world_difficulty_select_event_1";
 		}
-		else if (this.World.Flags.get("EL_WorldEvent") == 2)
+		else if (this.World.Flags.get("EL_WorldChangeEvent") == 2)
 		{
 			return "el_world_difficulty_select_event_2";
 		}
-		else if (this.World.Flags.get("EL_WorldEvent") == 3)
+		else if (this.World.Flags.get("EL_WorldChangeEvent") == 3)
 		{
 			return "el_world_difficulty_select_event_3";
 		}
-		else if (this.World.Flags.get("EL_WorldEvent") == 4)
+		else if (this.World.Flags.get("EL_WorldChangeEvent") == 4)
 		{
 			return "el_world_difficulty_select_event_4";
 		}
-		else if (this.World.Flags.get("EL_WorldEvent") == 5)
+		else if (this.World.Flags.get("EL_WorldChangeEvent") == 5)
 		{
 			return "el_world_difficulty_select_event_5";
 		}
-		else if (this.World.Flags.get("EL_WorldEvent") == 6)
+		else if (this.World.Flags.get("EL_WorldChangeEvent") == 6)
 		{
 			return "el_world_difficulty_select_event_6";
 		}
-		else if (this.World.Flags.get("EL_WorldEvent") == 7)
+		else if (this.World.Flags.get("EL_WorldChangeEvent") == 7)
 		{
 			return "el_world_difficulty_select_event_7";
 		}
-		else if (this.World.Flags.get("EL_WorldEvent") == 8)
+		else if (this.World.Flags.get("EL_WorldChangeEvent") == 8)
 		{
 			return "el_world_difficulty_select_event_8";
 		}
-		else if (this.World.Flags.get("EL_WorldEvent") == 9)
+		else if (this.World.Flags.get("EL_WorldChangeEvent") == 9)
 		{
 			return "el_world_difficulty_select_event_9";
 		}
