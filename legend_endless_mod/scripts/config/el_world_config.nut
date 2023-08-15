@@ -42,7 +42,7 @@ gt.Const.EL_World <- {
         1
     ],
 
-    EL_WorldChangeEventCooldown = 1,
+    EL_WorldChangeEventCooldown = 40,
     EL_WorldChangeEventOptionNum = 16,
     EL_WorldChangeEventOptionNumPurPage = 4,
     EL_WorldChangeEventRewardTimesPurLevel = 1,
