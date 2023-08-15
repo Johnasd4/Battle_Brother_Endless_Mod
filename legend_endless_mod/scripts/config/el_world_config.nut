@@ -46,6 +46,7 @@ gt.Const.EL_World <- {
     EL_WorldChangeEventOptionNum = 16,
     EL_WorldChangeEventOptionNumPurPage = 4,
     EL_WorldChangeEventRewardTimesPurLevel = 1,
+    EL_WorldChangeEventDefaultOption = 6,
 
     EL_WorldChangeEventDifficultyMultFactor = [
         0.1,

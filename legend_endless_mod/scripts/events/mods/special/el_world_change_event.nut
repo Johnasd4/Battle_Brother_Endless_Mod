@@ -4,17 +4,12 @@ this.el_world_change_event <- this.inherit("scripts/events/event", {
 	{
 		this.m.ID = "event.el_world_change";
 		this.m.Title = "Difficulty Customization";
-		this.World.Flags.set("EL_WorldChangeEvent", 3);
 		this.m.Cooldown = this.Const.EL_World.EL_WorldChangeEventCooldown * this.World.getTime().SecondsPerDay;
 		local select_screen_num = this.Math.ceil(this.Const.EL_World.EL_WorldChangeEventOptionNum / this.Const.EL_World.EL_WorldChangeEventOptionNumPurPage);
 		for(local page = 0; page < select_screen_num; ++page) {
 			local screen = {
 				ID = "el_world_change_event_select_page_" + page,
-				Index = page,
-				Text = "Nothing in particular but a periodical event for you to optimize the strength difficulty after played a fair long time, aiming to help you have a better experience.\n\n" +
-					   "World Strength : " + this.World.Assets.m.EL_WorldStrength + "\n" +
-					   "World Level : " + this.World.Assets.m.EL_WorldLevel + "\n" +
-					   "World Difficulty : " + this.Const.EL_World.EL_WorldChangeEventDifficultyMultFactor[this.World.Flags.get("EL_WorldChangeEvent")] * 100 + "%\n",
+				Text = "Nothing in particular but a periodical event for you to optimize the strength difficulty after played a fair long time, aiming to help you have a better experience.\n\n",
 				Image = "",
 				List = [],
 				Characters = [],
@@ -42,48 +37,41 @@ this.el_world_change_event <- this.inherit("scripts/events/event", {
 						return "el_world_change_event_result_page_" + this.Index;
 					}
 				}
-				if(world_level_offset > 0) {
+				if(world_level_offset >= 0) {
 					option.Text += "World Level + " + world_level_offset + ".";
 				}
 				else if(world_level_offset < 0){
 					option.Text += "World Level - " + -world_level_offset + ".";
 				}
-				else{
-					option.Text += "World Level does't change.";
-				}
 				screen.Options.push(option);
 			}
-			if(page != 0) {
-				local previous_page_option = {
-					Text = "Previous Page.",
-					function getResult( _event )
-					{
-						return "el_world_change_event_select_page_" + this.Index - 1;
-					}
-				}
-
-			}
-			if(page != select_screen_num - 1) {
+			if(select_screen_num > 1) {
 				local next_page_option = {
 					Text = "Next Page.",
+					Index = (page + 1) % select_screen_num,
 					function getResult( _event )
 					{
-						return "el_world_change_event_select_page_" + this.Index + 1;
+						return "el_world_change_event_select_page_" + this.Index;
 					}
 				}
+				local previous_page_option = {
+					Text = "Previous Page.",
+					Index = (page + select_screen_num - 1) % select_screen_num,
+					function getResult( _event )
+					{
+						return "el_world_change_event_select_page_" + this.Index;
+					}
+				}
+				screen.Options.push(next_page_option);
+				screen.Options.push(previous_page_option);
 			}
-			screen.Options.push(previous_page_option);
-			screen.Options.push(next_page_option);
-
 			this.m.Screens.push(screen);
 		}
 		for(local page = 0; page < this.Const.EL_World.EL_WorldChangeEventOptionNum; ++page) {
 			local screen = {
 				ID = "el_world_change_event_result_page_" + page,
 				Index = page,
-				Text = " World Strength : " + this.World.Assets.m.EL_WorldStrength + "\n" +
-					   " World Level : " + this.World.Assets.m.EL_WorldLevel + "\n" +
-					   " World Difficulty : " + this.Const.EL_World.EL_WorldChangeEventDifficultyMultFactor[this.World.Flags.get("EL_WorldChangeEvent")] * 100 + "%\n",
+				Text = "Have a nice game.\n",
 				Image = "",
 				List = [],
 				Characters = [],
@@ -140,51 +128,51 @@ this.el_world_change_event <- this.inherit("scripts/events/event", {
 									break;
 							}
 						}
-						bro.getBaseProperties().Initiative += initiative;
-						bro.getBaseProperties().Bravery += bravery;
-						bro.getBaseProperties().Stamina += stamina;
-						bro.getBaseProperties().Hitpoints += hitpoints;
-						bro.getBaseProperties().RangedDefense += ranged_defense;
-						bro.getBaseProperties().MeleeDefense += melee_defense;
-						bro.getBaseProperties().RangedSkill += ranged_skill;
-						bro.getBaseProperties().MeleeSkill += melee_skill;
-						bro.getSkills().update();
+						brother.getBaseProperties().Initiative += initiative;
+						brother.getBaseProperties().Bravery += bravery;
+						brother.getBaseProperties().Stamina += stamina;
+						brother.getBaseProperties().Hitpoints += hitpoints;
+						brother.getBaseProperties().RangedDefense += ranged_defense;
+						brother.getBaseProperties().MeleeDefense += melee_defense;
+						brother.getBaseProperties().RangedSkill += ranged_skill;
+						brother.getBaseProperties().MeleeSkill += melee_skill;
+						brother.getSkills().update();
 						local info = brother.getName() + " gains:[color=" + this.Const.UI.Color.PositiveEventValue + "]";
 						local if_add = false;
 						if(hitpoints > 0){
 							if_add = true;
-							info = info + " [img]gfx/ui/icons/health_va11.png[/img]+" + hitpoints + "";
+							info += " Hitp+" + hitpoints;
 						}
 						if(bravery > 0){
 							if_add = true;
-							info = info + " [img]gfx/ui/icons/bravery_va11.png[/img]+" + bravery + "";
+							info += " Brav+" + bravery;
 						}
 						if(stamina > 0){
 							if_add = true;
-							info = info + " [img]gfx/ui/icons/fatigue_va11.png[/img]+" + stamina + "";
+							info += " Stan+" + stamina;
 						}
 						if(initiative > 0){
 							if_add = true;
-							info = info + " [img]gfx/ui/icons/initiative_va11.png[/img]+" + initiative + "";
+							info += " Init+" + initiative;
 						}
 						if(melee_skill > 0){
 							if_add = true;
-							info = info + " [img]gfx/ui/icons/melee_skill_va11.png[/img]+" + melee_skill + "";
+							info += " MeSk+" + melee_skill;
 						}
 						if(ranged_skill > 0){
 							if_add = true;
-							info = info + " [img]gfx/ui/icons/ranged_skill_va11.png[/img]+" + ranged_skill + "";
+							info += " RgSk+" + ranged_skill;
 						}
 						if(melee_defense > 0){
 							if_add = true;
-							info = info + " [img]gfx/ui/icons/melee_defense_va11.png[/img]+" + melee_defense + "";
+							info += " MeDf+" + melee_defense;
 						}
 						if(ranged_defense > 0){
 							if_add = true;
-							info = info + " [img]gfx/ui/icons/ranged_defense_va11.png[/img]+" + ranged_defense + "";
+							info += " RgDf+" + ranged_defense;
 						}
-						info = info + "[/color]";
-						if(ifAdd == 1){
+						info += "[/color]";
+						if(if_add == true){
 							this.List.push({
 								id = 16,
 								text = info
@@ -204,7 +192,7 @@ this.el_world_change_event <- this.inherit("scripts/events/event", {
 			return;
 		}
 
-		this.m.Score = 999;
+		this.m.Score = 9999;
 	}
 
 

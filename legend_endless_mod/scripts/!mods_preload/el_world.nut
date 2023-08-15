@@ -9,7 +9,118 @@ local gt = getroottable();
 		local onInit = o.onInit;
 		o.onInit = function() {
 			onInit();
+			this.World.Flags.set("EL_WorldChangeEvent", this.Const.EL_World.EL_WorldChangeEventDefaultOption);
 			this.m.Events.m.Events.push(this.new("scripts/events/mods/special/el_world_change_event"));
+		}
+	});
+
+	::mods_hookNewObjectOnce("ui/screens/tooltip/tooltip_events", function ( o )
+	{
+		local general_queryUIElementTooltipData = o.general_queryUIElementTooltipData;
+		o.general_queryUIElementTooltipData = function( _entityId, _elementId, _elementOwner )
+		{
+			local super_ret = general_queryUIElementTooltipData(_entityId, _elementId, _elementOwner);
+			local entity;
+			if (_entityId != null)
+			{
+				entity = this.Tactical.getEntityByID(_entityId);
+			}
+
+			switch(_elementId)
+			{
+				case "assets.Brothers":
+					local ret = [
+						{
+							id = 1,
+							type = "title",
+							text = "Roster (I, C)"
+						},
+						{
+							id = 2,
+							type = "description",
+							text = "Show the roster of the fighting force of your mercenary company. Increase your Renown to increase the Roster Size!"
+						}
+					];
+					local data = this.World.Assets.getRosterDescription();
+					local id = 4;
+
+					if (this.World.Assets.getOrigin().getRosterTier() < this.World.Assets.getOrigin().getRosterTierMax())
+					{
+						local nextRenown = 0;
+
+						foreach( rep in this.World.Assets.getOrigin().getRosterReputationTiers() )
+						{
+							if (this.World.Assets.getBusinessReputation() < rep)
+							{
+								nextRenown = rep;
+								break;
+							}
+						}
+
+						ret.push({
+							id = id,
+							type = "description",
+							text = "Next Roster Size increase at Renown: " + nextRenown
+						});
+						id = ++id;
+						id = id;
+					}
+					else
+					{
+						ret.push({
+							id = id,
+							type = "description",
+							text = "Maximum Roster Size achieved!"
+						});
+						id = ++id;
+						id = id;
+					}
+
+					ret.push({
+						id = id,
+						type = "text",
+						text = "Terrain Movement Modifiers:"
+					});
+					id = ++id;
+					id = id;
+
+					foreach( bro in data.TerrainModifiers )
+					{
+						ret.push({
+							id = id,
+							type = "text",
+							text = bro[0] + " [color=" + this.Const.UI.Color.PositiveValue + "]" + bro[1] + "%[/color]"
+						});
+						id = ++id;
+						id = id;
+					}
+
+					ret.push({
+						id = id,
+						type = "hint",
+						text = "World Strength: " + this.World.Assets.m.EL_WorldStrength +
+						       "\nWorld Level: " + this.World.Assets.m.EL_WorldLevel +
+							   "\nWorld Difficulty: " + (this.Const.EL_World.EL_WorldChangeEventDifficultyMultFactor[this.World.Flags.get("EL_WorldChangeEvent")] * 100) + "%"
+					});
+
+					id = ++id;
+					id = id;
+
+					foreach( bro in data.Brothers )
+					{
+						ret.push({
+							id = id,
+							type = "hint",
+							icon = bro.Mood,
+							text = "Lv" + bro.Level + "  " + bro.Name + " (" + bro.Background + ")"
+						});
+						id = ++id;
+						id = id;
+					}
+					return ret;
+			}
+
+			return super_ret;
 		}
 	});
 
