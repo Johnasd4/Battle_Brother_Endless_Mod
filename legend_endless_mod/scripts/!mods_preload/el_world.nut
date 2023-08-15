@@ -112,7 +112,7 @@ local gt = getroottable();
 							id = id,
 							type = "hint",
 							icon = bro.Mood,
-							text = "Lv" + bro.Level + "  " + bro.Name + " (" + bro.Background + ")"
+							text = "Lv" + bro.Level + "(" + (this.Math.round(bro.EL_CombatLevel * 100) / 100) + ") " + bro.Name
 						});
 						id = ++id;
 						id = id;
@@ -215,6 +215,74 @@ local gt = getroottable();
 			// 	this.World.Events.m.Events.push(this.new("scripts/mods/special/el_world_change_event"));
 			// 	this.logInfo("push event");
 			// }
+		}
+
+		o.getRosterDescription = function()
+		{
+			local ret = {
+				TerrainModifiers = [],
+				Brothers = []
+			};
+
+			for( local i = 0; i < 11; i = i )
+			{
+				ret.TerrainModifiers.push([
+					"",
+					0
+				]);
+				i = ++i;
+			}
+
+			foreach( bro in this.World.getPlayerRoster().getAll() )
+			{
+				local terrains = bro.getBackground().getModifiers().Terrain;
+				ret.TerrainModifiers[0][0] = "Plains";
+				ret.TerrainModifiers[0][1] += terrains[2] * 100.0;
+				ret.TerrainModifiers[1][0] = "Swamp";
+				ret.TerrainModifiers[1][1] += terrains[3] * 100.0;
+				ret.TerrainModifiers[2][0] = "Hills";
+				ret.TerrainModifiers[2][1] += terrains[4] * 100.0;
+				ret.TerrainModifiers[3][0] = "Forests";
+				ret.TerrainModifiers[3][1] += terrains[5] * 100.0;
+				ret.TerrainModifiers[4][0] = "Mountains";
+				ret.TerrainModifiers[4][1] += terrains[9] * 100.0;
+				ret.TerrainModifiers[5][0] = "Farmland";
+				ret.TerrainModifiers[5][1] += terrains[11] * 100.0;
+				ret.TerrainModifiers[6][0] = "Snow";
+				ret.TerrainModifiers[6][1] += terrains[12] * 100.0;
+				ret.TerrainModifiers[7][0] = "Highlands";
+				ret.TerrainModifiers[7][1] += terrains[14] * 100.0;
+				ret.TerrainModifiers[8][0] = "Stepps";
+				ret.TerrainModifiers[8][1] += terrains[15] * 100.0;
+				ret.TerrainModifiers[9][0] = "Deserts";
+				ret.TerrainModifiers[9][1] += terrains[17] * 100.0;
+				ret.TerrainModifiers[10][0] = "Oases";
+				ret.TerrainModifiers[10][1] += terrains[18] * 100.0;
+				ret.Brothers.push({
+					Name = bro.getName(),
+					Mood = this.Const.MoodStateIcon[bro.getMoodState()],
+					Level = bro.getLevel(),
+					EL_CombatLevel = bro.EL_getCombatLevel(),
+					Background = bro.getBackground().getNameOnly()
+				});
+			}
+
+			local sortfn = function ( first, second )
+			{
+				if (first.Level == second.Level)
+				{
+					return 0;
+				}
+
+				if (first.Level > second.Level)
+				{
+					return -1;
+				}
+
+				return 1;
+			};
+			ret.Brothers.sort(sortfn);
+			return ret;
 		}
 
 	});
