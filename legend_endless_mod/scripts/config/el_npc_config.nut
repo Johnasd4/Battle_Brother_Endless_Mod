@@ -19,6 +19,61 @@ gt.Const.EL_NPC <- {
         COUNT = 8
     },
 
+    EL_SubmitXPMultFactor = [
+        1,
+        3,
+        10
+    ],
+
+    EL_ChampionXP = {
+        Offset = [
+            0,
+            200,
+            500
+        ],
+        MultFactor = [
+            1,
+            1.5,
+            2.25
+        ]
+    },
+
+    EL_ChampionCombatLevelOffset = [
+        0,
+        3,
+        10
+    ],
+
+    EL_ChampionActionPointsOffset = [
+        0,
+        1,
+        3
+    ],
+
+    EL_ChampionAttributes = {
+        LevelToOffsetMult = [
+            [0, 2, 3],
+            [0, 0.2, 0.5],
+            [0, 2, 3],
+            [0, 1, 1.5],
+            [0, 0.5, 0.75],
+            [0, 0.5, 0.75],
+            [0, 1, 1.5],
+            [0, 1, 1.5]
+        ],
+        MultFactor = [
+            [0, 1,5, 2.25],
+            [0, 1,3, 1.7],
+            [0, 1,5, 2.25],
+            [0, 1,15, 1.3],
+            [0, 1,15, 1.3],
+            [0, 1,15, 1.3],
+            [0, 1,2, 1.4],
+            [0, 1,2, 1.4]
+        ]
+    },
+
+
 };
 
 

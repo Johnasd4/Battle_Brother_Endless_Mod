@@ -87,10 +87,6 @@ gt.Const.EL_Player <- {
         35
     ],
 
-
-    EL_ExtraFatigueRecoveryDivFactor = 20,
-    EL_ExtraFatigueRecoveryOffset = -3,
-
     EL_Attributes = {
         Hitpoints = 0,
         Bravery = 1,
@@ -172,7 +168,7 @@ gt.Const.EL_Player <- {
     ],
 
     EL_Rank1ChanceOffset = [
-        50,
+        0,
         -10,
         -30,
         30
@@ -193,7 +189,7 @@ gt.Const.EL_Player <- {
     ],
 
     EL_Rank2ChanceOffset = [
-        50,
+        0,
         -2,
         -5,
         3
@@ -352,23 +348,6 @@ gt.Const.EL_Player <- {
         }
     }
 };
-
-gt.Const.CharacterProperties.EL_CombatLevel <- 0;
-local onSerialize = gt.Const.CharacterProperties.onSerialize;
-gt.Const.CharacterProperties.onSerialize = function ( _out )
-{
-    onSerialize( _out );
-    _out.writeF32(this.EL_CombatLevel);
-    //this.logInfo("this.EL_CombatLevel : " + this.EL_CombatLevel);
-}
-local onDeserialize = gt.Const.CharacterProperties.onDeserialize;
-gt.Const.CharacterProperties.onDeserialize = function ( _in )
-{
-    onDeserialize( _in );
-    this.EL_CombatLevel = _in.readF32();
-    //this.logInfo("this.EL_CombatLevel : " + this.EL_CombatLevel);
-}
-
 
 while (gt.Const.LevelXP.len() != 0)
 {
