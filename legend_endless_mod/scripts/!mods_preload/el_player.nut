@@ -56,7 +56,7 @@ local gt = getroottable();
 			}
 		};
 
-		o.fillAttributeLevelUpValues = function ( _amount, _maxOnly = false, _minOnly = false )
+		o.fillAttributeLevelUpValues = function ( _amount, _maxOnly = false, _minOnly = false)
 		{
 			if (this.m.Attributes.len() == 0)
 			{
@@ -300,41 +300,45 @@ local gt = getroottable();
 		};
 
 		local setStartValuesEx = o.setStartValuesEx;
-		o.setStartValuesEx = function ( _backgrounds, _addTraits = true, _gender = -1, _addEquipment = true )
+		o.setStartValuesEx = function ( _backgrounds, _addTraits = true, _gender = -1, _addEquipment = true, _EL_rankLevel = -1 )
 		{
-			local rank_1_chance = 0;
-			local rank_2_chance = 0;
-			if(this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_Rank1ChanceWorldLevel[1]) {
-				rank_1_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank1ChanceFactor[0] + this.Const.EL_Player.EL_Rank1ChanceOffset[0];
+			if(_EL_rankLevel == -1) {
+				local rank_1_chance = 0;
+				local rank_2_chance = 0;
+				if(this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_Rank1ChanceWorldLevel[1]) {
+					rank_1_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank1ChanceFactor[0] + this.Const.EL_Player.EL_Rank1ChanceOffset[0];
+				}
+				else if(this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_Rank1ChanceWorldLevel[2]) {
+					rank_1_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank1ChanceFactor[1] + this.Const.EL_Player.EL_Rank1ChanceOffset[1];
+				}
+				else if(this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_Rank1ChanceWorldLevel[3]) {
+					rank_1_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank1ChanceFactor[2] + this.Const.EL_Player.EL_Rank1ChanceOffset[2];
+				}
+				else {
+					rank_1_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank1ChanceFactor[3] + this.Const.EL_Player.EL_Rank1ChanceOffset[3];
+				}
+				if(this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_Rank2ChanceWorldLevel[1]) {
+					rank_2_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank2ChanceFactor[0] + this.Const.EL_Player.EL_Rank2ChanceOffset[0];
+				}
+				else if(this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_Rank2ChanceWorldLevel[2]) {
+					rank_2_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank2ChanceFactor[1] + this.Const.EL_Player.EL_Rank2ChanceOffset[1];
+				}
+				else if(this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_Rank2ChanceWorldLevel[3]) {
+					rank_2_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank2ChanceFactor[2] + this.Const.EL_Player.EL_Rank2ChanceOffset[2];
+				}
+				else {
+					rank_2_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank2ChanceFactor[3] + this.Const.EL_Player.EL_Rank2ChanceOffset[3];
+				}
+				if(rank_2_chance * 10 >= this.Math.rand(1, 1000)) {
+					this.m.EL_RankLevel = 2;
+				}
+				else if(rank_1_chance * 10 >= this.Math.rand(1, 1000)) {
+					this.m.EL_RankLevel = 1;
+				}
 			}
-			else if(this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_Rank1ChanceWorldLevel[2]) {
-				rank_1_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank1ChanceFactor[1] + this.Const.EL_Player.EL_Rank1ChanceOffset[1];
+			else{
+				this.m.EL_RankLevel = _EL_rankLevel;
 			}
-			else if(this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_Rank1ChanceWorldLevel[3]) {
-				rank_1_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank1ChanceFactor[2] + this.Const.EL_Player.EL_Rank1ChanceOffset[2];
-			}
-			else {
-				rank_1_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank1ChanceFactor[3] + this.Const.EL_Player.EL_Rank1ChanceOffset[3];
-			}
-			if(this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_Rank2ChanceWorldLevel[1]) {
-				rank_2_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank2ChanceFactor[0] + this.Const.EL_Player.EL_Rank2ChanceOffset[0];
-			}
-			else if(this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_Rank2ChanceWorldLevel[2]) {
-				rank_2_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank2ChanceFactor[1] + this.Const.EL_Player.EL_Rank2ChanceOffset[1];
-			}
-			else if(this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_Rank2ChanceWorldLevel[3]) {
-				rank_2_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank2ChanceFactor[2] + this.Const.EL_Player.EL_Rank2ChanceOffset[2];
-			}
-			else {
-				rank_2_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank2ChanceFactor[3] + this.Const.EL_Player.EL_Rank2ChanceOffset[3];
-			}
-			if(rank_2_chance * 10 >= this.Math.rand(1, 1000)) {
-				this.m.EL_RankLevel = 2;
-			}
-			else if(rank_1_chance * 10 >= this.Math.rand(1, 1000)) {
-				this.m.EL_RankLevel = 1;
-			}
-
 			setStartValuesEx(_backgrounds, _addTraits, _gender, _addEquipment);
 			// this.logInfo("rank : " + this.m.EL_RankLevel);
 			// this.logInfo("rank_1_chance : " + rank_1_chance);
