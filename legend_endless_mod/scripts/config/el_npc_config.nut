@@ -50,6 +50,12 @@ gt.Const.EL_NPC <- {
         3
     ],
 
+    EL_ChampionDirectDamageMultFactor = [
+        1,
+        1.2,
+        1.5
+    ],
+
     EL_ChampionAttributes = {
         LevelToOffsetMult = [
             [0, 2, 3],
