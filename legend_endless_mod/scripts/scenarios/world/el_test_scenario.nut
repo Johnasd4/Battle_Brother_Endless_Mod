@@ -1,22 +1,21 @@
-this.a_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario", {
+this.el_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario", {
 	m = {},
 	function create()
 	{
-		this.m.ID = "scenario.a_test";
-		this.m.Name = "Test";
-		this.m.Description = "Test";
+		this.m.ID = "scenario.el_test";
+		this.m.Name = "Test Scenario Name";
+		this.m.Description = "Test description.";
 		this.m.Difficulty = 1;
-		this.m.Order = -100;
+		this.m.Order = -1000;
 		this.m.IsFixedLook = true;
-		this.m.StartingRosterTier = this.Const.Roster.getTierForSize(1);
-		this.m.RosterTierMax = this.Const.Roster.getTierForSize(12);
-		this.m.StartingBusinessReputation = 99999;
-//		this.setRosterReputationTiers(this.Const.Roster.createReputationTiers(this.m.StartingBusinessReputation));
+		this.m.StartingRosterTier = this.Const.Roster.getTierForSize(12);
+		this.m.RosterTierMax = this.Const.Roster.getTierForSize(21);
+		this.m.StartingBusinessReputation = 1000;
 	}
 
 	function isValid()
 	{
-		return this.Const.DLC.Wildmen;
+		return true;
 	}
 
 	function onSpawnAssets()
@@ -24,18 +23,19 @@ this.a_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario"
 		local roster = this.World.getPlayerRoster();
 		local bro = roster.create("scripts/entity/tactical/player");
 		bro.m.HireTime = this.Time.getVirtualTimeF();
-		bro.setName(this.Const.Strings.CharacterNames[this.Math.rand(0, this.Const.Strings.CharacterNames.len() - 1)]);
+		bro.setName("Test Name 0");
 		local bros = roster.getAll();
 		bros[0].setStartValuesEx([
-			"a_test_background"
+			"el_test_background"
 		]);
+		bros[0].m.HireTime = this.Time.getVirtualTimeF();
 		bros[0].getBackground().buildDescription(true);
 		bros[0].setTitle("测试");
-
+		bros[0].m.Name("Test Name 0");
 		bros[0].setPlaceInFormation(4);
 		bros[0].getFlags().set("IsPlayerCharacter", true);
 //		bros[0].getSprite("miniboss").setBrush("bust_miniboss_lone_wolf");
-		bros[0].m.HireTime = this.Time.getVirtualTimeF();
+
 //		bros[0].setVeteranPerks(2);
 		bros[0].m.BaseProperties.ActionPoints = 1000;
 		bros[0].m.BaseProperties.Hitpoints = 1000;
