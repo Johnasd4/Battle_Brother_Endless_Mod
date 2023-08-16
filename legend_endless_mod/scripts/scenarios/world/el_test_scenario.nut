@@ -31,7 +31,7 @@ this.el_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario
 		bros[0].m.HireTime = this.Time.getVirtualTimeF();
 		bros[0].getBackground().buildDescription(true);
 		bros[0].setTitle("测试");
-		bros[0].m.setName("Test Name 0");
+		bros[0].setName("Test Name 0");
 		bros[0].setPlaceInFormation(4);
 		bros[0].getFlags().set("IsPlayerCharacter", true);
 //		bros[0].getSprite("miniboss").setBrush("bust_miniboss_lone_wolf");
