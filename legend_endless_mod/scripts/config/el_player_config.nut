@@ -14,14 +14,14 @@ gt.Const.EL_Player <- {
     //Part2, XP(level) = XP(level - 1) * 1.1
     EL_PlayerLevelPart2Factor = 1.1,
 
-    EL_PlayerDisplayHitpointsMax = 600,
-    EL_PlayerDisplayBraveryMax = 120,
-    EL_PlayerDisplayFatigueMax = 600,
-    EL_PlayerDisplayInitiativeMax = 720,
-    EL_PlayerDisplayMeleeSkillMax = 500,
-    EL_PlayerDisplayRangeSkillMax = 500,
-    EL_PlayerDisplayMeleeDefenseMax = 950,
-    EL_PlayerDisplayRangeDefenseMax = 950,
+    EL_PlayerAddAttributesBoardHitpointsMax = 600,
+    EL_PlayerAddAttributesBoardBraveryMax = 200,
+    EL_PlayerAddAttributesBoardFatigueMax = 600,
+    EL_PlayerAddAttributesBoardInitiativeMax = 720,
+    EL_PlayerAddAttributesBoardMeleeSkillMax = 500,
+    EL_PlayerAddAttributesBoardRangeSkillMax = 500,
+    EL_PlayerAddAttributesBoardMeleeDefenseMax = 950,
+    EL_PlayerAddAttributesBoardRangeDefenseMax = 950,
 
     EL_CombatXPMaxDivFactor = 12.0,
     // XP * (1 + (WorldLevel - Level - 5) * 0.2) ^ 2 (Level < WorldLevel - 5)

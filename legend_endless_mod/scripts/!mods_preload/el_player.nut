@@ -108,28 +108,28 @@ local gt = getroottable();
 			local base_properties = this.getBaseProperties();
 			local ret = {
 				hitpoints = base_properties.Hitpoints,
-				hitpointsMax = this.Const.EL_Player.EL_PlayerDisplayHitpointsMax,
+				hitpointsMax = this.Const.EL_Player.EL_PlayerAddAttributesBoardHitpointsMax,
 				hitpointsIncrease = this.m.Attributes[this.Const.Attributes.Hitpoints][0],
 				bravery = base_properties.Bravery,
-				braveryMax = this.Const.EL_Player.EL_PlayerDisplayBraveryMax,
+				braveryMax = this.Const.EL_Player.EL_PlayerAddAttributesBoardBraveryMax,
 				braveryIncrease = this.m.Attributes[this.Const.Attributes.Bravery][0],
 				fatigue = base_properties.Stamina,
-				fatigueMax = this.Const.EL_Player.EL_PlayerDisplayFatigueMax,
+				fatigueMax = this.Const.EL_Player.EL_PlayerAddAttributesBoardFatigueMax,
 				fatigueIncrease = this.m.Attributes[this.Const.Attributes.Fatigue][0],
 				initiative = base_properties.Initiative,
-				initiativeMax = this.Const.EL_Player.EL_PlayerDisplayInitiativeMax,
+				initiativeMax = this.Const.EL_Player.EL_PlayerAddAttributesBoardInitiativeMax,
 				initiativeIncrease = this.m.Attributes[this.Const.Attributes.Initiative][0],
 				meleeSkill = base_properties.MeleeSkill,
-				meleeSkillMax = this.Const.EL_Player.EL_PlayerDisplayMeleeSkillMax,
+				meleeSkillMax = this.Const.EL_Player.EL_PlayerAddAttributesBoardMeleeSkillMax,
 				meleeSkillIncrease = this.m.Attributes[this.Const.Attributes.MeleeSkill][0],
 				rangeSkill = base_properties.RangedSkill,
-				rangeSkillMax = this.Const.EL_Player.EL_PlayerDisplayRangeSkillMax,
+				rangeSkillMax = this.Const.EL_Player.EL_PlayerAddAttributesBoardRangeSkillMax,
 				rangeSkillIncrease = this.m.Attributes[this.Const.Attributes.RangedSkill][0],
 				meleeDefense = base_properties.MeleeDefense,
-				meleeDefenseMax = this.Const.EL_Player.EL_PlayerDisplayMeleeDefenseMax,
+				meleeDefenseMax = this.Const.EL_Player.EL_PlayerAddAttributesBoardMeleeDefenseMax,
 				meleeDefenseIncrease = this.m.Attributes[this.Const.Attributes.MeleeDefense][0],
 				rangeDefense = base_properties.RangedDefense,
-				rangeDefenseMax = this.Const.EL_Player.EL_PlayerDisplayRangeDefenseMax,
+				rangeDefenseMax = this.Const.EL_Player.EL_PlayerAddAttributesBoardRangeDefenseMax,
 				rangeDefenseIncrease = this.m.Attributes[this.Const.Attributes.RangedDefense][0]
 			};
 			return ret;
@@ -1024,4 +1024,23 @@ local gt = getroottable();
 		};
 
 	});
+
+	::mods_hookNewObjectOnce("ui/screens/tooltip/tooltip_events", function ( o )
+	{
+		local addCharacterToUIData = o.addCharacterToUIData;
+		o.addCharacterToUIData = function( _entity, _target )
+		{
+			addCharacterToUIData(_entity, _target);
+			if(_entity.getLevel() < this.Const.EL_Player.EL_PlayerLevelMax) {
+				_target.xpValue = _entity.getXP() - this.Const.LevelXP[_entity.getLevel()];
+				_target.xpValueMax = this.Const.LevelXP[_entity.getLevel() + 1] - this.Const.LevelXP[_entity.getLevel()];
+			}
+			else {
+				_target.xpValue = this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevelMax] - this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevelMax - 1];
+				_target.xpValueMax = this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevelMax] - this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevelMax - 1];
+			}
+		}
+	});
+
+
 });
