@@ -23,7 +23,7 @@ local gt = getroottable();
 
 		o.updateLevel = function ()
 		{
-			while (this.m.Level < this.Const.LevelXP.len() && this.m.XP >= this.Const.LevelXP[this.m.Level])
+			while (this.m.Level < (this.Const.LevelXP.len() - 1) && this.m.XP >= this.Const.LevelXP[this.m.Level])
 			{
 				if(this.m.Level < this.Const.EL_Player.EL_PlayerLevelPart1){
 					++this.m.PerkPoints;
@@ -1025,19 +1025,19 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObjectOnce("ui/screens/tooltip/tooltip_events", function ( o )
+	::mods_hookNewObjectOnce("ui/global/data_helper", function ( o )
 	{
 		local addCharacterToUIData = o.addCharacterToUIData;
 		o.addCharacterToUIData = function( _entity, _target )
 		{
 			addCharacterToUIData(_entity, _target);
 			if(_entity.getLevel() < this.Const.EL_Player.EL_PlayerLevelMax) {
-				_target.xpValue = _entity.getXP() - this.Const.LevelXP[_entity.getLevel()];
-				_target.xpValueMax = this.Const.LevelXP[_entity.getLevel() + 1] - this.Const.LevelXP[_entity.getLevel()];
+				_target.xpValue = _entity.getXP() - this.Const.LevelXP[_entity.getLevel() - 1];
+				_target.xpValueMax = this.Const.LevelXP[_entity.getLevel()] - this.Const.LevelXP[_entity.getLevel() - 1];
 			}
 			else {
-				_target.xpValue = this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevelMax] - this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevelMax - 1];
-				_target.xpValueMax = this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevelMax] - this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevelMax - 1];
+				_target.xpValue = this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevelMax - 1] - this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevelMax - 2];
+				_target.xpValueMax = this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevelMax - 1] - this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevelMax - 2];
 			}
 		}
 	});

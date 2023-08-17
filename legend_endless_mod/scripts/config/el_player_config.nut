@@ -105,8 +105,8 @@ gt.Const.EL_Player <- {
             Max = [4, 4, 4, 5]
         },
         {//Bravery
-            Min = [0, 1, 1, 3],
-            Max = [1, 1, 2, 4]
+            Min = [1, 1, 2, 2],
+            Max = [1, 2, 2, 3]
         },
         {//Fatigue
             Min = [2, 3, 4, 4],
@@ -152,6 +152,52 @@ gt.Const.EL_Player <- {
     EL_HiringCostFactorPart5 = 1.0,
 
     EL_DailyCostLevelMultFactor = 0.04,
+
+
+    EL_Rank1ChanceFactor = {
+        Mult = [
+            0,
+            1,
+            2,
+            0
+        ],
+        Offset = [
+            0,
+            -10,
+            -30,
+            30
+        ],
+        WorldLevelRange = [
+            0,
+            10,
+            20,
+            30
+        ]
+    },
+
+    EL_Rank2ChanceFactor = {
+        Mult = [
+            0,
+            0.1,
+            0.2,
+            0
+        ],
+        Offset = [
+            0,
+            -2,
+            -5,
+            3
+        ],
+        WorldLevelRange = [
+            0,
+            20,
+            30,
+            40
+        ]
+    },
+
+    EL_Rank1Chance = [],
+
 
     EL_Rank1ChanceWorldLevel = [
         0,
@@ -366,4 +412,19 @@ for( local level = 1, current_level_exp = 0, level_exp = 0; level <= gt.Const.EL
 	gt.Const.LevelXP.push(gt.Math.floor(level_exp));
 }
 
-
+for( local world_level = 1, current_level_exp = 0, level_exp = 0; level <= gt.Const.EL_Player.EL_PlayerLevelMax; ++level )
+{
+    if(this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_Rank1ChanceWorldLevel[1]) {
+        rank_1_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank1ChanceFactor[0] + this.Const.EL_Player.EL_Rank1ChanceOffset[0];
+    }
+    else if(this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_Rank1ChanceWorldLevel[2]) {
+        rank_1_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank1ChanceFactor[1] + this.Const.EL_Player.EL_Rank1ChanceOffset[1];
+    }
+    else if(this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_Rank1ChanceWorldLevel[3]) {
+        rank_1_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank1ChanceFactor[2] + this.Const.EL_Player.EL_Rank1ChanceOffset[2];
+    }
+    else {
+        rank_1_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank1ChanceFactor[3] + this.Const.EL_Player.EL_Rank1ChanceOffset[3];
+    }
+	gt.Const.EL_Player.EL_Rank1Chance.push(gt.Math.floor(level_exp));
+}

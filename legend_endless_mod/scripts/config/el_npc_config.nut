@@ -80,7 +80,138 @@ gt.Const.EL_NPC <- {
     },
 
 
+    EL_NormalTeamEliteChance = {
+        Offset = [
+            0,
+            -10,
+            -20,
+            30
+        ],
+        MultFactor = [
+            0,
+            1,
+            2,
+            0
+        ],
+        WorldLevelRange = [
+            0,
+            10,
+            20,
+            30
+        ]
+    },
+
+    EL_NormalTeamRandomLeaderChance = {
+        Offset = [
+            0,
+            -10,
+            -25,
+            15
+        ],
+        MultFactor = [
+            0,
+            0.5,
+            1,
+            0
+        ],
+        WorldLevelRange = [
+            0,
+            20,
+            30,
+            40
+        ]
+    },
+
+    EL_NormalTeamStrongestLeaderChance = {
+        Offset = [
+            0,
+            -15,
+            -35,
+            15
+        ],
+        MultFactor = [
+            0,
+            0.5,
+            1,
+            0
+        ],
+        WorldLevelRange = [
+            0,
+            30,
+            40,
+            50
+        ]
+    },
+
+
+    EL_EliteTeamChance = {
+        Offset = [
+            0,
+            -2,
+            -5,
+            -9,
+            -14,
+            10
+        ],
+        MultFactor = [
+            0,
+            0.1,
+            0.2,
+            0.3,
+            0.4,
+            0
+        ],
+        WorldLevelRange = [
+            0,
+            20,
+            30,
+            40,
+            50,
+            60
+        ]
+    },
+
+    EL_EliteTeamRandomLeaderChance = {
+        Offset = [
+            0,
+            -15,
+            -35,
+            15
+        ],
+        MultFactor = [
+            0,
+            0.5,
+            1,
+            0
+        ],
+        WorldLevelRange = [
+            0,
+            30,
+            40,
+            50
+        ]
+    },
+
+    EL_EliteTeamStrongestLeaderChance = {
+        Offset = [
+            0,
+            -20,
+            -45,
+            0.15
+        ],
+        MultFactor = [
+            0,
+            0.5,
+            1,
+            0
+        ],
+        WorldLevelRange = [
+            0,
+            40,
+            50,
+            60
+        ]
+    },
+
 };
-
-
 
