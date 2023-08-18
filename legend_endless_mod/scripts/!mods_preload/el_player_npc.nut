@@ -16,7 +16,7 @@ local gt = getroottable();
 				return;
 			}
 			this.logInfo("this.m.Fatigue 1: " + this.m.Fatigue);
-			this.m.Fatigue -= this.Math.floor(this.m.CurrentProperties.Stamina / this.Const.EL_PlayerNPC.EL_ExtraFatigueRecoveryDivFactor + this.Const.EL_PlayerNPC.EL_ExtraFatigueRecoveryOffset);
+			this.m.Fatigue -= this.Math.floor(this.m.CurrentProperties.Stamina / this.Const.EL_PlayerNPC.EL_ExtraFatigueRecovery.DivFactor + this.Const.EL_PlayerNPC.EL_ExtraFatigueRecovery.Offset);
 			if(this.m.Fatigue < 0) {
 				this.m.Fatigue = 0;
 			}
@@ -53,7 +53,7 @@ local gt = getroottable();
 		}
 
 		local checkMorale = o.checkMorale;
-		o.checkMorale = function( _change, _difficulty, _type = this.Const.MoraleCheckType.Default, _showIconBeforeMoraleIcon = "", _noNewLine = false )
+		o.checkMorale = function(_change, _difficulty, _type = this.Const.MoraleCheckType.Default, _showIconBeforeMoraleIcon = "", _noNewLine = false)
 		{
 			if (this.isAlive() && !this.isDying())
 			{
@@ -66,6 +66,33 @@ local gt = getroottable();
 				}
 			}
 			return checkMorale(_change, _difficulty, _type, _showIconBeforeMoraleIcon, _noNewLine);
+		}
+
+	});
+
+	::mods_hookNewObject("entity/tactical/player", function(o)
+	{
+		o.m.EL_RankLevel <- 0;
+
+		o.EL_getRankLevel <- function(){
+			return this.m.EL_RankLevel;
+		}
+		o.EL_setRankLevel <- function(_EL_RankLevel){
+			this.m.EL_RankLevel = _EL_RankLevel;
+		}
+
+		local onSerialize = o.onSerialize;
+		o.onSerialize = function( _out )
+		{
+			onSerialize(_out);
+			out.writeI32(this.m.EL_RankLevel);
+		}
+
+		local onDeserialize = o.onDeserialize;
+		o.onDeserialize = function( _in )
+		{
+			onSerialize(_in);
+			this.m.EL_RankLevel = _in.readI32();
 		}
 
 	});

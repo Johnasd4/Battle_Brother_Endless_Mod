@@ -7,104 +7,107 @@ if (!("EL_World" in gt.Const))
 
 gt.Const.EL_World <- {
 
-    EL_WorldLevelMin = 0,
-    EL_BaseWorldLevelStableLevel = 100,
-    EL_BaseWorldLevelStableGrowthMultFactor = 27,
-    EL_WorldLevelLevelUpBaseDay = 7,
-    //1.1/1.085
-    EL_WorldLevelLevelUpMultFactor = 1.013825,
+    EL_WorldLevel = {
+        Min = 0,
+        BaseStableLevel = 100,
+        BaseStableMult = 27,
+        LevelUpBaseDay = 7,
+        //1.1/1.085
+        LevelUpMult = 1.013825,
+        Table = [],
+    },
 
-    EL_WorldStrengthMin = 40,
-    EL_WorldStrengthOffsetBase = 0,
+    EL_WorldStrength = {
+        Min = 40,
+        Factor = {
+            Mult = [
+                10,
+                6,
+                4,
+                3
+            ],
+            Offset = [
+                0,
+                40,
+                110,
+                210
+            ],
+            Range = [
+                15,
+                50,
+                100
+            ]
+        },
+        Table = []
 
-    EL_BaseWorldLevelDay = [],
+        function getWorldStrength(_EL_Index) {
+            return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_World.EL_WorldStrength);
+        }
+    },
 
-    EL_WorldStrengthAddSpeed = [
-        10,
-        6,
-        4,
-        3
-    ],
-
-    EL_WorldStrengthAddSpeedChangeDay = [
-        0,
-        15,
-        50,
-        100
-    ],
-
-    EL_WorldStrengthOffset = [],
-
-    EL_WorldStartMultFactor = [
+    EL_WorldStartMult = [
         0.4,
         0.6,
         0.8,
         1
     ],
 
-    EL_WorldChangeEventCooldown = 40,
-    EL_WorldChangeEventOptionNum = 16,
-    EL_WorldChangeEventOptionNumPurPage = 4,
-    EL_WorldChangeEventRewardTimesPurLevel = 1,
-    EL_WorldChangeEventDefaultOption = 6,
-
-    EL_WorldChangeEventDifficultyMultFactor = [
-        0.1,
-        0.25,
-        0.4,
-        0.55,
-        0.7,
-        0.85,
-        1,
-        1.2,
-        1.4,
-        1.6,
-        1.8,
-        2,
-        2.25,
-        2.5,
-        2.75,
-        3,
-    ],
-
-    EL_WorldChangeEventWorldLevelOffset = [
-        -3,
-        -2,
-        -2,
-        -1,
-        -1,
-        0,
-        0,
-        1,
-        1,
-        2,
-        2,
-        3,
-        3,
-        4,
-        4,
-        5
-    ]
+    EL_WorldChangeEvent = {
+        Cooldown = 40,
+        OptionNum = 16,
+        OptionNumPurPage = 4,
+        RewardTimesPurLevel = 1,
+        DefaultOption = 6,
+        DifficultyMult = [
+            0.1,
+            0.25,
+            0.4,
+            0.55,
+            0.7,
+            0.85,
+            1,
+            1.2,
+            1.4,
+            1.6,
+            1.8,
+            2,
+            2.25,
+            2.5,
+            2.75,
+            3,
+        ],
+        WorldLevelOffset = [
+            -3,
+            -2,
+            -2,
+            -1,
+            -1,
+            0,
+            0,
+            1,
+            1,
+            2,
+            2,
+            3,
+            3,
+            4,
+            4,
+            5
+        ]
+    }
 
 };
 
+
+
 //World level
-for( local level = 0, current_level_day_needed = this.Const.EL_World.EL_WorldLevelLevelUpBaseDay, level_day_need = 0;
-    level < this.Const.EL_World.EL_BaseWorldLevelStableLevel; ++level )
+for( local level = 0, current_level_day_needed = this.Const.EL_World.EL_WorldLevel.LevelUpBaseDay, level_day_need = 0;
+    level < this.Const.EL_World.EL_WorldLevel.BaseStableLevel; ++level )
 {
 	level_day_need += current_level_day_needed;
-    current_level_day_needed *= this.Const.EL_World.EL_WorldLevelLevelUpMultFactor;
-    this.Const.EL_World.EL_BaseWorldLevelDay.push(level_day_need);
+    current_level_day_needed *= this.Const.EL_World.EL_WorldLevel.LevelUpMult;
+    this.Const.EL_World.EL_WorldLevel.Table.push(level_day_need);
 }
 
 //World stength
-this.Const.EL_World.EL_WorldStrengthOffset.push(this.Const.EL_World.EL_WorldStrengthOffsetBase);
-for( local count = 0, offset = this.Const.EL_World.EL_WorldStrengthOffsetBase;
-	 count < this.Const.EL_World.EL_WorldStrengthAddSpeed.len() - 1; ++count )
-{
-
-    offset += this.Const.EL_World.EL_WorldStrengthAddSpeed[count] *
-              this.Const.EL_World.EL_WorldStrengthAddSpeedChangeDay[count + 1]
-                               this.Const.EL_World.EL_WorldLevelLevelUpMultFactor;
-	this.Const.EL_World.EL_WorldStrengthOffset.push(offset);
-}
+this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_World.EL_WorldStrength);

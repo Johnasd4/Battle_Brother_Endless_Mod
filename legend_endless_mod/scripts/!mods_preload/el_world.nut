@@ -9,7 +9,7 @@ local gt = getroottable();
 		local onInit = o.onInit;
 		o.onInit = function() {
 			onInit();
-			this.World.Flags.set("EL_WorldChangeEvent", this.Const.EL_World.EL_WorldChangeEventDefaultOption);
+			this.World.Flags.set("EL_WorldChangeEvent", this.Const.EL_World.EL_WorldChangeEvent.DefaultOption);
 			this.m.Events.m.Events.push(this.new("scripts/events/mods/special/el_world_change_event"));
 		}
 	});
@@ -100,7 +100,7 @@ local gt = getroottable();
 						type = "hint",
 						text = "World Strength: " + this.World.Assets.m.EL_WorldStrength +
 						       "\nWorld Level: " + this.World.Assets.m.EL_WorldLevel +
-							   "\nWorld Difficulty: " + (this.Const.EL_World.EL_WorldChangeEventDifficultyMultFactor[this.World.Flags.get("EL_WorldChangeEvent")] * 100) + "%"
+							   "\nWorld Difficulty: " + (this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldChangeEvent")] * 100) + "%"
 					});
 
 					id = ++id;
@@ -126,10 +126,10 @@ local gt = getroottable();
 
 	::mods_hookNewObjectOnce("states/world/asset_manager", function ( o )
 	{
-		o.m.EL_BaseWorldLevel <- this.Const.EL_World.EL_WorldLevelMin;
-		o.m.EL_WorldLevel <- this.Const.EL_World.EL_WorldLevelMin;
+		o.m.EL_BaseWorldLevel <- this.Const.EL_World.EL_WorldLevel.Min;
+		o.m.EL_WorldLevel <- this.Const.EL_World.EL_WorldLevel.Min;
 		o.m.EL_WorldLevelOffset <- 0;
-		o.m.EL_WorldStrength <- this.Const.EL_World.EL_WorldStrengthMin;
+		o.m.EL_WorldStrength <- this.Const.EL_World.EL_WorldStrength.Min;
 		o.m.EL_CurrentUpdateDay <- 0;
 
 		local onSerialize = o.onSerialize;
@@ -158,133 +158,59 @@ local gt = getroottable();
 			local day = this.World.getTime().Days;
 			this.m.EL_CurrentUpdateDay = day;
 			//Calculate world level.
-			if(this.m.EL_BaseWorldLevel < this.Const.EL_World.EL_BaseWorldLevelStableLevel){
-				if(day * this.Const.EL_World.EL_WorldStartMultFactor[this.getCombatDifficulty()] >
-				   this.Const.EL_World.EL_BaseWorldLevelDay[this.m.EL_BaseWorldLevel]){
+			if(this.m.EL_BaseWorldLevel < this.Const.EL_World.EL_WorldLevel.BaseStableLevel){
+				if(day * this.Const.EL_World.EL_WorldStartMult[this.getCombatDifficulty()] >
+				    	this.Const.EL_World.EL_WorldLevel.Table[this.m.EL_BaseWorldLevel]){
 					this.m.EL_BaseWorldLevel += 1;
-					this.logInfo("Day " + day + " : World Level max");
 				}
 			}
 			else {
-				if(day * this.Const.EL_World.EL_WorldStartMultFactor[this.getCombatDifficulty()] >
-				   this.Const.EL_World.EL_BaseWorldLevelDay[this.Const.EL_World.EL_BaseWorldLevelStableLevel - 1] +
-						 (this.m.EL_BaseWorldLevel - this.Const.EL_World.EL_BaseWorldLevelStableLevel) * this.Const.EL_World.EL_BaseWorldLevelStableGrowthMultFactor){
+				if(day * this.Const.EL_World.EL_WorldStartMult[this.getCombatDifficulty()] >
+						this.Const.EL_World.EL_WorldLevel.Table[this.Const.EL_World.EL_WorldLevel.BaseStableLevel - 1] +
+						(this.m.EL_BaseWorldLevel - this.Const.EL_World.EL_WorldLevel.BaseStableLevel) * this.Const.EL_World.EL_WorldLevel.BaseStableMult){
 					this.m.EL_BaseWorldLevel += 1;
-					this.logInfo("Day " + day + " : World Level max");
 				}
 			}
 			this.m.EL_WorldLevel = this.m.EL_BaseWorldLevel + this.m.EL_WorldLevelOffset;
-			if(this.m.EL_WorldLevel < this.Const.EL_World.EL_WorldLevelMin){
-				this.m.EL_WorldLevel = this.Const.EL_World.EL_WorldLevelMin;
+			if(this.m.EL_WorldLevel < this.Const.EL_World.EL_WorldLevel.Min){
+				this.m.EL_WorldLevel = this.Const.EL_World.EL_WorldLevel.Min;
 			}
 			//Calculate world strength.
-			local temp_world_strength = 0;
-			if(day < this.Const.EL_World.EL_WorldStrengthAddSpeedChangeDay[this.Const.EL_World.EL_WorldStrengthAddSpeedChangeDay.len() - 1]){
-				for(local count = 0; count < this.Const.EL_World.EL_WorldStrengthAddSpeedChangeDay.len() - 1; ++count) {
-					if(day < this.Const.EL_World.EL_WorldStrengthAddSpeedChangeDay[count + 1]){
-						temp_world_strength += (day - this.Const.EL_World.EL_WorldStrengthAddSpeedChangeDay[count]) *
-											   this.Const.EL_World.EL_WorldStrengthAddSpeed[count] +
-											   this.Const.EL_World.EL_WorldStrengthOffset[count];
-						break;
-					}
-				}
-			}
-			else {
-				temp_world_strength = (day - this.Const.EL_World.EL_WorldStrengthOffset[this.Const.EL_World.EL_WorldStrengthOffset.len() - 1]) *
-									this.Const.EL_World.EL_WorldStrengthAddSpeed[this.Const.EL_World.EL_WorldStrengthAddSpeed.len() - 1];
-			}
-
-			local difficult_mult = 1;
-			if(this.World.Flags.has("EL_WorldChangeEvent")) {
-				difficult_mult *= this.Const.EL_World.EL_WorldChangeEventDifficultyMultFactor[this.World.Flags.get("EL_WorldChangeEvent")];
-			}
-			difficult_mult *= this.Const.EL_World.EL_WorldStartMultFactor[this.getCombatDifficulty()];
-
+			local temp_world_strength = this.Const.EL_World.EL_WorldStrength.getWorldStrength(day);
+			local difficult_mult = this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldChangeEvent")] *
+								   this.Const.EL_World.EL_WorldStartMult[this.getCombatDifficulty()];
 			temp_world_strength *= difficult_mult;
 
-			if(temp_world_strength > this.Const.EL_World.EL_WorldStrengthMin){
+			if(temp_world_strength > this.Const.EL_World.EL_WorldStrength.Min){
 				this.m.EL_WorldStrength = this.Math.floor(temp_world_strength);
 			}
 			else {
-				this.m.EL_WorldStrength = this.Const.EL_World.EL_WorldStrengthMin;
+				this.m.EL_WorldStrength = this.Const.EL_World.EL_WorldStrength.Min;
 			}
 			this.logInfo("Day " + day + " : World Level " + this.m.EL_WorldLevel);
 			this.logInfo("Day " + day + " : World Strength " + this.m.EL_WorldStrength);
-
-			// if(day == 1){
-			// 	this.World.Events.m.Events.push(this.new("scripts/mods/special/el_world_change_event"));
-			// 	this.logInfo("push event");
-			// }
 		}
-
+		local getRosterDescription = o.getRosterDescription;
 		o.getRosterDescription = function()
 		{
-			local ret = {
-				TerrainModifiers = [],
-				Brothers = []
-			};
-
-			for( local i = 0; i < 11; i = i )
+			local ret = getRosterDescription();
+			ret.EL_CombatLevel <- bro.EL_getCombatLevel();
+			local EL_sortByCombatLevel = function ( first, second )
 			{
-				ret.TerrainModifiers.push([
-					"",
-					0
-				]);
-				i = ++i;
-			}
-
-			foreach( bro in this.World.getPlayerRoster().getAll() )
-			{
-				local terrains = bro.getBackground().getModifiers().Terrain;
-				ret.TerrainModifiers[0][0] = "Plains";
-				ret.TerrainModifiers[0][1] += terrains[2] * 100.0;
-				ret.TerrainModifiers[1][0] = "Swamp";
-				ret.TerrainModifiers[1][1] += terrains[3] * 100.0;
-				ret.TerrainModifiers[2][0] = "Hills";
-				ret.TerrainModifiers[2][1] += terrains[4] * 100.0;
-				ret.TerrainModifiers[3][0] = "Forests";
-				ret.TerrainModifiers[3][1] += terrains[5] * 100.0;
-				ret.TerrainModifiers[4][0] = "Mountains";
-				ret.TerrainModifiers[4][1] += terrains[9] * 100.0;
-				ret.TerrainModifiers[5][0] = "Farmland";
-				ret.TerrainModifiers[5][1] += terrains[11] * 100.0;
-				ret.TerrainModifiers[6][0] = "Snow";
-				ret.TerrainModifiers[6][1] += terrains[12] * 100.0;
-				ret.TerrainModifiers[7][0] = "Highlands";
-				ret.TerrainModifiers[7][1] += terrains[14] * 100.0;
-				ret.TerrainModifiers[8][0] = "Stepps";
-				ret.TerrainModifiers[8][1] += terrains[15] * 100.0;
-				ret.TerrainModifiers[9][0] = "Deserts";
-				ret.TerrainModifiers[9][1] += terrains[17] * 100.0;
-				ret.TerrainModifiers[10][0] = "Oases";
-				ret.TerrainModifiers[10][1] += terrains[18] * 100.0;
-				ret.Brothers.push({
-					Name = bro.getName(),
-					Mood = this.Const.MoodStateIcon[bro.getMoodState()],
-					Level = bro.getLevel(),
-					EL_CombatLevel = bro.EL_getCombatLevel(),
-					Background = bro.getBackground().getNameOnly()
-				});
-			}
-
-			local sortfn = function ( first, second )
-			{
-				if (first.Level == second.Level)
+				if (first.EL_CombatLevel == second.EL_CombatLevel)
 				{
 					return 0;
 				}
 
-				if (first.Level > second.Level)
+				if (first.EL_CombatLevel > second.EL_CombatLevel)
 				{
 					return -1;
 				}
-
 				return 1;
 			};
-			ret.Brothers.sort(sortfn);
+			ret.Brothers.sort(EL_sortByCombatLevel);
 			return ret;
 		}
-
 	});
 
 	::mods_hookExactClass("entity/world/player_party", function ( o )
