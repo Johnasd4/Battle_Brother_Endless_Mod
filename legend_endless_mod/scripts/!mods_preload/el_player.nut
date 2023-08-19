@@ -6,6 +6,17 @@ local gt = getroottable();
 
 	::mods_hookNewObject("entity/tactical/player", function( o )
 	{
+		local onSerialize = o.onSerialize;
+		o.onSerialize = function ( _out )
+		{
+			onSerialize( _out );
+		}
+		local onDeserialize = o.onDeserialize;
+		o.onDeserialize = function ( _in )
+		{
+			onDeserialize( _in );
+			this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(this.m.Level, background);
+		}
 
 		o.getDailyFood = function ()
 		{
@@ -17,19 +28,19 @@ local gt = getroottable();
 			}
 
 			food = food - this.World.State.getPlayer().getFoodModifier();
-			food *= this.Const.EL_Player.EL_PlayerExtraDailyFoodMult[this.m.EL_RankLevel];
+			food *= this.Const.EL_Player.EL_Champion.DailyFoodMult[this.m.EL_RankLevel];
 			return food;
 		};
 
 		o.updateLevel = function ()
 		{
-			while (this.m.Level < this.Const.LevelXP.len() && this.m.XP >= this.Const.LevelXP[this.m.Level])
+			while (this.m.Level < (this.Const.LevelXP.len() - 1) && this.m.XP >= this.Const.LevelXP[this.m.Level])
 			{
-				if(this.m.Level < this.Const.EL_Player.EL_PlayerLevelPart1){
+				if(this.m.Level < this.Const.EL_Player.EL_PlayerLevel.Part1){
 					++this.m.PerkPoints;
 				}
-				else if(this.m.Level >= this.Const.EL_Player.EL_PlayerLevelPart1 &&
-					    (this.Const.EL_Player.EL_PlayerLevelMax - this.m.Level - 1) % this.Const.EL_Player.EL_PlayerExtraPerkPointFrequency[this.m.EL_RankLevel] == 0){
+				else if(this.m.Level >= this.Const.EL_Player.EL_PlayerLevel.Part1 &&
+					    (this.Const.EL_Player.EL_PlayerLevel.Max - this.m.Level - 1) % this.Const.EL_Player.EL_Champion.PerkPointFrequency[this.m.EL_RankLevel] == 0){
 					++this.m.PerkPoints;
 				}
 				++this.m.Level;
@@ -37,20 +48,7 @@ local gt = getroottable();
 				++this.m.BaseProperties.EL_CombatLevel;
 
 				local background = this.getBackground();
-				if(background.getNameOnly() == "Donkey") {
-
-					background.m.Modifiers.Stash = this.Math.floor(this.Const.EL_PlayerOther.EL_DonkeyStash[rank] * (1 + this.Const.EL_PlayerOther.EL_DonkeyStashMultFactor * this.m.Level));
-
-					background.m.Modifiers.Ammo = this.Const.EL_PlayerOther.EL_DonkeyAmmo[this.m.EL_RankLevel] * (1 + this.Const.EL_PlayerOther.EL_DonkeyAmmoMultFactor * this.m.Level);
-					background.m.Modifiers.ArmorParts = this.Const.EL_PlayerOther.EL_DonkeyArmorParts[this.m.EL_RankLevel] * (1 + this.Const.EL_PlayerOther.EL_DonkeyArmorPartsMultFactor * this.m.Level);
-					background.m.Modifiers.Meds = this.Const.EL_PlayerOther.EL_DonkeyMeds[this.m.EL_RankLevel] * (1 + this.Const.EL_PlayerOther.EL_DonkeyMedsMultFactor * this.m.Level);
-					background.m.Modifiers.Stash = this.Const.EL_PlayerOther.EL_DonkeyStash[this.m.EL_RankLevel] * (1 + this.Const.EL_PlayerOther.EL_DonkeyStashMultFactor * this.m.Level);
-					for(local i = 0; i < this.m.Modifiers.Terrain.len(); i++) {
-						this.m.Modifiers.Terrain[i] = this.Const.EL_PlayerOther.EL_DonkeyTerrain[this.m.EL_RankLevel] * (1 + this.Const.EL_PlayerOther.EL_DonkeyTerrainMultFactor * this.m.Level);
-					}
-
-				}
-
+				this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(this.m.Level, background);
 				this.m.Skills.onUpdateLevel();
 
 			}
@@ -108,28 +106,28 @@ local gt = getroottable();
 			local base_properties = this.getBaseProperties();
 			local ret = {
 				hitpoints = base_properties.Hitpoints,
-				hitpointsMax = this.Const.EL_Player.EL_PlayerDisplayHitpointsMax,
+				hitpointsMax = this.Const.EL_Player.EL_PlayerAddAttributesBoard.HitpointsMax,
 				hitpointsIncrease = this.m.Attributes[this.Const.Attributes.Hitpoints][0],
 				bravery = base_properties.Bravery,
-				braveryMax = this.Const.EL_Player.EL_PlayerDisplayBraveryMax,
+				braveryMax = this.Const.EL_Player.EL_PlayerAddAttributesBoard.BraveryMax,
 				braveryIncrease = this.m.Attributes[this.Const.Attributes.Bravery][0],
 				fatigue = base_properties.Stamina,
-				fatigueMax = this.Const.EL_Player.EL_PlayerDisplayFatigueMax,
+				fatigueMax = this.Const.EL_Player.EL_PlayerAddAttributesBoard.FatigueMax,
 				fatigueIncrease = this.m.Attributes[this.Const.Attributes.Fatigue][0],
 				initiative = base_properties.Initiative,
-				initiativeMax = this.Const.EL_Player.EL_PlayerDisplayInitiativeMax,
+				initiativeMax = this.Const.EL_Player.EL_PlayerAddAttributesBoard.InitiativeMax,
 				initiativeIncrease = this.m.Attributes[this.Const.Attributes.Initiative][0],
 				meleeSkill = base_properties.MeleeSkill,
-				meleeSkillMax = this.Const.EL_Player.EL_PlayerDisplayMeleeSkillMax,
+				meleeSkillMax = this.Const.EL_Player.EL_PlayerAddAttributesBoard.MeleeSkillMax,
 				meleeSkillIncrease = this.m.Attributes[this.Const.Attributes.MeleeSkill][0],
 				rangeSkill = base_properties.RangedSkill,
-				rangeSkillMax = this.Const.EL_Player.EL_PlayerDisplayRangeSkillMax,
+				rangeSkillMax = this.Const.EL_Player.EL_PlayerAddAttributesBoard.RangeSkillMax,
 				rangeSkillIncrease = this.m.Attributes[this.Const.Attributes.RangedSkill][0],
 				meleeDefense = base_properties.MeleeDefense,
-				meleeDefenseMax = this.Const.EL_Player.EL_PlayerDisplayMeleeDefenseMax,
+				meleeDefenseMax = this.Const.EL_Player.EL_PlayerAddAttributesBoard.MeleeDefenseMax,
 				meleeDefenseIncrease = this.m.Attributes[this.Const.Attributes.MeleeDefense][0],
 				rangeDefense = base_properties.RangedDefense,
-				rangeDefenseMax = this.Const.EL_Player.EL_PlayerDisplayRangeDefenseMax,
+				rangeDefenseMax = this.Const.EL_Player.EL_PlayerAddAttributesBoard.RangeDefenseMax,
 				rangeDefenseIncrease = this.m.Attributes[this.Const.Attributes.RangedDefense][0]
 			};
 			return ret;
@@ -142,7 +140,7 @@ local gt = getroottable();
 				return;
 			}
 
-			_xp *= this.Const.EL_Player.EL_PlayerXPMult[this.m.EL_RankLevel];
+			_xp *= this.Const.EL_Player.EL_Champion.XPMult[this.m.EL_RankLevel];
 
 			if (_scale)
 			{
@@ -157,22 +155,22 @@ local gt = getroottable();
 				in_battle_num++;
 			}
 
-			if(in_battle_num > this.Const.EL_Player.EL_CombatXPMaxDivFactor){
-				_xp *= in_battle_num / this.Const.EL_Player.EL_CombatXPMaxDivFactor;
+			if(in_battle_num > this.Const.EL_Player.EL_CombatXP.MaxDiv){
+				_xp *= in_battle_num / this.Const.EL_Player.EL_CombatXP.MaxDiv;
 			}
 
 			//multiply xp if player level is lower then the world level
-			if(this.m.Level < this.World.Assets.m.EL_WorldLevel - this.Const.EL_Player.EL_CombatXPBelowWorldLevelOffset){
-				local mult_factor = 1 + this.Math.pow((this.World.Assets.m.EL_WorldLevel - this.m.Level - this.Const.EL_Player.EL_CombatXPBelowWorldLevelOffset) * this.Const.EL_Player.EL_CombatXPBelowWorldLevelMultFactor, 2);
-				if(mult_factor > this.Const.EL_Player.EL_CombatXPBelowWorldLevelMultFactorMax) {
-					mult_factor = this.Const.EL_Player.EL_CombatXPBelowWorldLevelMultFactorMax;
+			if(this.m.Level < this.World.Assets.m.EL_WorldLevel - this.Const.EL_Player.EL_CombatXP.BelowOffset){
+				local mult_factor = 1 + this.Math.pow((this.World.Assets.m.EL_WorldLevel - this.m.Level - this.Const.EL_Player.EL_CombatXP.BelowOffset) * this.Const.EL_Player.EL_CombatXP.BelowMult, 2);
+				if(mult_factor > this.Const.EL_Player.EL_CombatXP.BelowMultMax) {
+					mult_factor = this.Const.EL_Player.EL_CombatXP.BelowMultMax;
 				}
 				_xp *= mult_factor;
 			}
-			else if (this.m.Level > this.World.Assets.m.EL_WorldLevel + this.Const.EL_Player.EL_CombatXPOverWorldLevelOffset){
-				local mult_factor = 1.0/(1 + this.Math.pow((this.m.Level - this.World.Assets.m.EL_WorldLevel - this.Const.EL_Player.EL_CombatXPOverWorldLevelOffset) * this.Const.EL_Player.EL_CombatXPOverWorldLevelMultFactor, 2));
-				if(mult_factor < this.Const.EL_Player.EL_CombatXPOverWorldLevelMultFactorMin) {
-					mult_factor = this.Const.EL_Player.EL_CombatXPOverWorldLevelMultFactorMin;
+			else if (this.m.Level > this.World.Assets.m.EL_WorldLevel + this.Const.EL_Player.EL_CombatXP.OverOffset){
+				local mult_factor = 1.0/(1 + this.Math.pow((this.m.Level - this.World.Assets.m.EL_WorldLevel - this.Const.EL_Player.EL_CombatXP.OverOffset) * this.Const.EL_Player.EL_CombatXP.OverMult, 2));
+				if(mult_factor < this.Const.EL_Player.EL_CombatXP.OverMultMin) {
+					mult_factor = this.Const.EL_Player.EL_CombatXP.OverMultMin;
 				}
 				_xp *= mult_factor;
 			}
@@ -223,15 +221,15 @@ local gt = getroottable();
 
 					local r = this.Math.rand(1, 100);
 
-					if (r <= this.Const.EL_Player.EL_TalentChance[0])
+					if (r <= this.Const.EL_Player.EL_Talent.Chance[0])
 					{
 						this.m.Talents[i] = 0;
 					}
-					else if (r <= this.Const.EL_Player.EL_TalentChance[1])
+					else if (r <= this.Const.EL_Player.EL_Talent.Chance[1])
 					{
 						this.m.Talents[i] = 1;
 					}
-					else if (r <= this.Const.EL_Player.EL_TalentChance[2])
+					else if (r <= this.Const.EL_Player.EL_Talent.Chance[2])
 					{
 						this.m.Talents[i] = 2;
 					}
@@ -239,9 +237,9 @@ local gt = getroottable();
 					{
 						this.m.Talents[i] = 3;
 					}
-					this.m.Talents[i] += this.Const.EL_Player.EL_RankToTalentBonus[this.m.EL_RankLevel];
-					if(this.m.Talents[i] > this.Const.EL_Player.EL_TalentMax) {
-						this.m.Talents[i] = this.Const.EL_Player.EL_TalentMax;
+					this.m.Talents[i] += this.Const.EL_Player.EL_Talent.RankBonus[this.m.EL_RankLevel];
+					if(this.m.Talents[i] > this.Const.EL_Player.EL_Talent.Max) {
+						this.m.Talents[i] = this.Const.EL_Player.EL_Talent.Max;
 					}
 					attributes.push(i);
 					weights.push(this.m.StarWeights[i]);
@@ -262,12 +260,12 @@ local gt = getroottable();
 					{
 						local r = this.Math.rand(1, 100);
 						local j = attributes[i];
-						local temp_talent = this.Const.EL_Player.EL_RankToTalentBonus[this.m.EL_RankLevel];
-						if (r <= this.Const.EL_Player.EL_TalentChance[1])
+						local temp_talent = this.Const.EL_Player.EL_Talent.RankBonus[this.m.EL_RankLevel];
+						if (r <= this.Const.EL_Player.EL_Talent.Chance[1])
 						{
 							temp_talent += 1;
 						}
-						else if (r <= this.Const.EL_Player.EL_TalentChance[2])
+						else if (r <= this.Const.EL_Player.EL_Talent.Chance[2])
 						{
 							temp_talent += 2;
 						}
@@ -275,8 +273,8 @@ local gt = getroottable();
 						{
 							temp_talent += 3;
 						}
-						if(temp_talent > this.Const.EL_Player.EL_TalentMax) {
-							temp_talent = this.Const.EL_Player.EL_TalentMax;
+						if(temp_talent > this.Const.EL_Player.EL_Talent.Max) {
+							temp_talent = this.Const.EL_Player.EL_Talent.Max;
 						}
 						if(this.m.Talents[j] < temp_talent) {
 							this.m.Talents[j] = temp_talent;
@@ -303,56 +301,43 @@ local gt = getroottable();
 		o.setStartValuesEx = function ( _backgrounds, _addTraits = true, _gender = -1, _addEquipment = true, _EL_rankLevel = -1 )
 		{
 			if(_EL_rankLevel == -1) {
-				local rank_1_chance = 0;
-				local rank_2_chance = 0;
-				if(this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_Rank1ChanceWorldLevel[1]) {
-					rank_1_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank1ChanceFactor[0] + this.Const.EL_Player.EL_Rank1ChanceOffset[0];
-				}
-				else if(this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_Rank1ChanceWorldLevel[2]) {
-					rank_1_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank1ChanceFactor[1] + this.Const.EL_Player.EL_Rank1ChanceOffset[1];
-				}
-				else if(this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_Rank1ChanceWorldLevel[3]) {
-					rank_1_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank1ChanceFactor[2] + this.Const.EL_Player.EL_Rank1ChanceOffset[2];
-				}
-				else {
-					rank_1_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank1ChanceFactor[3] + this.Const.EL_Player.EL_Rank1ChanceOffset[3];
-				}
-				if(this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_Rank2ChanceWorldLevel[1]) {
-					rank_2_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank2ChanceFactor[0] + this.Const.EL_Player.EL_Rank2ChanceOffset[0];
-				}
-				else if(this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_Rank2ChanceWorldLevel[2]) {
-					rank_2_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank2ChanceFactor[1] + this.Const.EL_Player.EL_Rank2ChanceOffset[1];
-				}
-				else if(this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_Rank2ChanceWorldLevel[3]) {
-					rank_2_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank2ChanceFactor[2] + this.Const.EL_Player.EL_Rank2ChanceOffset[2];
-				}
-				else {
-					rank_2_chance = this.World.Assets.m.EL_WorldLevel * this.Const.EL_Player.EL_Rank2ChanceFactor[3] + this.Const.EL_Player.EL_Rank2ChanceOffset[3];
-				}
+				local rank_1_chance = this.Const.EL_Player.EL_Rank1Chance.EL_getChance(this.World.Assets.m.EL_WorldLevel);
+				local rank_2_chance = this.Const.EL_Player.EL_Rank2Chance.EL_getChance(this.World.Assets.m.EL_WorldLevel);
+				local temp_rank = 0;
 				if(rank_2_chance * 10 >= this.Math.rand(1, 1000)) {
-					this.m.EL_RankLevel = 2;
+					temp_rank = 2;
 				}
 				else if(rank_1_chance * 10 >= this.Math.rand(1, 1000)) {
-					this.m.EL_RankLevel = 1;
+					temp_rank = 1;
+				}
+				if(temp_rank > this.m.EL_RankLevel) {
+					this.m.EL_RankLevel = temp_rank;
 				}
 			}
 			else{
 				this.m.EL_RankLevel = _EL_rankLevel;
 			}
+
 			setStartValuesEx(_backgrounds, _addTraits, _gender, _addEquipment);
+			// for(local i = 0; i < this.Const.EL_Player.EL_Rank1Chance.Table.len() + 100; ++i){
+			// 	this.logInfo("rank1chance " + i + " : " + this.Const.EL_Player.EL_Rank1Chance.EL_getChance(i));
+			// }
+			// for(local i = 0; i < this.Const.EL_Player.EL_Rank2Chance.Table.len() + 100; ++i){
+			// 	this.logInfo("rank2chance " + i + " : " + this.Const.EL_Player.EL_Rank2Chance.EL_getChance(i));
+			// }
 			// this.logInfo("rank : " + this.m.EL_RankLevel);
 			// this.logInfo("rank_1_chance : " + rank_1_chance);
 			// this.logInfo("rank_2_chance : " + rank_2_chance);
 			//this.logInfo("HiringCost : " + this.m.HiringCost);
 
 
-			this.Const.EL_Player.EL_AddRandomPerkTreeToPlayer(this, this.Const.EL_Player.EL_RankToExtraPerks[this.m.EL_RankLevel]);
-
+			this.Const.EL_Player.EL_PerkTree.EL_AddRandomPerkTreeToPlayer(this, this.Const.EL_Player.EL_Talent.RankBonus[this.m.EL_RankLevel]);
+			this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(this.m.Level, background);
 		};
 
 		o.getTryoutCost = function ()
 		{
-			return this.m.CurrentProperties.DailyWage * this.Const.EL_Player.EL_TryoutCostMultFactor;
+			return this.m.CurrentProperties.DailyWage * this.Const.EL_Player.EL_Hiring.EL_TryoutCostMult;
 		};
 		o.getXPForNextLevel = function ()
 		{
@@ -370,38 +355,15 @@ local gt = getroottable();
 
 	::mods_hookExactClass("skills/backgrounds/character_background", function ( o )
 	{
+
+		o.m.BaseModifiers <- null;
+		o.EL_getBaseModifiers <- function () {
+			return this.m.BaseModifiers;
+		}
+
 		o.adjustHiringCostBasedOnEquipment = function ()
 		{
 			local actor = this.getContainer().getActor();
-			// local hiring_cost_mult = 0;
-			// //this.logInfo("HiringCost 1 : " + this.m.HiringCost);
-			// if (this.m.HiringCost <= this.Const.EL_Player.EL_HiringCostPricePart2) {
-			// 	hiring_cost_mult = this.Const.EL_Player.EL_HiringCostFactorPart1;
-			// 	actor.m.HiringCost = this.m.HiringCost * hiring_cost_mult;
-			// }
-			// else if (this.m.HiringCost <= this.Const.EL_Player.EL_HiringCostPricePart3) {
-			// 	actor.m.HiringCost = this.Math.pow(this.m.HiringCost / 10.0, this.Const.EL_Player.EL_HiringCostFactorPart2);
-			// }
-			// else if (this.m.HiringCost <= this.Const.EL_Player.EL_HiringCostPricePart4) {
-			// 	hiring_cost_mult = this.Const.EL_Player.EL_HiringCostFactorPart3 +
-			// 		(this.m.HiringCost - this.Const.EL_Player.EL_HiringCostPricePart3) * 1.0 *
-			// 		(this.Const.EL_Player.EL_HiringCostFactorPart3 - this.Const.EL_Player.EL_HiringCostFactorPart4) /
-			// 		(this.Const.EL_Player.EL_HiringCostPricePart3 - this.Const.EL_Player.EL_HiringCostPricePart4);
-			// 		actor.m.HiringCost = this.m.HiringCost * hiring_cost_mult;
-			// }
-			// else if (this.m.HiringCost <= this.Const.EL_Player.EL_HiringCostPricePart5) {
-			// 	hiring_cost_mult = this.Const.EL_Player.EL_HiringCostFactorPart4 +
-			// 		(this.m.HiringCost - this.Const.EL_Player.EL_HiringCostPricePart4) * 1.0 *
-			// 		(this.Const.EL_Player.EL_HiringCostFactorPart4 - this.Const.EL_Player.EL_HiringCostFactorPart5) /
-			// 		(this.Const.EL_Player.EL_HiringCostPricePart4 - this.Const.EL_Player.EL_HiringCostPricePart5);
-			// 		actor.m.HiringCost = this.m.HiringCost * hiring_cost_mult;
-			// }
-			// else{
-			// 	hiring_cost_mult = this.Const.EL_Player.EL_HiringCostFactorPart5;
-			// 	actor.m.HiringCost = this.m.HiringCost * hiring_cost_mult;
-			// }
-			//this.logInfo("HiringCost 2 : " + actor.m.HiringCost);
-			//this.logInfo("hiring_cost_mult 2 : " + hiring_cost_mult);
 			local items = actor.getItems().getAllItems();
 			local cost = 0;
 			foreach( i in items )
@@ -410,20 +372,21 @@ local gt = getroottable();
 			}
 			actor.m.HiringCost = this.m.HiringCost;
 
-			actor.m.HiringCost *= this.Const.EL_Player.EL_PlayerExtraHiringCostMult[actor.m.EL_RankLevel];
-			actor.m.HiringCost += this.Const.EL_Player.EL_PlayerExtraHiringCostOffset[actor.m.EL_RankLevel];
-			actor.m.HiringCost *= (1 + this.Const.EL_Player.EL_HiringCostLevelMultFactor * this.m.Level);
-			actor.m.HiringCost += cost * this.Const.EL_Player.EL_HiringCostItemCostMultFactor;
+			actor.m.HiringCost *= this.Const.EL_Player.EL_Champion.HiringCostMult[actor.m.EL_RankLevel];
+			actor.m.HiringCost += this.Const.EL_Player.EL_Champion.HiringCostOffset[actor.m.EL_RankLevel];
+			actor.m.HiringCost *= (1 + this.Const.EL_Player.EL_Hiring.EL_LevelMult * this.m.Level);
+			actor.m.HiringCost += cost * this.Const.EL_Player.EL_Hiring.EL_ItemCostMult;
 			actor.m.HiringCost = this.Math.ceil(actor.m.HiringCost);
 		};
 
 		o.calculateAdditionalRecruitmentLevels = function ()
 		{
-			return this.Math.rand(0, this.World.Assets.m.EL_WorldLevel);
+			return this.Math.rand(0, this.World.Assets.m.EL_WorldLevel - this.Const.EL_Player.EL_Hiring.EL_WorldLevelOffset);
 		};
 
 		o.onAdded = function ()
 		{
+			this.m.BaseModifiers = clone this.m.Modifiers;
 			if (this.m.DailyCost > 0)
 			{
 				this.m.DailyCost += 1;
@@ -505,11 +468,15 @@ local gt = getroottable();
 			{
 				actor.m.PerkPoints = 10;
 			}
-			actor.m.PerkPoints = this.m.Level - 1 + this.Const.EL_Player.EL_PlayerExtraPerkPoints[actor.m.EL_RankLevel];
-			actor.m.LevelUps = this.m.Level - 1;
-			actor.m.Level = this.m.Level;
-			actor.m.BaseProperties.EL_CombatLevel = this.m.Level + this.Const.EL_Player.EL_PlayerExtraCombatLevel[actor.m.EL_RankLevel];
-			actor.m.XP = this.Const.LevelXP[this.m.Level - 1];
+			actor.m.Level = 1;
+			actor.m.BaseProperties.EL_CombatLevel = 1 + this.Const.EL_Player.EL_Champion.CombatLevelOffset[actor.m.EL_RankLevel];
+			if(this.m.Level < this.Const.LevelXP.len()) {
+				actor.m.XP = this.Const.LevelXP[this.m.Level - 1];
+			}
+			else {
+				actor.m.XP = this.Const.LevelXP[this.Const.LevelXP.len() - 1];
+			}
+			actor.updateLevel();
 		};
 
 		o.onUpdate = function ( _properties )
@@ -528,8 +495,8 @@ local gt = getroottable();
 				//this.logInfo("DailyWage 1 : " + _properties.DailyWage);
 				local actor = this.getContainer().getActor();
 				local wage = this.Math.round(this.m.DailyCost * this.m.DailyCostMult);
-				_properties.DailyWage += wage * (1 + actor.getLevel() * this.Const.EL_Player.EL_DailyCostLevelMultFactor);
-				_properties.DailyWage *= this.Const.EL_Player.EL_PlayerExtraDailyCostMult[actor.EL_getRankLevel()];
+				_properties.DailyWage += wage * (1 + actor.getLevel() * this.Const.EL_Player.EL_DailyCostLevelMult);
+				_properties.DailyWage *= this.Const.EL_Player.EL_Champion.DailyCostMult[actor.EL_getRankLevel()];
 				_properties.DailyWage = this.Math.ceil(_properties.DailyWage);
 				//this.logInfo("DailyWage 2 : " + _properties.DailyWage);
 
@@ -845,7 +812,7 @@ local gt = getroottable();
 
 		o.getAttributesTooltip = function ()
 		{
-			if (this.getContainer().getActor().getLevel() >= this.Const.EL_Player.EL_PlayerLevelMax)
+			if (this.getContainer().getActor().getLevel() >= this.Const.EL_Player.EL_PlayerLevel.Max)
 			{
 				return [];
 			}
@@ -900,36 +867,36 @@ local gt = getroottable();
 			};
 			local a = {
 				Hitpoints = [
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevelMax, this.Const.Attributes.Hitpoints),
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevelMax, this.Const.Attributes.Hitpoints, true)
+					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Hitpoints),
+					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Hitpoints, true)
 				],
 				Bravery = [
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevelMax, this.Const.Attributes.Bravery),
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevelMax, this.Const.Attributes.Bravery, true)
+					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Bravery),
+					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Bravery, true)
 				],
 				Fatigue = [
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevelMax, this.Const.Attributes.Fatigue),
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevelMax, this.Const.Attributes.Fatigue, true)
+					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Fatigue),
+					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Fatigue, true)
 				],
 				Initiative = [
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevelMax, this.Const.Attributes.Initiative),
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevelMax, this.Const.Attributes.Initiative, true)
+					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Initiative),
+					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Initiative, true)
 				],
 				MeleeSkill = [
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevelMax, this.Const.Attributes.MeleeSkill),
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevelMax, this.Const.Attributes.MeleeSkill, true)
+					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.MeleeSkill),
+					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.MeleeSkill, true)
 				],
 				RangedSkill = [
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevelMax, this.Const.Attributes.RangedSkill),
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevelMax, this.Const.Attributes.RangedSkill, true)
+					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.RangedSkill),
+					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.RangedSkill, true)
 				],
 				MeleeDefense = [
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevelMax, this.Const.Attributes.MeleeDefense),
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevelMax, this.Const.Attributes.MeleeDefense, true)
+					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.MeleeDefense),
+					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.MeleeDefense, true)
 				],
 				RangedDefense = [
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevelMax, this.Const.Attributes.RangedDefense),
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevelMax, this.Const.Attributes.RangedDefense, true)
+					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.RangedDefense),
+					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.RangedDefense, true)
 				]
 			};
 			local bufferHealth = "";
@@ -997,7 +964,7 @@ local gt = getroottable();
 				{
 					id = 103,
 					type = "hint",
-					text = "Projection of this character\'s base attribute ranges calculated as if that attribute is improved on every level up from current level to " + this.Const.EL_Player.EL_PlayerLevelMax + "."
+					text = "Projection of this character\'s base attribute ranges calculated as if that attribute is improved on every level up from current level to " + this.Const.EL_Player.EL_PlayerLevel.Max + "."
 				},
 				{
 					id = 104,
@@ -1024,4 +991,23 @@ local gt = getroottable();
 		};
 
 	});
+
+	::mods_hookNewObjectOnce("ui/global/data_helper", function ( o )
+	{
+		local addCharacterToUIData = o.addCharacterToUIData;
+		o.addCharacterToUIData = function( _entity, _target )
+		{
+			addCharacterToUIData(_entity, _target);
+			if(_entity.getLevel() < this.Const.EL_Player.EL_PlayerLevel.Max) {
+				_target.xpValue = _entity.getXP() - this.Const.LevelXP[_entity.getLevel() - 1];
+				_target.xpValueMax = this.Const.LevelXP[_entity.getLevel()] - this.Const.LevelXP[_entity.getLevel() - 1];
+			}
+			else {
+				_target.xpValue = this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevel.Max - 1] - this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevel.Max - 2];
+				_target.xpValueMax = this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevel.Max - 1] - this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevel.Max - 2];
+			}
+		}
+	});
+
+
 });

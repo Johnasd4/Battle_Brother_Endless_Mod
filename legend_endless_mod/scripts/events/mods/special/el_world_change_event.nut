@@ -4,8 +4,8 @@ this.el_world_change_event <- this.inherit("scripts/events/event", {
 	{
 		this.m.ID = "event.el_world_change";
 		this.m.Title = "Difficulty Customization";
-		this.m.Cooldown = this.Const.EL_World.EL_WorldChangeEventCooldown * this.World.getTime().SecondsPerDay;
-		local select_screen_num = this.Math.ceil(this.Const.EL_World.EL_WorldChangeEventOptionNum / this.Const.EL_World.EL_WorldChangeEventOptionNumPurPage);
+		this.m.Cooldown = this.Const.EL_World.EL_WorldChangeEvent.Cooldown * this.World.getTime().SecondsPerDay;
+		local select_screen_num = this.Math.ceil(this.Const.EL_World.EL_WorldChangeEvent.OptionNum / this.Const.EL_World.EL_WorldChangeEvent.OptionNumPurPage);
 		for(local page = 0; page < select_screen_num; ++page) {
 			local screen = {
 				ID = "el_world_change_event_select_page_" + page,
@@ -18,21 +18,21 @@ this.el_world_change_event <- this.inherit("scripts/events/event", {
 				{
 				}
 			}
-			local current_page_option_num = this.Const.EL_World.EL_WorldChangeEventOptionNumPurPage;
-			if((page + 1) * this.Const.EL_World.EL_WorldChangeEventOptionNumPurPage > this.Const.EL_World.EL_WorldChangeEventOptionNum) {
-				current_page_option_num = this.Const.EL_World.EL_WorldChangeEventOptionNum % this.Const.EL_World.EL_WorldChangeEventOptionNumPurPage;
+			local current_page_option_num = this.Const.EL_World.EL_WorldChangeEvent.OptionNumPurPage;
+			if((page + 1) * this.Const.EL_World.EL_WorldChangeEvent.OptionNumPurPage > this.Const.EL_World.EL_WorldChangeEvent.OptionNum) {
+				current_page_option_num = this.Const.EL_World.EL_WorldChangeEvent.OptionNum % this.Const.EL_World.EL_WorldChangeEvent.OptionNumPurPage;
 			}
 			for(local option_num = 0; option_num < current_page_option_num; ++option_num) {
-				local option_index = page * this.Const.EL_World.EL_WorldChangeEventOptionNumPurPage + option_num;
-				local world_level_offset = this.Const.EL_World.EL_WorldChangeEventWorldLevelOffset[option_index];
-				local mult_persent = this.Const.EL_World.EL_WorldChangeEventDifficultyMultFactor[option_index] * 100;
+				local option_index = page * this.Const.EL_World.EL_WorldChangeEvent.OptionNumPurPage + option_num;
+				local world_level_offset = this.Const.EL_World.EL_WorldChangeEvent.WorldLevelOffset[option_index];
+				local mult_persent = this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[option_index] * 100;
 				local option = {
 					Text = "World Difficulty " + mult_persent + "%, ",
 					Index = option_index,
 					function getResult( _event )
 					{
 						this.World.Flags.set("EL_WorldChangeEvent", this.Index);
-						this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEventWorldLevelOffset[this.World.Flags.get("EL_WorldChangeEvent")];
+						this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEvent.WorldLevelOffset[this.World.Flags.get("EL_WorldChangeEvent")];
 						this.World.Assets.EL_UpdateWorldStrengthAndLevel();
 						return "el_world_change_event_result_page_" + this.Index;
 					}
@@ -67,7 +67,7 @@ this.el_world_change_event <- this.inherit("scripts/events/event", {
 			}
 			this.m.Screens.push(screen);
 		}
-		for(local page = 0; page < this.Const.EL_World.EL_WorldChangeEventOptionNum; ++page) {
+		for(local page = 0; page < this.Const.EL_World.EL_WorldChangeEvent.OptionNum; ++page) {
 			local screen = {
 				ID = "el_world_change_event_result_page_" + page,
 				Index = page,
@@ -97,7 +97,7 @@ this.el_world_change_event <- this.inherit("scripts/events/event", {
 						local ranged_skill = 0;
 						local melee_defense = 0;
 						local ranged_defense = 0;
-						local total_reward_times = this.Const.EL_World.EL_WorldChangeEventRewardTimesPurLevel * this.Index;
+						local total_reward_times = this.Const.EL_World.EL_WorldChangeEvent.RewardTimesPurLevel * this.Index;
 						for(local reward_times = 0; reward_times < total_reward_times; ++reward_times) {
 							local attribute_type = this.Math.rand(0, this.Const.Attributes.COUNT - 1);
 							switch (attribute_type)
@@ -187,7 +187,7 @@ this.el_world_change_event <- this.inherit("scripts/events/event", {
 
 	function onUpdateScore()
 	{
-		if (this.World.getTime().Days < this.Const.EL_World.EL_WorldChangeEventCooldown)
+		if (this.World.getTime().Days < this.Const.EL_World.EL_WorldChangeEvent.Cooldown)
 		{
 			return;
 		}
@@ -203,7 +203,7 @@ this.el_world_change_event <- this.inherit("scripts/events/event", {
 
 	function onDetermineStartScreen()
 	{
-		local page_index = this.Math.floor(this.World.Flags.get("EL_WorldChangeEvent") / this.Const.EL_World.EL_WorldChangeEventOptionNumPurPage);
+		local page_index = this.Math.floor(this.World.Flags.get("EL_WorldChangeEvent") / this.Const.EL_World.EL_WorldChangeEvent.OptionNumPurPage);
 		return "el_world_change_event_select_page_" + page_index;
 	}
 

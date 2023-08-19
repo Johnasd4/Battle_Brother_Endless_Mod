@@ -16,11 +16,11 @@ local gt = getroottable();
 		o.onUpdateLevel = function ()
 		{
 			local actor = this.getContainer().getActor();
-			if (actor.getLevel() > this.Const.EL_Player.EL_PlayerLevelPart1)
+			if (actor.getLevel() > this.Const.EL_Player.EL_PlayerLevel.Part1)
 			{
 
-				if (actor.m.Level >= this.Const.EL_Player.EL_PlayerLevelPart1 &&
-					(this.Const.EL_Player.EL_PlayerLevelMax - actor.m.Level - 1) % this.Const.EL_Player.EL_PlayerExtraPerkPointFrequency[actor.EL_getRankLevel()] == 0)
+				if (actor.m.Level >= this.Const.EL_Player.EL_PlayerLevel.Part1 &&
+					(this.Const.EL_Player.EL_PlayerLevel.Max - actor.m.Level - 1) % this.Const.EL_Player.EL_Champion.PerkPointFrequency[actor.EL_getRankLevel()] == 0)
 				{
 					++actor.m.PerkPoints;
 				}
@@ -33,15 +33,12 @@ local gt = getroottable();
 		local onAdded = o.onAdded;
 		o.onAdded = function ()
 		{
-			onAdded();
 			local player = this.getContainer().getActor();
-			this.m.Modifiers.Ammo = this.Const.EL_PlayerOther.EL_DonkeyAmmo[player.EL_getRankLevel()] * (1 + this.Const.EL_PlayerOther.EL_DonkeyAmmoMultFactor * player.getLevel());
-			this.m.Modifiers.ArmorParts = this.Const.EL_PlayerOther.EL_DonkeyArmorParts[player.EL_getRankLevel()] * (1 + this.Const.EL_PlayerOther.EL_DonkeyArmorPartsMultFactor * player.getLevel());
-			this.m.Modifiers.Meds = this.Const.EL_PlayerOther.EL_DonkeyMeds[player.EL_getRankLevel()] * (1 + this.Const.EL_PlayerOther.EL_DonkeyMedsMultFactor * player.getLevel());
-			this.m.Modifiers.Stash = this.Const.EL_PlayerOther.EL_DonkeyStash[player.EL_getRankLevel()] * (1 + this.Const.EL_PlayerOther.EL_DonkeyStashMultFactor * player.getLevel());
-			for(local i = 0; i < this.m.Modifiers.Terrain.len(); i++) {
-				this.m.Modifiers.Terrain[i] = this.Const.EL_PlayerOther.EL_DonkeyTerrain[player.EL_getRankLevel()] * (1 + this.Const.EL_PlayerOther.EL_DonkeyTerrainMultFactor * player.getLevel());
-			}
+			this.m.BaseModifiers.Ammo = this.Const.EL_PlayerOther.EL_Donkey.Ammo[player.EL_getRankLevel()];
+			this.m.BaseModifiers.ArmorParts = this.Const.EL_PlayerOther.EL_Donkey.ArmorParts[player.EL_getRankLevel()];
+			this.m.BaseModifiers.Meds = this.Const.EL_PlayerOther.EL_Donkey.Meds[player.EL_getRankLevel()];
+			this.m.BaseModifiers.Stash = this.Const.EL_PlayerOther.EL_Donkey.Stash[player.EL_getRankLevel()];
+			onAdded();
 		};
 	});
 
