@@ -8,11 +8,6 @@ if (!("EL_PlayerOther" in gt.Const))
 gt.Const.EL_PlayerOther <- {
 
     EL_Donkey = {
-        AmmoMult = 0.04,
-        ArmorPartsMult = 0.04,
-        MedsMult = 0.04,
-        StashMult = 0.04,
-        TerrainMult = 0.04,
         Ammo = [
             100,
             200,

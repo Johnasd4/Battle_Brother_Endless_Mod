@@ -6,6 +6,17 @@ local gt = getroottable();
 
 	::mods_hookNewObject("entity/tactical/player", function( o )
 	{
+		local onSerialize = o.onSerialize;
+		o.onSerialize = function ( _out )
+		{
+			onSerialize( _out );
+		}
+		local onDeserialize = o.onDeserialize;
+		o.onDeserialize = function ( _in )
+		{
+			onDeserialize( _in );
+			this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(this.m.Level, background);
+		}
 
 		o.getDailyFood = function ()
 		{
@@ -37,20 +48,7 @@ local gt = getroottable();
 				++this.m.BaseProperties.EL_CombatLevel;
 
 				local background = this.getBackground();
-				if(background.getNameOnly() == "Donkey") {
-
-					background.m.Modifiers.Stash = this.Math.floor(this.Const.EL_PlayerOther.EL_Donkey.Stash[rank] * (1 + this.Const.EL_PlayerOther.EL_Donkey.StashMult * this.m.Level));
-
-					background.m.Modifiers.Ammo = this.Const.EL_PlayerOther.EL_Donkey.Ammo[this.m.EL_RankLevel] * (1 + this.Const.EL_PlayerOther.EL_Donkey.AmmoMult * this.m.Level);
-					background.m.Modifiers.ArmorParts = this.Const.EL_PlayerOther.EL_Donkey.ArmorParts[this.m.EL_RankLevel] * (1 + this.Const.EL_PlayerOther.EL_Donkey.ArmorPartsMult * this.m.Level);
-					background.m.Modifiers.Meds = this.Const.EL_PlayerOther.EL_Donkey.Meds[this.m.EL_RankLevel] * (1 + this.Const.EL_PlayerOther.EL_Donkey.MedsMult * this.m.Level);
-					background.m.Modifiers.Stash = this.Const.EL_PlayerOther.EL_Donkey.Stash[this.m.EL_RankLevel] * (1 + this.Const.EL_PlayerOther.EL_Donkey.StashMult * this.m.Level);
-					for(local i = 0; i < this.m.Modifiers.Terrain.len(); i++) {
-						this.m.Modifiers.Terrain[i] = this.Const.EL_PlayerOther.EL_Donkey.Terrain[this.m.EL_RankLevel] * (1 + this.Const.EL_PlayerOther.EL_Donkey.TerrainMult * this.m.Level);
-					}
-
-				}
-
+				this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(this.m.Level, background);
 				this.m.Skills.onUpdateLevel();
 
 			}
@@ -239,7 +237,7 @@ local gt = getroottable();
 					{
 						this.m.Talents[i] = 3;
 					}
-					this.m.Talents[i] += this.Const.EL_Player.EL_RankToTalentBonus[this.m.EL_RankLevel];
+					this.m.Talents[i] += this.Const.EL_Player.EL_Talent.RankBonus[this.m.EL_RankLevel];
 					if(this.m.Talents[i] > this.Const.EL_Player.EL_Talent.Max) {
 						this.m.Talents[i] = this.Const.EL_Player.EL_Talent.Max;
 					}
@@ -262,7 +260,7 @@ local gt = getroottable();
 					{
 						local r = this.Math.rand(1, 100);
 						local j = attributes[i];
-						local temp_talent = this.Const.EL_Player.EL_RankToTalentBonus[this.m.EL_RankLevel];
+						local temp_talent = this.Const.EL_Player.EL_Talent.RankBonus[this.m.EL_RankLevel];
 						if (r <= this.Const.EL_Player.EL_Talent.Chance[1])
 						{
 							temp_talent += 1;
@@ -312,23 +310,21 @@ local gt = getroottable();
 				else if(rank_1_chance * 10 >= this.Math.rand(1, 1000)) {
 					temp_rank = 1;
 				}
-				if(temp_rank > _backgrounds.EL_getRankLevel()) {
+				if(temp_rank > this.m.EL_RankLevel) {
 					this.m.EL_RankLevel = temp_rank;
-				}
-				else {
-					this.m.EL_RankLevel = _backgrounds.EL_RankLevel;
 				}
 			}
 			else{
 				this.m.EL_RankLevel = _EL_rankLevel;
 			}
+
 			setStartValuesEx(_backgrounds, _addTraits, _gender, _addEquipment);
-			for(local i = 0; i < this.Const.EL_Player.EL_Rank1Chance.Table.len() + 100; ++i){
-				this.logInfo("rank1chance " + i + " : " + this.Const.EL_Player.EL_Rank1Chance.EL_getChance(i));
-			}
-			for(local i = 0; i < this.Const.EL_Player.EL_Rank2Chance.Table.len() + 100; ++i){
-				this.logInfo("rank2chance " + i + " : " + this.Const.EL_Player.EL_Rank2Chance.EL_getChance(i));
-			}
+			// for(local i = 0; i < this.Const.EL_Player.EL_Rank1Chance.Table.len() + 100; ++i){
+			// 	this.logInfo("rank1chance " + i + " : " + this.Const.EL_Player.EL_Rank1Chance.EL_getChance(i));
+			// }
+			// for(local i = 0; i < this.Const.EL_Player.EL_Rank2Chance.Table.len() + 100; ++i){
+			// 	this.logInfo("rank2chance " + i + " : " + this.Const.EL_Player.EL_Rank2Chance.EL_getChance(i));
+			// }
 			// this.logInfo("rank : " + this.m.EL_RankLevel);
 			// this.logInfo("rank_1_chance : " + rank_1_chance);
 			// this.logInfo("rank_2_chance : " + rank_2_chance);
@@ -336,7 +332,7 @@ local gt = getroottable();
 
 
 			this.Const.EL_Player.EL_PerkTree.EL_AddRandomPerkTreeToPlayer(this, this.Const.EL_Player.EL_Talent.RankBonus[this.m.EL_RankLevel]);
-
+			this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(this.m.Level, background);
 		};
 
 		o.getTryoutCost = function ()
@@ -359,6 +355,12 @@ local gt = getroottable();
 
 	::mods_hookExactClass("skills/backgrounds/character_background", function ( o )
 	{
+
+		o.m.BaseModifiers <- null;
+		o.EL_getBaseModifiers <- function () {
+			return this.m.BaseModifiers;
+		}
+
 		o.adjustHiringCostBasedOnEquipment = function ()
 		{
 			local actor = this.getContainer().getActor();
@@ -384,6 +386,7 @@ local gt = getroottable();
 
 		o.onAdded = function ()
 		{
+			this.m.BaseModifiers = clone this.m.Modifiers;
 			if (this.m.DailyCost > 0)
 			{
 				this.m.DailyCost += 1;

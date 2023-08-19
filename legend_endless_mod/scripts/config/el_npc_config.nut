@@ -223,10 +223,10 @@ gt.Const.EL_NPC <- {
     }
 };
 
-this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_Player.EL_NormalTeam.EliteChance);
-this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_Player.EL_NormalTeam.RandomLeaderChance);
-this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_Player.EL_NormalTeam.StrongestLeaderChance);
-this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_Player.EL_EliteTeam.EliteTeamChance);
-this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_Player.EL_EliteTeam.RandomLeaderChance);
-this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_Player.EL_EliteTeam.StrongestLeaderChance);
+this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_NPC.EL_NormalTeam.EliteChance);
+this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_NPC.EL_NormalTeam.RandomLeaderChance);
+this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_NPC.EL_NormalTeam.StrongestLeaderChance);
+this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_NPC.EL_EliteTeam.EliteTeamChance);
+this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_NPC.EL_EliteTeam.RandomLeaderChance);
+this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_NPC.EL_EliteTeam.StrongestLeaderChance);
 

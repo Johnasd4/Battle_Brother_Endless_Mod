@@ -35,7 +35,7 @@ gt.Const.EL_Config <- {
 
     function EL_chanceTableCalculateAXB(_EL_info) {
         for(local range_index = 0, table_index = 0; range_index < _EL_info.Factor.Range.len(); ++range_index) {
-            for(; table_index < __EL_info.Factor.Range[range_index]; ++table_index) {
+            for(; table_index < _EL_info.Factor.Range[range_index]; ++table_index) {
                 _EL_info.Table.push(table_index * _EL_info.Factor.Mult[range_index] + _EL_info.Factor.Offset[range_index])
             }
         }

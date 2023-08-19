@@ -9,7 +9,6 @@ local gt = getroottable();
 		local onInit = o.onInit;
 		o.onInit = function() {
 			onInit();
-			this.World.Flags.set("EL_WorldChangeEvent", this.Const.EL_World.EL_WorldChangeEvent.DefaultOption);
 			this.m.Events.m.Events.push(this.new("scripts/events/mods/special/el_world_change_event"));
 		}
 	});
@@ -19,7 +18,6 @@ local gt = getroottable();
 		local general_queryUIElementTooltipData = o.general_queryUIElementTooltipData;
 		o.general_queryUIElementTooltipData = function( _entityId, _elementId, _elementOwner )
 		{
-			local super_ret = general_queryUIElementTooltipData(_entityId, _elementId, _elementOwner);
 			local entity;
 			if (_entityId != null)
 			{
@@ -78,25 +76,6 @@ local gt = getroottable();
 
 					ret.push({
 						id = id,
-						type = "text",
-						text = "Terrain Movement Modifiers:"
-					});
-					id = ++id;
-					id = id;
-
-					foreach( bro in data.TerrainModifiers )
-					{
-						ret.push({
-							id = id,
-							type = "text",
-							text = bro[0] + " [color=" + this.Const.UI.Color.PositiveValue + "]" + bro[1] + "%[/color]"
-						});
-						id = ++id;
-						id = id;
-					}
-
-					ret.push({
-						id = id,
 						type = "hint",
 						text = "World Strength: " + this.World.Assets.m.EL_WorldStrength +
 						       "\nWorld Level: " + this.World.Assets.m.EL_WorldLevel +
@@ -120,7 +99,7 @@ local gt = getroottable();
 					return ret;
 			}
 
-			return super_ret;
+			return general_queryUIElementTooltipData(_entityId, _elementId, _elementOwner);
 		}
 	});
 
@@ -157,6 +136,9 @@ local gt = getroottable();
 		o.EL_UpdateWorldStrengthAndLevel <- function() {
 			local day = this.World.getTime().Days;
 			this.m.EL_CurrentUpdateDay = day;
+			if(!this.World.Flags.has("EL_WorldChangeEvent")) {
+				this.World.Flags.set("EL_WorldChangeEvent", this.Const.EL_World.EL_WorldChangeEvent.DefaultOption);
+			}
 			//Calculate world level.
 			if(this.m.EL_BaseWorldLevel < this.Const.EL_World.EL_WorldLevel.BaseStableLevel){
 				if(day * this.Const.EL_World.EL_WorldStartMult[this.getCombatDifficulty()] >
@@ -190,11 +172,23 @@ local gt = getroottable();
 			this.logInfo("Day " + day + " : World Level " + this.m.EL_WorldLevel);
 			this.logInfo("Day " + day + " : World Strength " + this.m.EL_WorldStrength);
 		}
-		local getRosterDescription = o.getRosterDescription;
 		o.getRosterDescription = function()
 		{
-			local ret = getRosterDescription();
-			ret.EL_CombatLevel <- bro.EL_getCombatLevel();
+			local ret = {
+				Brothers = []
+			};
+
+			foreach( bro in this.World.getPlayerRoster().getAll() )
+			{
+				ret.Brothers.push({
+					Name = bro.getName(),
+					Mood = this.Const.MoodStateIcon[bro.getMoodState()],
+					Level = bro.getLevel(),
+					EL_CombatLevel = bro.EL_getCombatLevel(),
+					Background = bro.getBackground().getNameOnly()
+				});
+			}
+
 			local EL_sortByCombatLevel = function ( first, second )
 			{
 				if (first.EL_CombatLevel == second.EL_CombatLevel)

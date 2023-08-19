@@ -8,7 +8,23 @@ local gt = getroottable();
 
 		o.m.EL_RankLevel <- 0;
 
-		local onTurnStart = o.onTurnStart
+		local onSerialize = o.onSerialize;
+		o.onSerialize = function ( _out )
+		{
+			onSerialize( _out );
+			_out.writeI32(this.m.EL_RankLevel);
+			//this.logInfo("this.EL_RankLevel : " + this.m.EL_RankLevel);
+		}
+		local onDeserialize = o.onDeserialize;
+		o.onDeserialize = function ( _in )
+		{
+			onDeserialize( _in );
+			this.m.EL_RankLevel = _in.readI32();
+			//this.logInfo("this.EL_RankLevel : " + this.m.EL_RankLevel);
+		}
+
+
+		local onTurnStart = o.onTurnStart;
 		o.onTurnStart = function(){
 			onTurnStart();
 			if (!this.isAlive())
@@ -31,25 +47,13 @@ local gt = getroottable();
 		{
 			return this.m.EL_RankLevel;
 		}
-
+		o.EL_setRankLevel <- function (_EL_RankLevel)
+		{
+			this.m.EL_RankLevel = _EL_RankLevel;
+		}
 		o.EL_getCombatLevel <- function ()
 		{
 			return this.m.CurrentProperties.EL_CombatLevel;
-		}
-
-		local onSerialize = o.onSerialize;
-		o.onSerialize = function ( _out )
-		{
-			onSerialize( _out );
-			_out.writeI32(this.m.EL_RankLevel);
-			//this.logInfo("this.EL_RankLevel : " + this.m.EL_RankLevel);
-		}
-		local onDeserialize = o.onDeserialize;
-		o.onDeserialize = function ( _in )
-		{
-			onDeserialize( _in );
-			this.m.EL_RankLevel = _in.readI32();
-			//this.logInfo("this.EL_RankLevel : " + this.m.EL_RankLevel);
 		}
 
 		local checkMorale = o.checkMorale;
@@ -66,33 +70,6 @@ local gt = getroottable();
 				}
 			}
 			return checkMorale(_change, _difficulty, _type, _showIconBeforeMoraleIcon, _noNewLine);
-		}
-
-	});
-
-	::mods_hookNewObject("entity/tactical/player", function(o)
-	{
-		o.m.EL_RankLevel <- 0;
-
-		o.EL_getRankLevel <- function(){
-			return this.m.EL_RankLevel;
-		}
-		o.EL_setRankLevel <- function(_EL_RankLevel){
-			this.m.EL_RankLevel = _EL_RankLevel;
-		}
-
-		local onSerialize = o.onSerialize;
-		o.onSerialize = function( _out )
-		{
-			onSerialize(_out);
-			out.writeI32(this.m.EL_RankLevel);
-		}
-
-		local onDeserialize = o.onDeserialize;
-		o.onDeserialize = function( _in )
-		{
-			onSerialize(_in);
-			this.m.EL_RankLevel = _in.readI32();
 		}
 
 	});

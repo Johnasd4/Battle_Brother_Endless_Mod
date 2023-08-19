@@ -33,15 +33,12 @@ local gt = getroottable();
 		local onAdded = o.onAdded;
 		o.onAdded = function ()
 		{
-			onAdded();
 			local player = this.getContainer().getActor();
-			this.m.Modifiers.Ammo = this.Const.EL_PlayerOther.EL_Donkey.Ammo[player.EL_getRankLevel()] * (1 + this.Const.EL_PlayerOther.EL_Donkey.AmmoMult * player.getLevel());
-			this.m.Modifiers.ArmorParts = this.Const.EL_PlayerOther.EL_Donkey.ArmorParts[player.EL_getRankLevel()] * (1 + this.Const.EL_PlayerOther.EL_Donkey.ArmorPartsMult * player.getLevel());
-			this.m.Modifiers.Meds = this.Const.EL_PlayerOther.EL_Donkey.Meds[player.EL_getRankLevel()] * (1 + this.Const.EL_PlayerOther.EL_Donkey.MedsMult * player.getLevel());
-			this.m.Modifiers.Stash = this.Const.EL_PlayerOther.EL_Donkey.Stash[player.EL_getRankLevel()] * (1 + this.Const.EL_PlayerOther.EL_Donkey.StashMult * player.getLevel());
-			for(local i = 0; i < this.m.Modifiers.Terrain.len(); i++) {
-				this.m.Modifiers.Terrain[i] = this.Const.EL_PlayerOther.EL_Donkey.Terrain[player.EL_getRankLevel()] * (1 + this.Const.EL_PlayerOther.EL_Donkey.TerrainMult * player.getLevel());
-			}
+			this.m.BaseModifiers.Ammo = this.Const.EL_PlayerOther.EL_Donkey.Ammo[player.EL_getRankLevel()];
+			this.m.BaseModifiers.ArmorParts = this.Const.EL_PlayerOther.EL_Donkey.ArmorParts[player.EL_getRankLevel()];
+			this.m.BaseModifiers.Meds = this.Const.EL_PlayerOther.EL_Donkey.Meds[player.EL_getRankLevel()];
+			this.m.BaseModifiers.Stash = this.Const.EL_PlayerOther.EL_Donkey.Stash[player.EL_getRankLevel()];
+			onAdded();
 		};
 	});
 
