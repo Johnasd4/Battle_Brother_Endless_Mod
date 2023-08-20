@@ -1,7 +1,7 @@
 local gt = getroottable();
 
 ::mods_registerMod("el_world", 1, "el_world");
-::mods_queue(null, ">endless_mod", function ()
+::mods_queue(null, "endless_mod", function ()
 {
 
 	::mods_hookExactClass("states/world_state", function ( o )

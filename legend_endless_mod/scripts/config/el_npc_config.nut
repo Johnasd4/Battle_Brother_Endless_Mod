@@ -59,6 +59,64 @@ gt.Const.EL_NPC <- {
         },
     },
 
+    EL_Troop = {
+        Resourse = {
+            MinMult = 70,
+            MaxMult = 130,
+        },
+
+        SpecialUnit = [
+            {
+                ID = this.Const.EntityType.Peasant,
+                Population = 3
+            },
+            {
+                ID = this.Const.EntityType.PeasantSouthern,
+                Population = 3
+            }
+        ],
+
+        BossUnit = [
+            this.Const.EntityType.TricksterGod,
+            this.Const.EntityType.Kraken,
+            this.Const.EntityType.KrakenTentacle,
+            this.Const.EntityType.SkeletonLich,
+            this.Const.EntityType.SkeletonLichMirrorImage
+        ],
+
+        EliteUnit = [
+            this.Const.EntityType.BanditWarlord,
+            this.Const.EntityType.BanditLeader,
+            this.Const.EntityType.LegendSkinGhoul,
+            this.Const.EntityType.LegendWhiteDirewolf,
+            this.Const.EntityType.LegendWhiteWarwolf,
+            this.Const.EntityType.LegendRedbackSpider,
+            this.Const.EntityType.LegendRockUnhold,
+            this.Const.EntityType.LegendDemonAlp,
+            this.Const.EntityType.LegendStollwurm,
+            this.Const.EntityType.LegendGreenwoodSchrat,
+            this.Const.EntityType.LegendGreenwoodSchratSmall,
+            this.Const.EntityType.LegendHexeLeader,
+            this.Const.EntityType.Swordmaster,
+            this.Const.EntityType.MasterArcher,
+            this.Const.EntityType.LegendOrcElite,
+            this.Const.EntityType.LegendOrcBehemoth,
+            this.Const.EntityType.OrcWarlord,
+            this.Const.EntityType.GoblinLeader,
+            this.Const.EntityType.NomadLeader,
+            this.Const.EntityType.FlyingSkull,
+            this.Const.EntityType.SkeletonPhylactery,
+            this.Const.EntityType.SkeletonBoss,
+            this.Const.EntityType.ZombieBoss,
+            this.Const.EntityType.LegendVampireLord,
+            this.Const.EntityType.GhostKnight,
+            this.Const.EntityType.LegendMummyQueen
+        ],
+
+
+        StrengthPurPopulation = 20,
+
+    }
 
     EL_NormalTeam = {
         EliteChance = {
