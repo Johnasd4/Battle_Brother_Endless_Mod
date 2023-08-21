@@ -60,21 +60,13 @@ gt.Const.EL_NPC <- {
     },
 
     EL_Troop = {
+
+        StrengthPurPopulation = 20,
+        WeakUnitPopulationMult = 3,
         Resourse = {
             MinMult = 70,
             MaxMult = 130,
         },
-
-        SpecialUnit = [
-            {
-                ID = this.Const.EntityType.Peasant,
-                Population = 3
-            },
-            {
-                ID = this.Const.EntityType.PeasantSouthern,
-                Population = 3
-            }
-        ],
 
         BossUnit = [
             this.Const.EntityType.TricksterGod,
@@ -113,9 +105,36 @@ gt.Const.EL_NPC <- {
             this.Const.EntityType.LegendMummyQueen
         ],
 
+        WeakUnit = [
+            this.Const.EntityType.Peasant,
+            this.Const.EntityType.PeasantSouthern
+        ]
 
-        StrengthPurPopulation = 20,
-
+        function EL_getTroopInfo(_EL_troop) {
+            local ret = {
+                EL_BasePopulation = 0,
+                EL_ExtraCombatLevel = 0,
+                EL_IsBossUnit = false,
+                EL_IsEliteUnit = false,
+                EL_IsWeakUnit = false
+            };
+            if(_EL_troop.Strength <= 20) {
+                ret.EL_BasePopulation = 1;
+            }
+            else {
+                ret.EL_BasePopulation = this.Math.ceil((_EL_troop.Strength - 1) / this.Const.EL_NPC.EL_Troop.StrengthPurPopulation);
+            }
+            if(this.Const.EL_NPC.EL_Troop.BossUnit.find(_EL_troop.ID)) {
+                ret.EL_IsBoss = true;
+            }
+            else if(this.Const.EL_NPC.EL_Troop.EliteUnit.find(_EL_troop.ID)) {
+                ret.EL_IsEliteUnit = true;
+            }
+            else if(this.Const.EL_NPC.EL_Troop.EliteUnit.find(_EL_troop.ID)) {
+                ret.EL_IsWeakUnit = true;
+            }
+            return ret;
+        }
     }
 
     EL_NormalTeam = {

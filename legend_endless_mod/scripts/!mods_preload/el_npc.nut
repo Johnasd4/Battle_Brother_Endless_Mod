@@ -47,9 +47,10 @@ local gt = getroottable();
         o.m.EL_IsPlayer <- false;
         o.m.EL_HaveRandomLeader <- false;
         o.m.EL_HaveStrongestLeader <- false;
-        o.m.EL_TroopResourse <- 0;
-        o.m.EL_UsedTroopResourse <- 0;
-        o.m.EL_UsedPopulation <- 0;
+        o.m.EL_TroopsResourse <- 0;
+        o.m.EL_UsedTroopsResourse <- 0;
+        o.m.EL_Population <- 0;
+        o.m.EL_TempTroops <- [];
 
 		local onSerialize = o.onSerialize;
 		o.onSerialize = function ( _out )
@@ -110,7 +111,7 @@ local gt = getroottable();
             if(this.m.ZT_IsPlayer == true) {
                 return;
             }
-            //Calculate unit population
+            //Calculate unit population.
             local population = 0;
             for(local i = 0; i < this.Const.EL_NPC.EL_Troop.SpecialUnit.len(); ++i){
                 if(_EL_troop.ID == this.Const.EL_NPC.EL_Troop.SpecialUnit[i].ID) {
@@ -118,6 +119,16 @@ local gt = getroottable();
                     break;
                 }
             }
+            local index =
+            if(.find()
+
+            if(this.m.EL_FinishGenerate == true) {
+
+                return;
+            }
+
+            //Puts the troop in the troop list, the troop list query from big o small.
+            //for(local i = 0; i < this.m.Troops.len())
             if(population == 0) {
                 if(_EL_troop.Strength != 0) {
                     population = this.Math.ceil((_EL_troop.Strength - 1) / this.Const.EL_NPC.EL_Troop.StrengthPurPopulation);
@@ -225,6 +236,24 @@ local gt = getroottable();
 	});
 
 
+    gt.Const.World.Spawn.Unit.EL_EliteChance <- 0;
+    gt.Const.World.Spawn.Unit.EL_Level <- 0;
+    gt.Const.World.Spawn.Unit.EL_RankLevel <- 0;
+    gt.Const.World.Spawn.Unit.EL_UnitInfo <- null;
+
+    {
+        ID = 0,
+        Variant = 0,
+        Strength = 0.0,
+        Row = 0,
+        Party = null,
+        Faction = null,
+        Tag = null,
+        Script = "",
+        Name = ""
+    };
+
+
     gt.Const.World.Common.addTroop = function ( _party, _troop, _updateStrength = true, _minibossify = 0 )
     {
         local troop = clone _troop.Type;
@@ -253,7 +282,7 @@ local gt = getroottable();
             }
         }
 
-        troop.Variant += _minibossify + this.World.Assets.m.ChampionChanceAdditional;
+        troop.EL_EliteChance += _minibossify + this.World.Assets.m.ChampionChanceAdditional;
         _party.EL_addTroop(troop);
         if (_updateStrength)
         {
