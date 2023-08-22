@@ -48,10 +48,7 @@ local gt = getroottable();
         o.m.EL_HaveRandomLeader <- false;
         o.m.EL_HaveStrongestLeader <- false;
         o.m.EL_TroopsResourse <- 0;
-        o.m.EL_UsedTroopsResourse <- 0;
         o.m.EL_Population <- 0;
-        o.m.EL_TempTroops <- [];
-
 		local onSerialize = o.onSerialize;
 		o.onSerialize = function ( _out )
 		{
@@ -63,7 +60,7 @@ local gt = getroottable();
 			_out.writeBool(this.m.EL_HaveRandomLeader);
 			_out.writeBool(this.m.EL_HaveStrongestLeader);
 			_out.writeI32(this.m.EL_TroopResourse);
-			_out.writeI32(this.m.EL_UsedTroopResourse);
+			_out.writeI32(this.m.EL_Population);
 		}
 		local onDeserialize = o.onDeserialize;
 		o.onDeserialize = function ( _in )
@@ -76,7 +73,7 @@ local gt = getroottable();
 			this.m.EL_HaveRandomLeader = _in.readBool();
 			this.m.EL_HaveStrongestLeader = _in.readBool();
 			this.m.EL_TroopResourse = _in.readI32();
-			this.m.EL_UsedTroopResourse = _in.readI32();
+			this.m.EL_Population = _in.readI32();
 		}
 
 
@@ -111,113 +108,147 @@ local gt = getroottable();
             if(this.m.ZT_IsPlayer == true) {
                 return;
             }
-            //Calculate unit population.
-            local population = 0;
-            for(local i = 0; i < this.Const.EL_NPC.EL_Troop.SpecialUnit.len(); ++i){
-                if(_EL_troop.ID == this.Const.EL_NPC.EL_Troop.SpecialUnit[i].ID) {
-                    population = this.Const.EL_NPC.EL_Troop.SpecialUnit[i].Population;
-                    break;
+            for(local i = 0; i < this.m.Troops.len(); ++i) {
+                if(_EL_troop.Strength > this.m.Troops[i].Strength) {
+                    this.m.Troops[i].insert(i, _EL_troop);
+                    return;
                 }
             }
-            local index =
-            if(.find()
-
-            if(this.m.EL_FinishGenerate == true) {
-
-                return;
-            }
-
-            //Puts the troop in the troop list, the troop list query from big o small.
-            //for(local i = 0; i < this.m.Troops.len())
-            if(population == 0) {
-                if(_EL_troop.Strength != 0) {
-                    population = this.Math.ceil((_EL_troop.Strength - 1) / this.Const.EL_NPC.EL_Troop.StrengthPurPopulation);
-                }
-                else {
-                    population = 1;
-                }
-            }
-
-            if(this.m.EL_IsBossTroop == true) {
-
-                return;
-            }
-            if(this.m.EL_FinishGenerate == true) {
-
-
-                if(_rankLevel != 0){
-                    _troop.Variant = _rankLevel + _bossLevel * 6;
-                }
-                else{
-                    _troop.Variant = 0;
-                }
-                _troop.Name = this.Const.ZT_Rank.TroopName[_troop.Variant];
-                this.m.Troops.push(_troop);
-                return;
-            }
-            if(this.m.EL_IsEliteTeam == false) {
-                local population = 0;
-                for(local i = 0; i < this.Const.EL_NPC.EL_Troop.SpecialUnit.len(); ++i){
-                    if(_EL_troop.ID == this.Const.EL_NPC.EL_Troop.SpecialUnit[i].ID) {
-                        population = tthis.Const.EL_NPC.EL_Troop.SpecialUnit[i].Population;
-                        break;
-                    }
-                }
-                if(population == 0) {
-                    population = _EL_troop.Strength
-                }
-
-                                StrengthPurPopulation
-                if(i == this.Const.ZT_Enemy.EnemyStrongUnit.len()){
-                    if(_troop.Cost <= 20){
-                        size = 1;
-                        this.m.TempTroopSize += size;
-                    }
-                    else{
-                        size = _troop.Cost / 20;
-                        this.m.TempTroopSize += size;
-                    }
-                }
-
-                if( _rankLevel != 0 ){
-                    this.m.TempBossTroopSize += size;
-                }
-                //add troop to temp
-
-                local insertIndex = 0;
-                for( insertIndex = 0 ; insertIndex < this.m.TempTroops.len() ; insertIndex = insertIndex){
-
-                    if( _troop.Strength <= this.m.TempTroops[insertIndex].Strength ){
-                        break;
-                    }
-                    insertIndex += 1;
-                }
-                this.m.TempTroopSingleSize.insert(insertIndex, size);
-                this.m.TempTroops.insert(insertIndex, _troop);
-                this.m.TroopsRankAll[_rankLevel] += 1;
-                this.m.EL_UsedTroopResourse += _troop.Strength;
-                this.EL_updateTroop();
-            }
-            else if(this.m.IsBossTroop == false && this.m.ZT_IsPlayer == false ){
-
-
-            }
-            else if(this.m.IsBossTroop == true && this.m.ZT_IsPlayer == false ){
-
-                this.m.TroopSize = 1;
-                if(_rankLevel != 0){
-                    _troop.Variant = _rankLevel + _bossLevel * 6;
-                }
-                else{
-                    _troop.Variant = 0;
-                }
-                _troop.Name = this.Const.ZT_Rank.TroopName[_troop.Variant];
-                this.m.Troops.push(_troop);
-            }
+            this.m.Troops.push(_troop);
+            return;
         }
 
         o.EL_updateTroop <- function() {
+            if(this.m.EL_FinishGenerate == true) {
+                return;
+            }
+            this.m.EL_FinishGenerate = true;
+            //Calculate current troop info.
+            local troops_info = [];
+            for(local i = 0; i < this.m.Troops.len(); ++i) {
+                troops_info.push(this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.EL_getTroopInfo(this.m.Troops[i]));
+            }
+            //Calculate ranks, level, combat level.
+            if(this.m.EL_IsBossTroop) {
+                local leader_id = 0;
+                for(local i = 0; i < this.m.Troops.len(); ++i) {
+                    //At least two leaders.
+                    if(i < this.Const.EL_NPC.EL_Troop.BossTroopMinLeaders || this.m.Troops[i].ID == leader_id) {
+                        this.m.Troops[i].EL_RankLevel = 2;
+                        leader_id = this.m.Troops[i].ID;
+                    }
+                    else if(this.m.Troops[i].EL_IsBossUnit) {
+                        this.m.Troops[i].EL_RankLevel = 2;
+                    }
+                    else if(this.m.Troops[i].EL_IsWeakUnit) {
+                        this.m.Troops[i].EL_RankLevel = 0;
+                    }
+                    else {
+                        this.m.Troops[i].EL_RankLevel = 1;
+                    }
+                    this.m.Troops[i].EL_Level = this.World.Assets.m.EL_WorldLevel;
+                    this.m.Troops[i].EL_CombatLevel = this.World.Assets.m.EL_WorldLevel + troops_info[i].EL_ExtraCombatLevel;
+                }
+            }
+            //Build names
 
+
+
+            for(local i = 0; i < this.m.Troops.len(); ++i) {
+                if(this.m.Troops[i].EL_RankLevel != 0 && "NameList" in _troop.Type) {
+                    troop.Name = this.generateName(_troop.Type.NameList) + (_troop.Type.TitleList != null ? " " + _troop.Type.TitleList[this.Math.rand(0, _troop.Type.TitleList.len() - 1)] : "");
+                }
+
+            }
+            // //Calculate ranks, level, combat level, resourse, population.
+            // if(this.m.EL_IsBossTroop) {
+            //     EL_IsEliteTeam
+            // }
+            // if(population == 0) {
+            //     if(_EL_troop.Strength != 0) {
+            //         population = this.Math.ceil((_EL_troop.Strength - 1) / this.Const.EL_NPC.EL_Troop.StrengthPurPopulation);
+            //     }
+            //     else {
+            //         population = 1;
+            //     }
+            // }
+
+            // if(this.m.EL_IsBossTroop == true) {
+
+            //     return;
+            // }
+            // if(this.m.EL_FinishGenerate == true) {
+
+
+            //     if(_rankLevel != 0){
+            //         _troop.Variant = _rankLevel + _bossLevel * 6;
+            //     }
+            //     else{
+            //         _troop.Variant = 0;
+            //     }
+            //     _troop.Name = this.Const.ZT_Rank.TroopName[_troop.Variant];
+            //     this.m.Troops.push(_troop);
+            //     return;
+            // }
+            // if(this.m.EL_IsEliteTeam == false) {
+            //     local population = 0;
+            //     for(local i = 0; i < this.Const.EL_NPC.EL_Troop.SpecialUnit.len(); ++i){
+            //         if(_EL_troop.ID == this.Const.EL_NPC.EL_Troop.SpecialUnit[i].ID) {
+            //             population = tthis.Const.EL_NPC.EL_Troop.SpecialUnit[i].Population;
+            //             break;
+            //         }
+            //     }
+            //     if(population == 0) {
+            //         population = _EL_troop.Strength
+            //     }
+
+            //                     StrengthPurPopulation
+            //     if(i == this.Const.ZT_Enemy.EnemyStrongUnit.len()){
+            //         if(_troop.Cost <= 20){
+            //             size = 1;
+            //             this.m.TempTroopSize += size;
+            //         }
+            //         else{
+            //             size = _troop.Cost / 20;
+            //             this.m.TempTroopSize += size;
+            //         }
+            //     }
+
+            //     if( _rankLevel != 0 ){
+            //         this.m.TempBossTroopSize += size;
+            //     }
+            //     //add troop to temp
+
+            //     local insertIndex = 0;
+            //     for( insertIndex = 0 ; insertIndex < this.m.TempTroops.len() ; insertIndex = insertIndex){
+
+            //         if( _troop.Strength <= this.m.TempTroops[insertIndex].Strength ){
+            //             break;
+            //         }
+            //         insertIndex += 1;
+            //     }
+            //     this.m.TempTroopSingleSize.insert(insertIndex, size);
+            //     this.m.TempTroops.insert(insertIndex, _troop);
+            //     this.m.TroopsRankAll[_rankLevel] += 1;
+            //     this.m.EL_UsedTroopResourse += _troop.Strength;
+            //     this.EL_updateTroop();
+            // }
+            // else if(this.m.IsBossTroop == false && this.m.ZT_IsPlayer == false ){
+
+
+            // }
+            // else if(this.m.IsBossTroop == true && this.m.ZT_IsPlayer == false ){
+
+            //     this.m.TroopSize = 1;
+            //     if(_rankLevel != 0){
+            //         _troop.Variant = _rankLevel + _bossLevel * 6;
+            //     }
+            //     else{
+            //         _troop.Variant = 0;
+            //     }
+            //     _troop.Name = this.Const.ZT_Rank.TroopName[_troop.Variant];
+            //     this.m.Troops.push(_troop);
+            // }
         }
 
     });
@@ -238,6 +269,7 @@ local gt = getroottable();
 
     gt.Const.World.Spawn.Unit.EL_EliteChance <- 0;
     gt.Const.World.Spawn.Unit.EL_Level <- 0;
+    gt.Const.World.Spawn.Unit.EL_CombatLevel <- 0;
     gt.Const.World.Spawn.Unit.EL_RankLevel <- 0;
     gt.Const.World.Spawn.Unit.EL_UnitInfo <- null;
 

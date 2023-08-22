@@ -63,6 +63,28 @@ gt.Const.EL_NPC <- {
 
         StrengthPurPopulation = 20,
         WeakUnitPopulationMult = 3,
+
+        BossTroopMinLeaders = 2,
+
+        ExtraCombatLevel = {
+            BossLevel = 10,
+            CrticalPoint = 10,
+            DivPart1 = 0,
+            DivPart2 = 10
+        },
+
+        RankResouseMult = [
+            1,
+            2,
+            5
+        ],
+
+        RankPopulationMult = [
+            1,
+            2,
+            5
+        ],
+
         Resourse = {
             MinMult = 70,
             MaxMult = 130,
@@ -112,6 +134,7 @@ gt.Const.EL_NPC <- {
 
         function EL_getTroopInfo(_EL_troop) {
             local ret = {
+                troop = _EL_troop,
                 EL_BasePopulation = 0,
                 EL_ExtraCombatLevel = 0,
                 EL_IsBossUnit = false,
@@ -126,12 +149,20 @@ gt.Const.EL_NPC <- {
             }
             if(this.Const.EL_NPC.EL_Troop.BossUnit.find(_EL_troop.ID)) {
                 ret.EL_IsBoss = true;
+                ret.EL_ExtraCombatLevel = this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.BossLevel;
+                return ret;
             }
-            else if(this.Const.EL_NPC.EL_Troop.EliteUnit.find(_EL_troop.ID)) {
+            if(this.Const.EL_NPC.EL_Troop.EliteUnit.find(_EL_troop.ID)) {
                 ret.EL_IsEliteUnit = true;
             }
             else if(this.Const.EL_NPC.EL_Troop.EliteUnit.find(_EL_troop.ID)) {
                 ret.EL_IsWeakUnit = true;
+            }
+            if(_EL_troop.Strength < this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.CrticalPoint) {
+                ret.EL_ExtraCombatLevel = this.Math.sqrt((this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.CrticalPoint - _EL_troop.Strength) / this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.DivPart1);
+            }
+            else {
+                ret.EL_ExtraCombatLevel = this.Math.sqrt((_EL_troop.Strength - this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.CrticalPoint) / this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.DivPart2);
             }
             return ret;
         }
