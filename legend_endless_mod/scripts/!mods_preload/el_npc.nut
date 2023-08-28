@@ -444,9 +444,6 @@ local gt = getroottable();
             else {
 
             }
-
-
-
 		}
 
 	});
@@ -468,7 +465,7 @@ local gt = getroottable();
 			this.m.EL_NPCLevel = _in.readI32();
 		}
 
-        o.EL_getNPCLevel = function() {
+        o.EL_getNPCLevel <- function() {
             return this.m.EL_NPCLevel;
         }
 

@@ -145,7 +145,6 @@ gt.Const.EL_NPC <- {
             this.Const.EntityType.SkeletonBoss,
             this.Const.EntityType.ZombieBoss,
             this.Const.EntityType.LegendVampireLord,
-            this.Const.EntityType.GhostKnight,
             this.Const.EntityType.LegendMummyQueen
         ],
 
