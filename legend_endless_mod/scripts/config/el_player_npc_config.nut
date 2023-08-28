@@ -7,10 +7,15 @@ if (!("EL_PlayerNPC" in gt.Const))
 
 gt.Const.EL_PlayerNPC <- {
 
+    EL_XPValue = {
+        Offset = 300,
+        Mult = 30,
+    },
+
     EL_ExtraFatigueRecovery = {
         DivFactor = 20,
         Offset = -3,
-    }
+    },
 
     EL_RankToMoraleMin = [
         0,

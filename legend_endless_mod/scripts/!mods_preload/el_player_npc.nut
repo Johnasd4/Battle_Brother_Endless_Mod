@@ -55,6 +55,14 @@ local gt = getroottable();
 		{
 			return this.m.CurrentProperties.EL_CombatLevel;
 		}
+		o.EL_setCombatLevel <- function (_EL_CombatLevel)
+		{
+			this.m.BaseProperties.EL_CombatLevel = _EL_CombatLevel;
+		}
+
+		o.getXPValue = function() {
+			return this.Const.EL_PlayerNPC.EL_XPValue.Offset + this.EL_getCombatLevel() * this.Const.EL_PlayerNPC.EL_XPValue.Mult;
+		}
 
 		local checkMorale = o.checkMorale;
 		o.checkMorale = function(_change, _difficulty, _type = this.Const.MoraleCheckType.Default, _showIconBeforeMoraleIcon = "", _noNewLine = false)
@@ -73,5 +81,13 @@ local gt = getroottable();
 		}
 
 	});
+
+	::mods_hookNewObject("entity/tactical/player", function( o )
+	{
+		o.getXPValue = function() {
+			return this.actor.getXPValue();
+		}
+	});
+
 
 });
