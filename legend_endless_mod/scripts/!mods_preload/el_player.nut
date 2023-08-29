@@ -361,20 +361,8 @@ local gt = getroottable();
 			}
 
 			setStartValuesEx(_backgrounds, _addTraits, _gender, _addEquipment);
-			// for(local i = 0; i < this.Const.EL_Player.EL_Rank1Chance.Table.len() + 100; ++i){
-			// 	this.logInfo("rank1chance " + i + " : " + this.Const.EL_Player.EL_Rank1Chance.EL_getChance(i));
-			// }
-			// for(local i = 0; i < this.Const.EL_Player.EL_Rank2Chance.Table.len() + 100; ++i){
-			// 	this.logInfo("rank2chance " + i + " : " + this.Const.EL_Player.EL_Rank2Chance.EL_getChance(i));
-			// }
-			// this.logInfo("rank : " + this.m.EL_RankLevel);
-			// this.logInfo("rank_1_chance : " + rank_1_chance);
-			// this.logInfo("rank_2_chance : " + rank_2_chance);
-			//this.logInfo("HiringCost : " + this.m.HiringCost);
-
-
 			this.Const.EL_Player.EL_PerkTree.EL_AddRandomPerkTreeToPlayer(this, this.Const.EL_Player.EL_Talent.RankBonus[this.m.EL_RankLevel]);
-			this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(this.m.Level, background);
+			this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(this.m.Level, this.m.Background);
 		};
 
 		o.getTryoutCost = function ()
