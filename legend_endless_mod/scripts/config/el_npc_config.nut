@@ -108,8 +108,8 @@ gt.Const.EL_NPC <- {
         }
 
         Resourse = {
-            MinMult = 70,
-            MaxMult = 130,
+            MinMult = 50,
+            MaxMult = 150,
         },
 
         BossUnit = [
