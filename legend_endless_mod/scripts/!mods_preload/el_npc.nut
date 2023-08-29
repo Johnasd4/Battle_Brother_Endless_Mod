@@ -465,6 +465,10 @@ local gt = getroottable();
 			this.m.EL_NPCLevel = _in.readI32();
 		}
 
+        o.getXPValue <- function() {
+            return this.m.XP;
+        }
+
         o.EL_getNPCLevel <- function() {
             return this.m.EL_NPCLevel;
         }

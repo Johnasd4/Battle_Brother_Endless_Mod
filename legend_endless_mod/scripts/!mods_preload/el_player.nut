@@ -32,6 +32,47 @@ local gt = getroottable();
 			return food;
 		};
 
+		o.onActorKilled = function( _actor, _tile, _skill ) {
+			this.actor.onActorKilled(_actor, _tile, _skill);
+			local XPkiller = this.Math.floor(_actor.getXP() * this.Const.XP.XPForKillerPct);
+			local XPgroup = _actor.getXP() * (1.0 - this.Const.XP.XPForKillerPct);
+			this.addXP(XPkiller);
+			local brothers = this.Tactical.Entities.getInstancesOfFaction(this.Const.Faction.Player);
+
+			if (brothers.len() == 1)
+			{
+				if (this.getSkills().hasSkill("trait.oath_of_distinction"))
+				{
+					return;
+				}
+
+				this.addXP(XPgroup);
+			}
+			else
+			{
+				foreach( bro in brothers )
+				{
+					if (bro.getCurrentProperties().IsAllyXPBlocked)
+					{
+						return;
+					}
+
+					bro.addXP(this.Math.max(1, this.Math.floor(XPgroup / brothers.len())));
+				}
+			}
+
+			local roster = this.World.getPlayerRoster().getAll();
+
+			foreach( bro in roster )
+			{
+				if (bro.isInReserves() && bro.getSkills().hasSkill("perk.legend_peaceful"))
+				{
+					bro.addXP(this.Math.max(1, this.Math.floor(XPgroup / brothers.len())));
+				}
+			}
+		}
+
+
 		o.updateLevel = function ()
 		{
 			while (this.m.Level < (this.Const.LevelXP.len() - 1) && this.m.XP >= this.Const.LevelXP[this.m.Level])
