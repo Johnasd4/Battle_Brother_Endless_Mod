@@ -104,34 +104,76 @@ local gt = getroottable();
 				}
 			}
 			local base_properties = this.getBaseProperties();
+			local level_up_time = this.m.LevelUps >= this.Const.EL_Player.EL_LevelUpsPurTime ? this.Const.EL_Player.EL_LevelUpsPurTime : 1;
+
 			local ret = {
 				hitpoints = base_properties.Hitpoints,
 				hitpointsMax = this.Const.EL_Player.EL_PlayerAddAttributesBoard.HitpointsMax,
-				hitpointsIncrease = this.m.Attributes[this.Const.Attributes.Hitpoints][0],
+				hitpointsIncrease = this.m.Attributes[this.Const.Attributes.Hitpoints][0] * level_up_time,
 				bravery = base_properties.Bravery,
 				braveryMax = this.Const.EL_Player.EL_PlayerAddAttributesBoard.BraveryMax,
-				braveryIncrease = this.m.Attributes[this.Const.Attributes.Bravery][0],
+				braveryIncrease = this.m.Attributes[this.Const.Attributes.Bravery][0] * level_up_time,
 				fatigue = base_properties.Stamina,
 				fatigueMax = this.Const.EL_Player.EL_PlayerAddAttributesBoard.FatigueMax,
-				fatigueIncrease = this.m.Attributes[this.Const.Attributes.Fatigue][0],
+				fatigueIncrease = this.m.Attributes[this.Const.Attributes.Fatigue][0] * level_up_time,
 				initiative = base_properties.Initiative,
 				initiativeMax = this.Const.EL_Player.EL_PlayerAddAttributesBoard.InitiativeMax,
-				initiativeIncrease = this.m.Attributes[this.Const.Attributes.Initiative][0],
+				initiativeIncrease = this.m.Attributes[this.Const.Attributes.Initiative][0] * level_up_time,
 				meleeSkill = base_properties.MeleeSkill,
 				meleeSkillMax = this.Const.EL_Player.EL_PlayerAddAttributesBoard.MeleeSkillMax,
-				meleeSkillIncrease = this.m.Attributes[this.Const.Attributes.MeleeSkill][0],
+				meleeSkillIncrease = this.m.Attributes[this.Const.Attributes.MeleeSkill][0] * level_up_time,
 				rangeSkill = base_properties.RangedSkill,
 				rangeSkillMax = this.Const.EL_Player.EL_PlayerAddAttributesBoard.RangeSkillMax,
-				rangeSkillIncrease = this.m.Attributes[this.Const.Attributes.RangedSkill][0],
+				rangeSkillIncrease = this.m.Attributes[this.Const.Attributes.RangedSkill][0] * level_up_time,
 				meleeDefense = base_properties.MeleeDefense,
 				meleeDefenseMax = this.Const.EL_Player.EL_PlayerAddAttributesBoard.MeleeDefenseMax,
-				meleeDefenseIncrease = this.m.Attributes[this.Const.Attributes.MeleeDefense][0],
+				meleeDefenseIncrease = this.m.Attributes[this.Const.Attributes.MeleeDefense][0] * level_up_time,
 				rangeDefense = base_properties.RangedDefense,
 				rangeDefenseMax = this.Const.EL_Player.EL_PlayerAddAttributesBoard.RangeDefenseMax,
-				rangeDefenseIncrease = this.m.Attributes[this.Const.Attributes.RangedDefense][0]
+				rangeDefenseIncrease = this.m.Attributes[this.Const.Attributes.RangedDefense][0] * level_up_time
 			};
 			return ret;
 		};
+
+
+		o.setAttributeLevelUpValues = function ( _v ) {
+			local b = this.getBaseProperties();
+			b.Hitpoints += _v.hitpointsIncrease;
+			this.m.Hitpoints += _v.hitpointsIncrease;
+			b.Stamina += _v.maxFatigueIncrease;
+			b.Bravery += _v.braveryIncrease;
+			b.MeleeSkill += _v.meleeSkillIncrease;
+			b.RangedSkill += _v.rangeSkillIncrease;
+			b.MeleeDefense += _v.meleeDefenseIncrease;
+			b.RangedDefense += _v.rangeDefenseIncrease;
+			b.Initiative += _v.initiativeIncrease;
+			if(this.m.LevelUps >= this.Const.EL_Player.EL_LevelUpsPurTime) {
+				this.m.LevelUps -= this.Const.EL_Player.EL_LevelUpsPurTime;
+			}
+			else {
+				this.m.LevelUps -= 1;
+			}
+			this.m.LevelUps = this.Math.max(0, this.m.LevelUps - 1);
+
+			for( local i = 0; i != this.Const.Attributes.COUNT; i = i )
+			{
+				this.m.Attributes[i].remove(0);
+				i = ++i;
+			}
+
+			this.getSkills().update();
+			this.setDirty(true);
+
+			if (b.MeleeSkill >= 90)
+			{
+				this.updateAchievement("Swordmaster", 1, 1);
+			}
+
+			if (b.RangedSkill >= 90)
+			{
+				this.updateAchievement("Deadeye", 1, 1);
+			}
+		}
 
 		o.addXP = function ( _xp, _scale = true )
 		{
@@ -350,6 +392,7 @@ local gt = getroottable();
 				return this.m.Level < this.Const.LevelXP.len() ? this.Const.LevelXP[this.m.Level] : this.Const.LevelXP[this.Const.LevelXP.len() - 1];
 			}
 		};
+
 
 	});
 
@@ -959,25 +1002,30 @@ local gt = getroottable();
 				bufferFatigue = bufferFatigue + "&nbsp;&nbsp;";
 				bufferBravery = bufferBravery + "&nbsp;&nbsp;";
 			}
-
+			local brother = this.getContainer().getActor();
 			local tooltip = [
 				{
 					id = 103,
 					type = "hint",
-					text = "Projection of this character\'s base attribute ranges calculated as if that attribute is improved on every level up from current level to " + this.Const.EL_Player.EL_PlayerLevel.Max + "."
+					text = "Combat Level : " + (this.Math.round(brother.EL_getCombatLevel() * 100) / 100)
 				},
 				{
 					id = 104,
 					type = "hint",
-					text = "[img]gfx/ui/icons/health_va11.png[/img] " + a.Hitpoints[0] + " to " + a.Hitpoints[1] + bufferHealth + "&nbsp;&nbsp;&nbsp;[img]gfx/ui/icons/melee_skill_va11.png[/img] " + a.MeleeSkill[0] + " to " + a.MeleeSkill[1]
+					text = "Projection of this character\'s base attribute ranges calculated as if that attribute is improved on every level up from current level to " + this.Const.EL_Player.EL_PlayerLevel.Max + "."
 				},
 				{
 					id = 105,
 					type = "hint",
-					text = "[img]gfx/ui/icons/fatigue_va11.png[/img] " + a.Fatigue[0] + " to " + a.Fatigue[1] + bufferFatigue + "&nbsp;&nbsp;&nbsp;[img]gfx/ui/icons/ranged_skill_va11.png[/img] " + a.RangedSkill[0] + " to " + a.RangedSkill[1]
+					text = "[img]gfx/ui/icons/health_va11.png[/img] " + a.Hitpoints[0] + " to " + a.Hitpoints[1] + bufferHealth + "&nbsp;&nbsp;&nbsp;[img]gfx/ui/icons/melee_skill_va11.png[/img] " + a.MeleeSkill[0] + " to " + a.MeleeSkill[1]
 				},
 				{
 					id = 106,
+					type = "hint",
+					text = "[img]gfx/ui/icons/fatigue_va11.png[/img] " + a.Fatigue[0] + " to " + a.Fatigue[1] + bufferFatigue + "&nbsp;&nbsp;&nbsp;[img]gfx/ui/icons/ranged_skill_va11.png[/img] " + a.RangedSkill[0] + " to " + a.RangedSkill[1]
+				},
+				{
+					id = 107,
 					type = "hint",
 					text = "[img]gfx/ui/icons/bravery_va11.png[/img] " + a.Bravery[0] + " to " + a.Bravery[1] + bufferBravery + "&nbsp;&nbsp;&nbsp;[img]gfx/ui/icons/melee_defense_va11.png[/img] " + a.MeleeDefense[0] + " to " + a.MeleeDefense[1]
 				},
@@ -1007,6 +1055,24 @@ local gt = getroottable();
 				_target.xpValueMax = this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevel.Max - 1] - this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevel.Max - 2];
 			}
 		}
+
+		local addStatsToUIData = o.addStatsToUIData;
+		o.addStatsToUIData = function( _entity, _target )
+		{
+			addStatsToUIData(_entity, _target);
+			_target.initiativeMax <- this.Const.EL_Player.EL_PlayerStatesBoard.InitiativeMax;
+			_target.braveryMax <- this.Const.EL_Player.EL_PlayerStatesBoard.BraveryMax;
+			_target.meleeSkillMax <- this.Const.EL_Player.EL_PlayerStatesBoard.MeleeSkillMax;
+			_target.rangeSkillMax <- this.Const.EL_Player.EL_PlayerStatesBoard.RangeSkillMax;
+			_target.meleeDefenseMax <- this.Const.EL_Player.EL_PlayerStatesBoard.MeleeDefenseMax;
+			_target.rangeDefenseMax <- this.Const.EL_Player.EL_PlayerStatesBoard.RangeDefenseMax;
+			_target.regularDamage <- this.Math.ceil((damageMin + damageMax) / 2);
+			_target.regularDamageMax <- this.Const.EL_Player.EL_PlayerStatesBoard.RegularDamageMax;
+			_target.crushingDamageMax <- this.Const.EL_Player.EL_PlayerStatesBoard.CrushingDamageMax;
+			_target.chanceToHitHeadMax <- this.Const.EL_Player.EL_PlayerStatesBoard.ChanceToHitHeadMax;
+	 		_target.sightDistanceMax <- this.Const.EL_Player.EL_PlayerStatesBoard.SightDistanceMax;
+		}
+
 	});
 
 

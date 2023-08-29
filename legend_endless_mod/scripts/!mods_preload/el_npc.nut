@@ -500,7 +500,6 @@ local gt = getroottable();
             this.m.XP *= this.Math.pow(this.Const.EL_NPC.EL_LevelUp.XPFactor, level_ups);
         }
 
-
 	});
 
 
