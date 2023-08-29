@@ -1046,22 +1046,22 @@ local gt = getroottable();
 				{
 					id = 105,
 					type = "hint",
-					text = "[img]gfx/ui/icons/health_va11.png[/img] " + a.Hitpoints[0] + " to " + a.Hitpoints[1] + bufferHealth + "&nbsp;&nbsp;&nbsp;[img]gfx/ui/icons/melee_skill_va11.png[/img] " + a.MeleeSkill[0] + " to " + a.MeleeSkill[1]
+					text = "[img]gfx/ui/icons/health_va11.png[/img] " + a.Hitpoints[0] + " ~ " + a.Hitpoints[1] + bufferHealth + "&nbsp;&nbsp;[img]gfx/ui/icons/melee_skill_va11.png[/img] " + a.MeleeSkill[0] + " ~ " + a.MeleeSkill[1]
 				},
 				{
 					id = 106,
 					type = "hint",
-					text = "[img]gfx/ui/icons/fatigue_va11.png[/img] " + a.Fatigue[0] + " to " + a.Fatigue[1] + bufferFatigue + "&nbsp;&nbsp;&nbsp;[img]gfx/ui/icons/ranged_skill_va11.png[/img] " + a.RangedSkill[0] + " to " + a.RangedSkill[1]
+					text = "[img]gfx/ui/icons/fatigue_va11.png[/img] " + a.Fatigue[0] + " ~ " + a.Fatigue[1] + bufferFatigue + "&nbsp;&nbsp;[img]gfx/ui/icons/ranged_skill_va11.png[/img] " + a.RangedSkill[0] + " ~ " + a.RangedSkill[1]
 				},
 				{
 					id = 107,
 					type = "hint",
-					text = "[img]gfx/ui/icons/bravery_va11.png[/img] " + a.Bravery[0] + " to " + a.Bravery[1] + bufferBravery + "&nbsp;&nbsp;&nbsp;[img]gfx/ui/icons/melee_defense_va11.png[/img] " + a.MeleeDefense[0] + " to " + a.MeleeDefense[1]
+					text = "[img]gfx/ui/icons/bravery_va11.png[/img] " + a.Bravery[0] + " ~ " + a.Bravery[1] + bufferBravery + "&nbsp;&nbsp;[img]gfx/ui/icons/melee_defense_va11.png[/img] " + a.MeleeDefense[0] + " ~ " + a.MeleeDefense[1]
 				},
 				{
 					id = 107,
 					type = "hint",
-					text = "[img]gfx/ui/icons/initiative_va11.png[/img] " + a.Initiative[0] + " to " + a.Initiative[1] + bufferInitiative + "&nbsp;&nbsp;&nbsp;[img]gfx/ui/icons/ranged_defense_va11.png[/img] " + a.RangedDefense[0] + " to " + a.RangedDefense[1]
+					text = "[img]gfx/ui/icons/initiative_va11.png[/img] " + a.Initiative[0] + " ~ " + a.Initiative[1] + bufferInitiative + "&nbsp;&nbsp;[img]gfx/ui/icons/ranged_defense_va11.png[/img] " + a.RangedDefense[0] + " ~ " + a.RangedDefense[1]
 				}
 			];
 			return tooltip;
@@ -1089,13 +1089,14 @@ local gt = getroottable();
 		o.addStatsToUIData = function( _entity, _target )
 		{
 			addStatsToUIData(_entity, _target);
+			local properties = _entity.getCurrentProperties();
 			_target.initiativeMax <- this.Const.EL_Player.EL_PlayerStatesBoard.InitiativeMax;
 			_target.braveryMax <- this.Const.EL_Player.EL_PlayerStatesBoard.BraveryMax;
 			_target.meleeSkillMax <- this.Const.EL_Player.EL_PlayerStatesBoard.MeleeSkillMax;
 			_target.rangeSkillMax <- this.Const.EL_Player.EL_PlayerStatesBoard.RangeSkillMax;
 			_target.meleeDefenseMax <- this.Const.EL_Player.EL_PlayerStatesBoard.MeleeDefenseMax;
 			_target.rangeDefenseMax <- this.Const.EL_Player.EL_PlayerStatesBoard.RangeDefenseMax;
-			_target.regularDamage <- this.Math.ceil((damageMin + damageMax) / 2);
+			_target.regularDamage <- properties.getRegularDamageAverage();
 			_target.regularDamageMax <- this.Const.EL_Player.EL_PlayerStatesBoard.RegularDamageMax;
 			_target.crushingDamageMax <- this.Const.EL_Player.EL_PlayerStatesBoard.CrushingDamageMax;
 			_target.chanceToHitHeadMax <- this.Const.EL_Player.EL_PlayerStatesBoard.ChanceToHitHeadMax;

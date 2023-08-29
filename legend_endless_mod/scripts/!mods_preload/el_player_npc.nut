@@ -64,6 +64,11 @@ local gt = getroottable();
 			return this.Const.EL_PlayerNPC.EL_XPValue.Offset + this.EL_getCombatLevel() * this.Const.EL_PlayerNPC.EL_XPValue.Mult;
 		}
 
+
+        o.getXP = function() {
+            return this.m.XP;
+        }
+
 		local checkMorale = o.checkMorale;
 		o.checkMorale = function(_change, _difficulty, _type = this.Const.MoraleCheckType.Default, _showIconBeforeMoraleIcon = "", _noNewLine = false)
 		{

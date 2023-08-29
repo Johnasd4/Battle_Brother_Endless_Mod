@@ -86,7 +86,7 @@ gt.Const.EL_NPC <- {
         ExtraCombatLevel = {
             BossLevel = 10,
             CrticalPoint = 10,
-            DivPart1 = 0,
+            DivPart1 = 1,
             DivPart2 = 10
         },
 
@@ -187,6 +187,11 @@ gt.Const.EL_NPC <- {
             "Ironheart", "Seraphim", "Vortex", "Warthog", "Frostnova", "Silverclaw", "Spectral", "Blackfang", "Razorhawk",
             "Havocrider", "Shadowfire", "Thunderstorm", "Warhawk", "Frostbite", "Sentinel"
         ],
+        NamePrefix = [
+            "",
+            "*",
+            "***"
+        ],
         NameSuffix = [
             "",
             "*",
@@ -220,10 +225,10 @@ gt.Const.EL_NPC <- {
                 ret.EL_IsWeakUnit = true;
             }
             if(_EL_troop.Strength < this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.CrticalPoint) {
-                ret.EL_ExtraCombatLevel = this.Math.sqrt((this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.CrticalPoint - _EL_troop.Strength) / this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.DivPart1);
+                ret.EL_ExtraCombatLevel = this.Math.pow((this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.CrticalPoint - _EL_troop.Strength) / this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.DivPart1, 0.5);
             }
             else {
-                ret.EL_ExtraCombatLevel = this.Math.sqrt((_EL_troop.Strength - this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.CrticalPoint) / this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.DivPart2);
+                ret.EL_ExtraCombatLevel = this.Math.pow((_EL_troop.Strength - this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.CrticalPoint) / this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.DivPart2, 0.5);
             }
             return ret;
         }
@@ -336,7 +341,7 @@ gt.Const.EL_NPC <- {
             }
             Table = []
             function EL_getChance(_EL_Index) {
-                return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_NPC.EL_NormalTeam.EliteTeamChance);
+                return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_NPC.EL_EliteTeam.EliteTeamChance);
             }
         },
         RandomLeaderChance = {
@@ -361,7 +366,7 @@ gt.Const.EL_NPC <- {
             }
             Table = []
             function EL_getChance(_EL_Index) {
-                return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_NPC.EL_NormalTeam.RandomLeaderChance);
+                return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_NPC.EL_EliteTeam.RandomLeaderChance);
             }
         }
         StrongestLeaderChance = {
@@ -386,7 +391,7 @@ gt.Const.EL_NPC <- {
             }
             Table = []
             function EL_getChance(_EL_Index) {
-                return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_NPC.EL_NormalTeam.StrongestLeaderChance);
+                return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_NPC.EL_EliteTeam.StrongestLeaderChance);
             }
         }
     }
