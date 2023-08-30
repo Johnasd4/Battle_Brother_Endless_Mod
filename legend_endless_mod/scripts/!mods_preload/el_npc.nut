@@ -12,9 +12,9 @@ local gt = getroottable();
             local level = actor.EL_getNPCLevel();
             local rank = actor.EL_getRankLevel();
 
-            this.m.Name = this.Const.Const.EL_NPC.EL_Champion.Name[rank];
-            this.m.Icon = this.Const.Const.EL_NPC.EL_Champion.Icon[rank];
-            this.m.IconMini = this.Const.Const.EL_NPC.EL_Champion.IconMini[rank];
+            this.m.Name = this.Const.EL_NPC.EL_Champion.Name[rank];
+            this.m.Icon = this.Const.EL_NPC.EL_Champion.Icon[rank];
+            this.m.IconMini = this.Const.EL_NPC.EL_Champion.IconMini[rank];
 
             _properties.HitpointsMult *= this.Const.EL_NPC.EL_Champion.Attributes.HitpointsMult[rank];
             _properties.Bravery += this.Const.EL_NPC.EL_Champion.Attributes.Bravery[rank];
