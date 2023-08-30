@@ -31,7 +31,6 @@ local gt = getroottable();
 			{
 				return;
 			}
-			this.logInfo("this.m.Fatigue 1: " + this.m.Fatigue);
 			this.m.Fatigue -= this.Math.floor(this.m.CurrentProperties.Stamina / this.Const.EL_PlayerNPC.EL_ExtraFatigueRecovery.DivFactor + this.Const.EL_PlayerNPC.EL_ExtraFatigueRecovery.Offset);
 			if(this.m.Fatigue < 0) {
 				this.m.Fatigue = 0;
@@ -39,7 +38,6 @@ local gt = getroottable();
 			if(this.m.Fatigue > this.getFatigueMax()) {
 				this.m.Fatigue = this.getFatigueMax();
 			}
-			this.logInfo("this.m.Fatigue 2: " + this.m.Fatigue);
 			return;
 		}
 
@@ -65,7 +63,7 @@ local gt = getroottable();
 		}
 
 
-        o.getXP = function() {
+        o.getXP <- function() {
             return this.m.XP;
         }
 
@@ -84,6 +82,34 @@ local gt = getroottable();
 			}
 			return checkMorale(_change, _difficulty, _type, _showIconBeforeMoraleIcon, _noNewLine);
 		}
+
+		o.getDefense = function( _attackingEntity, _skill, _properties )
+		{
+			local malus = 0;
+			local d = 0;
+
+			if (!this.m.CurrentProperties.IsImmuneToSurrounding)
+			{
+				malus = _attackingEntity != null ? this.Math.max(0, _attackingEntity.getCurrentProperties().SurroundedBonus * _attackingEntity.getCurrentProperties().SurroundedBonusMult - this.getCurrentProperties().SurroundedDefense) * this.getSurroundedCount() : this.Math.max(0, 5 - this.getCurrentProperties().SurroundedDefense) * this.getSurroundedCount();
+			}
+
+			if (_skill.isRanged())
+			{
+				d = _properties.getRangedDefense();
+			}
+			else
+			{
+				d = _properties.getMeleeDefense();
+			}
+
+			if (!_skill.isRanged())
+			{
+				d = d - malus;
+			}
+
+			return d;
+		}
+
 
 	});
 

@@ -75,7 +75,7 @@ local gt = getroottable();
 
 		o.updateLevel = function ()
 		{
-			while (this.m.Level < (this.Const.LevelXP.len() - 1) && this.m.XP >= this.Const.LevelXP[this.m.Level])
+			while (this.m.Level < this.Const.LevelXP.len() && this.m.XP >= this.Const.LevelXP[this.m.Level])
 			{
 				if(this.m.Level < this.Const.EL_Player.EL_PlayerLevel.Part1){
 					++this.m.PerkPoints;
@@ -133,12 +133,13 @@ local gt = getroottable();
 
 		o.getAttributeLevelUpValues = function ()
 		{
-			if (this.m.Attributes.len() == 0)
+			if (this.m.Attributes[0].len() == 0)
 			{
-				for( local i = 0; i != this.Const.Attributes.COUNT; ++i )
+				for( local i = 0; i < this.Const.Attributes.COUNT; ++i )
 				{
 					this.m.Attributes[i].insert(0, this.Math.rand(this.Const.EL_Player.EL_LevelUpAttributes[i].Min[this.m.Talents[i]],
 																  this.Const.EL_Player.EL_LevelUpAttributes[i].Max[this.m.Talents[i]]));
+
 					// this.logInfo("1 this.m.Attributes[" + i + "][0] = " + this.m.Attributes[i][0]);
 					// this.logInfo("1 this.m.Attributes[" + i + "][0] min = " + this.Const.EL_Player.EL_LevelUpAttributes[i].Min[this.m.Talents[i]]);
 					// this.logInfo("1 this.m.Attributes[" + i + "][0] max = " + this.Const.EL_Player.EL_LevelUpAttributes[i].Max[this.m.Talents[i]]);
@@ -194,7 +195,6 @@ local gt = getroottable();
 			else {
 				this.m.LevelUps -= 1;
 			}
-			this.m.LevelUps = this.Math.max(0, this.m.LevelUps - 1);
 
 			for( local i = 0; i != this.Const.Attributes.COUNT; i = i )
 			{
@@ -257,7 +257,7 @@ local gt = getroottable();
 				}
 				_xp *= mult_factor;
 			}
-
+			_xp = this.Math.ceil(_xp);
 			// xp multiplying end
 			if (this.m.XP + _xp * this.m.CurrentProperties.XPGainMult >= this.Const.LevelXP[this.Const.LevelXP.len() - 1])
 			{

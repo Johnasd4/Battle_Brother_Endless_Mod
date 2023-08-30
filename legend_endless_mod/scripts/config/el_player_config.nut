@@ -35,8 +35,8 @@ gt.Const.EL_Player <- {
         BraveryMax = 200,
         MeleeSkillMax = 500,
         RangeSkillMax = 500,
-        MeleeDefenseMax = 950,
-        RangeDefenseMax = 950,
+        MeleeDefenseMax = 500,
+        RangeDefenseMax = 500,
         RegularDamageMax = 500,
         CrushingDamageMax = 300,
         ChanceToHitHeadMax = 150,
@@ -50,8 +50,8 @@ gt.Const.EL_Player <- {
         InitiativeMax = 720,
         MeleeSkillMax = 500,
         RangeSkillMax = 500,
-        MeleeDefenseMax = 950,
-        RangeDefenseMax = 950
+        MeleeDefenseMax = 500,
+        RangeDefenseMax = 500
     },
 
     EL_Hiring = {

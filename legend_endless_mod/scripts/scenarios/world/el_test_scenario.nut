@@ -35,7 +35,6 @@ this.el_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario
 		bros[0].setPlaceInFormation(4);
 		bros[0].getFlags().set("IsPlayerCharacter", true);
 //		bros[0].getSprite("miniboss").setBrush("bust_miniboss_lone_wolf");
-		bros[0].m.LevelUps = 0;
 //		bros[0].setVeteranPerks(2);
 		bros[0].m.BaseProperties.ActionPoints = 1000;
 		bros[0].m.BaseProperties.Hitpoints = 1000;

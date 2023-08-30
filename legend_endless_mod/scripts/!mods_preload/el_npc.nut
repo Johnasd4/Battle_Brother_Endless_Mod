@@ -6,30 +6,24 @@ local gt = getroottable();
 
 	::mods_hookExactClass("skills/racial/champion_racial", function ( o )
 	{
-
 		o.onUpdate = function ( _properties )
 		{
             local actor = this.getContainer().getActor();
             local level = actor.EL_getNPCLevel();
             local rank = actor.EL_getRankLevel();
 
-            _properties.Hitpoints += this.Const.EL_NPC.EL_Champion.Attributes.LevelToOffsetMult[this.Const.EL_Config.EL_Attributes.Hitpoints][rank] * level;
-            _properties.Bravery += this.Const.EL_NPC.EL_Champion.Attributes.LevelToOffsetMult[this.Const.EL_Config.EL_Attributes.Bravery][rank] * level;
-            _properties.Stamina += this.Const.EL_NPC.EL_Champion.Attributes.LevelToOffsetMult[this.Const.EL_Config.EL_Attributes.Fatigue][rank] * level;
-            _properties.Initiative += this.Const.EL_NPC.EL_Champion.Attributes.LevelToOffsetMult[this.Const.EL_Config.EL_Attributes.Initiative][rank] * level;
-            _properties.MeleeSkill += this.Const.EL_NPC.EL_Champion.Attributes.LevelToOffsetMult[this.Const.EL_Config.EL_Attributes.MeleeSkill][rank] * level;
-            _properties.RangedSkill += this.Const.EL_NPC.EL_Champion.Attributes.LevelToOffsetMult[this.Const.EL_Config.EL_Attributes.RangedSkill][rank] * level;
-            _properties.MeleeDefense += this.Const.EL_NPC.EL_Champion.Attributes.LevelToOffsetMult[this.Const.EL_Config.EL_Attributes.MeleeDefense][rank] * level;
-            _properties.RangedDefense += this.Const.EL_NPC.EL_Champion.Attributes.LevelToOffsetMult[this.Const.EL_Config.EL_Attributes.RangedDefense][rank] * level;
+            this.m.Name = this.Const.Const.EL_NPC.EL_Champion.Name[rank];
+            this.m.Icon = this.Const.Const.EL_NPC.EL_Champion.Icon[rank];
+            this.m.IconMini = this.Const.Const.EL_NPC.EL_Champion.IconMini[rank];
 
-            _properties.HitpointsMult *= this.Const.EL_NPC.EL_Champion.Attributes.Mult[this.Const.EL_Config.EL_Attributes.Hitpoints][rank];
-            _properties.BraveryMult *= this.Const.EL_NPC.EL_Champion.Attributes.Mult[this.Const.EL_Config.EL_Attributes.Bravery][rank];
-            _properties.StaminaMult *= this.Const.EL_NPC.EL_Champion.Attributes.Mult[this.Const.EL_Config.EL_Attributes.Fatigue][rank];
-            _properties.InitiativeMult *= this.Const.EL_NPC.EL_Champion.Attributes.Mult[this.Const.EL_Config.EL_Attributes.Initiative][rank];
-            _properties.MeleeSkillMult *= this.Const.EL_NPC.EL_Champion.Attributes.Mult[this.Const.EL_Config.EL_Attributes.MeleeSkill][rank];
-            _properties.RangedSkillMult *= this.Const.EL_NPC.EL_Champion.Attributes.Mult[this.Const.EL_Config.EL_Attributes.RangedSkill][rank];
-            _properties.MeleeDefenseMult *= this.Const.EL_NPC.EL_Champion.Attributes.Mult[this.Const.EL_Config.EL_Attributes.MeleeDefense][rank];
-            _properties.RangedDefenseMult *= this.Const.EL_NPC.EL_Champion.Attributes.Mult[this.Const.EL_Config.EL_Attributes.RangedDefense][rank];
+            _properties.HitpointsMult *= this.Const.EL_NPC.EL_Champion.Attributes.HitpointsMult[rank];
+            _properties.Bravery += this.Const.EL_NPC.EL_Champion.Attributes.Bravery[rank];
+            _properties.Stamina += this.Const.EL_NPC.EL_Champion.Attributes.Fatigue[rank];
+            _properties.Initiative += this.Const.EL_NPC.EL_Champion.Attributes.Initiative[rank];
+            _properties.MeleeSkill += this.Const.EL_NPC.EL_Champion.Attributes.MeleeSkill[rank];
+            _properties.RangedSkill += this.Const.EL_NPC.EL_Champion.Attributes.RangedSkill[rank];
+            _properties.MeleeDefense += this.Const.EL_NPC.EL_Champion.Attributes.MeleeDefense[rank];
+            _properties.RangedDefense += this.Const.EL_NPC.EL_Champion.Attributes.RangedDefense[rank];
 
             _properties.DamageDirectMult *= this.Const.EL_NPC.EL_Champion.DirectDamageMult[rank];
 
@@ -75,8 +69,8 @@ local gt = getroottable();
             {
                 _e.getSkills().add(this.new("scripts/skills/special/night_effect"));
             }
-
             if(_t.EL_UnitInfo == null) {
+                _e.EL_setRankLevel(_t.EL_RankLevel);
                 _e.EL_setRankLevel(_t.EL_RankLevel);
                 _e.EL_setCombatLevel(_t.EL_CombatLevel);
                 _e.EL_generateNPCAttributesByLevel(_t.EL_Level);

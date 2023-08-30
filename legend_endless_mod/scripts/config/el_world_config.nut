@@ -8,7 +8,7 @@ if (!("EL_World" in gt.Const))
 gt.Const.EL_World <- {
 
     EL_WorldLevel = {
-        Min = 0,
+        Min = 100,
         BaseStableLevel = 100,
         BaseStableMult = 27,
         LevelUpBaseDay = 7,
@@ -18,24 +18,30 @@ gt.Const.EL_World <- {
     },
 
     EL_WorldStrength = {
-        Min = 40,
+        Min = 2000,
         Factor = {
             Mult = [
                 10,
-                6,
-                4,
-                3
+                7,
+                5,
+                3,
+                2,
+                1
             ],
             Offset = [
                 0,
-                40,
-                110,
-                210
+                180,
+                275,
+                375,
+                575,
+                975
             ],
             Range = [
-                15,
+                25,
                 50,
-                100
+                100,
+                200,
+                400
             ]
         },
         Table = []
@@ -77,22 +83,22 @@ gt.Const.EL_World <- {
             3,
         ],
         WorldLevelOffset = [
-            -3,
-            -2,
-            -2,
+            -1,
             -1,
             -1,
             0,
             0,
+            0,
+            0,  //1
+            0,
+            0,
+            0,
+            1,
             1,
             1,
             2,
             2,
-            3,
-            3,
-            4,
-            4,
-            5
+            2
         ]
     }
 

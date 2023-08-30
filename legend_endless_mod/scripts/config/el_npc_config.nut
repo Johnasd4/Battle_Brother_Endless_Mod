@@ -36,27 +36,31 @@ gt.Const.EL_NPC <- {
             1.5
         ],
         Attributes = {
-            LevelToOffsetMult = [
-                [0, 2, 3],
-                [0, 0.4, 0.6],
-                [0, 2, 3],
-                [0, 1, 1.5],
-                [0, 0.5, 0.75],
-                [0, 0.5, 0.75],
-                [0, 1, 1.5],
-                [0, 1, 1.5]
-            ],
-            Mult = [
-                [0, 1,5, 2.25],
-                [0, 1,3, 1.7],
-                [0, 1,5, 2.25],
-                [0, 1,15, 1.3],
-                [0, 1,15, 1.3],
-                [0, 1,15, 1.3],
-                [0, 1,2, 1.4],
-                [0, 1,2, 1.4]
-            ]
+            HitpointsMult = [1, 1.4, 2],
+            Bravery = [0, 40, 100],
+            Fatigue = [0, 100, 250],
+            Initiative = [0, 40, 100],
+            MeleeSkill = [0, 40, 100],
+            RangedSkill = [0, 40, 100],
+            MeleeDefense = [0, 40, 100],
+            RangedDefense = [0, 40, 100],
         },
+
+        Name = [
+            "Normal",
+            "Elite",
+            "Leader"
+        ],
+        Icon = [
+            "el_skills/champion_rank_0.png",
+            "el_skills/champion_rank_1.png",
+            "el_skills/champion_rank_2.png"
+        ],
+        IconMini = [
+            "champion_rank_0_mini",
+            "champion_rank_1_mini",
+            "champion_rank_2_mini"
+        ]
     },
 
     EL_LevelUp = {
@@ -67,9 +71,9 @@ gt.Const.EL_NPC <- {
             Fatigue = 4,
             Initiative = 2,
             MeleeSkill = 1.5,
-            RangedSkill = 2.5,
-            MeleeDefense = 2,
-            RangedDefense = 2.5,
+            RangedSkill = 2,
+            MeleeDefense = 1.5,
+            RangedDefense = 1.5,
         },
         XPFactor = 1.085
     },
@@ -103,8 +107,8 @@ gt.Const.EL_NPC <- {
         ],
 
         TotalResourse = {
-            Factor1 = 100,
-            Factor2 = 3
+            Factor1 = 60,
+            Factor2 = 5
         }
 
         Resourse = {
@@ -117,7 +121,8 @@ gt.Const.EL_NPC <- {
             this.Const.EntityType.Kraken,
             this.Const.EntityType.KrakenTentacle,
             this.Const.EntityType.SkeletonLich,
-            this.Const.EntityType.SkeletonLichMirrorImage
+            this.Const.EntityType.SkeletonLichMirrorImage,
+            this.Const.EntityType.FlyingSkull,
         ],
 
         EliteUnit = [
@@ -140,12 +145,11 @@ gt.Const.EL_NPC <- {
             this.Const.EntityType.OrcWarlord,
             this.Const.EntityType.GoblinLeader,
             this.Const.EntityType.NomadLeader,
-            this.Const.EntityType.FlyingSkull,
             this.Const.EntityType.SkeletonPhylactery,
             this.Const.EntityType.SkeletonBoss,
             this.Const.EntityType.ZombieBoss,
             this.Const.EntityType.LegendVampireLord,
-            this.Const.EntityType.LegendMummyQueen
+            this.Const.EntityType.LegendMummyQueen,
         ],
 
         WeakUnit = [
@@ -207,14 +211,14 @@ gt.Const.EL_NPC <- {
                 EL_IsEliteUnit = false,
                 EL_IsWeakUnit = false
             };
-            if(_EL_troop.Strength <= 20) {
+            if(_EL_troop.Strength <= this.Const.EL_NPC.EL_Troop.StrengthPurPopulation) {
                 ret.EL_BasePopulation = 1;
             }
             else {
-                ret.EL_BasePopulation = this.Math.ceil((_EL_troop.Strength - 1) / this.Const.EL_NPC.EL_Troop.StrengthPurPopulation);
+                ret.EL_BasePopulation = this.Math.ceil(_EL_troop.Strength / this.Const.EL_NPC.EL_Troop.StrengthPurPopulation);
             }
             if(this.Const.EL_NPC.EL_Troop.BossUnit.find(_EL_troop.ID)) {
-                ret.EL_IsBoss = true;
+                ret.EL_IsBossUnit = true;
                 ret.EL_ExtraCombatLevel = this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.BossLevel;
                 return ret;
             }

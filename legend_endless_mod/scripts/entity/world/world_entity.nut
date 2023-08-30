@@ -24,6 +24,7 @@ this.world_entity <- {
 		IsShowingName = true,
 		Resources = 0,
 
+		EL_TempTroops = [],
         EL_FinishGenerate = false,
 		EL_IsBossTroop = false,
         EL_IsEliteTeam = false,
@@ -70,14 +71,14 @@ this.world_entity <- {
 	//OVERRIDE
 	function getTroops()
 	{
-		this.EL_updateTroop();
+		this.m.EL_FinishGenerate = true;
 		return this.m.Troops;
 	}
 
 	//OVERRIDE
 	function getStrength()
 	{
-		this.EL_updateTroop();
+		this.m.EL_FinishGenerate = true;
 		return this.m.Strength;
 	}
 
@@ -87,6 +88,7 @@ this.world_entity <- {
 		this.m.Troops = [];
 		this.updateStrength();
 
+		this.m.EL_TempTroops = [];
 		this.m.EL_FinishGenerate = false;
 	}
 
@@ -300,8 +302,7 @@ this.world_entity <- {
 	//OVERRIDE
 	function getTooltip()
 	{
-		this.EL_updateTroop();
-
+		this.m.EL_FinishGenerate = true;
 		return [
 			{
 				id = 1,
@@ -958,28 +959,74 @@ this.world_entity <- {
 
 
 	function EL_addTroop( _EL_troop ) {
-		if(this.m.EL_IsPlayer == true) {
+		if(this.m.EL_IsPlayer) {
 			return;
 		}
-		for(local i = 0; i < this.m.Troops.len(); ++i) {
-			if(_EL_troop.Strength > this.m.Troops[i].Strength) {
-				this.m.Troops.insert(i, _EL_troop);
-				return;
-			}
+		if(_EL_troop.Strength == 0) {
+			_EL_troop.Strength = this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.CrticalPoint;
 		}
-		this.m.Troops.push(_EL_troop);
-		return;
-	}
-
-
-	function EL_updateTroop() {
-		if(this.m.EL_FinishGenerate == false && !this.m.EL_IsPlayer) {
-			this.m.EL_FinishGenerate = true;
-			//Calculate current troop info.
-			local troops_info = [];
-			for(local i = 0; i < this.m.Troops.len(); ++i) {
-				troops_info.push(this.Const.EL_NPC.EL_Troop.EL_getTroopInfo(this.m.Troops[i]));
+		if(this.m.EL_FinishGenerate) {
+			local troop_info = this.Const.EL_NPC.EL_Troop.EL_getTroopInfo(_EL_troop);
+			//Calculate ranks, level, combat level.
+			if(troop_info.EL_IsBossUnit) {
+				_EL_troop.EL_RankLevel = 2;
 			}
+			else if(troop_info.EL_IsEliteUnit) {
+				_EL_troop.EL_RankLevel = 1;
+			}
+			else if(troop_info.EL_IsWeakUnit) {
+				_EL_troop.EL_RankLevel = 0;
+			}
+			else {
+				if(this.m.EL_IsBossTroop || this.m.EL_IsEliteTeam) {
+					_EL_troop.EL_RankLevel = 1;
+				}
+				else {
+					local elite_chance = this.Const.EL_NPC.EL_NormalTeam.EliteChance.EL_getChance(this.World.Assets.m.EL_WorldLevel);
+					_EL_troop.EL_RankLevel = (this.Math.rand(1, 1000) >= elite_chance * 10) ? 0 : 1;
+				}
+			}
+			if(_EL_troop.EL_RankLevel == 0) {
+				_EL_troop.EL_Level = this.Math.rand(this.World.Assets.m.EL_WorldLevel + this.Const.EL_NPC.EL_Troop.MinLevelOffset, this.World.Assets.m.EL_WorldLevel + this.Const.EL_NPC.EL_Troop.MaxLevelOffset);
+			}
+			else {
+				_EL_troop.EL_Level = this.World.Assets.m.EL_WorldLevel + this.Const.EL_NPC.EL_Troop.MaxLevelOffset;
+			}
+			if(_EL_troop.EL_Level > this.Const.EL_NPC.EL_Troop.MaxLevel) {
+				_EL_troop.EL_Level = this.Const.EL_NPC.EL_Troop.MaxLevel;
+			}
+			else if(_EL_troop.EL_Level < this.Const.EL_NPC.EL_Troop.MinLevel) {
+				_EL_troop.EL_Level = this.Const.EL_NPC.EL_Troop.MinLevel;
+			}
+			//Build names
+			if(_EL_troop.EL_RankLevel != 0) {
+				_EL_troop.Name = this.Const.EL_NPC.EL_Troop.NamePrefix[_EL_troop.EL_RankLevel];
+				_EL_troop.Name += this.Const.EL_NPC.EL_Troop.Name[this.Math.rand(0, this.Const.EL_NPC.EL_Troop.Name.len() - 1)];
+				_EL_troop.Name += this.Const.EL_NPC.EL_Troop.NameSuffix[_EL_troop.EL_RankLevel];
+			}
+			this.m.Troops.push(_EL_troop);
+		}
+		else {
+			//Puts the troop in the temp troops.
+			local i = 0;
+			for(; i < this.m.Troops.len(); ++i) {
+				if(_EL_troop.Strength > this.m.Troops[i].Strength) {
+					this.m.EL_TempTroops.insert(i, _EL_troop);
+					break;
+				}
+			}
+			if(i == this.m.Troops.len()) {
+				this.m.EL_TempTroops.push(_EL_troop);
+			}
+
+			//Calculate current troop info.
+			this.m.Troops = [];
+			local troops_info = [];
+			for(local i = 0; i < this.m.EL_TempTroops.len(); ++i) {
+				troops_info.push(this.Const.EL_NPC.EL_Troop.EL_getTroopInfo(this.m.EL_TempTroops[i]));
+				this.m.Troops.push(clone this.m.EL_TempTroops[i]);
+			}
+
 			//Calculate ranks, level, combat level.
 			if(this.m.EL_IsBossTroop) {
 				local leader_id = 0;
@@ -1003,6 +1050,7 @@ this.world_entity <- {
 				}
 			}
 			else if(this.m.EL_IsEliteTeam) {
+
 				local i = 0;
 				local unit_strength = 0;
 				local unit_population = 0;
@@ -1110,7 +1158,8 @@ this.world_entity <- {
 						this.m.Troops[i].EL_RankLevel = 0;
 					}
 					else {
-						this.m.Troops[i].EL_RankLevel = this.Const.EL_NPC.EL_NormalTeam.EliteChance.EL_getChance(this.World.Assets.m.EL_WorldLevel);
+						local elite_chance = this.Const.EL_NPC.EL_NormalTeam.EliteChance.EL_getChance(this.World.Assets.m.EL_WorldLevel);
+						this.m.Troops[i].EL_RankLevel = (this.Math.rand(1, 1000) >= elite_chance * 10) ? 0 : 1;
 						random_leader_avilable_index.push(i);
 					}
 					if(this.m.Troops[i].EL_RankLevel == 0) {
@@ -1152,7 +1201,8 @@ this.world_entity <- {
 							troop.EL_RankLevel = 0;
 						}
 						else {
-							troop.EL_RankLevel = this.Const.EL_NPC.EL_NormalTeam.EliteChance.EL_getChance(this.World.Assets.m.EL_WorldLevel);
+							local elite_chance = this.Const.EL_NPC.EL_NormalTeam.EliteChance.EL_getChance(this.World.Assets.m.EL_WorldLevel);
+							troop.EL_RankLevel = (this.Math.rand(1, 1000) >= elite_chance * 10) ? 0 : 1;
 						}
 						if(troop.EL_RankLevel == 0) {
 							troop.EL_Level = this.Math.rand(this.World.Assets.m.EL_WorldLevel + this.Const.EL_NPC.EL_Troop.MinLevelOffset, this.World.Assets.m.EL_WorldLevel + this.Const.EL_NPC.EL_Troop.MaxLevelOffset);
@@ -1185,10 +1235,10 @@ this.world_entity <- {
 					this.m.Troops[i].Name += this.Const.EL_NPC.EL_Troop.NameSuffix[this.m.Troops[i].EL_RankLevel];
 				}
 			}
-			this.updateStrength();
 		}
+		this.updateStrength();
+		return;
 	}
-
 
 };
 
