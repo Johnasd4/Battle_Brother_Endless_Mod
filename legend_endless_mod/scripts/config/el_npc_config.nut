@@ -68,12 +68,12 @@ gt.Const.EL_NPC <- {
         LevelUpAttributes = {
             HitpointsMult = 0.05,
             Bravery = 0.5,
-            Fatigue = 4,
-            Initiative = 2,
-            MeleeSkill = 1.5,
-            RangedSkill = 2,
-            MeleeDefense = 1.5,
-            RangedDefense = 1.5,
+            Fatigue = 3,
+            Initiative = 4,
+            MeleeSkill = 2,
+            RangedSkill = 2.5,
+            MeleeDefense = 2,
+            RangedDefense = 2,
         },
         XPFactor = 1.085
     },

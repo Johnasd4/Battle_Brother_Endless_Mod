@@ -322,24 +322,29 @@ this.world_entity <- {
 		return this.m.Troops.len();
 	}
 
+	//OVERRIDE
 	function getTroopComposition()
 	{
 		local entities = [];
 		local champions = [];
-		local entityTypes = [];
-		entityTypes.resize(this.Const.EntityType.len(), 0);
+		local entityTypes = [
+			[],
+			[]
+		];
+		entityTypes[0].resize(this.Const.EntityType.len(), 0);
+		entityTypes[1].resize(this.Const.EntityType.len(), 0);
 
 		foreach( t in this.m.Troops )
 		{
 			if (t.Script.len() != "")
 			{
-				if (t.Variant != 0 && this.Const.DLC.Wildmen)
+				if (t.EL_RankLevel != 0)
 				{
 					champions.push(t);
 				}
 				else
 				{
-					++entityTypes[t.ID];
+					++entityTypes[t.EL_RankLevel];
 				}
 			}
 		}
@@ -353,12 +358,45 @@ this.world_entity <- {
 				text = c.Name
 			});
 		}
-
-		for( local i = 0; i < entityTypes.len(); i = i )
+		for( local i = 0; i < entityTypes[1].len(); i = i )
 		{
-			if (entityTypes[i] > 0)
+			if (entityTypes[1][i] > 0)
 			{
-				if (entityTypes[i] == 1)
+				if (entityTypes[1][i] == 1)
+				{
+					local start = this.isFirstCharacter(this.Const.Strings.EntityName[i], [
+						"A",
+						"E",
+						"I",
+						"O",
+						"U"
+					]) ? "An " : "A ";
+					entities.push({
+						id = 20,
+						type = "text",
+						icon = "ui/orientation/" + this.Const.EntityIcon[i] + ".png",
+						text = this.Const.EL_NPC.EL_Troop.NamePrefix[this.m.Troops[i].EL_RankLevel] + start + this.removeFromBeginningOfText("The ", this.Const.Strings.EntityName[i]) + this.Const.EL_NPC.EL_Troop.NameSuffix[this.m.Troops[i].EL_RankLevel]
+					});
+				}
+				else
+				{
+					local num = this.Const.Strings.EngageEnemyNumbers[this.Math.max(0, this.Math.floor(this.Math.minf(1.0, entityTypes[1][i] / 14.0) * (this.Const.Strings.EngageEnemyNumbers.len() - 1)))];
+					entities.push({
+						id = 20,
+						type = "text",
+						icon = "ui/orientation/" + this.Const.EntityIcon[i] + ".png",
+						text = this.Const.EL_NPC.EL_Troop.NamePrefix[this.m.Troops[i].EL_RankLevel] + num + this.Const.Strings.EntityNamePlural[i] + this.Const.EL_NPC.EL_Troop.NameSuffix[this.m.Troops[i].EL_RankLevel]
+					});
+				}
+			}
+
+			i = ++i;
+		}
+		for( local i = 0; i < entityTypes[0].len(); i = i )
+		{
+			if (entityTypes[0][i] > 0)
+			{
+				if (entityTypes[0][i] == 1)
 				{
 					local start = this.isFirstCharacter(this.Const.Strings.EntityName[i], [
 						"A",
@@ -376,7 +414,7 @@ this.world_entity <- {
 				}
 				else
 				{
-					local num = this.Const.Strings.EngageEnemyNumbers[this.Math.max(0, this.Math.floor(this.Math.minf(1.0, entityTypes[i] / 14.0) * (this.Const.Strings.EngageEnemyNumbers.len() - 1)))];
+					local num = this.Const.Strings.EngageEnemyNumbers[this.Math.max(0, this.Math.floor(this.Math.minf(1.0, entityTypes[0][i] / 14.0) * (this.Const.Strings.EngageEnemyNumbers.len() - 1)))];
 					entities.push({
 						id = 20,
 						type = "text",
@@ -1229,7 +1267,7 @@ this.world_entity <- {
 			}
 			//Build names
 			for(local i = 0; i < this.m.Troops.len(); ++i) {
-				if(this.m.Troops[i].EL_RankLevel != 0) {
+				if(this.m.Troops[i].EL_RankLevel == 2) {
 					this.m.Troops[i].Name = this.Const.EL_NPC.EL_Troop.NamePrefix[this.m.Troops[i].EL_RankLevel];
 					this.m.Troops[i].Name += this.Const.EL_NPC.EL_Troop.Name[this.Math.rand(0, this.Const.EL_NPC.EL_Troop.Name.len() - 1)];
 					this.m.Troops[i].Name += this.Const.EL_NPC.EL_Troop.NameSuffix[this.m.Troops[i].EL_RankLevel];

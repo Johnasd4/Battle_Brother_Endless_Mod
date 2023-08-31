@@ -31,15 +31,15 @@ gt.Const.EL_Player <- {
     EL_LevelUpsPurTime = 5,
 
     EL_PlayerStatesBoard = {
-        InitiativeMax = 720,
         BraveryMax = 200,
+        InitiativeMax = 720,
         MeleeSkillMax = 500,
         RangeSkillMax = 500,
         MeleeDefenseMax = 500,
         RangeDefenseMax = 500,
         RegularDamageMax = 500,
         CrushingDamageMax = 300,
-        ChanceToHitHeadMax = 150,
+        ChanceToHitHeadMax = 100,
         SightDistanceMax = 20
     }
 
