@@ -83,6 +83,7 @@ gt.Const.EL_NPC <- {
         WeakUnitPopulationMult = 3,
         MinLevel = 0,
         MaxLevel = 200,
+        MaxCombatlevel = 100,
         MinLevelOffset = -10,
         MaxLevelOffset = 0,
         BossTroopMinLeaders = 2,

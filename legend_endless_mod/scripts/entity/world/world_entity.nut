@@ -338,13 +338,13 @@ this.world_entity <- {
 		{
 			if (t.Script.len() != "")
 			{
-				if (t.EL_RankLevel != 0)
+				if (t.EL_RankLevel == 2)
 				{
 					champions.push(t);
 				}
 				else
 				{
-					++entityTypes[t.EL_RankLevel];
+					++entityTypes[t.EL_RankLevel][t.ID];
 				}
 			}
 		}
@@ -358,75 +358,20 @@ this.world_entity <- {
 				text = c.Name
 			});
 		}
-		for( local i = 0; i < entityTypes[1].len(); i = i )
-		{
-			if (entityTypes[1][i] > 0)
+		for( local j = 1; j >= 0; --j ) {
+			for( local i = 0; i < entityTypes[j].len(); ++i )
 			{
-				if (entityTypes[1][i] == 1)
+				if (entityTypes[j][i] > 0)
 				{
-					local start = this.isFirstCharacter(this.Const.Strings.EntityName[i], [
-						"A",
-						"E",
-						"I",
-						"O",
-						"U"
-					]) ? "An " : "A ";
 					entities.push({
 						id = 20,
 						type = "text",
 						icon = "ui/orientation/" + this.Const.EntityIcon[i] + ".png",
-						text = this.Const.EL_NPC.EL_Troop.NamePrefix[this.m.Troops[i].EL_RankLevel] + start + this.removeFromBeginningOfText("The ", this.Const.Strings.EntityName[i]) + this.Const.EL_NPC.EL_Troop.NameSuffix[this.m.Troops[i].EL_RankLevel]
-					});
-				}
-				else
-				{
-					local num = this.Const.Strings.EngageEnemyNumbers[this.Math.max(0, this.Math.floor(this.Math.minf(1.0, entityTypes[1][i] / 14.0) * (this.Const.Strings.EngageEnemyNumbers.len() - 1)))];
-					entities.push({
-						id = 20,
-						type = "text",
-						icon = "ui/orientation/" + this.Const.EntityIcon[i] + ".png",
-						text = this.Const.EL_NPC.EL_Troop.NamePrefix[this.m.Troops[i].EL_RankLevel] + num + this.Const.Strings.EntityNamePlural[i] + this.Const.EL_NPC.EL_Troop.NameSuffix[this.m.Troops[i].EL_RankLevel]
+						text = this.Const.EL_NPC.EL_Troop.NamePrefix[j] + this.removeFromBeginningOfText("The ", this.Const.Strings.EntityName[i]) + " X " + entityTypes[j][i] + " " + this.Const.EL_NPC.EL_Troop.NameSuffix[j]
 					});
 				}
 			}
-
-			i = ++i;
 		}
-		for( local i = 0; i < entityTypes[0].len(); i = i )
-		{
-			if (entityTypes[0][i] > 0)
-			{
-				if (entityTypes[0][i] == 1)
-				{
-					local start = this.isFirstCharacter(this.Const.Strings.EntityName[i], [
-						"A",
-						"E",
-						"I",
-						"O",
-						"U"
-					]) ? "An " : "A ";
-					entities.push({
-						id = 20,
-						type = "text",
-						icon = "ui/orientation/" + this.Const.EntityIcon[i] + ".png",
-						text = start + this.removeFromBeginningOfText("The ", this.Const.Strings.EntityName[i])
-					});
-				}
-				else
-				{
-					local num = this.Const.Strings.EngageEnemyNumbers[this.Math.max(0, this.Math.floor(this.Math.minf(1.0, entityTypes[0][i] / 14.0) * (this.Const.Strings.EngageEnemyNumbers.len() - 1)))];
-					entities.push({
-						id = 20,
-						type = "text",
-						icon = "ui/orientation/" + this.Const.EntityIcon[i] + ".png",
-						text = num + " " + this.Const.Strings.EntityNamePlural[i]
-					});
-				}
-			}
-
-			i = ++i;
-		}
-
 		return entities;
 	}
 
@@ -1036,6 +981,7 @@ this.world_entity <- {
 			else if(_EL_troop.EL_Level < this.Const.EL_NPC.EL_Troop.MinLevel) {
 				_EL_troop.EL_Level = this.Const.EL_NPC.EL_Troop.MinLevel;
 			}
+			_EL_troop.EL_CombatLevel = (_EL_troop.EL_Level < this.Const.EL_NPC.EL_Troop.MaxCombatlevel ? _EL_troop.EL_Level : this.Const.EL_NPC.EL_Troop.MaxCombatlevel) + troop_info.EL_ExtraCombatLevel;
 			//Build names
 			if(_EL_troop.EL_RankLevel != 0) {
 				_EL_troop.Name = this.Const.EL_NPC.EL_Troop.NamePrefix[_EL_troop.EL_RankLevel];
@@ -1084,7 +1030,7 @@ this.world_entity <- {
 						this.m.Troops[i].EL_RankLevel = 1;
 					}
 					this.m.Troops[i].EL_Level = this.World.Assets.m.EL_WorldLevel;
-					this.m.Troops[i].EL_CombatLevel = this.World.Assets.m.EL_WorldLevel + troops_info[i].EL_ExtraCombatLevel;
+					this.m.Troops[i].EL_CombatLevel = (this.m.Troops[i].EL_Level < this.Const.EL_NPC.EL_Troop.MaxCombatlevel ? this.m.Troops[i].EL_Level : this.Const.EL_NPC.EL_Troop.MaxCombatlevel) + troops_info[i].EL_ExtraCombatLevel;
 				}
 			}
 			else if(this.m.EL_IsEliteTeam) {
@@ -1123,7 +1069,7 @@ this.world_entity <- {
 					else if(this.m.Troops[i].EL_Level < this.Const.EL_NPC.EL_Troop.MinLevel) {
 						this.m.Troops[i].EL_Level = this.Const.EL_NPC.EL_Troop.MinLevel;
 					}
-					this.m.Troops[i].EL_CombatLevel = this.m.Troops[i].EL_Level + troops_info[i].EL_ExtraCombatLevel;
+					this.m.Troops[i].EL_CombatLevel = (this.m.Troops[i].EL_Level < this.Const.EL_NPC.EL_Troop.MaxCombatlevel ? this.m.Troops[i].EL_Level : this.Const.EL_NPC.EL_Troop.MaxCombatlevel) + troops_info[i].EL_ExtraCombatLevel;
 					unit_strength += this.m.Troops[i].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[i].EL_RankLevel];
 					unit_population += troops_info[i].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[i].EL_RankLevel];
 				}
@@ -1161,7 +1107,7 @@ this.world_entity <- {
 						else if(troop.EL_Level < this.Const.EL_NPC.EL_Troop.MinLevel) {
 							troop.EL_Level = this.Const.EL_NPC.EL_Troop.MinLevel;
 						}
-						troop.EL_CombatLevel = troop.EL_Level + troops_info[j].EL_ExtraCombatLevel;
+						troop.EL_CombatLevel = (troop.EL_Level < this.Const.EL_NPC.EL_Troop.MaxCombatlevel ? troop.EL_Level : this.Const.EL_NPC.EL_Troop.MaxCombatlevel) + troops_info[j].EL_ExtraCombatLevel;
 						unit_strength += troop.Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[troop.EL_RankLevel];
 						unit_population += troops_info[j].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[troop.EL_RankLevel];
 						used_resourse = unit_strength * (1 + this.Math.pow(unit_population / this.Const.EL_NPC.EL_Troop.TotalResourse.Factor1, this.Const.EL_NPC.EL_Troop.TotalResourse.Factor2));
@@ -1212,7 +1158,7 @@ this.world_entity <- {
 					else if(this.m.Troops[i].EL_Level < this.Const.EL_NPC.EL_Troop.MinLevel) {
 						this.m.Troops[i].EL_Level = this.Const.EL_NPC.EL_Troop.MinLevel;
 					}
-					this.m.Troops[i].EL_CombatLevel = this.m.Troops[i].EL_Level + troops_info[i].EL_ExtraCombatLevel;
+					this.m.Troops[i].EL_CombatLevel = (this.m.Troops[i].EL_Level < this.Const.EL_NPC.EL_Troop.MaxCombatlevel ? this.m.Troops[i].EL_Level : this.Const.EL_NPC.EL_Troop.MaxCombatlevel) + troops_info[i].EL_ExtraCombatLevel;
 					unit_strength += this.m.Troops[i].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[i].EL_RankLevel];
 					unit_population += troops_info[i].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[i].EL_RankLevel];
 				}
@@ -1254,7 +1200,7 @@ this.world_entity <- {
 						else if(troop.EL_Level < this.Const.EL_NPC.EL_Troop.MinLevel) {
 							troop.EL_Level = this.Const.EL_NPC.EL_Troop.MinLevel;
 						}
-						troop.EL_CombatLevel = troop.EL_Level + troops_info[j].EL_ExtraCombatLevel;
+						troop.EL_CombatLevel = (troop.EL_Level < this.Const.EL_NPC.EL_Troop.MaxCombatlevel ? troop.EL_Level : this.Const.EL_NPC.EL_Troop.MaxCombatlevel) + troops_info[j].EL_ExtraCombatLevel;
 						unit_strength += troop.Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[troop.EL_RankLevel];
 						unit_population += troops_info[j].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[troop.EL_RankLevel];
 						used_resourse = unit_strength * (1 + this.Math.pow(unit_population / this.Const.EL_NPC.EL_Troop.TotalResourse.Factor1, this.Const.EL_NPC.EL_Troop.TotalResourse.Factor2));
@@ -1265,7 +1211,7 @@ this.world_entity <- {
 					}
 				}
 			}
-			//Build names
+			// //Build names
 			for(local i = 0; i < this.m.Troops.len(); ++i) {
 				if(this.m.Troops[i].EL_RankLevel == 2) {
 					this.m.Troops[i].Name = this.Const.EL_NPC.EL_Troop.NamePrefix[this.m.Troops[i].EL_RankLevel];

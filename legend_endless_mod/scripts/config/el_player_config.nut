@@ -17,6 +17,7 @@ gt.Const.EL_Player <- {
     }
 
     EL_CombatXP = {
+        MaxWorldLevel = 100,
         MaxDiv = 12.0,
         // XP * (1 + (WorldLevel - Level - 5) * 0.2) ^ 2 (Level < WorldLevel - 5)
         BelowOffset = 6,

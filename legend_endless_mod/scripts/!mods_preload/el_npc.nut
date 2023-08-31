@@ -59,9 +59,12 @@ local gt = getroottable();
                 _t.Callback(_e, "Tag" in _t ? _t.Tag : null);
             }
 
-            if (("Name" in _t) && _t.Name != "")
+            if ("Name" in _t)
             {
-                _e.setName(_t.Name);
+                local name = this.Const.EL_NPC.EL_Troop.NamePrefix[_t.EL_RankLevel];
+                name += _e.getNameOnly();
+                name += this.Const.EL_NPC.EL_Troop.NameSuffix[_t.EL_RankLevel];
+                _e.setName(name);
                 _e.m.IsGeneratingKillName = false;
             }
 

@@ -8,7 +8,7 @@ if (!("EL_World" in gt.Const))
 gt.Const.EL_World <- {
 
     EL_WorldLevel = {
-        Min = 100,
+        Min = 0,
         BaseStableLevel = 100,
         BaseStableMult = 27,
         LevelUpBaseDay = 7,
@@ -18,7 +18,7 @@ gt.Const.EL_World <- {
     },
 
     EL_WorldStrength = {
-        Min = 2000,
+        Min = 40,
         Factor = {
             Mult = [
                 10,
