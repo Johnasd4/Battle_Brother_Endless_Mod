@@ -1,7 +1,7 @@
 local gt = getroottable();
 
 ::mods_registerMod("el_player_other", 1, "el_player_other");
-::mods_queue(null, ">el_player", function ()
+::mods_queue(null, "el_player", function ()
 {
 	::mods_hookExactClass("skills/backgrounds/legend_puppet_background", function ( o )
 	{

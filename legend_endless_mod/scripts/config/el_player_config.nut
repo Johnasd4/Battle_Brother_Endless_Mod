@@ -17,6 +17,7 @@ gt.Const.EL_Player <- {
     }
 
     EL_CombatXP = {
+        MaxWorldLevel = 100,
         MaxDiv = 12.0,
         // XP * (1 + (WorldLevel - Level - 5) * 0.2) ^ 2 (Level < WorldLevel - 5)
         BelowOffset = 6,
@@ -28,6 +29,21 @@ gt.Const.EL_Player <- {
         OverMultMin = 0.1
     }
 
+    EL_LevelUpsPurTime = 5,
+
+    EL_PlayerStatesBoard = {
+        BraveryMax = 200,
+        InitiativeMax = 720,
+        MeleeSkillMax = 500,
+        RangeSkillMax = 500,
+        MeleeDefenseMax = 500,
+        RangeDefenseMax = 500,
+        RegularDamageMax = 500,
+        CrushingDamageMax = 300,
+        ChanceToHitHeadMax = 100,
+        SightDistanceMax = 20
+    }
+
     EL_PlayerAddAttributesBoard = {
         HitpointsMax = 600,
         BraveryMax = 200,
@@ -35,8 +51,8 @@ gt.Const.EL_Player <- {
         InitiativeMax = 720,
         MeleeSkillMax = 500,
         RangeSkillMax = 500,
-        MeleeDefenseMax = 950,
-        RangeDefenseMax = 950
+        MeleeDefenseMax = 500,
+        RangeDefenseMax = 500
     },
 
     EL_Hiring = {
