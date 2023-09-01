@@ -1,7 +1,7 @@
 local gt = getroottable();
 
-::mods_registerMod("el_morale_check", 1, "el_morale_check");
-::mods_queue(null, "el_world", function ()
+::mods_registerMod("el_skills_effects_ballance", 1, "el_skills_effects_ballance");
+::mods_queue(null, "el_player_npc", function ()
 {
 
 	::mods_hookExactClass("skills/effects/bleeding_effect", function(o){
