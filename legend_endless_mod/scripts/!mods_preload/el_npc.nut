@@ -62,6 +62,7 @@ local gt = getroottable();
             if ("Name" in _t)
             {
                 local name = this.Const.EL_NPC.EL_Troop.NamePrefix[_t.EL_RankLevel];
+                name += "Lv" + (this.Math.round(_t.EL_CombatLevel * 100) / 100) + " ";
                 name += _e.getNameOnly();
                 name += this.Const.EL_NPC.EL_Troop.NameSuffix[_t.EL_RankLevel];
                 _e.setName(name);
