@@ -205,18 +205,45 @@ local gt = getroottable();
 			ret.Brothers.sort(EL_sortByCombatLevel);
 			return ret;
 		}
+
+		local update = o.update;
+		o.update = function( _worldState )
+		{
+			this.logInfo("qweqweqweqweqweqweqweqweqweqweqweqweqwasdfwzfz");
+			this.EL_UpdateWorldStrengthAndLevel();
+			update(_worldState);
+		}
+
+
 	});
 
 	::mods_hookExactClass("entity/world/player_party", function ( o )
 	{
 		o.updateStrength = function ()
 		{
-			local day = this.World.getTime().Days;
-			if(this.World.Assets.m.EL_CurrentUpdateDay != day) {
-				this.World.Assets.EL_UpdateWorldStrengthAndLevel();
-			}
+			// local day = this.World.getTime().Days;
+			// if(this.World.Assets.m.EL_CurrentUpdateDay != day) {
+			// 	this.World.Assets.EL_UpdateWorldStrengthAndLevel();
+			// }
 			this.m.Strength = this.World.Assets.m.EL_WorldStrength;
 		};
 	});
 
+});
+
+
+
+::mods_hookNewObjectOnce("states/world/asset_manager", function(o) {
+	o.m.LastDayMorningEventCalled <- 0;
+
+
+	o.getLastDayMorningEventCalled <- function()
+	{
+		return this.m.LastDayMorningEventCalled;
+	}
+
+	o.setLastDayMorningEventCalled <- function( _day )
+	{
+		this.m.LastDayMorningEventCalled = _day;
+	}
 });
