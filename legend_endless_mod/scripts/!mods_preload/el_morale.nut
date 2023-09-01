@@ -1,6 +1,6 @@
 local gt = getroottable();
 
-::mods_registerMod("el_morale_check", 1, "el_morale_check");
+::mods_registerMod("el_morale", 1, "el_morale");
 ::mods_queue(null, "el_world", function ()
 {
 
