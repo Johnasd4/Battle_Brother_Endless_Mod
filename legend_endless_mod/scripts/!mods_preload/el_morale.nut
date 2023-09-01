@@ -688,14 +688,15 @@ local gt = getroottable();
 									if (otherTile.hasNextTile(j))
 									{
 										local temp_tile = otherTile.getNextTile(j);
-										local temp_actor = temp_tile.getEntity();
-										if (!temp_actor.isAlliedWith(otherActor))
-										{
-											local difficulty = this.Const.EL_Morale.Move.BaseOffset +
-															   this.Const.EL_Morale.Move.RankFactor * (otherActor.EL_getRankLevel() - temp_actor.EL_getRankLevel()) +
-															   this.Math.pow(this.Const.EL_Morale.Move.CombatLevelFactor, this.Math.abs(otherActor.EL_getCombatLevel() - temp_actor.EL_getCombatLevel())) * (otherActor.EL_getCombatLevel() - temp_actor.EL_getCombatLevel());
-											otherActor.checkMorale(-1, difficulty);
-
+										if(otherTile.IsOccupiedByActor) {
+											local temp_actor = temp_tile.getEntity();
+											if (!temp_actor.isAlliedWith(otherActor))
+											{
+												local difficulty = this.Const.EL_Morale.Move.BaseOffset +
+																   this.Const.EL_Morale.Move.RankFactor * (otherActor.EL_getRankLevel() - temp_actor.EL_getRankLevel()) +
+																   this.Math.pow(this.Const.EL_Morale.Move.CombatLevelFactor, this.Math.abs(otherActor.EL_getCombatLevel() - temp_actor.EL_getCombatLevel())) * (otherActor.EL_getCombatLevel() - temp_actor.EL_getCombatLevel());
+												otherActor.checkMorale(-1, difficulty);
+											}
 										}
 									}
 								}
