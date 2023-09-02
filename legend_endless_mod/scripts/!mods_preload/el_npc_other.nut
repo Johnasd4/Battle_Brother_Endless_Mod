@@ -1,6 +1,6 @@
 local gt = getroottable();
 
-::mods_registerMod("el_npc_other", 1, "el_npc_other");
+::mods_registerMod("EL_NPCOther", 1, "EL_NPCOther");
 ::mods_queue(null, "el_npc", function ()
 {
 	::mods_hookExactClass("retinue/followers/bounty_hunter_follower", function ( o )
@@ -11,9 +11,9 @@ local gt = getroottable();
 		};
 	});
 
-	for(local i = 0; i < this.Const.EL_NPC_Other.EL_Boss_Location.len(); ++i) {
+	for(local i = 0; i < this.Const.EL_NPCOther.EL_BossLocation.len(); ++i) {
 
-		::mods_hookExactClass(this.Const.EL_NPC_Other.EL_Boss_Location[i], function ( o )
+		::mods_hookExactClass(this.Const.EL_NPCOther.EL_BossLocation[i], function ( o )
 		{
 			local create = o.create;
 			o.create = function ()

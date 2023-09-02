@@ -400,6 +400,64 @@ gt.Const.EL_NPC <- {
             }
         }
     }
+
+    EL_NPCBuff = {
+        Pool = {
+            Scripts = [
+                "scripts/skills/el_npc_buff/el_agility_npc_buff",
+                "scripts/skills/el_npc_buff/el_berserk_npc_buff",
+                "scripts/skills/el_npc_buff/el_charge_npc_buff",
+                "scripts/skills/el_npc_buff/el_critical_hit_npc_buff",
+                "scripts/skills/el_npc_buff/el_endurance_npc_buff",
+                "scripts/skills/el_npc_buff/el_evasion_npc_buff",
+                "scripts/skills/el_npc_buff/el_growth_npc_buff",
+                "scripts/skills/el_npc_buff/el_intimidate_npc_buff",
+                "scripts/skills/el_npc_buff/el_lightning_speed_npc_buff",
+                "scripts/skills/el_npc_buff/el_phoenix_npc_buff",
+                "scripts/skills/el_npc_buff/el_recovery_npc_buff",
+                "scripts/skills/el_npc_buff/el_retaliation_npc_buff",
+                "scripts/skills/el_npc_buff/el_self_destruct_npc_buff",
+                "scripts/skills/el_npc_buff/el_stamina_npc_buff",
+                "scripts/skills/el_npc_buff/el_tank_npc_buff",
+                "scripts/skills/el_npc_buff/el_thick_skin_npc_buff",
+                "scripts/skills/el_npc_buff/el_valor_npc_buff",
+                "scripts/skills/el_npc_buff/el_vengeance_npc_buff",
+                "scripts/skills/el_npc_buff/el_veteran_npc_buff",
+                "scripts/skills/el_npc_buff/el_weapon_master_npc_buff"
+            ],
+            function EL_assignNPCBuffs(_EL_npc, _EL_rank1Num, _EL_rank2Num) {
+                local index_pool = [];
+                for(local i = 0; i < this.Const.EL_NPCOther.EL_NPCBuff.Pool.Scripts.len(); ++i) {
+                    index_pool.push(i);
+                }
+                for(local i = 0; i < _EL_rank1Num; ++i) {
+                    local skill = this.new(this.Const.EL_NPCOther.EL_NPCBuff.Pool.Scripts[index_pool[this.Math.rand(0, index_pool.len() - 1)]]);
+                    skill.EL_setRankLevel(1);
+                    _EL_npc.getSkills().add(skill);
+                    index_pool.remove(rand);
+                }
+                for(local i = 0; i < _EL_rank2Num; ++i) {
+                    local skill = this.new(this.Const.EL_NPCOther.EL_NPCBuff.Pool.Scripts[index_pool[this.Math.rand(0, index_pool.len() - 1)]]);
+                    skill.EL_setRankLevel(2);
+                    _EL_npc.getSkills().add(skill);
+                    index_pool.remove(rand);
+                }
+            }
+        },
+
+        BuffNum = {
+            HumanoidRank1 = [0, 1, 2],
+            HumanoidRank2 = [0, 0, 1],
+            NonHumanoidRank1 = [0, 3, 6],
+            NonHumanoidRank2 = [0, 0, 3]
+        }
+
+        Agility = {
+            ActionPointsOffset = [0, 2, 5]
+        }
+
+    }
+
 };
 
 this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_NPC.EL_NormalTeam.EliteChance);

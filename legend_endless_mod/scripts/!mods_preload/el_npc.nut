@@ -83,6 +83,19 @@ local gt = getroottable();
                     _e.makeMiniboss();
                 }
                 _e.assignRandomEquipment();
+                if(_e.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand) == null &&
+                   _e.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand) == null &&
+                   _e.getItems().getItemAtSlot(this.Const.ItemSlot.Body) == null &&
+                   _e.getItems().getItemAtSlot(this.Const.ItemSlot.Head) == null &&
+                   _e.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory) == null)
+                {
+                    this.Const.EL_NPC.EL_NPCBuff.Pool.EL_assignNPCBuffs(_e, this.Const.EL_NPC.EL_NPCBuff.BuffNum.NonHumanoidRank1[_t.EL_RankLevel], this.Const.EL_NPC.EL_NPCBuff.BuffNum.NonHumanoidRank2[_t.EL_RankLevel]);
+                }
+                else
+                {
+                    this.Const.EL_NPC.EL_NPCBuff.Pool.EL_assignNPCBuffs(_e, this.Const.EL_NPC.EL_NPCBuff.BuffNum.HumanoidRank1[_t.EL_RankLevel], this.Const.EL_NPC.EL_NPCBuff.BuffNum.HumanoidRank2[_t.EL_RankLevel]);
+                }
+
             }
             else {
 
