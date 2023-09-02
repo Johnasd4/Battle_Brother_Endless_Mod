@@ -33,5 +33,9 @@ gt.Const.EL_PlayerOther <- {
             0.2,
             0.5
         ]
+    },
+
+    EL_Animal = {
+        DamageMult = 0.5
     }
 };
