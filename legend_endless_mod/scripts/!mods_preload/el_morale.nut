@@ -697,8 +697,7 @@ local gt = getroottable();
 																   this.Math.pow(this.Const.EL_Morale.Move.CombatLevelFactor, this.Math.abs(otherActor.EL_getCombatLevel() - temp_actor.EL_getCombatLevel())) * (otherActor.EL_getCombatLevel() - temp_actor.EL_getCombatLevel());
 												otherActor.checkMorale(-1, difficulty);
 											}
-										}
-									}
+										}									}
 								}
 							}
 						}
