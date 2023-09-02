@@ -32,6 +32,7 @@ gt.Const.EL_Morale <- {
         BaseOffset = 25,
         RankFactor = 25,
         CombatLevelFactor = 1.04,
+        DistanceFactor = 3
     },
 
     Effect = {
