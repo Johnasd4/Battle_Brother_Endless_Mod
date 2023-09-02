@@ -688,7 +688,7 @@ local gt = getroottable();
 									if (otherTile.hasNextTile(j))
 									{
 										local temp_tile = otherTile.getNextTile(j);
-										if(otherTile.IsOccupiedByActor) {
+										if(temp_tile.IsOccupiedByActor) {
 											local temp_actor = temp_tile.getEntity();
 											if (!temp_actor.isAlliedWith(otherActor))
 											{
