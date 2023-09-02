@@ -5,7 +5,7 @@ local gt = getroottable();
 {
 
 
-	::mods_hookNewObject("skills/effects/legend_rain_effect", function(o){
+	::mods_hookNewObject("skills/special/legend_rain_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -392,7 +392,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/night_effect", function(o){
+	::mods_hookNewObject("skills/special/night_effect", function(o){
 
         o.getTooltip = function()
         {

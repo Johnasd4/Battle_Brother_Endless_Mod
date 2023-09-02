@@ -4,7 +4,7 @@ local gt = getroottable();
 ::mods_queue(null, "el_player_npc", function ()
 {
 
-	::mods_hookNewObject("skills/effects/afraid_effect", function(o){
+	::mods_hookNewObject("skills/effects_world/afraid_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -42,7 +42,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/drunk_effect", function(o){
+	::mods_hookNewObject("skills/effects_world/drunk_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -117,7 +117,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/exhausted_effect", function(o){
+	::mods_hookNewObject("skills/effects_world/exhausted_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -150,7 +150,7 @@ local gt = getroottable();
         }
 	});
 
-	::mods_hookNewObject("skills/effects/hangover_effect", function(o){
+	::mods_hookNewObject("skills/effects_world/hangover_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -218,7 +218,7 @@ local gt = getroottable();
         }
 	});
 
-	::mods_hookNewObject("skills/effects/legend_headache_effect", function(o){
+	::mods_hookNewObject("skills/effects_world/legend_headache_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -286,7 +286,7 @@ local gt = getroottable();
         }
 	});
 
-	::mods_hookNewObject("skills/effects/legend_irritable_effect", function(o){
+	::mods_hookNewObject("skills/effects_world/legend_irritable_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -354,7 +354,7 @@ local gt = getroottable();
         }
 	});
 
-	::mods_hookNewObject("skills/effects/legend_well_tended_effect", function(o){
+	::mods_hookNewObject("skills/effects_world/legend_well_tended_effect", function(o){
 
         o.getTooltip = function()
         {
