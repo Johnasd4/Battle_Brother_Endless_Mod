@@ -10,7 +10,7 @@ this.el_agility_npc_buff <- this.inherit("scripts/skills/el_npc_buff/el_npc_buff
 
 	function onUpdate( _properties )
 	{
-		_properties.ActionPoints += this.Const.EL_NPCOther.EL_NPCBuff.Agility.ActionPointsOffset[this.m.EL_RankLevel];
+		_properties.ActionPoints += this.Const.EL_NPC.EL_NPCBuff.Agility.ActionPointsOffset[this.m.EL_RankLevel];
 	}
 
 });

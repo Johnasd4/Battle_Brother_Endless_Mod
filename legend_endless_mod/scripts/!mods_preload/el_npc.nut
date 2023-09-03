@@ -155,6 +155,12 @@ local gt = getroottable();
 
 	});
 
+    gt.Const.World.Spawn.Unit.EL_EliteChance <- 0;
+    gt.Const.World.Spawn.Unit.EL_Level <- 0;
+    gt.Const.World.Spawn.Unit.EL_CombatLevel <- 0;
+    gt.Const.World.Spawn.Unit.EL_RankLevel <- 0;
+    gt.Const.World.Spawn.Unit.EL_UnitInfo <- null;
+
     gt.Const.World.Common.addTroop = function ( _party, _troop, _updateStrength = true, _minibossify = 0 )
     {
         local troop = clone _troop.Type;
