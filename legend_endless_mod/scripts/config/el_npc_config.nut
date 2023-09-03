@@ -400,6 +400,146 @@ gt.Const.EL_NPC <- {
             }
         }
     }
+
+    EL_NPCBuff = {
+        Pool = {
+            Scripts = [
+                "scripts/skills/el_npc_buff/el_agility_npc_buff",
+                "scripts/skills/el_npc_buff/el_berserk_npc_buff",
+                "scripts/skills/el_npc_buff/el_bravery_npc_buff",
+                "scripts/skills/el_npc_buff/el_charge_npc_buff",
+                "scripts/skills/el_npc_buff/el_endurance_npc_buff",
+                "scripts/skills/el_npc_buff/el_evasion_npc_buff",
+                "scripts/skills/el_npc_buff/el_growth_npc_buff",
+                "scripts/skills/el_npc_buff/el_intimidate_npc_buff",
+                "scripts/skills/el_npc_buff/el_lightning_speed_npc_buff",
+                "scripts/skills/el_npc_buff/el_phoenix_npc_buff",
+                "scripts/skills/el_npc_buff/el_recovery_npc_buff",
+                "scripts/skills/el_npc_buff/el_retaliation_npc_buff",
+                "scripts/skills/el_npc_buff/el_revenge_npc_buff",
+                "scripts/skills/el_npc_buff/el_self_destruct_npc_buff",
+                "scripts/skills/el_npc_buff/el_stamina_npc_buff",
+                "scripts/skills/el_npc_buff/el_stunning_strike_npc_buff",
+                "scripts/skills/el_npc_buff/el_tank_npc_buff",
+                "scripts/skills/el_npc_buff/el_thick_skin_npc_buff",
+                "scripts/skills/el_npc_buff/el_veteran_npc_buff",
+                "scripts/skills/el_npc_buff/el_weapon_master_npc_buff"
+            ],
+            function EL_assignNPCBuffs(_EL_npc, _EL_rank1Num, _EL_rank2Num) {
+                local index_pool = [];
+                for(local i = 0; i < this.Const.EL_NPC.EL_NPCBuff.Pool.Scripts.len(); ++i) {
+                    index_pool.push(i);
+                }
+                for(local i = 0; i < _EL_rank1Num; ++i) {
+                    local skill = this.new(this.Const.EL_NPC.EL_NPCBuff.Pool.Scripts[index_pool[this.Math.rand(0, index_pool.len() - 1)]]);
+                    skill.EL_setRankLevel(1);
+                    _EL_npc.getSkills().add(skill);
+                    index_pool.remove(rand);
+                }
+                for(local i = 0; i < _EL_rank2Num; ++i) {
+                    local skill = this.new(this.Const.EL_NPC.EL_NPCBuff.Pool.Scripts[index_pool[this.Math.rand(0, index_pool.len() - 1)]]);
+                    skill.EL_setRankLevel(2);
+                    _EL_npc.getSkills().add(skill);
+                    index_pool.remove(rand);
+                }
+            }
+        },
+
+        BuffNum = {
+            HumanoidRank1 = [0, 1, 2],
+            HumanoidRank2 = [0, 0, 1],
+            NonHumanoidRank1 = [0, 3, 6],
+            NonHumanoidRank2 = [0, 0, 3]
+        }
+
+        Agility = {
+            ActionPointsOffset = [0, 2, 5]
+        },
+        Berserk = {
+            DamageDirectMult = [1, 1.4, 2]
+        },
+        Bravery = {
+            BraveryOffset = [0, 40, 100]
+        },
+        Charge = {
+            KnockBackChance = [0, 40, 100]
+        },
+        StunningStrike = {
+            StunChance = [0, 40, 100]
+        },
+        Endurance = {
+        },
+        Evasion = {
+            MeleeState = 1,
+            RangeState = 2,
+            DefenseOffset = [0, 80, 200]
+        },
+        Growth = {
+            DamageMultPurStack = [0, 0.04, 0.1],
+            DamageReceivedMultPurStack = [0, 0.04, 0.1],
+            MeleeSkillOffsetPurStack = [0 ,0.8, 2],
+            RangedSkillOffsetPurStack = [0 ,0.8, 2],
+            MeleeDefenseOffsetPurStack = [0 ,0.8, 2],
+            RangedDefenseOffsetPurStack = [0 ,0.8, 2],
+        },
+        Intimidate = {
+            MoraleCheckChance = [0, 40, 100],
+            BaseOffset = 50,
+            RankFactor = 25,
+            CombatLevelFactor = 1.04,
+            DistanceFactor = 3
+        },
+        LightningSpeed = {
+            InitiativeOffset = [0, 80, 200]
+        },
+        Phoenix = {
+            RiseTimes = [0, 1, 3],
+            DamageMultPurStack = 0.1,
+            DamageReceivedMultPurStack = 0.1,
+            HitPointsMultPurStack = 0.1,
+            BraveryOffsetPurStack = 6,
+            FatigueOffsetPurStack = 10,
+            InitiativeOffsetPurStack = 12,
+            MeleeSkillOffsetPurStack = 8,
+            RangedSkillOffsetPurStack = 10,
+            MeleeDefenseOffsetPurStack = 8,
+            RangedDefenseOffsetPurStack = 8,
+
+        },
+        Recovery = {
+            HitpointsRecoveryRate = [0, 0.04, 0.1],
+            ArmorRecoveryRate = [0, 0.04, 0.1],
+        },
+        Retaliation = {
+            AttackChance = [0, 40, 100]
+        },
+        Revenge = {
+            DamageMultPurStack = [0, 0.04, 0.1],
+        },
+        SelfDestruct = {
+            DamageRate = [0, 0.4, 1],
+            DamageDecayRatePurTile = 0.2,
+        },
+        Stamina = {
+            StaminaOffset = [0, 80, 200]
+        },
+        Tank = {
+            HitpointsMult = [1, 1.8, 3],
+            ArmorMult = [1, 1.8, 3],
+        },
+        ThickSkin = {
+            DamageReceivedMult = [0, 0.8, 2]
+        },
+        Veteran = {
+            CombatLevelOffset = [0, 2, 5]
+        },
+        WeaponMaster = {
+            MeleeSkillOffset = [0, 40, 100],
+            RangedSkillOffset = [0, 40, 100]
+        }
+
+    }
+
 };
 
 this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_NPC.EL_NormalTeam.EliteChance);

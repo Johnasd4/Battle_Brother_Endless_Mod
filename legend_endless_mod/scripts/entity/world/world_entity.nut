@@ -750,8 +750,6 @@ this.world_entity <- {
 		this.m.Resources = this.Math.max(0, this.Math.round(_v));
 	}
 
-
-	//OVERRIDE
 	function onSerialize( _out )
 	{
 		_out.writeString(this.m.Name);
@@ -765,6 +763,12 @@ this.world_entity <- {
 			_out.writeF32(t.Strength);
 			_out.writeI8(t.Row);
 			_out.writeString(t.Name);
+
+			_out.writeF32(t.EL_EliteChance);
+			_out.writeI32(t.EL_Level);
+			_out.writeI32(t.EL_CombatLevel);
+			_out.writeI32(t.EL_RankLevel);
+
 
 			if ("Outfits" in t)
 			{
@@ -813,11 +817,59 @@ this.world_entity <- {
 		_out.writeBool(this.m.IsDroppingLoot);
 		_out.writeU16(this.m.Resources);
 		this.m.Flags.onSerialize(_out);
+
+	 	_out.writeU8(this.Math.min(255, this.m.EL_TempTroops.len()));
+		foreach( t in this.m.EL_TempTroops )
+		{
+			_out.writeU16(t.ID);
+			_out.writeU8(t.Variant);
+			_out.writeF32(t.Strength);
+			_out.writeI8(t.Row);
+			_out.writeString(t.Name);
+
+			_out.writeF32(t.EL_EliteChance);
+			_out.writeI32(t.EL_Level);
+			_out.writeI32(t.EL_CombatLevel);
+			_out.writeI32(t.EL_RankLevel);
+
+
+			if ("Outfits" in t)
+			{
+				_out.writeBool(true);
+				_out.writeU8(t.Outfits.len());
+
+				foreach( o in t.Outfits )
+				{
+					_out.writeU8(o.len());
+					_out.writeU8(o[0]);
+					_out.writeString(o[1]);
+
+					if (o.len() == 3)
+					{
+						_out.writeString(o[2]);
+					}
+				}
+			}
+			else
+			{
+				_out.writeBool(false);
+			}
+
+			_out.writeI32(this.IO.scriptHashByFilename(t.Script));
+		}
+
+		_out.writeBool(this.m.EL_FinishGenerate);
+		_out.writeBool(this.m.EL_IsBossTroop);
+		_out.writeBool(this.m.EL_IsEliteTeam);
+		_out.writeBool(this.m.EL_IsPlayer);
+		_out.writeBool(this.m.EL_HaveRandomLeader);
+		_out.writeBool(this.m.EL_HaveStrongestLeader);
+		_out.writeI32(this.m.EL_TroopsResourse);
+
+
 		_out.writeBool(false);
 	}
 
-
-	//OVERRIDE
 	function onDeserialize( _in )
 	{
 		this.getSprite("selection").Visible = false;
@@ -845,6 +897,8 @@ this.world_entity <- {
 			troop.Party = this.WeakTableRef(this);
 			troop.Faction = this.getFaction();
 
+
+
 			if (_in.getMetaData().getVersion() >= 48)
 			{
 				troop.Name = _in.readString();
@@ -853,6 +907,13 @@ this.world_entity <- {
 			{
 				troop.ID = this.Const.EntityType.convertOldToNew(troop.ID);
 			}
+
+
+			troop.EL_EliteChance = _in.readF32();
+			troop.EL_Level = _in.readI32();
+			troop.EL_CombatLevel = _in.readI32();
+			troop.EL_RankLevel = _in.readI32();
+
 
 			if (_in.getMetaData().getVersion() >= 71)
 			{
@@ -937,8 +998,98 @@ this.world_entity <- {
 		}
 
 		this.m.Flags.onDeserialize(_in);
+
+		this.m.EL_TempTroops = [];
+		numTroops = _in.readU8();
+
+		for( local i = 0; i < numTroops; i = i )
+		{
+			local troop = clone this.Const.World.Spawn.Unit;
+			troop.ID = _in.readU16();
+			troop.Variant = _in.readU8();
+			troop.Strength = _in.readF32();
+			troop.Row = _in.readI8();
+			troop.Party = this.WeakTableRef(this);
+			troop.Faction = this.getFaction();
+
+			if (_in.getMetaData().getVersion() >= 48)
+			{
+				troop.Name = _in.readString();
+			}
+			else if (_in.getMetaData().getVersion() < 40)
+			{
+				troop.ID = this.Const.EntityType.convertOldToNew(troop.ID);
+			}
+
+
+			troop.EL_EliteChance = _in.readF32();
+			troop.EL_Level = _in.readI32();
+			troop.EL_CombatLevel = _in.readI32();
+			troop.EL_RankLevel = _in.readI32();
+
+
+			if (_in.getMetaData().getVersion() >= 71)
+			{
+				local hasOutfits = _in.readBool();
+
+				if (hasOutfits)
+				{
+					local outfits = [];
+					local outfitLength = _in.readU8();
+
+					for( local i = 0; i < outfitLength; i++ )
+					{
+						if (_in.readU8() == 2)
+						{
+							outfits.push([
+								_in.readU8(),
+								_in.readString()
+							]);
+						}
+						else
+						{
+							outfits.push([
+								_in.readU8(),
+								_in.readString(),
+								_in.readU8()
+							]);
+						}
+					}
+
+					troop.Outfits <- clone outfits;
+				}
+			}
+
+			local hash = _in.readI32();
+
+			if (hash != 0)
+			{
+				troop.Script = this.IO.scriptFilenameByHash(hash);
+			}
+
+			if (troop.Script == "scripts/entity/tactical/enemies/alp_illusion")
+			{
+			}
+			else
+			{
+				this.m.EL_TempTroops.push(troop);
+			}
+
+			i = ++i;
+		}
+
+		this.m.EL_FinishGenerate = _in.readBool();
+		this.m.EL_IsBossTroop = _in.readBool();
+		this.m.EL_IsEliteTeam = _in.readBool();
+		this.m.EL_IsPlayer = _in.readBool();
+		this.m.EL_HaveRandomLeader = _in.readBool();
+		this.m.EL_HaveStrongestLeader = _in.readBool();
+		this.m.EL_TroopsResourse = _in.readI32();
+
+
 		_in.readBool();
 	}
+
 
 
 	function EL_addTroop( _EL_troop ) {

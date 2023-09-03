@@ -1,13 +1,13 @@
 local gt = this.getroottable();
 
-if (!("EL_NPC_Other" in gt.Const))
+if (!("EL_NPCOther" in gt.Const))
 {
-	gt.Const.EL_NPC_Other <- {};
+	gt.Const.EL_NPCOther <- {};
 }
 
-gt.Const.EL_NPC_Other <- {
+gt.Const.EL_NPCOther <- {
 
-    EL_Boss_Location = [
+    EL_BossLocation = [
         "entity/world/locations/legendary/black_monolith_location",
         "entity/world/locations/legendary/kraken_cult_location",
         "entity/world/locations/legendary/tundra_elk_location",
@@ -19,6 +19,9 @@ gt.Const.EL_NPC_Other <- {
         "entity/world/locations/legendary/orc_fortress_location",
         "entity/world/locations/legendary/sunken_library_location"
     ]
+
+
+
 
 
 };
