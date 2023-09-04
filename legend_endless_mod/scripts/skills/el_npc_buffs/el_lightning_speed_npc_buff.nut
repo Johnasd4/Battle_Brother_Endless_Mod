@@ -1,4 +1,4 @@
-this.el_lightning_speed_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buffs", {
+this.el_lightning_speed_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff", {
 	m = {},
 	function create()
 	{

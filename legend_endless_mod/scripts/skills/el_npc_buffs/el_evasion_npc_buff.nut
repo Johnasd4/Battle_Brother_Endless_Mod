@@ -1,4 +1,4 @@
-this.el_evasion_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buffs", {
+this.el_evasion_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff", {
 	m = {
         EL_DefenseState = this.Const.EL_NPC.EL_NPCBuff.Evasion.RangeState
     },
@@ -30,7 +30,7 @@ this.el_evasion_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
 
 	function onUpdate( _properties )
 	{
-        if(this.m.DefenseState == this.Const.EL_NPC.EL_NPCBuff.Evasion.MeleeState) {
+        if(this.m.EL_DefenseState == this.Const.EL_NPC.EL_NPCBuff.Evasion.MeleeState) {
             _properties.MeleeDefense += this.Const.EL_NPC.EL_NPCBuff.Evasion.DefenseOffset[this.m.EL_RankLevel];
         }
         else {

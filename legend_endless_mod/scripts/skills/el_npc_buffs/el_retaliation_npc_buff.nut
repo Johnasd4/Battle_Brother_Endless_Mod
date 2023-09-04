@@ -1,4 +1,4 @@
-this.el_retaliation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buffs", {
+this.el_retaliation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff", {
 	m = {},
 	function create()
 	{
@@ -12,7 +12,7 @@ this.el_retaliation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
 	{
 		local ret;
 		local ap = 999;
-        local skills = this.getContainer().getActor().getSkills();
+        local skills = this.getContainer().getActor().getSkills().m.Skills;
 		foreach( skill in skills )
 		{
 			if (!skill.isActive() || !skill.isAttack() || !skill.isTargeted() || skill.isIgnoredAsAOO() || skill.isDisabled() || !skill.isUsable())
@@ -35,18 +35,30 @@ this.el_retaliation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
 		return ret;
 	}
 
-	function onBeingAttacked( _attacker, _skill, _properties )
-	{
-        local actor = this.getContainer().getActor();
+	function EL_attackBack(_EL_attacker) {
+		if(_EL_attacker == null) {
+			return;
+		}
+		local actor = this.getContainer().getActor();
         if(this.Math.rand(1, 100) <= this.Const.EL_NPC.EL_NPCBuff.Retaliation.AttackChance[this.m.EL_RankLevel] && (!actor.isTurnStarted || actor.isWaitActionSpent)) {
-            local skill = this.EL_getAttackSkill(actor.getTile().getDistanceTo(_attacker.getTile()));
+            local skill = this.EL_getAttackSkill(actor.getTile().getDistanceTo(_EL_attacker.getTile()));
             if (skill != null)
             {
-                skill.useForFree(_attacker.getTile());
+                skill.useForFree(_EL_attacker.getTile());
             }
         }
 	}
 
+
+	function onDamageReceived( _attacker, _damageHitpoints, _damageArmor )
+	{
+		EL_attackBack(_attacker);
+	}
+
+	function onMissed( _attacker, _skill )
+	{
+		EL_attackBack(_attacker);
+	}
 
 });
 

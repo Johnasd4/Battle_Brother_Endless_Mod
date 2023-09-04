@@ -9,7 +9,7 @@ local gt = getroottable();
 		local onInit = o.onInit;
 		o.onInit = function() {
 			onInit();
-			this.m.Events.m.Events.push(this.new("scripts/events/mods/special/el_world_change_event"));
+			this.m.Events.m.Events.push(this.new("scripts/events/mods/el_world/el_world_change_event"));
 		}
 	});
 
@@ -209,8 +209,9 @@ local gt = getroottable();
 		local update = o.update;
 		o.update = function( _worldState )
 		{
-			this.logInfo("qweqweqweqweqweqweqweqweqweqweqweqweqwasdfwzfz");
-			this.EL_UpdateWorldStrengthAndLevel();
+			if(this.m.EL_CurrentUpdateDay < this.World.getTime().Days) {
+				this.EL_UpdateWorldStrengthAndLevel();
+			}
 			update(_worldState);
 		}
 

@@ -293,7 +293,7 @@ gt.Const.EL_NPC <- {
         StrongestLeaderChance = {
             Factor = {
                 Offset = [
-                    0,
+                    100,
                     -15,
                     -35,
                     15
@@ -430,26 +430,30 @@ gt.Const.EL_NPC <- {
                 for(local i = 0; i < this.Const.EL_NPC.EL_NPCBuff.Pool.Scripts.len(); ++i) {
                     index_pool.push(i);
                 }
-                for(local i = 0; i < _EL_rank1Num; ++i) {
-                    local skill = this.new(this.Const.EL_NPC.EL_NPCBuff.Pool.Scripts[index_pool[this.Math.rand(0, index_pool.len() - 1)]]);
+                for(local i = 0; i < _EL_rank1Num && index_pool.len() != 0; ++i) {
+                    local r = this.Math.rand(0, index_pool.len() - 1);
+                    local skill = this.new(this.Const.EL_NPC.EL_NPCBuff.Pool.Scripts[index_pool[r]]);
                     skill.EL_setRankLevel(1);
                     _EL_npc.getSkills().add(skill);
-                    index_pool.remove(rand);
+                    index_pool.remove(r);
+                    this.logInfo("rank 1 " + i);
                 }
-                for(local i = 0; i < _EL_rank2Num; ++i) {
-                    local skill = this.new(this.Const.EL_NPC.EL_NPCBuff.Pool.Scripts[index_pool[this.Math.rand(0, index_pool.len() - 1)]]);
+                for(local i = 0; i < _EL_rank2Num && index_pool.len() != 0; ++i) {
+                    local r = this.Math.rand(0, index_pool.len() - 1);
+                    local skill = this.new(this.Const.EL_NPC.EL_NPCBuff.Pool.Scripts[index_pool[r]]);
                     skill.EL_setRankLevel(2);
                     _EL_npc.getSkills().add(skill);
-                    index_pool.remove(rand);
+                    index_pool.remove(r);
+                    this.logInfo("rank 2 " + i);
                 }
             }
         },
 
         BuffNum = {
-            HumanoidRank1 = [0, 1, 2],
-            HumanoidRank2 = [0, 0, 1],
-            NonHumanoidRank1 = [0, 3, 6],
-            NonHumanoidRank2 = [0, 0, 3]
+            HumanoidRank1 = [0, 1, 0],
+            HumanoidRank2 = [0, 0, 20],
+            NonHumanoidRank1 = [0, 3, 0],
+            NonHumanoidRank2 = [0, 0, 20]
         }
 
         Agility = {

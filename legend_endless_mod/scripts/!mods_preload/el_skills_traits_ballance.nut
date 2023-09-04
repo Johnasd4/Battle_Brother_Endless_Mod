@@ -1034,7 +1034,7 @@ local gt = getroottable();
             ];
         }
 
-        o.onUpdate = function( _properties )
+        function onAnySkillUsed( _skill, _targetEntity, _properties )
         {
             if (_skill.isAttack() && _targetEntity != null && _targetEntity.getID() != this.getContainer().getActor().getID() && _targetEntity.getFaction() == this.getContainer().getActor().getFaction())
             {

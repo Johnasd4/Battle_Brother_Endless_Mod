@@ -1,6 +1,6 @@
-this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buffs", {
+this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff", {
     m = {
-        EL_RiseTimesLeft = 0
+        EL_RiseTimesLeft = 0,
         EL_Stack = 0
     },
     function create()
@@ -19,14 +19,15 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
 
     function onDamageReceived( _attacker, _damageHitpoints, _damageArmor )
     {
-        if (EL_RiseTimesLeft > 0 && _damageHitpoints > this.getContainer().getActor().getHitpoints())
+        if (this.m.EL_RiseTimesLeft > 0 && _damageHitpoints > this.getContainer().getActor().getHitpoints())
         {
             --this.m.EL_RiseTimesLeft;
             ++this.m.EL_Stack;
+
             local actor = this.getContainer().getActor();
             local properties = actor.getCurrentProperties();
 
-            actor.setHitpoints(actor.getHitpointsMax());
+            actor.setHitpoints(actor.getHitpointsMax() + _damageHitpoints);
             actor.setActionPoints(this.getActionPointsMax());
             actor.setFatigue(0);
 
@@ -56,8 +57,8 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
 
     function onUpdate( _properties )
     {
-        _properties.DamageDirectMult *= 1 + this.Const.EL_NPC.EL_NPCBuff.Growth.DamageMultPurStack * this.m.EL_Stack;
-        _properties.DamageReceivedDirectMult *= 1 / (1 + this.Const.EL_NPC.EL_NPCBuff.Growth.DamageReceivedMultPurStack * this.m.EL_Stack);
+        _properties.DamageDirectMult *= 1 + this.Const.EL_NPC.EL_NPCBuff.Phoenix.DamageMultPurStack * this.m.EL_Stack;
+        _properties.DamageReceivedDirectMult *= 1 / (1 + this.Const.EL_NPC.EL_NPCBuff.Phoenix.DamageReceivedMultPurStack * this.m.EL_Stack);
 
         _properties.HitpointsMult *= 1 + this.Const.EL_NPC.EL_NPCBuff.Phoenix.HitPointsMultPurStack * this.m.EL_Stack;
         _properties.Bravery += this.Const.EL_NPC.EL_NPCBuff.Phoenix.BraveryOffsetPurStack * this.m.EL_Stack;

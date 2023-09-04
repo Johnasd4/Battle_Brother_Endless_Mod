@@ -123,14 +123,20 @@ local gt = getroottable();
 					}
 				}
 			}
-			local head_count_bouns = this.Const.EL_Morale.HeadCount.Factor3 * this.Math.pow(head_count_gap, this.Const.EL_Morale.HeadCount.Factor2);
+			local head_count_bouns = 0;
 
+			if(head_count_gap > 0) {
+				head_count_bouns = this.Const.EL_Morale.HeadCount.Factor3 * this.Math.pow(head_count_gap, this.Const.EL_Morale.HeadCount.Factor2);
+			}
+			else {
+				head_count_bouns = -this.Const.EL_Morale.HeadCount.Factor3 * this.Math.pow(-head_count_gap, this.Const.EL_Morale.HeadCount.Factor2);
+			}
 
 			if (_change > 0)
 			{
-				if (this.Math.rand(1, 100) > this.Math.minf(95, bravery + _difficulty - head_count_bouns - threatBonus))
+				if (this.Math.rand(1, 100) > this.Math.minf(95, bravery + _difficulty + head_count_bouns - threatBonus))
 				{
-					if (this.Math.rand(1, 100) > this.m.CurrentProperties.RerollMoraleChance || this.Math.rand(1, 100) > this.Math.minf(95, bravery + _difficulty - head_count_bouns - threatBonus))
+					if (this.Math.rand(1, 100) > this.m.CurrentProperties.RerollMoraleChance || this.Math.rand(1, 100) > this.Math.minf(95, bravery + _difficulty + head_count_bouns - threatBonus))
 					{
 						return false;
 					}
@@ -138,12 +144,12 @@ local gt = getroottable();
 			}
 			else if (_change < 0)
 			{
-				if (this.Math.rand(1, 100) <= this.Math.minf(95, bravery + _difficulty - head_count_bouns - threatBonus))
+				if (this.Math.rand(1, 100) <= this.Math.minf(95, bravery + _difficulty + head_count_bouns - threatBonus))
 				{
 					return false;
 				}
 
-				if (this.Math.rand(1, 100) <= this.m.CurrentProperties.RerollMoraleChance && this.Math.rand(1, 100) <= this.Math.minf(95, bravery + _difficulty - head_count_bouns - threatBonus))
+				if (this.Math.rand(1, 100) <= this.m.CurrentProperties.RerollMoraleChance && this.Math.rand(1, 100) <= this.Math.minf(95, bravery + _difficulty + head_count_bouns - threatBonus))
 				{
 					return false;
 				}
@@ -553,6 +559,7 @@ local gt = getroottable();
 						{
 							local offset = this.Const.EL_Morale.Hit.Factor2 * this.Math.pow(this.getHitpoints() / this.getHitpointsMax() * 100 / this.Const.EL_Morale.Hit.Factor1, this.Const.EL_Morale.Hit.Factor3);
 							this.checkMorale(-1, offset - (_attacker != null && _attacker.getID() != this.getID() ? _attacker.getCurrentProperties().ThreatOnHit : 0), this.Const.MoraleCheckType.Default, "", true);
+							//this.logInfo("Damaged Recieve checkMorale" + (offset - (_attacker != null && _attacker.getID() != this.getID() ? _attacker.getCurrentProperties().ThreatOnHit : 0)));
 						}
 						damage_persent -= this.Const.EL_Morale.Hit.PersentPurCheck;
 					}
@@ -607,10 +614,12 @@ local gt = getroottable();
 			if (_victim.getFaction() == this.getFaction() && _victim.getCurrentProperties().TargetAttractionMult >= 0.5 && this.getCurrentProperties().IsAffectedByDyingAllies)
 			{
 				this.checkMorale(-1, difficulty, this.Const.MoraleCheckType.Default, "", true);
+				//this.logInfo("Ally death checkMorale" + difficulty);
 			}
 			else if (this.getAlliedFactions().find(_victim.getFaction()) == null)
 			{
-				this.checkMorale(1, difficulty);
+				this.checkMorale(1, -difficulty);
+				//this.logInfo("Enemy death checkMorale" + (-difficulty));
 			}
 		}
 
@@ -627,7 +636,14 @@ local gt = getroottable();
 								   this.Const.EL_Morale.Fleeing.RankFactor * (this.EL_getRankLevel() - _actor.EL_getRankLevel()) +
 								   this.Math.pow(this.Const.EL_Morale.Fleeing.CombatLevelFactor, this.Math.abs(this.EL_getCombatLevel() - _actor.EL_getCombatLevel())) * (this.EL_getCombatLevel() - _actor.EL_getCombatLevel()) +
 								   this.Math.pow(_actor.getTile().getDistanceTo(this.getTile()), this.Const.EL_Morale.Fleeing.DistanceFactor);
-				this.checkMorale(-1, difficulty);
+				if(_actor.isAlliedWith(this)) {
+					this.checkMorale(-1, difficulty);
+					//this.logInfo("Ally fleeing checkMorale" + difficulty);
+				}
+				else {
+					this.checkMorale(1, -difficulty);
+					//this.logInfo("Enemy fleeing checkMorale" + (-difficulty));
+				}
 			}
 		}
 
@@ -680,24 +696,28 @@ local gt = getroottable();
 							else
 							{
 								local otherActor = otherTile.getEntity();
-								local numEnemies = otherTile.getZoneOfControlCountOtherThan(otherActor.getAlliedFactions());
-								if(otherActor.m.MaxEnemiesThisTurn < numEnemies) {
-									otherActor.m.MaxEnemiesThisTurn = numEnemies;
-								}
-								for(local j = 0; j < 6; ++j) {
-									if (otherTile.hasNextTile(j))
-									{
-										local temp_tile = otherTile.getNextTile(j);
-										if(temp_tile.IsOccupiedByActor) {
-											local temp_actor = temp_tile.getEntity();
-											if (!temp_actor.isAlliedWith(otherActor))
-											{
-												local difficulty = this.Const.EL_Morale.Move.BaseOffset +
-																   this.Const.EL_Morale.Move.RankFactor * (otherActor.EL_getRankLevel() - temp_actor.EL_getRankLevel()) +
-																   this.Math.pow(this.Const.EL_Morale.Move.CombatLevelFactor, this.Math.abs(otherActor.EL_getCombatLevel() - temp_actor.EL_getCombatLevel())) * (otherActor.EL_getCombatLevel() - temp_actor.EL_getCombatLevel());
-												otherActor.checkMorale(-1, difficulty);
+								if(!otherActor.isAlliedWith(this)) {
+									local numEnemies = otherTile.getZoneOfControlCountOtherThan(otherActor.getAlliedFactions());
+									if(otherActor.m.MaxEnemiesThisTurn < numEnemies) {
+										otherActor.m.MaxEnemiesThisTurn = numEnemies;
+									}
+									for(local j = 0; j < 6; ++j) {
+										if (otherTile.hasNextTile(j))
+										{
+											local temp_tile = otherTile.getNextTile(j);
+											if(temp_tile.IsOccupiedByActor) {
+												local temp_actor = temp_tile.getEntity();
+												if (!temp_actor.isAlliedWith(otherActor))
+												{
+													local difficulty = this.Const.EL_Morale.Move.BaseOffset +
+																	   this.Const.EL_Morale.Move.RankFactor * (otherActor.EL_getRankLevel() - temp_actor.EL_getRankLevel()) +
+																	   this.Math.pow(this.Const.EL_Morale.Move.CombatLevelFactor, this.Math.abs(otherActor.EL_getCombatLevel() - temp_actor.EL_getCombatLevel())) * (otherActor.EL_getCombatLevel() - temp_actor.EL_getCombatLevel());
+													otherActor.checkMorale(-1, difficulty);
+													//this.logInfo("Step checkMorale" + difficulty);
+												}
 											}
-										}									}
+										}
+									}
 								}
 							}
 						}
@@ -710,6 +730,7 @@ local gt = getroottable();
 				{
 					local difficulty = 40.0;
 					this.checkMorale(-1, difficulty);
+					//this.logInfo("Involuntary checkMorale" + difficulty);
 				}
 			}
 
@@ -720,6 +741,7 @@ local gt = getroottable();
 			{
 				local change = this.getMoraleState() - this.Const.MoraleState.Breaking;
 				this.checkMorale(-change, -1000);
+				//this.logInfo("Side checkMorale");
 			}
 
 			if (this.m.IsEmittingMovementSounds && this.Const.Tactical.TerrainMovementSound[_tile.Subtype].len() != 0)

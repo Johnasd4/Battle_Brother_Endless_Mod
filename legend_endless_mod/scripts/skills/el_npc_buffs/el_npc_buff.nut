@@ -14,9 +14,9 @@ this.el_npc_buff <- this.inherit("scripts/skills/skill", {
 	}
 
     function EL_setRankLevel(_EL_rankLevel) {
+		this.m.EL_RankLevel = _EL_rankLevel;
         this.m.Icon = this.Const.EL_NPC.EL_Champion.Icon[this.m.EL_RankLevel];
         this.m.IconMini = this.Const.EL_NPC.EL_Champion.IconMini[this.m.EL_RankLevel];
-        this.m.EL_RankLevel = _EL_rankLevel;
     }
 
     function EL_getRankLevel() {
