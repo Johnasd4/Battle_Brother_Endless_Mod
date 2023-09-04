@@ -429,7 +429,7 @@ this.world_entity <- {
 					unit_population += this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[i].EL_RankLevel];
 				}
 				else {
-					unit_population += this.Math.ceil((this.m.Troops[i].Strength - 1) / this.Const.EL_NPC.EL_Troop.StrengthPurPopulation) * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[i].EL_RankLevel];
+					unit_population += this.Math.ceil(this.m.Troops[i].Strength / this.Const.EL_NPC.EL_Troop.StrengthPurPopulation) * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[i].EL_RankLevel];
 				}
 			}
 			this.m.Strength = unit_strength * (1 + this.Math.pow(unit_population / this.Const.EL_NPC.EL_Troop.TotalResourse.Factor1, this.Const.EL_NPC.EL_Troop.TotalResourse.Factor2));
