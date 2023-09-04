@@ -1,9 +1,9 @@
-this.el_stunning_strike_npc_buff <- this.inherit("scripts/skills/el_npc_buff/el_npc_buff", {
+this.el_stunning_strike_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buffs", {
 	m = {},
 	function create()
 	{
 		this.el_npc_buff.create();
-		this.m.ID = "el_npc_buff.stunning_strike";
+		this.m.ID = "el_npc_buffs.stunning_strike";
 		this.m.Name = "Stunning Strike";
 		this.m.Description = "";
 	}

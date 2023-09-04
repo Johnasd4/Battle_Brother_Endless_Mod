@@ -1,9 +1,9 @@
-this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buff/el_npc_buff", {
+this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buffs", {
 	m = {},
 	function create()
 	{
 		this.el_npc_buff.create();
-		this.m.ID = "el_npc_buff.self_destruct";
+		this.m.ID = "el_npc_buffs.self_destruct";
 		this.m.Name = "Self Destruct";
 		this.m.Description = "";
 	}

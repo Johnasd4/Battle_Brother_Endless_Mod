@@ -1,11 +1,11 @@
-this.el_revenge_npc_buff <- this.inherit("scripts/skills/el_npc_buff/el_npc_buff", {
+this.el_revenge_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buffs", {
 	m = {
         EL_Stack = 0
     },
 	function create()
 	{
 		this.el_npc_buff.create();
-		this.m.ID = "el_npc_buff.revenge";
+		this.m.ID = "el_npc_buffs.revenge";
 		this.m.Name = "Revenge";
 		this.m.Description = "";
 	}

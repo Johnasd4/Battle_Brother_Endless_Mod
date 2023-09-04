@@ -1,9 +1,9 @@
-this.el_weapon_master_npc_buff <- this.inherit("scripts/skills/el_npc_buff/el_npc_buff", {
+this.el_weapon_master_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buffs", {
 	m = {},
 	function create()
 	{
 		this.el_npc_buff.create();
-		this.m.ID = "el_npc_buff.weapon_master";
+		this.m.ID = "el_npc_buffs.weapon_master";
 		this.m.Name = "Weapon Master";
 		this.m.Description = "";
 	}

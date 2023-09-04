@@ -1,11 +1,11 @@
-this.el_recovery_npc_buff <- this.inherit("scripts/skills/el_npc_buff/el_npc_buff", {
+this.el_recovery_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buffs", {
 	m = {
         EL_DefenseState = this.Const.EL_NPC.EL_NPCBuff.Evasion.RangeState
     },
 	function create()
 	{
 		this.el_npc_buff.create();
-		this.m.ID = "el_npc_buff.recovery";
+		this.m.ID = "el_npc_buffs.recovery";
 		this.m.Name = "Recovery";
 		this.m.Description = "";
 	}

@@ -1,9 +1,9 @@
-this.el_berserk_npc_buff <- this.inherit("scripts/skills/el_npc_buff/el_npc_buff", {
+this.el_berserk_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buffs", {
 	m = {},
 	function create()
 	{
 		this.el_npc_buff.create();
-		this.m.ID = "el_npc_buff.berserk";
+		this.m.ID = "el_npc_buffs.berserk";
 		this.m.Name = "Berserk";
 		this.m.Description = "";
 	}

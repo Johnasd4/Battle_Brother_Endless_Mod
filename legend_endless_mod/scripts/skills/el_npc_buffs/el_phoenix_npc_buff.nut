@@ -1,4 +1,4 @@
-this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buff/el_npc_buff", {
+this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buffs", {
     m = {
         EL_RiseTimesLeft = 0
         EL_Stack = 0
@@ -6,7 +6,7 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buff/el_npc_buff
     function create()
     {
         this.el_npc_buff.create();
-        this.m.ID = "el_npc_buff.phoenix";
+        this.m.ID = "el_npc_buffs.phoenix";
         this.m.Name = "Phoenix";
         this.m.Description = "";
     }
