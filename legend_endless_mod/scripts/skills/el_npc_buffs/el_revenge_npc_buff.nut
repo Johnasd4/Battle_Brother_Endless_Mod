@@ -10,12 +10,6 @@ this.el_revenge_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
 		this.m.Description = "";
 	}
 
-	function onCombatStarted()
-	{
-        this.m.EL_Stack = 0;
-        this.getContainer().getActor().getSkills().update();
-	}
-
 	function onDamageReceived( _attacker, _damageHitpoints, _damageArmor )
 	{
         ++this.m.EL_Stack;

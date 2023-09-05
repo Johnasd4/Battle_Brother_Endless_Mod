@@ -26,7 +26,6 @@ this.el_intimidate_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_
                                                this.Math.pow(this.Const.EL_NPC.EL_NPCBuff.Intimidate.CombatLevelFactor, this.Math.abs(t.EL_getCombatLevel() - actor.EL_getCombatLevel())) * (t.EL_getCombatLevel() - actor.EL_getCombatLevel()) +
                                                this.Math.pow(t.getTile().getDistanceTo(actor.getTile()), this.Const.EL_NPC.EL_NPCBuff.Intimidate.DistanceFactor);
                             t.checkMorale(-1, difficulty);
-                            this.logInfo("Intimidate checkMorale" + difficulty);
                         }
                     }
                 }

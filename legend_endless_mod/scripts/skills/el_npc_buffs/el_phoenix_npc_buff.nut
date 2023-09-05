@@ -3,6 +3,7 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
         EL_RiseTimesLeft = 0,
         EL_Stack = 0,
         EL_IsRising = false,
+        EL_RisingReset = false,
     },
     function create()
     {
@@ -12,21 +13,22 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
         this.m.Description = "";
     }
 
-    function onCombatStarted()
-    {
+    function EL_setRankLevel(_EL_rankLevel) {
+        this.el_npc_buff.EL_setRankLevel(_EL_rankLevel);
+        this.m.EL_RiseTimesLeft = this.Const.EL_NPC.EL_NPCBuff.Phoenix.RiseTimes[this.m.EL_RankLevel];
+    }
+
+	function onAdded()
+	{
         local actor = this.getContainer().getActor();
         actor.setIsAbleToDie(false);
-        actor.m.IsAttackable = true;
-        this.m.EL_RiseTimesLeft = this.Const.EL_NPC.EL_NPCBuff.Phoenix.RiseTimes[this.m.EL_RankLevel];
-        this.m.EL_Stack = 0;
-        this.m.EL_IsRising = false;
-    }
+	}
 
 	function onTurnStart()
 	{
         if(this.m.EL_IsRising) {
-
             this.m.EL_IsRising = false;
+            this.m.EL_RisingReset = true;
             --this.m.EL_RiseTimesLeft;
             ++this.m.EL_Stack;
             local actor = this.getContainer().getActor();
@@ -35,8 +37,27 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
             if(this.m.EL_RiseTimesLeft == 0) {
                 actor.setIsAbleToDie(true);
             }
-            actor.setHitpoints(actor.getHitpointsMax() + _damageHitpoints);
-            actor.setActionPoints(this.getActionPointsMax());
+            local skills = actor.getSkills();
+            foreach( skill in skills.m.Skills ) {
+                local skill_type = skill.getType();
+                if((skill_type == this.Const.SkillType.StatusEffect ||
+                    skill_type == this.Const.SkillType.Injury ||
+                    skill_type == this.Const.SkillType.PermanentInjury ||
+                    skill_type == this.Const.SkillType.TemporaryInjury ||
+                    skill_type == this.Const.SkillType.DrugEffect ||
+                    skill_type == this.Const.SkillType.SemiInjury ||
+                    skill_type == this.Const.SkillType.DamageOverTime) &&
+                    !(skill.EL_isNPCBuff()))
+                {
+                    skills.remove(skill);
+                }
+            }
+
+
+
+
+            actor.setHitpoints(actor.getHitpointsMax());
+            actor.setActionPoints(actor.getActionPointsMax());
             actor.setFatigue(0);
 
             local body = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
@@ -66,6 +87,7 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
 
     function onDamageReceived( _attacker, _damageHitpoints, _damageArmor )
     {
+        local actor = this.getContainer().getActor();
         if (this.m.EL_RiseTimesLeft > 0 && _damageHitpoints > this.getContainer().getActor().getHitpoints())
         {
             this.m.EL_IsRising = true;
@@ -74,7 +96,6 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
             actor.m.IsAttackable = false;
             actor.setActionPoints(0);
             actor.setFatigue(actor.getFatigueMax());
-
             local body = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
             if(body != null) {
                 body.setArmor(0);
@@ -101,6 +122,16 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
 
     function onUpdate( _properties )
     {
+
+        if(this.m.EL_IsRising) {
+            _properties.IsStunned = true;
+        }
+        if(this.m.EL_RisingReset == true) {
+            this.m.EL_RisingReset = false;
+            _properties.IsStunned = false;
+        }
+
+
         _properties.DamageDirectMult *= 1 + this.Const.EL_NPC.EL_NPCBuff.Phoenix.DamageMultPurStack * this.m.EL_Stack;
         _properties.DamageReceivedDirectMult *= 1 / (1 + this.Const.EL_NPC.EL_NPCBuff.Phoenix.DamageReceivedMultPurStack * this.m.EL_Stack);
 

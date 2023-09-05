@@ -10,11 +10,6 @@ this.el_growth_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff
 		this.m.Description = "";
 	}
 
-	function onCombatStarted()
-	{
-        this.m.EL_Stack = 0;
-	}
-
 	function onTurnStart()
 	{
         ++this.m.EL_Stack;

@@ -52,6 +52,7 @@ this.el_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario
 		this.World.Assets.m.ArmorParts = 99;
 		this.World.Assets.m.Medicine = 99;
 		this.World.Assets.m.Ammo = 99;
+		bros[0].m.Skills.add(this.new("scripts/skills/perks/perk_ptr_know_their_weakness"));
 	}
 
 	function onSpawnPlayer()

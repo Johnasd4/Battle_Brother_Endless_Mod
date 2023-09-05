@@ -1,6 +1,6 @@
 this.el_npc_buff <- this.inherit("scripts/skills/skill", {
 	m = {
-        EL_RankLevel = 0
+        EL_RankLevel = 0,
     },
 	function create()
 	{
@@ -11,6 +11,7 @@ this.el_npc_buff <- this.inherit("scripts/skills/skill", {
 		this.m.IsActive = false;
 		this.m.IsStacking = false;
 		this.m.IsHidden = false;
+		this.m.EL_IsNPCBuff = true;
 	}
 
     function EL_setRankLevel(_EL_rankLevel) {

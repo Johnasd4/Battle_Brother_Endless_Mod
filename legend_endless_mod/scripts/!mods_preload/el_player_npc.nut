@@ -107,6 +107,12 @@ local gt = getroottable();
 
 	::mods_hookClass("skills/skill", function(o) {
 		while(!("attackEntity" in o)) o = o[o.SuperName];
+		o.m.EL_IsNPCBuff <- false;
+
+		o.EL_isNPCBuff <- function() {
+			return this.m.EL_IsNPCBuff;
+		}
+
 		o.attackEntity = function( _user, _targetEntity, _allowDiversion = true )
 		{
 			if (_targetEntity.isRock())
@@ -399,7 +405,7 @@ local gt = getroottable();
 				toHit = toHit - 15;
 				properties.DamageTotalMult *= 0.75;
 			}
-			this.logInfo("attackEntity combat level extra hit chance" + ((_user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()) * this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.HitChangeFactor, this.Math.abs(_user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()))));
+			//this.logInfo("attackEntity combat level extra hit chance" + ((_user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()) * this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.HitChangeFactor, this.Math.abs(_user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()))));
 			toHit += (_user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()) * this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.HitChangeFactor, this.Math.abs(_user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()));
 			if(_user.EL_getCombatLevel() > _targetEntity.EL_getCombatLevel()) {
 				properties.DamageTotalMult *= this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, this.Math.abs(_user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()));
@@ -665,6 +671,7 @@ local gt = getroottable();
 
 		o.getHitchance = function( _targetEntity )
 		{
+
 			if (!_targetEntity.isAttackable() && !_targetEntity.isRock() && !_targetEntity.isTree() && !_targetEntity.isBush() && !_targetEntity.isSupplies())
 			{
 				return 0;
@@ -734,7 +741,7 @@ local gt = getroottable();
 			local EL_combat_level_extra_chance = (user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()) * this.Math.pow(1.04, this.Math.abs(user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()));
 
 			toHit += EL_combat_level_extra_chance;
-			this.logInfo("getHitchance combat level extra hit chance" + EL_combat_level_extra_chance);
+			//this.logInfo("getHitchance combat level extra hit chance" + EL_combat_level_extra_chance);
 			return this.Math.max(5, this.Math.min(95, toHit));
 		}
 	});

@@ -25,7 +25,7 @@ local gt = getroottable();
 		o.getReductionPercentage = function()
 		{
 			local armor = this.getContainer().getActor().getArmor(this.Const.BodyPart.Head) + this.getContainer().getActor().getArmor(this.Const.BodyPart.Body);
-			return this.Math.floor(100 - 100/(1 + armor * 0.05));
+			return this.Math.floor(100 - 100/(100 + armor * 0.05));
 		}
 
 	});
@@ -671,32 +671,33 @@ local gt = getroottable();
 
 	::mods_hookNewObject("skills/perks/perk_ptr_know_their_weakness", function ( o )
 	{
+		if("getMeleeBonus" in o) {
+			o.getTooltip = function()
+			{
+				local tooltip = this.skill.getTooltip();
 
-		o.getTooltip = function()
-		{
-			local tooltip = this.skill.getTooltip();
+				tooltip.push({
+					id = 10,
+					type = "text",
+					icon = "ui/icons/melee_skill.png",
+					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.getMeleeBonus() + "[/color] Melee Skill"
+				});
 
-			tooltip.push({
-				id = 10,
-				type = "text",
-				icon = "ui/icons/melee_skill.png",
-				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.getMeleeBonus() + "[/color] Melee Skill"
-			});
+				tooltip.push({
+					id = 10,
+					type = "text",
+					icon = "ui/icons/ranged_skill.png",
+					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.getRangedBonus() + "[/color] Ranged Skill"
+				});
 
-			tooltip.push({
-				id = 10,
-				type = "text",
-				icon = "ui/icons/ranged_skill.png",
-				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.getRangedBonus() + "[/color] Ranged Skill"
-			});
+				return tooltip;
+			}
 
-			return tooltip;
-		}
-
-		o.onUpdate = function( _properties )
-		{
-			_properties.MeleeSkill += this.getMeleeBonus();
-			_properties.RangedSkill += this.getMeleeBonus();
+			o.onUpdate = function( _properties )
+			{
+				_properties.MeleeSkill += this.getMeleeBonus();
+				_properties.RangedSkill += this.getMeleeBonus();
+			}
 		}
 	});
 

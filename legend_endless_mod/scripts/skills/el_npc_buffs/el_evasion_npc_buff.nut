@@ -10,12 +10,6 @@ this.el_evasion_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
 		this.m.Description = "";
 	}
 
-	function onCombatStarted()
-	{
-        this.m.EL_DefenseState = this.Const.EL_NPC.EL_NPCBuff.Evasion.RangeState;
-        this.getContainer().getActor().getSkills().update();
-	}
-
 	function onTurnStart()
 	{
         if(this.m.EL_DefenseState == this.Const.EL_NPC.EL_NPCBuff.Evasion.MeleeState) {

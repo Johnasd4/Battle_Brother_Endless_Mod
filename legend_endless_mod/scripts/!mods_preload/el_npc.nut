@@ -51,7 +51,6 @@ local gt = getroottable();
 
 		o.setupEntity = function (_e, _t)
 		{
-            this.logInfo("setupEntity");
             _e.setWorldTroop(_t);
             _e.setFaction(_t.Faction);
 

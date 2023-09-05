@@ -114,8 +114,8 @@ gt.Const.EL_NPC <- {
         }
 
         Resourse = {
-            MinMult = 50,
-            MaxMult = 150,
+            MinMult = 70,
+            MaxMult = 130,
         },
 
         BossUnit = [
@@ -446,7 +446,6 @@ gt.Const.EL_NPC <- {
                     skill.EL_setRankLevel(1);
                     _EL_npc.getSkills().add(skill);
                     index_pool.remove(r);
-                    this.logInfo("rank 1 " + i);
                 }
                 for(local i = 0; i < _EL_rank2Num && index_pool.len() != 0; ++i) {
                     local r = this.Math.rand(0, index_pool.len() - 1);
@@ -454,7 +453,6 @@ gt.Const.EL_NPC <- {
                     skill.EL_setRankLevel(2);
                     _EL_npc.getSkills().add(skill);
                     index_pool.remove(r);
-                    this.logInfo("rank 2 " + i);
                 }
             }
         },
@@ -521,8 +519,8 @@ gt.Const.EL_NPC <- {
 
         },
         Recovery = {
-            HitpointsRecoveryRate = [0, 0.04, 0.1],
-            ArmorRecoveryRate = [0, 0.04, 0.1],
+            HitpointsRecoveryRate = [0, 0.08, 0.2],
+            ArmorRecoveryRate = [0, 0.08, 0.2],
         },
         Retaliation = {
             AttackChance = [0, 40, 100]

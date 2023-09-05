@@ -10,7 +10,6 @@ this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
 
 	function onDeath( _fatalityType )
 	{
-        this.logInfo("Self Destruct");
         local actor = this.getContainer().getActor();
         local targets = this.Tactical.Entities.getAllInstances();
         local damage = this.Math.round(actor.getHitpointsMax() * this.Const.EL_NPC.EL_NPCBuff.SelfDestruct.DamageRate[this.m.EL_RankLevel]);
