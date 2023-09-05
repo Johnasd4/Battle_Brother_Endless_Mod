@@ -91,7 +91,7 @@ local gt = getroottable();
 							id = id,
 							type = "hint",
 							icon = bro.Mood,
-							text = "Lv" + bro.Level + "(" + (this.Math.round(bro.EL_CombatLevel * 100) / 100) + ") " + bro.Name
+							text = "Lv" + bro.Level + "(" + (this.Math.round(bro.EL_CombatLevel * 10) * 0.1) + ") " + bro.Name
 						});
 						id = ++id;
 						id = id;
@@ -181,7 +181,7 @@ local gt = getroottable();
 			foreach( bro in this.World.getPlayerRoster().getAll() )
 			{
 				ret.Brothers.push({
-					Name = bro.getName(),
+					Name = bro.getNameOnly(),
 					Mood = this.Const.MoodStateIcon[bro.getMoodState()],
 					Level = bro.getLevel(),
 					EL_CombatLevel = bro.EL_getCombatLevel(),

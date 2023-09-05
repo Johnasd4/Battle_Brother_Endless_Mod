@@ -64,12 +64,9 @@ local gt = getroottable();
                 _e.getSkills().add(this.new("scripts/skills/special/night_effect"));
             }
 
-            if ("Name" in _t)
+            if (("Name" in _t) && _t.Name != "")
             {
-                local name = this.Const.EL_NPC.EL_Troop.NamePrefix[_t.EL_RankLevel];
-                name += _e.getNameOnly();
-                name += this.Const.EL_NPC.EL_Troop.NameSuffix[_t.EL_RankLevel];
-                _e.setName(name);
+                _e.setName(_t.Name);
                 _e.m.IsGeneratingKillName = false;
             }
 
@@ -88,6 +85,7 @@ local gt = getroottable();
             }
 
             _e.EL_generateNPCAttributesByLevel(npc_level);
+            //this.logInfo("_t.EL_ExtraCombatLevel " + _t.EL_ExtraCombatLevel);
             _e.EL_setCombatLevel(npc_level + _t.EL_ExtraCombatLevel);
             _e.EL_setRankLevel(_t.EL_RankLevel);
 
@@ -168,6 +166,12 @@ local gt = getroottable();
             this.m.XP *= this.Const.EL_NPC.EL_Champion.XP.Mult[this.m.EL_RankLevel];
             this.m.XP *= this.Math.pow(this.Const.EL_NPC.EL_LevelUp.XPFactor, level_ups);
         }
+
+		o.getName = function()
+		{
+			return this.m.Name + " - Lv" + this.m.EL_NPCLevel + "(" + ((this.Math.round(this.EL_getCombatLevel() * 10) * 0.1)) + ")";
+		}
+
 
 	});
 
