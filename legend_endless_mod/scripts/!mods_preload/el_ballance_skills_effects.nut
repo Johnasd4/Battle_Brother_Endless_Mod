@@ -652,7 +652,7 @@ local gt = getroottable();
                     id = 11,
                     type = "text",
                     icon = "ui/icons/health.png",
-                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.Math.floor(200 * (1 + actor.getCurrentProperties().EL_getCombatLevel() * 0.04)) + "[/color] hitpoints"
+                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.Math.floor(200 * (1 + actor.EL_getCombatLevel() * 0.04)) + "[/color] hitpoints"
                 },
                 {
                     id = 11,
@@ -683,13 +683,13 @@ local gt = getroottable();
                     id = 11,
                     type = "text",
                     icon = "ui/icons/health.png",
-                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.Math.floor(100 * (1 + actor.getCurrentProperties().EL_getCombatLevel() * 0.04)) + "[/color] hitpoints"
+                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.Math.floor(100 * (1 + actor.EL_getCombatLevel() * 0.04)) + "[/color] hitpoints"
                 },
                 {
                     id = 12,
                     type = "text",
                     icon = "ui/icons/fatigue.png",
-                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.Math.floor(100 * (1 + actor.getCurrentProperties().EL_getCombatLevel() * 0.04)) + "[/color] Maximum Fatigue"
+                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.Math.floor(100 * (1 + actor.EL_getCombatLevel() * 0.04)) + "[/color] Maximum Fatigue"
                 },
                 {
                     id = 11,
@@ -777,7 +777,7 @@ local gt = getroottable();
                     id = 11,
                     type = "text",
                     icon = "ui/icons/health.png",
-                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.Math.floor(100 * (1 + actor.getCurrentProperties().EL_getCombatLevel() * 0.04)) + "[/color] hitpoints"
+                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.Math.floor(100 * (1 + actor.EL_getCombatLevel() * 0.04)) + "[/color] hitpoints"
                 },
                 {
                     id = 11,

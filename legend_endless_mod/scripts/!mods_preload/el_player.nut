@@ -424,6 +424,10 @@ local gt = getroottable();
 			}
 		};
 
+		o.getName <- function()
+		{
+			return this.m.Name + " - Lv" + this.m.Level + "(" + ((this.Math.round(this.EL_getCombatLevel() * 10) * 0.1)) + ")";
+		}
 
 	});
 
@@ -886,187 +890,198 @@ local gt = getroottable();
 
 		o.getAttributesTooltip = function ()
 		{
-			if (this.getContainer().getActor().getLevel() >= this.Const.EL_Player.EL_PlayerLevel.Max)
+			if (this.getContainer().getActor().getLevel() < this.Const.EL_Player.EL_PlayerLevel.Max)
 			{
-				return [];
-			}
+				local EL_calculateAttribute = function ( _level, _attribute, _maximum = false )
+				{
+					local brother = this.getContainer().getActor();
+					local attributeMin = this.Const.EL_Player.EL_LevelUpAttributes[_attribute].Min[brother.m.Talents[_attribute]];
+					local attributeMax = this.Const.EL_Player.EL_LevelUpAttributes[_attribute].Max[brother.m.Talents[_attribute]];
 
-			local EL_calculateAttribute = function ( _level, _attribute, _maximum = false )
-			{
+					local levelUps = this.Math.max(_level - brother.getLevel() + brother.getLevelUps(), 0);
+					local attributeValue = _maximum ? attributeMax * levelUps : attributeMin * levelUps;
+
+					switch(_attribute)
+					{
+					case this.Const.Attributes.Hitpoints:
+						return attributeValue + brother.getBaseProperties().Hitpoints;
+						break;
+
+					case this.Const.Attributes.Bravery:
+						return attributeValue + brother.getBaseProperties().Bravery;
+						break;
+
+					case this.Const.Attributes.Fatigue:
+						return attributeValue + brother.getBaseProperties().Stamina;
+						break;
+
+					case this.Const.Attributes.Initiative:
+						return attributeValue + brother.getBaseProperties().Initiative;
+						break;
+
+					case this.Const.Attributes.MeleeSkill:
+						return attributeValue + brother.getBaseProperties().MeleeSkill;
+						break;
+
+					case this.Const.Attributes.RangedSkill:
+						return attributeValue + brother.getBaseProperties().RangedSkill;
+						break;
+
+					case this.Const.Attributes.MeleeDefense:
+						return attributeValue + brother.getBaseProperties().MeleeDefense;
+						break;
+
+					case this.Const.Attributes.RangedDefense:
+						return attributeValue + brother.getBaseProperties().RangedDefense;
+						break;
+
+					default:
+						return 0;
+						break;
+					}
+				};
+				local a = {
+					Hitpoints = [
+						EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Hitpoints),
+						EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Hitpoints, true)
+					],
+					Bravery = [
+						EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Bravery),
+						EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Bravery, true)
+					],
+					Fatigue = [
+						EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Fatigue),
+						EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Fatigue, true)
+					],
+					Initiative = [
+						EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Initiative),
+						EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Initiative, true)
+					],
+					MeleeSkill = [
+						EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.MeleeSkill),
+						EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.MeleeSkill, true)
+					],
+					RangedSkill = [
+						EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.RangedSkill),
+						EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.RangedSkill, true)
+					],
+					MeleeDefense = [
+						EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.MeleeDefense),
+						EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.MeleeDefense, true)
+					],
+					RangedDefense = [
+						EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.RangedDefense),
+						EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.RangedDefense, true)
+					]
+				};
+				local bufferHealth = "";
+				local bufferFatigue = "";
+				local bufferBravery = "";
+				local bufferInitiative = "";
+
+				if (a.Hitpoints[0] >= 100)
+				{
+					bufferFatigue = bufferFatigue + "&nbsp;&nbsp;";
+					bufferBravery = bufferBravery + "&nbsp;&nbsp;";
+					bufferInitiative = bufferInitiative + "&nbsp;&nbsp;";
+				}
+
+				if (a.Hitpoints[1] >= 100)
+				{
+					bufferFatigue = bufferFatigue + "&nbsp;&nbsp;";
+					bufferBravery = bufferBravery + "&nbsp;&nbsp;";
+					bufferInitiative = bufferInitiative + "&nbsp;&nbsp;";
+				}
+
+				if (a.Fatigue[0] >= 100)
+				{
+					bufferHealth = bufferHealth + "&nbsp;&nbsp;";
+					bufferBravery = bufferBravery + "&nbsp;&nbsp;";
+					bufferInitiative = bufferInitiative + "&nbsp;&nbsp;";
+				}
+
+				if (a.Fatigue[1] >= 100)
+				{
+					bufferHealth = bufferHealth + "&nbsp;&nbsp;";
+					bufferBravery = bufferBravery + "&nbsp;&nbsp;";
+					bufferInitiative = bufferInitiative + "&nbsp;&nbsp;";
+				}
+
+				if (a.Bravery[0] >= 100)
+				{
+					bufferHealth = bufferHealth + "&nbsp;&nbsp;";
+					bufferFatigue = bufferFatigue + "&nbsp;&nbsp;";
+					bufferInitiative = bufferInitiative + "&nbsp;&nbsp;";
+				}
+
+				if (a.Bravery[1] >= 100)
+				{
+					bufferHealth = bufferHealth + "&nbsp;&nbsp;";
+					bufferFatigue = bufferFatigue + "&nbsp;&nbsp;";
+					bufferInitiative = bufferInitiative + "&nbsp;&nbsp;";
+				}
+
+				if (a.Initiative[0] >= 100)
+				{
+					bufferHealth = bufferHealth + "&nbsp;&nbsp;";
+					bufferFatigue = bufferFatigue + "&nbsp;&nbsp;";
+					bufferBravery = bufferBravery + "&nbsp;&nbsp;";
+				}
+
+				if (a.Initiative[1] >= 100)
+				{
+					bufferHealth = bufferHealth + "&nbsp;&nbsp;";
+					bufferFatigue = bufferFatigue + "&nbsp;&nbsp;";
+					bufferBravery = bufferBravery + "&nbsp;&nbsp;";
+				}
 				local brother = this.getContainer().getActor();
-				local attributeMin = this.Const.EL_Player.EL_LevelUpAttributes[_attribute].Min[brother.m.Talents[_attribute]];
-				local attributeMax = this.Const.EL_Player.EL_LevelUpAttributes[_attribute].Max[brother.m.Talents[_attribute]];
-
-				local levelUps = this.Math.max(_level - brother.getLevel() + brother.getLevelUps(), 0);
-				local attributeValue = _maximum ? attributeMax * levelUps : attributeMin * levelUps;
-
-				switch(_attribute)
-				{
-				case this.Const.Attributes.Hitpoints:
-					return attributeValue + brother.getBaseProperties().Hitpoints;
-					break;
-
-				case this.Const.Attributes.Bravery:
-					return attributeValue + brother.getBaseProperties().Bravery;
-					break;
-
-				case this.Const.Attributes.Fatigue:
-					return attributeValue + brother.getBaseProperties().Stamina;
-					break;
-
-				case this.Const.Attributes.Initiative:
-					return attributeValue + brother.getBaseProperties().Initiative;
-					break;
-
-				case this.Const.Attributes.MeleeSkill:
-					return attributeValue + brother.getBaseProperties().MeleeSkill;
-					break;
-
-				case this.Const.Attributes.RangedSkill:
-					return attributeValue + brother.getBaseProperties().RangedSkill;
-					break;
-
-				case this.Const.Attributes.MeleeDefense:
-					return attributeValue + brother.getBaseProperties().MeleeDefense;
-					break;
-
-				case this.Const.Attributes.RangedDefense:
-					return attributeValue + brother.getBaseProperties().RangedDefense;
-					break;
-
-				default:
-					return 0;
-					break;
-				}
-			};
-			local a = {
-				Hitpoints = [
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Hitpoints),
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Hitpoints, true)
-				],
-				Bravery = [
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Bravery),
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Bravery, true)
-				],
-				Fatigue = [
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Fatigue),
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Fatigue, true)
-				],
-				Initiative = [
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Initiative),
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.Initiative, true)
-				],
-				MeleeSkill = [
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.MeleeSkill),
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.MeleeSkill, true)
-				],
-				RangedSkill = [
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.RangedSkill),
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.RangedSkill, true)
-				],
-				MeleeDefense = [
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.MeleeDefense),
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.MeleeDefense, true)
-				],
-				RangedDefense = [
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.RangedDefense),
-					EL_calculateAttribute(this.Const.EL_Player.EL_PlayerLevel.Max, this.Const.Attributes.RangedDefense, true)
-				]
-			};
-			local bufferHealth = "";
-			local bufferFatigue = "";
-			local bufferBravery = "";
-			local bufferInitiative = "";
-
-			if (a.Hitpoints[0] >= 100)
-			{
-				bufferFatigue = bufferFatigue + "&nbsp;&nbsp;";
-				bufferBravery = bufferBravery + "&nbsp;&nbsp;";
-				bufferInitiative = bufferInitiative + "&nbsp;&nbsp;";
+				local tooltip = [
+					{
+						id = 103,
+						type = "hint",
+						text = "Combat Level : " + (this.Math.round(brother.EL_getCombatLevel() * 10) * 0.1)
+					},
+					{
+						id = 104,
+						type = "hint",
+						text = "Projection of this character\'s base attribute ranges calculated as if that attribute is improved on every level up from current level to " + this.Const.EL_Player.EL_PlayerLevel.Max + "."
+					},
+					{
+						id = 105,
+						type = "hint",
+						text = "[img]gfx/ui/icons/health_va11.png[/img] " + a.Hitpoints[0] + " ~ " + a.Hitpoints[1] + bufferHealth + "&nbsp;&nbsp;[img]gfx/ui/icons/melee_skill_va11.png[/img] " + a.MeleeSkill[0] + " ~ " + a.MeleeSkill[1]
+					},
+					{
+						id = 106,
+						type = "hint",
+						text = "[img]gfx/ui/icons/fatigue_va11.png[/img] " + a.Fatigue[0] + " ~ " + a.Fatigue[1] + bufferFatigue + "&nbsp;&nbsp;[img]gfx/ui/icons/ranged_skill_va11.png[/img] " + a.RangedSkill[0] + " ~ " + a.RangedSkill[1]
+					},
+					{
+						id = 107,
+						type = "hint",
+						text = "[img]gfx/ui/icons/bravery_va11.png[/img] " + a.Bravery[0] + " ~ " + a.Bravery[1] + bufferBravery + "&nbsp;&nbsp;[img]gfx/ui/icons/melee_defense_va11.png[/img] " + a.MeleeDefense[0] + " ~ " + a.MeleeDefense[1]
+					},
+					{
+						id = 107,
+						type = "hint",
+						text = "[img]gfx/ui/icons/initiative_va11.png[/img] " + a.Initiative[0] + " ~ " + a.Initiative[1] + bufferInitiative + "&nbsp;&nbsp;[img]gfx/ui/icons/ranged_defense_va11.png[/img] " + a.RangedDefense[0] + " ~ " + a.RangedDefense[1]
+					}
+				];
+				return tooltip;
+			}
+			else {
+				local brother = this.getContainer().getActor();
+				local tooltip = [
+					{
+						id = 103,
+						type = "hint",
+						text = "Combat Level : " + (this.Math.round(brother.EL_getCombatLevel() * 10) * 0.1)
+					}
+				];
+				return tooltip;
 			}
 
-			if (a.Hitpoints[1] >= 100)
-			{
-				bufferFatigue = bufferFatigue + "&nbsp;&nbsp;";
-				bufferBravery = bufferBravery + "&nbsp;&nbsp;";
-				bufferInitiative = bufferInitiative + "&nbsp;&nbsp;";
-			}
 
-			if (a.Fatigue[0] >= 100)
-			{
-				bufferHealth = bufferHealth + "&nbsp;&nbsp;";
-				bufferBravery = bufferBravery + "&nbsp;&nbsp;";
-				bufferInitiative = bufferInitiative + "&nbsp;&nbsp;";
-			}
-
-			if (a.Fatigue[1] >= 100)
-			{
-				bufferHealth = bufferHealth + "&nbsp;&nbsp;";
-				bufferBravery = bufferBravery + "&nbsp;&nbsp;";
-				bufferInitiative = bufferInitiative + "&nbsp;&nbsp;";
-			}
-
-			if (a.Bravery[0] >= 100)
-			{
-				bufferHealth = bufferHealth + "&nbsp;&nbsp;";
-				bufferFatigue = bufferFatigue + "&nbsp;&nbsp;";
-				bufferInitiative = bufferInitiative + "&nbsp;&nbsp;";
-			}
-
-			if (a.Bravery[1] >= 100)
-			{
-				bufferHealth = bufferHealth + "&nbsp;&nbsp;";
-				bufferFatigue = bufferFatigue + "&nbsp;&nbsp;";
-				bufferInitiative = bufferInitiative + "&nbsp;&nbsp;";
-			}
-
-			if (a.Initiative[0] >= 100)
-			{
-				bufferHealth = bufferHealth + "&nbsp;&nbsp;";
-				bufferFatigue = bufferFatigue + "&nbsp;&nbsp;";
-				bufferBravery = bufferBravery + "&nbsp;&nbsp;";
-			}
-
-			if (a.Initiative[1] >= 100)
-			{
-				bufferHealth = bufferHealth + "&nbsp;&nbsp;";
-				bufferFatigue = bufferFatigue + "&nbsp;&nbsp;";
-				bufferBravery = bufferBravery + "&nbsp;&nbsp;";
-			}
-			local brother = this.getContainer().getActor();
-			local tooltip = [
-				{
-					id = 103,
-					type = "hint",
-					text = "Combat Level : " + (this.Math.round(brother.EL_getCombatLevel() * 100) / 100)
-				},
-				{
-					id = 104,
-					type = "hint",
-					text = "Projection of this character\'s base attribute ranges calculated as if that attribute is improved on every level up from current level to " + this.Const.EL_Player.EL_PlayerLevel.Max + "."
-				},
-				{
-					id = 105,
-					type = "hint",
-					text = "[img]gfx/ui/icons/health_va11.png[/img] " + a.Hitpoints[0] + " ~ " + a.Hitpoints[1] + bufferHealth + "&nbsp;&nbsp;[img]gfx/ui/icons/melee_skill_va11.png[/img] " + a.MeleeSkill[0] + " ~ " + a.MeleeSkill[1]
-				},
-				{
-					id = 106,
-					type = "hint",
-					text = "[img]gfx/ui/icons/fatigue_va11.png[/img] " + a.Fatigue[0] + " ~ " + a.Fatigue[1] + bufferFatigue + "&nbsp;&nbsp;[img]gfx/ui/icons/ranged_skill_va11.png[/img] " + a.RangedSkill[0] + " ~ " + a.RangedSkill[1]
-				},
-				{
-					id = 107,
-					type = "hint",
-					text = "[img]gfx/ui/icons/bravery_va11.png[/img] " + a.Bravery[0] + " ~ " + a.Bravery[1] + bufferBravery + "&nbsp;&nbsp;[img]gfx/ui/icons/melee_defense_va11.png[/img] " + a.MeleeDefense[0] + " ~ " + a.MeleeDefense[1]
-				},
-				{
-					id = 107,
-					type = "hint",
-					text = "[img]gfx/ui/icons/initiative_va11.png[/img] " + a.Initiative[0] + " ~ " + a.Initiative[1] + bufferInitiative + "&nbsp;&nbsp;[img]gfx/ui/icons/ranged_defense_va11.png[/img] " + a.RangedDefense[0] + " ~ " + a.RangedDefense[1]
-				}
-			];
-			return tooltip;
 		};
 
 	});

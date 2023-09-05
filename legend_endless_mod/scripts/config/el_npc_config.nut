@@ -92,8 +92,11 @@ gt.Const.EL_NPC <- {
         ExtraCombatLevel = {
             BossLevel = 10,
             CrticalPoint = 10,
-            DivPart1 = 1,
-            DivPart2 = 10
+            MultPart1 = 1,
+            MultPart2 = 0.1,
+            RandomMin = -100,
+            RandomMax = 100,
+            RandomMult = 0.01
         },
 
         RankResouseMult = [
@@ -240,11 +243,12 @@ gt.Const.EL_NPC <- {
                 ret.EL_IsWeakUnit = true;
             }
             if(_EL_troop.Strength < this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.CrticalPoint) {
-                ret.EL_ExtraCombatLevel = this.Math.pow((this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.CrticalPoint - _EL_troop.Strength) / this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.DivPart1, 0.5);
+                ret.EL_ExtraCombatLevel = -this.Math.pow((this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.CrticalPoint - _EL_troop.Strength) * this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.MultPart1, 0.5);
             }
             else {
-                ret.EL_ExtraCombatLevel = this.Math.pow((_EL_troop.Strength - this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.CrticalPoint) / this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.DivPart2, 0.5);
+                ret.EL_ExtraCombatLevel = this.Math.pow((_EL_troop.Strength - this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.CrticalPoint) * this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.MultPart2, 0.5);
             }
+            ret.EL_ExtraCombatLevel += this.Math.rand(this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.RandomMin, this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.RandomMax) * this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.RandomMult;
             return ret;
         }
     }
