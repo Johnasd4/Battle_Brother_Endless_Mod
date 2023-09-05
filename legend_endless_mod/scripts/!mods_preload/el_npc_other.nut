@@ -19,7 +19,7 @@ local gt = getroottable();
 			o.create = function ()
 			{
 				create();
-				this.m.EL_IsBossTroop = true;
+				this.m.EL_IsBossParty = true;
 			};
 		});
 	}
