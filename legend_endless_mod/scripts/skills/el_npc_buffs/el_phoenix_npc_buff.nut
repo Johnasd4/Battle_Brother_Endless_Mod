@@ -1,7 +1,8 @@
 this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff", {
     m = {
         EL_RiseTimesLeft = 0,
-        EL_Stack = 0
+        EL_Stack = 0,
+        EL_IsRising = false,
     },
     function create()
     {
@@ -15,20 +16,25 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
     {
         local actor = this.getContainer().getActor();
         actor.setIsAbleToDie(false);
+        actor.m.IsAttackable = true;
         this.m.EL_RiseTimesLeft = this.Const.EL_NPC.EL_NPCBuff.Phoenix.RiseTimes[this.m.EL_RankLevel];
         this.m.EL_Stack = 0;
+        this.m.EL_IsRising = false;
     }
 
-    function onDamageReceived( _attacker, _damageHitpoints, _damageArmor )
-    {
-        if (this.m.EL_RiseTimesLeft > 0 && _damageHitpoints > this.getContainer().getActor().getHitpoints())
-        {
+	function onTurnStart()
+	{
+        if(this.m.EL_IsRising) {
+
+            this.m.EL_IsRising = false;
             --this.m.EL_RiseTimesLeft;
             ++this.m.EL_Stack;
-
             local actor = this.getContainer().getActor();
             local properties = actor.getCurrentProperties();
-
+            actor.m.IsAttackable = true;
+            if(this.m.EL_RiseTimesLeft == 0) {
+                actor.setIsAbleToDie(true);
+            }
             actor.setHitpoints(actor.getHitpointsMax() + _damageHitpoints);
             actor.setActionPoints(this.getActionPointsMax());
             actor.setFatigue(0);
@@ -52,6 +58,42 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
             if (!actor.isHiddenToPlayer())
             {
                 this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " rised!");
+            }
+            this.getContainer().getActor().getSkills().update();
+        }
+	}
+
+
+    function onDamageReceived( _attacker, _damageHitpoints, _damageArmor )
+    {
+        if (this.m.EL_RiseTimesLeft > 0 && _damageHitpoints > this.getContainer().getActor().getHitpoints())
+        {
+            this.m.EL_IsRising = true;
+            local actor = this.getContainer().getActor();
+            local properties = actor.getCurrentProperties();
+            actor.m.IsAttackable = false;
+            actor.setActionPoints(0);
+            actor.setFatigue(actor.getFatigueMax());
+
+            local body = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
+            if(body != null) {
+                body.setArmor(0);
+            }
+            else {
+                properties.Armor[this.Const.BodyPart.Body] = 0;
+            }
+
+            local head = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
+            if(head != null) {
+                head.setArmor(0);
+            }
+            else {
+                properties.Armor[this.Const.BodyPart.Head] = 0;
+            }
+
+            if (!actor.isHiddenToPlayer())
+            {
+                this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " is rising!");
             }
             this.getContainer().getActor().getSkills().update();
         }

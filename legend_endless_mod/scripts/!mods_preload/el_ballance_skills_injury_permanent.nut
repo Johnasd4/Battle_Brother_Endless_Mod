@@ -1,6 +1,6 @@
 local gt = getroottable();
 
-::mods_registerMod("el_skills_injury_ballance", 1, "el_skills_injury_ballance");
+::mods_registerMod("el_ballance_skills_injury_permanent", 1, "el_ballance_skills_injury_permanent");
 ::mods_queue(null, "el_player_npc", function ()
 {
 

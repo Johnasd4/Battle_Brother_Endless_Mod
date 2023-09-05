@@ -345,26 +345,44 @@ gt.Const.EL_Player <- {
     }
 
     EL_Modifiers = {
-        ResourceModifiersMult = 0.04
+        ResourceModifiersMult = {
+            Ammo = 0.04,
+            ArmorParts = 0.04,
+            Meds = 0.04,
+            Stash = 0.04,
+            Healing = 0.04,
+            Injury = 0.04,
+            Repair = 0.04,
+            Salvage = 0.04,
+            Crafting = 0.04,
+            Barter = 0.04,
+            ToolConsumption = 0.04,
+            MedConsumption = 0.04,
+            Hunting = 0.04,
+            Fletching = 0.04,
+            Scout = 0.04,
+            Gathering = 0.04,
+            Training = 0.04
+        },
 
         function EL_setModifiersLevel(_EL_level, _EL_background) {
-            _EL_background.m.Modifiers.Ammo = this.Math.floor(_EL_background.m.BaseModifiers.Ammo * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult));
-            _EL_background.m.Modifiers.ArmorParts = this.Math.floor(_EL_background.m.BaseModifiers.ArmorParts * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult));
-            _EL_background.m.Modifiers.Meds = this.Math.floor(_EL_background.m.BaseModifiers.Meds * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult));
-            _EL_background.m.Modifiers.Stash = this.Math.floor(_EL_background.m.BaseModifiers.Stash * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult));
-            _EL_background.m.Modifiers.Healing = this.Math.floor(_EL_background.m.BaseModifiers.Healing * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult) * 100) / 100;
-            _EL_background.m.Modifiers.Injury = this.Math.floor(_EL_background.m.BaseModifiers.Injury * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult) * 100) / 100;
-            _EL_background.m.Modifiers.Repair = this.Math.floor(_EL_background.m.BaseModifiers.Repair * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult) * 100) / 100;
-            _EL_background.m.Modifiers.Salvage = this.Math.floor(_EL_background.m.BaseModifiers.Salvage * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult) * 100) / 100;
-            _EL_background.m.Modifiers.Crafting = this.Math.floor(_EL_background.m.BaseModifiers.Crafting * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult) * 100) / 100;
-            _EL_background.m.Modifiers.Barter = this.Math.floor(_EL_background.m.BaseModifiers.Barter * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult) * 100) / 100;
-            _EL_background.m.Modifiers.ToolConsumption = this.Math.floor(_EL_background.m.BaseModifiers.ToolConsumption * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult) * 100) / 100;
-            _EL_background.m.Modifiers.MedConsumption = this.Math.floor(_EL_background.m.BaseModifiers.MedConsumption * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult) * 100) / 100;
-            _EL_background.m.Modifiers.Hunting = this.Math.floor(_EL_background.m.BaseModifiers.Hunting * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult) * 100) / 100;
-            _EL_background.m.Modifiers.Fletching = this.Math.floor(_EL_background.m.BaseModifiers.Fletching * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult) * 100) / 100;
-            _EL_background.m.Modifiers.Scout = this.Math.floor(_EL_background.m.BaseModifiers.Scout * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult) * 100) / 100;
-            _EL_background.m.Modifiers.Gathering = this.Math.floor(_EL_background.m.BaseModifiers.Gathering * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult) * 100) / 100;
-            _EL_background.m.Modifiers.Training = this.Math.floor(_EL_background.m.BaseModifiers.Training * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult) * 100) / 100;
+            _EL_background.m.Modifiers.Ammo = this.Math.floor(_EL_background.m.BaseModifiers.Ammo * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.Ammo));
+            _EL_background.m.Modifiers.ArmorParts = this.Math.floor(_EL_background.m.BaseModifiers.ArmorParts * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.ArmorParts));
+            _EL_background.m.Modifiers.Meds = this.Math.floor(_EL_background.m.BaseModifiers.Meds * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.Meds));
+            _EL_background.m.Modifiers.Stash = this.Math.floor(_EL_background.m.BaseModifiers.Stash * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.Stash));
+            _EL_background.m.Modifiers.Healing = this.Math.floor(_EL_background.m.BaseModifiers.Healing * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.Healing) * 100) / 100;
+            _EL_background.m.Modifiers.Injury = this.Math.floor(_EL_background.m.BaseModifiers.Injury * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.Injury) * 100) / 100;
+            _EL_background.m.Modifiers.Repair = this.Math.floor(_EL_background.m.BaseModifiers.Repair * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.Repair) * 100) / 100;
+            _EL_background.m.Modifiers.Salvage = this.Math.floor(_EL_background.m.BaseModifiers.Salvage * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.Salvage) * 100) / 100;
+            _EL_background.m.Modifiers.Crafting = this.Math.floor(_EL_background.m.BaseModifiers.Crafting * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.Crafting) * 100) / 100;
+            _EL_background.m.Modifiers.Barter = this.Math.floor(_EL_background.m.BaseModifiers.Barter * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.Barter) * 100) / 100;
+            _EL_background.m.Modifiers.ToolConsumption = this.Math.floor(_EL_background.m.BaseModifiers.ToolConsumption * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.ToolConsumption) * 100) / 100;
+            _EL_background.m.Modifiers.MedConsumption = this.Math.floor(_EL_background.m.BaseModifiers.MedConsumption * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.MedConsumption) * 100) / 100;
+            _EL_background.m.Modifiers.Hunting = this.Math.floor(_EL_background.m.BaseModifiers.Hunting * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.Hunting) * 100) / 100;
+            _EL_background.m.Modifiers.Fletching = this.Math.floor(_EL_background.m.BaseModifiers.Fletching * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.Fletching) * 100) / 100;
+            _EL_background.m.Modifiers.Scout = this.Math.floor(_EL_background.m.BaseModifiers.Scout * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.Scout) * 100) / 100;
+            _EL_background.m.Modifiers.Gathering = this.Math.floor(_EL_background.m.BaseModifiers.Gathering * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.Gathering) * 100) / 100;
+            _EL_background.m.Modifiers.Training = this.Math.floor(_EL_background.m.BaseModifiers.Training * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.Training) * 100) / 100;
         }
     }
 

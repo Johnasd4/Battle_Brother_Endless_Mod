@@ -1,6 +1,6 @@
 local gt = getroottable();
 
-::mods_registerMod("el_skills_effects_ballance", 1, "el_skills_effects_ballance");
+::mods_registerMod("el_ballance_skills_effects", 1, "el_ballance_skills_effects");
 ::mods_queue(null, "el_player_npc", function ()
 {
 

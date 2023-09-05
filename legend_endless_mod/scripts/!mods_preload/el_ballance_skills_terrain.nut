@@ -1,6 +1,6 @@
 local gt = getroottable();
 
-::mods_registerMod("el_skills_terrain_ballance", 1, "el_skills_terrain_ballance");
+::mods_registerMod("el_ballance_skills_terrain", 1, "el_ballance_skills_terrain");
 ::mods_queue(null, "el_player_npc", function ()
 {
 

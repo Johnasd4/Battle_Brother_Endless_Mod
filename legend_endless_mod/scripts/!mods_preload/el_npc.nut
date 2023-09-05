@@ -60,30 +60,46 @@ local gt = getroottable();
                 _t.Callback(_e, "Tag" in _t ? _t.Tag : null);
             }
 
+            if (!this.World.getTime().IsDaytime && _e.getBaseProperties().IsAffectedByNight)
+            {
+                _e.getSkills().add(this.new("scripts/skills/special/night_effect"));
+            }
+
             if ("Name" in _t)
             {
                 local name = this.Const.EL_NPC.EL_Troop.NamePrefix[_t.EL_RankLevel];
-                name += "Lv" + (this.Math.round(_t.EL_CombatLevel * 100) / 100) + " ";
                 name += _e.getNameOnly();
                 name += this.Const.EL_NPC.EL_Troop.NameSuffix[_t.EL_RankLevel];
                 _e.setName(name);
                 _e.m.IsGeneratingKillName = false;
             }
 
-            if (!this.World.getTime().IsDaytime && _e.getBaseProperties().IsAffectedByNight)
-            {
-                _e.getSkills().add(this.new("scripts/skills/special/night_effect"));
+            local npc_level = 0;
+            if(_t.EL_RankLevel != 0) {
+                npc_level = this.World.Assets.m.EL_WorldLevel;
+            }
+            else {
+                npc_level = this.Math.rand(this.World.Assets.m.EL_WorldLevel + this.Const.EL_NPC.EL_Troop.MinLevelOffset, this.World.Assets.m.EL_WorldLevel + this.Const.EL_NPC.EL_Troop.MaxLevelOffset)
+            }
+            if(npc_level > this.Const.EL_NPC.EL_Troop.MaxLevel) {
+                npc_level = this.Const.EL_NPC.EL_Troop.MaxLevel;
+            }
+            else if(npc_level < this.Const.EL_NPC.EL_Troop.MinLevel) {
+                npc_level = this.Const.EL_NPC.EL_Troop.MinLevel;
             }
 
+            _e.EL_generateNPCAttributesByLevel(npc_level);
+            _e.EL_setCombatLevel(npc_level + _t.EL_ExtraCombatLevel);
+            _e.EL_setRankLevel(_t.EL_RankLevel);
+
+            if (_t.EL_RankLevel != 0)
+            {
+                _e.makeMiniboss();
+            }
+
+
             if(_t.EL_UnitInfo == null) {
-                _e.EL_setRankLevel(_t.EL_RankLevel);
-                _e.EL_setRankLevel(_t.EL_RankLevel);
-                _e.EL_setCombatLevel(_t.EL_CombatLevel);
-                _e.EL_generateNPCAttributesByLevel(_t.EL_Level);
-                if (_t.EL_RankLevel != 0)
-                {
-                    _e.makeMiniboss();
-                }
+
                 _e.assignRandomEquipment();
                 if(_e.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand) == null &&
                    _e.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand) == null &&
@@ -97,7 +113,6 @@ local gt = getroottable();
                 {
                     this.Const.EL_NPC.EL_NPCBuff.Pool.EL_assignNPCBuffs(_e, this.Const.EL_NPC.EL_NPCBuff.BuffNum.HumanoidRank1[_t.EL_RankLevel], this.Const.EL_NPC.EL_NPCBuff.BuffNum.HumanoidRank2[_t.EL_RankLevel]);
                 }
-
             }
             else {
 
@@ -157,9 +172,24 @@ local gt = getroottable();
 
 	});
 
+	::mods_hookBaseClass("contracts/contract", function ( o )
+	{
+		while (!("EmployerID" in o.m))
+		{
+			o = o[o.SuperName];
+		}
+        local create = o.create;
+		o.create = function ()
+		{
+            create();
+			this.m.PaymentMult *= (1 + this.Const.EL_NPC.EL_Contract.PatmentMultPurWorldLevel * this.World.Assets.m.EL_WorldLevel);
+		};
+	});
+
+
+
     gt.Const.World.Spawn.Unit.EL_EliteChance <- 0;
-    gt.Const.World.Spawn.Unit.EL_Level <- 0;
-    gt.Const.World.Spawn.Unit.EL_CombatLevel <- 0;
+    gt.Const.World.Spawn.Unit.EL_ExtraCombatLevel <- 0;
     gt.Const.World.Spawn.Unit.EL_RankLevel <- 0;
     gt.Const.World.Spawn.Unit.EL_UnitInfo <- null;
 
@@ -170,8 +200,7 @@ local gt = getroottable();
         troop.Faction <- _party.getFaction();
         troop.Name <- "";
         troop.EL_EliteChance <- _minibossify + this.World.Assets.m.ChampionChanceAdditional + troop.Variant;
-        troop.EL_Level <- 0;
-        troop.EL_CombatLevel <- 0;
+        troop.EL_ExtraCombatLevel <- 0;
         troop.EL_RankLevel <- 0;
         troop.EL_UnitInfo <- null;
 
@@ -265,8 +294,7 @@ local gt = getroottable();
                 unit.Faction <- _faction;
                 unit.Name <- "";
                 unit.EL_EliteChance <- _minibossify + this.World.Assets.m.ChampionChanceAdditional + unit.Variant + mb;
-                unit.EL_Level <- 0;
-                unit.EL_CombatLevel <- 0;
+                unit.EL_ExtraCombatLevel <- 0;
                 unit.EL_RankLevel <- 0;
                 unit.EL_UnitInfo <- null;
 
@@ -285,27 +313,13 @@ local gt = getroottable();
                     local elite_chance = this.Const.EL_NPC.EL_NormalTeam.EliteChance.EL_getChance(this.World.Assets.m.EL_WorldLevel);
                     unit.EL_RankLevel = (this.Math.rand(1, 1000) >= elite_chance * 10) ? 0 : 1;
                 }
-                if(unit.EL_RankLevel == 0) {
-                    unit.EL_Level = this.Math.rand(this.World.Assets.m.EL_WorldLevel + this.Const.EL_NPC.EL_Troop.MinLevelOffset, this.World.Assets.m.EL_WorldLevel + this.Const.EL_NPC.EL_Troop.MaxLevelOffset);
-                }
-                else {
-                    unit.EL_Level = this.World.Assets.m.EL_WorldLevel + this.Const.EL_NPC.EL_Troop.MaxLevelOffset;
-                }
-                if(unit.EL_Level > this.Const.EL_NPC.EL_Troop.MaxLevel) {
-                    unit.EL_Level = this.Const.EL_NPC.EL_Troop.MaxLevel;
-                }
-                else if(unit.EL_Level < this.Const.EL_NPC.EL_Troop.MinLevel) {
-                    unit.EL_Level = this.Const.EL_NPC.EL_Troop.MinLevel;
-                }
-                unit.EL_CombatLevel = (unit.EL_Level < this.Const.EL_NPC.EL_Troop.MaxCombatlevel ? unit.EL_Level : this.Const.EL_NPC.EL_Troop.MaxCombatlevel) + troop_info.EL_ExtraCombatLevel;
+                unit.EL_ExtraCombatLevel = troop_info.EL_ExtraCombatLevel;
                 //Build names
                 if(unit.EL_RankLevel != 0) {
                     unit.Name = this.Const.EL_NPC.EL_Troop.NamePrefix[unit.EL_RankLevel];
                     unit.Name += this.Const.EL_NPC.EL_Troop.Name[this.Math.rand(0, this.Const.EL_NPC.EL_Troop.Name.len() - 1)];
                     unit.Name += this.Const.EL_NPC.EL_Troop.NameSuffix[unit.EL_RankLevel];
                 }
-
-
                 _into.push(unit);
                 i = ++i;
             }

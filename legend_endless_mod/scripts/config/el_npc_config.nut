@@ -83,6 +83,7 @@ gt.Const.EL_NPC <- {
         WeakUnitPopulationMult = 3,
         MinLevel = 0,
         MaxLevel = 200,
+        MaxTroopNum = 255,
         MaxCombatlevel = 100,
         MinLevelOffset = -10,
         MaxLevelOffset = 0,
@@ -202,6 +203,15 @@ gt.Const.EL_NPC <- {
             "*",
             "***"
         ],
+
+        DropIncreaseMultPurWorldLevel = {
+            Money = 0.04,
+            Food = 0.01,
+            Treasure = 0.04,
+            Ammo = 0.01,
+            ArmorParts = 0.04,
+            Medicine = 0.04
+        }
 
         function EL_getTroopInfo(_EL_troop) {
             local ret = {
@@ -544,6 +554,10 @@ gt.Const.EL_NPC <- {
 
     }
 
+
+    EL_Contract = {
+        PatmentMultPurWorldLevel = 0.04
+    }
 };
 
 this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_NPC.EL_NormalTeam.EliteChance);
