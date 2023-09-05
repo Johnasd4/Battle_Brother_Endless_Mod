@@ -303,7 +303,7 @@ gt.Const.EL_NPC <- {
         StrongestLeaderChance = {
             Factor = {
                 Offset = [
-                    100,
+                    0,
                     -15,
                     -35,
                     15
@@ -390,7 +390,7 @@ gt.Const.EL_NPC <- {
                     0,
                     -20,
                     -45,
-                    0.15
+                    15
                 ],
                 Mult = [
                     0,
@@ -458,10 +458,10 @@ gt.Const.EL_NPC <- {
         },
 
         BuffNum = {
-            HumanoidRank1 = [0, 1, 0],
-            HumanoidRank2 = [0, 0, 20],
-            NonHumanoidRank1 = [0, 3, 0],
-            NonHumanoidRank2 = [0, 0, 20]
+            HumanoidRank1 = [0, 1, 3],
+            HumanoidRank2 = [0, 0, 1],
+            NonHumanoidRank1 = [0, 3, 9],
+            NonHumanoidRank2 = [0, 0, 3]
         }
 
         Agility = {
