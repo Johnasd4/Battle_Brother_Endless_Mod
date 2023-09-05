@@ -84,6 +84,8 @@ this.el_test_background <- this.inherit("scripts/skills/backgrounds/character_ba
 			Class = [this.Const.Perks.WildlingProfessionTree],
 			Magic = []
 		};
+
+
 	}
 
 	function setGender( _gender = -1 )

@@ -185,6 +185,279 @@ local gt = getroottable();
 		};
 	});
 
+	::mods_hookExactClass("states/world_state", function ( o )
+	{
+		o.showCombatDialog = function ( _isPlayerInitiated = true, _isCombatantsVisible = true, _allowFormationPicking = true, _properties = null, _pos = null )
+        {
+            local entities = [];
+            local allyBanners = [];
+            local enemyBanners = [];
+            local hasOpponents = false;
+            local listEntities = _isCombatantsVisible && (_isPlayerInitiated || this.World.Assets.getOrigin().getID() == "scenario.rangers" || this.Const.World.TerrainTypeLineBattle[this.m.Player.getTile().Type] && this.World.getTime().IsDaytime);
+
+            if (_pos == null)
+            {
+                _pos = this.m.Player.getPos();
+            }
+
+            if (_properties != null)
+            {
+                allyBanners = _properties.AllyBanners;
+                enemyBanners = _properties.EnemyBanners;
+            }
+
+            if (allyBanners.len() == 0)
+            {
+                allyBanners.push(this.World.Assets.getBanner());
+            }
+
+            if (!_isPlayerInitiated && this.World.Camp.isCamping())
+            {
+                _allowFormationPicking = false;
+            }
+
+            if (!_isPlayerInitiated && !this.Const.World.TerrainTypeLineBattle[this.m.Player.getTile().Type])
+            {
+                _allowFormationPicking = false;
+            }
+
+            local champions = [];
+            local entityTypes = [
+                [],
+                []
+            ];
+            entityTypes[0].resize(this.Const.EntityType.len(), 0);
+            entityTypes[1].resize(this.Const.EntityType.len(), 0);
+
+            if (_properties != null)
+            {
+                _properties.IsPlayerInitiated = _isPlayerInitiated;
+            }
+
+            if (_properties == null)
+            {
+                local parties = this.World.getAllEntitiesAtPos(_pos, this.Const.World.CombatSettings.CombatPlayerDistance);
+                local isAtUniqueLocation = false;
+
+                if (parties.len() <= 1)
+                {
+                    this.m.EngageCombatPos = null;
+                    return;
+                }
+
+                foreach( party in parties )
+                {
+                    if (!party.isAlive() || party.isPlayerControlled())
+                    {
+                        continue;
+                    }
+
+                    if (!party.isAttackable() || party.getFaction() == 0 || party.getVisibilityMult() == 0)
+                    {
+                        continue;
+                    }
+
+                    if (party.isLocation() && party.isShowingDefenders() && party.getCombatLocation().Template[0] != null && party.getCombatLocation().Fortification != 0 && !party.getCombatLocation().ForceLineBattle)
+                    {
+                        entities.push({
+                            Name = "Fortifications",
+                            Icon = "palisade_01_orientation",
+                            Overlay = null
+                        });
+                    }
+
+                    if (party.isLocation() && party.isLocationType(this.Const.World.LocationType.Unique))
+                    {
+                        isAtUniqueLocation = true;
+                        break;
+                    }
+
+                    if (party.isInCombat())
+                    {
+                        parties = this.World.getAllEntitiesAtPos(_pos, this.Const.World.CombatSettings.CombatPlayerDistance * 2.0);
+                        break;
+                    }
+                }
+
+                foreach( party in parties )
+                {
+                    if (!party.isAlive() || party.isPlayerControlled())
+                    {
+                        continue;
+                    }
+
+                    if (!party.isAttackable() || party.getFaction() == 0 || party.getVisibilityMult() == 0)
+                    {
+                        continue;
+                    }
+
+                    if (isAtUniqueLocation && (!party.isLocation() || !party.isLocationType(this.Const.World.LocationType.Unique)))
+                    {
+                        continue;
+                    }
+
+                    if (party.isAlliedWithPlayer())
+                    {
+                        if (party.getTroops().len() != 0 && allyBanners.find(party.getBanner()) == null)
+                        {
+                            allyBanners.push(party.getBanner());
+                        }
+
+                        continue;
+                    }
+                    else
+                    {
+                        hasOpponents = true;
+
+                        if (!party.isLocation() || party.isShowingDefenders())
+                        {
+                            if (party.getTroops().len() != 0 && enemyBanners.find(party.getBanner()) == null)
+                            {
+                                enemyBanners.push(party.getBanner());
+                            }
+                        }
+                    }
+
+                    if (party.isLocation() && !party.isShowingDefenders())
+                    {
+                        entityTypes[0].resize(this.Const.EntityType.len(), 0);
+                        entityTypes[1].resize(this.Const.EntityType.len(), 0);
+                        break;
+                    }
+
+                    party.onBeforeCombatStarted();
+                    local troops = party.getTroops();
+
+                    foreach( t in troops )
+                    {
+                        if (t.Script.len() != "")
+                        {
+                            if (t.EL_RankLevel == 2)
+                            {
+                                champions.push(t);
+                            }
+                            else
+                            {
+                                ++entityTypes[t.EL_RankLevel][t.ID];
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                foreach( t in _properties.Entities )
+                {
+                    if (!hasOpponents && (!this.World.FactionManager.isAlliedWithPlayer(t.Faction) || _properties.TemporaryEnemies.find(t.Faction) != null))
+                    {
+                        hasOpponents = true;
+                    }
+                    if (t.EL_RankLevel == 2)
+                    {
+                        champions.push(t);
+                    }
+                    else
+                    {
+                        ++entityTypes[t.EL_RankLevel][t.ID];
+                    }
+                }
+            }
+
+            foreach( c in champions )
+            {
+                entities.push({
+                    Name = c.Name,
+                    Icon = this.Const.EntityIcon[c.ID],
+                    Overlay = "el_icons/miniboss_rank2.png"
+                });
+            }
+            for( local i = 0; i < entityTypes[1].len(); i = i )
+            {
+                if (entityTypes[1][i] > 0)
+                {
+                    entities.push({
+                        Name = this.removeFromBeginningOfText("The ", this.Const.Strings.EntityName[i]) + " X " + entityTypes[1][i],
+                        Icon = this.Const.EntityIcon[i],
+                        Overlay = "el_icons/miniboss_rank1.png"
+                    });
+                }
+
+                i = ++i;
+            }
+            for( local i = 0; i < entityTypes[0].len(); i = i )
+            {
+                if (entityTypes[0][i] > 0)
+                {
+                    entities.push({
+                        Name = this.removeFromBeginningOfText("The ", this.Const.Strings.EntityName[i]) + " X " + entityTypes[0][i],
+                        Icon = this.Const.EntityIcon[i],
+                        Overlay = null
+                    });
+                }
+
+                i = ++i;
+            }
+            for( local j = 1; j >= 0; --j ) {
+
+
+            }
+
+
+            if (!hasOpponents)
+            {
+                this.m.EngageCombatPos = null;
+                return;
+            }
+
+            local text = "";
+
+            if (!listEntities || entities.len() == 0)
+            {
+                entities = [];
+                allyBanners = [];
+                enemyBanners = [];
+
+                if (!_isPlayerInitiated)
+                {
+                    text = "You can\'t make out who is attacking you in time.<br/>You have to defend yourself!";
+                }
+                else
+                {
+                    text = "You can\'t make out who you\'ll be facing. Attack at your own peril and be prepared to retreat if need be!";
+                }
+            }
+
+            local tile = this.World.getTile(this.World.worldToTile(_pos));
+            local image = this.Const.World.TerrainTacticalImage[tile.TacticalType];
+
+            if (!this.World.getTime().IsDaytime)
+            {
+                image = image + "_night";
+            }
+
+            image = image + ".png";
+            this.setAutoPause(true);
+            this.Cursor.setCursor(this.Const.UI.Cursor.Hand);
+            this.m.EngageCombatPos = _pos;
+            this.m.EngageByPlayer = _isPlayerInitiated;
+            this.Tooltip.hide();
+            this.m.WorldScreen.hide();
+            this.m.CombatDialog.show(entities, allyBanners, enemyBanners, _isPlayerInitiated || this.m.EscortedEntity != null, _allowFormationPicking, text, image, this.m.EscortedEntity != null ? "Flee!" : "Fall back!");
+            this.m.MenuStack.push(function ()
+            {
+                this.m.EngageCombatPos = null;
+                this.m.CombatDialog.hide();
+                this.m.WorldScreen.show();
+                this.stunPartiesNearPlayer(_isPlayerInitiated);
+                this.setAutoPause(false);
+            }, function ()
+            {
+                return !this.m.CombatDialog.isAnimating();
+            }, _isPlayerInitiated);
+        }
+
+	});
+
 
 
     gt.Const.World.Spawn.Unit.EL_EliteChance <- 0;
