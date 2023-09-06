@@ -63,6 +63,7 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
             local body = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
             if(body != null) {
                 body.setArmor(body.getArmorMax());
+                body.updateAppearance();
             }
             else {
                 properties.Armor[this.Const.BodyPart.Body] = properties.ArmorMax[this.Const.BodyPart.Body];
@@ -71,6 +72,7 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
             local head = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
             if(head != null) {
                 head.setArmor(head.getArmorMax());
+                head.updateAppearance();
             }
             else {
                 properties.Armor[this.Const.BodyPart.Head] = properties.ArmorMax[this.Const.BodyPart.Head];
