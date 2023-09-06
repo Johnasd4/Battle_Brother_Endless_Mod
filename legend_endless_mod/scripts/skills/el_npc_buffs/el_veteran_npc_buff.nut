@@ -10,7 +10,7 @@ this.el_veteran_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
 
 	function onUpdate( _properties )
 	{
-		_properties.EL_CombatLevel += this.Const.EL_NPC.EL_NPCBuff.Veteran.CombatLevelOffset[this.m.EL_RankLevel];
+		_properties.EL_CombatLevel += this.Const.EL_NPC.EL_NPCBuff.Factor.Veteran.CombatLevelOffset[this.m.EL_RankLevel];
 	}
 
 });

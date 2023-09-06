@@ -12,14 +12,14 @@ this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
 	{
         local actor = this.getContainer().getActor();
         local targets = this.Tactical.Entities.getAllInstances();
-        local damage = this.Math.round(actor.getHitpointsMax() * this.Const.EL_NPC.EL_NPCBuff.SelfDestruct.DamageRate[this.m.EL_RankLevel]);
+        local damage = this.Math.round(actor.getHitpointsMax() * this.Const.EL_NPC.EL_NPCBuff.Factor.SelfDestruct.DamageRate[this.m.EL_RankLevel]);
         foreach( tar in targets )
         {
             foreach( t in tar )
             {
                 if(!t.isAlliedWith(actor)) {
                     local distance = actor.getTile().getDistanceTo(t.getTile());
-                    local damage_persent = 1 - (distance - 1) * this.Const.EL_NPC.EL_NPCBuff.SelfDestruct.DamageDecayRatePurTile;
+                    local damage_persent = 1 - (distance - 1) * this.Const.EL_NPC.EL_NPCBuff.Factor.SelfDestruct.DamageDecayRatePurTile;
                     if(damage_persent > 0) {
                         local final_damage = this.Math.round(damage_persent * damage * 0.5);
                         local body_hit_info = clone this.Const.Tactical.HitInfo;
