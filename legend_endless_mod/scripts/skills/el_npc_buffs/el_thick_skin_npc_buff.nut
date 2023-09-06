@@ -10,7 +10,7 @@ this.el_thick_skin_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_
 
 	function onUpdate( _properties )
 	{
-        _properties.DamageReceivedDirectMult *= 1 / (1 + this.Const.EL_NPC.EL_NPCBuff.ThickSkin.DamageReceivedMult[this.m.EL_RankLevel]);
+        _properties.DamageReceivedDirectMult *= 1 / (1 + this.Const.EL_NPC.EL_NPCBuff.Factor.ThickSkin.DamageReceivedMult[this.m.EL_RankLevel]);
 	}
 
 });

@@ -511,92 +511,94 @@ gt.Const.EL_NPC <- {
             }
         },
 
-        BuffNum = {
+        Num = {
             HumanoidRank1 = [0, 1, 3],
             HumanoidRank2 = [0, 0, 1],
             NonHumanoidRank1 = [0, 3, 9],
             NonHumanoidRank2 = [0, 0, 3]
         }
 
-        Berserk = {
-            DamageDirectMult = [1, 1.4, 2]
-        },
-        Charge = {
-            KnockBackChance = [0, 40, 100]
-        },
-        StunningStrike = {
-            StunChance = [0, 40, 100]
-        },
-        Endurance = {
-        },
-        Evasion = {
-            MeleeState = 1,
-            RangeState = 2,
-            DefenseOffset = [0, 80, 200]
-        },
-        Growth = {
-            DamageMultPurStack = [0, 0.04, 0.1],
-            DamageReceivedMultPurStack = [0, 0.04, 0.1],
-            MeleeSkillOffsetPurStack = [0 ,0.8, 2],
-            RangedSkillOffsetPurStack = [0 ,0.8, 2],
-            MeleeDefenseOffsetPurStack = [0 ,0.8, 2],
-            RangedDefenseOffsetPurStack = [0 ,0.8, 2],
-        },
-        Intimidate = {
-            BraveryOffset = [0, 40, 100],
-            MoraleCheckChance = [0, 40, 100],
-            BaseOffset = 50,
-            RankFactor = 25,
-            CombatLevelFactor = 1.04,
-            DistanceFactor = 3
-        },
-        LightningSpeed = {
-            InitiativeOffset = [0, 80, 200],
-            ActionPointsOffset = [0, 2, 5]
-        },
-        Phoenix = {
-            RiseTimes = [0, 1, 3],
-            DamageMultPurStack = 0.1,
-            DamageReceivedMultPurStack = 0.1,
-            HitPointsMultPurStack = 0.1,
-            BraveryOffsetPurStack = 6,
-            FatigueOffsetPurStack = 10,
-            InitiativeOffsetPurStack = 12,
-            MeleeSkillOffsetPurStack = 8,
-            RangedSkillOffsetPurStack = 10,
-            MeleeDefenseOffsetPurStack = 8,
-            RangedDefenseOffsetPurStack = 8,
+        Factor = {
+            Berserk = {
+                DamageDirectMult = [1, 1.4, 2]
+            },
+            Charge = {
+                KnockBackChance = [0, 40, 100]
+            },
+            StunningStrike = {
+                StunChance = [0, 40, 100]
+            },
+            Endurance = {
+            },
+            Evasion = {
+                MeleeState = 1,
+                RangeState = 2,
+                DefenseOffset = [0, 80, 200]
+            },
+            Growth = {
+                DamageMultPurStack = [0, 0.04, 0.1],
+                DamageReceivedMultPurStack = [0, 0.04, 0.1],
+                MeleeSkillOffsetPurStack = [0 ,0.8, 2],
+                RangedSkillOffsetPurStack = [0 ,0.8, 2],
+                MeleeDefenseOffsetPurStack = [0 ,0.8, 2],
+                RangedDefenseOffsetPurStack = [0 ,0.8, 2],
+            },
+            Intimidate = {
+                BraveryOffset = [0, 40, 100],
+                MoraleCheckChance = [0, 40, 100],
+                BaseOffset = 50,
+                RankFactor = 25,
+                CombatLevelFactor = 1.04,
+                DistanceFactor = 3
+            },
+            LightningSpeed = {
+                InitiativeOffset = [0, 80, 200],
+                ActionPointsOffset = [0, 2, 5]
+            },
+            Phoenix = {
+                RiseTimes = [0, 1, 3],
+                DamageMultPurStack = 0.1,
+                DamageReceivedMultPurStack = 0.1,
+                HitPointsMultPurStack = 0.1,
+                BraveryOffsetPurStack = 6,
+                FatigueOffsetPurStack = 10,
+                InitiativeOffsetPurStack = 12,
+                MeleeSkillOffsetPurStack = 8,
+                RangedSkillOffsetPurStack = 10,
+                MeleeDefenseOffsetPurStack = 8,
+                RangedDefenseOffsetPurStack = 8,
 
-        },
-        Recovery = {
-            HitpointsRecoveryRate = [0, 0.08, 0.2],
-            FatigueRecoveryRate = [0, 0.08, 0.2],
-            ArmorRecoveryRate = [0, 0.08, 0.2],
-        },
-        Retaliation = {
-            AttackChance = [0, 40, 100]
-        },
-        Revenge = {
-            DamageMultPurStack = [0, 0.04, 0.1],
-        },
-        SelfDestruct = {
-            DamageRate = [0, 0.4, 1],
-            DamageDecayRatePurTile = 0.2,
-        },
-        Tank = {
-            HitpointsMult = [1, 1.8, 3],
-            StaminaMult = [1, 1.8, 3],
-            ArmorMult = [1, 1.8, 3]
-        },
-        ThickSkin = {
-            DamageReceivedMult = [0, 0.8, 2]
-        },
-        Veteran = {
-            CombatLevelOffset = [0, 2, 5]
-        },
-        WeaponMaster = {
-            MeleeSkillOffset = [0, 40, 100],
-            RangedSkillOffset = [0, 40, 100]
+            },
+            Recovery = {
+                HitpointsRecoveryRate = [0, 0.08, 0.2],
+                FatigueRecoveryRate = [0, 0.08, 0.2],
+                ArmorRecoveryRate = [0, 0.08, 0.2],
+            },
+            Retaliation = {
+                AttackChance = [0, 40, 100]
+            },
+            Revenge = {
+                DamageMultPurStack = [0, 0.04, 0.1],
+            },
+            SelfDestruct = {
+                DamageRate = [0, 0.4, 1],
+                DamageDecayRatePurTile = 0.2,
+            },
+            Tank = {
+                HitpointsMult = [1, 1.8, 3],
+                StaminaMult = [1, 1.8, 3],
+                ArmorMult = [1, 1.8, 3]
+            },
+            ThickSkin = {
+                DamageReceivedMult = [0, 0.8, 2]
+            },
+            Veteran = {
+                CombatLevelOffset = [0, 2, 5]
+            },
+            WeaponMaster = {
+                MeleeSkillOffset = [0, 40, 100],
+                RangedSkillOffset = [0, 40, 100]
+            }
         }
 
     }

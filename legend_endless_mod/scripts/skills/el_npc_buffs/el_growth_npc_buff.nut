@@ -19,13 +19,13 @@ this.el_growth_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff
 
 	function onUpdate( _properties )
 	{
-        _properties.DamageDirectMult *= 1 + this.Const.EL_NPC.EL_NPCBuff.Growth.DamageMultPurStack[this.m.EL_RankLevel] * this.m.EL_Stack;
-        _properties.DamageReceivedDirectMult *= 1 / (1 + this.Const.EL_NPC.EL_NPCBuff.Growth.DamageReceivedMultPurStack[this.m.EL_RankLevel] * this.m.EL_Stack);
+        _properties.DamageDirectMult *= 1 + this.Const.EL_NPC.EL_NPCBuff.Factor.Growth.DamageMultPurStack[this.m.EL_RankLevel] * this.m.EL_Stack;
+        _properties.DamageReceivedDirectMult *= 1 / (1 + this.Const.EL_NPC.EL_NPCBuff.Factor.Growth.DamageReceivedMultPurStack[this.m.EL_RankLevel] * this.m.EL_Stack);
 
-        _properties.MeleeSkill += this.Math.round(this.Const.EL_NPC.EL_NPCBuff.Growth.MeleeSkillOffsetPurStack[this.m.EL_RankLevel] * this.m.EL_Stack);
-        _properties.RangedSkill += this.Math.round(this.Const.EL_NPC.EL_NPCBuff.Growth.RangedSkillOffsetPurStack[this.m.EL_RankLevel] * this.m.EL_Stack);
-        _properties.MeleeDefense += this.Math.round(this.Const.EL_NPC.EL_NPCBuff.Growth.MeleeDefenseOffsetPurStack[this.m.EL_RankLevel] * this.m.EL_Stack);
-        _properties.RangedDefense += this.Math.round(this.Const.EL_NPC.EL_NPCBuff.Growth.RangedDefenseOffsetPurStack[this.m.EL_RankLevel] * this.m.EL_Stack);
+        _properties.MeleeSkill += this.Math.round(this.Const.EL_NPC.EL_NPCBuff.Factor.Growth.MeleeSkillOffsetPurStack[this.m.EL_RankLevel] * this.m.EL_Stack);
+        _properties.RangedSkill += this.Math.round(this.Const.EL_NPC.EL_NPCBuff.Factor.Growth.RangedSkillOffsetPurStack[this.m.EL_RankLevel] * this.m.EL_Stack);
+        _properties.MeleeDefense += this.Math.round(this.Const.EL_NPC.EL_NPCBuff.Factor.Growth.MeleeDefenseOffsetPurStack[this.m.EL_RankLevel] * this.m.EL_Stack);
+        _properties.RangedDefense += this.Math.round(this.Const.EL_NPC.EL_NPCBuff.Factor.Growth.RangedDefenseOffsetPurStack[this.m.EL_RankLevel] * this.m.EL_Stack);
     }
 
 });

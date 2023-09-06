@@ -24,7 +24,7 @@ this.el_revenge_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
 
 	function onUpdate( _properties )
 	{
-        _properties.DamageDirectMult *= 1 + this.Const.EL_NPC.EL_NPCBuff.Revenge.DamageMultPurStack[this.m.EL_RankLevel] * this.m.EL_Stack;
+        _properties.DamageDirectMult *= 1 + this.Const.EL_NPC.EL_NPCBuff.Factor.Revenge.DamageMultPurStack[this.m.EL_RankLevel] * this.m.EL_Stack;
 
     }
 

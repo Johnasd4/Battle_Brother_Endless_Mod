@@ -10,7 +10,7 @@ this.el_berserk_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
 
 	function onUpdate( _properties )
 	{
-		_properties.DamageDirectMult *= this.Const.EL_NPC.EL_NPCBuff.Berserk.DamageDirectMult[this.m.EL_RankLevel];
+		_properties.DamageDirectMult *= this.Const.EL_NPC.EL_NPCBuff.Factor.Berserk.DamageDirectMult[this.m.EL_RankLevel];
 	}
 
 });
