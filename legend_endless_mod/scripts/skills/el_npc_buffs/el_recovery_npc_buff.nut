@@ -23,6 +23,14 @@ this.el_recovery_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_bu
 			this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " heals for " + hitpoints_added + " points");
 		}
 
+		local fatigue_added = actor.getFatigue();
+        actor.setFatigue(this.Math.min(actor.getFatigueMax(), actor.getFatigue() + this.Math.round(actor.getFatigueMax() * this.Const.EL_NPC.EL_NPCBuff.Recovery.FatigueRecoveryRate[this.m.EL_RankLevel])));
+		fatigue_added = actor.getFatigue() - fatigue_added;
+        if (!actor.isHiddenToPlayer() && fatigue_added != 0)
+		{
+			this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " fatigue recovered " + fatigue_added + " points");
+		}
+
         local body = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
         local body_armor_added = this.Math.round(properties.Armor[this.Const.BodyPart.Body] * properties.ArmorMult[this.Const.BodyPart.Body]);
         if(body != null) {

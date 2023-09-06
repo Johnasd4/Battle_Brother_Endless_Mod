@@ -418,9 +418,7 @@ gt.Const.EL_NPC <- {
     EL_NPCBuff = {
         Pool = {
             Scripts = [
-                "scripts/skills/el_npc_buffs/el_agility_npc_buff",
                 "scripts/skills/el_npc_buffs/el_berserk_npc_buff",
-                "scripts/skills/el_npc_buffs/el_bravery_npc_buff",
                 "scripts/skills/el_npc_buffs/el_charge_npc_buff",
                 "scripts/skills/el_npc_buffs/el_endurance_npc_buff",
                 "scripts/skills/el_npc_buffs/el_evasion_npc_buff",
@@ -432,7 +430,6 @@ gt.Const.EL_NPC <- {
                 "scripts/skills/el_npc_buffs/el_retaliation_npc_buff",
                 "scripts/skills/el_npc_buffs/el_revenge_npc_buff",
                 "scripts/skills/el_npc_buffs/el_self_destruct_npc_buff",
-                "scripts/skills/el_npc_buffs/el_stamina_npc_buff",
                 "scripts/skills/el_npc_buffs/el_stunning_strike_npc_buff",
                 "scripts/skills/el_npc_buffs/el_tank_npc_buff",
                 "scripts/skills/el_npc_buffs/el_thick_skin_npc_buff",
@@ -468,14 +465,8 @@ gt.Const.EL_NPC <- {
             NonHumanoidRank2 = [0, 0, 3]
         }
 
-        Agility = {
-            ActionPointsOffset = [0, 2, 5]
-        },
         Berserk = {
             DamageDirectMult = [1, 1.4, 2]
-        },
-        Bravery = {
-            BraveryOffset = [0, 40, 100]
         },
         Charge = {
             KnockBackChance = [0, 40, 100]
@@ -499,6 +490,7 @@ gt.Const.EL_NPC <- {
             RangedDefenseOffsetPurStack = [0 ,0.8, 2],
         },
         Intimidate = {
+            BraveryOffset = [0, 40, 100],
             MoraleCheckChance = [0, 40, 100],
             BaseOffset = 50,
             RankFactor = 25,
@@ -506,7 +498,8 @@ gt.Const.EL_NPC <- {
             DistanceFactor = 3
         },
         LightningSpeed = {
-            InitiativeOffset = [0, 80, 200]
+            InitiativeOffset = [0, 80, 200],
+            ActionPointsOffset = [0, 2, 5]
         },
         Phoenix = {
             RiseTimes = [0, 1, 3],
@@ -524,6 +517,7 @@ gt.Const.EL_NPC <- {
         },
         Recovery = {
             HitpointsRecoveryRate = [0, 0.08, 0.2],
+            FatigueRecoveryRate = [0, 0.08, 0.2],
             ArmorRecoveryRate = [0, 0.08, 0.2],
         },
         Retaliation = {
@@ -536,12 +530,10 @@ gt.Const.EL_NPC <- {
             DamageRate = [0, 0.4, 1],
             DamageDecayRatePurTile = 0.2,
         },
-        Stamina = {
-            StaminaOffset = [0, 80, 200]
-        },
         Tank = {
             HitpointsMult = [1, 1.8, 3],
-            ArmorMult = [1, 1.8, 3],
+            StaminaMult = [1, 1.8, 3],
+            ArmorMult = [1, 1.8, 3]
         },
         ThickSkin = {
             DamageReceivedMult = [0, 0.8, 2]
