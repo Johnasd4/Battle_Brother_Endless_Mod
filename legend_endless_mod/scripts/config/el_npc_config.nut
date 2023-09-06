@@ -417,40 +417,93 @@ gt.Const.EL_NPC <- {
 
     EL_NPCBuff = {
         Pool = {
-            Scripts = [
-                "scripts/skills/el_npc_buffs/el_berserk_npc_buff",
-                "scripts/skills/el_npc_buffs/el_charge_npc_buff",
-                "scripts/skills/el_npc_buffs/el_endurance_npc_buff",
-                "scripts/skills/el_npc_buffs/el_evasion_npc_buff",
-                "scripts/skills/el_npc_buffs/el_growth_npc_buff",
-                "scripts/skills/el_npc_buffs/el_intimidate_npc_buff",
-                "scripts/skills/el_npc_buffs/el_lightning_speed_npc_buff",
-                "scripts/skills/el_npc_buffs/el_phoenix_npc_buff",
-                "scripts/skills/el_npc_buffs/el_recovery_npc_buff",
-                "scripts/skills/el_npc_buffs/el_retaliation_npc_buff",
-                "scripts/skills/el_npc_buffs/el_revenge_npc_buff",
-                "scripts/skills/el_npc_buffs/el_self_destruct_npc_buff",
-                "scripts/skills/el_npc_buffs/el_stunning_strike_npc_buff",
-                "scripts/skills/el_npc_buffs/el_tank_npc_buff",
-                "scripts/skills/el_npc_buffs/el_thick_skin_npc_buff",
-                "scripts/skills/el_npc_buffs/el_veteran_npc_buff",
-                "scripts/skills/el_npc_buffs/el_weapon_master_npc_buff"
+            Buffs = [
+                {
+                    Scripts = "scripts/skills/el_npc_buffs/el_berserk_npc_buff",
+                    function EL_ifEligible(_EL_npc) { return true; }
+                },
+                {
+                    Scripts = "scripts/skills/el_npc_buffs/el_charge_npc_buff",
+                    function EL_ifEligible(_EL_npc) { return true; }
+                },
+                {
+                    Scripts = "scripts/skills/el_npc_buffs/el_endurance_npc_buff",
+                    function EL_ifEligible(_EL_npc) { return true; }
+                },
+                {
+                    Scripts = "scripts/skills/el_npc_buffs/el_evasion_npc_buff",
+                    function EL_ifEligible(_EL_npc) { return true; }
+                },
+                {
+                    Scripts = "scripts/skills/el_npc_buffs/el_growth_npc_buff",
+                    function EL_ifEligible(_EL_npc) { return true; }
+                },
+                {
+                    Scripts = "scripts/skills/el_npc_buffs/el_intimidate_npc_buff",
+                    function EL_ifEligible(_EL_npc) { return true; }
+                },
+                {
+                    Scripts = "scripts/skills/el_npc_buffs/el_lightning_speed_npc_buff",
+                    function EL_ifEligible(_EL_npc) { return true; }
+                },
+                {
+                    Scripts = "scripts/skills/el_npc_buffs/el_phoenix_npc_buff",
+                    function EL_ifEligible(_EL_npc) { return true; }
+                },
+                {
+                    Scripts = "scripts/skills/el_npc_buffs/el_recovery_npc_buff",
+                    function EL_ifEligible(_EL_npc) { return true; }
+                },
+                {
+                    Scripts = "scripts/skills/el_npc_buffs/el_retaliation_npc_buff",
+                    function EL_ifEligible(_EL_npc) { return true; }
+                },
+                {
+                    Scripts = "scripts/skills/el_npc_buffs/el_revenge_npc_buff",
+                    function EL_ifEligible(_EL_npc) { return true; }
+                },
+                {
+                    Scripts = "scripts/skills/el_npc_buffs/el_self_destruct_npc_buff",
+                    function EL_ifEligible(_EL_npc) { return true; }
+                },
+                {
+                    Scripts = "scripts/skills/el_npc_buffs/el_stunning_strike_npc_buff",
+                    function EL_ifEligible(_EL_npc) { return true; }
+                },
+                {
+                    Scripts = "scripts/skills/el_npc_buffs/el_tank_npc_buff",
+                    function EL_ifEligible(_EL_npc) { return true; }
+                },
+                {
+                    Scripts = "scripts/skills/el_npc_buffs/el_thick_skin_npc_buff",
+                    function EL_ifEligible(_EL_npc) { return true; }
+                },
+                {
+                    Scripts = "scripts/skills/el_npc_buffs/el_veteran_npc_buff",
+                    function EL_ifEligible(_EL_npc) { return true; }
+                },
+                {
+                    Scripts = "scripts/skills/el_npc_buffs/el_weapon_master_npc_buff",
+                    function EL_ifEligible(_EL_npc) { return true; }
+                }
             ],
             function EL_assignNPCBuffs(_EL_npc, _EL_rank1Num, _EL_rank2Num) {
                 local index_pool = [];
-                for(local i = 0; i < this.Const.EL_NPC.EL_NPCBuff.Pool.Scripts.len(); ++i) {
-                    index_pool.push(i);
+                for(local i = 0; i < this.Const.EL_NPC.EL_NPCBuff.Pool.Buffs.len(); ++i) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.Pool.Buffs[i].EL_ifEligible(_EL_npc)) {
+                        index_pool.push(i);
+                    }
                 }
                 for(local i = 0; i < _EL_rank1Num && index_pool.len() != 0; ++i) {
                     local r = this.Math.rand(0, index_pool.len() - 1);
-                    local skill = this.new(this.Const.EL_NPC.EL_NPCBuff.Pool.Scripts[index_pool[r]]);
+                    local skill = this.new(this.Const.EL_NPC.EL_NPCBuff.Pool.Buffs.Scripts[index_pool[r]]);
                     skill.EL_setRankLevel(1);
                     _EL_npc.getSkills().add(skill);
                     index_pool.remove(r);
                 }
                 for(local i = 0; i < _EL_rank2Num && index_pool.len() != 0; ++i) {
                     local r = this.Math.rand(0, index_pool.len() - 1);
-                    local skill = this.new(this.Const.EL_NPC.EL_NPCBuff.Pool.Scripts[index_pool[r]]);
+                    local skill = this.new(this.Const.EL_NPC.EL_NPCBuff.Pool.Buffs.Scripts[index_pool[r]]);
                     skill.EL_setRankLevel(2);
                     _EL_npc.getSkills().add(skill);
                     index_pool.remove(r);
