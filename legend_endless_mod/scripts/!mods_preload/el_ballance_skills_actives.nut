@@ -64,7 +64,6 @@ local gt = getroottable();
                 local selectedTargets = [];
                 local potentialTargets = [];
                 local potentialTiles = [];
-                local ignore_tiles = [myTile];
                 local target;
                 local have_next_target = true;
                 local delay_time = 100;
@@ -100,22 +99,9 @@ local gt = getroottable();
                         if (targetTile.hasNextTile(i))
                         {
                             local tile = targetTile.getNextTile(i);
-
-                            foreach(t in ignore_tiles) {
-                                if(t.ID == tile.ID) {
-                                    tile = null;
-                                    break;
-                                }
-                            }
-                            if (!tile.IsOccupiedByActor || !tile.getEntity().isAttackable() || tile.getEntity().isAlliedWith(_user) || selectedTargets.find(tile.getEntity().getID()) != null)
+                            if (tile != null && tile.IsOccupiedByActor && tile.getEntity().isAttackable() && !tile.getEntity().isAlliedWith(_user) && selectedTargets.find(tile.getEntity().getID()) == null)
                             {
-                            }
-                            else
-                            {
-                                if (tile != null)
-                                {
-                                    potentialTargets.push(tile);
-                                }
+                                potentialTargets.push(tile);
                             }
                         }
                     }
@@ -124,14 +110,11 @@ local gt = getroottable();
                         target = potentialTargets[this.Math.rand(0, potentialTargets.len() - 1)].getEntity();
                         selectedTargets.push(target.getID());
                         targetTile = target.getTile();
-                        ignore_tiles.push(targetTile);
                     }
                     else
                     {
                         have_next_target = false;
                     }
-
-
                 }
             }
             return success;
