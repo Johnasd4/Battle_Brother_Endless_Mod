@@ -99,7 +99,13 @@ local gt = getroottable();
                         if (targetTile.hasNextTile(i))
                         {
                             local tile = targetTile.getNextTile(i);
-                            if (tile != null && tile.IsOccupiedByActor && tile.getEntity().isAttackable() && !tile.getEntity().isAlliedWith(_user) && selectedTargets.find(tile.getEntity().getID()) == null)
+                            this.logInfo("tile.IsOccupiedByActor " + tile.IsOccupiedByActor);
+                            this.logInfo("tile.getEntity().isAttackable() " + tile.getEntity().isAttackable());
+                            this.logInfo("!tile.getEntity().isAlliedWith(_user) " + !tile.getEntity().isAlliedWith(_user));
+                            this.logInfo("selectedTargets.find(tile.getEntity().getID()) == null " + selectedTargets.find(tile.getEntity().getID()) == null);
+
+
+                            if (tile.IsOccupiedByActor && tile.getEntity().isAttackable() && !tile.getEntity().isAlliedWith(_user) && selectedTargets.find(tile.getEntity().getID()) == null)
                             {
                                 potentialTargets.push(tile);
                             }
