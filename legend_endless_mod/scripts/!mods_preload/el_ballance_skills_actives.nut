@@ -53,7 +53,7 @@ local gt = getroottable();
             }, _data);
         }
 
-        onUse = function( _user, _targetTile )
+        o.onUse = function( _user, _targetTile )
         {
             this.spawnAttackEffect(_targetTile, this.Const.Tactical.AttackEffectSlash);
             local success = this.attackEntity(_user, _targetTile.getEntity());
