@@ -99,6 +99,8 @@ local gt = getroottable();
                         if (targetTile.hasNextTile(i))
                         {
                             local tile = targetTile.getNextTile(i);
+                            this.logInfo("tile.X " + tile.X);
+                            this.logInfo("tile.Y " + tile.Y);
                             this.logInfo("tile.IsOccupiedByActor " + tile.IsOccupiedByActor);
                             this.logInfo("tile.getEntity().isAttackable() " + tile.getEntity().isAttackable());
                             this.logInfo("!tile.getEntity().isAlliedWith(_user) " + !tile.getEntity().isAlliedWith(_user));
