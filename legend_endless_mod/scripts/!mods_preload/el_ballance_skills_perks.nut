@@ -38,7 +38,7 @@ local gt = getroottable();
 		o.getReductionPercentage = function()
 		{
 			local armor = this.getContainer().getActor().getArmor(this.Const.BodyPart.Head) + this.getContainer().getActor().getArmor(this.Const.BodyPart.Body);
-			return this.Math.floor(1 - 100/(100 + armor * 0.05) * 10000) * 0.01;
+			return this.Math.floor((1 - 100/(100 + armor * 0.05)) * 10000) * 0.01;
 		}
 
 	});
