@@ -44,7 +44,7 @@ local gt = getroottable();
             this.Time.scheduleEvent(this.TimeUnit.Virtual, _delay + 200, function ( _data )
             {
                 local hitInfo = clone this.Const.Tactical.HitInfo;
-                hitInfo.DamageRegular = this.Math.evil(_data.Target.getHitpoints() * 0.05) + 20;
+                hitInfo.DamageRegular = this.Math.ceil(_data.Target.getHitpoints() * 0.05) + 20;
                 hitInfo.DamageDirect = 1.0;
                 hitInfo.BodyPart = this.Const.BodyPart.Body;
                 hitInfo.BodyDamageMult = 1.0;
