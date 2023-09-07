@@ -75,12 +75,15 @@ gt.Const.EL_NPC <- {
             MeleeDefense = 2,
             RangedDefense = 2,
         },
+        LevelUpDamageMult = 0.04,
+        LevelUpArmorMult = 0.04,
         XPFactor = 1.085
     },
 
     EL_Troop = {
         StrengthPurPopulation = 20,
         WeakUnitPopulationMult = 3,
+        Rank2LeastStrength = 20,
         MinLevel = 0,
         MaxLevel = 200,
         MaxTroopNum = 255,
@@ -159,7 +162,19 @@ gt.Const.EL_NPC <- {
 
         WeakUnit = [
             this.Const.EntityType.Peasant,
-            this.Const.EntityType.PeasantSouthern
+            this.Const.EntityType.PeasantSouthern,
+            this.Const.EntityType.LegendPeasantButcher,
+            this.Const.EntityType.LegendPeasantBlacksmith,
+            this.Const.EntityType.LegendPeasantMonk,
+            this.Const.EntityType.LegendPeasantFarmhand,
+            this.Const.EntityType.LegendPeasantMinstrel,
+            this.Const.EntityType.LegendPeasantPoacher,
+            this.Const.EntityType.LegendPeasantWoodsman,
+            this.Const.EntityType.LegendPeasantMiner,
+            this.Const.EntityType.LegendPeasantSquire,
+            this.Const.EntityType.LegendPeasantWitchHunter,
+            this.Const.EntityType.CaravanDonkey,
+            this.Const.EntityType.MilitaryDonkey
         ]
 
         Name = [

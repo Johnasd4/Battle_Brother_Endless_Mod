@@ -1178,7 +1178,7 @@ this.world_entity <- {
 				local unit_population = 0;
 				local used_resourse = 0;
 				local random_leader_avilable_index = [];
-				if(this.m.EL_HaveStrongestLeader && !troops_info[i].EL_IsWeakUnit) {
+				if(this.m.EL_HaveStrongestLeader && !troops_info[i].EL_IsWeakUnit && troops_info[i].Strength >= this.Const.EL_NPC.EL_Troop.Rank2LeastStrength) {
 					this.m.Troops[i].EL_RankLevel = 2;
 					unit_strength += this.m.Troops[i].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[i].EL_RankLevel];
 					unit_population += troops_info[i].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[i].EL_RankLevel];
@@ -1193,7 +1193,9 @@ this.world_entity <- {
 					}
 					else {
 						this.m.Troops[i].EL_RankLevel = 1;
-						random_leader_avilable_index.push(i);
+						if(troops_info[i].Strength >= this.Const.EL_NPC.EL_Troop.Rank2LeastStrength) {
+							random_leader_avilable_index.push(i);
+						}
 					}
 
 					this.m.Troops[i].EL_ExtraCombatLevel = troops_info[i].EL_ExtraCombatLevel;
@@ -1252,7 +1254,9 @@ this.world_entity <- {
 					}
 					else if(troops_info[i].EL_IsEliteUnit) {
 						this.m.Troops[i].EL_RankLevel = 1;
-						random_leader_avilable_index.push(i);
+						if(troops_info[i].Strength >= this.Const.EL_NPC.EL_Troop.Rank2LeastStrength) {
+							random_leader_avilable_index.push(i);
+						}
 					}
 					else if(troops_info[i].EL_IsWeakUnit) {
 						this.m.Troops[i].EL_RankLevel = 0;
@@ -1260,7 +1264,9 @@ this.world_entity <- {
 					else {
 						local elite_chance = this.Const.EL_NPC.EL_NormalTeam.EliteChance.EL_getChance(this.World.Assets.m.EL_WorldLevel);
 						this.m.Troops[i].EL_RankLevel = (this.Math.rand(1, 1000) >= elite_chance * 10) ? 0 : 1;
-						random_leader_avilable_index.push(i);
+						if(troops_info[i].Strength >= this.Const.EL_NPC.EL_Troop.Rank2LeastStrength) {
+							random_leader_avilable_index.push(i);
+						}
 					}
 
 					this.m.Troops[i].EL_ExtraCombatLevel = troops_info[i].EL_ExtraCombatLevel;

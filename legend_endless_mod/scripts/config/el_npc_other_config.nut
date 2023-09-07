@@ -33,6 +33,13 @@ gt.Const.EL_NPCOther <- {
         "entity/tactical/enemies/hyena_high",
     ]
 
+    EL_Ghost = {
+        HrrificScream = {
+            BaseOffset = 50,
+            RankFactor = 25,
+            CombatLevelFactor = 1.04
+        }
+    }
 
 
 };
