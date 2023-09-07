@@ -80,7 +80,7 @@ local gt = getroottable();
                     selectedTargets.push(target.getID());
                 }
                 else {
-                    have_next_target = false;
+                    target = null;
                 }
 
                 while(have_next_target) {
