@@ -74,6 +74,7 @@ local gt = getroottable();
 			animal_properties.DamageRegularMult = actor_properties.DamageRegularMult;
 			animal_properties.EL_CombatLevel = actor_properties.EL_CombatLevel;
 			entity.getSkills().update();
+			entity.EL_setNPCLevel(actor.getLevel());
 			entity.setHitpoints(entity.getHitpointsMax());
 		}
 	});
