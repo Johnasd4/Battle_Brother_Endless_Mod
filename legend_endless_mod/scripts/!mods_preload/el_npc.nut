@@ -109,6 +109,7 @@ local gt = getroottable();
                 else
                 {
                     this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(_e, this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank1[_t.EL_RankLevel], this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank2[_t.EL_RankLevel]);
+                    _e.generateNonHumanoidNPCDamageArmorMult();
                 }
             }
             else {
@@ -165,6 +166,16 @@ local gt = getroottable();
             this.m.XP += this.Const.EL_NPC.EL_Champion.XP.Offset[this.m.EL_RankLevel];
             this.m.XP *= this.Const.EL_NPC.EL_Champion.XP.Mult[this.m.EL_RankLevel];
             this.m.XP *= this.Math.pow(this.Const.EL_NPC.EL_LevelUp.XPFactor, level_ups);
+        }
+
+        o.generateNonHumanoidNPCDamageArmorMult <- function() {
+            local level_ups = this.m.EL_NPCLevel - this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset;
+            if(level_ups < 0) {
+                level_ups = 0;
+            }
+			this.m.BaseProperties.DamageRegularMult *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpDamageMult * level_ups;
+			this.m.BaseProperties.ArmorMult[this.Const.BodyPart.Body] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
+			this.m.BaseProperties.ArmorMult[this.Const.BodyPart.Head] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
         }
 
 		o.getName = function()

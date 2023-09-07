@@ -20,7 +20,7 @@ this.el_intimidate_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_
                     foreach( t in tar )
                     {
                         if(!t.isAlliedWith(actor)) {
-                            local difficulty = (t.getBravery() - actor.getBravery()) +
+                            local difficulty = -actor.getBravery() +
                                                this.Const.EL_NPC.EL_NPCBuff.Factor.Intimidate.BaseOffset +
                                                this.Const.EL_NPC.EL_NPCBuff.Factor.Intimidate.RankFactor * (t.EL_getRankLevel() - actor.EL_getRankLevel()) +
                                                this.Math.pow(this.Const.EL_NPC.EL_NPCBuff.Factor.Intimidate.CombatLevelFactor, this.Math.abs(t.EL_getCombatLevel() - actor.EL_getCombatLevel())) * (t.EL_getCombatLevel() - actor.EL_getCombatLevel()) +
