@@ -52,7 +52,7 @@ local gt = getroottable();
 			local actor = this.getContainer().getActor();
 			local actor_properties = actor.getCurrentProperties();
 			local animal_properties = entity.getCurrentProperties();
-			entity.EL_setRankLevel(actor.EL_getRankLevel);
+			//entity.EL_setRankLevel(actor.EL_getRankLevel);
 			animal_properties.Hitpoints = actor_properties.Hitpoints;
 			animal_properties.HitpointsMult = actor_properties.HitpointsMult;
 			animal_properties.Bravery = actor_properties.Bravery;
@@ -74,6 +74,7 @@ local gt = getroottable();
 			animal_properties.DamageRegularMult = actor_properties.DamageRegularMult;
 			animal_properties.EL_CombatLevel = actor_properties.EL_CombatLevel;
 			entity.getSkills().update();
+			entity.setHitpoints(entity.getHitpointsMax());
 		}
 	});
 
