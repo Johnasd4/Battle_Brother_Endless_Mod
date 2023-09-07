@@ -81,16 +81,18 @@ local gt = getroottable();
 			}
 
 		}
+
+		o.onUpdate = function( _properties )
+		{
+			if(this.m.EL_IfHit == true) {
+				this.m.EL_IfHit = false;
+				local actor = this.getContainer().getActor();
+				actor.setHitpoints(this.m.EL_CurrentHitpoints);
+			}
+		}
+
 	});
 
-	o.onUpdate = function( _properties )
-	{
-		if(this.m.EL_IfHit == true) {
-			this.m.EL_IfHit = false;
-			local actor = this.getContainer().getActor();
-			actor.setHitpoints(this.m.EL_CurrentHitpoints);
-		}
-	}
 
 	::mods_hookExactClass("skills/racial/ghost_racial", function ( o )
 	{
