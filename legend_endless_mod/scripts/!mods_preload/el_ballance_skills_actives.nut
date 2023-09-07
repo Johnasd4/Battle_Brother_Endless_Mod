@@ -93,7 +93,6 @@ local gt = getroottable();
                     };
                     this.applyEffect(data, delay_time);
                     delay_time += 50;
-                    this.logInfo("delay_time " + delay_time);
                     potentialTargets = [];
                     potentialTiles = [];
                     for( local i = 0; i < 6; i = ++i )
@@ -101,15 +100,6 @@ local gt = getroottable();
                         if (targetTile.hasNextTile(i))
                         {
                             local tile = targetTile.getNextTile(i);
-                            this.logInfo("tile.X " + tile.X);
-                            this.logInfo("tile.Y " + tile.Y);
-                            this.logInfo("tile.IsOccupiedByActor " + tile.IsOccupiedByActor);
-                            if(tile.IsOccupiedByActor) {
-                                this.logInfo("tile.getEntity().isAttackable() " + tile.getEntity().isAttackable());
-                                this.logInfo("!tile.getEntity().isAlliedWith(_user) " + !tile.getEntity().isAlliedWith(_user));
-                                this.logInfo("selectedTargets.find(tile.getEntity().getID()) == null " + (selectedTargets.find(tile.getEntity().getID()) == null));
-                            }
-
                             if (tile.IsOccupiedByActor && tile.getEntity().isAttackable() && !tile.getEntity().isAlliedWith(_user) && selectedTargets.find(tile.getEntity().getID()) == null)
                             {
                                 potentialTargets.push(tile);
