@@ -55,7 +55,9 @@ local gt = getroottable();
 			entity.EL_generateNPCAttributesByLevel(actor.getLevel());
 			//entity.EL_setRankLevel(actor.EL_getRankLevel);
 			animal_properties.DamageRegularMult *= 1 + this.Const.EL_PlayerOther.EL_Animal.DamageMultPurLevel * entity.EL_getNPCLevel();
-			animal_properties.EL_CombatLevel = entity.EL_getNPCLevel();
+			animal_properties.ArmorMult[this.Const.BodyPart.Body] *= 1 + this.Const.EL_PlayerOther.EL_Animal.ArmorMultPurLevel * entity.EL_getNPCLevel();
+			animal_properties.ArmorMult[this.Const.BodyPart.Head] *= 1 + this.Const.EL_PlayerOther.EL_Animal.ArmorMultPurLevel * entity.EL_getNPCLevel();
+				animal_properties.EL_CombatLevel = entity.EL_getNPCLevel();
 			entity.getSkills().update();
 			entity.setHitpoints(entity.getHitpointsMax());
 		}
