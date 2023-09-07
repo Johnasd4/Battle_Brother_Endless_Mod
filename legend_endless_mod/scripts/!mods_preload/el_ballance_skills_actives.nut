@@ -14,7 +14,7 @@ local gt = getroottable();
                     id = 6,
                     type = "text",
                     icon = "ui/icons/special.png",
-                    text = "Inflicts an additional [color=" + this.Const.UI.Color.DamageValue + "]5%[/color] targets current hitpoints + [color=" + this.Const.UI.Color.DamageValue + "]20[/color] damage that ignores armor to up to three targets"
+                    text = "Inflicts an additional [color=" + this.Const.UI.Color.DamageValue + "]5%[/color] targets current hitpoints + [color=" + this.Const.UI.Color.DamageValue + "]20[/color] damage that ignores armor. The lightning won't hit the same target and will pass on until no targets left."
                 },
                 {
                     id = 7,
@@ -91,7 +91,7 @@ local gt = getroottable();
                         Target = target
                     };
                     this.applyEffect(data, delay_time);
-                    delay_time += 100;
+                    delay_time += 50;
                     potentialTargets = [];
                     potentialTiles = [];
                     for( local i = 0; i < 6; i = ++i )
