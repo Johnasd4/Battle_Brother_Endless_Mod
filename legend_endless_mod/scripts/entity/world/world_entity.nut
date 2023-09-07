@@ -509,7 +509,7 @@ this.world_entity <- {
 
 	function dropMoney( _num, _lootTable )
 	{
-		_num = this.Math.max(0, this.Math.round(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.DropIncreaseMultPurWorldLevel.Money)));
+		_num = this.Math.max(0, this.Math.round(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.DropIncreaseMultPurWorldLevel.Money)));
 
 		if (_num == 0)
 		{
@@ -523,7 +523,7 @@ this.world_entity <- {
 
 	function dropFood( _num, _items, _lootTable )
 	{
-		_num = this.Math.max(0, this.Math.round(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.DropIncreaseMultPurWorldLevel.Food)));
+		_num = this.Math.max(0, this.Math.round(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.DropIncreaseMultPurWorldLevel.Food)));
 
 		if (_num == 0)
 		{
@@ -542,7 +542,7 @@ this.world_entity <- {
 
 	function dropTreasure( _num, _items, _lootTable )
 	{
-		_num = this.Math.max(0, this.Math.floor(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.DropIncreaseMultPurWorldLevel.Treasure)));
+		_num = this.Math.max(0, this.Math.floor(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.DropIncreaseMultPurWorldLevel.Treasure)));
 
 		if (_num == 0)
 		{
@@ -559,7 +559,7 @@ this.world_entity <- {
 
 	function dropAmmo( _num, _lootTable )
 	{
-		_num = this.Math.max(0, this.Math.round(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.DropIncreaseMultPurWorldLevel.Ammo)));
+		_num = this.Math.max(0, this.Math.round(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.DropIncreaseMultPurWorldLevel.Ammo)));
 
 		if (_num == 0)
 		{
@@ -573,7 +573,7 @@ this.world_entity <- {
 
 	function dropArmorParts( _num, _lootTable )
 	{
-		_num = this.Math.max(0, this.Math.round(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.DropIncreaseMultPurWorldLevel.ArmorParts)));
+		_num = this.Math.max(0, this.Math.round(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.DropIncreaseMultPurWorldLevel.ArmorParts)));
 
 		if (_num == 0)
 		{
@@ -587,7 +587,7 @@ this.world_entity <- {
 
 	function dropMedicine( _num, _lootTable )
 	{
-		_num = this.Math.max(0, this.Math.round(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.DropIncreaseMultPurWorldLevel.Medicine)));
+		_num = this.Math.max(0, this.Math.round(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.DropIncreaseMultPurWorldLevel.Medicine)));
 
 		if (_num == 0)
 		{
