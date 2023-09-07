@@ -81,16 +81,18 @@ local gt = getroottable();
 			}
 
 		}
+
+		o.onUpdate = function( _properties )
+		{
+			if(this.m.EL_IfHit == true) {
+				this.m.EL_IfHit = false;
+				local actor = this.getContainer().getActor();
+				actor.setHitpoints(this.m.EL_CurrentHitpoints);
+			}
+		}
+
 	});
 
-	o.onUpdate = function( _properties )
-	{
-		if(this.m.EL_IfHit == true) {
-			this.m.EL_IfHit = false;
-			local actor = this.getContainer().getActor();
-			actor.setHitpoints(this.m.EL_CurrentHitpoints);
-		}
-	}
 
 	::mods_hookExactClass("skills/racial/ghost_racial", function ( o )
 	{
@@ -128,7 +130,22 @@ local gt = getroottable();
 		}
 	});
 
-
+	::mods_hookExactClass("skills/actives/ghastly_touch", function ( o )
+	{
+		o.onUse = function( _user, _targetTile )
+		{
+			local ret = this.attackEntity(_user, _targetTile.getEntity());
+			if(ret == true) {
+				local target = _targetTile.getEntity();
+				local difficulty = -_user.getBravery() +
+								   this.Const.EL_NPCOther.EL_Ghost.GhastlyTouch.BaseOffset +
+								   this.Const.EL_NPCOther.EL_Ghost.GhastlyTouch.RankFactor * (target.EL_getRankLevel() - _user.EL_getRankLevel()) +
+								   this.Math.pow(this.Const.EL_Ghost.GhastlyTouch.Factor.CombatLevelFactor, this.Math.abs(target.EL_getCombatLevel() - _user.EL_getCombatLevel())) * (target.EL_getCombatLevel() - _user.EL_getCombatLevel());
+				_targetTile.getEntity().checkMorale(-1, difficulty, this.Const.MoraleCheckType.MentalAttack);
+			}
+			return ret;
+		}
+	});
 
 	::mods_hookExactClass("skills/actives/horrific_scream", function ( o )
 	{
