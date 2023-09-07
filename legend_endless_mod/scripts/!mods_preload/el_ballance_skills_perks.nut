@@ -30,7 +30,7 @@ local gt = getroottable();
 				id = 6,
 				type = "text",
 				icon = "ui/icons/special.png",
-				text = "Only receive [color=" + this.Const.UI.Color.PositiveValue + "]" + (100 - this.Math.floor(this.getReductionPercentage() * 100) * 0.01) + "%[/color] of any damage to armor from attacks"
+				text = "Only receive [color=" + this.Const.UI.Color.PositiveValue + "]" + (100 - this.getReductionPercentage()) + "%[/color] of any damage to armor from attacks"
 			});
 			return tooltip;
 		}
@@ -38,7 +38,7 @@ local gt = getroottable();
 		o.getReductionPercentage = function()
 		{
 			local armor = this.getContainer().getActor().getArmor(this.Const.BodyPart.Head) + this.getContainer().getActor().getArmor(this.Const.BodyPart.Body);
-			return (1 - 100/(100 + armor * 0.05)) * 100;
+			return this.Math.floor(1 - 100/(100 + armor * 0.05) * 10000) * 0.01;
 		}
 
 	});
