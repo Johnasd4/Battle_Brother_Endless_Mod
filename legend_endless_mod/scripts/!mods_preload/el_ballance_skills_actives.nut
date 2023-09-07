@@ -84,6 +84,7 @@ local gt = getroottable();
                 }
 
                 while(have_next_target) {
+
                     local data = {
                         Skill = this,
                         User = _user,
@@ -99,7 +100,7 @@ local gt = getroottable();
                         if (targetTile.hasNextTile(i))
                         {
                             local tile = targetTile.getNextTile(i);
-                            if (tile != null && tile.IsOccupiedByActor && tile.getEntity().isAttackable() && !tile.getEntity().isAlliedWith(_user) && selectedTargets.find(tile.getEntity().getID()) == null)
+                            if (tile.IsOccupiedByActor && tile.getEntity().isAttackable() && !tile.getEntity().isAlliedWith(_user) && selectedTargets.find(tile.getEntity().getID()) == null)
                             {
                                 potentialTargets.push(tile);
                             }
