@@ -22,10 +22,23 @@ local gt = getroottable();
 	::mods_hookNewObject("skills/perks/perk_battle_forged", function ( o )
 	{
 
+
+		o.getTooltip = function()
+		{
+			local tooltip = this.skill.getTooltip();
+			tooltip.push({
+				id = 6,
+				type = "text",
+				icon = "ui/icons/special.png",
+				text = "Only receive [color=" + this.Const.UI.Color.PositiveValue + "]" + (100 - this.Math.floor(this.getReductionPercentage() * 100) * 0.01) + "%[/color] of any damage to armor from attacks"
+			});
+			return tooltip;
+		}
+
 		o.getReductionPercentage = function()
 		{
 			local armor = this.getContainer().getActor().getArmor(this.Const.BodyPart.Head) + this.getContainer().getActor().getArmor(this.Const.BodyPart.Body);
-			return this.Math.floor(100 - 100/(100 + armor * 0.05));
+			return (1 - 100/(100 + armor * 0.05)) * 100;
 		}
 
 	});
