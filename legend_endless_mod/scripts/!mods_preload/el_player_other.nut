@@ -51,7 +51,7 @@ local gt = getroottable();
 			addAnimalSkills(entity);
 			local actor = this.getContainer().getActor();
 			local actor_properties = actor.getCurrentProperties();
-			local animal_properties = entity.getCurrentProperties();
+			local animal_properties = entity.getBaseProperties();
 			//entity.EL_setRankLevel(actor.EL_getRankLevel);
 			animal_properties.Hitpoints = actor_properties.Hitpoints;
 			animal_properties.HitpointsMult = actor_properties.HitpointsMult;
