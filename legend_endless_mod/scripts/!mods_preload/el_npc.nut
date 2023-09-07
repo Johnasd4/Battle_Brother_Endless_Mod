@@ -139,10 +139,6 @@ local gt = getroottable();
             return this.m.EL_NPCLevel;
         }
 
-        o.EL_setNPCLevel <- function(_EL_npcLevel) {
-            this.m.EL_NPCLevel = _EL_npcLevel;
-        }
-
         o.makeMiniboss = function() {
             this.m.Skills.add(this.new("scripts/skills/racial/champion_racial"));
             this.m.IsMiniboss = true;

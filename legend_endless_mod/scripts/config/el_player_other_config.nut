@@ -36,6 +36,6 @@ gt.Const.EL_PlayerOther <- {
     },
 
     EL_Animal = {
-        DamageMult = 0.5
+        DamageMultPurLevel = 0.04
     }
 };
