@@ -434,7 +434,10 @@ gt.Const.EL_NPC <- {
         Pool = [
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_berserk_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(_EL_npc.getSkills().hasSkill("racial.ghost")) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_charge_npc_buff",
@@ -474,11 +477,17 @@ gt.Const.EL_NPC <- {
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_revenge_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(_EL_npc.getSkills().hasSkill("racial.ghost")) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_self_destruct_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(_EL_npc.getSkills().hasSkill("racial.ghost")) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_stunning_strike_npc_buff",
@@ -490,7 +499,10 @@ gt.Const.EL_NPC <- {
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_thick_skin_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(_EL_npc.getSkills().hasSkill("racial.ghost")) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_veteran_npc_buff",
