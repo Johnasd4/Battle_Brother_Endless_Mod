@@ -60,40 +60,28 @@ local gt = getroottable();
 		o.m.EL_CurrentHitpoints <- 0;
 		o.m.EL_IfHit <- false;
 
-		o.onAdded <- function()
+		o.onDamageReceived <- function( _attacker, _damageHitpoints, _damageArmor )
 		{
 			local actor = this.getContainer().getActor();
-			actor.setIsAbleToDie(false);
-		}
-
-		o.onBeforeDamageReceived <- function( _attacker, _skill, _hitInfo, _properties )
-		{
-			this.logInfo("this.m.EL_CurrentHitpoints START " + this.m.EL_CurrentHitpoints);
-			this.logInfo("this.m.EL_IfHit START " + this.m.EL_IfHit);
-			local actor = this.getContainer().getActor();
-			if(this.m.EL_IfHit == true) {
-				--this.m.EL_CurrentHitpoints;
-			}
-			else {
-				this.m.EL_CurrentHitpoints = actor.getHitpoints() - 1;
-				this.m.EL_IfHit = true;
-			}
-			if(this.m.EL_CurrentHitpoints <= 0) {
-				actor.setIsAbleToDie(true);
-			}
-			this.logInfo("this.m.EL_CurrentHitpoints END " + this.m.EL_CurrentHitpoints);
-			this.logInfo("this.m.EL_IfHit END " + this.m.EL_IfHit);
+			this.m.EL_IfHit = true;
 		}
 
 		o.onUpdate <- function( _properties )
 		{
-
+			if(actor.getHitpoints() > this.m.EL_CurrentHitpoints) {
+				this.m.EL_CurrentHitpoints = actor.getHitpoints();
+			}
 			if(this.m.EL_IfHit == true) {
-				this.logInfo("this.m.EL_CurrentHitpoints UPDATE " + this.m.EL_CurrentHitpoints);
-				this.logInfo("this.m.EL_IfHit UPDATE " + this.m.EL_IfHit);
 				this.m.EL_IfHit = false;
+				--this.m.EL_CurrentHitpoints;
 				local actor = this.getContainer().getActor();
 				actor.setHitpoints(this.m.EL_CurrentHitpoints);
+			}
+			if(this.m.EL_CurrentHitpoints <= 1) {
+				actor.setIsAbleToDie(true);
+			}
+			else {
+				actor.setIsAbleToDie(false);
 			}
 		}
 
