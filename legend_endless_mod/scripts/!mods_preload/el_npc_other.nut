@@ -66,7 +66,7 @@ local gt = getroottable();
 			actor.setIsAbleToDie(false);
 		}
 
-		.onDamageReceived <- function( _attacker, _damageHitpoints, _damageArmor )
+		o.onDamageReceived <- function( _attacker, _damageHitpoints, _damageArmor )
 		{
 			local actor = this.getContainer().getActor();
 			if(this.m.EL_IfHit == true) {
