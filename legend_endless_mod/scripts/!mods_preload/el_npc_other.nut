@@ -68,6 +68,8 @@ local gt = getroottable();
 
 		o.onBeforeDamageReceived <- function( _attacker, _skill, _hitInfo, _properties )
 		{
+			this.logInfo("this.m.EL_CurrentHitpoints START " + this.m.EL_CurrentHitpoints);
+			this.logInfo("this.m.EL_IfHit START " + this.m.EL_IfHit);
 			local actor = this.getContainer().getActor();
 			if(this.m.EL_IfHit == true) {
 				--this.m.EL_CurrentHitpoints;
@@ -79,12 +81,16 @@ local gt = getroottable();
 			if(this.m.EL_CurrentHitpoints <= 0) {
 				actor.setIsAbleToDie(true);
 			}
-
+			this.logInfo("this.m.EL_CurrentHitpoints END " + this.m.EL_CurrentHitpoints);
+			this.logInfo("this.m.EL_IfHit END " + this.m.EL_IfHit);
 		}
 
 		o.onUpdate <- function( _properties )
 		{
+
 			if(this.m.EL_IfHit == true) {
+				this.logInfo("this.m.EL_CurrentHitpoints UPDATE " + this.m.EL_CurrentHitpoints);
+				this.logInfo("this.m.EL_IfHit UPDATE " + this.m.EL_IfHit);
 				this.m.EL_IfHit = false;
 				local actor = this.getContainer().getActor();
 				actor.setHitpoints(this.m.EL_CurrentHitpoints);
