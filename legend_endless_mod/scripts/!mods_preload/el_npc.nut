@@ -99,18 +99,16 @@ local gt = getroottable();
 
                 _e.assignRandomEquipment();
                 if(_e.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand) == null &&
-                   _e.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand) == null &&
-                   _e.getItems().getItemAtSlot(this.Const.ItemSlot.Body) == null &&
-                   _e.getItems().getItemAtSlot(this.Const.ItemSlot.Head) == null &&
-                   _e.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory) == null)
+                   _e.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand) == null)
                 {
                     this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(_e, this.Const.EL_NPC.EL_NPCBuff.Num.NonHumanoidRank1[_t.EL_RankLevel], this.Const.EL_NPC.EL_NPCBuff.Num.NonHumanoidRank2[_t.EL_RankLevel]);
                 }
                 else
                 {
                     this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(_e, this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank1[_t.EL_RankLevel], this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank2[_t.EL_RankLevel]);
-                    _e.generateNonHumanoidNPCDamageArmorMult();
+
                 }
+                _e.generateNPCDamageArmorMult();
             }
             else {
 
@@ -168,14 +166,20 @@ local gt = getroottable();
             this.m.XP *= this.Math.pow(this.Const.EL_NPC.EL_LevelUp.XPFactor, level_ups);
         }
 
-        o.generateNonHumanoidNPCDamageArmorMult <- function() {
+        o.generateNPCDamageArmorMult <- function() {
             local level_ups = this.m.EL_NPCLevel - this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset;
             if(level_ups < 0) {
                 level_ups = 0;
             }
-			this.m.BaseProperties.DamageRegularMult *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpDamageMult * level_ups;
-			this.m.BaseProperties.ArmorMult[this.Const.BodyPart.Body] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
-			this.m.BaseProperties.ArmorMult[this.Const.BodyPart.Head] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
+            if(this.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand) == null && this.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand) == null) {
+                this.m.BaseProperties.DamageRegularMult *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpDamageMult * level_ups;
+            }
+            if(this.getItems().getItemAtSlot(this.Const.ItemSlot.Body) == null) {
+                this.m.BaseProperties.ArmorMult[this.Const.BodyPart.Body] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
+            }
+            if(this.getItems().getItemAtSlot(this.Const.ItemSlot.Head) == null) {
+                this.m.BaseProperties.ArmorMult[this.Const.BodyPart.Head] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
+            }
         }
 
 		o.getName = function()
