@@ -10,7 +10,6 @@ local gt = getroottable();
 		o.onInit = function() {
 			onInit();
 			this.m.Events.m.Events.push(this.new("scripts/events/mods/el_world/el_world_change_event"));
-			this.World.Flags.set("EL_WorldChangeEvent", this.Index);
 		}
 	});
 
