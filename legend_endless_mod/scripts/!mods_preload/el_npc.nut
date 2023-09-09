@@ -84,7 +84,7 @@ local gt = getroottable();
                 npc_level = this.Const.EL_NPC.EL_Troop.MinLevel;
             }
 
-            _e.EL_generateNPCAttributesByLevel(npc_level);
+            _e.EL_bulidNPCPropertiesByLevel(npc_level);
             //this.logInfo("_t.EL_ExtraCombatLevel " + _t.EL_ExtraCombatLevel);
             _e.EL_setCombatLevel(npc_level + _t.EL_ExtraCombatLevel);
             _e.EL_setRankLevel(_t.EL_RankLevel);
@@ -108,7 +108,7 @@ local gt = getroottable();
                     this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(_e, this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank1[_t.EL_RankLevel], this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank2[_t.EL_RankLevel]);
 
                 }
-                _e.generateNPCDamageArmorMult();
+                _e.EL_ballanceNPCPropertiesAfterAddingEquipment();
             }
             else {
 
@@ -145,7 +145,7 @@ local gt = getroottable();
             return true;
         }
 
-        o.EL_generateNPCAttributesByLevel <- function( _EL_npcLevel ) {
+        o.EL_bulidNPCPropertiesByLevel <- function( _EL_npcLevel ) {
             this.m.EL_NPCLevel = _EL_npcLevel;
             local level_ups = _EL_npcLevel - this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset;
             if(level_ups < 0) {
@@ -167,21 +167,38 @@ local gt = getroottable();
             this.m.XP *= this.Math.pow(this.Const.EL_NPC.EL_LevelUp.XPFactor, this.Math.min(level_ups, this.Const.EL_NPC.EL_LevelUp.MaxXPLevel));
         }
 
-        o.generateNPCDamageArmorMult <- function() {
+        o.EL_ballanceNPCPropertiesAfterAddingEquipment <- function() {
             local level_ups = this.m.EL_NPCLevel - this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset;
             if(level_ups < 0) {
                 level_ups = 0;
             }
-            if(this.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand) == null && this.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand) == null) {
+            local main_hand = this.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+            local off_hand = this.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand);
+            local body = this.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
+            local head = this.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
+
+            if(main_hand == null && off_hand == null) {
                 this.m.BaseProperties.DamageRegularMult *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpDamageMult * level_ups;
             }
-            if(this.getItems().getItemAtSlot(this.Const.ItemSlot.Body) == null) {
+            if(body == null) {
                 this.m.BaseProperties.Armor[this.Const.BodyPart.Body] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
                 this.m.BaseProperties.ArmorMax[this.Const.BodyPart.Body] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
             }
-            if(this.getItems().getItemAtSlot(this.Const.ItemSlot.Head) == null) {
+            if(head == null) {
                 this.m.BaseProperties.Armor[this.Const.BodyPart.Head] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
                 this.m.BaseProperties.ArmorMax[this.Const.BodyPart.Head] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
+            }
+            if(main_hand != null) {
+                this.m.BaseProperties.Stamina += main_hand.EL_getLevelAddtionStaminaModifier();
+            }
+            if(off_hand != null) {
+                this.m.BaseProperties.Stamina += off_hand.EL_getLevelAddtionStaminaModifier();
+            }
+            if(body != null) {
+                this.m.BaseProperties.Stamina += body.EL_getLevelAddtionStaminaModifier();
+            }
+            if(head != null) {
+                this.m.BaseProperties.Stamina += head.EL_getLevelAddtionStaminaModifier();
             }
         }
 

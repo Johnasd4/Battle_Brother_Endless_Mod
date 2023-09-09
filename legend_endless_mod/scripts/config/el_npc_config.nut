@@ -68,13 +68,14 @@ gt.Const.EL_NPC <- {
         LevelUpAttributes = {
             HitpointsMult = 0.05,
             Bravery = 0.5,
-            Fatigue = 3,
+            Fatigue = 0.5,
             Initiative = 4,
             MeleeSkill = 2,
             RangedSkill = 2.5,
             MeleeDefense = 2,
             RangedDefense = 2,
         },
+
         LevelUpDamageMult = 0.04,
         LevelUpArmorMult = 0.04,
         MaxXPLevel = 100,
@@ -590,7 +591,7 @@ gt.Const.EL_NPC <- {
             },
             Tank = {
                 HitpointsMult = [1, 1.8, 3],
-                StaminaMult = [1, 1.8, 3],
+                Stamina = [0, 80, 200],
                 ArmorMult = [1, 1.8, 3]
             },
             ThickSkin = {
