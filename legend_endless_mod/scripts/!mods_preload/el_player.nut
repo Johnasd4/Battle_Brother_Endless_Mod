@@ -1086,6 +1086,134 @@ local gt = getroottable();
 
 	});
 
+	::mods_hookNewObjectOnce("states/world/asset_manager", function ( o )
+	{
+		o.getRosterDescription = function()
+		{
+			local ret = {
+				Brothers = []
+			};
+
+			foreach( bro in this.World.getPlayerRoster().getAll() )
+			{
+				ret.Brothers.push({
+					Name = bro.getNameOnly(),
+					Mood = this.Const.MoodStateIcon[bro.getMoodState()],
+					Level = bro.getLevel(),
+					EL_CombatLevel = bro.EL_getCombatLevel(),
+					Background = bro.getBackground().getNameOnly()
+				});
+			}
+
+			local EL_sortByCombatLevel = function ( first, second )
+			{
+				if (first.EL_CombatLevel == second.EL_CombatLevel)
+				{
+					return 0;
+				}
+
+				if (first.EL_CombatLevel > second.EL_CombatLevel)
+				{
+					return -1;
+				}
+				return 1;
+			};
+			ret.Brothers.sort(EL_sortByCombatLevel);
+			return ret;
+		}
+
+	});
+
+	::mods_hookNewObjectOnce("ui/screens/tooltip/tooltip_events", function ( o )
+	{
+		local general_queryUIElementTooltipData = o.general_queryUIElementTooltipData;
+		o.general_queryUIElementTooltipData = function( _entityId, _elementId, _elementOwner )
+		{
+			local entity;
+			if (_entityId != null)
+			{
+				entity = this.Tactical.getEntityByID(_entityId);
+			}
+
+			switch(_elementId)
+			{
+				case "assets.Brothers":
+					local ret = [
+						{
+							id = 1,
+							type = "title",
+							text = "Roster (I, C)"
+						},
+						{
+							id = 2,
+							type = "description",
+							text = "Show the roster of the fighting force of your mercenary company. Increase your Renown to increase the Roster Size!"
+						}
+					];
+					local data = this.World.Assets.getRosterDescription();
+					local id = 4;
+
+					if (this.World.Assets.getOrigin().getRosterTier() < this.World.Assets.getOrigin().getRosterTierMax())
+					{
+						local nextRenown = 0;
+
+						foreach( rep in this.World.Assets.getOrigin().getRosterReputationTiers() )
+						{
+							if (this.World.Assets.getBusinessReputation() < rep)
+							{
+								nextRenown = rep;
+								break;
+							}
+						}
+
+						ret.push({
+							id = id,
+							type = "description",
+							text = "Next Roster Size increase at Renown: " + nextRenown
+						});
+						id = ++id;
+						id = id;
+					}
+					else
+					{
+						ret.push({
+							id = id,
+							type = "description",
+							text = "Maximum Roster Size achieved!"
+						});
+						id = ++id;
+						id = id;
+					}
+
+					ret.push({
+						id = id,
+						type = "hint",
+						text = "World Strength: " + this.World.Assets.m.EL_WorldStrength +
+						       "\nWorld Level: " + this.World.Assets.m.EL_WorldLevel +
+							   "\nWorld Difficulty: " + (this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.has("EL_WorldChangeEvent") ? this.World.Flags.get("EL_WorldChangeEvent") : this.Const.EL_World.EL_WorldChangeEvent.DefaultOption] * 100) + "%"
+					});
+
+					id = ++id;
+					id = id;
+
+					foreach( bro in data.Brothers )
+					{
+						ret.push({
+							id = id,
+							type = "hint",
+							icon = bro.Mood,
+							text = "Lv" + bro.Level + "(" + (this.Math.round(bro.EL_CombatLevel * 10) * 0.1) + ") " + bro.Name
+						});
+						id = ++id;
+						id = id;
+					}
+					return ret;
+			}
+
+			return general_queryUIElementTooltipData(_entityId, _elementId, _elementOwner);
+		}
+	});
+
 	::mods_hookNewObjectOnce("ui/global/data_helper", function ( o )
 	{
 		local addCharacterToUIData = o.addCharacterToUIData;

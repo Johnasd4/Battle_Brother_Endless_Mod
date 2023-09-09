@@ -77,6 +77,7 @@ gt.Const.EL_NPC <- {
         },
         LevelUpDamageMult = 0.04,
         LevelUpArmorMult = 0.04,
+        MaxXPLevel = 100,
         XPFactor = 1.085
     },
 

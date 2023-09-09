@@ -55,40 +55,13 @@ local gt = getroottable();
 		};
 	});
 
-	::mods_hookExactClass("skills/racial/ghost_racial", function ( o )
+	::mods_hookExactClass("entity/tactical/enemies/legend_banshee", function ( o )
 	{
-		o.m.EL_CurrentHitpoints <- 0;
-		o.m.EL_IfHit <- false;
-
-		o.onAdded = function()
+		local onInit = o.onInit;
+		o.onInit = function()
 		{
-			local actor = this.getContainer().getActor();
-			actor.setIsAbleToDie(false);
-		}
-
-		.onDamageReceived = function( _attacker, _damageHitpoints, _damageArmor )
-		{
-			local actor = this.getContainer().getActor();
-			if(this.m.EL_IfHit == true) {
-				--this.m.EL_CurrentHitpoints;
-			}
-			else {
-				this.m.EL_CurrentHitpoints = actor.getHitpoints() - 1;
-				this.m.EL_IfHit = true;
-			}
-			if(this.m.EL_CurrentHitpoints <= 0) {
-				actor.setIsAbleToDie(true);
-			}
-
-		}
-
-		o.onUpdate = function( _properties )
-		{
-			if(this.m.EL_IfHit == true) {
-				this.m.EL_IfHit = false;
-				local actor = this.getContainer().getActor();
-				actor.setHitpoints(this.m.EL_CurrentHitpoints);
-			}
+			onInit();
+			this.m.Skills.add(this.new("scripts/skills/racial/ghost_racial"));
 		}
 
 	});
@@ -96,39 +69,17 @@ local gt = getroottable();
 
 	::mods_hookExactClass("skills/racial/ghost_racial", function ( o )
 	{
-		o.m.EL_CurrentHitpoints <- 0;
-		o.m.EL_IfHit <- false;
 
-		o.onAdded = function()
+		o.onBeforeDamageReceived <- function( _attacker, _skill, _hitInfo, _properties )
 		{
 			local actor = this.getContainer().getActor();
-			actor.setIsAbleToDie(false);
-		}
-
-		.onDamageReceived = function( _attacker, _damageHitpoints, _damageArmor )
-		{
-			local actor = this.getContainer().getActor();
-			if(this.m.EL_IfHit == true) {
-				--this.m.EL_CurrentHitpoints;
-			}
-			else {
-				this.m.EL_CurrentHitpoints = actor.getHitpoints() - 1;
-				this.m.EL_IfHit = true;
-			}
-			if(this.m.EL_CurrentHitpoints <= 0) {
-				actor.setIsAbleToDie(true);
-			}
-
-		}
-		o.onUpdate = function( _properties )
-		{
-			if(this.m.EL_IfHit == true) {
-				this.m.EL_IfHit = false;
-				local actor = this.getContainer().getActor();
-				actor.setHitpoints(this.m.EL_CurrentHitpoints);
+			if(actor.getHitpoints() > 1) {
+				_properties.DamageReceivedTotalMult = 0;
+				actor.setHitpoints(actor.getHitpoints() - 1);
 			}
 		}
 	});
+
 
 	::mods_hookExactClass("skills/actives/ghastly_touch", function ( o )
 	{

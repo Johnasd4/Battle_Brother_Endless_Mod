@@ -106,13 +106,6 @@ this.el_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario
 		this.World.State.m.Player = this.World.spawnEntity("scripts/entity/world/player_party", randomVillageTile.Coords.X, randomVillageTile.Coords.Y);
 		this.World.Assets.updateLook(6);
 		this.World.getCamera().setPos(this.World.State.m.Player.getPos());
-		this.Time.scheduleEvent(this.TimeUnit.Real, 1000, function ( _tag )
-		{
-			this.Music.setTrackList([
-				"music/barbarians_02.ogg"
-			], this.Const.Music.CrossFadeTime);
-			this.World.Events.fire("event.half_giant_scenario_intro");
-		}, null);
 	}
 
 	function onInit()
