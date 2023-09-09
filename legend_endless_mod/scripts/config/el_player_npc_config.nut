@@ -13,7 +13,7 @@ gt.Const.EL_PlayerNPC <- {
 
     EL_ExtraFatigueRecovery = {
         DivFactor = 20,
-        Offset = -3,
+        Offset = -5,
     },
 
     EL_RankToMoraleMin = [

@@ -591,7 +591,7 @@ gt.Const.EL_NPC <- {
             },
             Tank = {
                 HitpointsMult = [1, 1.8, 3],
-                StaminaMult = [1, 1.8, 3],
+                Stamina = [0, 80, 200],
                 ArmorMult = [1, 1.8, 3]
             },
             ThickSkin = {
