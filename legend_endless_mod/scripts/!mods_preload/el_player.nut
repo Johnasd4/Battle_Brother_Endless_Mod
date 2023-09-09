@@ -459,7 +459,7 @@ local gt = getroottable();
 
 		o.calculateAdditionalRecruitmentLevels = function ()
 		{
-			return this.Math.rand(0, this.World.Assets.m.EL_WorldLevel - this.Const.EL_Player.EL_Hiring.EL_WorldLevelOffset);
+			return this.Math.rand(0, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.EL_Player.EL_PlayerLevel.Max) - this.Const.EL_Player.EL_Hiring.EL_WorldLevelOffset);
 		};
 
 		o.onAdded = function ()
