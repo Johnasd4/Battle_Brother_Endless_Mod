@@ -36,6 +36,7 @@ gt.Const.CharacterProperties.onSerialize = function ( _out )
 {
     onSerialize( _out );
     _out.writeF32(this.EL_CombatLevel);
+    _out.writeI16(this.ActionPoints);
     //this.logInfo("this.EL_CombatLevel : " + this.EL_CombatLevel);
 }
 local onDeserialize = gt.Const.CharacterProperties.onDeserialize;
@@ -43,5 +44,6 @@ gt.Const.CharacterProperties.onDeserialize = function ( _in )
 {
     onDeserialize( _in );
     this.EL_CombatLevel = _in.readF32();
+    this.ActionPoints = _in.readI16();
     //this.logInfo("this.EL_CombatLevel : " + this.EL_CombatLevel);
 }

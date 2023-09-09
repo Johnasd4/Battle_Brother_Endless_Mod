@@ -163,7 +163,8 @@ local gt = getroottable();
             this.m.BaseProperties.RangedDefense += this.Math.floor(this.Const.EL_NPC.EL_LevelUp.LevelUpAttributes.RangedDefense * level_ups);
             this.m.XP += this.Const.EL_NPC.EL_Champion.XP.Offset[this.m.EL_RankLevel];
             this.m.XP *= this.Const.EL_NPC.EL_Champion.XP.Mult[this.m.EL_RankLevel];
-            this.m.XP *= this.Math.pow(this.Const.EL_NPC.EL_LevelUp.XPFactor, level_ups);
+
+            this.m.XP *= this.Math.pow(this.Const.EL_NPC.EL_LevelUp.XPFactor, level_ups < this.Const.EL_NPC.EL_LevelUp.MaxXPLevel ? level_ups : this.Const.EL_NPC.EL_LevelUp.MaxXPLevel);
         }
 
         o.generateNPCDamageArmorMult <- function() {

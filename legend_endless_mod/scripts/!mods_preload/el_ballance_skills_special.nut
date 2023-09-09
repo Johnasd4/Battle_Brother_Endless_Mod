@@ -70,7 +70,7 @@ local gt = getroottable();
 			_properties.FatigueOnSkillUse += this.Const.EL_Morale.Effect.FatigueOnSkillUseOffset[state];
 
 			_properties.DamageDirectMult *= this.Const.EL_Morale.Effect.DamageDirectMult[state];
-			_properties.DamageReceivedDirectMult *= this.Const.EL_Morale.Effect.DamageReceivedDirectMult[state];
+			_properties.DamageReceivedTotalMult *= this.Const.EL_Morale.Effect.DamageReceivedTotalMult[state];
 			switch(state)
 			{
 			case this.Const.MoraleState.Confident:

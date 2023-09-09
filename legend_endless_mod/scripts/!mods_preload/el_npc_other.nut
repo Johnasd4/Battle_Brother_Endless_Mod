@@ -55,33 +55,27 @@ local gt = getroottable();
 		};
 	});
 
-	::mods_hookExactClass("skills/racial/ghost_racial", function ( o )
+	::mods_hookExactClass("entity/tactical/enemies/legend_banshee", function ( o )
 	{
-		o.m.EL_CurrentHitpoints <- 0;
-		o.m.EL_IfHit <- false;
-
-		o.onDamageReceived <- function( _attacker, _damageHitpoints, _damageArmor )
+		local onInit = o.onInit;
+		o.onInit = function()
 		{
-			local actor = this.getContainer().getActor();
-			this.m.EL_IfHit = true;
+			onInit();
+			this.m.Skills.add(this.new("scripts/skills/racial/ghost_racial"));
 		}
 
-		o.onUpdate <- function( _properties )
+	});
+
+
+	::mods_hookExactClass("skills/racial/ghost_racial", function ( o )
+	{
+
+		o.onBeforeDamageReceived <- function( _attacker, _skill, _hitInfo, _properties )
 		{
-			if(actor.getHitpoints() > this.m.EL_CurrentHitpoints) {
-				this.m.EL_CurrentHitpoints = actor.getHitpoints();
-			}
-			if(this.m.EL_IfHit == true) {
-				this.m.EL_IfHit = false;
-				--this.m.EL_CurrentHitpoints;
-				local actor = this.getContainer().getActor();
-				actor.setHitpoints(this.m.EL_CurrentHitpoints);
-			}
-			if(this.m.EL_CurrentHitpoints <= 1) {
-				actor.setIsAbleToDie(true);
-			}
-			else {
-				actor.setIsAbleToDie(false);
+			local actor = this.getContainer().getActor();
+			if(actor.getHitpoints() > 1) {
+				_properties.DamageReceivedTotalMult = 0;
+				actor.setHitpoints(actor.getHitpoints() - 1);
 			}
 		}
 

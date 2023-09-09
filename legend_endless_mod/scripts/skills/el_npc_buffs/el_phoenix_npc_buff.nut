@@ -90,7 +90,7 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
     function onDamageReceived( _attacker, _damageHitpoints, _damageArmor )
     {
         local actor = this.getContainer().getActor();
-        if (this.m.EL_RiseTimesLeft > 0 && _damageHitpoints > this.getContainer().getActor().getHitpoints())
+        if ((this.m.EL_RiseTimesLeft > 0 && _damageHitpoints > actor.getHitpoints()) || actor.getHitpoints() <= 0)
         {
             this.m.EL_IsRising = true;
             local actor = this.getContainer().getActor();
@@ -118,7 +118,7 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
             {
                 this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " is rising!");
             }
-            this.getContainer().getActor().getSkills().update();
+            actor.getSkills().update();
         }
     }
 
@@ -135,7 +135,7 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
 
 
         _properties.DamageDirectMult *= 1 + this.Const.EL_NPC.EL_NPCBuff.Factor.Phoenix.DamageMultPurStack * this.m.EL_Stack;
-        _properties.DamageReceivedDirectMult *= 1 / (1 + this.Const.EL_NPC.EL_NPCBuff.Factor.Phoenix.DamageReceivedMultPurStack * this.m.EL_Stack);
+        _properties.DamageReceivedTotalMult *= 1 / (1 + this.Const.EL_NPC.EL_NPCBuff.Factor.Phoenix.DamageReceivedMultPurStack * this.m.EL_Stack);
 
         _properties.HitpointsMult *= 1 + this.Const.EL_NPC.EL_NPCBuff.Factor.Phoenix.HitPointsMultPurStack * this.m.EL_Stack;
         _properties.Bravery += this.Const.EL_NPC.EL_NPCBuff.Factor.Phoenix.BraveryOffsetPurStack * this.m.EL_Stack;
