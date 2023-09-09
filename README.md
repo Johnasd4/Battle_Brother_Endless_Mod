@@ -10,3 +10,5 @@ Creator: 椿湫 (Chun Qiu), 虚空的寂影 (Void's Solitude)
 Contact: 1152325286@qq.com
 Welcome to join the testing group and be the first to access the latest versions of the Endless Mod.
 QQ Group Number: 893723827
+
+Github:https://github.com/Johnasd4/Battle_Brother_Endless_Mod
