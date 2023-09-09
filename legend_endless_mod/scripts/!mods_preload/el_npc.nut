@@ -176,10 +176,12 @@ local gt = getroottable();
                 this.m.BaseProperties.DamageRegularMult *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpDamageMult * level_ups;
             }
             if(this.getItems().getItemAtSlot(this.Const.ItemSlot.Body) == null) {
-                this.m.BaseProperties.ArmorMult[this.Const.BodyPart.Body] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
+                this.m.BaseProperties.Armor[this.Const.BodyPart.Body] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
+                this.m.BaseProperties.ArmorMax[this.Const.BodyPart.Body] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
             }
             if(this.getItems().getItemAtSlot(this.Const.ItemSlot.Head) == null) {
-                this.m.BaseProperties.ArmorMult[this.Const.BodyPart.Head] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
+                this.m.BaseProperties.Armor[this.Const.BodyPart.Head] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
+                this.m.BaseProperties.ArmorMax[this.Const.BodyPart.Head] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
             }
         }
 

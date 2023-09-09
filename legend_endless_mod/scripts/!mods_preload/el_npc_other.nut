@@ -78,7 +78,6 @@ local gt = getroottable();
 				actor.setHitpoints(actor.getHitpoints() - 1);
 			}
 		}
-
 	});
 
 

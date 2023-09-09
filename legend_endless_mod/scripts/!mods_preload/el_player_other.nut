@@ -53,7 +53,7 @@ local gt = getroottable();
 			local actor_properties = actor.getCurrentProperties();
 			local animal_properties = entity.getBaseProperties();
 			entity.EL_generateNPCAttributesByLevel(actor.getLevel());
-			entity.generateNonHumanoidNPCDamageArmorMult();
+			entity.generateNPCDamageArmorMult();
 			//entity.EL_setRankLevel(actor.EL_getRankLevel);
 			animal_properties.EL_CombatLevel = entity.EL_getNPCLevel();
 			entity.getSkills().update();
