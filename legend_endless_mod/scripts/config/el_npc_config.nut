@@ -450,6 +450,10 @@ gt.Const.EL_NPC <- {
                 function EL_ifEligible(_EL_npc) { return true; }
             },
             {
+                Scripts = "scripts/skills/el_npc_buffs/el_energy_drain_npc_buff",
+                function EL_ifEligible(_EL_npc) { return true; }
+            },
+            {
                 Scripts = "scripts/skills/el_npc_buffs/el_evasion_npc_buff",
                 function EL_ifEligible(_EL_npc) { return true; }
             },
@@ -543,6 +547,9 @@ gt.Const.EL_NPC <- {
                 StunChance = [0, 40, 100]
             },
             Endurance = {
+            },
+            EnergyDrain = {
+                FatigueDamagePurActionPoint = [0, 4, 10]
             },
             Evasion = {
                 MeleeState = 1,
