@@ -475,7 +475,16 @@ gt.Const.EL_NPC <- {
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_retaliation_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    local items = _EL_npc.getItems().getAllItemsAtSlot(this.Const.ItemSlot.Bag);
+                    items.push(_EL_npc.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand));
+                    foreach( item in items ) {
+                        if(item != null && item.isItemType(this.Const.Items.ItemType.RangedWeapon)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_revenge_npc_buff",
@@ -587,7 +596,8 @@ gt.Const.EL_NPC <- {
             },
             SelfDestruct = {
                 DamageRate = [0, 0.4, 1],
-                DamageDecayRatePurTile = 0.2,
+                DamageDecayRatePurTile = 0.5,
+                MaxDistance = 6
             },
             Tank = {
                 HitpointsMult = [1, 1.8, 3],
