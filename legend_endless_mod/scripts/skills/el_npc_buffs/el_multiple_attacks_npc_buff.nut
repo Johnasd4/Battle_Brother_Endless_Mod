@@ -10,7 +10,7 @@ this.el_multiple_attacks_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/e
 		this.m.Description = "";
 	}
 
-	function onAnySkillUsed( _skill, _targetEntity, _properties )
+	function EL_attackAllEnemies(_skill, _targetEntity)
 	{
         local actor = this.getContainer().getActor();
         if(_skill.isActive() && _skill.isAttack() && !_skill.isRanged() && !this.m.EL_IsExtraAttack) {
@@ -24,7 +24,7 @@ this.el_multiple_attacks_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/e
             {
                 foreach( t in tar )
                 {
-                    if(!t.isAlliedWith(actor) && _skill.isInRange(t.getTile())) {
+                    if(!t.isAlliedWith(actor) && _skill.isInRange(t.getTile()) && t != _targetEntity) {
                         affect_targets.push(t);
                     }
                 }
@@ -39,9 +39,31 @@ this.el_multiple_attacks_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/e
             this.m.EL_IsExtraAttack = false;
 
         }
+
+	}
+
+	function onTargetHit( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
+	{
+        local actor = this.getContainer().getActor();
+        if(!_targetEntity.isAlliedWith(actor)) {
+            this.EL_attackAllEnemies(_skill, _targetEntity);
+        }
+	}
+
+	function onTargetMissed( _skill, _targetEntity )
+	{
+        local actor = this.getContainer().getActor();
+        if(!_targetEntity.isAlliedWith(actor)) {
+            this.EL_attackAllEnemies(_skill, _targetEntity);
+        }
+	}
+
+	function onAnySkillUsed( _skill, _targetEntity, _properties )
+	{
         if(this.m.EL_IsExtraAttack) {
             _properties.DamageDirectMult *= this.Const.EL_NPC.EL_NPCBuff.Factor.MultipleAttacks.DamageDirectMult[this.m.EL_RankLevel];
         }
 	}
+
 });
 

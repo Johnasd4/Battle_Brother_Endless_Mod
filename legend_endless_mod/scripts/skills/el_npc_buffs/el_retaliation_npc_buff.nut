@@ -1,5 +1,7 @@
 this.el_retaliation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff", {
-	m = {},
+	m = {
+		EL_IsRetaliate = false
+	},
 	function create()
 	{
 		this.el_npc_buff.create();
@@ -40,11 +42,17 @@ this.el_retaliation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
 		if(_EL_attacker == null && _EL_attacker.isAlive() && !_EL_attacker.isAlliedWith(actor)) {
 			return;
 		}
+		local attacker_retaliation_skill = _EL_attacker.getSkills().getSkillByID("el_npc_buffs.retaliation");
+		if(attacker_retaliation_skill != null && attacker_retaliation_skill.m.EL_IsRetaliate == true) {
+			return;
+		}
         if(this.Math.rand(1, 100) <= this.Const.EL_NPC.EL_NPCBuff.Factor.Retaliation.AttackChance[this.m.EL_RankLevel]) {
             local skill = this.EL_getAttackSkill(actor.getTile().getDistanceTo(_EL_attacker.getTile()));
             if (skill != null && (actor.getFatigue() + skill.getFatigueCost() < actor.getFatigueMax()))
             {
+				this.m.EL_IsRetaliate = true;
                 skill.useForFree(_EL_attacker.getTile());
+				this.m.EL_IsRetaliate = false;
 				actor.setFatigue(actor.getFatigue() + skill.getFatigueCost());
             }
         }
