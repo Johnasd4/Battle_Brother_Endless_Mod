@@ -1438,7 +1438,7 @@ local gt = getroottable();
                 }
                 unit.EL_ExtraCombatLevel = troop_info.EL_ExtraCombatLevel;
                 //Build names
-                if(unit.EL_RankLevel != 0) {
+                if(unit.EL_RankLevel == 2) {
                     unit.Name = this.Const.EL_NPC.EL_Troop.NamePrefix[unit.EL_RankLevel];
                     unit.Name += this.Const.EL_NPC.EL_Troop.Name[this.Math.rand(0, this.Const.EL_NPC.EL_Troop.Name.len() - 1)];
                     unit.Name += this.Const.EL_NPC.EL_Troop.NameSuffix[unit.EL_RankLevel];
