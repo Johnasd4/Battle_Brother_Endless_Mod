@@ -15,6 +15,8 @@ this.el_multiple_attacks_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/e
         local actor = this.getContainer().getActor();
         if(_skill.isAttack() && !_skill.isRanged() && !this.m.EL_IsExtraAttack) {
 
+            this.logInfo("multiple attack");
+
             local targets = this.Tactical.Entities.getAllInstances();
             this.m.EL_IsExtraAttack = true;
             local affect_targets = [];
