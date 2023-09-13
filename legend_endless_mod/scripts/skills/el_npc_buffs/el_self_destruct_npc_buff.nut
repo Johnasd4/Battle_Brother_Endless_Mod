@@ -20,7 +20,7 @@ this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
             {
                 if(!t.isAlliedWith(actor)) {
                     local distance = actor.getTile().getDistanceTo(t.getTile());
-                    if(distance > this.Const.EL_NPC.EL_NPCBuff.Factor.SelfDestruct.MaxDistance) {
+                    if(distance <= this.Const.EL_NPC.EL_NPCBuff.Factor.SelfDestruct.MaxDistance) {
                         affect_targets.push(t);
                     }
                 }
