@@ -13,23 +13,25 @@ this.el_intimidate_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_
         local actor = this.getContainer().getActor();
         if(actor.isTurnStarted && !actor.isWaitActionSpent && _skill.isAttack()) {
             local targets = this.Tactical.Entities.getAllInstances();
-            if(this.Math.rand(1, 100) <= this.Const.EL_NPC.EL_NPCBuff.Factor.Intimidate.MoraleCheckChance[this.m.EL_RankLevel]) {
-
-                foreach( tar in targets )
+            local affect_targets = [];
+            foreach( tar in targets )
+            {
+                foreach( t in tar )
                 {
-                    foreach( t in tar )
-                    {
-                        if(!t.isAlliedWith(actor)) {
-                            local difficulty = -actor.getBravery() +
-                                               this.Const.EL_NPC.EL_NPCBuff.Factor.Intimidate.BaseOffset +
-                                               this.Const.EL_NPC.EL_NPCBuff.Factor.Intimidate.RankFactor * (t.EL_getRankLevel() - actor.EL_getRankLevel()) +
-                                               this.Math.pow(this.Const.EL_NPC.EL_NPCBuff.Factor.Intimidate.CombatLevelFactor, this.Math.abs(t.EL_getCombatLevel() - actor.EL_getCombatLevel())) * (t.EL_getCombatLevel() - actor.EL_getCombatLevel()) +
-                                               this.Math.pow(t.getTile().getDistanceTo(actor.getTile()), this.Const.EL_NPC.EL_NPCBuff.Factor.Intimidate.DistanceFactor);
-                            t.checkMorale(-1, difficulty);
-                        }
+                    if(!t.isAlliedWith(actor) && this.Math.rand(1, 100) <= this.Const.EL_NPC.EL_NPCBuff.Factor.Intimidate.MoraleCheckChance[this.m.EL_RankLevel]) {
+                        affect_targets.push(actor);
                     }
                 }
             }
+            for(local i = 0; i < affect_targets.len(); ++i) {
+                local difficulty = -actor.getBravery() +
+                this.Const.EL_NPC.EL_NPCBuff.Factor.Intimidate.BaseOffset +
+                this.Const.EL_NPC.EL_NPCBuff.Factor.Intimidate.RankFactor * (affect_targets[i].EL_getRankLevel() - actor.EL_getRankLevel()) +
+                this.Math.pow(this.Const.EL_NPC.EL_NPCBuff.Factor.Intimidate.CombatLevelFactor, this.Math.abs(taffect_targets[i].EL_getCombatLevel() - actor.EL_getCombatLevel())) * (affect_targets[i].EL_getCombatLevel() - actor.EL_getCombatLevel()) +
+                this.Math.pow(affect_targets[i].getTile().getDistanceTo(actor.getTile()), this.Const.EL_NPC.EL_NPCBuff.Factor.Intimidate.DistanceFactor);
+                affect_targets[i].checkMorale(-1, difficulty);
+            }
+
         }
 	}
 

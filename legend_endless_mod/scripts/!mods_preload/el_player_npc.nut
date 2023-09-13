@@ -133,7 +133,7 @@ local gt = getroottable();
 			}
 
 			if(_attacker.EL_getCombatLevel() > p.EL_CombatLevel) {
-				dmgMult *= this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, this.Math.abs(_u_attackerser.EL_getCombatLevel() - p.EL_CombatLevel));
+				dmgMult *= this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, this.Math.abs(_attacker.EL_getCombatLevel() - p.EL_CombatLevel));
 				//this.logInfo("attackEntity combat level extra damage mult" + (this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, this.Math.abs(_user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()))));
 			}
 			else {
