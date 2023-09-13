@@ -439,18 +439,9 @@ gt.Const.EL_NPC <- {
                 return true;
             }
             function EL_ifRanged(_EL_npc) {
-                local items = _EL_npc.getItems().getAllItemsAtSlot(this.Const.ItemSlot.Bag);
-                if(items == null) {
-                    items = [];
-                }
                 local main_hand = _EL_npc.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
-                if(main_hand != null) {
-                    items.push(main_hand);
-                }
-                foreach( item in items ) {
-                    if(item != null && item.isItemType(this.Const.Items.ItemType.RangedWeapon)) {
-                        return false;
-                    }
+                if(main_hand != null && main_hand.isItemType(this.Const.Items.ItemType.RangedWeapon)) {
+                    return false;
                 }
                 return true;
             }
