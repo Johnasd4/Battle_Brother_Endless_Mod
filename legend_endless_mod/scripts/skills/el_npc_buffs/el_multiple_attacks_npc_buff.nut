@@ -23,14 +23,18 @@ this.el_multiple_attacks_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/e
 
             local targets = this.Tactical.Entities.getAllInstances();
             this.m.EL_IsExtraAttack = true;
+            local affect_targets = [];
             foreach( tar in targets )
             {
                 foreach( t in tar )
                 {
                     if(!t.isAlliedWith(actor) && _skill.isInRange(t.getTile())) {
-                        _skill.useForFree(t.getTile());
+                        affect_targets.push(t);
                     }
                 }
+            }
+            for(local i = 0; i < affect_targets.len(); ++i) {
+                _skill.useForFree(affect_targets[i].getTile());
             }
             this.m.EL_IsExtraAttack = false;
 
