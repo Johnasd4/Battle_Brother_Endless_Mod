@@ -21,7 +21,7 @@ this.el_multiple_attacks_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/e
             {
                 foreach( t in tar )
                 {
-                    if(!t.isAlliedWith(actor) && this.isInRange(t.getTile())) {
+                    if(!t.isAlliedWith(actor) && skill.isInRange(t.getTile())) {
                         skill.useForFree(t.getTile());
                     }
                 }
