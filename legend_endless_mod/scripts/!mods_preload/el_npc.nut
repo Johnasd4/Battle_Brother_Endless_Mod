@@ -86,7 +86,7 @@ local gt = getroottable();
 
             _e.EL_bulidNPCPropertiesByLevel(npc_level);
             //this.logInfo("_t.EL_ExtraCombatLevel " + _t.EL_ExtraCombatLevel);
-            _e.EL_setCombatLevel(npc_level + _t.EL_ExtraCombatLevel);
+            _e.EL_setCombatLevel(this.Math.min(this.Const.EL_NPC.EL_Troop.MaxCombatlevelByNpcLevel, npc_level) + _t.EL_ExtraCombatLevel);
             _e.EL_setRankLevel(_t.EL_RankLevel);
 
             if (_t.EL_RankLevel != 0)
