@@ -433,11 +433,34 @@ gt.Const.EL_NPC <- {
     }
 
     EL_NPCBuff = {
+        EligibleFunction = {
+            function EL_ifGhost(_EL_npc) {
+                if(_EL_npc.getSkills().hasSkill("racial.ghost")) { return false; }
+                return true;
+            }
+            function EL_ifRanged(_EL_npc) {
+                local items = _EL_npc.getItems().getAllItemsAtSlot(this.Const.ItemSlot.Bag);
+                if(items == null) {
+                    items = [];
+                }
+                main_hand = _EL_npc.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+                if(main_hand != null) {
+                    items.push(main_hand);
+                }
+                foreach( item in items ) {
+                    if(item != null && item.isItemType(this.Const.Items.ItemType.RangedWeapon)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+
         Pool = [
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_berserk_npc_buff",
                 function EL_ifEligible(_EL_npc) {
-                    if(_EL_npc.getSkills().hasSkill("racial.ghost")) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
                     return true;
                 }
             },
@@ -466,8 +489,19 @@ gt.Const.EL_NPC <- {
                 function EL_ifEligible(_EL_npc) { return true; }
             },
             {
+                Scripts = "scripts/skills/el_npc_buffs/el_life_drain_npc_buff",
+                function EL_ifEligible(_EL_npc) { return true; }
+            },
+            {
                 Scripts = "scripts/skills/el_npc_buffs/el_lightning_speed_npc_buff",
                 function EL_ifEligible(_EL_npc) { return true; }
+            },
+            {
+                Scripts = "scripts/skills/el_npc_buffs/el_multiple_attacks_npc_buff",
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_phoenix_npc_buff",
@@ -480,27 +514,21 @@ gt.Const.EL_NPC <- {
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_retaliation_npc_buff",
                 function EL_ifEligible(_EL_npc) {
-                    local items = _EL_npc.getItems().getAllItemsAtSlot(this.Const.ItemSlot.Bag);
-                    items.push(_EL_npc.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand));
-                    foreach( item in items ) {
-                        if(item != null && item.isItemType(this.Const.Items.ItemType.RangedWeapon)) {
-                            return false;
-                        }
-                    }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
                     return true;
                 }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_revenge_npc_buff",
                 function EL_ifEligible(_EL_npc) {
-                    if(_EL_npc.getSkills().hasSkill("racial.ghost")) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
                     return true;
                 }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_self_destruct_npc_buff",
                 function EL_ifEligible(_EL_npc) {
-                    if(_EL_npc.getSkills().hasSkill("racial.ghost")) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
                     return true;
                 }
             },
@@ -515,7 +543,7 @@ gt.Const.EL_NPC <- {
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_thick_skin_npc_buff",
                 function EL_ifEligible(_EL_npc) {
-                    if(_EL_npc.getSkills().hasSkill("racial.ghost")) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
                     return true;
                 }
             },
@@ -549,7 +577,7 @@ gt.Const.EL_NPC <- {
             Endurance = {
             },
             EnergyDrain = {
-                FatigueDamagePurActionPoint = [0, 4, 10]
+                FatiguePurActionPoint = [0, 4, 10]
             },
             Evasion = {
                 MeleeState = 1,
@@ -572,10 +600,18 @@ gt.Const.EL_NPC <- {
                 CombatLevelFactor = 1.04,
                 DistanceFactor = 3
             },
+            LifeDrain = {
+                HitpointsPurActionPoint = [0, 1, 2.5],
+                HitpointsMultPurCombatLevel = 0.04,
+                RecoverMult = 10,
+            }
             LightningSpeed = {
                 InitiativeOffset = [0, 80, 200],
                 ActionPointsOffset = [0, 2, 5]
             },
+            MultipleAttacks = {
+                DamageDirectMult = [0, 0.4, 1]
+            }
             Phoenix = {
                 RiseTimes = [0, 1, 3],
                 DamageMultPurStack = 0.1,
@@ -622,6 +658,7 @@ gt.Const.EL_NPC <- {
                 RangedSkillOffset = [0, 40, 100]
             }
         }
+
         function EL_assignNPCBuffs(_EL_npc, _EL_rank1Num, _EL_rank2Num) {
             local index_pool = [];
             for(local i = 0; i < this.Const.EL_NPC.EL_NPCBuff.Pool.len(); ++i) {

@@ -983,9 +983,6 @@ local gt = getroottable();
 			}
 		}
 
-
-		while(!("getHitchance" in o)) o = o[o.SuperName]; // find the base class
-
 		o.getHitchance = function( _targetEntity )
 		{
 
@@ -1061,6 +1058,23 @@ local gt = getroottable();
 			//this.logInfo("getHitchance combat level extra hit chance" + EL_combat_level_extra_chance);
 			return this.Math.max(5, this.Math.min(95, toHit));
 		}
+
+		o.applyFatigueDamage = function( _targetEntity, _damage )
+		{
+			local user = this.m.Container.getActor();
+			local defenderProperties = _targetEntity.getSkills().buildPropertiesForDefense(user, this);
+			local damage_mult = 1;
+			if(user.EL_getCombatLevel() > defenderProperties.EL_CombatLevel) {
+				damage_mult *= this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, user.EL_getCombatLevel() - defenderProperties.EL_CombatLevel);
+			}
+			else {
+				damage_mult /= this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, defenderProperties.EL_CombatLevel - user.EL_getCombatLevel());
+			}
+			_targetEntity.setFatigue(_targetEntity.getFatigue() + _damage * defenderProperties.FatigueEffectMul * damage_mult);
+
+		}
+
+
 	});
 
 

@@ -11,7 +11,7 @@ this.el_intimidate_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_
 	function onAnySkillUsed( _skill, _targetEntity, _properties )
 	{
         local actor = this.getContainer().getActor();
-        if(actor.isTurnStarted && !actor.isWaitActionSpent) {
+        if(actor.isTurnStarted && !actor.isWaitActionSpent && _skill.isAttack()) {
             local targets = this.Tactical.Entities.getAllInstances();
             if(this.Math.rand(1, 100) <= this.Const.EL_NPC.EL_NPCBuff.Factor.Intimidate.MoraleCheckChance[this.m.EL_RankLevel]) {
 
