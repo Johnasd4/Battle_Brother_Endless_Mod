@@ -11,7 +11,7 @@ this.el_intimidate_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_
 	function onAnySkillUsed( _skill, _targetEntity, _properties )
 	{
         local actor = this.getContainer().getActor();
-        if(actor.isTurnStarted && !actor.isWaitActionSpent && _skill.isAttack()) {
+        if(_skill.isAttack()) {
             local targets = this.Tactical.Entities.getAllInstances();
             local affect_targets = [];
             foreach( tar in targets )

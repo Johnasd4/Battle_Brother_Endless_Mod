@@ -13,13 +13,7 @@ this.el_multiple_attacks_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/e
 	function onAnySkillUsed( _skill, _targetEntity, _properties )
 	{
         local actor = this.getContainer().getActor();
-        this.logInfo("actor.isTurnStarted " + actor.isTurnStarted);
-        this.logInfo("!actor.isWaitActionSpent " + (!actor.isWaitActionSpent));
-        this.logInfo("_skill.isAttack() " + _skill.isAttack());
-        this.logInfo("!_skill.isRanged() " + (!_skill.isRanged()));
-        this.logInfo("!this.m.EL_IsExtraAttack " + (!this.m.EL_IsExtraAttack));
-        this.logInfo("actor.isTurnStarted " + actor.isTurnStarted);
-        if(actor.isTurnStarted && !actor.isWaitActionSpent && _skill.isAttack() && !_skill.isRanged() && !this.m.EL_IsExtraAttack) {
+        if(_skill.isAttack() && !_skill.isRanged() && !this.m.EL_IsExtraAttack) {
 
             local targets = this.Tactical.Entities.getAllInstances();
             this.m.EL_IsExtraAttack = true;
