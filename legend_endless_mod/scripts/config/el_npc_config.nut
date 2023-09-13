@@ -435,15 +435,17 @@ gt.Const.EL_NPC <- {
     EL_NPCBuff = {
         EligibleFunction = {
             function EL_ifGhost(_EL_npc) {
-                if(_EL_npc.getSkills().hasSkill("racial.ghost")) { return false; }
-                return true;
+                if(_EL_npc.getSkills().hasSkill("racial.ghost")) {
+                    return true;
+                }
+                return false;
             }
             function EL_ifRanged(_EL_npc) {
                 local main_hand = _EL_npc.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
                 if(main_hand != null && main_hand.isItemType(this.Const.Items.ItemType.RangedWeapon)) {
-                    return false;
+                    return true;
                 }
-                return true;
+                return false;
             }
         }
 
