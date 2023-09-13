@@ -443,7 +443,7 @@ gt.Const.EL_NPC <- {
                 if(items == null) {
                     items = [];
                 }
-                main_hand = _EL_npc.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+                local main_hand = _EL_npc.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
                 if(main_hand != null) {
                     items.push(main_hand);
                 }
