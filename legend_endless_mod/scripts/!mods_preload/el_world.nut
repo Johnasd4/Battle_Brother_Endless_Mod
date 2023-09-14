@@ -20,7 +20,7 @@ local gt = getroottable();
 		o.m.EL_WorldLevelOffset <- 0;
 		o.m.EL_WorldStrength <- this.Const.EL_World.EL_WorldStrength.Min;
 		o.m.EL_CurrentUpdateDay <- 0;
-		o.m.EL_EquipmentPrime <-[0, 0, 0, 0, 0];
+		o.m.EL_EquipmentEssence <-[0, 0, 0, 0, 0];
 
 		local onSerialize = o.onSerialize;
 		o.onSerialize = function ( _out )
@@ -31,8 +31,8 @@ local gt = getroottable();
 			_out.writeI32(this.m.EL_WorldLevelOffset);
 			_out.writeI32(this.m.EL_WorldStrength);
 			_out.writeI32(this.m.EL_CurrentUpdateDay);
-			for(local i = 0; i < this.m.EL_EquipmentPrime.len(); ++i) {
-                _out.writeI32(this.m.EL_EquipmentPrime[i]);
+			for(local i = 0; i < this.m.EL_EquipmentEssence.len(); ++i) {
+                _out.writeI32(this.m.EL_EquipmentEssence[i]);
             }
 		}
 
@@ -45,24 +45,24 @@ local gt = getroottable();
 			this.m.EL_WorldLevelOffset = _in.readI32();
 			this.m.EL_WorldStrength = _in.readI32();
 			this.m.EL_CurrentUpdateDay = _in.readI32();
-			for(local i = 0; i < this.m.EL_EquipmentPrime.len(); ++i) {
-                this.m.EL_EquipmentPrime[i] = _in.readI32();
+			for(local i = 0; i < this.m.EL_EquipmentEssence.len(); ++i) {
+                this.m.EL_EquipmentEssence[i] = _in.readI32();
             }
 		}
 
-		o.EL_addEquipmentPrime( _rank, _num )
+		o.EL_addEquipmentEssence( _rank, _num )
 		{
-			this.m.EL_EquipmentPrime[_rank] += _num;
+			this.m.EL_EquipmentEssence[_rank] += _num;
 		}
 
-		o.EL_getEquipmentPrime( _rank )
+		o.EL_getEquipmentEssence( _rank )
 		{
-			return this.m.EL_EquipmentPrime[_rank];
+			return this.m.EL_EquipmentEssence[_rank];
 		}
 
-		o.EL_setEquipmentPrime( _rank, _num )
+		o.EL_setEquipmentEssence( _rank, _num )
 		{
-			this.m.EL_EquipmentPrime[_rank] = _num;
+			this.m.EL_EquipmentEssence[_rank] = _num;
 		}
 
 
