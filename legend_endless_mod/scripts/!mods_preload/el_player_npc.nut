@@ -131,15 +131,16 @@ local gt = getroottable();
 			{
 				dmgMult = dmgMult * (_skill.isRanged() ? p.DamageReceivedRangedMult : p.DamageReceivedMeleeMult);
 			}
-
-			if(_attacker.EL_getCombatLevel() > p.EL_CombatLevel) {
-				dmgMult *= this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, this.Math.abs(_u_attackerser.EL_getCombatLevel() - p.EL_CombatLevel));
+			this.logInfo("dmgMult before " + dmgMult);
+			if(_attacker.EL_getCombatLevel() > this.EL_getCombatLevel()) {
+				dmgMult *= this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, this.Math.abs(_attacker.EL_getCombatLevel() - this.EL_getCombatLevel()));
 				//this.logInfo("attackEntity combat level extra damage mult" + (this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, this.Math.abs(_user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()))));
 			}
 			else {
-				dmgMult /= this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, this.Math.abs(_attacker.EL_getCombatLevel() - p.EL_CombatLevel));
+				dmgMult /= this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, this.Math.abs(_attacker.EL_getCombatLevel() - this.EL_getCombatLevel()));
 				//this.logInfo("attackEntity combat level decrease damage mult" + (this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, this.Math.abs(_user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()))));
 			}
+			this.logInfo("dmgMult after " + dmgMult);
 
 
 			_hitInfo.DamageRegular -= p.DamageRegularReduction;
@@ -983,9 +984,6 @@ local gt = getroottable();
 			}
 		}
 
-
-		while(!("getHitchance" in o)) o = o[o.SuperName]; // find the base class
-
 		o.getHitchance = function( _targetEntity )
 		{
 
@@ -1061,6 +1059,23 @@ local gt = getroottable();
 			//this.logInfo("getHitchance combat level extra hit chance" + EL_combat_level_extra_chance);
 			return this.Math.max(5, this.Math.min(95, toHit));
 		}
+
+		o.applyFatigueDamage = function( _targetEntity, _damage )
+		{
+			local user = this.m.Container.getActor();
+			local defenderProperties = _targetEntity.getSkills().buildPropertiesForDefense(user, this);
+			local damage_mult = 1;
+			if(user.EL_getCombatLevel() > defenderProperties.EL_CombatLevel) {
+				damage_mult *= this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, user.EL_getCombatLevel() - defenderProperties.EL_CombatLevel);
+			}
+			else {
+				damage_mult /= this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, defenderProperties.EL_CombatLevel - user.EL_getCombatLevel());
+			}
+			_targetEntity.setFatigue(_targetEntity.getFatigue() + _damage * defenderProperties.FatigueEffectMul * damage_mult);
+
+		}
+
+
 	});
 
 

@@ -70,6 +70,8 @@ local gt = getroottable();
                 _e.m.IsGeneratingKillName = false;
             }
 
+
+
             local npc_level = 0;
             if(_t.EL_RankLevel != 0) {
                 npc_level = this.World.Assets.m.EL_WorldLevel;
@@ -86,7 +88,7 @@ local gt = getroottable();
 
             _e.EL_bulidNPCPropertiesByLevel(npc_level);
             //this.logInfo("_t.EL_ExtraCombatLevel " + _t.EL_ExtraCombatLevel);
-            _e.EL_setCombatLevel(npc_level + _t.EL_ExtraCombatLevel);
+            _e.EL_setCombatLevel(this.Math.min(this.Const.EL_NPC.EL_Troop.MaxCombatlevelByNpcLevel, npc_level) + _t.EL_ExtraCombatLevel);
             _e.EL_setRankLevel(_t.EL_RankLevel);
 
             if (_t.EL_RankLevel != 0)
@@ -98,14 +100,20 @@ local gt = getroottable();
             if(_t.EL_UnitInfo == null) {
 
                 _e.assignRandomEquipment();
+                local extra_elite_buff_num = 0;
+                local extra_leader_buff_num = 0;
+                if(_t.EL_IsBossUnit == true) {
+                    extra_elite_buff_num = this.Const.EL_NPC.EL_NPCBuff.Num.BossUnitExtraRank1;
+                    extra_leader_buff_num = this.Const.EL_NPC.EL_NPCBuff.Num.BossUnitExtraRank2;
+                }
                 if(_e.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand) == null &&
                    _e.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand) == null)
                 {
-                    this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(_e, this.Const.EL_NPC.EL_NPCBuff.Num.NonHumanoidRank1[_t.EL_RankLevel], this.Const.EL_NPC.EL_NPCBuff.Num.NonHumanoidRank2[_t.EL_RankLevel]);
+                    this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(_e, this.Const.EL_NPC.EL_NPCBuff.Num.NonHumanoidRank1[_t.EL_RankLevel] + extra_elite_buff_num, this.Const.EL_NPC.EL_NPCBuff.Num.NonHumanoidRank2[_t.EL_RankLevel] + extra_leader_buff_num);
                 }
                 else
                 {
-                    this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(_e, this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank1[_t.EL_RankLevel], this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank2[_t.EL_RankLevel]);
+                    this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(_e, this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank1[_t.EL_RankLevel] + extra_elite_buff_num, this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank2[_t.EL_RankLevel] + extra_leader_buff_num);
 
                 }
                 _e.EL_ballanceNPCPropertiesAfterAddingEquipment();
@@ -459,6 +467,7 @@ local gt = getroottable();
                 _out.writeF32(t.EL_EliteChance);
                 _out.writeI32(t.EL_ExtraCombatLevel);
                 _out.writeI32(t.EL_RankLevel);
+                _out.writeBool(t.EL_IsBossUnit);
 
 
                 if ("Outfits" in t)
@@ -521,6 +530,7 @@ local gt = getroottable();
                 _out.writeF32(t.EL_EliteChance);
                 _out.writeI32(t.EL_ExtraCombatLevel);
                 _out.writeI32(t.EL_RankLevel);
+                _out.writeBool(t.EL_IsBossUnit);
 
 
                 if ("Outfits" in t)
@@ -602,6 +612,7 @@ local gt = getroottable();
                 troop.EL_EliteChance = _in.readF32();
                 troop.EL_ExtraCombatLevel = _in.readI32();
                 troop.EL_RankLevel = _in.readI32();
+                troop.EL_IsBossUnit = _in.readBool();
 
 
                 if (_in.getMetaData().getVersion() >= 71)
@@ -714,7 +725,7 @@ local gt = getroottable();
                 troop.EL_EliteChance = _in.readF32();
                 troop.EL_ExtraCombatLevel = _in.readI32();
                 troop.EL_RankLevel = _in.readI32();
-
+                troop.EL_IsBossUnit = _in.readBool();
 
                 if (_in.getMetaData().getVersion() >= 71)
                 {
@@ -794,6 +805,7 @@ local gt = getroottable();
                 //Calculate ranks, level, combat level.
                 if(troop_info.EL_IsBossUnit) {
                     _EL_troop.EL_RankLevel = 2;
+                    _EL_troop.EL_IsBossUnit = true;
                 }
                 else if(troop_info.EL_IsEliteUnit) {
                     _EL_troop.EL_RankLevel = 1;
@@ -852,9 +864,11 @@ local gt = getroottable();
                         if(i < this.Const.EL_NPC.EL_Troop.BossTroopMinLeaders || this.m.Troops[i].ID == leader_id) {
                             this.m.Troops[i].EL_RankLevel = 2;
                             leader_id = this.m.Troops[i].ID;
+                            this.m.Troops[i].EL_IsBossUnit = true;
                         }
                         else if(troops_info[i].EL_IsBossUnit) {
                             this.m.Troops[i].EL_RankLevel = 2;
+                            this.m.Troops[i].EL_IsBossUnit = true;
                         }
                         else if(troops_info[i].EL_IsWeakUnit) {
                             this.m.Troops[i].EL_RankLevel = 0;
@@ -881,6 +895,7 @@ local gt = getroottable();
                     for(; i < troops_info.len(); ++i) {
                         if(troops_info[i].EL_IsBossUnit) {
                             this.m.Troops[i].EL_RankLevel = 2;
+                            this.m.Troops[i].EL_IsBossUnit = true;
                         }
                         else if(troops_info[i].EL_IsWeakUnit) {
                             this.m.Troops[i].EL_RankLevel = 0;
@@ -945,6 +960,7 @@ local gt = getroottable();
                     for(; i < troops_info.len(); ++i) {
                         if(troops_info[i].EL_IsBossUnit) {
                             this.m.Troops[i].EL_RankLevel = 2;
+                            this.m.Troops[i].EL_IsBossUnit = true;
                         }
                         else if(troops_info[i].EL_IsEliteUnit) {
                             this.m.Troops[i].EL_RankLevel = 1;
@@ -982,6 +998,7 @@ local gt = getroottable();
                             local troop = clone this.m.Troops[j];
                             if(troops_info[j].EL_IsBossUnit) {
                                 troop.EL_RankLevel = 2;
+                                this.m.Troops[i].EL_IsBossUnit = true;
                             }
                             else if(troops_info[j].EL_IsEliteUnit) {
                                 troop.EL_RankLevel = 1;
@@ -1314,6 +1331,7 @@ local gt = getroottable();
     gt.Const.World.Spawn.Unit.EL_EliteChance <- 0;
     gt.Const.World.Spawn.Unit.EL_ExtraCombatLevel <- 0;
     gt.Const.World.Spawn.Unit.EL_RankLevel <- 0;
+    gt.Const.World.Spawn.Unit.EL_IsBossUnit <- false;
     gt.Const.World.Spawn.Unit.EL_UnitInfo <- null;
 
     gt.Const.World.Common.addTroop = function ( _party, _troop, _updateStrength = true, _minibossify = 0 )
@@ -1325,6 +1343,7 @@ local gt = getroottable();
         troop.EL_EliteChance <- _minibossify + this.World.Assets.m.ChampionChanceAdditional + troop.Variant;
         troop.EL_ExtraCombatLevel <- 0;
         troop.EL_RankLevel <- 0;
+        troop.EL_IsBossUnit <- false;
         troop.EL_UnitInfo <- null;
 
         _party.EL_addTroop(troop);
@@ -1419,12 +1438,14 @@ local gt = getroottable();
                 unit.EL_EliteChance <- _minibossify + this.World.Assets.m.ChampionChanceAdditional + unit.Variant + mb;
                 unit.EL_ExtraCombatLevel <- 0;
                 unit.EL_RankLevel <- 0;
+                unit.EL_IsBossUnit <- false;
                 unit.EL_UnitInfo <- null;
 
                 local troop_info = this.Const.EL_NPC.EL_Troop.EL_getTroopInfo(unit);
                 //Calculate ranks, level, combat level.
                 if(troop_info.EL_IsBossUnit) {
                     unit.EL_RankLevel = 2;
+                    unit.EL_IsBossUnit = true;
                 }
                 else if(troop_info.EL_IsEliteUnit) {
                     unit.EL_RankLevel = 1;
@@ -1438,7 +1459,7 @@ local gt = getroottable();
                 }
                 unit.EL_ExtraCombatLevel = troop_info.EL_ExtraCombatLevel;
                 //Build names
-                if(unit.EL_RankLevel != 0) {
+                if(unit.EL_RankLevel == 2) {
                     unit.Name = this.Const.EL_NPC.EL_Troop.NamePrefix[unit.EL_RankLevel];
                     unit.Name += this.Const.EL_NPC.EL_Troop.Name[this.Math.rand(0, this.Const.EL_NPC.EL_Troop.Name.len() - 1)];
                     unit.Name += this.Const.EL_NPC.EL_Troop.NameSuffix[unit.EL_RankLevel];
