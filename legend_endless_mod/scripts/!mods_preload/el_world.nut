@@ -20,7 +20,7 @@ local gt = getroottable();
 		o.m.EL_WorldLevelOffset <- 0;
 		o.m.EL_WorldStrength <- this.Const.EL_World.EL_WorldStrength.Min;
 		o.m.EL_CurrentUpdateDay <- 0;
-		o.m.EL_EquipmentEssence <-[0, 0, 0, 0, 0];
+		o.m.EL_EquipmentEssence <- [0, 0, 0, 0, 0];
 
 		local onSerialize = o.onSerialize;
 		o.onSerialize = function ( _out )

@@ -227,6 +227,7 @@ local gt = getroottable();
         o.m.EL_HaveRandomLeader <- false;
         o.m.EL_HaveStrongestLeader <- false;
         o.m.EL_TroopsResourse <- 0;
+        o.m.Loot.EL_Essence <- [0, 0, 0, 0, 0];
 
         local getTroops = o.getTroops;
 		o.getTroops = function()
@@ -916,6 +917,9 @@ local gt = getroottable();
                         unit_strength -= this.m.Troops[random_leader_index].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[random_leader_index].EL_RankLevel];
                         unit_population -= troops_info[random_leader_index].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[random_leader_index].EL_RankLevel];
                         this.m.Troops[random_leader_index].EL_RankLevel = 2;
+                        if(this.Const.EL_NPC.EL_Troop.BossChance >= this.Math.rand(1, 100)) {
+                            this.m.Troops[random_leader_index].EL_IsBossUnit = true;
+                        }
                         unit_strength += this.m.Troops[random_leader_index].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[random_leader_index].EL_RankLevel];
                         unit_population += troops_info[random_leader_index].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[random_leader_index].EL_RankLevel];
                     }
@@ -926,6 +930,7 @@ local gt = getroottable();
                             local troop = clone this.m.Troops[j];
                             if(troops_info[j].EL_IsBossUnit) {
                                 troop.EL_RankLevel = 2;
+                                troop.EL_IsBossUnit = true;
                             }
                             else if(troops_info[j].EL_IsWeakUnit) {
                                 troop.EL_RankLevel = 0;
@@ -988,6 +993,9 @@ local gt = getroottable();
                         unit_strength -= this.m.Troops[random_leader_index].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[random_leader_index].EL_RankLevel];
                         unit_population -= troops_info[random_leader_index].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[random_leader_index].EL_RankLevel];
                         this.m.Troops[random_leader_index].EL_RankLevel = 2;
+                        if(this.Const.EL_NPC.EL_Troop.BossChance >= this.Math.rand(1, 100)) {
+                            this.m.Troops[random_leader_index].EL_IsBossUnit = true;
+                        }
                         unit_strength += this.m.Troops[random_leader_index].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[random_leader_index].EL_RankLevel];
                         unit_population += troops_info[random_leader_index].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[random_leader_index].EL_RankLevel];
                     }
@@ -1033,6 +1041,20 @@ local gt = getroottable();
             this.updateStrength();
             return;
         }
+
+		o.EL_dropEssence = function( _num, _lootTable )
+        {
+            _num = this.Math.max(0, this.Math.round(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.DropIncreaseMultPurWorldLevel.Money)));
+
+            if (_num == 0)
+            {
+                return;
+            }
+
+            local money = this.new("scripts/items/supplies/money_item");
+            money.setAmount(_num);
+            _lootTable.push(money);
+		}
 
 
 	});

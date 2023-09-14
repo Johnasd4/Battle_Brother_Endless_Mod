@@ -93,6 +93,7 @@ gt.Const.EL_NPC <- {
         MinLevelOffset = -10,
         MaxLevelOffset = 0,
         BossTroopMinLeaders = 2,
+        BossChance = 1,
 
         ExtraCombatLevel = {
             BossLevel = 10,

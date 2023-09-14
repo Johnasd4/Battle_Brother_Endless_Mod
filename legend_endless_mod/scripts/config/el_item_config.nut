@@ -16,7 +16,7 @@ gt.Const.EL_Item <- {
 		"#6400cc",//purple
 		"#be5f00",//orange
 		"#960000",//red
-		"#aa00ff"// pink
+		"#aa00ff"//pink
 	],
 
 	Type = {
