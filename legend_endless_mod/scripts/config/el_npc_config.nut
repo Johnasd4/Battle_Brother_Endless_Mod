@@ -554,7 +554,11 @@ gt.Const.EL_NPC <- {
             HumanoidRank1 = [0, 1, 3],
             HumanoidRank2 = [0, 0, 1],
             NonHumanoidRank1 = [0, 3, 9],
-            NonHumanoidRank2 = [0, 0, 3]
+            NonHumanoidRank2 = [0, 0, 3],
+
+            BossUnitExtraRank1 = 4,
+            BossUnitExtraRank2 = 2
+
         }
 
         Factor = {

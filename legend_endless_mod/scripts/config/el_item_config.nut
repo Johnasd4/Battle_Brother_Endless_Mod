@@ -9,12 +9,23 @@ gt.Const.EL_Item <- {
     EL_ItemLevelMax = 100,
 
 	EL_RankColour = [
-		"#646464",//灰
-		"#006400",//绿
-		"#0000cc",//蓝
-		"#6400cc",//紫
-		"#be5f00",//橙
-		"#960000",//红
-		"#aa00ff"// 粉
-	]
+		"#646464",//gray
+		"#006400",//green
+		"#0000cc",//blue
+		"#6400cc",//purple
+		"#be5f00",//orange
+		"#960000",//red
+		"#aa00ff"// pink
+	],
+
+	EL_RankType = {
+		Normal = 0,
+		Premium = 1,
+		Fine = 2,
+		Epic = 3,
+		Legendary = 4,
+		Rare = 5,
+		Special = 6
+	}
+
 };
