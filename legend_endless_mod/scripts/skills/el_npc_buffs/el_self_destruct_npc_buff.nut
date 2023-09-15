@@ -41,9 +41,9 @@ this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
             local final_damage = this.Math.round(damage_persent * damage * 0.5);
 
             local body_hit_info = clone this.Const.Tactical.HitInfo;
-            body_hit_info.DamageRegular = final_damage;
+            body_hit_info.DamageRegular = 0;
             body_hit_info.DamageArmor = final_damage;
-            body_hit_info.DamageDirect = 0;
+            body_hit_info.DamageDirect = 1.0;
             body_hit_info.BodyPart = this.Const.BodyPart.Body;
             body_hit_info.BodyDamageMult = 1.0;
             body_hit_info.FatalityChanceMult = 0.0;
@@ -52,9 +52,9 @@ this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
             this.logInfo("body damage " + i + " " +  body_hit_info.DamageRegular);
 
             local head_hit_info = clone this.Const.Tactical.HitInfo;
-            head_hit_info.DamageRegular = final_damage;
+            head_hit_info.DamageRegular = 0;
             head_hit_info.DamageArmor = final_damage;
-            head_hit_info.DamageDirect = 0;
+            head_hit_info.DamageDirect = 1.0;
             head_hit_info.BodyPart = this.Const.BodyPart.Head;
             head_hit_info.BodyDamageMult = 1.0;
             head_hit_info.FatalityChanceMult = 0.0;
