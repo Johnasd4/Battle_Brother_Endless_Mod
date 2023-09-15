@@ -1096,7 +1096,7 @@ local gt = getroottable();
 
 		o.EL_addEquipmentEssence <- function(_EL_rank, _EL_num)
         {
-            this.m.Loot.EL_Essence[_EL_rank] += _EL_num;
+            this.m.Loot.EL_EquipmentEssence[_EL_rank] += _EL_num;
 		}
 
 
