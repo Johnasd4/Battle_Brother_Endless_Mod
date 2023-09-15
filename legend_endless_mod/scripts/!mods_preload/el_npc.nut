@@ -239,6 +239,7 @@ local gt = getroottable();
         o.m.EL_HaveRandomLeader <- false;
         o.m.EL_HaveStrongestLeader <- false;
         o.m.EL_TroopsResourse <- 0;
+        o.m.EL_LootEquipmentEssence <- [0, 0, 0, 0, 0];
 
 
         local getTroops = o.getTroops;
@@ -260,7 +261,7 @@ local gt = getroottable();
         {
             clearTroops();
             this.m.EL_TempTroops = [];
-            this.m.Loot.EL_EquipmentEssence = [0, 0, 0, 0, 0];
+            this.m.EL_LootEquipmentEssence = [0, 0, 0, 0, 0];
             this.m.EL_FinishGenerate = false;
 		}
 
@@ -1055,6 +1056,25 @@ local gt = getroottable();
             return;
         }
 
+
+		o.EL_dropEquipmentEssence <- function( _lootTable )
+        {
+			for(local i = 0; i < this.m.EL_EquipmentEssence.len(); ++i) {
+                local num = this.m.Loot.EL_Essence[i];
+                if(num == 0) {
+                    continue;
+                }
+                local essence = this.new("scripts/items/el_supplies/el_equipment_essence_" + i + "_item");
+                essence.EL_setAmount(num);
+                _lootTable.push(essence);
+            }
+		}
+
+		o.EL_addEquipmentEssence <- function(_EL_rank, _EL_num)
+        {
+            this.m.EL_LootEquipmentEssence[_EL_rank] += _EL_num;
+		}
+
 	});
 
 	::mods_hookExactClass("entity/world/player_party", function(o){
@@ -1072,7 +1092,6 @@ local gt = getroottable();
 
 	::mods_hookExactClass("entity/world/party", function(o){
 
-        o.m.Loot.EL_EquipmentEssence <- [0, 0, 0, 0, 0];
 
 		local onDropLootForPlayer = o.onDropLootForPlayer;
 		o.onDropLootForPlayer = function (_lootTable)
@@ -1080,25 +1099,6 @@ local gt = getroottable();
             onDropLootForPlayer(_lootTable);
             this.EL_dropEquipmentEssence(_lootTable);
 		}
-
-		o.EL_dropEquipmentEssence <- function( _lootTable )
-        {
-			for(local i = 0; i < this.m.EL_EquipmentEssence.len(); ++i) {
-                local num = this.m.Loot.EL_Essence[i];
-                if(num == 0) {
-                    continue;
-                }
-                local essence = this.new("scripts/items/el_supplies/el_equipment_essence_" + i + "_item");
-                essence.EL_setAmount(num);
-                _lootTable.push(essence);
-            }
-		}
-
-		o.EL_addEquipmentEssence <- function(_EL_rank, _EL_num)
-        {
-            this.m.Loot.EL_EquipmentEssence[_EL_rank] += _EL_num;
-		}
-
 
 	});
 
