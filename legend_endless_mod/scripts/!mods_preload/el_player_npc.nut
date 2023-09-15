@@ -23,7 +23,6 @@ local gt = getroottable();
 			//this.logInfo("this.EL_RankLevel : " + this.m.EL_RankLevel);
 		}
 
-
 		local onTurnStart = o.onTurnStart;
 		o.onTurnStart = function() {
 			onTurnStart();

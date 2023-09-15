@@ -135,6 +135,16 @@ local gt = getroottable();
             return this.m.EL_NPCLevel;
         }
 
+		local onInit = o.onInit;
+		o.onInit = function() {
+			onInit();
+			if (this.m.MoraleState != this.Const.MoraleState.Ignore)
+			{
+				this.m.Skills.add(this.new("scripts/skills/effects/battle_standard_effect"));
+			}
+			return;
+		}
+
         o.makeMiniboss = function() {
             this.m.Skills.add(this.new("scripts/skills/racial/champion_racial"));
             this.m.IsMiniboss = true;
