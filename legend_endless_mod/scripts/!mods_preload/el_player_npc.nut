@@ -201,11 +201,11 @@ local gt = getroottable();
 					{
 						if (tile.getEntity().isAlliedWith(this))
 						{
-							head_count_gap += this.Math.pow(this.Const.EL_Morale.HeadCount.Factor1, tile.getEntity().m.EL_RankLevel - this.m.EL_RankLevel);
+							head_count_gap += this.Math.pow(this.Const.EL_PlayerNPC.EL_Morale.HeadCount.Factor1, tile.getEntity().m.EL_RankLevel - this.m.EL_RankLevel);
 						}
 						else
 						{
-							head_count_gap -= this.Math.pow(this.Const.EL_Morale.HeadCount.Factor1, tile.getEntity().m.EL_RankLevel - this.m.EL_RankLevel);
+							head_count_gap -= this.Math.pow(this.Const.EL_PlayerNPC.EL_Morale.HeadCount.Factor1, tile.getEntity().m.EL_RankLevel - this.m.EL_RankLevel);
 							threatBonus = threatBonus + tile.getEntity().getCurrentProperties().Threat;
 						}
 					}
@@ -214,10 +214,10 @@ local gt = getroottable();
 			local head_count_bouns = 0;
 
 			if(head_count_gap > 0) {
-				head_count_bouns = this.Const.EL_Morale.HeadCount.Factor3 * this.Math.pow(head_count_gap, this.Const.EL_Morale.HeadCount.Factor2);
+				head_count_bouns = this.Const.EL_PlayerNPC.EL_Morale.HeadCount.Factor3 * this.Math.pow(head_count_gap, this.Const.EL_PlayerNPC.EL_Morale.HeadCount.Factor2);
 			}
 			else {
-				head_count_bouns = -this.Const.EL_Morale.HeadCount.Factor3 * this.Math.pow(-head_count_gap, this.Const.EL_Morale.HeadCount.Factor2);
+				head_count_bouns = -this.Const.EL_PlayerNPC.EL_Morale.HeadCount.Factor3 * this.Math.pow(-head_count_gap, this.Const.EL_PlayerNPC.EL_Morale.HeadCount.Factor2);
 			}
 
 			if (_change > 0)
@@ -652,14 +652,14 @@ local gt = getroottable();
 
 				if (this.m.MoraleState != this.Const.MoraleState.Ignore && this.getCurrentProperties().IsAffectedByLosingHitpoints)
 				{
-					while(damage_persent >= this.Const.EL_Morale.Hit.PersentPurCheck) {
+					while(damage_persent >= this.Const.EL_PlayerNPC.EL_Morale.Hit.PersentPurCheck) {
 						if (!this.isPlayerControlled() || !this.m.Skills.hasSkill("effects.berserker_mushrooms"))
 						{
-							local offset = this.Const.EL_Morale.Hit.Factor2 * this.Math.pow(this.getHitpoints() / this.getHitpointsMax() * 100 / this.Const.EL_Morale.Hit.Factor1, this.Const.EL_Morale.Hit.Factor3);
+							local offset = this.Const.EL_PlayerNPC.EL_Morale.Hit.Factor2 * this.Math.pow(this.getHitpoints() / this.getHitpointsMax() * 100 / this.Const.EL_PlayerNPC.EL_Morale.Hit.Factor1, this.Const.EL_PlayerNPC.EL_Morale.Hit.Factor3);
 							this.checkMorale(-1, offset - (_attacker != null && _attacker.getID() != this.getID() ? _attacker.getCurrentProperties().ThreatOnHit : 0), this.Const.MoraleCheckType.Default, "", true);
 							//this.logInfo("Damaged Recieve checkMorale" + (offset - (_attacker != null && _attacker.getID() != this.getID() ? _attacker.getCurrentProperties().ThreatOnHit : 0)));
 						}
-						damage_persent -= this.Const.EL_Morale.Hit.PersentPurCheck;
+						damage_persent -= this.Const.EL_PlayerNPC.EL_Morale.Hit.PersentPurCheck;
 					}
 				}
 
@@ -705,10 +705,10 @@ local gt = getroottable();
 			{
 				return;
 			}
-			local difficulty = this.Const.EL_Morale.Death.BaseOffset +
-							   this.Const.EL_Morale.Death.RankFactor * (this.EL_getRankLevel() - _victim.EL_getRankLevel()) +
-							   this.Math.pow(this.Const.EL_Morale.Death.CombatLevelFactor, this.Math.abs(this.EL_getCombatLevel() - _victim.EL_getCombatLevel())) * (this.EL_getCombatLevel() - _victim.EL_getCombatLevel()) +
-							   this.Math.pow(_victim.getTile().getDistanceTo(this.getTile()), this.Const.EL_Morale.Death.DistanceFactor);
+			local difficulty = this.Const.EL_PlayerNPC.EL_Morale.Death.BaseOffset +
+							   this.Const.EL_PlayerNPC.EL_Morale.Death.RankFactor * (this.EL_getRankLevel() - _victim.EL_getRankLevel()) +
+							   this.Math.pow(this.Const.EL_PlayerNPC.EL_Morale.Death.CombatLevelFactor, this.Math.abs(this.EL_getCombatLevel() - _victim.EL_getCombatLevel())) * (this.EL_getCombatLevel() - _victim.EL_getCombatLevel()) +
+							   this.Math.pow(_victim.getTile().getDistanceTo(this.getTile()), this.Const.EL_PlayerNPC.EL_Morale.Death.DistanceFactor);
 			if (_victim.getFaction() == this.getFaction() && _victim.getCurrentProperties().TargetAttractionMult >= 0.5 && this.getCurrentProperties().IsAffectedByDyingAllies)
 			{
 				this.checkMorale(-1, difficulty, this.Const.MoraleCheckType.Default, "", true);
@@ -730,10 +730,10 @@ local gt = getroottable();
 
 			if (this.m.CurrentProperties.IsAffectedByFleeingAllies)
 			{
-				local difficulty = this.Const.EL_Morale.Fleeing.BaseOffset +
-								   this.Const.EL_Morale.Fleeing.RankFactor * (this.EL_getRankLevel() - _actor.EL_getRankLevel()) +
-								   this.Math.pow(this.Const.EL_Morale.Fleeing.CombatLevelFactor, this.Math.abs(this.EL_getCombatLevel() - _actor.EL_getCombatLevel())) * (this.EL_getCombatLevel() - _actor.EL_getCombatLevel()) +
-								   this.Math.pow(_actor.getTile().getDistanceTo(this.getTile()), this.Const.EL_Morale.Fleeing.DistanceFactor);
+				local difficulty = this.Const.EL_PlayerNPC.EL_Morale.Fleeing.BaseOffset +
+								   this.Const.EL_PlayerNPC.EL_Morale.Fleeing.RankFactor * (this.EL_getRankLevel() - _actor.EL_getRankLevel()) +
+								   this.Math.pow(this.Const.EL_PlayerNPC.EL_Morale.Fleeing.CombatLevelFactor, this.Math.abs(this.EL_getCombatLevel() - _actor.EL_getCombatLevel())) * (this.EL_getCombatLevel() - _actor.EL_getCombatLevel()) +
+								   this.Math.pow(_actor.getTile().getDistanceTo(this.getTile()), this.Const.EL_PlayerNPC.EL_Morale.Fleeing.DistanceFactor);
 				if(_actor.isAlliedWith(this)) {
 					this.checkMorale(-1, difficulty);
 					//this.logInfo("Ally fleeing checkMorale" + difficulty);
@@ -807,9 +807,9 @@ local gt = getroottable();
 												local temp_actor = temp_tile.getEntity();
 												if (!temp_actor.isAlliedWith(otherActor))
 												{
-													local difficulty = this.Const.EL_Morale.Move.BaseOffset +
-																	   this.Const.EL_Morale.Move.RankFactor * (otherActor.EL_getRankLevel() - temp_actor.EL_getRankLevel()) +
-																	   this.Math.pow(this.Const.EL_Morale.Move.CombatLevelFactor, this.Math.abs(otherActor.EL_getCombatLevel() - temp_actor.EL_getCombatLevel())) * (otherActor.EL_getCombatLevel() - temp_actor.EL_getCombatLevel());
+													local difficulty = this.Const.EL_PlayerNPC.EL_Morale.Move.BaseOffset +
+																	   this.Const.EL_PlayerNPC.EL_Morale.Move.RankFactor * (otherActor.EL_getRankLevel() - temp_actor.EL_getRankLevel()) +
+																	   this.Math.pow(this.Const.EL_PlayerNPC.EL_Morale.Move.CombatLevelFactor, this.Math.abs(otherActor.EL_getCombatLevel() - temp_actor.EL_getCombatLevel())) * (otherActor.EL_getCombatLevel() - temp_actor.EL_getCombatLevel());
 													otherActor.checkMorale(-1, difficulty);
 													//this.logInfo("Step checkMorale" + difficulty);
 												}

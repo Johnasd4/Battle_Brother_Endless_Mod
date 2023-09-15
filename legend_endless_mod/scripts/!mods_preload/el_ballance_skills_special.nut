@@ -60,17 +60,17 @@ local gt = getroottable();
 			this.m.IsHidden = this.m.Container.getActor().getMoraleState() == this.Const.MoraleState.Steady;
 			this.m.Name = this.Const.MoraleStateName[this.m.Container.getActor().getMoraleState()];
 			local state = this.m.Container.getActor().getMoraleState();
-			_properties.Bravery += this.Const.EL_Morale.Effect.BraveryOffset[state];
-			_properties.Initiative += this.Const.EL_Morale.Effect.InitiativeOffset[state];
-			_properties.MeleeSkill += this.Const.EL_Morale.Effect.MeleeSkillOffset[state];
-			_properties.RangedSkill += this.Const.EL_Morale.Effect.RangedSkillOffset[state];
-			_properties.MeleeDefense += this.Const.EL_Morale.Effect.MeleeDefenseOffset[state];
-			_properties.RangedDefense += this.Const.EL_Morale.Effect.RangedDefenseOffset[state];
+			_properties.Bravery += this.Const.EL_PlayerNPC.EL_Morale.Effect.BraveryOffset[state];
+			_properties.Initiative += this.Const.EL_PlayerNPC.EL_Morale.Effect.InitiativeOffset[state];
+			_properties.MeleeSkill += this.Const.EL_PlayerNPC.EL_Morale.Effect.MeleeSkillOffset[state];
+			_properties.RangedSkill += this.Const.EL_PlayerNPC.EL_Morale.Effect.RangedSkillOffset[state];
+			_properties.MeleeDefense += this.Const.EL_PlayerNPC.EL_Morale.Effect.MeleeDefenseOffset[state];
+			_properties.RangedDefense += this.Const.EL_PlayerNPC.EL_Morale.Effect.RangedDefenseOffset[state];
 
-			_properties.FatigueOnSkillUse += this.Const.EL_Morale.Effect.FatigueOnSkillUseOffset[state];
+			_properties.FatigueOnSkillUse += this.Const.EL_PlayerNPC.EL_Morale.Effect.FatigueOnSkillUseOffset[state];
 
-			_properties.DamageDirectMult *= this.Const.EL_Morale.Effect.DamageDirectMult[state];
-			_properties.DamageReceivedTotalMult *= this.Const.EL_Morale.Effect.DamageReceivedTotalMult[state];
+			_properties.DamageDirectMult *= this.Const.EL_PlayerNPC.EL_Morale.Effect.DamageDirectMult[state];
+			_properties.DamageReceivedTotalMult *= this.Const.EL_PlayerNPC.EL_Morale.Effect.DamageReceivedTotalMult[state];
 			switch(state)
 			{
 			case this.Const.MoraleState.Confident:
