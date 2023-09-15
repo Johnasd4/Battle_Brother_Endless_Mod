@@ -50,17 +50,17 @@ local gt = getroottable();
             }
 		}
 
-		o.EL_addEquipmentEssence( _rank, _num )
+		o.EL_addEquipmentEssence <- function( _rank, _num )
 		{
 			this.m.EL_EquipmentEssence[_rank] += _num;
 		}
 
-		o.EL_getEquipmentEssence( _rank )
+		o.EL_getEquipmentEssence <- function( _rank )
 		{
 			return this.m.EL_EquipmentEssence[_rank];
 		}
 
-		o.EL_setEquipmentEssence( _rank, _num )
+		o.EL_setEquipmentEssence <- function( _rank, _num )
 		{
 			this.m.EL_EquipmentEssence[_rank] = _num;
 		}
