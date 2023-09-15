@@ -1236,7 +1236,7 @@ local gt = getroottable();
 								id = 4,
 								type = "hint",
 								icon = "ui/tooltips/equipment_essence_rank_" + i + ".png",
-								text = "X " + num
+								text = "X  " + num
 							});
 						}
 					}
