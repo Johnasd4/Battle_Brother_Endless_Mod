@@ -1071,7 +1071,7 @@ local gt = getroottable();
 			else {
 				damage_mult /= this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, defenderProperties.EL_CombatLevel - user.EL_getCombatLevel());
 			}
-			_targetEntity.setFatigue(_targetEntity.getFatigue() + _damage * defenderProperties.FatigueEffectMul * damage_mult);
+			_targetEntity.setFatigue(_targetEntity.getFatigue() + _damage * defenderProperties.FatigueEffectMult * damage_mult);
 
 		}
 
