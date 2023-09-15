@@ -54,14 +54,11 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
                 }
             }
 
-
-
-
             actor.setHitpoints(actor.getHitpointsMax());
             actor.setActionPoints(actor.getActionPointsMax());
             actor.setFatigue(0);
             if(this.m.EL_MoraleState != this.Const.MoraleState.Ignore) {
-                actor.m.setMoraleState(this.Const.MoraleState.Confident);
+                actor.setMoraleState(this.Const.MoraleState.Confident);
             }
             local body = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
             if(body != null) {
