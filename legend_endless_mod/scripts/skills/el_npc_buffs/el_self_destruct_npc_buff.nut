@@ -38,6 +38,7 @@ this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
             this.logInfo("distance " + i + " " + distance);
             local damage_persent = 1 - (distance - 1) * this.Math.pow(this.Const.EL_NPC.EL_NPCBuff.Factor.SelfDestruct.DamageDecayRatePurTile, distance);
             local final_damage = this.Math.round(damage_persent * damage * 0.5);
+
             local body_hit_info = clone this.Const.Tactical.HitInfo;
             body_hit_info.DamageRegular = final_damage;
             body_hit_info.DamageDirect = 0;
@@ -46,6 +47,7 @@ this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
             body_hit_info.FatalityChanceMult = 0.0;
             body_hit_info.Injuries = this.Const.Injury.BurningBody;
             affect_targets[i].onDamageReceived(this.getContainer().getActor(), this, body_hit_info);
+
             local head_hit_info = clone this.Const.Tactical.HitInfo;
             head_hit_info.DamageRegular = final_damage;
             head_hit_info.DamageDirect = 0;

@@ -399,7 +399,7 @@ local gt = getroottable();
 			{
 				dmgMult = dmgMult * (_skill.isRanged() ? p.DamageReceivedRangedMult : p.DamageReceivedMeleeMult);
 			}
-			this.logInfo("dmgMult before " + dmgMult);
+			//this.logInfo("dmgMult before " + dmgMult);
 			if(_attacker.EL_getCombatLevel() > this.EL_getCombatLevel()) {
 				dmgMult *= this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, this.Math.abs(_attacker.EL_getCombatLevel() - this.EL_getCombatLevel()));
 				//this.logInfo("attackEntity combat level extra damage mult" + (this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, this.Math.abs(_user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()))));
@@ -408,7 +408,7 @@ local gt = getroottable();
 				dmgMult /= this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, this.Math.abs(_attacker.EL_getCombatLevel() - this.EL_getCombatLevel()));
 				//this.logInfo("attackEntity combat level decrease damage mult" + (this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, this.Math.abs(_user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()))));
 			}
-			this.logInfo("dmgMult after " + dmgMult);
+			//this.logInfo("dmgMult after " + dmgMult);
 
 			_hitInfo.DamageRegular -= p.DamageRegularReduction;
 			_hitInfo.DamageArmor -= p.DamageArmorReduction;

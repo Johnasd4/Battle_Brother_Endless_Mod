@@ -59,7 +59,7 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
             actor.setHitpoints(actor.getHitpointsMax());
             actor.setActionPoints(actor.getActionPointsMax());
             actor.setFatigue(0);
-
+            actor.setMoraleState(this.Const.MoraleState.Confident);
             local body = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
             if(body != null) {
                 body.setArmor(body.getArmorMax());
@@ -98,6 +98,7 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
             actor.m.IsAttackable = false;
             actor.setActionPoints(0);
             actor.setFatigue(actor.getFatigueMax());
+            actor.setMoraleState(this.Const.MoraleState.Ignore);
             local body = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
             if(body != null) {
                 body.setArmor(0);
