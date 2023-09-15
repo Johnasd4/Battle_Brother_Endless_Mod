@@ -35,7 +35,7 @@ this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
 
         for(local i = 0; i < affect_targets.len(); ++i) {
             local distance = actor.getTile().getDistanceTo(affect_targets[i].getTile());
-            this.logInfo("distance i " + distance);
+            this.logInfo("distance " + i + " " + distance);
             local damage_persent = 1 - (distance - 1) * this.Math.pow(this.Const.EL_NPC.EL_NPCBuff.Factor.SelfDestruct.DamageDecayRatePurTile, distance);
             local final_damage = this.Math.round(damage_persent * damage * 0.5);
             local body_hit_info = clone this.Const.Tactical.HitInfo;

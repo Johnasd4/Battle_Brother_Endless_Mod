@@ -1227,7 +1227,7 @@ local gt = getroottable();
 					ret.push({
 						id = 3,
 						type = "text",
-						text = "Equipment essences are used for upgrading and recrafting equitments, you can get equipment essences by killing enimies or disassemble equitments."
+						text = "Equipment essences are used for upgrading and recrafting equitments, you can get equipment essences by killing enimies or disassembling equitments."
 					});
 					for(local i = 0; i < this.Const.EL_World.EL_EquipmentEssence.RankNums; ++i) {
 						local num = this.World.Assets.EL_getEquipmentEssence(i);
