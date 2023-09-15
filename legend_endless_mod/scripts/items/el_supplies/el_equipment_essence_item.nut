@@ -5,7 +5,18 @@ this.el_equipment_essence_item <- this.inherit("scripts/items/item", {
 
 	function getAmountString()
 	{
-		return this.m.EL_Amount;
+		if(this.m.EL_Amount < this.Math.pow(10, 3)) {
+			return this.m.EL_Amount;
+		}
+		else if(this.m.EL_Amount < this.Math.pow(10, 6)) {
+			return this.Math.floor(this.m.EL_Amount / this.Math.pow(10, 3)) + 'k';
+		}
+		else if(this.m.EL_Amount < this.Math.pow(10, 9)) {
+			return this.Math.floor(this.m.EL_Amount / this.Math.pow(10, 6)) + 'm';
+		}
+		else {
+			return this.Math.floor(this.m.EL_Amount / this.Math.pow(10, 9)) + 'b';
+		}
 	}
 
 	function isAmountShown()
@@ -46,7 +57,7 @@ this.el_equipment_essence_item <- this.inherit("scripts/items/item", {
 			{
 				id = 2,
 				type = "description",
-				text = "The amount of [color=" + this.Const.UI.Color.PositiveValue + "]" + this.m.EL_Amount + "[/color] essences, the currency in these lands. Will be added to your global stock once you\'re back on the worldmap."
+				text = "The amount of [color=" + this.Const.UI.Color.PositiveValue + "]" + this.m.EL_Amount + "[/color] equipment essences, the currency in these lands. Will be added to your global stock once you\'re back on the worldmap."
 			}
 		];
 

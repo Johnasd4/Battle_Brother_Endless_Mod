@@ -35,17 +35,6 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookExactClass("entity/tactical/player_party", function(o){
-
-		local create = o.create;
-		o.create = function ()
-		{
-			create();
-            this.m.EL_IsPlayer = true;
-		}
-
-
-	});
 
 	::mods_hookNewObject("entity/tactical/tactical_entity_manager", function(o){
 
@@ -88,7 +77,7 @@ local gt = getroottable();
 
             _e.EL_bulidNPCPropertiesByLevel(npc_level);
             //this.logInfo("_t.EL_ExtraCombatLevel " + _t.EL_ExtraCombatLevel);
-            _e.EL_setCombatLevel(this.Math.min(this.Const.EL_NPC.EL_Troop.MaxCombatlevelByNpcLevel, npc_level) + _t.EL_ExtraCombatLevel);
+            _e.EL_setCombatLevel(this.Math.min(this.Const.EL_NPC.EL_Troop.MaxCalculateLevel, npc_level) + _t.EL_ExtraCombatLevel);
             _e.EL_setRankLevel(_t.EL_RankLevel);
 
             if (_t.EL_RankLevel != 0)
@@ -214,6 +203,28 @@ local gt = getroottable();
 			return this.m.Name + " - Lv" + this.m.EL_NPCLevel + "(" + ((this.Math.round(this.EL_getCombatLevel() * 10) * 0.1)) + ")";
 		}
 
+        local kill = o.kill;
+        o.kill = function( _killer = null, _skill = null, _fatalityType = this.Const.FatalityType.None, _silent = false )
+        {
+            kill(_killer, _skill, _fatalityType, _silent);
+            if (_killer == null || _killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals)
+            {
+                if (this.m.WorldTroop != null && ("Party" in this.m.WorldTroop) && this.m.WorldTroop.Party != null && !this.m.WorldTroop.Party.isNull())
+                {
+                    local rank = 0;
+                    local level = this.Math.min(this.Const.EL_NPC.EL_Troop.MaxCalculateLevel, this.m.EL_NPCLevel)
+                    if(this.m.WorldTroop.EL_IsBossUnit = true) {
+                        rank = 3;
+                    }
+                    else {
+                        rank = this.m.WorldTroop.EL_RankLevel;
+                    }
+                    this.m.WorldTroop.Party.EL_addEquipmentEssence(rank, this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.CurrentRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level)));
+                    this.m.WorldTroop.Party.EL_addEquipmentEssence(rank + 1, this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.NextRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level)));
+                }
+            }
+        }
+
 
 	});
 
@@ -227,7 +238,7 @@ local gt = getroottable();
         o.m.EL_HaveRandomLeader <- false;
         o.m.EL_HaveStrongestLeader <- false;
         o.m.EL_TroopsResourse <- 0;
-        o.m.Loot.EL_Essence <- [0, 0, 0, 0, 0];
+        o.m.Loot.EL_EquipmentEssence <- [0, 0, 0, 0, 0];
 
         local getTroops = o.getTroops;
 		o.getTroops = function()
@@ -248,6 +259,7 @@ local gt = getroottable();
         {
             clearTroops();
             this.m.EL_TempTroops = [];
+            this.m.Loot.EL_EquipmentEssence = [0, 0, 0, 0, 0];
             this.m.EL_FinishGenerate = false;
 		}
 
@@ -1042,24 +1054,50 @@ local gt = getroottable();
             return;
         }
 
-		o.EL_dropEssence = function( _num, _lootTable )
+		o.EL_dropEquipmentEssence <- function( _lootTable )
         {
-            _num = this.Math.max(0, this.Math.round(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.DropIncreaseMultPurWorldLevel.Money)));
-
-            if (_num == 0)
-            {
-                return;
+			for(local i = 0; i < this.m.EL_EquipmentEssence.len(); ++i) {
+                local num = this.m.Loot.EL_Essence[i];
+                if(num == 0) {
+                    continue;
+                }
+                local essence = this.new("scripts/items/el_supplies/el_equipment_essence_" + i + "_item");
+                essence.EL_setAmount(num);
+                _lootTable.push(essence);
             }
+		}
 
-            local money = this.new("scripts/items/supplies/money_item");
-            money.setAmount(_num);
-            _lootTable.push(money);
+		o.EL_addEquipmentEssence <- function(_EL_rank, _EL_num)
+        {
+            this.m.Loot.EL_Essence[_EL_rank] += _EL_num;
+		}
+
+	});
+
+	::mods_hookExactClass("entity/world/player_party", function(o){
+
+		local create = o.create;
+		o.create = function ()
+		{
+			create();
+            this.m.EL_IsPlayer = true;
 		}
 
 
 	});
 
 
+	::mods_hookExactClass("entity/world/party", function(o){
+
+		local onDropLootForPlayer = o.onDropLootForPlayer;
+		o.onDropLootForPlayer = function (_lootTable)
+		{
+            onDropLootForPlayer(_lootTable);
+            this.EL_dropEquipmentEssence(_lootTable);
+		}
+
+
+	});
 
 	::mods_hookBaseClass("contracts/contract", function ( o )
 	{

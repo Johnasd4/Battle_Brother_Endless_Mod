@@ -89,11 +89,18 @@ gt.Const.EL_NPC <- {
         MinLevel = 0,
         MaxLevel = 200,
         MaxTroopNum = 255,
-        MaxCombatlevelByNpcLevel = 100,
+        MaxCalculateLevel = 100,
         MinLevelOffset = -10,
         MaxLevelOffset = 0,
         BossTroopMinLeaders = 2,
         BossChance = 1,
+
+        EquipmentEssence = {
+            CurrentRankMult = 1,
+            NextRankMult = 0.1,
+            DropLevelFactor = 1.1
+        }
+
 
         ExtraCombatLevel = {
             BossLevel = 10,

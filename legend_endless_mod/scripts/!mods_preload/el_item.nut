@@ -15,7 +15,7 @@ local gt = getroottable();
 		o.m.EL_BaseWithRankValue <- 0;
 
 		local onSerialize = o.onSerialize;
-		o.onSerialize = function( _out ) 
+		o.onSerialize = function( _out )
 		{
 			onSerialize(_out);
 			_out.writeI32(this.m.EL_Level);
@@ -28,7 +28,7 @@ local gt = getroottable();
 		}
 
 		local onDeserialize = o.onDeserialize;
-		o.onDeserialize = function( _in ) 
+		o.onDeserialize = function( _in )
 		{
 			onDeserialize(_in);
 			this.m.EL_Level = _in.readI32();
@@ -141,7 +141,7 @@ local gt = getroottable();
 		o.EL_generateByRankAndLevel <- function( EL_level, EL_rankLevel, EL_additionalRarityChance = 0 )
 		{
 		}
-		
+
 		o.EL_updateLevelProperties <- function()
 		{
 		}
@@ -162,29 +162,29 @@ local gt = getroottable();
 		{
 		}
 
-		o.EL_recast <- function()
+		o.EL_recraft <- function()
 		{
 		}
 
-		o.EL_getUpgradeEssence <- function()
-		{
-			return 0;
-		}
-
-		o.EL_getDisassembleEssence <- function()
+		o.EL_getUpgradeEquipmentEssence <- function()
 		{
 			return 0;
 		}
 
-		o.EL_getRecastEssence <- function()
+		o.EL_getDisassembleEquipmentEssence <- function()
+		{
+			return 0;
+		}
+
+		o.EL_getRecastEquipmentEssence <- function()
 		{
 			return 0;
 		}
 
 	});
-	
-	
-	
+
+
+
 	// ::mods_hookNewObjectOnce("ui/global/data_helper", o.( o )
     // {
 	//     local convertItemToUIData = o.convertItemToUIData;
