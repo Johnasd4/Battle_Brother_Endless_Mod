@@ -9,7 +9,7 @@ local gt = getroottable();
         local onAfterUpdate = o.onAfterUpdate;
         o.onAfterUpdate = function( _properties )
         {
-            onAfterUpdate();
+            onAfterUpdate(_properties);
         }
 
         o.getBonus = function( _properties )
