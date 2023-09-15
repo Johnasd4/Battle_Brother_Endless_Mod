@@ -47,6 +47,7 @@ this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
             body_hit_info.FatalityChanceMult = 0.0;
             body_hit_info.Injuries = this.Const.Injury.BurningBody;
             affect_targets[i].onDamageReceived(this.getContainer().getActor(), this, body_hit_info);
+            this.logInfo("body damage " + i + " " +  body_hit_info.DamageRegular);
 
             local head_hit_info = clone this.Const.Tactical.HitInfo;
             head_hit_info.DamageRegular = final_damage;
@@ -56,6 +57,8 @@ this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
             head_hit_info.FatalityChanceMult = 0.0;
             head_hit_info.Injuries = this.Const.Injury.BurningHead;
             affect_targets[i].onDamageReceived(this.getContainer().getActor(), this, head_hit_info);
+            this.logInfo("head damage " + i + " " +  head_hit_info.DamageRegular);
+
         }
 
         if (!actor.isHiddenToPlayer())
