@@ -4,7 +4,7 @@ local gt = getroottable();
 ::mods_queue(null, "el_world", function ()
 {
 
-	::mods_hookExactClass("entity/tactical/actor", function(o){
+	::mods_hookNewObject("entity/tactical/actor", function(o){
 
 		o.m.EL_RankLevel <- 0;
 
