@@ -33,7 +33,7 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
             --this.m.EL_RiseTimesLeft;
             ++this.m.EL_Stack;
             local actor = this.getContainer().getActor();
-            local properties = actor.getCurrentProperties();
+            local properties = actor.getBaseProperties();
             actor.m.IsAttackable = true;
             if(this.m.EL_RiseTimesLeft == 0) {
                 actor.setIsAbleToDie(true);
