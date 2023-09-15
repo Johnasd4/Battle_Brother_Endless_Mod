@@ -18,8 +18,15 @@ this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
         {
             foreach( t in tar )
             {
-                if(t != null && !t.isAlliedWith(actor) && !t.isDying() && t.isAlive()) {
+                // if(t != null && !t.isAlliedWith(actor) && !t.isDying() && t.isAlive()) {
+                //     local distance = actor.getTile().getDistanceTo(t.getTile());
+                //     if(distance <= this.Const.EL_NPC.EL_NPCBuff.Factor.SelfDestruct.MaxDistance) {
+                //         affect_targets.push(t);
+                //     }
+                // }
+                if(t != null && !t.isDying() && t.isAlive()) {
                     local distance = actor.getTile().getDistanceTo(t.getTile());
+                    this.logInfo("distance " + distance);
                     if(distance <= this.Const.EL_NPC.EL_NPCBuff.Factor.SelfDestruct.MaxDistance) {
                         affect_targets.push(t);
                     }
@@ -29,24 +36,47 @@ this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
 
         for(local i = 0; i < affect_targets.len(); ++i) {
             local distance = actor.getTile().getDistanceTo(affect_targets[i].getTile());
+            this.logInfo("distance " + i + " " + distance);
             local damage_persent = 1 - (distance - 1) * this.Math.pow(this.Const.EL_NPC.EL_NPCBuff.Factor.SelfDestruct.DamageDecayRatePurTile, distance);
             local final_damage = this.Math.round(damage_persent * damage * 0.5);
+
             local body_hit_info = clone this.Const.Tactical.HitInfo;
             body_hit_info.DamageRegular = final_damage;
-            body_hit_info.DamageDirect = 0;
+            body_hit_info.DamageDirect = 1;
             body_hit_info.BodyPart = this.Const.BodyPart.Body;
             body_hit_info.BodyDamageMult = 1.0;
             body_hit_info.FatalityChanceMult = 0.0;
             body_hit_info.Injuries = this.Const.Injury.BurningBody;
             affect_targets[i].onDamageReceived(this.getContainer().getActor(), this, body_hit_info);
+
+            local body_armor_hit_info = clone this.Const.Tactical.HitInfo;
+            body_armor_hit_info.DamageArmor = final_damage;
+            body_armor_hit_info.DamageDirect = 0;
+            body_armor_hit_info.BodyPart = this.Const.BodyPart.Body;
+            body_armor_hit_info.BodyDamageMult = 1.0;
+            body_armor_hit_info.FatalityChanceMult = 0.0;
+            body_armor_hit_info.Injuries = this.Const.Injury.BurningBody;
+            affect_targets[i].onDamageReceived(this.getContainer().getActor(), this, body_armor_hit_info);
+
             local head_hit_info = clone this.Const.Tactical.HitInfo;
             head_hit_info.DamageRegular = final_damage;
-            head_hit_info.DamageDirect = 0;
+            head_hit_info.DamageDirect = 1;
             head_hit_info.BodyPart = this.Const.BodyPart.Head;
             head_hit_info.BodyDamageMult = 1.0;
             head_hit_info.FatalityChanceMult = 0.0;
             head_hit_info.Injuries = this.Const.Injury.BurningHead;
             affect_targets[i].onDamageReceived(this.getContainer().getActor(), this, head_hit_info);
+
+            local head_armor_hit_info = clone this.Const.Tactical.HitInfo;
+            head_armor_hit_info.DamageArmor = final_damage;
+            head_armor_hit_info.DamageDirect = 0;
+            head_armor_hit_info.BodyPart = this.Const.BodyPart.Head;
+            head_armor_hit_info.BodyDamageMult = 1.0;
+            head_armor_hit_info.FatalityChanceMult = 0.0;
+            head_armor_hit_info.Injuries = this.Const.Injury.BurningHead;
+            affect_targets[i].onDamageReceived(this.getContainer().getActor(), this, head_armor_hit_info);
+
+
         }
 
         if (!actor.isHiddenToPlayer())

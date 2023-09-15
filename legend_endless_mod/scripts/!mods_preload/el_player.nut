@@ -1208,6 +1208,39 @@ local gt = getroottable();
 						id = id;
 					}
 					return ret;
+				case "assets.Supplies":
+					local desc = "Assorted tools and supplies to keep your weapons, armor, helmets and shields in good condition. Running out of supplies may result in weapons breaking in combat and will leave your armor damaged and useless. Items can only be repaired while camping. More tools can be purchased in town or salvaged from equipment while camping.";
+					desc = desc + ("  You can carry " + this.World.Assets.getMaxArmorParts() + " units at most.");
+					local ret = [
+						{
+							id = 1,
+							type = "title",
+							text = "Tools and Supplies"
+						},
+						{
+							id = 2,
+							type = "description",
+							text = desc
+						}
+					];
+
+					ret.push({
+						id = 3,
+						type = "text",
+						text = "Equipment essences are used for upgrading and recrafting equitments, you can get equipment essences by killing enimies or disassembling equitments."
+					});
+					for(local i = 0; i < this.Const.EL_World.EL_EquipmentEssence.RankNums; ++i) {
+						local num = this.World.Assets.EL_getEquipmentEssence(i);
+						if(num != 0) {
+							ret.push({
+								id = 4,
+								type = "hint",
+								icon = "ui/tooltips/equipment_essence_rank_" + i + ".png",
+								text = "X  " + num
+							});
+						}
+					}
+					return ret;
 			}
 
 			return general_queryUIElementTooltipData(_entityId, _elementId, _elementOwner);

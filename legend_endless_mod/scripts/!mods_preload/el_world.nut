@@ -20,7 +20,7 @@ local gt = getroottable();
 		o.m.EL_WorldLevelOffset <- 0;
 		o.m.EL_WorldStrength <- this.Const.EL_World.EL_WorldStrength.Min;
 		o.m.EL_CurrentUpdateDay <- 0;
-		o.m.EL_EquipmentEssence <-[0, 0, 0, 0, 0];
+		o.m.EL_EquipmentEssence <- [0, 0, 0, 0, 0];
 
 		local onSerialize = o.onSerialize;
 		o.onSerialize = function ( _out )
@@ -50,17 +50,17 @@ local gt = getroottable();
             }
 		}
 
-		o.EL_addEquipmentEssence( _rank, _num )
+		o.EL_addEquipmentEssence <- function( _rank, _num )
 		{
 			this.m.EL_EquipmentEssence[_rank] += _num;
 		}
 
-		o.EL_getEquipmentEssence( _rank )
+		o.EL_getEquipmentEssence <- function( _rank )
 		{
 			return this.m.EL_EquipmentEssence[_rank];
 		}
 
-		o.EL_setEquipmentEssence( _rank, _num )
+		o.EL_setEquipmentEssence <- function( _rank, _num )
 		{
 			this.m.EL_EquipmentEssence[_rank] = _num;
 		}

@@ -35,19 +35,9 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookExactClass("entity/tactical/player_party", function(o){
 
-		local create = o.create;
-		o.create = function ()
-		{
-			create();
-            this.m.EL_IsPlayer = true;
-		}
-
-
-	});
-
-	::mods_hookNewObject("entity/tactical/tactical_entity_manager", function(o){
+	::mods_hookNewObject("entity/tactical/tactical_entity_manager", function(o)
+    {
 
 		o.setupEntity = function (_e, _t)
 		{
@@ -88,7 +78,7 @@ local gt = getroottable();
 
             _e.EL_bulidNPCPropertiesByLevel(npc_level);
             //this.logInfo("_t.EL_ExtraCombatLevel " + _t.EL_ExtraCombatLevel);
-            _e.EL_setCombatLevel(this.Math.min(this.Const.EL_NPC.EL_Troop.MaxCombatlevelByNpcLevel, npc_level) + _t.EL_ExtraCombatLevel);
+            _e.EL_setCombatLevel(this.Math.min(this.Const.EL_NPC.EL_Troop.MaxCalculateLevel, npc_level) + _t.EL_ExtraCombatLevel);
             _e.EL_setRankLevel(_t.EL_RankLevel);
 
             if (_t.EL_RankLevel != 0)
@@ -144,6 +134,16 @@ local gt = getroottable();
         o.EL_getNPCLevel <- function() {
             return this.m.EL_NPCLevel;
         }
+
+		local onInit = o.onInit;
+		o.onInit = function() {
+			onInit();
+			if (this.m.MoraleState != this.Const.MoraleState.Ignore)
+			{
+				this.m.Skills.add(this.new("scripts/skills/effects/battle_standard_effect"));
+			}
+			return;
+		}
 
         o.makeMiniboss = function() {
             this.m.Skills.add(this.new("scripts/skills/racial/champion_racial"));
@@ -214,6 +214,28 @@ local gt = getroottable();
 			return this.m.Name + " - Lv" + this.m.EL_NPCLevel + "(" + ((this.Math.round(this.EL_getCombatLevel() * 10) * 0.1)) + ")";
 		}
 
+        local kill = o.kill;
+        o.kill = function( _killer = null, _skill = null, _fatalityType = this.Const.FatalityType.None, _silent = false )
+        {
+            kill(_killer, _skill, _fatalityType, _silent);
+            if (_killer == null || _killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals)
+            {
+                if (this.m.WorldTroop != null && ("Party" in this.m.WorldTroop) && this.m.WorldTroop.Party != null && !this.m.WorldTroop.Party.isNull())
+                {
+                    local rank = 0;
+                    local level = this.Math.min(this.Const.EL_NPC.EL_Troop.MaxCalculateLevel, this.m.EL_NPCLevel)
+                    if(this.m.WorldTroop.EL_IsBossUnit == true) {
+                        rank = 3;
+                    }
+                    else {
+                        rank = this.m.WorldTroop.EL_RankLevel;
+                    }
+                    this.m.WorldTroop.Party.EL_addEquipmentEssence(rank, this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.CurrentRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level)));
+                    this.m.WorldTroop.Party.EL_addEquipmentEssence(rank + 1, this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.NextRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level)));
+                }
+            }
+        }
+
 
 	});
 
@@ -227,6 +249,8 @@ local gt = getroottable();
         o.m.EL_HaveRandomLeader <- false;
         o.m.EL_HaveStrongestLeader <- false;
         o.m.EL_TroopsResourse <- 0;
+        o.m.EL_LootEquipmentEssence <- [0, 0, 0, 0, 0];
+
 
         local getTroops = o.getTroops;
 		o.getTroops = function()
@@ -247,6 +271,7 @@ local gt = getroottable();
         {
             clearTroops();
             this.m.EL_TempTroops = [];
+            this.m.EL_LootEquipmentEssence = [0, 0, 0, 0, 0];
             this.m.EL_FinishGenerate = false;
 		}
 
@@ -916,6 +941,9 @@ local gt = getroottable();
                         unit_strength -= this.m.Troops[random_leader_index].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[random_leader_index].EL_RankLevel];
                         unit_population -= troops_info[random_leader_index].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[random_leader_index].EL_RankLevel];
                         this.m.Troops[random_leader_index].EL_RankLevel = 2;
+                        if(this.Const.EL_NPC.EL_Troop.BossChance >= this.Math.rand(1, 100)) {
+                            this.m.Troops[random_leader_index].EL_IsBossUnit = true;
+                        }
                         unit_strength += this.m.Troops[random_leader_index].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[random_leader_index].EL_RankLevel];
                         unit_population += troops_info[random_leader_index].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[random_leader_index].EL_RankLevel];
                     }
@@ -926,6 +954,7 @@ local gt = getroottable();
                             local troop = clone this.m.Troops[j];
                             if(troops_info[j].EL_IsBossUnit) {
                                 troop.EL_RankLevel = 2;
+                                troop.EL_IsBossUnit = true;
                             }
                             else if(troops_info[j].EL_IsWeakUnit) {
                                 troop.EL_RankLevel = 0;
@@ -988,6 +1017,9 @@ local gt = getroottable();
                         unit_strength -= this.m.Troops[random_leader_index].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[random_leader_index].EL_RankLevel];
                         unit_population -= troops_info[random_leader_index].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[random_leader_index].EL_RankLevel];
                         this.m.Troops[random_leader_index].EL_RankLevel = 2;
+                        if(this.Const.EL_NPC.EL_Troop.BossChance >= this.Math.rand(1, 100)) {
+                            this.m.Troops[random_leader_index].EL_IsBossUnit = true;
+                        }
                         unit_strength += this.m.Troops[random_leader_index].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[random_leader_index].EL_RankLevel];
                         unit_population += troops_info[random_leader_index].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[random_leader_index].EL_RankLevel];
                     }
@@ -1035,9 +1067,45 @@ local gt = getroottable();
         }
 
 
+		o.EL_dropEquipmentEssence <- function( _lootTable )
+        {
+			for(local i = 0; i < this.m.EL_LootEquipmentEssence.len(); ++i) {
+                local num = this.m.EL_LootEquipmentEssence[i];
+                if(num == 0) {
+                    continue;
+                }
+                local essence = this.new("scripts/items/el_supplies/el_equipment_essence_rank_" + i + "_item");
+                essence.EL_setAmount(num);
+                _lootTable.push(essence);
+            }
+		}
+
+		o.EL_addEquipmentEssence <- function(_EL_rank, _EL_num)
+        {
+            this.m.EL_LootEquipmentEssence[_EL_rank] += _EL_num;
+		}
+
+		local onDropLootForPlayer = o.onDropLootForPlayer;
+		o.onDropLootForPlayer = function (_lootTable)
+		{
+            onDropLootForPlayer(_lootTable);
+            this.EL_dropEquipmentEssence(_lootTable);
+		}
+
+
 	});
 
+	::mods_hookExactClass("entity/world/player_party", function(o){
 
+		local create = o.create;
+		o.create = function ()
+		{
+			create();
+            this.m.EL_IsPlayer = true;
+		}
+
+
+	});
 
 	::mods_hookBaseClass("contracts/contract", function ( o )
 	{

@@ -7,6 +7,10 @@ if (!("EL_World" in gt.Const))
 
 gt.Const.EL_World <- {
 
+    EL_EquipmentEssence = {
+        RankNums = 5
+    }
+
     EL_WorldLevel = {
         Min = 0,
         BaseStableLevel = 100,

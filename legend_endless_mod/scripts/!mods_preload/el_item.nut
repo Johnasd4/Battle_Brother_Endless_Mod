@@ -49,7 +49,6 @@ local gt = getroottable();
 		o.EL_addEntry <- function( _entry )
 		{
 			this.m.SkillPtrs.push(_entry);
-			this.logInfo("尝试加入词条");
 			this.getContainer().getActor().getSkills().add(_entry);
 		}
 
@@ -83,6 +82,11 @@ local gt = getroottable();
 			this.m.EL_BaseNoRankValue = EL_BaseNoRankValue;
 		}
 
+		o.EL_getLevelAddtionStaminaModifier <- function()
+		{
+			return 0;
+		}
+
 		o.EL_getLevel <- function()
 		{
 			return this.m.EL_Level;
@@ -93,7 +97,6 @@ local gt = getroottable();
 			this.m.EL_Level = EL_level;
 			this.m.EL_CurrentLevel = EL_level;
 			EL_updateLevelProperties();
-			getTooltip();
 		}
 
 		o.EL_getCurrentLevel <- function()
@@ -104,10 +107,9 @@ local gt = getroottable();
 		o.EL_setCurrentLevel <- function( EL_level )
 		{
 			this.m.EL_CurrentLevel = EL_level;
-			local proportion = this.m.Condition / this.m.ConditionMax;
-			EL_updateLevelProperties(EL_level);
-			this.m.Condition = this.Math.round(this.m.ConditionMax * proportion);
-			getTooltip();
+			local percent = (this.m.Condition * 1.0)/ this.m.ConditionMax;
+			EL_updateLevelProperties();
+			this.m.Condition = this.Math.round(this.m.ConditionMax * percent);
 		}
 
 		o.EL_getRankLevel <- function()
@@ -123,33 +125,79 @@ local gt = getroottable();
 
 		o.EL_getLevelAddtionStaminaModifier <- function()
 		{
+			return 0;
 		}
 
 		o.EL_getLevelString <- function()
 		{
+			return "";
 		}
 
-		o.EL_generateByRankAndLevel <- function( EL_level, EL_rankLevel = 0, EL_additionalRarityChance = 0 )
+		o.EL_getLevelStringColour <- function()
+		{
+			return "#ffffff";
+		}
+
+		o.EL_generateByRankAndLevel <- function( EL_level, EL_rankLevel, EL_additionalRarityChance = 0 )
 		{
 		}
-		o.EL_levelUp <- function()
+
+		o.EL_updateLevelProperties <- function()
 		{
 		}
-		o.EL_updateLevelProperties <- function( _level = -1 )
-		{
-		}
+
 		o.EL_updateRankLevelProperties <- function()
 		{
 		}
-		o.EL_recast <- function()
-		{
-		}
+
 		o.EL_init <- function()
 		{
 		}
-		o.EL_getDisassembleEssence <- function()
+
+		o.EL_upgrade <- function()
 		{
 		}
+
+		o.EL_disassemble <- function()
+		{
+		}
+
+		o.EL_recraft <- function()
+		{
+		}
+
+		o.EL_getUpgradeEquipmentEssence <- function()
+		{
+			return 0;
+		}
+
+		o.EL_getDisassembleEquipmentEssence <- function()
+		{
+			return 0;
+		}
+
+		o.EL_getRecastEquipmentEssence <- function()
+		{
+			return 0;
+		}
+
 	});
 
+
+
+	// ::mods_hookNewObjectOnce("ui/global/data_helper", o.( o )
+    // {
+	//     local convertItemToUIData = o.convertItemToUIData;
+	//     o.convertItemToUIData = o.( _item, _forceSmallIcon, _owner = null )
+    // 	{
+    // 		if (_item == null) return null;
+    // 		local result = convertItemToUIData(_item, _forceSmallIcon, _owner);
+    // 		if(_item.isItemType(this.Const.Items.ItemType.Weapon))
+    // 		{
+    // 			result.level <- _item.EL_getItemLevelString();
+    //             //this.logInfo("输入成功");
+	// 	    }
+	//     	return result;
+	//     }
+    // });
 });

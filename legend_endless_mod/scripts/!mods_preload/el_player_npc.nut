@@ -23,7 +23,6 @@ local gt = getroottable();
 			//this.logInfo("this.EL_RankLevel : " + this.m.EL_RankLevel);
 		}
 
-
 		local onTurnStart = o.onTurnStart;
 		o.onTurnStart = function() {
 			onTurnStart();
@@ -94,7 +93,275 @@ local gt = getroottable();
 			return d;
 		}
 
-		o.onDamageReceived = function ( _attacker, _skill, _hitInfo )
+		o.checkMorale = function(_change, _difficulty, _type = this.Const.MoraleCheckType.Default, _showIconBeforeMoraleIcon = "", _noNewLine = false)
+		{
+
+			if (this.isAlive() && !this.isDying())
+			{
+				if (_change > 0)
+				{
+					local acSkill = this.m.Skills.getSkillByID("perk.legend_assured_conquest");
+					if (acSkill != null)
+					{
+						_difficulty += acSkill.getBonusResAtPositiveMoraleCheck();
+					}
+				}
+
+				if (_change < 0)
+				{
+					local familyPride = this.m.Skills.getSkillByID("perk.ptr_family_pride");
+					if (familyPride != null && this.m.MoraleState <= familyPride.getMinMoraleState())
+					{
+						return false;
+					}
+
+					if (_type == this.Const.MoraleCheckType.MentalAttack)
+					{
+						local tsSkill = this.m.Skills.getSkillByID("perk.ptr_trauma_survivor");
+						if (tsSkill != null)
+						{
+							_difficulty += tsSkill.getBonusRes();
+						}
+					}
+					else
+					{
+						local bulwark = this.m.Skills.getSkillByID("perk.ptr_bulwark");
+						if (bulwark != null)
+						{
+							_difficulty += bulwark.getBonus();
+						}
+					}
+				}
+			}
+
+			if (!this.isAlive() || this.isDying())
+			{
+				return false;
+			}
+
+			if (this.m.MoraleState == this.Const.MoraleState.Ignore)
+			{
+				return false;
+			}
+
+			if (_change > 0 && this.m.MoraleState == this.Const.MoraleState.Confident)
+			{
+				return false;
+			}
+
+			if (_change < 0 && this.m.MoraleState == this.Const.MoraleState.Fleeing)
+			{
+				return false;
+			}
+
+			if (_change > 0 && this.m.MoraleState >= this.m.MaxMoraleState)
+			{
+				return false;
+			}
+
+			if (_change == 1 && this.m.MoraleState == this.Const.MoraleState.Fleeing)
+			{
+				return false;
+			}
+
+			if (this.isAlive() && !this.isDying())
+			{
+				if (_change < 0)
+				{
+					if (this.m.MoraleState <= this.Const.EL_PlayerNPC.EL_RankToMoraleMin[this.m.EL_RankLevel])
+					{
+						return false;
+					}
+				}
+			}
+
+			local myTile = this.getTile();
+
+			if (this.isPlayerControlled() && _change > 0 && (myTile.SquareCoords.X == 0 || myTile.SquareCoords.Y == 0 || myTile.SquareCoords.X == 31 || myTile.SquareCoords.Y == 31))
+			{
+				return false;
+			}
+
+			_difficulty = _difficulty * this.getCurrentProperties().MoraleEffectMult;
+			local bravery = (this.getBravery() + this.getCurrentProperties().MoraleCheckBravery[_type]) * this.getCurrentProperties().MoraleCheckBraveryMult[_type];
+
+			local head_count_gap = 0;
+			local threatBonus = 0;
+			for( local i = 0; i != 6; i = ++i )
+			{
+				if (!myTile.hasNextTile(i))
+				{
+				}
+				else
+				{
+					local tile = myTile.getNextTile(i);
+
+					if (tile.IsOccupiedByActor && tile.getEntity().getMoraleState() != this.Const.MoraleState.Fleeing)
+					{
+						if (tile.getEntity().isAlliedWith(this))
+						{
+							head_count_gap += this.Math.pow(this.Const.EL_PlayerNPC.EL_Morale.HeadCount.Factor1, tile.getEntity().m.EL_RankLevel - this.m.EL_RankLevel);
+						}
+						else
+						{
+							head_count_gap -= this.Math.pow(this.Const.EL_PlayerNPC.EL_Morale.HeadCount.Factor1, tile.getEntity().m.EL_RankLevel - this.m.EL_RankLevel);
+							threatBonus = threatBonus + tile.getEntity().getCurrentProperties().Threat;
+						}
+					}
+				}
+			}
+			local head_count_bouns = 0;
+
+			if(head_count_gap > 0) {
+				head_count_bouns = this.Const.EL_PlayerNPC.EL_Morale.HeadCount.Factor3 * this.Math.pow(head_count_gap, this.Const.EL_PlayerNPC.EL_Morale.HeadCount.Factor2);
+			}
+			else {
+				head_count_bouns = -this.Const.EL_PlayerNPC.EL_Morale.HeadCount.Factor3 * this.Math.pow(-head_count_gap, this.Const.EL_PlayerNPC.EL_Morale.HeadCount.Factor2);
+			}
+
+			if (_change > 0)
+			{
+				if (this.Math.rand(1, 100) > this.Math.minf(95, bravery + _difficulty + head_count_bouns - threatBonus))
+				{
+					if (this.Math.rand(1, 100) > this.m.CurrentProperties.RerollMoraleChance || this.Math.rand(1, 100) > this.Math.minf(95, bravery + _difficulty + head_count_bouns - threatBonus))
+					{
+						return false;
+					}
+				}
+			}
+			else if (_change < 0)
+			{
+				if (this.Math.rand(1, 100) <= this.Math.minf(95, bravery + _difficulty + head_count_bouns - threatBonus))
+				{
+					return false;
+				}
+
+				if (this.Math.rand(1, 100) <= this.m.CurrentProperties.RerollMoraleChance && this.Math.rand(1, 100) <= this.Math.minf(95, bravery + _difficulty + head_count_bouns - threatBonus))
+				{
+					return false;
+				}
+			}
+			else if (this.Math.rand(1, 100) <= this.Math.minf(95, bravery + _difficulty - head_count_bouns - threatBonus))
+			{
+				return true;
+			}
+			else if (this.Math.rand(1, 100) <= this.m.CurrentProperties.RerollMoraleChance && this.Math.rand(1, 100) <= this.Math.minf(95, bravery + _difficulty - head_count_bouns - threatBonus))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+
+			local oldMoraleState = this.m.MoraleState;
+			this.m.MoraleState = this.Math.min(this.Const.MoraleState.Confident, this.Math.max(0, this.m.MoraleState + _change));
+			this.m.FleeingRounds = 0;
+
+			if (this.m.MoraleState == this.Const.MoraleState.Confident && oldMoraleState != this.Const.MoraleState.Confident && ("State" in this.World) && this.World.State != null && this.World.Ambitions.hasActiveAmbition() && this.World.Ambitions.getActiveAmbition().getID() == "ambition.oath_of_camaraderie")
+			{
+				this.World.Statistics.getFlags().increment("OathtakersBrosConfident");
+			}
+
+			if (oldMoraleState == this.Const.MoraleState.Fleeing && this.m.IsActingEachTurn)
+			{
+				this.setZoneOfControl(this.getTile(), this.hasZoneOfControl());
+
+				if (this.isPlayerControlled() || !this.isHiddenToPlayer())
+				{
+					if (_noNewLine)
+					{
+						this.Tactical.EventLog.logEx(this.Const.UI.getColorizedEntityName(this) + " has rallied");
+					}
+					else
+					{
+						this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(this) + " has rallied");
+					}
+				}
+			}
+			else if (this.m.MoraleState == this.Const.MoraleState.Fleeing)
+			{
+				this.setZoneOfControl(this.getTile(), this.hasZoneOfControl());
+				this.m.Skills.removeByID("effects.shieldwall");
+				this.m.Skills.removeByID("effects.spearwall");
+				this.m.Skills.removeByID("effects.riposte");
+				this.m.Skills.removeByID("effects.return_favor");
+				this.m.Skills.removeByID("effects.indomitable");
+			}
+
+			local morale = this.getSprite("morale");
+
+			if (this.Const.MoraleStateBrush[this.m.MoraleState].len() != 0)
+			{
+				if (this.m.MoraleState == this.Const.MoraleState.Confident)
+				{
+					morale.setBrush(this.m.ConfidentMoraleBrush);
+				}
+				else
+				{
+					morale.setBrush(this.Const.MoraleStateBrush[this.m.MoraleState]);
+				}
+
+				morale.Visible = true;
+			}
+			else
+			{
+				morale.Visible = false;
+			}
+
+			if (this.isPlayerControlled() || !this.isHiddenToPlayer())
+			{
+				if (_noNewLine)
+				{
+					this.Tactical.EventLog.logEx(this.Const.UI.getColorizedEntityName(this) + this.Const.MoraleStateEvent[this.m.MoraleState]);
+				}
+				else
+				{
+					this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(this) + this.Const.MoraleStateEvent[this.m.MoraleState]);
+				}
+
+				if (_showIconBeforeMoraleIcon != "")
+				{
+					this.Tactical.spawnIconEffect(_showIconBeforeMoraleIcon, this.getTile(), this.Const.Tactical.Settings.SkillIconOffsetX, this.Const.Tactical.Settings.SkillIconOffsetY, this.Const.Tactical.Settings.SkillIconScale, this.Const.Tactical.Settings.SkillIconFadeInDuration, this.Const.Tactical.Settings.SkillIconStayDuration, this.Const.Tactical.Settings.SkillIconFadeOutDuration, this.Const.Tactical.Settings.SkillIconMovement);
+				}
+
+				if (_change > 0)
+				{
+					this.Tactical.spawnIconEffect(this.Const.Morale.MoraleUpIcon, this.getTile(), this.Const.Tactical.Settings.SkillIconOffsetX, this.Const.Tactical.Settings.SkillIconOffsetY, this.Const.Tactical.Settings.SkillIconScale, this.Const.Tactical.Settings.SkillIconFadeInDuration, this.Const.Tactical.Settings.SkillIconStayDuration, this.Const.Tactical.Settings.SkillIconFadeOutDuration, this.Const.Tactical.Settings.SkillIconMovement);
+				}
+				else
+				{
+					this.Tactical.spawnIconEffect(this.Const.Morale.MoraleDownIcon, this.getTile(), this.Const.Tactical.Settings.SkillIconOffsetX, this.Const.Tactical.Settings.SkillIconOffsetY, this.Const.Tactical.Settings.SkillIconScale, this.Const.Tactical.Settings.SkillIconFadeInDuration, this.Const.Tactical.Settings.SkillIconStayDuration, this.Const.Tactical.Settings.SkillIconFadeOutDuration, this.Const.Tactical.Settings.SkillIconMovement);
+				}
+			}
+
+			this.m.Skills.update();
+			this.setDirty(true);
+
+			if (this.m.MoraleState == this.Const.MoraleState.Fleeing && this.Tactical.TurnSequenceBar.getActiveEntity() != this)
+			{
+				this.Tactical.TurnSequenceBar.pushEntityBack(this.getID());
+			}
+
+			if (this.m.MoraleState == this.Const.MoraleState.Fleeing)
+			{
+				local actors = this.Tactical.Entities.getInstancesOfFaction(this.getFaction());
+
+				if (actors != null)
+				{
+					foreach( a in actors )
+					{
+						if (a.getID() != this.getID())
+						{
+							a.onOtherActorFleeing(this);
+						}
+					}
+				}
+			}
+			return true;
+		}
+
+		o.onDamageReceived = function( _attacker, _skill, _hitInfo )
 		{
 			if (!this.isAlive() || !this.isPlacedOnMap())
 			{
@@ -131,7 +398,7 @@ local gt = getroottable();
 			{
 				dmgMult = dmgMult * (_skill.isRanged() ? p.DamageReceivedRangedMult : p.DamageReceivedMeleeMult);
 			}
-			this.logInfo("dmgMult before " + dmgMult);
+			//this.logInfo("dmgMult before " + dmgMult);
 			if(_attacker.EL_getCombatLevel() > this.EL_getCombatLevel()) {
 				dmgMult *= this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, this.Math.abs(_attacker.EL_getCombatLevel() - this.EL_getCombatLevel()));
 				//this.logInfo("attackEntity combat level extra damage mult" + (this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, this.Math.abs(_user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()))));
@@ -140,8 +407,7 @@ local gt = getroottable();
 				dmgMult /= this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, this.Math.abs(_attacker.EL_getCombatLevel() - this.EL_getCombatLevel()));
 				//this.logInfo("attackEntity combat level decrease damage mult" + (this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, this.Math.abs(_user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()))));
 			}
-			this.logInfo("dmgMult after " + dmgMult);
-
+			//this.logInfo("dmgMult after " + dmgMult);
 
 			_hitInfo.DamageRegular -= p.DamageRegularReduction;
 			_hitInfo.DamageArmor -= p.DamageArmorReduction;
@@ -381,11 +647,18 @@ local gt = getroottable();
 					this.Tactical.EventLog.logEx(this.Const.UI.getColorizedEntityName(this) + "\'s " + this.Const.Strings.BodyPartName[_hitInfo.BodyPart] + " is hit for [b]" + this.Math.floor(damage) + "[/b] damage");
 				}
 
-				if (this.m.MoraleState != this.Const.MoraleState.Ignore && damage >= this.Const.Morale.OnHitMinDamage && this.getCurrentProperties().IsAffectedByLosingHitpoints)
+				local damage_persent = damage / this.getHitpointsMax() * 100;
+
+				if (this.m.MoraleState != this.Const.MoraleState.Ignore && this.getCurrentProperties().IsAffectedByLosingHitpoints)
 				{
-					if (!this.isPlayerControlled() || !this.m.Skills.hasSkill("effects.berserker_mushrooms"))
-					{
-						this.checkMorale(-1, this.Const.Morale.OnHitBaseDifficulty * (1.0 - this.getHitpoints() / this.getHitpointsMax()) - (_attacker != null && _attacker.getID() != this.getID() ? _attacker.getCurrentProperties().ThreatOnHit : 0), this.Const.MoraleCheckType.Default, "", true);
+					while(damage_persent >= this.Const.EL_PlayerNPC.EL_Morale.Hit.PersentPurCheck) {
+						if (!this.isPlayerControlled() || !this.m.Skills.hasSkill("effects.berserker_mushrooms"))
+						{
+							local offset = this.Const.EL_PlayerNPC.EL_Morale.Hit.Factor2 * this.Math.pow(this.getHitpoints() / this.getHitpointsMax() * 100 / this.Const.EL_PlayerNPC.EL_Morale.Hit.Factor1, this.Const.EL_PlayerNPC.EL_Morale.Hit.Factor3);
+							this.checkMorale(-1, offset - (_attacker != null && _attacker.getID() != this.getID() ? _attacker.getCurrentProperties().ThreatOnHit : 0), this.Const.MoraleCheckType.Default, "", true);
+							//this.logInfo("Damaged Recieve checkMorale" + (offset - (_attacker != null && _attacker.getID() != this.getID() ? _attacker.getCurrentProperties().ThreatOnHit : 0)));
+						}
+						damage_persent -= this.Const.EL_PlayerNPC.EL_Morale.Hit.PersentPurCheck;
 					}
 				}
 
@@ -418,6 +691,173 @@ local gt = getroottable();
 			}
 
 			return damage;
+		}
+
+
+		o.onOtherActorDeath = function( _killer, _victim, _skill ) {
+			if (!this.m.IsAlive || this.m.IsDying)
+			{
+				return;
+			}
+
+			if (_victim.getXPValue() <= 1)
+			{
+				return;
+			}
+			local difficulty = this.Const.EL_PlayerNPC.EL_Morale.Death.BaseOffset +
+							   this.Const.EL_PlayerNPC.EL_Morale.Death.RankFactor * (this.EL_getRankLevel() - _victim.EL_getRankLevel()) +
+							   this.Math.pow(this.Const.EL_PlayerNPC.EL_Morale.Death.CombatLevelFactor, this.Math.abs(this.EL_getCombatLevel() - _victim.EL_getCombatLevel())) * (this.EL_getCombatLevel() - _victim.EL_getCombatLevel()) +
+							   this.Math.pow(_victim.getTile().getDistanceTo(this.getTile()), this.Const.EL_PlayerNPC.EL_Morale.Death.DistanceFactor);
+			if (_victim.getFaction() == this.getFaction() && _victim.getCurrentProperties().TargetAttractionMult >= 0.5 && this.getCurrentProperties().IsAffectedByDyingAllies)
+			{
+				this.checkMorale(-1, difficulty, this.Const.MoraleCheckType.Default, "", true);
+				//this.logInfo("Ally death checkMorale" + difficulty);
+			}
+			else if (this.getAlliedFactions().find(_victim.getFaction()) == null)
+			{
+				this.checkMorale(1, -difficulty);
+				//this.logInfo("Enemy death checkMorale" + (-difficulty));
+			}
+		}
+
+		o.onOtherActorFleeing = function( _actor )
+		{
+			if (!this.m.IsAlive || this.m.IsDying)
+			{
+				return;
+			}
+
+			if (this.m.CurrentProperties.IsAffectedByFleeingAllies)
+			{
+				local difficulty = this.Const.EL_PlayerNPC.EL_Morale.Fleeing.BaseOffset +
+								   this.Const.EL_PlayerNPC.EL_Morale.Fleeing.RankFactor * (this.EL_getRankLevel() - _actor.EL_getRankLevel()) +
+								   this.Math.pow(this.Const.EL_PlayerNPC.EL_Morale.Fleeing.CombatLevelFactor, this.Math.abs(this.EL_getCombatLevel() - _actor.EL_getCombatLevel())) * (this.EL_getCombatLevel() - _actor.EL_getCombatLevel()) +
+								   this.Math.pow(_actor.getTile().getDistanceTo(this.getTile()), this.Const.EL_PlayerNPC.EL_Morale.Fleeing.DistanceFactor);
+				if(_actor.isAlliedWith(this)) {
+					this.checkMorale(-1, difficulty);
+					//this.logInfo("Ally fleeing checkMorale" + difficulty);
+				}
+				else {
+					this.checkMorale(1, -difficulty);
+					//this.logInfo("Enemy fleeing checkMorale" + (-difficulty));
+				}
+			}
+		}
+
+		o.onMovementFinish = function( _tile )
+		{
+			this.m.IsMoving = true;
+			this.updateVisibility(_tile, this.m.CurrentProperties.getVision(), this.getFaction());
+
+			if (this.Tactical.TurnSequenceBar.getActiveEntity() != null && this.Tactical.TurnSequenceBar.getActiveEntity().getID() != this.getID())
+			{
+				this.Tactical.TurnSequenceBar.getActiveEntity().updateVisibilityForFaction();
+			}
+
+			this.setZoneOfControl(_tile, this.hasZoneOfControl());
+
+			if (!this.m.IsExertingZoneOfOccupation)
+			{
+				_tile.addZoneOfOccupation(this.getFaction());
+				this.m.IsExertingZoneOfOccupation = true;
+			}
+
+			if (this.Const.Tactical.TerrainEffect[_tile.Type].len() > 0 && !this.m.Skills.hasSkill(this.Const.Tactical.TerrainEffectID[_tile.Type]))
+			{
+				this.m.Skills.add(this.new(this.Const.Tactical.TerrainEffect[_tile.Type]));
+			}
+
+			if (_tile.IsHidingEntity)
+			{
+				this.m.Skills.add(this.new(this.Const.Movement.HiddenStatusEffect));
+			}
+
+			local numOfEnemiesAdjacentToMe = _tile.getZoneOfControlCountOtherThan(this.getAlliedFactions());
+
+			if (this.m.CurrentMovementType == this.Const.Tactical.MovementType.Default)
+			{
+				if (this.m.MoraleState != this.Const.MoraleState.Fleeing)
+				{
+					for( local i = 0; i != 6; i = ++i )
+					{
+						if (!_tile.hasNextTile(i))
+						{
+						}
+						else
+						{
+							local otherTile = _tile.getNextTile(i);
+
+							if (!otherTile.IsOccupiedByActor)
+							{
+							}
+							else
+							{
+								local otherActor = otherTile.getEntity();
+								if(!otherActor.isAlliedWith(this)) {
+									local numEnemies = otherTile.getZoneOfControlCountOtherThan(otherActor.getAlliedFactions());
+									if(otherActor.m.MaxEnemiesThisTurn < numEnemies) {
+										otherActor.m.MaxEnemiesThisTurn = numEnemies;
+									}
+									for(local j = 0; j < 6; ++j) {
+										if (otherTile.hasNextTile(j))
+										{
+											local temp_tile = otherTile.getNextTile(j);
+											if(temp_tile.IsOccupiedByActor) {
+												local temp_actor = temp_tile.getEntity();
+												if (!temp_actor.isAlliedWith(otherActor))
+												{
+													local difficulty = this.Const.EL_PlayerNPC.EL_Morale.Move.BaseOffset +
+																	   this.Const.EL_PlayerNPC.EL_Morale.Move.RankFactor * (otherActor.EL_getRankLevel() - temp_actor.EL_getRankLevel()) +
+																	   this.Math.pow(this.Const.EL_PlayerNPC.EL_Morale.Move.CombatLevelFactor, this.Math.abs(otherActor.EL_getCombatLevel() - temp_actor.EL_getCombatLevel())) * (otherActor.EL_getCombatLevel() - temp_actor.EL_getCombatLevel());
+													otherActor.checkMorale(-1, difficulty);
+													//this.logInfo("Step checkMorale" + difficulty);
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			else if (this.m.CurrentMovementType == this.Const.Tactical.MovementType.Involuntary)
+			{
+				if (this.m.MaxEnemiesThisTurn < numOfEnemiesAdjacentToMe)
+				{
+					local difficulty = 40.0;
+					this.checkMorale(-1, difficulty);
+					//this.logInfo("Involuntary checkMorale" + difficulty);
+				}
+			}
+
+			this.m.CurrentMovementType = this.Const.Tactical.MovementType.Default;
+			this.m.MaxEnemiesThisTurn = this.Math.max(1, numOfEnemiesAdjacentToMe);
+
+			if (this.isPlayerControlled() && this.getMoraleState() > this.Const.MoraleState.Breaking && this.getMoraleState() != this.Const.MoraleState.Ignore && (_tile.SquareCoords.X == 0 || _tile.SquareCoords.Y == 0 || _tile.SquareCoords.X == 31 || _tile.SquareCoords.Y == 31))
+			{
+				local change = this.getMoraleState() - this.Const.MoraleState.Breaking;
+				this.checkMorale(-change, -1000);
+				//this.logInfo("Side checkMorale");
+			}
+
+			if (this.m.IsEmittingMovementSounds && this.Const.Tactical.TerrainMovementSound[_tile.Subtype].len() != 0)
+			{
+				local sound = this.Const.Tactical.TerrainMovementSound[_tile.Subtype][this.Math.rand(0, this.Const.Tactical.TerrainMovementSound[_tile.Subtype].len() - 1)];
+				this.Sound.play("sounds/" + sound.File, sound.Volume * this.Const.Sound.Volume.TacticalMovement * this.Math.rand(90, 100) * 0.01, this.getPos(), sound.Pitch * this.Math.rand(95, 105) * 0.01);
+			}
+
+			this.spawnTerrainDropdownEffect(_tile);
+
+			if (_tile.Properties.Effect != null && _tile.Properties.Effect.IsAppliedOnEnter)
+			{
+				_tile.Properties.Effect.Callback(_tile, this);
+			}
+
+			this.m.Skills.update();
+			this.m.Items.onMovementFinished();
+			this.setDirty(true);
+			this.m.IsMoving = false;
 		}
 
 
@@ -1071,7 +1511,7 @@ local gt = getroottable();
 			else {
 				damage_mult /= this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, defenderProperties.EL_CombatLevel - user.EL_getCombatLevel());
 			}
-			_targetEntity.setFatigue(_targetEntity.getFatigue() + _damage * defenderProperties.FatigueEffectMul * damage_mult);
+			_targetEntity.setFatigue(_targetEntity.getFatigue() + _damage * defenderProperties.FatigueEffectMult * damage_mult);
 
 		}
 
