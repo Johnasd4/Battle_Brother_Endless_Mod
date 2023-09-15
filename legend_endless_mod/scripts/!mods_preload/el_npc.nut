@@ -1075,6 +1075,14 @@ local gt = getroottable();
             this.m.EL_LootEquipmentEssence[_EL_rank] += _EL_num;
 		}
 
+		local onDropLootForPlayer = o.onDropLootForPlayer;
+		o.onDropLootForPlayer = function (_lootTable)
+		{
+            onDropLootForPlayer(_lootTable);
+            this.EL_dropEquipmentEssence(_lootTable);
+		}
+
+
 	});
 
 	::mods_hookExactClass("entity/world/player_party", function(o){
@@ -1086,19 +1094,6 @@ local gt = getroottable();
             this.m.EL_IsPlayer = true;
 		}
 
-
-	});
-
-
-	::mods_hookExactClass("entity/world/party", function(o){
-
-
-		local onDropLootForPlayer = o.onDropLootForPlayer;
-		o.onDropLootForPlayer = function (_lootTable)
-		{
-            onDropLootForPlayer(_lootTable);
-            this.EL_dropEquipmentEssence(_lootTable);
-		}
 
 	});
 
