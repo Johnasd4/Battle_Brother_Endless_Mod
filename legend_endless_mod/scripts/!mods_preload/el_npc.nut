@@ -236,7 +236,6 @@ local gt = getroottable();
             }
         }
 
-
 	});
 
 	::mods_hookClass("entity/world/world_entity", function(o) {
@@ -472,7 +471,7 @@ local gt = getroottable();
             if(strongest_leader_chance * 10 >= this.Math.rand(1, 1000)) {
                 this.m.EL_HaveStrongestLeader = true;
             }
-            this.m.EL_TroopsResourse = this.Math.round(this.World.Assets.m.EL_WorldStrength * this.Math.rand(this.Const.EL_NPC.EL_Troop.Resourse.MinMult, this.Const.EL_NPC.EL_Troop.Resourse.MaxMult) / 100);
+            this.m.EL_TroopsResourse = this.Math.round(this.World.Assets.m.EL_WorldStrength * this.Math.rand(this.Const.EL_NPC.EL_Troop.Resourse.MinMult, this.Const.EL_NPC.EL_Troop.Resourse.MaxBase + world_level * this.Const.EL_NPC.EL_Troop.Resourse.MaxFactor) / 100);
 		}
 
 		o.onSerialize = function( _out )
@@ -1393,7 +1392,6 @@ local gt = getroottable();
         }
 
 	});
-
 
 
     gt.Const.World.Spawn.Unit.EL_EliteChance <- 0;

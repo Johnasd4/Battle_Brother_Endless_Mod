@@ -6,6 +6,14 @@ local gt = getroottable();
 
 	::mods_hookNewObject("items/helmets/legendary/emperors_countenance", function(o){
 
+        local create = o.create;
+        o.create = function()
+        {
+            create();
+            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+        }
+
+
         o.getTooltip = function()
         {
             local result = this.helmet.getTooltip();
@@ -38,6 +46,14 @@ local gt = getroottable();
     });
 
 	::mods_hookNewObject("items/helmets/legendary/ijirok_helmet", function(o){
+
+        local create = o.create;
+        o.create = function()
+        {
+            create();
+            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+        }
+
 
         o.getTooltip = function()
         {
@@ -76,6 +92,14 @@ local gt = getroottable();
     });
 
 	::mods_hookNewObject("items/helmets/legendary/legend_mountain_helmet", function(o){
+
+        local create = o.create;
+        o.create = function()
+        {
+            create();
+            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+        }
+
 
         o.getTooltip = function()
         {
@@ -116,6 +140,14 @@ local gt = getroottable();
 
 
     ::mods_hookNewObject("items/helmets/legendary/mask_of_davkul", function(o){
+
+        local create = o.create;
+        o.create = function()
+        {
+            create();
+            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+        }
+
 
         o.getTooltip = function()
         {

@@ -10,66 +10,95 @@ local gt = getroottable();
         o.onAfterUpdate = function( _properties )
         {
             onAfterUpdate(_properties);
+            if(this.m.Difference > 0) {
+                this.m.Icon = "ui/perks/perk_28.png";
+                this.m.Name = "Banner auras [color=" + this.Const.UI.Color.PositiveValue + "]+" + this.m.Difference + "[/color] Resolve";
+            }
+            else {
+                this.m.Icon = "ui/perks/perk_28_sw.png";
+                this.m.Name = "Banner auras [color=" + this.Const.UI.Color.NegativeValue + "]-" + this.m.Difference + "[/color] Resolve";
+            }
         }
+
+
+        o.getTooltip = function()
+        {
+            local bonus = this.m.Difference;
+            local ret = [
+                {
+                    id = 1,
+                    type = "title",
+                    text = this.getName()
+                },
+                {
+                    id = 2,
+                    type = "description",
+                    text = this.getDescription()
+                }
+            ];
+            if(bonus > 0) {
+                ret.push({
+                    id = 10,
+                    type = "text",
+                    icon = "ui/icons/bravery.png",
+                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + bonus + "[/color] Resolve"
+                });
+            }
+            else {
+                ret.push({
+                    id = 10,
+                    type = "text",
+                    icon = "ui/icons/bravery.png",
+                    text = "[color=" + this.Const.UI.Color.NegativeValue + "]-" + bonus + "[/color] Resolve"
+                });
+            }
+            return ret;
+        }
+
 
         o.getBonus = function( _properties )
         {
-            local actor = this.getContainer().getActor();
-
             if (!actor.isPlacedOnMap() || ("State" in this.Tactical) && this.Tactical.State.isBattleEnded())
             {
                 return 0;
             }
 
-            local myTile = actor.getTile();
-            local allies = this.Tactical.Entities.getInstancesOfFaction(actor.getFaction());
-            local bestBravery = 0;
-
-            foreach( ally in allies )
+            local actor = this.getContainer().getActor();
+            local targets = this.Tactical.Entities.getAllInstances();
+            local bonus = 0;
+            local best_bravery = 0;
+            foreach( tar in targets )
             {
-                if (ally.getID() == actor.getID() || !ally.isPlacedOnMap())
+                foreach( t in tar )
                 {
-                    continue;
-                }
-
-                if (ally.getTile().getDistanceTo(myTile) > 4)
-                {
-                    continue;
-                }
-
-                if (_properties.Bravery * _properties.BraveryMult >= ally.getBravery())
-                {
-                    continue;
-                }
-
-                local citrin = ally.getSkills().getSkillByID("actives.legend_citrinitas_trance");
-
-                if (citrin != null)
-                {
-                    if (citrin.m.IsInTrance)
+                    if (t != null || t.getID() == actor.getID() || t == null || t.isDying() || !t.isAlive())
                     {
-                        if (ally.getBravery() > bestBravery)
-                        {
-                            bestBravery = ally.getBravery();
+                        continue;
+                    }
+                    local citrin = t.getSkills().getSkillByID("actives.legend_citrinitas_trance");
+                    if (citrin != null && citrin.m.IsInTrance && t.isAlliedWith(actor))
+                    {
+                        if(best_bravery < t.getBravery())
+						best_bravery = t.getBravery();
+                    }
+
+                    local banner = t.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+                    if (banner != null && banner.getID() == "weapon.player_banner")
+                    {
+                        local distance = actor.getTile().getDistanceTo(t.getTile());
+                        if(distance <= banner.EL_getRange()) {
+                            if(t.isAlliedWith(actor)) {
+                                bonus += banner.EL_getAllyBonus();
+                            }
+                            else {
+                                bonus -= banner.EL_getEnemyBonus();
+                            }
                         }
                     }
                 }
-
-                if (ally.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand) != null && ally.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand).getID() == "weapon.player_banner")
-                {
-                    if (ally.getBravery() > bestBravery)
-                    {
-                        bestBravery = ally.getBravery();
-                    }
-                }
+                bonus += this.Math.floor(best_bravery * 0.1);
             }
-
-            if (bestBravery != 0)
-            {
-                bestBravery = this.Math.min(bestBravery * 0.1, bestBravery - _properties.Bravery * _properties.BraveryMult);
-            }
-
-            return bestBravery;
+            return bonus;
         }
 	});
 

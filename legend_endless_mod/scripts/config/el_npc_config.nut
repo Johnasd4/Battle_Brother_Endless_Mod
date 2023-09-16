@@ -130,8 +130,9 @@ gt.Const.EL_NPC <- {
         }
 
         Resourse = {
-            MinMult = 70,
-            MaxMult = 130,
+            MinMult = 50,
+            MaxBase = 100,
+            MaxFactor = 1,
         },
 
         BossUnit = [
@@ -644,6 +645,7 @@ gt.Const.EL_NPC <- {
             },
             SelfDestruct = {
                 DamageRate = [0, 0.4, 1],
+                WeaponShieldDamageRate = [0, 0.2, 0.5],
                 DamageDecayRatePurTile = 0.5,
                 MaxDistance = 6
             },
