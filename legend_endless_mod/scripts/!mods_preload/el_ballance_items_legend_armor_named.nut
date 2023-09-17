@@ -8,6 +8,7 @@ local gt = getroottable();
 
         o.getTooltip = function()
         {
+            local result = this.legend_named_armor_upgrade.getTooltip();
             result.push({
                 id = 15,
                 type = "text",
@@ -39,6 +40,7 @@ local gt = getroottable();
 
         o.getTooltip = function()
         {
+            local result = this.legend_named_armor_upgrade.getTooltip();
             result.push({
                 id = 15,
                 type = "text",
@@ -70,6 +72,7 @@ local gt = getroottable();
 
         o.getTooltip = function()
         {
+            local result = this.legend_named_armor_upgrade.getTooltip();
             result.push({
                 id = 15,
                 type = "text",
