@@ -303,7 +303,6 @@ local gt = getroottable();
                             }
                             this.logInfo("push party");
                             local party = this.new("scripts/entity/world/party");
-                            party.getFlags().set("isContractLocation", true);
                             party.setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Arena).getID());
                             //Stop copying troops.
                             party.EL_setTroopsResourse(0);
@@ -1616,7 +1615,6 @@ local gt = getroottable();
                 i = ++i;
             }
             local party = this.new("scripts/entity/world/party");
-            party.getFlags().set("isContractLocation", true);
             party.setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Arena).getID());
             //Stop copying troops.
             party.EL_setTroopsResourse(0);
@@ -2234,7 +2232,6 @@ local gt = getroottable();
                         }
 
                         local ally_party = this.new("scripts/entity/world/party");
-                        ally_party.getFlags().set("isContractLocation", true);
                         ally_party.setFaction(this.Contract.getFaction());
                         p.Parties.push(ally_party);
 
@@ -2257,7 +2254,6 @@ local gt = getroottable();
                         }
 
                         local enemy_party = this.new("scripts/entity/world/party");
-                        enemy_party.getFlags().set("isContractLocation", true);
                         enemy_party.setFaction(this.Flags.get("EnemyNobleHouse"));
                         p.Parties.push(enemy_party);
 
@@ -2610,7 +2606,6 @@ local gt = getroottable();
                             ];
 
                             local party = this.new("scripts/entity/world/party");
-                            party.getFlags().set("isContractLocation", true);
                             party.setFaction(this.Const.Faction.Enemy);
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Mercenaries, 100 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Const.Faction.Enemy);
@@ -2729,7 +2724,6 @@ local gt = getroottable();
                                 "banner_noble_11"
                             ];
                             local party = this.new("scripts/entity/world/party");
-                            party.getFlags().set("isContractLocation", true);
                             party.setFaction(this.Const.Faction.Enemy);
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Peasants, 80 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Const.Faction.Enemy);
@@ -3383,6 +3377,356 @@ local gt = getroottable();
 
     });
 
+	::mods_hookExactClass("contracts/contracts/confront_warlord_contract", function(o){
+
+        o.createScreens = function()
+        {
+            this.importScreens(this.Const.Contracts.NegotiationDefault);
+            this.importScreens(this.Const.Contracts.Overview);
+            this.m.Screens.push({
+                ID = "Task",
+                Title = "Negotiations",
+                Text = "[img]gfx/ui/events/event_45.png[/img]{You find %employer% walking through his stables. He runs his hand along the side of one.%SPEECH_ON%Did you know that an orc can break this creature\'s neck through sheer brute strength? I\'ve seen it. I know, because it was my horse that died, its head turned backwards on account of one very angry greenskin.%SPEECH_OFF%Reminiscing is fine and good, but that\'s not why you\'re here. You subtly ask the nobleman to get to the point. He obliges.%SPEECH_ON%Right. The war with the greenskins isn\'t going as well as we\'d like, so I\'ve come to the conclusion that we must kill one of their warlords. Let me be honest with you: an orc that is physically superior to all its shite little brothers is a nightmare in flesh and blood. Best bet to draw him out is to kill as many of his greenskin brothers as you can. I know that sounds rough, but once this is all said and done our odds of winning this damned war will be vastly improved.%SPEECH_OFF% | %employer% welcomes you into his room. He\'s looking rather concernedly at a map.%SPEECH_ON%{My scouts have made reports of a warlord in the area, but we\'re not entirely sure where he is. I have a hunch that if you go out there and cause a lot of problems for these green bastards he just might come out and play. Understand? | We\'ve had reports coming in of an orc warlord roaming the lands. I believe if we can kill him, orc morale will drop and we might just win this damned war yet. Of course, he won\'t be easy to find. You\'ll have to get that big bastard to show himself and I believe the best way to do that is speaking the orcish tongue: killing as much as you can. Of course, kill the greenskins. Don\'t just be indiscriminate about this. | Glad you\'ve come, sellsword, because boy do I have a task for you. We\'ve gotten word that an orc warlord is in the region, but we know not where he is. I want you to go and practice a little bit of orcish diplomacy: kill as many of those green savages as you can and that warlord will for sure make himself known to you. If we can get him out of the picture, this war will be looking a hell of a lot prettier for our side.}%SPEECH_OFF% | %employer% is surrounded by his lieutenants and a very tired looking kid with muddied boots and a sweat slaked face. One of the commanders steps forward and takes you to a side.%SPEECH_ON%We\'ve gotten news of an orc warlord. That kid\'s family paid the price of seeing it with their own eyes. %employer% believes, and I concur with the lord, that if we can kill as many greenskins as possible that we might get this warlord to show himself.%SPEECH_OFF%You lean back and respond.%SPEECH_ON%And lemme guess, you want me to take its head?%SPEECH_OFF%The commander shrugs.%SPEECH_ON%It\'s not so much to ask, is it? My liege is willing to pay a lot of crowns for this job.%SPEECH_OFF% | %employer% sits amongst a pack of conked out dogs. There are pheasant feathers in their maws, fluttering between snoring breaths. The lord waves you in.%SPEECH_ON%Come on in, sellsword. Just got done with a hunt. Coincidentally, I need to send you on one.%SPEECH_OFF%You take a seat. One of the dogs raises its head, huffs, then lowers it back to sleep. You ask what the nobleman wants. He quickly explains while rubbing one of the mutt\'s ears.%SPEECH_ON%I\'ve gotten word that an orc warlord is on the prowl. Where at? I\'ve no idea. But I think you can flush him out. You know just how, right?%SPEECH_OFF%You nod and respond.%SPEECH_ON%Yeah. You keep killing its soldiers until it gets pissed enough to come out and fight you personally. But this is not a cheap request by any means, %employer%.%SPEECH_OFF%The nobleman grins and opens and his hands as if to say, \'let\'s talk business.\' His dog looks up as if to say \'only if that business means you keep scratching my ears.\' | %employer% sits behind a long desk with an even longer map draped over both its ends. One of his scribes whispers into his ear then hurries to you.%SPEECH_ON%My liege has a request. We believe an orc warlord is in the region and, naturally, we want this savage put down. To do this, we...%SPEECH_OFF%You raise your hand and interrupt.%SPEECH_ON%Yeah, I know how to draw it out. We kill as many of these son of a bitches as we can until the big angry green fella comes our way.%SPEECH_OFF%The scribe smiles warmly.%SPEECH_ON%Oh, so you\'ve read the books on this tactic, too? That\'s great!%SPEECH_OFF%Your eyes dim ever so gracefully, but you move on and start asking about the potential pay. | %employer% meets you in his study. He\'s pulling books off the shelves, great plumes of dust trailing after every withdrawal.%SPEECH_ON%Come, have a seat.%SPEECH_OFF%You do and he brings over one of the tomes. He opens it to a page and points at a garish image of an enormous orc.%SPEECH_ON%You know these, yes?%SPEECH_OFF%You nod. It\'s a warlord, the head of an orcish band and the cog around which a whirlwind of violence sputters about the world. The nobleman nods back and continues.%SPEECH_ON%I\'m doing a little bit of research on them as my scouts have brought me sightings of one. Of course, we can never fully keep track of this damned thing. It goes where it pleases, and wherever it goes, it destroys.%SPEECH_OFF%You stop the nobleman and explain to him a simple strategy: if you kill enough of the greenskins, the warlord will take offense, or perhaps be emboldened by the challenge, no one really knows, and it will come out to fight. %employer% smiles.%SPEECH_ON%You see, sellsword, this is why I like you. You know your shite. Of course, I think it\'s safe to assume this sort of thing isn\'t easy to do. The pay for it will be more than up to par.%SPEECH_OFF% | %employer% is poring over a mound of scrolls his scribe is bringing in. He keeps shaking his head.%SPEECH_ON%None of these say how we find it! If we can\'t reliably find it, how can we reliably kill it? This is simple math! I thought you knew math!%SPEECH_OFF%The scribe ducks away, sniffling and staring at the floor as he hurries out of the room. You ask what the problem is. %employer% sighs and states that an orc warlord is in the region but they know not how to stop it. You laugh and answer.%SPEECH_ON%That\'s easy: you speak their language. You kill as many of those bastards as you can until that warlord is forced to come out and see you personally. Orcs love violence, they are born into it and probably even bred by it. Of course, actually killing the warlord isn\'t particularly easy...%SPEECH_OFF%%employer% leans forward and tents his fingers.%SPEECH_ON%Yes, of course not, but you do sound like the man for the job. And this job could truly swing this damned war in our favor. Let\'s talk business.%SPEECH_OFF% | You find %employer% stalking through his garden. He seems particularly taken to the plant stalks.%SPEECH_ON%It\'s odd, isn\'t it? Here we have these things which are so green, yet those greenskin bastards are green, too, and I don\'t think they\'ve eaten a goddam vegetable in all their lives.%SPEECH_OFF%You want to say this is a pretty stupid observation, but hold your tongue. Instead, you ask what\'s the issue with the greenskins as that does seem to be the implied problem. %employer% nods.%SPEECH_ON%Right, of course. My scouts have spotted a warlord in the region. The problem is, we don\'t know where it is or where it goes. The scouts can\'t really stick with it for long or else they\'ll get killed for hopefully obvious reasons. I believe killing this warlord would help move us one step closer to ending this damned war, but I\'ve not a clue on how to do this, do you?%SPEECH_OFF%You nod and respond.%SPEECH_ON%What has you wanting to kill the warlord, the fact he\'s killing your people, right? So what would get him to personally want to kill us? You kill as many of his bastards as you can.%SPEECH_OFF%The nobleman claps and tosses you a bright red tomato.%SPEECH_ON%That right there is good thinking, mercenary. Let\'s talk business!%SPEECH_OFF% | You find %employer% and his commanders standing around a map. They pivot toward you as you enter the room like a bunch of hawks spotting a rabbit. The nobleman welcomes you in.%SPEECH_ON%Hello there, sellsword, we\'re a little on edge. Our scouts have reported an orc warlord is roaming the region as we speak. The problem is we\'re not entirely sure where it\'s going or how to find it. My commanders believe if we kill as many greenskins as possible, the warlord will show itself and then we can kill it. Do you think you\'re up to this task? If so, let\'s talk business.%SPEECH_OFF% | You step into %employer%\'s room to find him consulting with a group of scribes. They\'re visibly shaking, pinching their beady necklaces and squirming around. One of them points at you.%SPEECH_ON%Perhaps he has an idea?%SPEECH_OFF%The others scoff, but you ask what the problem is. %employer% explains that there is an orc warlord roaming the lands, but they\'re having issues tracking it. You nod dutifully then explain a very simple solution.%SPEECH_ON%Kill as many greenskins as you can and the warlord, but the prideful nature of the beast, will come out to fight you. Or, in this case, come out to fight... me?%SPEECH_OFF%%employer% nods.%SPEECH_ON%You\'ve got a good head on your shoulders, sellsword. Let\'s talk business.%SPEECH_OFF% | %employer% stands with his commanders over some maps.%SPEECH_ON%We\'ve got a hell of a task for you, sellsword. Our scouts have spotted a warlord roaming the region and we need you to kill as many greenskins as you can to draw it out of the woodwork. If we can take that warlord\'s head, we\'ll be much closer to ending this damned war.%SPEECH_OFF% | When you enter %employer%\'s room, he asks if you know anything about hunting orc warlords. You shrug and answer.%SPEECH_ON%They respond to the language of violence. So if you want to talk to one, you gotta kill a lot of its fellow orcs. That\'s the one way to get it to come out and play, so to speak.%SPEECH_OFF%The nobleman nods, understandingly. He slides a paper across his desk.%SPEECH_ON%Then I might have something for you. We\'ve become aware of an orc warlord in our region, but are having a hard time tracking it down. I want you to draw it out and kill it. If we can manage this, our odds of winning this war against those green savages will increase ten fold!%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                ShowEmployer = true,
+                ShowDifficulty = true,
+                Options = [
+                    {
+                        Text = "{I trust you\'ll pay amply for this. | Everything can be done, if the pay is right. | Convince me with jingling coin.}",
+                        function getResult()
+                        {
+                            return "Negotiation";
+                        }
+
+                    },
+                    {
+                        Text = "{This isn\'t worth it. | We\'re needed elsewhere.}",
+                        function getResult()
+                        {
+                            this.World.Contracts.removeContract(this.Contract);
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                }
+
+            });
+            this.m.Screens.push({
+                ID = "ClosingIn",
+                Title = "Along the way...",
+                Text = "[img]gfx/ui/events/event_46.png[/img]{A cairn of humanly skulls freshly removed. %randombrother% stares at the totem of anguished faces and shakes his own head.%SPEECH_ON%You suppose they consider this art? Like did one of them savages take a step back and said, Yeah, that looks good.%SPEECH_OFF%You\'re not sure. You very much hope that humans are not the brush and canvas for the greenskins. | You come across a field of slaughtered farm animals. Entrails have been run down the farm\'s corrugated soils like some sanguinary irrigation. Either a farmer horribly misread the weather, or this is a sure sign of the orcs being close. | Dead bodies. Some cleaved in twain, others rather peaceful with but a few darts pocking their backs. Both forms of finality are a sure sign of greenskins being close. | You come to an abandoned greenskin encampment. There\'s a goblin with its head crushed. Perhaps it got into a fight with a much larger, stronger orc. Some ghastly shape is sitting over a spit. You just hope it\'s not what you think it is. %randombrother% points at the embers crackling beneath the meal.%SPEECH_ON%This is fresh. They aren\'t far off, sir.%SPEECH_OFF% | You come to a barn with its doors creaking open and shut in a pungent wind. %randombrother% peaks inside, then quickly bolts back with a hand to his nose.%SPEECH_ON%Yeah, the greenskins have been here.%SPEECH_OFF%Sparing yourself a look into the barn, you tell the men to prepare for a battle because it is surely coming. | You find a dead orc with a dead goblin splayed across its back. Pushing both bodies over, you find a dead farmer beneath. %randombrother% nods.%SPEECH_ON%Well, he gave a hell of a fight. A shame we couldn\'t have gotten here sooner.%SPEECH_OFF%You point to a running of fresh tracks in the mud.%SPEECH_ON%He was outnumbered and the rest of them aren\'t far off. Tell the men to prepare for battle.%SPEECH_OFF% | You come across a man wrapped in heavy chains and, apparently, squeezed to death by them. His purpled and crushed body chinks and chimes as the chains swing and twist. %randombrother% cuts the body down. The corpse spews dark blood from its mouth and the sellsword jumps away.%SPEECH_ON%Hell, this guy\'s fresh! Whoever did this ain\'t far off!%SPEECH_OFF%You point at tracks in the mud and tell him this is no doubt the work of greenskins and, indeed, they are very close by. | You find a bag made of flesh in the road. Inside it are human ears, tanned and stiff with holes to run keychains through. %randombrother% gags. You inform the men that the greenskins aren\'t far off. No doubt a battle is coming! | You come across the remains of a hovel. Embers crackle in the blackened remains. %randombrother% finds a couple of skeletons, noting that they are missing half their bodies. Seeing some deep tracks in the ashen mud, you inform the men to ready themselves as greenskins are no doubt close by. | You find a man sobbing by the road. He\'s sitting cross-legged, body bobbing forward and back. When you get near, he twists his head around, eyeless and noseless and with the lips cut away.%SPEECH_ON%No more! Please, no more!%SPEECH_OFF%He falls to his side and starts convulsing and then he is still. %randombrother% pokes around the body then stands up, shaking his head.%SPEECH_ON%Greenskins?%SPEECH_OFF%You point at the deep tracks in the mud and nod. | You come across a woman wailing over a corpse. She is dripping blood and gore, and the body beneath her knees has had its head completely caved in. You crouch beside her. She glances at you and moans. You ask who or what did this. The woman clears her throat and answers.%SPEECH_ON%Greenskins. Big ones. Small ones. They laughed as they did it. Their clubs went up, down, over and over, and in between they would not stop laughing.%SPEECH_OFF% | You find a horse dead beside the path with its stomach turned out into the trail. Its rib cage is still pouring a fresh drip. %randombrother% notes that the heart, liver, and other gourmet segments are missing. You point at big and small footprints tracking blood further up the path.%SPEECH_ON%Goblins and orcs.%SPEECH_OFF%And they\'re not far off. You order the %companyname% properly prepare itself for a fight.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Be on your guard!",
+                        function getResult()
+                        {
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "MadeADent",
+                Title = "After the battle...",
+                Text = "[img]gfx/ui/events/event_81.png[/img]{With this many greenskins dead, it seems only a matter of time until their warlord comes out to play. | You\'ve left a trail of dead greenskins. Their warlord will catch wind of you real soon. | The greenskins\' warlord is surely hearing stories of its warriors being cut down by now. He\'s no doubt getting a scent of you. | If you were the greenskins\' warlord, you\'d probably be readying to hunt down the bastard cutting down your troops. Keep these killings up and you\'ll no doubt see how similarly you and that savage think. | A savage understands violence, and you\'ve surely left a trail of gory teachings all over the region. If the warlord is a learning creature, it\'ll no doubt be heading for you real soon. | By more wrathful estimations, the orc warlord is for sure angered as fark against some wayward human making a mess of his plans. You should expect that savage sooner or later. Most likely the former. | With this many orc and goblin killings, it is only a matter of time until their head master personally comes after you. | If orcs speak the language of violence, then you\'ve been penning a real love letter up and down the region. Surely the orc warlord will be in a requiting mood. | If violence is the orcish language for love, then you\'ve been standing in their warlord\'s yard throwing a lot of rocks through the window trying to get its attention. But, instead of rocks, it\'s the limbs and heads of its soldiers. That brute will be sure to respond any day now. | You\'ve left a long trail of dead greenskins no doubt sure to attract the attention of their warlord. | Business is good for the buzzards: you\'ve cut a path of dead greenskins and it seems likely that, any day now, their warlord will come and see for himself what you are up to. | Killing greenskins like you\'ve been doing is a surefire way to get an orc warlord\'s attention - and that heat is rising. | If things keep going according to plan, that is to say the unimpeded slaughter of green savages, then surely it is only a matter of time until an orc warlord comes to see you personally. | A stampede could hardly make more noise than you have this past week. If you keep it up with slaying greenskins left and right, it is but a matter of time until their warlord shows up. | You have a feeling that somewhere in this region is a very, very mad orc warlord staring at a crude drawing of your face. | You like to think you\'ve generated \'wanted\' posters of yourself within the greenskin circles. A stick figure of a man with a price beneath it. Wanted Dead or Very Dead. Problem is you\'ll keep killing all who come your way until the orc warlord himself makes an appearance - and you got the feeling that will be happening real soon. | Surely by now the greenskins are sharing stories of you around their campfires. Some damned human terrorizing their ranks. And you\'ve little doubt an orc warlord would hear those stories and feel compelled to see for himself if what they say are true... | Keep killing greenskins like this and their warlord will be sure to come around. | You\'re treading dangerous waters now. With this many greenskins slain, the orc warlord is sure to be coming sooner or later. | You\'ve got a strong inclination that the orc warlord is going to be coming around real soon. Might have something to do with you killing all his soldiers. Just a hunch. | You\'ve killed little greenskins and big greenskins. Now, it\'s time to kill the biggest of them all: a warlord. That savage has gotta be footing around here somewhere... | You\'ve made war on the greenskins and for that their warlord is sure to appear sooner or later. | Greenskins dying left and right. At some point their warlord is going to realize that it ain\'t because of natural causes. Once he figures it out, he\'ll be coming for you double time.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "{Victory! | Damn greenskins.}",
+                        function getResult()
+                        {
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "FinalConfrontation1",
+                Title = "Along the way...",
+                Text = "[img]gfx/ui/events/event_81.png[/img]{You\'re hearing a lot of rumors from countryfolk that an orcish warlord is amassing his soldiers and heading your way. If these rumors are true, you should prepare as best you can. | Well, there\'s a lot of buzz about an orc warlord marching through the region. It just so happens to be heading your way - which makes you think your plan has worked! The %companyname% should prepare itself for one hell of a fight. | Word has it that the orc warlord is heading your way! Prepare the %companyname% as they are in for one hell of a fight! | Every peasant you pass seems to be carrying the same rumor: there\'s an orc warlord coming your way! This is most likely not a coincidence and the %companyname% should prepare itself accordingly. | Well, the news on the wind is that that the %companyname% is the target of an orc warlord marching with a small army. It appears your plan has worked. The company should prepare for the incredible battle coming its way! | It seems that every peasant you pass has a story to tell and they\'re all the same: an orc warlord has amassed a small army and just coincidentally happens to be heading your way. The %companyname% should prepare itself for a hell of a fight! | A little old lady comes rushing to you. She explains that everyone is talking about an orc warlord that is heading your way. You\'re not sure if it\'s true, but given your purpose these past days it is certainly far too coincidental. The %companyname% should prepare for battle. | Well, the %companyname% should prepare itself or a battle. Everybody you pass is telling you the same story: an orc warlord has amassed a small army and is heading your way! | It appears the killings have worked: news has it that an orc warlord and his army is heading your way to take care of the company personally. The %companyname% should prepare itself for a fight! | A small kid approaches you. He glances at the %companyname%\'s sigil and then at you. He smiles.%SPEECH_ON%I think y\'all need help.%SPEECH_OFF%That might be true, but it sounds strange coming from the kid. You ask him why and he responds.%SPEECH_ON%My father said a big mean orc is going to kill you all. He said traders have been talking about it allllllll day!%SPEECH_OFF%Hmmm, if true it means the strategy has paid off and the %companyname% should prepare for battle. You thank the kid. He shrugs.%SPEECH_ON%I just saved your life and all I get is a thanks? You people!%SPEECH_OFF%The kid spits and walks off kicking rocks.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "We need to be ready for this.",
+                        function getResult()
+                        {
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                    local playerTile = this.World.State.getPlayer().getTile();
+                    local nearest_orcs = this.World.FactionManager.getFactionOfType(this.Const.FactionType.Orcs).getNearestSettlement(playerTile);
+                    local tile = this.Contract.getTileToSpawnLocation(playerTile, 9, 15);
+                    local party = this.World.FactionManager.getFaction(nearest_orcs.getFaction()).spawnEntity(tile, "Greenskin Horde", false, this.Const.World.Spawn.GreenskinHorde, 130 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult());
+                    party.getSprite("banner").setBrush(nearest_orcs.getBanner());
+                    party.getSprite("body").setBrush("figure_orc_05");
+                    party.setDescription("A horde of greenskins led by a fearsome orc warlord.");
+                    party.setFootprintType(this.Const.World.FootprintsType.Orcs);
+                    this.Contract.m.UnitsSpawned.push(party);
+                    local hasWarlord = false;
+
+                    foreach( t in party.getTroops() )
+                    {
+                        if (t.ID == this.Const.EntityType.OrcWarlord)
+                        {
+                            hasWarlord = true;
+                            break;
+                        }
+                    }
+
+                    if (!hasWarlord)
+                    {
+                        this.Const.World.Common.addTroop(party, {
+                            Type = this.Const.World.Spawn.Troops.OrcWarlord
+                        }, false);
+                    }
+
+                    party.getLoot().ArmorParts = this.Math.rand(0, 35);
+                    party.getLoot().Ammo = this.Math.rand(0, 10);
+                    party.addToInventory("supplies/strange_meat_item");
+                    party.addToInventory("supplies/strange_meat_item");
+                    party.addToInventory("supplies/strange_meat_item");
+                    party.addToInventory("supplies/strange_meat_item");
+                    this.Contract.m.Destination = this.WeakTableRef(party);
+                    party.setAttackableByAI(false);
+                    local c = party.getController();
+                    c.getBehavior(this.Const.World.AI.Behavior.ID.Flee).setEnabled(false);
+                    local intercept = this.new("scripts/ai/world/orders/intercept_order");
+                    intercept.setTarget(this.World.State.getPlayer());
+                    c.addOrder(intercept);
+                    this.Contract.setState("Running_Warlord");
+                }
+
+            });
+            this.m.Screens.push({
+                ID = "FinalConfrontation2",
+                Title = "As you approach...",
+                Text = "[img]gfx/ui/events/event_49.png[/img]{The warlord is at the head of a group of orcs and goblins. He stands tall among the already enormous warriors which surround him. You order your men to take battle lines and no sooner do the words leave your lips does the warlord roar and his warriors come running toward you! | A large formation of orcs and goblins stand before you, their warlord standing at the front. He steps forward and heaves a knapsack toward you. It unfurls midair and opens upon hitting the ground. A dozen heads roll forth like mere marbles from a kid\'s playbag. The warlord raises its weapon high and roars. As the greenskins come your way, you quickly order the %companyname% into formation. | The %companyname% stands before a massed array of greenskins: orcs, goblins, and their warlord, a beastly creature that seems ungainly even among the ranks of its own kind. The enormous warrior raises its weapon and roars, flying birds out of trees and sending critters scuttling into holes.\n\nAs the greenskins begin to charge, you shout to your men to fall into formation and remember who they are: the %companyname%! | You and the %companyname% finally come to stand before the warlord and its army of orcs and goblins. This seems the occasion or a speech, but before you can even say a word the brutish savages start charging! | Finally, the forces of man and beast square off. Across from the %companyname% are a small army of orcs and goblins, a brutish warlord standing at their head. You take out your sword and the warlord raises its weapon. If only for a moment, there is an understanding that it is warriors and only warriors who are going to die today. | The orc warlord and its army are charging! You tell the %companyname% that this is what they\'ve trained and prepared for.%SPEECH_ON%We wouldn\'t be here lest we wanted it!%SPEECH_OFF%The men roar and unsheathe their blades and fall into formation. | As a horde of goblins and orcs charge across the battlefield, an enormous warlord at their head, you tell the men to fear not.%SPEECH_ON%We will have much to celebrate tonight, men!%SPEECH_OFF%They unsheathe their weapons and roar, a deafening scream that echoes back upon the greenskins who look, for the first time, momentarily surprised. | %randombrother% comes to you, pointing out a small army of orcs and goblins charging your way, a warlord at their head.%SPEECH_ON%Not to point out the obvious, but the geenskins are here.%SPEECH_OFF%You nod and shout to your men.%SPEECH_ON%Who else is here?%SPEECH_OFF%The men draw out their weapons.%SPEECH_ON%The %companyname%!%SPEECH_OFF% | You and %randombrother% watch as an orc warlord charges your way, a small army of orcs and goblins behind it. The mercenary laughs.%SPEECH_ON%Well, here they come.%SPEECH_OFF%Nodding, you address the men.%SPEECH_ON%They charge because they are afraid. Because they have no ground to stand on. But we do, because we make our stand right here!%SPEECH_OFF%You plant a banner of the %companyname% into the ground. The sigil waves in the wind as the men roar to life. | You watch as the greenskins charge forward with their warlord leading the way. Drawing out your sword, you yell at the men.%SPEECH_ON%A good night\'s to any man who takes a savage\'s head. Who sleeps well tonight?%SPEECH_OFF%Metals rattle as the men draw their weapons and shout.%SPEECH_ON%The %companyname%!%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "To arms!",
+                        function getResult()
+                        {
+                            this.Contract.getActiveState().onCombatWithWarlord(this.Contract.m.Destination, this.Contract.m.IsPlayerAttacking);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "FinalConfrontation3",
+                Title = "After the battle...",
+                Text = "[img]gfx/ui/events/event_81.png[/img]{The warlord is right where he should be: dead on the ground. You watch as the rest of the greenskins take for the hills. Your employer, %employer%, will be most pleased with the work the %companyname% has put in this day. | The %companyname% has triumphed this day! The orc warlord is dead in the mud and his army scattered to the hills. This is a result your employer, %employer%, will be most pleased with. | Your employer, %employer%, paid for the best and got just that: the orc warlord is dead and its roaming band of savages has fled. With no leader, there\'s little doubt the beasts will scatter and die off on their own. You should go back to the nobleman for your pay. | You have stamped out the greenskins, killing their warlord and sending them running for the hills. Your employer, %employer%, will be most pleased with the %companyname%. | The orc warlord is dead and with no head, the snake of the greenskin gang will shrivel and die. Your employer, %employer%, will be most pleased by this news. | The orc warlord is dead. It looks surprisingly at peace given the amount of terror and chaos it put on this earth. %randombrother% comes up, laughing.%SPEECH_ON%It\'s big, but it dies. I feel like people always forget that last part.%SPEECH_OFF%You nod and tell the men to prepare a return to %employer% at %townname%. | The warlord is dead at your feet, right where he should be. The %companyname% has earned its payday from %employer%. All that\'s left is to return to the nobleman and give him the news. | %employer% probably didn\'t believe in you. He probably didn\'t foresee this moment where you, a mercenary captain, stands over a dead orc warlord. But that\'s where you are this day, because the %companyname% is not to be trifled with. Time to go back to that nobleman and get your payday. | The orc warlord is dead and its army scattered. You take a look around and yell to your men.%SPEECH_ON%Men, my friend wants to kill his worst enemy, who should he call upon?%SPEECH_OFF%They raise their fists.%SPEECH_ON%The %companyname%!%SPEECH_OFF%You laugh and continue.%SPEECH_ON%An old woman wants us to kill all the rats in her attic, who should she call upon?%SPEECH_OFF%The men, quieter this time.%SPEECH_ON%The %companyname%?%SPEECH_OFF%You grin widely and continue.%SPEECH_ON%If a dainty man is scared of a spider on his wall, who should he call upon?%SPEECH_OFF%%randombrother% spits.%SPEECH_ON%Let\'s just get back to %townname% and %employer% already!%SPEECH_OFF% | You watch as the greenskins scatter like rats. %randombrother% looks ready to give chase, but you stop him.%SPEECH_ON%Let them run.%SPEECH_OFF%The mercenary shakes his head.%SPEECH_ON%But they\'ll speak of us! They know who we are.%SPEECH_OFF%You grin widely and clap the man on the shoulder.%SPEECH_ON%Exactly. C\'mon, let\'s head on back to %townname% and %employer%.%SPEECH_OFF% | You walk through the mounds of the dead, coming to stand before the slain orc warlord. The flies are already upon him. %randombrother% stands beside you, looking down at the beast.%SPEECH_ON%He wasn\'t so bad. I mean, okay, yeah he was pretty scary. A little on the gonna give me nightmares side of things, but all in all, not too bad.%SPEECH_OFF%You smile and clap the man on the shoulder.%SPEECH_ON%I hope one day you\'ll be able to scare you grandchildren with stories of it.%SPEECH_OFF% | The battlefield has settled. The dead are in the places they spent their whole lives getting to. The greenskins are out running for the hills. And the %companyname% is cheering in victory. %employer% will be most pleased with this series of events. | The %companyname% stands triumphant over the greenskin savages. You look down upon the orc warlord, taking into consideration that a lot of things had to die just so... it could die. A strange world with strange rules, but this is simply how it is.\n\n%employer% will be pleased and paying you a lot - and the world of the coin is the world you understand best. | You and %randombrother% look at the orc warlord\'s corpse. Flies are already busying themselves on its tongue, farking one another and spreading their plague. The mercenary looks at you and laughs.%SPEECH_ON%Is that the end you see for yourself, a bunch of insects doing the business on your goddam face?%SPEECH_OFF%You shrug and answer.%SPEECH_ON%It\'s a long ways away from dying while wrapped in a blanket and surrounded by family, that\'s for sure.%SPEECH_OFF%You slap the sellsword on the chest.%SPEECH_ON%C\'mon, enough of that talk. Let\'s get back to %employer% and get our pay.%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "{The %companyname% prevailed! | Victory!}",
+                        function getResult()
+                        {
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                    this.Contract.setState("Return");
+                }
+
+            });
+            this.m.Screens.push({
+                ID = "Berserkers1",
+                Title = "Along the way...",
+                Text = "[img]gfx/ui/events/event_93.png[/img]While on the path, %randombrother% suddenly straightens up and tells everyone to get quiet. You crouch low and crabwalk to him. He points through some bushes.%SPEECH_ON%There. Trouble. Big, fat trouble.%SPEECH_OFF%You stare through the bushes to see a camp of orc berserkers. They\'ve got a small fire going with a spit of spinning meat. Nearby are a cluster of cages, each one holding a whining dog. You watch as one of the greenskins opens a cage and yanks a dog out. He drags it kicking and screaming toward the fire and holds it over the flames.\n\n The mercenary glances at you.%SPEECH_ON%What should we do, sir?%SPEECH_OFF%",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "We\'re at war and every battle counts. To arms!",
+                        function getResult()
+                        {
+                            local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos(), true);
+                            p.CombatID = "Berserkers";
+                            p.Music = this.Const.Music.OrcsTracks;
+                            p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                            p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                            local party = this.new("scripts/entity/world/party");
+                            party.setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Orcs).getID());
+                            p.Parties.push(party);
+                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.BerserkersOnly, 80 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Orcs).getID());
+                            foreach(troop in party.getTroops()) {
+                                p.Entities.push(troop);
+                            }
+                            this.World.Contracts.startScriptedCombat(p, false, true, true);
+                            return 0;
+                        }
+
+                    },
+                    {
+                        Text = "This isn\'t our fight.",
+                        function getResult()
+                        {
+                            return "Berserkers2";
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Berserkers2",
+                Title = "Along the way...",
+                Text = "[img]gfx/ui/events/event_93.png[/img]This isn\'t your fight nor would it ever be. You have the men swing around the encampment, quietly avoiding what could very easily be a devastating fight with a group of berserkers. The howls of dogs seem to chase you away and linger with a few of the men long after you\'ve left the place.",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Keep your heads on straight, men.",
+                        function getResult()
+                        {
+                            this.Flags.set("IsBerserkers", false);
+                            this.Flags.set("IsBerserkersDone", false);
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                    local brothers = this.World.getPlayerRoster().getAll();
+
+                    foreach( bro in brothers )
+                    {
+                        if (bro.getBackground().getID() == "background.houndmaster" || bro.getBackground().getID() == "background.legend_muladi")
+                        {
+                            bro.worsenMood(1.0, "You didn\'t help wardogs being eaten by orcs");
+
+                            if (bro.getMoodState() < this.Const.MoodState.Neutral)
+                            {
+                                this.List.push({
+                                    id = 10,
+                                    icon = this.Const.MoodStateIcon[bro.getMoodState()],
+                                    text = bro.getName() + this.Const.MoodStateEvent[bro.getMoodState()]
+                                });
+                            }
+                        }
+                    }
+                }
+
+            });
+            this.m.Screens.push({
+                ID = "Berserkers3",
+                Title = "After the battle...",
+                Text = "[img]gfx/ui/events/event_32.png[/img]The fight over, you take a good look around the berserkers\' encampment. Each of the cages is home to a shriveled, cornered dog. When you open one of the cages, the dog sprints out, yelping and yapping as it darts over the hills and is gone, just like that. Most of the other mutts follow suit. Two, however, remain. They follow you around as you inspect the rest of the encampment. %randombrother% notes that they\'re war dogs.%SPEECH_ON%Look at the size of \'em. Big, burly, nasty farks. Their owners must\'ve been killed by the orcs and now, well, they\'ve reason to trust us. Welcome to the company, little buddies.%SPEECH_OFF%",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Good work, men.",
+                        function getResult()
+                        {
+                            this.Flags.set("IsBerserkers", false);
+                            this.Flags.set("IsBerserkersDone", false);
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                    local item = this.new("scripts/items/accessory/wardog_item");
+                    this.World.Assets.getStash().add(item);
+                    this.List.push({
+                        id = 10,
+                        icon = "ui/items/" + item.getIcon(),
+                        text = "You gain " + item.getName()
+                    });
+                    item = this.new("scripts/items/accessory/wardog_item");
+                    this.World.Assets.getStash().add(item);
+                    this.List.push({
+                        id = 10,
+                        icon = "ui/items/" + item.getIcon(),
+                        text = "You gain " + item.getName()
+                    });
+                }
+
+            });
+            this.m.Screens.push({
+                ID = "Berserkers4",
+                Title = "After the battle...",
+                Text = "[img]gfx/ui/events/event_32.png[/img]With the last of the berserkers slain, you start in on their camp. You find the burnt bones of dogs strewn about the campfire. The meat has been picked clean and a collection of heads was teetering like some sickly cairn. %randombrother% goes about opening the cages. All the dogs, the very second they have a gap, sprint out and run away. The mercenary manages to snag one, but it yelps and goes limp, dying from sheer panic and fear. The rest of the camp has nothing of value aside from disappointment and piles of orc shite.",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "We still did good here.",
+                        function getResult()
+                        {
+                            this.Flags.set("IsBerserkers", false);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Success1",
+                Title = "On your return...",
+                Text = "[img]gfx/ui/events/event_04.png[/img]{You find %employer% talking to his generals. He turns to you with a smile and arms open.%SPEECH_ON%Well, you did it, sellsword. I gotta admit, I didn\'t think you could. Funny business, killing orcs.%SPEECH_OFF%It wasn\'t especially funny, but you nod anyway. The nobleman goes and gets a satchel of %reward_completion% crowns and hands it to you personally.%SPEECH_ON%Job well done.%SPEECH_OFF% | %employer% is found in bed with a few women. His guard stands at the door, shrugging with a \'you said let him in\' look on his face. The nobleman waves at you.%SPEECH_ON%I\'m a bit busy, but I understand that you have been successful in all your... ehem, endeavors.%SPEECH_OFF%He snaps his fingers and one of the women slides out of the blankets. She daintily crosses the cold stone floor to pick up a satchel and carry it over to you. %employer% speaks again.%SPEECH_ON%%reward_completion% crowns, was it? I think that\'s some pretty pay for what you have done. I hear killing an orc warlord isn\'t exactly easy business.%SPEECH_OFF%The woman stares deep into your eyes as she hands the money over.%SPEECH_ON%You killed an orc warlord? That\'s so brave...%SPEECH_OFF%You nod and the lithe lady twists on her toes. The nobleman snaps his fingers again and she returns to his bed.%SPEECH_ON%Careful, mercenary.%SPEECH_OFF% | A guard takes you to a gardening %employer%. He snips at the vegetables and drops them into a basket held by a servant.%SPEECH_ON%Judging by your not being dead, my deductive skills tells me you were successful in killing the orc warlord.%SPEECH_OFF%You respond.%SPEECH_ON%It wasn\'t easy.%SPEECH_OFF%The nobleman nods, staring at the dirt, then continues clipping off a series of tomatoes.%SPEECH_ON%The guard standing yonder will have your pay. %reward_completion% crowns as we agreed upon. I\'m very busy right now, but you should know that I and the people of this town owe you a lot.%SPEECH_OFF%And by \'a lot\' he just means %reward_completion% crowns, apparently. | %employer% welcomes you into his room.%SPEECH_ON%My little birds have been chirping a lot these days, telling me stories of a sellsword that slew an orc warlord and scattered his army. And I thought to myself, hey, I think I know that guy.%SPEECH_OFF%The nobleman grins and hands over a satchel of %reward_completion% crowns.%SPEECH_ON%Good work, mercenary.%SPEECH_OFF% | %employer% greets you with a satchel of %reward_completion% crowns.%SPEECH_ON%My spies have already told me everything I need to know. You are the man to trust, sellsword.%SPEECH_OFF% | When you enter %employer%\'s room you find the nobleman listening to the whispers of one of his scribes. Seeing you, the man bolts upright.%SPEECH_ON%Speak of the devil and he will come. You are the talk of the town, sellsword. Killing an orc warlord and scattering its army? Well, I\'d say that\'s worth the %reward_completion% crowns we agreed upon.%SPEECH_OFF% | %employer% is staring dutifully at a map.%SPEECH_ON%I\'m gonna have to redraw some of this thank to you - and I mean that in the good way. Killing that orc warlord will allow us to rebuild from the ashes it had sown over these lands.%SPEECH_OFF%You nod, but subtly ask about the pay. The nobleman smiles.%SPEECH_ON%%reward_completion% crowns, was it? Also, you should at least take a moment to let the accolades come in, sellsword. The money isn\'t going nowhere, but the pride you feel now will one day fade.%SPEECH_OFF%You disagree. That money is going to fade its way into a pint of good mead. | %employer% is pacing his room while generals stand by the wayside in almost dutiful silence. You ask what the problem is and the man bolts upright.%SPEECH_ON%By the old gods on a fly\'s ass, I didn\'t think you\'d make it.%SPEECH_OFF%You ignore that soaring vote of confidence and inform the nobleman of all that you\'ve done. He nods repeatedly then takes out a satchel of %reward_completion% crowns and hands it over.%SPEECH_ON%That is a job well done, mercenary. Well damn done!%SPEECH_OFF% | You find %employer% watching a servant chop wood. Seeing your shadow, the nobleman wheels around.%SPEECH_ON%Ah, the man of the hour! I\'ve already heard so much of what you\'ve done. We\'re actually having a celebration - gotta prep the firewood for cooking and nighttime festivities. I\'d invite you, but this is for the highborn only, I\'m sure you understand.%SPEECH_OFF%You shrug and respond.%SPEECH_ON%I\'d understand a lot better if I had the %reward_completion% crowns we agreed upon.%SPEECH_OFF%%employer% laughs and snaps his fingers to a guard who promptly brings your pay over. | %employer% is found talking to the captain of another mercenary band. He\'s a frail leader, probably just getting his start. But upon seeing you, the nobleman quickly dismisses him and welcomes you.%SPEECH_ON%Ah hell, it is good seeing you, mercenary! Things were about to get a little desperate around here.%SPEECH_OFF%You remark that the captain you just saw would be most unfit to handle any job, much less that of hunting an orc warlord. The nobleman hands you a satchel of %reward_completion% crowns and responds.%SPEECH_ON%Look, let\'s just agree that you\'ve done good this day. We can finally start rebuilding what that damned orc savage destroyed and that\'s what matters.%SPEECH_OFF%The crowns in your hand are what matters, but you agree to no longer dawdle on the point.}",
+                Image = "",
+                Characters = [],
+                List = [],
+                ShowEmployer = true,
+                Options = [
+                    {
+                        Text = "Crowns well deserved.",
+                        function getResult()
+                        {
+                            this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractSuccess);
+                            this.World.Assets.addMoney(this.Contract.m.Payment.getOnCompletion());
+                            this.World.FactionManager.getFaction(this.Contract.getFaction()).addPlayerRelation(this.Const.World.Assets.RelationNobleContractSuccess, "Killed a renowned orc warlord");
+                            this.World.Contracts.finishActiveContract();
+
+                            if (this.World.FactionManager.isGreenskinInvasion())
+                            {
+                                this.World.FactionManager.addGreaterEvilStrength(this.Const.Factions.GreaterEvilStrengthOnCriticalContract);
+                            }
+
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                    this.List.push({
+                        id = 10,
+                        icon = "ui/icons/asset_money.png",
+                        text = "You gain [color=" + this.Const.UI.Color.PositiveEventValue + "]" + this.Contract.m.Payment.getOnCompletion() + "[/color] Crowns"
+                    });
+                }
+
+            });
+        }
+
+    });
+
 	::mods_hookExactClass("contracts/contracts/defend_holy_site_contract", function(o){
 
         o.createStates = function()
@@ -3609,16 +3953,18 @@ local gt = getroottable();
                         p.Entities = [];
 
                         local enemy_party = this.new("scripts/entity/world/party");
-                        enemy_party.getFlags().set("isContractLocation", true);
                         enemy_party.setFaction(this.Flags.get("EnemyID"));
                         p.Parties.push(enemy_party);
                         this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Southern, 130 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
+
+                        foreach(troop in enemy_party.getTroops()) {
+                            p.Entities.push(troop);
+                        }
 
 
                         if (this.Flags.get("IsLocalsRecruited"))
                         {
                             local ally_party = this.new("scripts/entity/world/party");
-                            ally_party.getFlags().set("isContractLocation", true);
                             ally_party.setFaction(this.Contract.getFaction());
                             p.Parties.push(ally_party);
                             this.Const.World.Common.addUnitsToCombat(ally_party, this.Const.World.Spawn.PeasantsArmed, 10, this.Contract.getFaction());
@@ -3627,15 +3973,6 @@ local gt = getroottable();
                                 p.Entities.push(troop);
                             }
                         }
-
-
-
-                        foreach(troop in enemy_party.getTroops()) {
-                            p.Entities.push(troop);
-                        }
-
-
-
 
                         this.World.Contracts.startScriptedCombat(p, false, true, true);
                     }
@@ -3649,19 +3986,22 @@ local gt = getroottable();
                         p.Entities = [];
 
                         local enemy_party = this.new("scripts/entity/world/party");
-                        enemy_party.getFlags().set("isContractLocation", true);
                         enemy_party.setFaction(this.Flags.get("EnemyID"));
                         p.Parties.push(enemy_party);
 
                         this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Southern, (this.Flags.get("IsEnemyReinforcements") ? 130 : 100) * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
+
+                        foreach(troop in enemy_party.getTroops()) {
+                            p.Entities.push(troop);
+                        }
                         p.EnemyBanners = [
                             this.World.FactionManager.getFaction(this.Flags.get("EnemyID")).getPartyBanner()
                         ];
 
+
                         if (this.Flags.get("IsLocalsRecruited"))
                         {
                             local ally_party = this.new("scripts/entity/world/party");
-                            ally_party.getFlags().set("isContractLocation", true);
                             ally_party.setFaction(this.Contract.getFaction());
                             p.Parties.push(ally_party);
                             this.Const.World.Common.addUnitsToCombat(ally_party, this.Const.World.Spawn.PeasantsArmed, 50, this.Contract.getFaction());
@@ -3671,9 +4011,6 @@ local gt = getroottable();
                             }
                         }
 
-                        foreach(troop in enemy_party.getTroops()) {
-                            p.Entities.push(troop);
-                        }
                         this.World.Contracts.startScriptedCombat(p, false, true, true);
                     }
                     else
@@ -3696,31 +4033,23 @@ local gt = getroottable();
                             p.AllyBanners = [
                                 this.World.Assets.getBanner()
                             ];
+                            local ally_party = this.new("scripts/entity/world/party");
+                            ally_party.setFaction(this.Contract.getFaction());
 
+                            p.Parties.push(ally_party);
                             if (this.Flags.get("IsAlliedReinforcements"))
                             {
-                                local ally_party = this.new("scripts/entity/world/party");
-                                ally_party.getFlags().set("isContractLocation", true);
-                                ally_party.setFaction(this.Contract.getFaction());
-                                p.Parties.push(ally_party);
                                 this.Const.World.Common.addUnitsToCombat(ally_party, this.Const.World.Spawn.Noble, 50 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Contract.getFaction());
-                                foreach(troop in ally_party.getTroops()) {
-                                    p.Entities.push(troop);
-                                }
                                 p.AllyBanners.push(this.World.FactionManager.getFaction(this.Contract.getFaction()).getPartyBanner());
                             }
 
                             if (this.Flags.get("IsLocalsRecruited"))
                             {
-                                local ally_party = this.new("scripts/entity/world/party");
-                                ally_party.getFlags().set("isContractLocation", true);
-                                ally_party.setFaction(this.Contract.getFaction());
-                                p.Parties.push(ally_party);
                                 this.Const.World.Common.addUnitsToCombat(ally_party, this.Const.World.Spawn.PeasantsArmed, 50, this.Contract.getFaction());
-                                foreach(troop in ally_party.getTroops()) {
-                                    p.Entities.push(troop);
-                                }
                                 p.AllyBanners.push("banner_noble_11");
+                            }
+                            foreach(troop in ally_party.getTroops()) {
+                                p.Entities.push(troop);
                             }
                         }
 
@@ -3784,6 +4113,395 @@ local gt = getroottable();
 
             });
         }
+
+    });
+
+
+	::mods_hookExactClass("contracts/contracts/defend_holy_site_southern_contract", function(o){
+
+        o.createStates = function()
+        {
+            this.m.States.push({
+                ID = "Offer",
+                function start()
+                {
+                    this.Contract.m.BulletpointsObjectives = [
+                        "Move to %holysite% and defend it against northern heathens"
+                    ];
+                    this.Contract.setScreen("Task");
+                }
+
+                function end()
+                {
+                    this.World.Assets.addMoney(this.Contract.m.Payment.getInAdvance());
+                    local r = this.Math.rand(1, 100);
+
+                    if (r <= 25)
+                    {
+                        this.Flags.set("IsAlchemist", true);
+                    }
+
+                    local r = this.Math.rand(1, 100);
+
+                    if (r <= 30)
+                    {
+                        this.Flags.set("IsSallyForth", true);
+                    }
+                    else if (r <= 60)
+                    {
+                        this.Flags.set("IsAlliedSoldiers", true);
+                    }
+
+                    local nobles = this.World.FactionManager.getFactionsOfType(this.Const.FactionType.NobleHouse);
+                    local houses = [];
+
+                    foreach( n in nobles )
+                    {
+                        if (n.getFlags().get("IsHolyWarParticipant"))
+                        {
+                            n.addPlayerRelation(-99.0, "Took sides in the war");
+                            houses.push(n);
+                        }
+                    }
+
+                    this.Contract.m.Destination.setDiscovered(true);
+                    this.World.uncoverFogOfWar(this.Contract.m.Destination.getTile().Pos, 500.0);
+
+                    if (this.Contract.getDifficultyMult() >= 0.95)
+                    {
+                        local f = houses[this.Math.rand(0, houses.len() - 1)];
+                        local candidates = [];
+
+                        foreach( s in f.getSettlements() )
+                        {
+                            if (s.isMilitary())
+                            {
+                                candidates.push(s);
+                            }
+                        }
+
+                        local party = f.spawnEntity(this.Contract.m.Destination.getTile(), candidates[this.Math.rand(0, candidates.len() - 1)].getNameOnly() + " Company", true, this.Const.World.Spawn.Noble, this.Math.rand(100, 150) * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult());
+                        party.getSprite("body").setBrush(party.getSprite("body").getBrush().Name + "_" + f.getBannerString());
+                        party.setDescription("Professional soldiers in service to local lords.");
+                        party.getLoot().Money = this.Math.rand(100, 300);
+                        party.getLoot().ArmorParts = this.Math.rand(10, 35);
+                        party.getLoot().Medicine = this.Math.rand(5, 15);
+                        party.getLoot().Ammo = this.Math.rand(10, 40);
+                        local r = this.Math.rand(1, 4);
+
+                        if (r == 1)
+                        {
+                            party.addToInventory("supplies/bread_item");
+                        }
+                        else if (r == 2)
+                        {
+                            party.addToInventory("supplies/roots_and_berries_item");
+                        }
+                        else if (r == 3)
+                        {
+                            party.addToInventory("supplies/dried_fruits_item");
+                        }
+                        else if (r == 4)
+                        {
+                            party.addToInventory("supplies/ground_grains_item");
+                        }
+
+                        local c = party.getController();
+                        local roam = this.new("scripts/ai/world/orders/roam_order");
+                        roam.setAllTerrainAvailable();
+                        roam.setTerrain(this.Const.World.TerrainType.Ocean, false);
+                        roam.setTerrain(this.Const.World.TerrainType.Shore, false);
+                        roam.setTerrain(this.Const.World.TerrainType.Mountains, false);
+                        roam.setPivot(this.Contract.m.Destination);
+                        roam.setMinRange(4);
+                        roam.setMaxRange(8);
+                        roam.setTime(300.0);
+                    }
+
+                    local entities = this.World.getAllEntitiesAtPos(this.Contract.m.Destination.getPos(), 1.0);
+
+                    foreach( e in entities )
+                    {
+                        if (e.isParty())
+                        {
+                            e.getController().clearOrders();
+                        }
+                    }
+
+                    this.Contract.setScreen("Overview");
+                    this.World.Contracts.setActiveContract(this.Contract);
+                }
+
+            });
+            this.m.States.push({
+                ID = "Running",
+                function start()
+                {
+                    if (this.Contract.m.Destination != null && !this.Contract.m.Destination.isNull())
+                    {
+                        this.Contract.m.Destination.getSprite("selection").Visible = true;
+                    }
+                }
+
+                function update()
+                {
+                    if (this.Flags.get("IsAlchemist") && this.Contract.isPlayerAt(this.Contract.m.Home) && this.World.Assets.getStash().getNumberOfEmptySlots() >= 2)
+                    {
+                        this.Contract.setScreen("Alchemist1");
+                        this.World.Contracts.showActiveContract();
+                    }
+                    else if (this.Contract.isPlayerAt(this.Contract.m.Destination))
+                    {
+                        this.Contract.setScreen("Approaching" + this.Flags.get("DestinationIndex"));
+                        this.World.Contracts.showActiveContract();
+                    }
+                }
+
+            });
+            this.m.States.push({
+                ID = "Running_Defend",
+                function start()
+                {
+                    this.Contract.m.BulletpointsObjectives = [
+                        "Defend %holysite% against northern heathens",
+                        "Destroy or rout enemy regiments in the vicinity",
+                        "Don\'t stray too far away"
+                    ];
+
+                    if (this.Contract.m.Destination != null && !this.Contract.m.Destination.isNull())
+                    {
+                        this.Contract.m.Destination.getSprite("selection").Visible = true;
+                    }
+
+                    if (this.Contract.m.Target != null && !this.Contract.m.Target.isNull())
+                    {
+                        this.Contract.m.Target.setOnCombatWithPlayerCallback(this.onDestinationAttacked.bindenv(this));
+                    }
+                }
+
+                function update()
+                {
+                    if (this.Flags.get("IsFailure") || !this.Contract.isPlayerNear(this.Contract.m.Destination, 700) || !this.World.FactionManager.isAllied(this.Contract.getFaction(), this.Contract.m.Destination.getFaction()))
+                    {
+                        this.Contract.setScreen("Failure");
+                        this.World.Contracts.showActiveContract();
+                    }
+                    else if (this.Flags.get("IsSallyForthNextWave"))
+                    {
+                        this.Contract.setScreen("SallyForth3");
+                        this.World.Contracts.showActiveContract();
+                    }
+                    else if (this.Flags.get("IsVictory"))
+                    {
+                        if (!this.Contract.isEnemyPartyNear(this.Contract.m.Destination, 400.0))
+                        {
+                            this.Contract.setScreen("Victory");
+                            this.World.Contracts.showActiveContract();
+                        }
+                    }
+                    else if (!this.Flags.get("IsTargetDiscovered") && this.Contract.m.Target != null && !this.Contract.m.Target.isNull() && this.Contract.m.Target.isDiscovered())
+                    {
+                        this.Flags.set("IsTargetDiscovered", true);
+                        this.Contract.setScreen("TheEnemyAttacks");
+                        this.World.Contracts.showActiveContract();
+                    }
+                    else if (this.Flags.get("IsArrived") && this.Flags.get("AttackTime") > 0 && this.Time.getVirtualTimeF() >= this.Flags.get("AttackTime"))
+                    {
+                        if (this.Flags.get("IsSallyForth"))
+                        {
+                            this.Contract.setScreen("SallyForth1");
+                            this.World.Contracts.showActiveContract();
+                        }
+                        else if (this.Flags.get("IsAlliedSoldiers"))
+                        {
+                            this.Contract.setScreen("AlliedSoldiers1");
+                            this.World.Contracts.showActiveContract();
+                        }
+                        else
+                        {
+                            this.Flags.set("AttackTime", 0.0);
+                            local party = this.Contract.spawnEnemy();
+                            party.setOnCombatWithPlayerCallback(this.Contract.getActiveState().onDestinationAttacked.bindenv(this));
+                            this.Contract.m.Target = this.WeakTableRef(party);
+                        }
+                    }
+                }
+
+                function onDestinationAttacked( _dest, _isPlayerInitiated = false )
+                {
+                    if (this.Flags.get("IsSallyForthNextWave"))
+                    {
+                        local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos());
+                        p.CombatID = "DefendHolySite";
+                        p.Music = this.Const.Music.NobleTracks;
+                        p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                        p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                        p.Entities = [];
+                        local enemy_party = this.new("scripts/entity/world/party");
+                        enemy_party.setFaction(this.Flags.get("EnemyID"));
+                        p.Parties.push(enemy_party);
+                        this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Noble, 130 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
+                        foreach(troop in enemy_party.getTroops()) {
+                            p.Entities.push(troop);
+                        }
+
+
+                        p.EnemyBanners = [
+                            this.World.FactionManager.getFaction(this.Flags.get("EnemyID")).getPartyBanner()
+                        ];
+
+                        if (this.Flags.get("IsLocalsRecruited"))
+                        {
+                            local ally_party = this.new("scripts/entity/world/party");
+                            ally_party.setFaction(this.Contract.getFaction());
+                            p.Parties.push(ally_party);
+                            this.Const.World.Common.addUnitsToCombat(ally_party, this.Const.World.Spawn.PeasantsSouthern, 10, this.Contract.getFaction());
+                            p.AllyBanners.push("banner_noble_11");
+                            foreach(troop in ally_party.getTroops()) {
+                                p.Entities.push(troop);
+                            }
+                            p.AllyBanners.push("banner_noble_11");
+                        }
+
+                        this.World.Contracts.startScriptedCombat(p, false, true, true);
+                    }
+                    else if (this.Flags.get("IsSallyForth"))
+                    {
+                        local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos());
+                        p.CombatID = "DefendHolySite";
+                        p.Music = this.Const.Music.NobleTracks;
+                        p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                        p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                        p.Entities = [];
+                        local enemy_party = this.new("scripts/entity/world/party");
+                        enemy_party.setFaction(this.Flags.get("EnemyID"));
+                        p.Parties.push(enemy_party);
+                        this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Noble, (this.Flags.get("IsEnemyReinforcements") ? 130 : 100) * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
+                        foreach(troop in enemy_party.getTroops()) {
+                            p.Entities.push(troop);
+                        }
+                        p.EnemyBanners = [
+                            this.World.FactionManager.getFaction(this.Flags.get("EnemyID")).getPartyBanner()
+                        ];
+
+                        if (this.Flags.get("IsLocalsRecruited"))
+                        {
+                            local ally_party = this.new("scripts/entity/world/party");
+                            ally_party.setFaction(this.Contract.getFaction());
+                            p.Parties.push(ally_party);
+                            this.Const.World.Common.addUnitsToCombat(ally_party, this.Const.World.Spawn.PeasantsSouthern, 50, this.Contract.getFaction());
+                            foreach(troop in ally_party.getTroops()) {
+                                p.Entities.push(troop);
+                            }
+                            p.AllyBanners.push("banner_noble_11");
+                        }
+
+                        this.World.Contracts.startScriptedCombat(p, false, true, true);
+                    }
+                    else
+                    {
+                        local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos());
+                        p.LocationTemplate = clone this.Const.Tactical.LocationTemplate;
+                        p.LocationTemplate.OwnedByFaction = this.Const.Faction.Player;
+                        p.CombatID = "DefendHolySite";
+
+                        if (this.Contract.isPlayerAt(this.Contract.m.Destination))
+                        {
+                            p.LocationTemplate.Template[0] = "tactical.southern_ruins";
+                            p.LocationTemplate.Fortification = this.Flags.get("IsPalisadeBuilt") ? this.Const.Tactical.FortificationType.WallsAndPalisade : this.Const.Tactical.FortificationType.Walls;
+                            p.LocationTemplate.CutDownTrees = true;
+                            p.LocationTemplate.ShiftX = -4;
+                            p.Music = this.Const.Music.NobleTracks;
+                            p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.LineForward;
+                            p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.LineBack;
+                            p.AllyBanners = [
+                                this.World.Assets.getBanner()
+                            ];
+                            local ally_party = this.new("scripts/entity/world/party");
+                            ally_party.setFaction(this.Contract.getFaction());
+                            p.Parties.push(ally_party);
+                            if (this.Flags.get("IsAlliedReinforcements"))
+                            {
+                                this.Const.World.Common.addUnitsToCombat(ally_party, this.Const.World.Spawn.Southern, 50 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Contract.getFaction());
+                                p.AllyBanners.push(this.World.FactionManager.getFaction(this.Contract.getFaction()).getPartyBanner());
+                            }
+
+                            if (this.Flags.get("IsLocalsRecruited"))
+                            {
+                                this.Const.World.Common.addUnitsToCombat(ally_party, this.Const.World.Spawn.PeasantsSouthern, 50, this.Contract.getFaction());
+                                p.AllyBanners.push("banner_noble_11");
+                            }
+                            foreach(troop in ally_party.getTroops()) {
+                                p.Entities.push(troop);
+                            }
+                        }
+
+                        this.World.Contracts.startScriptedCombat(p, false, true, true);
+                    }
+                }
+
+                function onCombatVictory( _combatID )
+                {
+                    if (_combatID == "DefendHolySite")
+                    {
+                        if (this.Flags.get("IsSallyForthNextWave"))
+                        {
+                            this.Flags.set("IsSallyForthNextWave", false);
+                            this.Flags.set("IsSallyForth", false);
+                            this.Flags.set("IsVictory", true);
+                        }
+                        else if (this.Flags.get("IsSallyForth"))
+                        {
+                            this.Flags.set("IsSallyForthNextWave", true);
+                        }
+                        else
+                        {
+                            this.Flags.set("IsVictory", true);
+                        }
+                    }
+                }
+
+                function onRetreatedFromCombat( _combatID )
+                {
+                    if (_combatID == "DefendHolySite")
+                    {
+                        this.Flags.set("IsFailure", true);
+                    }
+                }
+
+            });
+            this.m.States.push({
+                ID = "Return",
+                function start()
+                {
+                    this.Contract.m.BulletpointsObjectives = [
+                        "Return to " + this.Contract.m.Home.getName()
+                    ];
+                    this.Contract.m.Home.getSprite("selection").Visible = true;
+
+                    if (this.Contract.m.Destination != null && !this.Contract.m.Destination.isNull())
+                    {
+                        this.Contract.m.Destination.getSprite("selection").Visible = false;
+                    }
+                }
+
+                function update()
+                {
+                    if (this.Contract.isPlayerAt(this.Contract.m.Home))
+                    {
+                        this.Contract.setScreen("Success");
+                        this.World.Contracts.showActiveContract();
+                    }
+                }
+
+            });
+        }
+
+    });
+
+
+	::mods_hookExactClass("contracts/contracts/deliver_item_contract", function(o){
+
         o.createScreens = function()
         {
             this.importScreens(this.Const.Contracts.NegotiationDefault);
@@ -3791,14 +4509,14 @@ local gt = getroottable();
             this.m.Screens.push({
                 ID = "Task",
                 Title = "Negotiations",
-                Text = "[img]gfx/ui/events/event_45.png[/img]{%SPEECH_START%Dune rune bastards.%SPEECH_OFF%This is the first thing you hear upon entering %employer%\'s room. He begrudgingly waves you in.%SPEECH_ON%The war with the South continues, but they\'ve taken it upon themselves to break bonds of unspoken agreements: they\'re moving on %holysite% and I\'ve no means to protect it. I\'m not one to dally on how important the grounds are, but if I were to let it slide the public will undoubtedly clip my nuts. Being that I quite like my balls, I\'ll put %reward% crowns on the table for you to go there and defend %holysite%.%SPEECH_OFF% | You find %employer% trying to talk his way over a throng of peasants. It appears news has arrived that Southern soldiers are approaching %holysite%.%SPEECH_ON%We\'ve unspoken rules that these sacred grounds, they\'re, they\'re... they\'re sacred!%SPEECH_OFF%Seeing you, the nobleman clears a path, announcing you as brave warriors that he beckoned a week ago. When he gets near, however, he shelters his voice in a whisper.%SPEECH_ON%These idiots don\'t need to know you\'re sellswords. Look, the Southerners jammed a stick far up my ass on this one. The savages truly are making a move on %holysite% and I need you to get there and stop them. %reward% crowns should be sufficient for this task, yeah?%SPEECH_OFF%}",
+                Text = "[img]gfx/ui/events/event_112.png[/img]{%employer% shoves a sizeable crate into your hands before he or you even says a word.%SPEECH_ON%Look at that, the cargo I need delivering has already found someone to ship it off! What wonder!%SPEECH_OFF%He drops the theatrics.%SPEECH_ON%I need that taken to %objective% where a man by the name of %recipient% is waiting for it. It may look small, but I\'m willing to pay good crowns to be sure it gets there safe and sound. You interested? Or is it a little too heavy for your arms?%SPEECH_OFF% | You find %employer% closing a box up. He quickly glances up, as though he\'s been caught with his pants down.%SPEECH_ON%Sellsword! Thank you for coming.%SPEECH_OFF%He locks the latches with a few quick snaps. Then he pats the crate a few times, even leans on it as though it needed one more, fat latch.%SPEECH_ON%This here cargo has to be delivered safely to %objective%. A man by the name of %recipient% is waiting for it. I do not believe the task will be easy, as the cargo is rather precious to certain people who\'d go to great lengths to acquire it, which is why I\'m turning to a man of your... experiences. Are you interested in doing this for me?%SPEECH_OFF% | As you enter %employer%\'s room he and one of his servants are nailing a box shut.%SPEECH_ON%Good seeing you, sellsword. One moment, please. No, idiot, hold the nail that way! I know I hit your thumb before, but I won\'t do it again.%SPEECH_OFF%His servant reluctantly holds a nail while the man hammers it home. Finished, he wipes the sweat off his brow and looks to you.%SPEECH_ON%I need this here crate delivered to %objective% about %days% %direction% by road. It\'s going to %recipient%, you know. Him. Alright, maybe you don\'t know him. What I do know is that this may not ordinarily be your line of work, but I\'m willing to pay some serious crowns for you to see it through. That\'s your real business, right? Earning some crowns?%SPEECH_OFF% | %employer% folds his hands together when he sees you.%SPEECH_ON%This might be a strange question, but how interested are you in making a delivery for me?%SPEECH_OFF%You explain that, for the right price, such a journey would be a welcome departure from the usual killing and dying that goes on around you. The man claps his hands together.%SPEECH_ON%Excellent! Unfortunately, I don\'t expect it to be quite like that. It\'s of enough import to garner unsavory attention, which is why I\'m looking to hire sellswords in the first place. It\'s going to %objective%, %days% or so %direction% of here by road, where a man by the name of %recipient% is waiting for it to fall into his hands. So, you see, this won\'t be the \'departure\' you speak of, but it can be a fine payday if you\'re interested.%SPEECH_OFF% | %employer%\'s men are standing around a bit of cargo. Their employer shoos them away when he sees you.%SPEECH_ON%Welcome, welcome. Good seeing you. I\'m in need of armed guards to have this here package delivered to a man by the name of %recipient% in %objective%. I reckon it\'s about %days% of travel for a company as your. How interested would you be in doing that for me?%SPEECH_OFF% | %employer%\'s got his feet up on his table when you enter. He puts his hands behind his head, looking a little too relaxed for your tastes.%SPEECH_ON%Good tidings, captain. What say you take a leave from all that killing and dying.%SPEECH_OFF%He raises an eyebrow at your response, which is precisely none at all.%SPEECH_ON%Huh, I figured you\'d jump on that opportunity. No matter, it was a lie: I need you to take a certain package to %recipient%, a fellow residing in %objective%. This cargo has undoubtedly garnered some ill-intentioned eyes which is why I need your men watching it for me. If you\'re interested, which you should be, let\'s talk numbers.%SPEECH_OFF% | %employer% welcomes you, waving you in.%SPEECH_ON%Very well, now that you\'re here, would you please shut the door behind you?%SPEECH_OFF%One of the man\'s guards pokes his head around the corner. You smile as you slowly shut him out. Turning around, you find %employer% walking toward a window. He stares out as he talks.%SPEECH_ON%I need something... it\'s a, uh, well you don\'t need to know what it is. I need this \'something\' delivered to a fellow called %recipient%. He\'s waiting for it in %objective%. It\'s important that it actually gets there, important enough for an armed escort for %days% of travel, which is why I\'m turning to you and your company. What say you, mercenary?%SPEECH_OFF% | Dim candles barely light the room enough for you to see, it\'s %employer% sitting behind his desk while his shadows dance on the walls by the tune of flickering lights.%SPEECH_ON%Would you lend your swords to me if I paid you good coin? I need {a small chest | something dear to me | something valuable} delivered safely to %recipient% in %objective%, about %days% of travel %direction% of here. Men have killed each other over this, so you must be ready to defend it with your life.%SPEECH_OFF%He takes a pause, measuring your response.%SPEECH_ON%I will write a sealed letter with instructions to pay you as you deliver the item to my contact in %objective%. What say you?%SPEECH_OFF% | A servant bids you to wait for %employer%, who, he says, will be right with you. And so you wait, and wait, and wait. And finally, as you are about to leave for the second time, %employer% throws open the doors and rushes towards you.%SPEECH_ON%Who\'s this, again? The mercenary?%SPEECH_OFF%His assistant nods and %employer% sets on a smile.%SPEECH_ON%Oh most fortuitous to have you in %townname%, good captain!\n\nIt is imperative that some precious commodities of mine reach %objective% as safely and quickly as possible. You are precisely who I need, for no common brigand would dare attack you and your men.\n\nYes, I\'d like to hire you for escort. Make sure the items are delivered to %recipient%, no detours of course. Can we come to an understanding?%SPEECH_OFF%}",
                 Image = "",
                 List = [],
                 ShowEmployer = true,
                 ShowDifficulty = true,
                 Options = [
                     {
-                        Text = "{The %companyname% can help you with this. | Defending against a southern host better pay well. | I\'m interested, go on.}",
+                        Text = "{Let\'s talk money. | How many crowns are we talking about?}",
                         function getResult()
                         {
                             return "Negotiation";
@@ -3806,7 +4524,7 @@ local gt = getroottable();
 
                     },
                     {
-                        Text = "{This isn\'t worth it. | We\'re needed elsewhere. | I won\'t risk the company against southern machines of war.}",
+                        Text = "{Not interested. | Our travels will not take us there for a while. | This is not the kind of work we\'re looking for.}",
                         function getResult()
                         {
                             this.World.Contracts.removeContract(this.Contract);
@@ -3821,276 +4539,27 @@ local gt = getroottable();
 
             });
             this.m.Screens.push({
-                ID = "Approaching1",
-                Title = "As you approach...",
-                Text = "[img]gfx/ui/events/%illustration%.png[/img]{The great caldera has been mostly emptied of its faithful and curious occupants. Even the slightest suggestion of war has dispersed believers back to the shelters of their respective priories. After all, there will be a winner and a loser in the hours to come. A certain level of vigor may entreat the former to overindulging themselves on righteousness...}",
+                ID = "TaskSouthern",
+                Title = "Negotiations",
+                Text = "[img]gfx/ui/events/event_112.png[/img]{One of the Vizier\'s aldermen approaches with a retinue of servants. They\'re laboring a modestly sized crate in your general direction.%SPEECH_ON%Crownling, the Vizier has use for you. Have these servants load the crate into your keeping then take it to %recipient% in %objective%, a good %days% by road to the %direction%.%SPEECH_OFF%The alderman bows.%SPEECH_ON%Though a simple task it may be, the Vizier is willing to pay a plentiful sum for the task\'s completion.%SPEECH_OFF% | You find %employer% awaiting in the foyer. He is listening to a row of merchants, each with their own request or offer, and all the while a scribe at his side makes notations in a ledger which unfurls ever longer across the marbled floor. Seeing you, the Vizier snaps his fingers and a man off to the side approaches.%SPEECH_ON%Crownling, the majesty wishes to make use of your services. Take a crate with this labeling to %recipient% in %objective%, about %days% by road. You will be compensated upon arrival.%SPEECH_OFF% | A man with peacock feathers in a jaunty cap approaches you seemingly out of nowhere. He sidles along with a ledger in hand, though the ledger carries the emblem of one of %townname%\'s Viziers and his guard.%SPEECH_ON%%employer% wishes to employ your services, Crownling. You are to handle a fine material, crated away from your devilish eyes of course, and secret it to %recipient% in %objective%, located %days% by road to the %direction%. Once the material is delivered, you will then be paid at the location upon which you have arrived.%SPEECH_OFF%The man rakes the feathers back and briefly shakes his head.%SPEECH_ON%Do you find this offer congruent with your current financial wishes?%SPEECH_OFF% | You\'re first hailed by a pigeon with a note, the note pointing you to a young boy who then takes you to a servant, the servant guides you through a harem hall of naked women after which you arrive to the room of a wealthy merchant.%SPEECH_ON%Ah, finally, you have arrived. I set out a simple task to my indebted and it takes this long to complete? I\'ll have to look into that.%SPEECH_OFF%The merchant tosses you a ledger and simultaneously falls into a pile of cushions.%SPEECH_ON%I, excuse me, the Vizier needs you to take a crate of goods to %recipient% in %objective%, located %days% on the road to the %direction%. You are not to open said goods, only deliver them. If you open the goods, the Vizier will hear of it. And trust me, Crownling, the Vizier only likes to hear of splendid things. That is why I am here instead of the majesty.%SPEECH_OFF%What a courtesy.}",
                 Image = "",
                 List = [],
+                ShowEmployer = true,
+                ShowDifficulty = true,
                 Options = [
                     {
-                        Text = "We\'ll set up camp here.",
+                        Text = "{Let\'s talk money. | How many crowns are we talking about?}",
                         function getResult()
                         {
-                            return "Preparation1";
-                        }
-
-                    }
-                ],
-                function start()
-                {
-                    this.Flags.set("IsArrived", true);
-                }
-
-            });
-            this.m.Screens.push({
-                ID = "Approaching0",
-                Title = "As you approach...",
-                Text = "[img]gfx/ui/events/%illustration%.png[/img]{The Oracle isn\'t as you last remember it: many of the faithful have departed and the drums of war have come to the ancient temple\'s doorstep. Not that it matters. You\'ve no visions to seek here, no dreams to unwind, only nightmares to provide your enemies.}",
-                Image = "",
-                List = [],
-                Options = [
-                    {
-                        Text = "We\'ll set up camp here.",
-                        function getResult()
-                        {
-                            return "Preparation1";
-                        }
-
-                    }
-                ],
-                function start()
-                {
-                    this.Flags.set("IsArrived", true);
-                }
-
-            });
-            this.m.Screens.push({
-                ID = "Approaching2",
-                Title = "As you approach...",
-                Text = "[img]gfx/ui/events/%illustration%.png[/img]{Ironically, the leveled city which dwells beneath the half-blown mountain finally feels eerily abandoned. Few of the faithful linger, the rest having departed long before the religious strife arrives upon their tent cities and spiritual interloping.}",
-                Image = "",
-                List = [],
-                Options = [
-                    {
-                        Text = "We\'ll set up camp here.",
-                        function getResult()
-                        {
-                            return "Preparation1";
-                        }
-
-                    }
-                ],
-                function start()
-                {
-                    this.Flags.set("IsArrived", true);
-                }
-
-            });
-            this.m.Screens.push({
-                ID = "Preparation1",
-                Title = "At %holysite%",
-                Text = "[img]gfx/ui/events/%illustration%.png[/img]{You believe you have made a modest defense out of what positions %holysite% can give. With what little time remains, there\'s probably at least one serious task you can set the %companyname% to completing. It\'s just a question of what exactly would suit the company best.}",
-                Image = "",
-                List = [],
-                Options = [
-                    {
-                        Text = "Build palisades to further bolster the walls!",
-                        function getResult()
-                        {
-                            return "Preparation2";
+                            return "Negotiation";
                         }
 
                     },
                     {
-                        Text = "Search these grounds for anything that could be of use to us!",
+                        Text = "{Not interested. | Our travels will not take us there for a while. | This is not the kind of work we\'re looking for.}",
                         function getResult()
                         {
-                            return "Preparation3";
-                        }
-
-                    },
-                    {
-                        Text = "Recruit some of the faithful to help us in the defense!",
-                        function getResult()
-                        {
-                            return "Preparation4";
-                        }
-
-                    }
-                ],
-                function start()
-                {
-                    this.Contract.setState("Running_Defend");
-                }
-
-            });
-            this.m.Screens.push({
-                ID = "Preparation2",
-                Title = "At %holysite%",
-                Text = "[img]gfx/ui/events/%illustration%.png[/img]{Looting the holy site itself, which you\'ll tell no one of your doing, and pilfering through the abandoned belongings of the faithful, you manage to scrap together enough wood to reinforce a set of walls that ring a corner of %holysite%. It is in your estimation the best spot for an attacker to come in, and thus the one you\'ll want to defend most.}",
-                Image = "",
-                List = [],
-                Options = [
-                    {
-                        Text = "Now we wait.",
-                        function getResult()
-                        {
-                            this.Flags.set("AttackTime", this.Time.getVirtualTimeF() + this.Math.rand(5, 10));
-                            return 0;
-                        }
-
-                    }
-                ],
-                function start()
-                {
-                    this.Flags.set("IsPalisadeBuilt", true);
-                }
-
-            });
-            this.m.Screens.push({
-                ID = "Preparation3",
-                Title = "At %holysite%",
-                Text = "[img]gfx/ui/events/%illustration%.png[/img]{You have the men scour the area for battle supplies. A litany of items are pilfered and piled. Once the whole of %holysite% has been combed, you and the men spend a few minutes figuring out what would be of most use...}",
-                Image = "",
-                List = [],
-                Options = [
-                    {
-                        Text = "Now we wait.",
-                        function getResult()
-                        {
-                            this.Flags.set("AttackTime", this.Time.getVirtualTimeF() + this.Math.rand(5, 10));
-                            return 0;
-                        }
-
-                    }
-                ],
-                function start()
-                {
-                    for( local i = 0; i < 2; i = i )
-                    {
-                        local r = this.Math.rand(1, 12);
-                        local item;
-
-                        switch(r)
-                        {
-                        case 1:
-                            item = this.new("scripts/items/weapons/oriental/saif");
-                            break;
-
-                        case 2:
-                            item = this.new("scripts/items/tools/throwing_net");
-                            break;
-
-                        case 3:
-                            item = this.new("scripts/items/weapons/oriental/polemace");
-                            break;
-
-                        case 4:
-                            item = this.new("scripts/items/weapons/ancient/broken_ancient_sword");
-                            break;
-
-                        case 5:
-                            item = this.Const.World.Common.pickArmor([
-                                [
-                                    1,
-                                    "ancient/ancient_mail"
-                                ]
-                            ]);
-                            break;
-
-                        case 6:
-                            item = this.new("scripts/items/supplies/ammo_item");
-                            break;
-
-                        case 7:
-                            item = this.new("scripts/items/supplies/armor_parts_item");
-                            break;
-
-                        case 8:
-                            item = this.new("scripts/items/shields/ancient/tower_shield");
-                            break;
-
-                        case 9:
-                            item = this.new("scripts/items/loot/ancient_gold_coins_item");
-                            break;
-
-                        case 10:
-                            item = this.new("scripts/items/loot/silver_bowl_item");
-                            break;
-
-                        case 11:
-                            item = this.new("scripts/items/weapons/wooden_stick");
-                            break;
-
-                        case 12:
-                            local helmet = [
-                                [
-                                    1,
-                                    "oriental/spiked_skull_cap_with_mail"
-                                ]
-                            ];
-                            item = this.Const.World.Common.pickHelmet(helmet);
-                            break;
-                        }
-
-                        if (item.getConditionMax() > 1)
-                        {
-                            item.setCondition(this.Math.max(1, item.getConditionMax() * this.Math.rand(10, 50) * 0.01));
-                        }
-
-                        this.World.Assets.getStash().add(item);
-                        this.List.push({
-                            id = 10,
-                            icon = "ui/items/" + item.getIcon(),
-                            text = "You gain " + item.getName()
-                        });
-                        i = ++i;
-                    }
-
-                    local amount = this.Math.rand(10, 30);
-                    this.World.Assets.addArmorParts(amount);
-                    this.List.push({
-                        id = 10,
-                        icon = "ui/icons/asset_supplies.png",
-                        text = "You gain [color=" + this.Const.UI.Color.PositiveEventValue + "]+" + amount + "[/color] Tools and Supplies."
-                    });
-                }
-
-            });
-            this.m.Screens.push({
-                ID = "Preparation4",
-                Title = "At %holysite%",
-                Text = "[img]gfx/ui/events/%illustration%.png[/img]{What few faithful still linger around the %holysite% must be the most fervid and zealous. Being that you are here representing the north, you have the men pick out a few hardy looking old gods zealots and ask that they fight for their gods. It is a convenient recruiting tool if there ever was one, and they are quick to arm themselves and undergo the shortest of training. You can only hope they are of any use in the actual battle to come.}",
-                Image = "",
-                List = [],
-                Options = [
-                    {
-                        Text = "Now we wait.",
-                        function getResult()
-                        {
-                            this.Flags.set("AttackTime", this.Time.getVirtualTimeF() + this.Math.rand(5, 10));
-                            return 0;
-                        }
-
-                    }
-                ],
-                function start()
-                {
-                    this.Flags.set("IsLocalsRecruited", true);
-                }
-
-            });
-            this.m.Screens.push({
-                ID = "TheEnemyAttacks",
-                Title = "At %holysite%",
-                Text = "[img]gfx/ui/events/event_164.png[/img]{The southerners appear over the horizon. Followers of the Gilded One is an apt description for their armor glints and shines even at great distance. %randombrother% spits and looks over.%SPEECH_ON%They look far too dapper for a buncha dead men. You ever wonder if we just dressed ourselves like a buncha djinn and rode out with all the confidence of little devils them southerners would just up and leave?%SPEECH_OFF%Smiling, you draw out your sword and command the men to battle.}",
-                Image = "",
-                List = [],
-                Options = [
-                    {
-                        Text = "Take formation!",
-                        function getResult()
-                        {
+                            this.World.Contracts.removeContract(this.Contract);
                             return 0;
                         }
 
@@ -4102,344 +4571,475 @@ local gt = getroottable();
 
             });
             this.m.Screens.push({
-                ID = "Quartermaster",
-                Title = "At %townname%",
-                Text = "[img]gfx/ui/events/event_158.png[/img]{Leaving %townname%, you\'re approached by a man flying %employerfaction%\'s banner off the back end of a wagon. He states that he is a quartermaster for your employer and he has a few supplies to offload.%SPEECH_ON%Got a couple of wardogs, nets and throwing spears. I\'ve been told you can have one or the other, but not all as there are plenty of fightin\' men in need around here.%SPEECH_OFF%}",
+                ID = "Mercenaries1",
+                Title = "Along the road...",
+                Text = "[img]gfx/ui/events/event_07.png[/img]{While on the road, a band of well-armed men cross your path. | Marching toward %objective%, a few men interrupt your quiet travels, the clinky-clank of their weapons and armor filling the air as they step into formation. | Your travels, unfortunately, are not to be simple. A number of men have stepped out in front of you, clearly blocking your way. | Some armed and well armored men have come out to make something of a metal impasse. They look as though they intend to make sure you go no farther. | A few of the men come to a stop. You go to the front to figure out what is going on, only to see a line of well-armed men standing in %companyname%\'s way. Well, this should be interesting.} The enemy lieutenant steps forward and pounds his chest with his fist clenched.%SPEECH_ON%{It is us, the %mercband%, that stand before you. Slayers of beasts beyond imagination, the last hope of this godsforsaken land! | The name is %mercband% and we\'re well known throughout this land as splitters of heads, drinkers of kegs and lovers of ladies! | \'Tis the legendary %mercband% standing before you. It is we, saviors of %randomtown% and slayers of the false king! | Behold my proud band, the %mercband%! We, who fought off a hundred orcs to save a city from certain doom. What have you to your name? | You\'re talking to a man of the %mercband%. No common brigand, foul greenskin, bag of coins or skirt ever escaped from us!}%SPEECH_OFF%After the man finishes his posturing and personal pontificating, he points at the cargo you are carrying.%SPEECH_ON%{So now that you realize the danger you are in, why don\'t you go ahead and hand that cargo over? | I hope you realize who you\'ve come to face, pathetic sellsword, so that you may best make sure your men make it to their beds tonight. All you need to do is hand over the cargo and we won\'t have to add you to the history of %mercband%. | Ah, I bet you\'d like to be a part of our history, wouldn\'t you? Well, good news, all you gotta do is not hand over that cargo and we\'ll scribble you in with our swords. Of course, you can escape the scribe\'s pen if you just give us that cargo. | Now, if it isn\'t the %companyname%. As much as I\'d like add you to our list of victories, I\'ll give you a chance here, mercenary to mercenary. All you have to do is hand over that cargo and we\'ll be on our way. How\'s that sound?}%SPEECH_OFF%{Hmm, well it was a bombastic request if nothing else. | Well, the theatrics were pretty entertaining if nothing else. | You don\'t quite understand the need for showmanship, but there\'s little doubt about the seriousness of this new situation you\'ve found yourself in. | While you appreciated the superlatives and hyperbole, there remains the very terse reality that these men do actually mean business.}",
                 Image = "",
-                Banner = "",
                 List = [],
                 Options = [
                     {
-                        Text = "We\'ll take the wardogs.",
+                        Text = "If you want it, come and take it!",
                         function getResult()
                         {
-                            for( local i = 0; i < 3; i = i )
-                            {
-                                local item = this.new("scripts/items/accessory/wardog_item");
-                                this.World.Assets.getStash().add(item);
-                                i = ++i;
+                            local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos());
+                            p.CombatID = "Mercs";
+                            p.Music = this.Const.Music.NobleTracks;
+                            p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                            p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                            local party = this.new("scripts/entity/world/party");
+                            party.setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
+                            p.Parties.push(party);
+                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Mercenaries, 120 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
+                            foreach(troop in party.getTroops()) {
+                                p.Entities.push(troop);
                             }
-
+                            this.World.Contracts.startScriptedCombat(p, false, true, true);
                             return 0;
                         }
 
                     },
                     {
-                        Text = "We\'ll take the nets.",
+                        Text = "It\'s not worth dying over. Take that damn cargo and be gone.",
                         function getResult()
                         {
-                            for( local i = 0; i < 4; i = i )
-                            {
-                                local item = this.new("scripts/items/tools/throwing_net");
-                                this.World.Assets.getStash().add(item);
-                                i = ++i;
-                            }
-
-                            return 0;
+                            return "Mercenaries2";
                         }
 
-                    },
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Mercenaries2",
+                Title = "Along the road...",
+                Text = "[img]gfx/ui/events/event_07.png[/img]{Not wanting a fight, you hand the cargo over. They laugh as they take it off your hands.%SPEECH_ON%Good choice, mercenary. Maybe someday you\'ll be the one doing the threatening.%SPEECH_OFF% | The cargo, whatever it is, isn\'t worth the lives of your men. You hand the crate over and the mercenaries take it. They laugh at you as you leave.%SPEECH_ON%Like charming a whore!%SPEECH_OFF% | This does not seem like the time or place to be sacrificing your men in the name of %employer%\'s delivery service. You hand the cargo over. The mercenaries take it then make their leave, their lieutenant flipping you a crown that spins its way into the mud.%SPEECH_ON%Get yerself a shinebox, kid, this work ain\'t cut out for you.%SPEECH_OFF% | The mercenaries are well armed and you don\'t know if you could sleep at night knowing you spent the lives of your men just for some silly crate carrying the old gods know what. With a nod, you hand the cargo over. The mercenary band gladly takes it from you, their lieutenant pausing to nod back with respect.%SPEECH_ON%A wise choice. Don\'t think I didn\'t make many like it when I was coming up.%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                Options = [
                     {
-                        Text = "We\'ll take the throwing spears.",
+                        Text = "Hrm...",
                         function getResult()
                         {
-                            if (this.Const.DLC.Wildmen)
+                            this.Flags.set("IsMercenaries", false);
+                            this.Flags.set("IsMercenariesDialogTriggered", true);
+
+                            if (this.World.FactionManager.getFaction(this.Contract.m.Destination.getFactions()[0]).getType() == this.Const.FactionType.OrientalCityState)
                             {
-                                for( local i = 0; i < 4; i = i )
-                                {
-                                    local item = this.new("scripts/items/weapons/throwing_spear");
-                                    this.World.Assets.getStash().add(item);
-                                    i = ++i;
-                                }
+                                this.World.FactionManager.getFaction(this.Contract.m.Destination.getFactions()[0]).addPlayerRelation(this.Const.World.Assets.RelationNobleContractFail, "Failed to deliver cargo");
                             }
                             else
                             {
-                                for( local i = 0; i < 4; i = i )
-                                {
-                                    local item = this.new("scripts/items/weapons/javelin");
-                                    this.World.Assets.getStash().add(item);
-                                    i = ++i;
-                                }
+                                this.World.FactionManager.getFaction(this.Contract.m.Destination.getFactions()[0]).addPlayerRelation(this.Const.World.Assets.RelationCivilianContractFail, "Failed to deliver cargo");
                             }
 
-                            return 0;
-                        }
+                            local recipientFaction = this.Contract.m.Destination.getFactionOfType(this.Const.FactionType.Settlement);
 
-                    },
-                    {
-                        Text = "We have all that we need. Save it for the others.",
-                        function getResult()
-                        {
-                            return 0;
-                        }
+                            if (recipientFaction != null)
+                            {
+                                recipientFaction.addPlayerRelation(this.Const.World.Assets.RelationCivilianContractFail * 0.5);
+                            }
 
-                    }
-                ],
-                function start()
-                {
-                    this.Flags.set("IsQuartermaster", false);
-                    this.Banner = this.World.FactionManager.getFaction(this.Contract.getFaction()).getUIBanner();
-                }
-
-            });
-            this.m.Screens.push({
-                ID = "SallyForth1",
-                Title = "At %holysite%",
-                Text = "[img]gfx/ui/events/event_164.png[/img]{The southerners appear, but it is not in full force, and nor is it necessarily just their scouts. It seems they have spent little time keeping cohesion and have instead spread themselves out on the approach. If you were to sally forth and attack now, you\'d likely catch them with their drawers down.}",
-                Image = "",
-                List = [],
-                Options = [
-                    {
-                        Text = "We need to seize this opportunity. Prepare the men to sally forth!",
-                        function getResult()
-                        {
-                            return this.Math.rand(1, 100) <= 50 ? "SallyForth2" : "SallyForth4";
-                        }
-
-                    },
-                    {
-                        Text = "We have a defensible position here. We stay put.",
-                        function getResult()
-                        {
-                            return "SallyForth5";
-                        }
-
-                    }
-                ],
-                function start()
-                {
-                }
-
-            });
-            this.m.Screens.push({
-                ID = "SallyForth2",
-                Title = "At %holysite%",
-                Text = "[img]gfx/ui/events/event_50.png[/img]{%SPEECH_START%Good call.%SPEECH_OFF%The words of %randombrother% follow your order. Set to a fast pace, the %companyname% sets out to catch the southerners before they muster their full strength. You cross the field and before you know it are upon them. They\'re still offloading gear and equipment and at the very sight of you a few camp followers up and run for their lives. The rest of the soldiers hurry to collect their weapons.\n\nJudging by his shrill voice, the only commander in the area isn\'t trained for this sort of thing as his voice cracks with every barked order as some semblance of a formation tries to take shape. Wasting no more time, you charge into the fray!}",
-                Image = "",
-                List = [],
-                Options = [
-                    {
-                        Text = "Charge!",
-                        function getResult()
-                        {
-                            this.Contract.getActiveState().onDestinationAttacked(this.Contract.m.Destination);
-                            return 0;
-                        }
-
-                    }
-                ],
-                function start()
-                {
-                }
-
-            });
-            this.m.Screens.push({
-                ID = "SallyForth3",
-                Title = "At %holysite%",
-                Text = "[img]gfx/ui/events/event_90.png[/img]{You finish off the last of the soldiers, the look of surprise still grimly shaped across their faces.%SPEECH_ON%Captain, got the rest coming.%SPEECH_OFF%%randombrother% says, returning from a quick gaze of the horizon. Nodding, you order the men to get ready. This time, the southerners are making an approach in good formation, though it briefly waivers at the sight of you and the dead littered about your feet. Their banner rises into the sky and the southerners are revivified, charging forth with anger and energy. Shouts of \'for the Gilder!\' ripple through the air. You point your sword forward.%SPEECH_ON%Admirable in their faith they might be, no god shall find them here, only the %companyname% awaits and we\'ve but one prayer to offer.%SPEECH_OFF%The men roar as the battle hastens upon them.}",
-                Image = "",
-                List = [],
-                Options = [
-                    {
-                        Text = "Rally! Rally! Get ready!",
-                        function getResult()
-                        {
-                            this.Contract.getActiveState().onDestinationAttacked(this.Contract.m.Destination);
-                            return 0;
-                        }
-
-                    }
-                ],
-                function start()
-                {
-                }
-
-            });
-            this.m.Screens.push({
-                ID = "SallyForth4",
-                Title = "At %holysite%",
-                Text = "[img]gfx/ui/events/event_164.png[/img]{%SPEECH_START%Good call.%SPEECH_OFF%The words of %randombrother% follow your order. Set to a fast pace, the %companyname% sets out to catch the southerners before they muster their full strength. You cross the field and before you know it are upon them. They\'re still offloading gear and equipment and at the very sight of you a few camp followers up and run for their lives. The rest of the soldiers hurry to collect their weapons. Just when you think you have the upper hand, another contingent arrives from the side.%SPEECH_ON%The Gilder smiles only upon those who deserve His gleam, Crownling!%SPEECH_OFF%The southern commander shouts mockingly. With the defenses too far, and the enemy too close, there\'s only one place to go now. You raise your sword and ready the men to charge.}",
-                Image = "",
-                List = [],
-                Options = [
-                    {
-                        Text = "We\'ll fight our way out of this!",
-                        function getResult()
-                        {
-                            this.Contract.getActiveState().onDestinationAttacked(this.Contract.m.Destination);
-                            return 0;
-                        }
-
-                    }
-                ],
-                function start()
-                {
-                    this.Flags.set("IsEnemyReinforcements", true);
-                }
-
-            });
-            this.m.Screens.push({
-                ID = "SallyForth5",
-                Title = "At %holysite%",
-                Text = "[img]gfx/ui/events/%illustration%.png[/img]{You figure it\'s best to man the defenses. It might let an opportunity slip, but it is in part the safest of all available options.%SPEECH_ON%Shoulda went out. We missed something there on that one, captain.%SPEECH_OFF%Looking over you find %randombrother% shrugging. You tell him to mind his tongue, or he\'ll be missing something himself.}",
-                Image = "",
-                List = [],
-                Options = [
-                    {
-                        Text = "Everyone, get ready. They\'ll soon attack in full force.",
-                        function getResult()
-                        {
-                            this.Flags.set("IsSallyForth", false);
-                            this.Flags.set("AttackTime", 1.0);
-                            return 0;
-                        }
-
-                    }
-                ],
-                function start()
-                {
-                }
-
-            });
-            this.m.Screens.push({
-                ID = "AlliedSoldiers1",
-                Title = "At %holysite%",
-                Text = "[img]gfx/ui/events/event_78.png[/img]{As you await the southerners, a troop of northerners arrives. Their lieutenant tips his helmet.%SPEECH_ON%When they told me to come out this way to aide a sellsword, I said they can go shit that command out their arse. But you know what convinced me? Knowing it was the %companyname%. You\'ve reputation, and I\'ve men to spare for this fight.%SPEECH_OFF%Judging by their equipment, they\'d be best used as a screening force to perhaps draw away elements of the oncoming enemy force. That, or perhaps it\'d be best to just fold them into the company, bolstering your ranks where you\'re already strongest.}",
-                Image = "",
-                Banner = "",
-                List = [],
-                Options = [
-                    {
-                        Text = "I need you and your men to flank their gunners, lieutenant.",
-                        function getResult()
-                        {
-                            this.Flags.set("IsEnemyLuredAway", true);
-                            this.Flags.set("AttackTime", this.Time.getVirtualTimeF() + this.Math.rand(5, 10));
-                            return "AlliedSoldiers2";
-                        }
-
-                    },
-                    {
-                        Text = "I need you and your men to lure away some of their infantry, lieutenant.",
-                        function getResult()
-                        {
-                            this.Flags.set("IsEnemyLuredAway", true);
-                            this.Flags.set("AttackTime", this.Time.getVirtualTimeF() + this.Math.rand(5, 10));
-                            return "AlliedSoldiers2";
-                        }
-
-                    },
-                    {
-                        Text = "I need you and your men to fight at our side, lieutenant.",
-                        function getResult()
-                        {
-                            this.Flags.set("IsAlliedReinforcements", true);
-                            this.Flags.set("AttackTime", this.Time.getVirtualTimeF() + this.Math.rand(5, 10));
-                            return "AlliedSoldiers3";
-                        }
-
-                    }
-                ],
-                function start()
-                {
-                    this.Banner = this.World.FactionManager.getFaction(this.Contract.getFaction()).getUIBanner();
-                    this.Flags.set("IsAlliedSoldiers", false);
-                }
-
-            });
-            this.m.Screens.push({
-                ID = "AlliedSoldiers2",
-                Title = "At %holysite%",
-                Text = "[img]gfx/ui/events/event_78.png[/img]{You take out a long-glass and scope the battlefield ahead. The northern troop charge toward the enemy in a chevron formation, and then split off at the wings to run off in separate directions. It seems a suicidal charge, but much to your surprise they\'ve made a tasty retreat the southerners can\'t quite resist. You watch as the Gilder\'s followers don\'t keep their eye on the shine, instead depleting their ranks to chase down the feint.%SPEECH_ON%Worked like a charm, captain.%SPEECH_OFF%%randombrother% says.}",
-                Image = "",
-                Banner = "",
-                List = [],
-                Options = [
-                    {
-                        Text = "Very good.",
-                        function getResult()
-                        {
-                            this.Flags.set("IsAlliedSoldiers", false);
-                            this.Flags.set("AttackTime", this.Time.getVirtualTimeF() + this.Math.rand(5, 10));
-                            return 0;
-                        }
-
-                    }
-                ],
-                function start()
-                {
-                    this.Banner = this.World.FactionManager.getFaction(this.Contract.getFaction()).getUIBanner();
-                }
-
-            });
-            this.m.Screens.push({
-                ID = "AlliedSoldiers3",
-                Title = "At %holysite%",
-                Text = "[img]gfx/ui/events/event_78.png[/img]{You\'d rather the soldiers stay with you. The lieutenant nods.%SPEECH_ON%Yessir, captain, uh, what\'s your name?%SPEECH_OFF%Ignoring him, you tell %randombrother% to accommodate the northern troop to the defenses.%SPEECH_ON%Make sure they know it well, but not too well.%SPEECH_OFF%The sellsword leans in and whispers.%SPEECH_ON%Ah, if they\'re spies we don\'t want to give them too much detail, aye captain?%SPEECH_OFF%You lean in and whisper back.%SPEECH_ON%No. Put them where we are weakest. Hopefully they all eat shit on the frontline and then we\'ll have their belongings.%SPEECH_OFF%}",
-                Image = "",
-                List = [],
-                Banner = "",
-                Options = [
-                    {
-                        Text = "Now we wait again.",
-                        function getResult()
-                        {
-                            this.Flags.set("IsAlliedSoldiers", false);
-                            this.Flags.set("AttackTime", this.Time.getVirtualTimeF() + this.Math.rand(5, 10));
-                            return 0;
-                        }
-
-                    }
-                ],
-                function start()
-                {
-                    this.Banner = this.World.FactionManager.getFaction(this.Contract.getFaction()).getUIBanner();
-                }
-
-            });
-            this.m.Screens.push({
-                ID = "Victory",
-                Title = "After the battle...",
-                Text = "[img]gfx/ui/events/event_168.png[/img]{The last southern soldier looks up at you.%SPEECH_ON%By the Gilder\'s gleam, I am ready.%SPEECH_OFF%You draw out your sword.%SPEECH_ON%And of what use was that gleam if I\'m the one here, and you there?%SPEECH_OFF%Before he can respond, you put the blade through his neck. You tell the sellswords to loot the remains and ready a return to %employer%. | You find the last of the southern soldiers perched against a rock, his arm slung across its top as though it were a drinking buddy. He spits blood and nods.%SPEECH_ON%Perhaps my path was not so gilded as I thought.%SPEECH_OFF%Nodding back, you tell him that he can ask the Gilder about that himself real soon here.%SPEECH_ON%And I\'ll ask Him about you, too.%SPEECH_OFF%He responds. You pause for a moment on that comment, then run him through with the sword. The rest of the remains will need to be looted. %employer% should be happy to see you. | The battle is over and the dead litter the field. You stand over the last breathing southerner. He stares over your shoulder at the sky. When you ask if he thinks his \'Gilder\' is watching, the man smiles.%SPEECH_ON%He\'s watching us both.%SPEECH_OFF%You nod and then end his life. With a sharp whistle, you get the %companyname%\'s attention. Your orders are simple: loot what\'s worthwhile, and then ready to return to %employer%.}",
-                Image = "",
-                Characters = [],
-                List = [],
-                Options = [
-                    {
-                        Text = "Victory!",
-                        function getResult()
-                        {
-                            this.Contract.spawnAlly();
-                            this.Contract.setState("Return");
-                            return 0;
-                        }
-
-                    }
-                ],
-                function start()
-                {
-                }
-
-            });
-            this.m.Screens.push({
-                ID = "Failure",
-                Title = "After the battle...",
-                Text = "[img]gfx/ui/events/%illustration%.png[/img]{The southerners raise their banners over %holysite%.%SPEECH_ON%I suppose that\'s it, then.%SPEECH_OFF%%randombrother% says. If by \'it\' you mean there\'s no reason to see %employer% about the end of the contract then yes, that is indeed it.}",
-                Image = "",
-                Characters = [],
-                List = [],
-                Options = [
-                    {
-                        Text = "Disaster!",
-                        function getResult()
-                        {
-                            this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractFail);
-                            this.World.FactionManager.getFaction(this.Contract.getFaction()).addPlayerRelation(this.Const.World.Assets.RelationCivilianContractFail, "Failed to defend a holy site");
                             this.World.Contracts.finishActiveContract(true);
                             return 0;
                         }
 
                     }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "BountyHunters1",
+                Title = "Along the road...",
+                Text = "[img]gfx/ui/events/event_07.png[/img]{While on the roads, you come across a band of bounty hunters. Their prisoner calls out to you, his voice cracking as he begs for you to save him. He claims he is an innocent man. The bounty hunters tell you to fark off and die. | You\'re traveling the roads when you come across a group of well-armed bounty hunters. They\'re yanking along a man shackled from head to toe.%SPEECH_ON%You want no part of this fellow.%SPEECH_OFF%One man says, striking his prisoner in the back of the shins. The man yelps and crawls to you on bloodied hands and knees.%SPEECH_ON%They\'re all liars! These men will kill me even though I\'ve done nothing wrong! Save me, sirs, I beg of you!%SPEECH_OFF% | You come across a large band of bounty hunters, your two groups oddly mirroring one another, though your purposes in this world clearly diverge. They\'re transporting a prisoner who has been chained and his mouth stuffed with a rag. The man yells out to you, almost pleading, choking on his words until he\'s red in the face. One of the bounty hunters spits.%SPEECH_ON%Pay him no mind, stranger, and get on down the road. Best there be no trouble between men such as we.%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "This isn\'t any of our business.",
+                        function getResult()
+                        {
+                            return 0;
+                        }
+
+                    },
+                    {
+                        Text = "Perhaps we can buy the prisoner?",
+                        function getResult()
+                        {
+                            return this.Math.rand(1, 100) <= 50 ? "BountyHunters1" : "BountyHunters1";
+                        }
+
+                    },
+                    {
+                        Text = "If you want it, come and take it!",
+                        function getResult()
+                        {
+                            local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos());
+                            p.CombatID = "Mercs";
+                            p.Music = this.Const.Music.NobleTracks;
+                            p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                            p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                            local party = this.new("scripts/entity/world/party");
+                            party.setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
+                            p.Parties.push(party);
+                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Mercenaries, 140 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
+                            foreach(troop in party.getTroops()) {
+                                p.Entities.push(troop);
+                            }
+                            this.World.Contracts.startScriptedCombat(p, false, true, true);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Thieves1",
+                Title = "During camp...",
+                Text = "[img]gfx/ui/events/event_05.png[/img]{You raise up from a nap and turn over, looking for the package as though it were a lover. But she\'s not there and neither is the cargo. Quickly getting to your feet, you begin ordering the men to attention. %randombrother% runs up and says he\'s tracked some footprints leading off from the site. | While taking a rest, you hear a disturbance somewhere in the camp. You rush to it to find %randombrother% face down in the dirt, rubbing the back of his head.%SPEECH_ON%Sorry sir, I was taking a piss, and then they went on ahead and took it out of me. Also, they stole the package.%SPEECH_OFF%You tell him to repeat that last part.%SPEECH_ON%Goddamn thieves have stolen the goods!%SPEECH_OFF%Time to track those bastards down and get it back. | Naturally, it wouldn\'t be an ordinary trip. No, this world is too shite for that to be the case. It appears thieves have taken off with the cargo. Luckily, they\'ve left a hell of a lot of evidence, namely footprints and dragmarks from toting the package around. They should be easy to find... | Just once you\'d like to have a nice walk from one town to the next. Instead, your agreement with %employer% has attracted trouble once again. Thieves, somehow, managed to sneak into the camp and make off with the cargo. The good news is that they didn\'t manage to sneak back out: you\'ve found their footprints and they won\'t be hard to follow.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "We follow their tracks!",
+                        function getResult()
+                        {
+                            this.Contract.setState("Running_Thieves");
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Thieves2",
+                Title = "After the battle...",
+                Text = "[img]gfx/ui/events/event_22.png[/img]{Thief blood runs thick. You manage to find your employer\'s goods still in the camp, all locked and safe. He doesn\'t need to know about this little excursion. | Well, everything\'s right where it should be. %employer%\'s cargo was found underneath a thief\'s writhing body. You made sure to kick him off before running him through. Wouldn\'t want to get blood on the package, after all. | Killing off the last of the thieves, you and the men spread out through the brigands\' camp looking for the package. %randombrother% spots it right quick, the container still held in the clutches of a dead fool. The mercenary fumbles with the corpse\'s grasp and, in frustration, simply cuts the arms off the bastard. You retrieve the package and hold it a little closer for the trip going forward. | Staring over the bodies of the felled thieves, you wonder if %employer% needs to know about this. The package looks alright. Some blood and bone on it, but you can rub that right off. | The package\'s a little scuffed, but it\'ll be fine. Alright, there\'s blood all over it and a thief\'s degloved finger is all smashed up into one of the latches. Those issues aside, everything is perfectly fine.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Back where it belongs.",
+                        function getResult()
+                        {
+                            this.Flags.set("IsThieves", false);
+                            this.Flags.set("IsStolenByThieves", false);
+                            this.Contract.setState("Running");
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "EnragingMessage1",
+                Title = "At %objective%",
+                Text = "{The cemetery is layered in fog - that or a thick miasma given off by the dead. Wait... that IS the dead! To arms! | You eye a tombstone with a mound of soil unearthed at its base. Blots of mud lead away like a crumb trail. There are no shovels... no men... As you follow the lead, you come across a band of undead moaning and groaning... now staring at you with insatiable hunger... | A man lingers deep in the rows of tombstones. He seems to be wavering, as though ready to pass out. %randombrother% comes to your side and shakes his head.%SPEECH_ON%That\'s no man, sir. There\'s undead afoot.%SPEECH_OFF%Just as he finishes talking, the stranger in the distance slowly turns and there in the light reveals he\'s missing half his face. | You come to find many of the graves are emptied. Not just emptied, but unearthed from below. This is not the work of graverobbers...}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "To arms!",
+                        function getResult()
+                        {
+                            this.Contract.getActiveState().onDestinationAttacked(this.Contract.m.Destination);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "EvilArtifact1",
+                Title = "Along the way...",
+                Text = "[img]gfx/ui/events/event_55.png[/img]{While on the move, you notice that something else is moving, too: the cargo. The lid on it is jumping around and there\'s a strange glow emerging from its sides. %randombrother% approaches, looks at it, then looks at you.%SPEECH_ON%Should we open it, sir? Or I can take it and throw it in the closest pond because none of that right there is alright.%SPEECH_OFF%You jab the man and ask if he\'s scared. | Moving along the paths, you begin to hear a low hum emanating from the package %employer% had given you. %randombrother% is standing beside it, poking it with a stick. You slap him back. He explains himself.%SPEECH_ON%Sir, there\'s something that ain\'t right with the cargo we\'re tugging...%SPEECH_OFF%You take a good look at it. There\'s a faint color brimming at the edges of the lid. As far as you know, fire can\'t breathe in such a space, and the only thing else that glows in the dark are the moons and the stars. You worry that curiosity is starting to get the better of you... | The cargo rests in the wagon beside you, jostling about to the tilts and turns of the paths. Suddenly, it begins to hum and you swear you saw the lid float upward for just a second. %randombrother% glances over.%SPEECH_ON%You alright, sir?%SPEECH_OFF%Just as he finishes talking, the lid explodes outward, a swirl of colors, mist, ash, fiery heat and brutish cold. You throw your arms up, shielding yourself, and when you take a peek through your elbows the package is completely still, the lid back on. You exchange a glance with the sellsword, then both of you stare at the cargo. This might be a little more than an ordinary delivery... | A low hum emanates from nearby. Thinking a bee hive nearby, you instinctively duck, only to realize the sound is coming from the cargo %employer% had handed you. The lid atop the container is rattling side to side, jostling the latches and nails that are supposed to keep it there. %randombrother% looks a little frightened.%SPEECH_ON%Let\'s just leave it here. That thing ain\'t right.%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "I want to know what\'s going on.",
+                        function getResult()
+                        {
+                            return "EvilArtifact2";
+                        }
+
+                    },
+                    {
+                        Text = "Leave that thing alone.",
+                        function getResult()
+                        {
+                            this.Flags.set("IsEvilArtifact", false);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "EvilArtifact2",
+                Title = "Along the way...",
+                Text = "[img]gfx/ui/events/event_73.png[/img]{Curiosity gets the best of you. Slowly you start prying at the lid. %randombrother% takes a step back and protests.%SPEECH_ON%I think we should leave it alone, sir. I mean c\'mon, look at it.%SPEECH_OFF%Ignoring him, you tell the men it\'s going to be alright, and then you lift the lid up.\n\n It isn\'t alright. The explosion knocks you off your feet. Horrible shapes and shrieks swirl all around you. The men instinctively arm themselves as the piloted specters spear into the earth. There the ground lifts in mounds, and there, too, the earth begins to groan. You watch as hands shoot forth, dragging decrepit bodies from their pit. The dead live again and surely they mean to add to their ranks! | Against anyone\'s best judgment, you pry the cargo open. At first, there is nothing. It\'s just an empty box. %randombrother% nervously laughs.%SPEECH_ON%Well... I guess that\'s it then.%SPEECH_OFF%But that can\'t be it, can it? Why would %employer% have you delivering an empty container unless -- \n\n You wake up to a ringing slowly fading from your ears. Turning over, you see that the box has completely evaporated, a flurry of snowy sawdust all that remains of it. %randombrother% rushes over, picking you up and dragging you toward the rest of the company. They point, their mouths moving, shouting...\n\n A mob of well-armed men are... shuffling your way? As you get a better sight of them, you realize that they are armed with old wooden shields painted with odd spiritual rites, and their armor is of shapes and sizes you have never seen before, as though they were crafted by men just learning the trade, yet still well learned in what they had learned thus far. These are like ancients... the first men. | %randombrother% shakes his head as you go to pick up the lid. With some effort, it\'s pried open and you quickly step back, expecting the worst. But there\'s nothing. Not even a sound comes out of the box. You take a sword and rattle it around in the empty box, looking for a secret compartment or something. %randombrother% laughs.%SPEECH_ON%Hey, we\'re just delivering a bunch of air! And to think I thought that damned thing was too heavy!%SPEECH_OFF%Just then, the box lifts briefly into the air, spins, and smashes itself into the ground. It breaks perfectly, noiselessly, and with no wasted movements, every piece of wood laid against the grass like ancient stoneworks. An incorporeal shape leers up from the splintered rites, grinning as it twists.%SPEECH_ON%Oh humans, it is truly good to see you again.%SPEECH_OFF%The voice is like ice down your back. You watch as the specter shoots into the sky then slams back down, spearing into the very earth. Not a second passes before the ground is erupting as bodies begin to clamber out. | The box magnetizes you. Without hesitation, you crank the cargo open and take a look inside. You smell before you see - a horrid stench overwhelming you almost to the point of blindness. One of the men pukes. Another retches. When you look back at the box, blackened tendrils of smoke are sifting out of it, stretching long and far, probing the ground as they go. When they find what they\'re looking for, they dive into the earth, yanking up bones of dead men like a lure would a fish. | Ignoring the worries of a few of the men, you bust the package open. A pile of heads are to be found, their glowing eyes flickering awake. Their jaws crackle open, shifting from unmoved states to rattle in laughter. You quickly close the box, but a force pushes it back open. You struggle with it, %randombrother% and a few others trying to help, but it\'s almost as if the utterly silent winds of a storm are pushing back against you.\n\nA bare moment later, you\'re all thrown back, the lid of the crate soaring into the sky, ushered upward by a gust of blackened souls. They zip around, combing the earth, then collectively position opposite the %companyname%. There you watch in horror as the incorporeal begins to take shape, the foggy mists of souls hardening into the very real bones of souls lost long ago. And, of course, they come armed, the crackling jawbones still clattering with hollow laughter.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "To arms!",
+                        function getResult()
+                        {
+                            local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos());
+                            p.CombatID = "EvilArtifact";
+                            p.Music = this.Const.Music.UndeadTracks;
+                            p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Center;
+                            p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Circle;
+
+                            if (this.Flags.get("IsCursedCrystalSkull"))
+                            {
+                                this.World.Flags.set("IsCursedCrystalSkull", true);
+                                p.Loot = [
+                                    "scripts/items/accessory/legendary/cursed_crystal_skull"
+                                ];
+                            }
+                            local party = this.new("scripts/entity/world/party");
+                            party.setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Undead).getID());
+                            p.Parties.push(party);
+                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.UndeadArmy, 120 * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Undead).getID());
+                            foreach(troop in party.getTroops()) {
+                                p.Entities.push(troop);
+                            }
+                            this.World.Contracts.startScriptedCombat(p, false, false, false);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "EvilArtifact3",
+                Title = "Along the way...",
+                Text = "[img]gfx/ui/events/event_55.png[/img]{The battle over, you quickly rush back over to the artifact, finding it floating in the air. %randombrother% runs up to your side.%SPEECH_ON%Destroy it, sir, before it causes any more trouble!%SPEECH_OFF% | Your men weren\'t the only thing to survive the battle - the artifact, or whatever remains of its pulsing power, floats innocently where you\'d last seen it. The thing is an orb swirling with energy, occasionally rattling, sometimes whispering a language you know not of. %randombrother% nods toward it.%SPEECH_ON%Smash it, sir. Smash it and let us be done with this horror.%SPEECH_OFF% | Such power was not meant for this world! The artifact has taken the shape of an orb the size of your fist. It floats off the ground, humming as though singing a song from another world. The thing almost seems to be waiting for you, like a dog would wait its master.%SPEECH_ON%Sir.%SPEECH_OFF%%randombrother% tugs on your shoulder.%SPEECH_ON%Sir, please, destroy it. Let us not take that thing another step with us!%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "We have to destroy it.",
+                        function getResult()
+                        {
+                            return "EvilArtifact4";
+                        }
+
+                    },
+                    {
+                        Text = "We\'re paid to deliver this, so that\'s what we\'ll do.",
+                        function getResult()
+                        {
+                            this.Flags.set("IsEvilArtifact", false);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "EvilArtifact4",
+                Title = "Along the way...",
+                Text = "[img]gfx/ui/events/event_55.png[/img]{You take out your sword and stand before the artifact with the blade slowly raised over your head.%SPEECH_ON%Don\'t do it!%SPEECH_OFF%Glancing over your shoulder, you see %randombrother% and the other men scowling at you. Blackness surrounds them and the whole world as far as your eye can see. Their eyes glow red, pulsing furiously with every spoken word.%SPEECH_ON%You shall burn forever! Burn forever! Destroy it and you shall burn! Burn! BURN!%SPEECH_OFF%Screaming, you turn around and slice your sword through the relic. It splits effortlessly in two and a wave of color sweeps back into your world. Sweat pours from your forehead as you find yourself leaning on the pommel of your weapon. You look back to see your mercenary company staring at you.%SPEECH_ON%Sir, are you alright?%SPEECH_OFF%You sheathe your sword and nod, but you\'ve never felt so horrified in all your life. %employer% won\'t be happy, but he and his anger be damned! | Just as soon as the thought of destroying the relic crosses your mind, so too does a wave of horrified screaming. The shrill crying of women and children, their voices cracking with terror as though they had come running at you all on fire. They scream at you in hundreds of languages, but every so often the one you know passes you and it\'s always with the same word: DON\'T.\n\n You draw your sword and swing it back over your head. The artifact hums and vibrates. Smoky tendrils waft off it and a brutish heat washes over you. DON\'T.\n\n You steady your grip.\n\n Davkul. Yekh\'la. Imshudda. Pezrant. DON\'T.\n\nYou swallow and steady your aim.\n\n DON\'T.RAVWEET.URRLA.OSHARO.EBBURRO.MEHT\'JAKA.DON\'T.DON\'T.DON\'T.DO--\n\n The strike is true, the word is lost, the artifact falls to the earth in twine. You fall with it, to your knees, and a few of the company\'s brothers come to lift you back up. %employer% won\'t be happy, but you can\'t help but feel as though you\'ve spared this world a horror it need not ever see or hear.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "It\'s done.",
+                        function getResult()
+                        {
+                            this.Flags.set("IsEvilArtifact", false);
+
+                            if (this.World.FactionManager.getFaction(this.Contract.m.Destination.getFactions()[0]).getType() == this.Const.FactionType.OrientalCityState)
+                            {
+                                this.World.FactionManager.getFaction(this.Contract.m.Destination.getFactions()[0]).addPlayerRelation(this.Const.World.Assets.RelationCivilianContractFail, "Failed to deliver cargo");
+                            }
+                            else
+                            {
+                                this.World.FactionManager.getFaction(this.Contract.m.Destination.getFactions()[0]).addPlayerRelation(this.Const.World.Assets.RelationNobleContractFail, "Failed to deliver cargo");
+                            }
+
+                            local recipientFaction = this.Contract.m.Destination.getFactionOfType(this.Const.FactionType.Settlement);
+
+                            if (recipientFaction != null)
+                            {
+                                recipientFaction.addPlayerRelation(this.Const.World.Assets.RelationCivilianContractFail * 0.5);
+                            }
+
+                            this.World.Contracts.finishActiveContract(true);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "EvilArtifact5",
+                Title = "Along the way...",
+                Text = "[img]gfx/ui/events/event_55.png[/img]{You shake your head and get another crate, carefully pushing the floating artifact into it then closing the lid. %employer% was paying you good money and, well, you plan on seeing it through. But for some reason you\'re not sure if that choice is your own, or if this strange relic\'s whispering is guiding your hand for you. | You go and retrieve a wooden chest and lift it up to the artifact, quickly closing the lid over it. A few of the mercenaries shake their head. It\'s probably not the best of ideas, but for some reason you fill compelled to finish your task. | Better judgment says you should destroy this horrible relic, but better judgment fails once more. You take a wooden chest and move it over the artifact before closing the lid and snapping shut the latches. You\'ve no idea what you are doing this, but your body is filled with newfound energy as you get ready to get back on the road.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "We should move on.",
+                        function getResult()
+                        {
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Success1",
+                Title = "At %objective%",
+                Text = "[img]gfx/ui/events/event_20.png[/img]{%recipient%\'s waiting for you as you enter the town. He hurriedly takes the cargo off your hands.%SPEECH_ON%Oh, ohhh I did not think you would get here.%SPEECH_OFF%His grubby fingers dance along the chest carrying the cargo. He turns around and barks an order to one of his men. They step forward and hand you a satchel of crowns. | Finally, you\'ve made it. %recipient% is standing there in the middle of the road, his hands clasped over his stomach, a slick grin on his cheeky face.%SPEECH_ON%Sellsword, I was not sure you\'d make it.%SPEECH_OFF%You lug the cargo up and hand it over.%SPEECH_ON%Oh yeah, and why do you say that?%SPEECH_OFF%The man takes the box and hands it off to a robed man who quickly hurries away with it tucked under an arm. %recipient% laughs as he hands you a satchel of crowns.%SPEECH_ON%The roads are rough these days, are they not?%SPEECH_OFF%You understand he\'s making small talk, anything to get your attention off the cargo you just handed over. Whatever, you got your pay, that\'s good enough for you. | %recipient% welcomes you and a few of his men hurry over to take the cargo. He claps you on the shoulders.%SPEECH_ON%I take it your journey went well?%SPEECH_OFF%You spare him the details and inquire about your pay.%SPEECH_ON%Bah, a sellsword through and through. %randomname%! Get this man what he deserves!%SPEECH_OFF%One of %recipient%\'s bodyguards walks over and hands you a small chest of crowns. | After some looking, a man asks who you\'re looking for. When you say %recipient%, he points you out toward a nearby paddock where a man is strutting about on a rather opulent looking horse.\n\n You walk on over and the man rears the steed and asks if that\'s the cargo %employer% sent. You nod.%SPEECH_ON%Leave it there at your feet. I\'ll come and get it.%SPEECH_OFF%You don\'t, instead asking about your pay. The man sighs and whistles to a bodyguard who hurries over.%SPEECH_ON%See to it that this sellsword gets the pay he deserves.%SPEECH_OFF%Finally, you put the crate on the ground and make your leave.} ",
+                Image = "",
+                Characters = [],
+                List = [],
+                ShowEmployer = false,
+                Options = [
+                    {
+                        Text = "Crowns well deserved.",
+                        function getResult()
+                        {
+                            this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractSuccess);
+                            this.World.Assets.addMoney(this.Contract.m.Payment.getOnCompletion());
+                            local playerRoster = this.World.getPlayerRoster().getAll();
+                            local xp = this.Contract.m.Payment.getOnCompletion() * 0.25;
+
+                            foreach( bro in playerRoster )
+                            {
+                                bro.addXP(xp);
+                                bro.updateLevel();
+                            }
+
+                            if (this.World.FactionManager.getFaction(this.Contract.getFaction()).getType() == this.Const.FactionType.OrientalCityState)
+                            {
+                                this.World.FactionManager.getFaction(this.Contract.getFaction()).addPlayerRelation(this.Const.World.Assets.RelationNobleContractSuccess, "Delivered some cargo");
+                            }
+                            else
+                            {
+                                this.World.FactionManager.getFaction(this.Contract.getFaction()).addPlayerRelation(this.Const.World.Assets.RelationCivilianContractSuccess, "Delivered some cargo");
+                            }
+
+                            local recipientFaction = this.Contract.m.Destination.getFactionOfType(this.Const.FactionType.Settlement);
+
+                            if (recipientFaction != null)
+                            {
+                                recipientFaction.addPlayerRelation(this.Const.World.Assets.RelationCivilianContractSuccess * 0.5, "Delivered some cargo");
+                            }
+
+                            this.World.Contracts.finishActiveContract();
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                    this.Characters.push(this.Tactical.getEntityByID(this.Contract.m.RecipientID).getImagePath());
+                    this.List.push({
+                        id = 10,
+                        icon = "ui/icons/asset_money.png",
+                        text = "You gain [color=" + this.Const.UI.Color.PositiveEventValue + "]" + this.Contract.m.Payment.getOnCompletion() + "[/color] Crowns"
+                    });
+                }
+
+            });
+            this.m.Screens.push({
+                ID = "Success2",
+                Title = "At %objective%",
+                Text = "[img]gfx/ui/events/event_163.png[/img]{%SPEECH_START%Ah, the Crownling.%SPEECH_OFF%The voice comes from a nearby alley. Usually that means you\'re about to have some coin lifted off ya, but instead find a man offering you gold.%SPEECH_ON%I am %recipient%, and that package belongs to me. Send %employer% my regards, or don\'t, I don\'t care.%SPEECH_OFF%The man steals away and is gone just as soon as he came. | %recipient% is a squat man and he carries the Vizier\'s emblem and signage as though it were as heavy as the crate you just brought him.%SPEECH_ON%I\'ve given the Vizier much, and what does he use to repay me? A Crownling\'s sweat. May the Gilder blink when gazing upon that man\'s future.%SPEECH_OFF%You say nothing to this, in part because you wonder if it is a \'test\' to see if you\'ll agree with him and turn yourself out to be an enemy of the ever majestic Vizier. The man stares at you for a moment, then shrugs and continues.%SPEECH_ON%I have your payment here. The coin is all accounted for, though I will not take offense if you wish to count it yourself. Ah, I see you already are. Good. See? It\'s all there. Now run along little Crownling.%SPEECH_OFF% | You find %recipient% holding court over a small throng of children. He quickly singles you and teaches them a lesson about keeping to their studies lest they end up like you. After the kids are dismissed, the man comes over with a satchel of crowns.%SPEECH_ON%My men told me you had arrived and that the material was still in good standing. Here is your motly payment, Crownling.%SPEECH_OFF% | You enter %recipient%\'s home where the package is finally dropped off and whisked away by servants. Staring at you from a comfortable looking chair, %recipient% asks if your journey went well. You state that idle talk does not fill your pockets and then inquire about your pay. The man raises an eyebrow.%SPEECH_ON%Ah, have I offended the Crownling with my kind, civilized sensibilities? How dare I. Well then, your pay is in the corner and it is in full as agreed upon.%SPEECH_OFF% | %recipient% is pontificating about the nature of birds to a mirror. When he sees you in the reflection, he turns around and speaks as though nothing unusual had been going on at all.%SPEECH_ON%A Crownling. Of course the Vizier sends a Crownling. I like to imagine you did not dare profane the materials of the crate with your eyes, but I can\'t even trust such professionalism out of your sort. But you can expect it of me: your payment is in the corner, and in full.%SPEECH_OFF%}",
+                Image = "",
+                Characters = [],
+                List = [],
+                ShowEmployer = false,
+                Options = [
+                    {
+                        Text = "Crowns well deserved.",
+                        function getResult()
+                        {
+                            this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractSuccess);
+                            this.World.Assets.addMoney(this.Contract.m.Payment.getOnCompletion());
+                            local playerRoster = this.World.getPlayerRoster().getAll();
+                            local xp = this.Contract.m.Payment.getOnCompletion() * 0.25;
+
+                            foreach( bro in playerRoster )
+                            {
+                                bro.addXP(xp);
+                                bro.updateLevel();
+                            }
+
+                            if (this.World.FactionManager.getFaction(this.Contract.getFaction()).getType() == this.Const.FactionType.OrientalCityState)
+                            {
+                                this.World.FactionManager.getFaction(this.Contract.getFaction()).addPlayerRelation(this.Const.World.Assets.RelationNobleContractSuccess, "Delivered some cargo");
+                            }
+                            else
+                            {
+                                this.World.FactionManager.getFaction(this.Contract.getFaction()).addPlayerRelation(this.Const.World.Assets.RelationCivilianContractSuccess, "Delivered some cargo");
+                            }
+
+                            local recipientFaction = this.Contract.m.Destination.getFactionOfType(this.Const.FactionType.Settlement);
+
+                            if (recipientFaction != null)
+                            {
+                                recipientFaction.addPlayerRelation(this.Const.World.Assets.RelationCivilianContractSuccess * 0.5, "Delivered some cargo");
+                            }
+
+                            this.World.Contracts.finishActiveContract();
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                    local xpGained = this.Math.round(this.Contract.m.Payment.getOnCompletion() * 0.25 * this.Const.Combat.GlobalXPMult);
+                    this.Characters.push(this.Tactical.getEntityByID(this.Contract.m.RecipientID).getImagePath());
+                    this.List.push({
+                        id = 10,
+                        icon = "ui/icons/asset_money.png",
+                        text = "You gain [color=" + this.Const.UI.Color.PositiveEventValue + "]" + this.Contract.m.Payment.getOnCompletion() + "[/color] Crowns and [color=" + this.Const.UI.Color.PositiveEventValue + "]" + xpGained + "[/color] Experience"
+                    });
+                }
+
+            });
+        }
+    });
+
+	::mods_hookExactClass("contracts/contracts/deliver_money_contract", function(o){
+
+        o.createScreens = function()
+        {
+            this.importScreens(this.Const.Contracts.NegotiationDefault);
+            this.importScreens(this.Const.Contracts.Overview);
+            this.m.Screens.push({
+                ID = "Task",
+                Title = "Coin Delivery",
+                Text = "[img]gfx/ui/events/event_04.png[/img]{%employer% shoves a sizeable chest into your hands before he or you even says a word.%SPEECH_ON%This is the pay for a nearby merchant, I need to you deliver these crowns!%SPEECH_OFF%He looks at you seriously.%SPEECH_ON%I need that taken to %objective% where a man by the name of %recipient% is waiting for it. It may look small, but that chest is the pay for a whole company of merchants. You interested? Or is it a little too heavy for your arms?%SPEECH_OFF% | You find %employer% closing a small chest of coins. He quickly glances up, as though you might have been theives.%SPEECH_ON%Sellsword! Thank you for coming.%SPEECH_OFF%He locks the chest quickly. Then he pats the chest a few times, even caresses it a little.%SPEECH_ON%This here cargo has to be delivered safely to %objective%. A man by the name of %recipient% is waiting for it. I do not believe the task will be easy, as the chest contains an investment in a new enterprise. There are people who\'d go to great lengths to acquire this kind of coin, which is why I\'m turning to a man of your... experiences. Are you interested in doing this for me?%SPEECH_OFF% | As you enter %employer%\'s room one of his servants is fiddling wit hthe lock on a small chest of coins .%SPEECH_ON%Good seeing you, sellsword. One moment, please. No, idiot, its the other key!.%SPEECH_OFF%His servant bumbles at a ring of keys, trying each one until finally finding the right one. Finished, he wipes the sweat off his brow and looks to you.%SPEECH_ON%I need this here chest delivered to %objective% about %days% %direction% by road. It\'s going to %recipient%, you know. Him. Alright, maybe you don\'t know him. What I do know is that this may not ordinarily be your line of work, but I\'m willing to pay some serious crowns for you to see it through. That\'s your real business, right? Earning some crowns?%SPEECH_OFF% | %employer% folds his hands together when he sees you.%SPEECH_ON%This might be a strange question, but how interested are you in making a delivery for me?%SPEECH_OFF%You explain that, for the right price, such a journey would be a welcome departure from the usual killing and dying that goes on around you. The man claps his hands together.%SPEECH_ON%Excellent! Unfortunately, I don\'t expect it to be quite like that. It\'s of enough import to garner unsavory attention, which is why I\'m looking to hire sellswords in the first place. It\'s going to %objective%, %days% or so %direction% of here by road, where a man by the name of %recipient% is waiting for it to fall into his hands. So, you see, this won\'t be the \'departure\' you speak of, but it can be a fine payday if you\'re interested.%SPEECH_OFF% | %employer%\'s men are standing around a chest of gold. Their employer shoos them away when he sees you.%SPEECH_ON%Welcome, welcome. Good seeing you. I\'m in need of armed guards to have this here package delivered to a man by the name of %recipient% in %objective%. I reckon it\'s about %days% of travel for a company as your. How interested would you be in doing that for me?%SPEECH_OFF% | %employer%\'s got his feet up on his table when you enter. He puts his hands behind his head, looking a little too relaxed for your tastes.%SPEECH_ON%Good tidings, captain. What say you take a leave from all that killing and dying.%SPEECH_OFF%He raises an eyebrow at your response, which is precisely none at all.%SPEECH_ON%Huh, I figured you\'d jump on that opportunity. No matter, it was a lie: I need you to take a certain package to %recipient%, a fellow residing in %objective%. This cargo has undoubtedly garnered some ill-intentioned eyes which is why I need your men watching it for me. If you\'re interested, which you should be, let\'s talk numbers.%SPEECH_OFF% | %employer% welcomes you, waving you in.%SPEECH_ON%Very well, now that you\'re here, would you please shut the door behind you?%SPEECH_OFF%One of the man\'s guards pokes his head around the corner. You smile as you slowly shut him out. Turning around, you find %employer% walking toward a window. He stares out as he talks.%SPEECH_ON%I need something... it\'s a, uh, well you don\'t need to know what it is. I need this \'something\' delivered to a fellow called %recipient%. He\'s waiting for it in %objective%. It\'s important that it actually gets there, important enough for an armed escort for %days% of travel, which is why I\'m turning to you and your company. What say you, mercenary?%SPEECH_OFF% | Dim candles barely light the room enough for you to see, it\'s %employer% sitting behind his desk while his shadows dance on the walls by the tune of flickering lights.%SPEECH_ON%Would you lend your swords to me if I paid you good coin? I need {a small chest | an important investment | business starting funds} delivered safely to %recipient% in %objective%, about %days% of travel %direction% of here. Men have killed each other over this much coin, so you must be ready to defend it with your life.%SPEECH_OFF%He takes a pause, measuring your response.%SPEECH_ON%I will write a sealed letter with instructions to pay you as you deliver the item to my contact in %objective%. What say you?%SPEECH_OFF% | A servant bids you to wait for %employer%, who, he says, will be right with you. And so you wait, and wait, and wait. And finally, as you are about to leave for the second time, %employer% throws open the doors and rushes towards you.%SPEECH_ON%Who\'s this, again? The mercenary?%SPEECH_OFF%His assistant nods and %employer% sets on a smile.%SPEECH_ON%Oh most fortuitous to have you in %townname%, good captain!\n\nIt is imperative that some coin of mine reach %objective% as safely and quickly as possible. You are precisely who I need, for no common brigand would dare attack you and your men.\n\nYes, I\'d like to hire you for escort. Make sure the crowns are delivered to %recipient%, no detours of course. Can we come to an understanding?%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                ShowEmployer = true,
+                ShowDifficulty = true,
+                Options = [
+                    {
+                        Text = "{Let\'s talk recompense. | What is the pay?}",
+                        function getResult()
+                        {
+                            return "Negotiation";
+                        }
+
+                    },
+                    {
+                        Text = "{Not interested. | Our travels will not take us there for a while. | This is not the kind of work we\'re looking for.}",
+                        function getResult()
+                        {
+                            this.World.Contracts.removeContract(this.Contract);
+                            return 0;
+                        }
+
+                    }
                 ],
                 function start()
                 {
@@ -4447,9 +5047,671 @@ local gt = getroottable();
 
             });
             this.m.Screens.push({
-                ID = "Success",
+                ID = "Mercenaries1",
+                Title = "Along the road...",
+                Text = "[img]gfx/ui/events/event_07.png[/img]{While on the road, a band of well-armed men cross your path. | Marching toward %objective%, a few men interrupt your quiet travels, the clinky-clank of their weapons and armor filling the air as they step into formation. | Your travels, unfortunately, are not to be simple. A number of men have stepped out in front of you, clearly blocking your way. | Some armed and well armored men have come out to make something of a metal impasse. They look as though they intend to make sure you go no farther. | A few of the men come to a stop. You go to the front to figure out what is going on, only to see a line of well-armed men standing in %companyname%\'s way. Well, this should be interesting.} The enemy lieutenant steps forward and pounds his chest with his fist clenched.%SPEECH_ON%{It is us, the %mercband%, that stand before you. Slayers of beasts beyond imagination, the last hope of this godsforsaken land! | The name is %mercband% and we\'re well known throughout this land as splitters of heads, drinkers of kegs and lovers of ladies! | \'Tis the legendary %mercband% standing before you. It is we, saviors of %randomtown% and slayers of the false king! | Behold my proud band, the %mercband%! We, who fought off a hundred orcs to save a city from certain doom. What have you to your name? | You\'re talking to a man of the %mercband%. No common brigand, foul greenskin, bag of coins or skirt ever escaped from us!}%SPEECH_OFF%After the man finishes his posturing and personal pontificating, he points at the cargo you are carrying.%SPEECH_ON%{So now that you realize the danger you are in, why don\'t you go ahead and hand that cargo over? | I hope you realize who you\'ve come to face, pathetic sellsword, so that you may best make sure your men make it to their beds tonight. All you need to do is hand over the cargo and we won\'t have to add you to the history of %mercband%. | Ah, I bet you\'d like to be a part of our history, wouldn\'t you? Well, good news, all you gotta do is not hand over that cargo and we\'ll scribble you in with our swords. Of course, you can escape the scribe\'s pen if you just give us that cargo. | Now, if it isn\'t the %companyname%. As much as I\'d like add you to our list of victories, I\'ll give you a chance here, mercenary to mercenary. All you have to do is hand over that cargo and we\'ll be on our way. How\'s that sound?}%SPEECH_OFF%{Hmm, well it was a bombastic request if nothing else. | Well, the theatrics were pretty entertaining if nothing else. | You don\'t quite understand the need for showmanship, but there\'s little doubt about the seriousness of this new situation you\'ve found yourself in. | While you appreciated the superlatives and hyperbole, there remains the very terse reality that these men do actually mean business.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "If you want it, come and take it!",
+                        function getResult()
+                        {
+                            local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos());
+                            p.CombatID = "Mercs";
+                            p.Music = this.Const.Music.NobleTracks;
+                            p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                            p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                            local party = this.new("scripts/entity/world/party");
+                            party.setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
+                            p.Parties.push(party);
+                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Mercenaries, 130 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
+                            foreach(troop in party.getTroops()) {
+                                p.Entities.push(troop);
+                            }
+                            this.World.Contracts.startScriptedCombat(p, false, true, true);
+                            return 0;
+                        }
+
+                    },
+                    {
+                        Text = "It\'s not worth dying over. Take that damn cargo and be gone.",
+                        function getResult()
+                        {
+                            return "Mercenaries2";
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Mercenaries2",
+                Title = "Along the road...",
+                Text = "[img]gfx/ui/events/event_07.png[/img]{Not wanting a fight, you hand the chest over. They laugh as they take it off your hands.%SPEECH_ON%Good choice, mercenary. Maybe someday you\'ll be the one doing the threatening.%SPEECH_OFF% | The cargo, whatever it is, isn\'t worth the lives of your men. You hand the crate over and the mercenaries take it. They laugh at you as you leave.%SPEECH_ON%Like charming a whore!%SPEECH_OFF% | This does not seem like the time or place to be sacrificing your men in the name of %employer%\'s delivery service. You hand the cargo over. The mercenaries take it then make their leave, their lieutenant flipping you a crown that spins its way into the mud.%SPEECH_ON%Get yerself a shinebox, kid, this work ain\'t cut out for you.%SPEECH_OFF% | The mercenaries are well armed and you don\'t know if you could sleep at night knowing you spent the lives of your men just for some silly crate carrying the old gods know what. With a nod, you hand the chest over. The mercenary band gladly takes it from you, their lieutenant pausing to nod back with respect.%SPEECH_ON%A wise choice. Don\'t think I didn\'t make many like it when I was coming up.%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Hrm...",
+                        function getResult()
+                        {
+                            this.Flags.set("IsMercenaries", false);
+                            this.Flags.set("IsMercenariesDialogTriggered", true);
+                            this.World.FactionManager.getFaction(this.Contract.m.Destination.getFactions()[0]).addPlayerRelation(this.Const.World.Assets.RelationCivilianContractFail, "Failed to deliver cargo");
+                            local recipientFaction = this.Contract.m.Destination.getFactionOfType(this.Const.FactionType.Settlement);
+
+                            if (recipientFaction != null)
+                            {
+                                recipientFaction.addPlayerRelation(this.Const.World.Assets.RelationCivilianContractFail);
+                            }
+
+                            this.World.Contracts.finishActiveContract(true);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "BountyHunters1",
+                Title = "Along the road...",
+                Text = "[img]gfx/ui/events/event_07.png[/img]{While on the roads, you come across a band of bounty hunters. Their prisoner calls out to you, voice cracking, and begging for your mercy and claiming to be innocent. The bounty hunters tell you to fark off and die. | You\'re traveling the roads when you come across a group of well-armed bounty hunters. They\'re yanking along someone shackled from head to toe.%SPEECH_ON%You want no part of this fellow.%SPEECH_OFF%One man says, striking his prisoner in the back of the shins. The prisoner yelps and crawls to you on bloodied hands and knees.%SPEECH_ON%They\'re all liars! These men will kill me even though I\'ve done nothing wrong! Save me, gentlefolk, I beg of you!%SPEECH_OFF% | You come across a large band of bounty hunters, your two groups oddly mirroring one another, though your purposes in this world clearly diverge. They\'re transporting a prisoner who has been chained and mouth stuffed with a rag. The prisoner yells out to you, almost pleading, choking on words until red in the face. One of the bounty hunters spits.%SPEECH_ON%Pay no mind, stranger, and get on down the road. Best there be no trouble between men such as we.%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "This isn\'t any of our business.",
+                        function getResult()
+                        {
+                            return 0;
+                        }
+
+                    },
+                    {
+                        Text = "Perhaps we can buy the prisoner?",
+                        function getResult()
+                        {
+                            return this.Math.rand(1, 100) <= 50 ? "BountyHunters1" : "BountyHunters1";
+                        }
+
+                    },
+                    {
+                        Text = "If you want it, come and take it!",
+                        function getResult()
+                        {
+                            local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos());
+                            p.CombatID = "Mercs";
+                            p.Music = this.Const.Music.NobleTracks;
+                            p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                            p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                            local party = this.new("scripts/entity/world/party");
+                            party.setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
+                            p.Parties.push(party);
+                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Mercenaries, 150 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
+                            foreach(troop in party.getTroops()) {
+                                p.Entities.push(troop);
+                            }
+                            this.World.Contracts.startScriptedCombat(p, false, true, true);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Thieves1",
+                Title = "During camp...",
+                Text = "[img]gfx/ui/events/event_05.png[/img]{You raise up from a nap and turn over, looking for the chest as though it were a lover. But she\'s not there and neither is the money. Quickly getting to your feet, you begin ordering the men to attention. %randombrother% runs up and says there are footprints leading off from the site. | While taking a rest, you hear a disturbance somewhere in the camp. You rush to it to find %randombrother% face down in the dirt, rubbing the back of his head.%SPEECH_ON%Sorry sir, I was taking a piss, and then they went on ahead and took it out of me. Also, they stole the package.%SPEECH_OFF%You ask the mercenary repeat that last part.%SPEECH_ON%Goddamn thieves have stolen the goods!%SPEECH_OFF%Time to track those bastards down and get it back. | Naturally, it wouldn\'t be an ordinary trip. No, this world is too shite for that to be the case. It appears thieves have taken off with the cargo. Luckily, they\'ve left a hell of a lot of evidence, namely footprints and dragmarks from toting the package around. They should be easy to find... | Just once you\'d like to have a nice walk from one town to the next. Instead, your agreement with %employer% has attracted trouble once again. Thieves, somehow, managed to sneak into the camp and make off with the cargo. The good news is that they didn\'t manage to sneak back out: you\'ve found their footprints and they won\'t be hard to follow.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "We follow their tracks!",
+                        function getResult()
+                        {
+                            this.Contract.setState("Running_Thieves");
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Thieves2",
+                Title = "After the battle...",
+                Text = "[img]gfx/ui/events/event_22.png[/img]{Thief blood runs thick. You manage to find your employer\'s goods still in the camp, all locked and safe. He doesn\'t need to know about this little excursion. | Well, everything\'s right where it should be. %employer%\'s cargo was found underneath a thief\'s writhing body. You made sure to kick him off before running him through. Wouldn\'t want to get blood on the package, after all. | Killing off the last of the thieves, you and the men spread out through the brigands\' camp looking for the package. %randombrother% spots it right quick, the container still held in the clutches of a dead fool. The mercenary fumbles with the corpse\'s grasp and, in frustration, simply cuts the arms off the bastard. You retrieve the package and hold it a little closer for the trip going forward. | Staring over the bodies of the felled thieves, you wonder if %employer% needs to know about this. The package looks alright. Some blood and bone on it, but you can rub that right off. | The package\'s a little scuffed, but it\'ll be fine. Alright, there\'s blood all over it and a thief\'s degloved finger is all smashed up into one of the latches. Those issues aside, everything is perfectly fine.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Back where it belongs.",
+                        function getResult()
+                        {
+                            this.Flags.set("IsThieves", false);
+                            this.Flags.set("IsStolenByThieves", false);
+                            this.Contract.setState("Running");
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "EvilArtifact1",
+                Title = "Along the way...",
+                Text = "[img]gfx/ui/events/event_55.png[/img]{While on the move, you notice that something else is moving, too: the cargo. The lid on it is jumping around and there\'s a strange glow emerging from its sides. %randombrother% approaches, looks at it, then looks at you.%SPEECH_ON%Should we open it, sir? Or I can take it and throw it in the closest pond because none of that right there is alright.%SPEECH_OFF%You jab the man and ask if he\'s scared. | Moving along the paths, you begin to hear a low hum emanating from the package %employer% had given you. %randombrother% is standing beside it, poking it with a stick. You slap him back. He explains himself.%SPEECH_ON%Sir, there\'s something that ain\'t right with the cargo we\'re tugging...%SPEECH_OFF%You take a good look at it. There\'s a faint color brimming at the edges of the lid. As far as you know, fire can\'t breathe in such a space, and the only thing else that glows in the dark are the moons and the stars. You worry that curiosity is starting to get the better of you... | The cargo rests in the wagon beside you, jostling about to the tilts and turns of the paths. Suddenly, it begins to hum and you swear you saw the lid float upward for just a second. %randombrother% glances over.%SPEECH_ON%You alright, sir?%SPEECH_OFF%Just as he finishes talking, the lid explodes outward, a swirl of colors, mist, ash, fiery heat and brutish cold. You throw your arms up, shielding yourself, and when you take a peek through your elbows the package is completely still, the lid back on. You exchange a glance with the sellsword, then both of you stare at the cargo. This might be a little more than an ordinary delivery... | A low hum emanates from nearby. Thinking a bee hive nearby, you instinctively duck, only to realize the sound is coming from the cargo %employer% had handed you. The lid atop the container is rattling side to side, jostling the latches and nails that are supposed to keep it there. %randombrother% looks a little frightened.%SPEECH_ON%Let\'s just leave it here. That thing ain\'t right.%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "I want to know what\'s going on.",
+                        function getResult()
+                        {
+                            return "EvilArtifact2";
+                        }
+
+                    },
+                    {
+                        Text = "Leave that thing alone.",
+                        function getResult()
+                        {
+                            this.Flags.set("IsEvilArtifact", false);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "EvilArtifact2",
+                Title = "Along the way...",
+                Text = "[img]gfx/ui/events/event_73.png[/img]{Curiosity gets the best of you. Slowly you start prying at the lid. %randombrother% takes a step back and protests.%SPEECH_ON%I think we should leave it alone, sir. I mean c\'mon, look at it.%SPEECH_OFF%Ignoring him, you tell the men it\'s going to be alright, and then you lift the lid up.\n\n It isn\'t alright. The explosion knocks you off your feet. Horrible shapes and shrieks swirl all around you. The men instinctively arm themselves as the piloted specters spear into the earth. There the ground lifts in mounds, and there, too, the earth begins to groan. You watch as hands shoot forth, dragging decrepit bodies from their pit. The dead live again and surely they mean to add to their ranks! | Against anyone\'s best judgment, you pry the cargo open. At first, there is nothing. It\'s just an empty box. %randombrother% nervously laughs.%SPEECH_ON%Well... I guess that\'s it then.%SPEECH_OFF%But that can\'t be it, can it? Why would %employer% have you delivering an empty container unless -- \n\n You wake up to a ringing slowly fading from your ears. Turning over, you see that the box has completely evaporated, a flurry of snowy sawdust all that remains of it. %randombrother% rushes over, picking you up and dragging you toward the rest of the company. They point, their mouths moving, shouting...\n\n A mob of well-armed men are... shuffling your way? As you get a better sight of them, you realize that they are armed with old wooden shields painted with odd spiritual rites, and their armor is of shapes and sizes you have never seen before, as though they were crafted by men just learning the trade, yet still well learned in what they had learned thus far. These are like ancients... the first men. | %randombrother% shakes his head as you go to pick up the lid. With some effort, it\'s pried open and you quickly step back, expecting the worst. But there\'s nothing. Not even a sound comes out of the box. You take a sword and rattle it around in the empty box, looking for a secret compartment or something. %randombrother% laughs.%SPEECH_ON%Hey, we\'re just delivering a bunch of air! And to think I thought that damned thing was too heavy!%SPEECH_OFF%Just then, the box lifts briefly into the air, spins, and smashes itself into the ground. It breaks perfectly, noiselessly, and with no wasted movements, every piece of wood laid against the grass like ancient stoneworks. An incorporeal shape leers up from the splintered rites, grinning as it twists.%SPEECH_ON%Oh humans, it is truly good to see you again.%SPEECH_OFF%The voice is like ice down your back. You watch as the specter shoots into the sky then slams back down, spearing into the very earth. Not a second passes before the ground is erupting as bodies begin to clamber out. | The box magnetizes you. Without hesitation, you crank the cargo open and take a look inside. You smell before you see - a horrid stench overwhelming you almost to the point of blindness. One of the men pukes. Another retches. When you look back at the box, blackened tendrils of smoke are sifting out of it, stretching long and far, probing the ground as they go. When they find what they\'re looking for, they dive into the earth, yanking up bones of dead men like a lure would a fish. | Ignoring the worries of a few of the men, you bust the package open. A pile of heads are to be found, their glowing eyes flickering awake. Their jaws crackle open, shifting from unmoved states to rattle in laughter. You quickly close the box, but a force pushes it back open. You struggle with it, %randombrother% and a few others trying to help, but it\'s almost as if the utterly silent winds of a storm are pushing back against you.\n\nA bare moment later, you\'re all thrown back, the lid of the crate soaring into the sky, ushered upward by a gust of blackened souls. They zip around, combing the earth, then collectively position opposite the %companyname%. There you watch in horror as the incorporeal begins to take shape, the foggy mists of souls hardening into the very real bones of souls lost long ago. And, of course, they come armed, the crackling jawbones still clattering with hollow laughter.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "To arms!",
+                        function getResult()
+                        {
+                            local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos());
+                            p.CombatID = "EvilArtifact";
+                            p.Music = this.Const.Music.UndeadTracks;
+                            p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Center;
+                            p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Circle;
+
+                            if (this.Flags.get("IsCursedCrystalSkull"))
+                            {
+                                this.World.Flags.set("IsCursedCrystalSkull", true);
+                                p.Loot = [
+                                    "scripts/items/accessory/legendary/cursed_crystal_skull"
+                                ];
+                            }
+                            local party = this.new("scripts/entity/world/party");
+                            party.setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Undead).getID());
+                            p.Parties.push(party);
+                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.UndeadArmy, 130 * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Undead).getID());
+                            foreach(troop in party.getTroops()) {
+                                p.Entities.push(troop);
+                            }
+
+                            this.World.Contracts.startScriptedCombat(p, false, false, false);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "EvilArtifact3",
+                Title = "Along the way...",
+                Text = "[img]gfx/ui/events/event_55.png[/img]{The battle over, you quickly rush back over to the artifact, finding it floating in the air. %randombrother% runs up to your side.%SPEECH_ON%Destroy it, sir, before it causes any more trouble!%SPEECH_OFF% | Your men weren\'t the only thing to survive the battle - the artifact, or whatever remains of its pulsing power, floats innocently where you\'d last seen it. The thing is an orb swirling with energy, occasionally rattling, sometimes whispering a language you know not of. %randombrother% nods toward it.%SPEECH_ON%Smash it, sir. Smash it and let us be done with this horror.%SPEECH_OFF% | Such power was not meant for this world! The artifact has taken the shape of an orb the size of your fist. It floats off the ground, humming as though singing a song from another world. The thing almost seems to be waiting for you, like a dog would wait its master.%SPEECH_ON%Sir.%SPEECH_OFF%%randombrother% tugs on your shoulder.%SPEECH_ON%Sir, please, destroy it. Let us not take that thing another step with us!%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "We have to destroy it.",
+                        function getResult()
+                        {
+                            return "EvilArtifact4";
+                        }
+
+                    },
+                    {
+                        Text = "We\'re paid to deliver this, so that\'s what we\'ll do.",
+                        function getResult()
+                        {
+                            this.Flags.set("IsEvilArtifact", false);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "EvilArtifact4",
+                Title = "Along the way...",
+                Text = "[img]gfx/ui/events/event_55.png[/img]{You take out your sword and stand before the artifact with the blade slowly raised over your head.%SPEECH_ON%Don\'t do it!%SPEECH_OFF%Glancing over your shoulder, you see %randombrother% and the other men scowling at you. Blackness surrounds them and the whole world as far as your eye can see. Their eyes glow red, pulsing furiously with every spoken word.%SPEECH_ON%You shall burn forever! Burn forever! Destroy it and you shall burn! Burn! BURN!%SPEECH_OFF%Screaming, you turn around and slice your sword through the relic. It splits effortlessly in two and a wave of color sweeps back into your world. Sweat pours from your forehead as you find yourself leaning on the pommel of your weapon. You look back to see your mercenary company staring at you.%SPEECH_ON%Sir, are you alright?%SPEECH_OFF%You sheathe your sword and nod, but you\'ve never felt so horrified in all your life. %employer% won\'t be happy, but he and his anger be damned! | Just as soon as the thought of destroying the relic crosses your mind, so too does a wave of horrified screaming. The shrill crying of women and children, their voices cracking with terror as though they had come running at you all on fire. They scream at you in hundreds of languages, but every so often the one you know passes you and it\'s always with the same word: DON\'T.\n\n You draw your sword and swing it back over your head. The artifact hums and vibrates. Smoky tendrils waft off it and a brutish heat washes over you. DON\'T.\n\n You steady your grip.\n\n Davkul. Yekh\'la. Imshudda. Pezrant. DON\'T.\n\nYou swallow and steady your aim.\n\n DON\'T.RAVWEET.URRLA.OSHARO.EBBURRO.MEHT\'JAKA.DON\'T.DON\'T.DON\'T.DO--\n\n The strike is true, the word is lost, the artifact falls to the earth in twine. You fall with it, to your knees, and a few of the company\'s brothers come to lift you back up. %employer% won\'t be happy, but you can\'t help but feel as though you\'ve spared this world a horror it need not ever see or hear.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "It\'s done.",
+                        function getResult()
+                        {
+                            this.Flags.set("IsEvilArtifact", false);
+                            this.World.FactionManager.getFaction(this.Contract.m.Destination.getFactions()[0]).addPlayerRelation(this.Const.World.Assets.RelationCivilianContractFail, "Failed to deliver cargo");
+                            local recipientFaction = this.Contract.m.Destination.getFactionOfType(this.Const.FactionType.Settlement);
+
+                            if (recipientFaction != null)
+                            {
+                                recipientFaction.addPlayerRelation(this.Const.World.Assets.RelationCivilianContractFail * 0.5);
+                            }
+
+                            this.World.Contracts.finishActiveContract(true);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "EvilArtifact5",
+                Title = "Along the way...",
+                Text = "[img]gfx/ui/events/event_55.png[/img]{You shake your head and get another crate, carefully pushing the floating artifact into it then closing the lid. %employer% was paying you good money and, well, you plan on seeing it through. But for some reason you\'re not sure if that choice is your own, or if this strange relic\'s whispering is guiding your hand for you. | You go and retrieve a wooden chest and lift it up to the artifact, quickly closing the lid over it. A few of the mercenaries shake their head. It\'s probably not the best of ideas, but for some reason you fill compelled to finish your task. | Better judgment says you should destroy this horrible relic, but better judgment fails once more. You take a wooden chest and move it over the artifact before closing the lid and snapping shut the latches. You\'ve no idea what you are doing this, but your body is filled with newfound energy as you get ready to get back on the road.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "We should move on.",
+                        function getResult()
+                        {
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "EnragingMessage1",
+                Title = "Arriving without the crowns",
+                Text = "[img]gfx/ui/events/event_43.png[/img]{You arrive at the destination, but without the coins. %SPEECH_ON%Where is the coin?%SPEECH_OFF% they ask, but you shrug and say you spent it already. Most of the villagers look shocked and angry, a few sigh in disapointment and one begins crying as they realise this means no food.  %SPEECH_ON%Get out you filthy cold hearted mercenaries!  Don\'t you ever come back you scum!! %SPEECH_OFF% }  ",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Maybe we shouldn\'t have spent their money",
+                        function getResult()
+                        {
+                            local recipientFaction = this.Contract.m.Destination.getFactionOfType(this.Const.FactionType.Settlement);
+
+                            if (recipientFaction != null)
+                            {
+                                recipientFaction.addPlayerRelation(this.Const.World.Assets.RelationCivilianContractFail * 4, "spent all their money instead of delivering it");
+                            }
+
+                            this.World.Contracts.finishActiveContract();
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Success1",
+                Title = "At %objective%",
+                Text = "[img]gfx/ui/events/event_20.png[/img]{%recipient%\'s waiting for you as you enter the town. He hurriedly takes the chest off your hands.%SPEECH_ON%Oh, ohhh I did not think you would get here.%SPEECH_OFF%His grubby fingers dance along the chest carrying the cargo. He turns around and barks an order to one of his men. They step forward and hand you a satchel of crowns. | Finally, you\'ve made it. %recipient% is standing there in the middle of the road, his hands clasped over his stomach, a slick grin on his cheeky face.%SPEECH_ON%Sellsword, I was not sure you\'d make it.%SPEECH_OFF%You lug the cargo up and hand it over.%SPEECH_ON%Oh yeah, and why do you say that?%SPEECH_OFF%The man takes the box and hands it off to a robed man who quickly hurries away with it tucked under an arm. %recipient% laughs as he hands you a satchel of crowns.%SPEECH_ON%The roads are rough these days, are they not?%SPEECH_OFF%You understand he\'s making small talk, anything to get your attention off the cargo you just handed over. Whatever, you got your pay, that\'s good enough for you. | %recipient% welcomes you and a few of his men hurry over to take the cargo. He claps you on the shoulders.%SPEECH_ON%I take it your journey went well?%SPEECH_OFF%You spare him the details and inquire about your pay.%SPEECH_ON%Bah, a sellsword through and through. %randomname%! Get this man what he deserves!%SPEECH_OFF%One of %recipient%\'s bodyguards walks over and hands you a small chest of crowns. | After some looking, a man asks who you\'re looking for. When you say %recipient%, he points you out toward a nearby paddock where a man is strutting about on a rather opulent looking horse.\n\n You walk on over and the man rears the steed and asks if that\'s the cargo %employer% sent. You nod.%SPEECH_ON%Leave it there at your feet. I\'ll come and get it.%SPEECH_OFF%You don\'t, instead asking about your pay. The man sighs and whistles to a bodyguard who hurries over.%SPEECH_ON%See to it that this sellsword gets the pay he deserves.%SPEECH_OFF%Finally, you put the crate on the ground and make your leave.} ",
+                Image = "",
+                Characters = [],
+                List = [],
+                ShowEmployer = false,
+                Options = [
+                    {
+                        Text = "Crowns well deserved.",
+                        function getResult()
+                        {
+                            this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractSuccess);
+                            local contractValue = this.Contract.m.Payment.getOnCompletion() + this.Contract.m.Payment.getInAdvance();
+                            this.World.Assets.addMoney(contractValue * -1);
+                            local playerRoster = this.World.getPlayerRoster().getAll();
+                            local xp = this.Contract.m.Payment.getOnCompletion() * 0.25;
+
+                            foreach( bro in playerRoster )
+                            {
+                                bro.addXP(xp);
+                                bro.updateLevel();
+                            }
+
+                            this.World.FactionManager.getFaction(this.Contract.getFaction()).addPlayerRelation(this.Const.World.Assets.RelationCivilianContractSuccess, "Delivered some cargo");
+                            local recipientFaction = this.Contract.m.Destination.getFactionOfType(this.Const.FactionType.Settlement);
+
+                            if (recipientFaction != null)
+                            {
+                                recipientFaction.addPlayerRelation(this.Const.World.Assets.RelationCivilianContractSuccess * 0.5, "Delivered the crowns");
+                            }
+
+                            this.World.Contracts.finishActiveContract();
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                    local xpGained = this.Math.round(this.Contract.m.Payment.getOnCompletion() * 0.25 * this.Const.Combat.GlobalXPMult);
+                    this.Characters.push(this.Tactical.getEntityByID(this.Contract.m.RecipientID).getImagePath());
+                    this.List.push({
+                        id = 10,
+                        icon = "ui/icons/asset_money.png",
+                        text = "You gain [color=" + this.Const.UI.Color.PositiveEventValue + "]" + this.Contract.m.Payment.getOnCompletion() + "[/color] Crowns and [color=" + this.Const.UI.Color.PositiveEventValue + "]" + xpGained + "[/color] Experience"
+                    });
+                }
+
+            });
+        }
+
+    });
+
+	::mods_hookExactClass("contracts/contracts/destroy_goblin_camp_contract", function(o){
+
+        o.createStates = function()
+        {
+            this.m.States.push({
+                ID = "Offer",
+                function start()
+                {
+                    this.Contract.m.BulletpointsObjectives = [
+                        "Destroy " + this.Flags.get("DestinationName") + " %direction% of %origin%"
+                    ];
+
+                    if (this.Math.rand(1, 100) <= this.Const.Contracts.Settings.IntroChance)
+                    {
+                        this.Contract.setScreen("Intro");
+                    }
+                    else
+                    {
+                        this.Contract.setScreen("Task");
+                    }
+                }
+
+                function end()
+                {
+                    this.World.Assets.addMoney(this.Contract.m.Payment.getInAdvance());
+                    this.Contract.m.Destination.clearTroops();
+                    this.Contract.m.Destination.setLastSpawnTimeToNow();
+
+                    if (this.Contract.getDifficultyMult() < 1.15 && !this.Contract.m.Destination.getFlags().get("IsEventLocation"))
+                    {
+                        this.Contract.m.Destination.getLoot().clear();
+                    }
+
+                    this.Contract.addUnitsToEntity(this.Contract.m.Destination, this.Const.World.Spawn.GoblinRaiders, 110 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult());
+                    this.Contract.m.Destination.setLootScaleBasedOnResources(110 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult());
+                    this.Contract.m.Destination.setResources(this.Math.min(this.Contract.m.Destination.getResources(), 100 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult()));
+                    this.Contract.m.Destination.setDiscovered(true);
+                    this.World.uncoverFogOfWar(this.Contract.m.Destination.getTile().Pos, 500.0);
+
+                    if (this.World.FactionManager.getFaction(this.Contract.getFaction()).getFlags().get("Betrayed") && this.Math.rand(1, 100) <= 75)
+                    {
+                        this.Flags.set("IsBetrayal", true);
+                    }
+                    else
+                    {
+                        local r = this.Math.rand(1, 100);
+
+                        if (r <= 20 && this.World.Assets.getBusinessReputation() > 1000)
+                        {
+                            if (this.Contract.getDifficultyMult() >= 0.95)
+                            {
+                                this.Flags.set("IsAmbush", true);
+                            }
+                        }
+                    }
+
+                    this.Contract.setScreen("Overview");
+                    this.World.Contracts.setActiveContract(this.Contract);
+                }
+
+            });
+            this.m.States.push({
+                ID = "Running",
+                function start()
+                {
+                    if (this.Contract.m.Destination != null && !this.Contract.m.Destination.isNull())
+                    {
+                        this.Contract.m.Destination.getSprite("selection").Visible = true;
+                        this.Contract.m.Destination.setOnCombatWithPlayerCallback(this.onDestinationAttacked.bindenv(this));
+                    }
+                }
+
+                function update()
+                {
+                    if (this.Contract.m.Destination == null || this.Contract.m.Destination.isNull())
+                    {
+                        if (this.Flags.get("IsBetrayal"))
+                        {
+                            if (this.Flags.get("IsBetrayalDone"))
+                            {
+                                this.Contract.setScreen("Betrayal2");
+                                this.World.Contracts.showActiveContract();
+                            }
+                            else
+                            {
+                                this.Contract.setScreen("Betrayal1");
+                                this.World.Contracts.showActiveContract();
+                            }
+                        }
+                        else
+                        {
+                            this.Contract.setScreen("SearchingTheCamp");
+                            this.World.Contracts.showActiveContract();
+                            this.Contract.setState("Return");
+                        }
+                    }
+                }
+
+                function onDestinationAttacked( _dest, _isPlayerAttacking = true )
+                {
+                    if (this.Flags.get("IsAmbush"))
+                    {
+                        if (!this.Flags.get("IsAttackDialogTriggered"))
+                        {
+                            this.Flags.set("IsAttackDialogTriggered", true);
+                            this.Contract.setScreen("Ambush");
+                            this.World.Contracts.showActiveContract();
+                        }
+                        else
+                        {
+                            local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos());
+                            p.LocationTemplate = null;
+                            p.CombatID = "Ambush";
+                            p.Music = this.Const.Music.GoblinsTracks;
+                            p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Center;
+                            p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Circle;
+                            local party = this.new("scripts/entity/world/party");
+                            party.setFaction(this.Contract.m.Destination.getFaction());
+                            p.Parties.push(party);
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.5);
+                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.GoblinRaiders, 50 * this.Contract.getScaledDifficultyMult(), this.Contract.m.Destination.getFaction());
+                            foreach(troop in party.getTroops()) {
+                                p.Entities.push(troop);
+                            }
+                            this.World.Contracts.startScriptedCombat(p, false, false, false);
+                        }
+                    }
+                    else
+                    {
+                        this.World.Contracts.showCombatDialog();
+                    }
+                }
+
+                function onCombatVictory( _combatID )
+                {
+                    if (_combatID == "Betrayal")
+                    {
+                        this.Flags.set("IsBetrayalDone", true);
+                    }
+                }
+
+                function onRetreatedFromCombat( _combatID )
+                {
+                    if (_combatID == "Betrayal")
+                    {
+                        this.Flags.set("IsBetrayalDone", true);
+                    }
+                }
+
+            });
+            this.m.States.push({
+                ID = "Return",
+                function start()
+                {
+                    this.Contract.m.BulletpointsObjectives = [
+                        "Return to " + this.Contract.m.Home.getName()
+                    ];
+                    this.Contract.m.Home.getSprite("selection").Visible = true;
+                }
+
+                function update()
+                {
+                    if (this.Contract.isPlayerAt(this.Contract.m.Home))
+                    {
+                        this.Contract.setScreen("Success1");
+                        this.World.Contracts.showActiveContract();
+                    }
+                }
+
+            });
+        }
+
+        o.createScreens = function()
+        {
+            this.importScreens(this.Const.Contracts.NegotiationDefault);
+            this.importScreens(this.Const.Contracts.Overview);
+            this.m.Screens.push({
+                ID = "Task",
+                Title = "Negotiations",
+                Text = "[img]gfx/ui/events/event_61.png[/img]{%employer%\'s reading a scroll when you enter. He waves you off, perhaps thinking you\'re just a servant. You clank your scabbard against the wall. The man glances up, then quickly drops his papers.%SPEECH_ON%Ah, sellsword! It is good to see you. I have a problem specifically for a man of your... proclivities.%SPEECH_OFF%He pauses as if expecting your input. When you\'ve none, he awkwardly continues.%SPEECH_ON%Yes, of course, the task. There are goblins %direction% of %origin% who have established something of a foothold. I\'d take myself and some of my knights to go take care of it, but as it turns out, \'killing gobbos\' is beneath those men. Hogwash, I say. I think they just don\'t want to die at the hands of the stunty little gits. Honor, valor, all that.%SPEECH_OFF%He smirks and raises a hand.%SPEECH_ON%But it\'s not beneath you, so long as the pay is right, yes?%SPEECH_OFF% | %employer%\'s yelling at a man leaving his room. When he settles down, he bids you a fair greeting.%SPEECH_ON%Farkin\' hell, it\'s good to see you. Do you have any notion as to how hard it is to get your \'loyal\' men to go kill some goblins?%SPEECH_OFF%He spits and wipes his mouth on his sleeve.%SPEECH_ON%Apparently it is not the most noble of tasks. Something about how those little gits don\'t ever fight fair. Can you believe that? Men telling me, a highborn nobleman, what is \'noble\' or not. Well, there it is anyway, sellsword. I need you to go %direction% of %origin% and root out some goblins that have set up a camp. Can you do that for me?%SPEECH_OFF% | %employer%\'s unsheathing and sheathing a sword. He seems to look at himself in the blade\'s reflection before snapping it away again.%SPEECH_ON%The peasants are badgering me again. They say there are goblins camping at a place called %location% %direction% of %origin%. I\'ve no reason to disbelieve them after a young boy was brought to my feet today, a poison dart in his neck.%SPEECH_OFF%He slams the sword into its scabbard.%SPEECH_ON%Are you willing to take care of this problem for me?%SPEECH_OFF% | Red in the face, a drunken %employer% slams a mug down when you enter his room.%SPEECH_ON%Sellsword, right?%SPEECH_OFF%His guard looks in and nods. The nobleman laughs.%SPEECH_ON%Oh. Good. More men to send to their deaths.%SPEECH_OFF%He pauses before bursting into laughter.%SPEECH_ON%I joke, what a joke, right? We are having an issue with some goblins %direction% of %origin%. I need you to go take care of them, are you -hic- up for that or should I go ask someone else to dig their own... I mean...%SPEECH_OFF%He shuts himself up with another drink. | %employer%\'s comparing two scrolls when you enter.%SPEECH_ON%My taxmen are falling a little short these days. A shame, though I guess it\'s good business for you now that I can\'t afford to send my so called \'loyal\' knights anywhere.%SPEECH_OFF%He throws the papers aside and tents his hands over his table.%SPEECH_ON%My spies are reporting goblins have set up camp at a place they call %location% %direction% of %origin%. I need you to go there and do what my bannermen refuse to do.%SPEECH_OFF% | %employer% breaks bread as you enter, but he doesn\'t share any. He dips both ends into a goblet of wine and stuffs his mouth. He speaks, but it\'s more crumbs than words.%SPEECH_ON%Good seeing you, sellsword. I have some goblins %direction% of %origin% that need rooting out. I\'d send my knights to go take care of them, but they\'re, uh, a little more important and less expendable. I\'m sure you understand.%SPEECH_OFF%He manages to stuff the rest of the bread into his ugly maw. For a moment, he chokes, and for a moment you consider shutting the door and letting this end here and now. Unfortunately, his throes of anguish garner the attention of a guard who swoops in and slams the nobleman in the chest, spilling the hazard right out in all its goopy, near-assassinating glory. | When you find %employer%, he\'s sending off a few knights, chasing them out the door with a few parting curses. The sight of you, however, seems to momentarily settle the man.%SPEECH_ON%Sellsword! Good to see you! Better you than those so-called \'men\'.%SPEECH_OFF%He takes a seat and pours himself a drink. He takes a sip, stares at it, then downs it all in one go.%SPEECH_ON%My loyal bannermen refuse to go take on the goblins which have camped %direction% of %origin%. They talk of ambushes, poison, all that...%SPEECH_OFF%His speech is increasingly slurred.%SPEECH_ON%Well... -hic-, you know all that, right? And you know what I\'m asking next, right? Of - of course you do, -hic-, I need you to hand me another drink! Ha, kidding. Go kill those goblins, wouldya?%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                ShowEmployer = true,
+                ShowDifficulty = true,
+                Options = [
+                    {
+                        Text = "{Fighting goblins won\'t come cheap. | I trust you\'ll pay amply for this. | Let\'s talk money.}",
+                        function getResult()
+                        {
+                            return "Negotiation";
+                        }
+
+                    },
+                    {
+                        Text = "{This isn\'t worth it. | We have other obligations.}",
+                        function getResult()
+                        {
+                            this.World.Contracts.removeContract(this.Contract);
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                }
+
+            });
+            this.m.Screens.push({
+                ID = "Ambush",
+                Title = "Approaching the camp...",
+                Text = "[img]gfx/ui/events/event_48.png[/img]{You enter the goblin camp to find it empty. But you know better - you know you\'ve just walked into a trap. Just then, the damned greenskins emerge from all around you. With the loudest warcry you can muster, you order the men to prepare for battle! | The goblins have fooled you! They left the camp and maneuvered back around, encircling you. Prepare the men carefully, because this trap will not be easy to escape. | You should have known better: you\'ve stepped right into a goblin trap! They have their soldiers placed all around while the company is standing around like a bunch of sheep to the slaughter!}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Watch out!",
+                        function getResult()
+                        {
+                            this.Contract.getActiveState().onDestinationAttacked(this.Contract.m.Destination);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Betrayal1",
+                Title = "After the battle...",
+                Text = "[img]gfx/ui/events/event_78.png[/img]{As you finish the last goblin you are suddenly greeted by a heavily armed group of men. Their lieutenant steps forward, his thumbs hooked into a belt holding up a sword.%SPEECH_ON%Well, well, you really are stupid. %employer% does not forget easily - and he hasn\'t forgotten the last time you betrayed him. Consider this a little... return of the favor.%SPEECH_OFF%Suddenly, all the men behind the lieutenant charge forth. Arm yourselves, this was an ambush! | Cleaning gobbo blood off your sword, you suddenly spot a group of men walking toward you. They\'re carrying %employer%\'s banner and are drawing their weapons. The realization that you\'ve been setup dawns on you just as the men begin to charge. They let you fight the goblins first, the bastards! Let them have it! | A man seemingly from nowhere comes to greet you. He\'s well armed, well armored, and apparently quite happy, grinning sheepishly as he approaches.%SPEECH_ON%Evening, mercenaries. Good work on those greenskins, eh?%SPEECH_OFF%He pauses to let his smile fade.%SPEECH_ON%%employer% sends his regards.%SPEECH_OFF%Just then, a group of men swarm out from the sides of the road. It\'s an ambush! That damned nobleman has betrayed you! | A group of armed men wearing the colors of %faction% fall in behind you, the group fanning out to stare at your company. Their leader sizes you up.%SPEECH_ON%I\'m going to enjoy prying that sword from your cold, dead hands.%SPEECH_OFF%You shrug and ask why you\'ve been setup.%SPEECH_ON%%employer% doesn\'t forget those who doublecross him or the house. That\'s about all you need to know. Not like anything I say here will do you good when you\'re dead.%SPEECH_OFF%To arms, then, for this is an ambush! | Your men scour the goblin camp and find not a soul. Suddenly, men in the colors of %faction% appear behind you, the lieutenant of the group walking forward with ill intent. He\'s got a cloth embroidered with %employer%\'s sigil.%SPEECH_ON%A shame those greenskins couldn\'t finish you off. If you\'re wondering why I\'m here, it is to collect a debt owed to %employer%. You promised a task well done. You could not own up to that promise. Now you die.%SPEECH_OFF%You unsheathe your sword and flash its blade at the lieutenant.%SPEECH_ON%Looks like %employer% is about to have another promise broken.%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Take up arms!",
+                        function getResult()
+                        {
+                            this.World.FactionManager.getFaction(this.Contract.getFaction()).addPlayerRelation(this.Const.World.Assets.RelationBetrayal);
+                            this.World.FactionManager.getFaction(this.Contract.getFaction()).getFlags().set("Betrayed", false);
+                            local tile = this.World.State.getPlayer().getTile();
+                            local p = this.Const.Tactical.CombatInfo.getClone();
+                            p.TerrainTemplate = this.Const.World.TerrainTacticalTemplate[tile.TacticalType];
+                            p.Tile = tile;
+                            p.CombatID = "Betrayal";
+                            p.Music = this.Const.Music.NobleTracks;
+                            p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                            p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                            local party = this.new("scripts/entity/world/party");
+                            party.setFaction(this.Contract.getFaction());
+                            p.Parties.push(party);
+                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Noble, 140 * this.Contract.getScaledDifficultyMult(), this.Contract.getFaction());
+                            foreach(troop in party.getTroops()) {
+                                p.Entities.push(troop);
+                            }
+                            this.World.Contracts.startScriptedCombat(p, false, true, true);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Betrayal2",
+                Title = "After the battle...",
+                Text = "[img]gfx/ui/events/event_22.png[/img]{You wipe your sword on your pant leg and quickly sheathe it. The ambushers lay dead, skewered into this grotesque pose or that one. %randombrother% walks up and inquires what to do now. It appears that %faction% isn\'t going to be on the friendliest of terms. | You kick the dead body of an ambusher off the end of your sword. It appears %faction% isn\'t going to be on the friendliest of terms from now on. Maybe next time, when I agree to do something for these people, I actually do it. | Well, if nothing else, what can be learned from this is to not agree to a task you can\'t complete. The people of these land are not particularly friendly to those who fall short of their promises... | You betrayed %faction%, but that\'s not something to dwell on. They betrayed you, that\'s what is important now! And going into the future, you best be suspicious of them and anyone who flies their banner. | %employer%, judging by the dead bannermen at your feet, appears to no longer be happy with you. If you were to guess, it\'s because of something you did in the past - doublecross, failure, back-talking, sleeping with a nobleman\'s daughter? It all runs together that you try and think about it. What\'s important now is that this wedge between you two will not be easily healed. You best be wary of %faction%\'s men for a little while.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "So much for getting paid...",
+                        function getResult()
+                        {
+                            this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractSuccess);
+                            this.World.Contracts.finishActiveContract(true);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "SearchingTheCamp",
+                Title = "After the battle...",
+                Text = "[img]gfx/ui/events/event_83.png[/img]{Having slain the last of the goblins, you take a peek about their encampment. They seem the merry sort - piles of trinkets and instruments, all of which could double as a weapon. All it\'d require would be to dip them in the giant pot of poison resting right in the middle of the ruins. You kick it over and tell the men to get ready to head back to %employer%, your employer. | The goblins put up a good, crafty fight, but you\'ve managed to kill them all. Their camp set aflame, you order the men to get ready to return to %employer% with the good news. | While the short-greenskins put up a hell of a fight, your company managed a better one. The last of the goblins slain, you take a look around their ruined encampment. It appears they were not totally alone - there\'s evidence that other goblins ran off while the fighting was going on. Maybe family? Children? No matter, it\'s time to return to %employer%, the man who hired you. | Ah, it was a good fight. %employer% will be expecting to hear word of it now. | No wonder men do not wish to fight goblins, they put up a fight far beyond their stature. A shame one could not put their minds into a man, but perhaps it is for the best that such ferocity is contained within such small beings!}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Time to collect our pay.",
+                        function getResult()
+                        {
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Success1",
                 Title = "On your return...",
-                Text = "[img]gfx/ui/events/event_04.png[/img]{%SPEECH_START%I take it them southern shits squealed when you put an end to their farkin\' around.%SPEECH_OFF%%employer% bites into half a chicken breast before you can respond. And he keeps talking anyway, mouth only full of contents insofar as they have not yet launched out and spread across the table.%SPEECH_ON%Ya know, I\'d doubt of the old gods, but now, with this, I can see their ways are true, and their divinity most righteous.%SPEECH_OFF%He swallows what\'s left and slams the chicken on his plate.%SPEECH_ON%Pay the sellsword his money.%SPEECH_OFF% | You find %employer% in the company of a few monks, their prior, and women who don\'t look in remotely marital status with anyone. The nobleman is grinning ear to ear.%SPEECH_ON%Word of your doings reached us a few days ago. The old gods raise their chalices to your men, sellsword. I\'m sure you gave them southerners all the hells they deserve, and in which they no doubt dwell. Your payment, as promised.%SPEECH_OFF%A few of the women go toward you, but are quickly reeled back.%SPEECH_ON%Ladies, ladies, please, be proper. Sellsword.%SPEECH_OFF%%employer% points toward a chest of %reward% crowns. | You find %employer% in a priory. He is praying alone at an altar, and when he finishes he speaks without turning back.%SPEECH_ON%I believe the old gods spoke to me last night. Said you were returning with good news and indeed, here you are. Because we are alone, I\'ll tell you something. The \'Gilded\' ones riding around in that desert, I think them an earnest sort. I think whatever buildings they pray in, they\'re praying in them now. You\'ve not shook their faith at all, and someday we\'ll be out there again.%SPEECH_OFF%The nobleman stands up and turns around.%SPEECH_ON%Defeat hardens the faithful. I\'ve taken my licks, and now they have theirs. When you take your gold for the job, put in a prayer that it\'s the last you take for it.%SPEECH_OFF%You\'ll not be doing that, but feel it improper to tell the truth to an opened heart. %reward% crowns, however, makes a very proper entrance into the company\'s purse strings.}",
+                Text = "[img]gfx/ui/events/event_04.png[/img]{You enter %employer%\'s room and drop a few goblin heads on the floor. He glances at them.%SPEECH_ON%Huh, they\'re actually a lot bigger than the scribes tell.%SPEECH_OFF%With a few words you report the destruction of the greenskins\' encampment. The nobleman nods, rubbing his chin.%SPEECH_ON%Excellent. Your pay, as promised.%SPEECH_OFF%He hands over a satchel of %reward_completion% crowns. | %employer%\'s throwing rocks at a skittish cat when you enter. He glances at you, giving the poor creature the slightest opening to escape out a window. The nobleman chases it out with a few rocks, thankfully missing with every one.%SPEECH_ON%Good to see you, sellsword. My spies have already told me of your doings. Here\'s your pay, as agreed upon.%SPEECH_OFF%He slides a wooden chest of %reward_completion% crowns across his table. | %employer%\'s shucking nuts when you return. He throws the shells on the ground, jawing and gnashing as he speaks.%SPEECH_ON%Oy, it\'s good to see you again. I take it you were successful, yes?%SPEECH_OFF%You lift a few goblin heads up, each one tethered to a unifying band. They twist and stare at the room and at one another. The man puts his hand up.%SPEECH_ON%Please, we are dignified people here. Put that way.%SPEECH_OFF%You shrug and hand them to %randombrother% who is waiting out in the hall. %employer% walks around his table and hands you a satchel.%SPEECH_ON%%reward_completion% crowns, as agreed upon. Good job, sellsword.%SPEECH_OFF% | %employer% laughs when he sees you come in with the goblin head.%SPEECH_ON%Hell, man, don\'t be bringing those in here. Give \'em to the dogs.%SPEECH_OFF%He\'s a bit drunk. You\'re not sure if he\'s elated that you were successful or if he\'s just naturally merry with a bit of ale in him.%SPEECH_ON%Your payment was -hic- %reward_completion% crowns, right?%SPEECH_OFF%You think to \'alter\' the details, but a guard outside looks in on the talks and shakes his head. Oh well, looks like it was %reward_completion% crowns then. | When you return to %employer% he\'s got a woman over his legs. In fact, she\'s bent over and his hand is in the air. They both stare at you, pausing, then she quickly scurries under his table and he straightens up.%SPEECH_ON%Sellsword! It\'s good to see you! I take it you were successful destroying those greenskins, yes?%SPEECH_OFF%The poor lady bumps her head underneath the desk, but you try to pay it no mind as you inform the man of the expedition\'s success. He claps his hands, looks to stand, then thinks better of it.%SPEECH_ON%If you would, your payment of %reward_completion% crowns is on the bookshelf behind me.%SPEECH_OFF%He smiles awkwardly as you retrieve it.}",
                 Image = "",
                 Characters = [],
                 List = [],
@@ -4461,12 +5723,12 @@ local gt = getroottable();
                         {
                             this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractSuccess);
                             this.World.Assets.addMoney(this.Contract.m.Payment.getOnCompletion());
-                            this.World.FactionManager.getFaction(this.Contract.getFaction()).addPlayerRelation(this.Const.World.Assets.RelationNobleContractSuccess, "Defended a holy site");
+                            this.World.FactionManager.getFaction(this.Contract.getFaction()).addPlayerRelation(this.Const.World.Assets.RelationNobleContractSuccess, "Destroyed a goblin encampment");
                             this.World.Contracts.finishActiveContract();
 
-                            if (this.World.FactionManager.isHolyWar())
+                            if (this.World.FactionManager.isGreenskinInvasion())
                             {
-                                this.World.FactionManager.addGreaterEvilStrength(this.Const.Factions.GreaterEvilStrengthOnCriticalContract);
+                                this.World.FactionManager.addGreaterEvilStrength(this.Const.Factions.GreaterEvilStrengthOnCommonContract);
                             }
 
                             return 0;
@@ -4481,13 +5743,1361 @@ local gt = getroottable();
                         icon = "ui/icons/asset_money.png",
                         text = "You gain [color=" + this.Const.UI.Color.PositiveEventValue + "]" + this.Contract.m.Payment.getOnCompletion() + "[/color] Crowns"
                     });
+                    this.Contract.m.SituationID = this.Contract.resolveSituation(this.Contract.m.SituationID, this.Contract.m.Origin, this.List);
                 }
 
             });
         }
 
+    });
+
+	::mods_hookExactClass("contracts/contracts/destroy_orc_camp_contract", function(o){
+
+        o.createStates = function()
+        {
+            this.m.States.push({
+                ID = "Offer",
+                function start()
+                {
+                    this.Contract.m.BulletpointsObjectives = [
+                        "Destroy " + this.Flags.get("DestinationName") + " %direction% of %origin%"
+                    ];
+
+                    if (this.Math.rand(1, 100) <= this.Const.Contracts.Settings.IntroChance)
+                    {
+                        this.Contract.setScreen("Intro");
+                    }
+                    else
+                    {
+                        this.Contract.setScreen("Task");
+                    }
+                }
+
+                function end()
+                {
+                    this.World.Assets.addMoney(this.Contract.m.Payment.getInAdvance());
+                    this.Contract.m.Destination.clearTroops();
+                    this.Contract.m.Destination.setLastSpawnTimeToNow();
+
+                    if (this.Contract.getDifficultyMult() < 1.15 && !this.Contract.m.Destination.getFlags().get("IsEventLocation"))
+                    {
+                        this.Contract.m.Destination.getLoot().clear();
+                    }
+
+                    this.Contract.addUnitsToEntity(this.Contract.m.Destination, this.Const.World.Spawn.OrcRaiders, 110 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult());
+                    this.Contract.m.Destination.setLootScaleBasedOnResources(115 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult());
+                    this.Contract.m.Destination.setResources(this.Math.min(this.Contract.m.Destination.getResources(), 100 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult()));
+                    this.Contract.m.Destination.setDiscovered(true);
+                    this.World.uncoverFogOfWar(this.Contract.m.Destination.getTile().Pos, 500.0);
+                    this.Flags.set("HeadsCollected", 0);
+
+                    if (this.World.FactionManager.getFaction(this.Contract.getFaction()).getFlags().get("Betrayed") && this.Math.rand(1, 100) <= 75)
+                    {
+                        this.Flags.set("IsBetrayal", true);
+                    }
+                    else
+                    {
+                        local r = this.Math.rand(1, 100);
+
+                        if (r <= 5)
+                        {
+                            this.Flags.set("IsSurvivor", true);
+                        }
+                        else if (r <= 15 && this.World.Assets.getBusinessReputation() > 800)
+                        {
+                            if (this.Contract.getDifficultyMult() >= 0.95)
+                            {
+                                this.Flags.set("IsOrcsAgainstOrcs", true);
+                            }
+                        }
+                    }
+
+                    this.Contract.setScreen("Overview");
+                    this.World.Contracts.setActiveContract(this.Contract);
+                }
+
+            });
+            this.m.States.push({
+                ID = "Running",
+                function start()
+                {
+                    if (this.Contract.m.Destination != null && !this.Contract.m.Destination.isNull())
+                    {
+                        this.Contract.m.Destination.getSprite("selection").Visible = true;
+                        this.Contract.m.Destination.setOnCombatWithPlayerCallback(this.onDestinationAttacked.bindenv(this));
+                    }
+                }
+
+                function update()
+                {
+                    if (this.Contract.m.Destination == null || this.Contract.m.Destination.isNull())
+                    {
+                        if (this.Flags.get("IsSurvivor") && this.World.getPlayerRoster().getSize() < this.World.Assets.getBrothersMax())
+                        {
+                            this.Contract.setScreen("Volunteer1");
+                            this.World.Contracts.showActiveContract();
+                            this.Contract.setState("Return");
+                        }
+                        else if (this.Flags.get("IsBetrayal"))
+                        {
+                            if (this.Flags.get("IsBetrayalDone"))
+                            {
+                                this.Contract.setScreen("Betrayal2");
+                                this.World.Contracts.showActiveContract();
+                            }
+                            else
+                            {
+                                this.Contract.setScreen("Betrayal1");
+                                this.World.Contracts.showActiveContract();
+                            }
+                        }
+                        else
+                        {
+                            this.Contract.setScreen("SearchingTheCamp");
+                            this.World.Contracts.showActiveContract();
+                            this.Contract.setState("Return");
+                        }
+                    }
+                }
+
+                function onDestinationAttacked( _dest, _isPlayerAttacking = true )
+                {
+                    if (this.Flags.get("IsOrcsAgainstOrcs"))
+                    {
+                        if (!this.Flags.get("IsAttackDialogTriggered"))
+                        {
+                            this.Flags.set("IsAttackDialogTriggered", true);
+                            this.Contract.setScreen("OrcsAgainstOrcs");
+                            this.World.Contracts.showActiveContract();
+                        }
+                        else
+                        {
+                            local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos());
+                            p.CombatID = "OrcAttack";
+                            p.Music = this.Const.Music.OrcsTracks;
+                            p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                            p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Circle;
+                            p.IsAutoAssigningBases = false;
+                            local party = this.new("scripts/entity/world/party");
+                            party.setFaction(this.Const.Faction.Enemy);
+                            p.Parties.push(party);
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.5);
+                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.OrcRaiders, 150 * this.Contract.getScaledDifficultyMult(), this.Const.Faction.Enemy);
+                            foreach(troop in party.getTroops()) {
+                                p.Entities.push(troop);
+                            }
+                            this.World.Contracts.startScriptedCombat(p, false, true, true);
+                        }
+                    }
+                    else
+                    {
+                        local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos());
+                        p.CombatID = "OrcAttack";
+                        p.Music = this.Const.Music.OrcsTracks;
+                        this.World.Contracts.startScriptedCombat(p, true, true, true);
+                    }
+                }
+
+                function onCombatVictory( _combatID )
+                {
+                    if (_combatID == "Betrayal")
+                    {
+                        this.Flags.set("IsBetrayalDone", true);
+                    }
+                }
+
+                function onRetreatedFromCombat( _combatID )
+                {
+                    if (_combatID == "Betrayal")
+                    {
+                        this.Flags.set("IsBetrayalDone", true);
+                    }
+                }
+
+                function onActorKilled( _actor, _killer, _combatID )
+                {
+                    if (_combatID == "OrcAttack" || this.Contract.m.Destination != null && !this.Contract.m.Destination.isNull() && this.World.State.getPlayer().getTile().getDistanceTo(this.Contract.m.Destination.getTile()) <= 1)
+                    {
+                        if (_actor.getFaction() == this.World.FactionManager.getFactionOfType(this.Const.FactionType.Orcs).getID())
+                        {
+                            this.Flags.set("HeadsCollected", this.Flags.get("HeadsCollected") + 1);
+                        }
+                    }
+                }
+
+            });
+            this.m.States.push({
+                ID = "Return",
+                function start()
+                {
+                    this.Contract.m.BulletpointsObjectives = [
+                        "Return to " + this.Contract.m.Home.getName()
+                    ];
+                    this.Contract.m.Home.getSprite("selection").Visible = true;
+                }
+
+                function update()
+                {
+                    if (this.Contract.isPlayerAt(this.Contract.m.Home))
+                    {
+                        this.Contract.setScreen("Success1");
+                        this.World.Contracts.showActiveContract();
+                    }
+                }
+
+            });
+        }
+
+        o.createScreens = function()
+        {
+            this.importScreens(this.Const.Contracts.NegotiationPerHead);
+            this.importScreens(this.Const.Contracts.Overview);
+            this.m.Screens.push({
+                ID = "Task",
+                Title = "Negotiations",
+                Text = "[img]gfx/ui/events/event_61.png[/img]{%employer% huffs and puffs.%SPEECH_ON%Goddammit.%SPEECH_OFF%He goes to his window, looking out it.%SPEECH_ON%I had a jousting tournament recently and there was a bit of a controversy. Now, none of my knights will fight for me until it\'s taken care of.%SPEECH_OFF%You ask if you want sellswords to settle a dispute amongst nobility. The man bursts into laughter.%SPEECH_ON%Gods no, lowborn. I need you to handle some greenskins that are camping %direction% of %origin%. They\'ve been terrorizing the region for awhile now and I\'d like you to return the favor. Does that sound like something you\'re interested in, or should I have to go talk to another sword for hire?%SPEECH_OFF% | %employer% kicks his feet up on his table.%SPEECH_ON%Any opinions on greenskins, sellsword?%SPEECH_OFF%You shake your head no. The man tilts his head.%SPEECH_ON%Interesting. Most say they\'re afraid, or that they\'re nasty brutes who can cleave a man in two. But you... you\'re different. I like it. What say you go %direction% of %origin% to a place the locals have dubbed %location%? We\'ve sighted a large band of orcs there that need scattering.%SPEECH_OFF% | A cat is on %employer%\'s table. He pets it, the feline scrunching up to the scratch, but then it suddenly hisses, bites the man, and sprints out the door you just came through. %employer% dusts himself off.%SPEECH_ON%Farkin\' animals. One moment they love you, the next, well...%SPEECH_OFF%He sucks on a drop of blood coming from his thumb. You ask if you should come back so he can nurse himself back to health.%SPEECH_ON%Very funny, sellsword. No, what I want you to do is go %direction% of %origin% and take on a group of greenskins inhabiting those parts. We need them destroyed, scattered, whatever word you like so long as they\'re \'gone\'. Does that sound like something you could do for us?%SPEECH_OFF% | %employer%\'s rolling up a scroll as he explains his predicament.%SPEECH_ON%A dispute amongst the nobility has me short on good, fighting men. Unfortunately, a band of greenskins have chosen this exact moment to come into these parts. They\'re camping to the %direction% of %origin%. I can\'t get the house in order while simultaneously being raided by these damned things, so I\'m mighty hopeful that this interests you, mercenary...%SPEECH_OFF% | %employer% looks you up and down.%SPEECH_ON%You fit enough to take on a greenskin? What about your men?%SPEECH_OFF%You nod and pretend the hassle would be no more than retrieving a cat from a tree. %employer% smiles.%SPEECH_ON%Good, because I got a whole bunch of them being sighted to the %direction% of %origin%. Go there and destroy them. Simple enough, right? Surely it interests a man of your... confidence.%SPEECH_OFF% | %employer% tends to his dogs, feeding each one a meal some peasants would kill for. He claps his hands of the meaty grease.%SPEECH_ON%My chef made that, can you believe it? Horrid. Disgusting.%SPEECH_OFF%You nod as though you could possibly understand what world this man lives in where shoveling good food to dogs is normal. %employer% pitches his elbows onto his table.%SPEECH_ON%Anyway, the folks who deliver meat to us are reporting that greenskins are killing their cows. Apparently, a camp has been sighted %direction% of %origin%. If you\'re interested, I\'d like you to go there and destroy them all.%SPEECH_OFF% | You find %employer% staring over some scrolls. He glances up at you and offers a chair.%SPEECH_ON%Glad you\'re here, mercenary. I\'ve got an issue with greenskins in these parts - they\'ve made camp %direction% from here.%SPEECH_OFF%He lowers one of the scrolls.%SPEECH_ON%And I can\'t afford to send my own men. Knights are rather... unexpendable. You, however, are just right for the job. What do you say?%SPEECH_OFF% | As you enter %employer%\'s office, a group of men leave. They\'re knights, their scabbards clinking just beneath their garbs. %employer% welcomes you in.%SPEECH_ON%Don\'t worry about them. They\'re just wondering what happened to the last man I hired.%SPEECH_OFF%You raise an eyebrow. The man waves it off.%SPEECH_ON%Oh don\'t give me that shit, sellsword. You know the business as well as I do, sometimes you guys fall short and you know that means...%SPEECH_OFF%You say nothing, but after a pause, give him a nod.%SPEECH_ON%Good, glad you understand. If you want to know, I\'ve got greenskins out %direction% of %origin%. They\'ve set up camp which I presume hasn\'t moved since I last, uh, sent some men there. Are you interested in rooting them out for me?%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                ShowEmployer = true,
+                ShowDifficulty = true,
+                Options = [
+                    {
+                        Text = "{Fighting orcs won\'t come cheap. | I trust you\'ll pay amply for this. | Let\'s talk money.}",
+                        function getResult()
+                        {
+                            return "Negotiation";
+                        }
+
+                    },
+                    {
+                        Text = "{This isn\'t worth it. | We have other obligations.}",
+                        function getResult()
+                        {
+                            this.World.Contracts.removeContract(this.Contract);
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                }
+
+            });
+            this.m.Screens.push({
+                ID = "OrcsAgainstOrcs",
+                Title = "Before the attack...",
+                Text = "[img]gfx/ui/events/event_49.png[/img]{As you order your men to attack, they come across a number of orcs... fighting each other? The greenskins appear to be divided, and they are settling their differences by dividing one another in half. It\'s a gruesome display of violence. When you figure to let them fight it out, two of the orcs battle their way toward you, and soon enough every orc is staring at you. Well, no running now... to arms! | You order the %companyname% to attack, believing you\'ve gained the upperhand on the orcs. But they\'re already armed! And... fighting one another?\n\n One orc cleaves another orc in twine, and another crushes the head of another. This seems to be some sort of clan conflict. A shame you didn\'t wait a moment longer for these brutes to settle their differences, now it\'s a free for all! | The orcs are battling one another! It\'s some sort of greenskinned fracas which you\'ve made yourself a part of. Orc against orc against man, what a sight to behold! Get the men close together and you might just make it out of this goatfark alive. | By the gods, the orcs are greater numbers than you ever could have thought! Luckily, they seem to be murdering one another. You don\'t know if they\'re separate clans or if this is just greenskins\' version of a drunken brawl. Regardless, you\'re in the middle of it now!}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "To Arms!",
+                        function getResult()
+                        {
+                            this.Contract.getActiveState().onDestinationAttacked(this.Contract.m.Destination);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Betrayal1",
+                Title = "After the battle...",
+                Text = "[img]gfx/ui/events/event_78.png[/img]{As you finish the last orc you are suddenly greeted by a heavily armed group of men. Their lieutenant steps forward, his thumbs hooked into a belt holding up a sword.%SPEECH_ON%Well, well, you really are stupid. %employer% does not forget easily - and he hasn\'t forgotten the last time you betrayed %faction%. Consider this a little... return of the favor.%SPEECH_OFF%Suddenly, all the men behind the lieutenant charge forth. Arm yourselves, this was an ambush! | Cleaning orc blood off your sword, you suddenly spot a group of men walking toward you. They\'re carrying %faction%\'s banner and are drawing their weapons. The realization that you\'ve been setup dawns on you just as the men begin to charge. They let you fight the orcs first, the bastards! Let them have it! | A man seemingly from nowhere comes to greet you. He\'s well armed, well armored, and apparently quite happy, grinning sheepishly as he approaches.%SPEECH_ON%Evening, mercenaries. Good work on those greenskins, eh?%SPEECH_OFF%He pauses to let his smile fade.%SPEECH_ON%%employer% sends his regards.%SPEECH_OFF%Just then, a group of men swarm out from the sides of the road. It\'s an ambush! That damned nobleman has betrayed you! | The battle is barely over that a group of armed men wearing the colors of %faction% fall in behind you, the group fanning out to stare at your company. Their leader sizes you up.%SPEECH_ON%I\'m going to enjoy prying that sword from your cold grip.%SPEECH_OFF%You shrug and ask why you\'ve been setup.%SPEECH_ON%%employer% doesn\'t forget those who doublecross him or his house. That\'s about all you need to know. Not like anything I say here will do you good when you\'re dead.%SPEECH_OFF%To arms, then, for this is an ambush! | Your men scour the orc camp and find not a soul. Suddenly, a few strangers appear behind you, the lieutenant of the group walking forward with ill intent. He\'s got a cloth embroidered with %employer%\'s sigil.%SPEECH_ON%A shame those orcs couldn\'t finish you off. If you\'re wondering why I\'m here, it is to pay a debt owed to %faction%. You promised a task well done. You could not own up to that promise. Now you die.%SPEECH_OFF%You unsheathe your sword and flash its blade at the lieutenant.%SPEECH_ON%Looks like %faction% is about to have another promise broken.%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Take up arms!",
+                        function getResult()
+                        {
+                            this.World.FactionManager.getFaction(this.Contract.getFaction()).addPlayerRelation(this.Const.World.Assets.RelationBetrayal);
+                            this.World.FactionManager.getFaction(this.Contract.getFaction()).getFlags().set("Betrayed", false);
+                            local tile = this.World.State.getPlayer().getTile();
+                            local p = this.Const.Tactical.CombatInfo.getClone();
+                            p.TerrainTemplate = this.Const.World.TerrainTacticalTemplate[tile.TacticalType];
+                            p.Tile = tile;
+                            p.CombatID = "Betrayal";
+                            p.Music = this.Const.Music.NobleTracks;
+                            p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                            p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                            local party = this.new("scripts/entity/world/party");
+                            party.setFaction(this.Contract.getFaction());
+                            p.Parties.push(party);
+                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Noble, 140 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Contract.getFaction());
+                            foreach(troop in party.getTroops()) {
+                                p.Entities.push(troop);
+                            }
+                            this.World.Contracts.startScriptedCombat(p, false, true, true);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Betrayal2",
+                Title = "After the battle...",
+                Text = "[img]gfx/ui/events/event_22.png[/img]{You wipe your sword on your pant leg and quickly sheathe it. The ambushers lay dead, skewered into this grotesque pose or that one. %randombrother% walks up and inquires what to do now. It appears that %faction% isn\'t going to be on the friendliest of terms. | You kick the dead body of an ambusher off the end of your sword. It appears %faction% isn\'t going to be on the friendliest of terms from now on. Maybe next time, when I agree to do something for these people, I actually do it. | Well, if nothing else, what can be learned from this is to not agree to a task you can\'t complete. The people of these land are not particularly friendly to those who fall short of their promises... | You betrayed %faction%, but that\'s not something to dwell on. They betrayed you, that\'s what is important now! And going into the future, you best be suspicious of them and anyone who flies their banner. | %employer%, judging by the dead bannermen at your feet, appears to no longer be happy with you. If you were to guess, it\'s because of something you did in the past - doublecross, failure, back-talking, sleeping with a nobleman\'s daughter? It all runs together that you try and think about it. What\'s important now is that this wedge between you two will not be easily healed. You best be wary of %faction%\'s men for a little while.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "So much for getting paid...",
+                        function getResult()
+                        {
+                            this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractSuccess);
+                            this.World.Contracts.finishActiveContract(true);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "SearchingTheCamp",
+                Title = "After the battle...",
+                Text = "[img]gfx/ui/events/event_32.png[/img]{The battle over, you search the orc camp. Amongst the ruins, you find what appears to be heavy armor and human weapons in a very unusable state. Sadly, you do not find those they perhaps once belonged to. | With the orcs slain, you take a look around their camp. It\'s full of shite. Literally, shite is everywhere. The damned things don\'t know a thing about cleanliness. %randombrother% waddles up, wiping his boot on a tentpost.%SPEECH_ON%Sir, shall we move on or keep looking...?%SPEECH_OFF%You\'ve seen, and smelled, enough. | The orc camp is a wasteland filled with all manner of depravity. You can smell their sex and waste. It\'s no wonder they\'re so warlike, for they know not even the beginnings of what a civilized man understands. | The orc camp is destroyed, but you take a moment to sift through the ruins. Amidst the ashen pit of a campfire you find a few human corpses. Judging by their arms, they seem to have been mercenaries like yourself. A shame... that none of their gear is useful now that it\'s all burned up. | A few of your mercenaries walk through the ruins of the orc camp. They pick about the remains, turning up this or that unusable trinket. %randombrother% sheathes his bloody sword.%SPEECH_ON%Naught all here, sir.%SPEECH_OFF%You nod and get the men ready to return to %employer%. | The battle over, you trundle about the camp, looking for anything useful. You find nothing you can take, but you do find a stack of dead knights. Their pale, wormed and maggot-buggered faces suggest they\'d been there awhile. Who knows what the orcs were doing with them.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Time to collect our pay.",
+                        function getResult()
+                        {
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Volunteer1",
+                Title = "After the battle...",
+                Text = "[img]gfx/ui/events/event_32.png[/img]{The battle\'s over, but you still hear screaming. You tell %randombrother% to shut it, as he is somewhat predisposed to the random growl or yelp, but he shakes his head and says it\'s not him. Just then, a shackled man rises up out of a pile of ashes that used to be the orc camp.%SPEECH_ON%Evening, fine sirs! I do believe you have freed me.%SPEECH_OFF%He stumbles forth, a ghostly, twisting cloud of ash spinning off behind him.%SPEECH_ON%I am quite grateful, obviously, and I\'d like to repay the favor. You\'re mercenaries, correct? If so, I\'d like to fight for you.%SPEECH_OFF%He picks a blade up off the ground and twirls it around in hand, weaving it as though it had been his since birth. An interesting offer that just got more interesting... | Cleaning your blade, a voice pipes in from a collapsed orcish tent.%SPEECH_ON%Good sirs, you\'ve done it!%SPEECH_OFF%You watch as a grinning man emerges.%SPEECH_ON%You\'ve freed me! And I\'d like to repay that service you\'ve done by offering my hand!%SPEECH_OFF%He holds his hand out, pauses, then takes it back.%SPEECH_ON%I mean to fight for you! I\'d like to fight for you, sir! If you can do all this, then surely I\'d be in good company, right?%SPEECH_OFF%Hmm, an interesting offer. You toss him a weapon and he catches with ease. He twists the handle about, twirling it hand-over-hand before trying to sheathe it into an invisible scabbard.%SPEECH_ON%The name\'s %dude_name%.%SPEECH_OFF% | A man in tattered and dented armor comes sprinting toward you. His arms are tied behind his back.%SPEECH_ON%You did it! I can\'t believe it! Sorry, let me explain my immodesty. I was captured by the orcs a day ago as we tried to take the camp. I think they were about to put me on a spit when you showed up. I took the first moment I could to make my escape, but now I see you and your group might be worth joining.%SPEECH_OFF%You ask the man to get to the point. He does.%SPEECH_ON%I\'d like to fight for you, sir. I\'ve got experience - been with the lord\'s army, a mercenary, and... well, other things.%SPEECH_OFF%}",
+                Image = "",
+                Characters = [],
+                List = [],
+                Options = [
+                    {
+                        Text = "Welcome to the company!",
+                        function getResult()
+                        {
+                            this.World.getPlayerRoster().add(this.Contract.m.Dude);
+                            this.World.getTemporaryRoster().clear();
+                            this.Contract.m.Dude.onHired();
+                            this.Contract.m.Dude = null;
+                            return 0;
+                        }
+
+                    },
+                    {
+                        Text = "You\'ll have to find your luck elsewhere.",
+                        function getResult()
+                        {
+                            this.World.getTemporaryRoster().clear();
+                            this.Contract.m.Dude = null;
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                    local roster = this.World.getTemporaryRoster();
+                    this.Contract.m.Dude = roster.create("scripts/entity/tactical/player");
+                    this.Contract.m.Dude.setStartValuesEx(this.Const.CharacterVeteranBackgrounds);
+
+                    if (this.Contract.m.Dude.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand) != null)
+                    {
+                        this.Contract.m.Dude.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand).removeSelf();
+                    }
+
+                    if (this.Contract.m.Dude.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand) != null)
+                    {
+                        this.Contract.m.Dude.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand).removeSelf();
+                    }
+
+                    if (this.Contract.m.Dude.getItems().getItemAtSlot(this.Const.ItemSlot.Head) != null)
+                    {
+                        this.Contract.m.Dude.getItems().getItemAtSlot(this.Const.ItemSlot.Head).removeSelf();
+                    }
+
+                    if (this.Contract.m.Dude.getItems().getItemAtSlot(this.Const.ItemSlot.Body) != null)
+                    {
+                        this.Contract.m.Dude.getItems().getItemAtSlot(this.Const.ItemSlot.Body).setArmor(this.Contract.m.Dude.getItems().getItemAtSlot(this.Const.ItemSlot.Body).getArmor() * 0.33);
+                    }
+
+                    if (this.Contract.m.Dude.getTitle() == "")
+                    {
+                        this.Contract.m.Dude.setTitle("the Survivor");
+                    }
+
+                    this.Characters.push(this.Contract.m.Dude.getImagePath());
+                }
+
+            });
+            this.m.Screens.push({
+                ID = "Success1",
+                Title = "On your return...",
+                Text = "[img]gfx/ui/events/event_04.png[/img]{You return to %employer% and report your doings. He waves you off.%SPEECH_ON%Oh please, sellsword. I already know. You don\'t think I have spies in these parts?%SPEECH_OFF%He gestures toward a satchel on the corner of his table. You take it and the man flicks his wrist.%SPEECH_ON%That should be thanks enough, now please leave my sight.%SPEECH_OFF% | You show %employer% a head of an orc. He stares at it, then at you.%SPEECH_ON%Interesting. So should I take it that you\'ve completed what I\'ve asked of you?%SPEECH_OFF%You nod. The man smiles and hands over a wooden chest with %reward% crowns inside.%SPEECH_ON%I knew I could trust you, sellsword.%SPEECH_OFF% | %employer% stares at you as you return.%SPEECH_ON%I\'ve heard of what you\'ve done.%SPEECH_OFF%It\'s a strange tone in his voice, a tone that has you quickly reviewing everything you\'ve done in the past week. Was that a noble woman at the... no, couldn\'t be.%SPEECH_ON%The orcs are dead. Good work, mercenary.%SPEECH_OFF%He slides you a satchel of %reward% crowns and a wave of relief also washes over you. | You enter %employer%\'s room and take a seat, pouring yourself a cup of wine. The nobleman stares a hole through you.%SPEECH_ON%I dare say that\'s a drawing-and-quartering offense, a hanging one if I\'m feeling kind, a burning one if I ain\'t.%SPEECH_OFF%You finish the drink and then slam an orc head on the man\'s table. The cup totters and rolls around on its side. %employer% reels back, then calms himself.%SPEECH_ON%Ah, yes, a drink well earned. That wasn\'t my best wine, anyway. %randomname%, my guard, is waiting for you outside. He\'ll have the %reward% crowns we agreed upon.%SPEECH_OFF% | You lift an orc head to show %employer%. The green maw falls open, its tongue lolling between the teeth one might mistake for tusks. %employer% nods and flicks his hand.%SPEECH_ON%Please, have some mercy for my dreams and take it away.%SPEECH_OFF%You do as told. The man shakes his head.%SPEECH_ON%How am I to get any sleep these days with things like that being lugged around? Anyhow, you have %reward% crowns already waiting for you outside with one of my guards. Thanks for your work, sellsword.%SPEECH_OFF% | You come to %employer%\'s room to find him looking at a drawing on a scroll. He stares at you, the lip of the paper folding backward.%SPEECH_ON%My daughter thinks herself an artist, can you believe that?%SPEECH_OFF%He shows you the scroll. It\'s a pretty well done drawing of a man who looks suspiciously like %employer%. The drawn figure is facing a hangman. %employer% laughs.%SPEECH_ON%Dumb girl.%SPEECH_OFF%He crumples the scrolls and tosses it aside.%SPEECH_ON%Anyway, my spies have already told me of your successes. Here is your payment as we agreed.%SPEECH_OFF%}",
+                Image = "",
+                Characters = [],
+                List = [],
+                ShowEmployer = true,
+                Options = [
+                    {
+                        Text = "Crowns well deserved.",
+                        function getResult()
+                        {
+                            this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractSuccess);
+                            this.World.Assets.addMoney(this.Contract.m.Reward);
+                            this.World.FactionManager.getFaction(this.Contract.getFaction()).addPlayerRelation(this.Const.World.Assets.RelationNobleContractSuccess, "Destroyed an orc encampment");
+                            this.World.Contracts.finishActiveContract();
+
+                            if (this.World.FactionManager.isGreenskinInvasion())
+                            {
+                                this.World.FactionManager.addGreaterEvilStrength(this.Const.Factions.GreaterEvilStrengthOnCommonContract);
+                            }
+
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                    this.Contract.m.Reward = this.Contract.m.Payment.getOnCompletion() + this.Flags.get("HeadsCollected") * this.Contract.m.Payment.getPerCount();
+                    this.List.push({
+                        id = 10,
+                        icon = "ui/icons/asset_money.png",
+                        text = "You gain [color=" + this.Const.UI.Color.PositiveEventValue + "]" + this.Contract.m.Reward + "[/color] Crowns"
+                    });
+                    this.Contract.m.SituationID = this.Contract.resolveSituation(this.Contract.m.SituationID, this.Contract.m.Origin, this.List);
+                }
+
+            });
+        }
 
     });
 
+	::mods_hookExactClass("contracts/contracts/discover_location_contract", function(o){
+
+        o.createScreens = function()
+        {
+            this.importScreens(this.Const.Contracts.NegotiationDefault);
+            this.importScreens(this.Const.Contracts.Overview);
+            this.m.Screens.push({
+                ID = "Task",
+                Title = "Negotiations",
+                Text = "[img]gfx/ui/events/event_45.png[/img]{%employer% is looking at a poorly drawn map, then looks up at you as though you\'re the one responsible for making it.%SPEECH_ON%Look, mercenary, this is a strange thing to task you with, but you seem to have a good head on your shoulders. See this dark spot here? Would you be willing to venture that way and try and find the %location%? It\'s somewhere at or around the region of %region%.%SPEECH_OFF% | You step into %employer%\'s room and he shoves a map into your face.%SPEECH_ON%{Sellsword! Time for you to go exploring! See this uncharted spot, %direction% of here in the region of %region%? That\'s where I need you to go in search of the %location%. Do you accept or not? | Alright, this might seem strange, but I need a place by the name of the %location% located and charted. Our maps are incomplete in regards to this spot which, at the very least, I believe is at or near the region of %region% %direction% of here. Go, find it, and come back with the coordinates and you will be properly rewarded. | There are parts of this world man still has yet to find and chart into his maps. I\'m looking for %location% %direction% of here at or near the region of %region%. That\'s about all I know of it, but I do know it exists. So you go and find it for me and you\'ll be properly rewarded. | I need a place found, sellsword. It lies %direction% of here at or near to the region of %region%. The laymen call it %location%, but whatever it is, I need to know WHERE it is, understand? Find it and you will be paid handsomely. | I\'m in need of a soldier and explorer, sellsword, and I think you\'re just the man to be both in one. Now, before you accuse me of being cheap by not hiring both vocations, let\'s just say I have plenty of crowns for you to earn in doing this for me. What is it, hm? Well, I know of a place by the name of %location%, but I know not where it is other than it resides %direction% of here in the strip of land called %region%. Find it, draw its place on the map, and you\'ll get the pay of both a soldier and an explorer!}%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                ShowEmployer = true,
+                ShowDifficulty = true,
+                Options = [
+                    {
+                        Text = "{What does it pay? | For the right price we\'ll find it.}",
+                        function getResult()
+                        {
+                            return "Negotiation";
+                        }
+
+                    },
+                    {
+                        Text = "{Not interested. | Our travels will not take us there for a while. | This is not the kind of work we\'re looking for.}",
+                        function getResult()
+                        {
+                            this.World.Contracts.removeContract(this.Contract);
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                }
+
+            });
+            this.m.Screens.push({
+                ID = "FoundIt",
+                Title = "At %location%",
+                Text = "[img]gfx/ui/events/event_57.png[/img]{You sight %location% in the glass of your scope and mark it on your maps. Easy enough. Time to return to %employer%. | Well, it\'s already time to return to %employer% as %location% was easier to find than you figured. Marking it on your map, you pause and chuckle and shake your head. What luck. | %location% comes into view and it\'s immediately reborn upon your map to the best of your illustrative capabilities. %randombrother% asks if that\'s all there is to do. You nod. A rough go or an easy one, %employer% will be waiting to pay you all the same.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Time to head back.",
+                        function getResult()
+                        {
+                            this.Contract.setState("Return");
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Trap",
+                Title = "Along the way...",
+                Text = "[img]gfx/ui/events/event_07.png[/img]The %location% has been spotted - and so has the %companyname%. The supposed \'altruist\' who had given you the directions is standing there, except now he has a band of hardy and unfriendly men with him.%SPEECH_ON%{Well, looks like you can follow directions after all. Setting an ambush is pretty easy when you tell the idiot where to meet ya. Anyway, kill them all! | Hey there, sellsword. Strange seeing you here. Oh wait, no it isn\'t. Kill them all! | Damn, took you long enough! What, you can\'t follow simple instructions on how to walk into your own graves? Foolish, sellsword, and annoyingly dumb. Well, let\'s get this over with. Kill them all.}%SPEECH_OFF%",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "To Arms!",
+                        function getResult()
+                        {
+                            local tile = this.World.State.getPlayer().getTile();
+                            local p = this.Const.Tactical.CombatInfo.getClone();
+                            p.Music = this.Const.Music.BanditTracks;
+                            p.TerrainTemplate = this.Const.World.TerrainTacticalTemplate[tile.TacticalType];
+                            p.Tile = tile;
+                            p.CombatID = "DiscoverLocation";
+                            p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                            p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                            local party = this.new("scripts/entity/world/party");
+                            party.setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
+                            p.Parties.push(party);
+                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.BanditRaiders, 100 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
+                            foreach(troop in party.getTroops()) {
+                                p.Entities.push(troop);
+                            }
+                            this.World.Contracts.startScriptedCombat(p, false, false, false);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "SurprisingHelpAltruists",
+                Title = "Along the way...",
+                Text = "[img]gfx/ui/events/event_76.png[/img]{Waving his hand rather friendly-like, a man approaches. You respond by unsheathing your sword halfway. He laughs.%SPEECH_ON%So many are interested in the %location%, so I can\'t fault you for being so defensive. Look, I\'ll tell you exactly where it\'s at. Just %distance% to the %direction% of here, %terrain%.%SPEECH_OFF%He heads off, cackling with laughter.%SPEECH_ON%I dunno if I\'ve done good or ill, and that\'s just the sort of fun I like!%SPEECH_OFF% | A group of world-weary explorers! They seize up in the middle of the road, half covered in mud and half in leaves and all in unintentional camouflage. One rubs his forehead, eyeing you carefully before a smile widens.%SPEECH_ON%Eh, I know a searcher when I see one. You\'re looking for the %location%, aintcha? Well yer in luck, we was just coming from there! Here, give me your map and I\'ll show you just where it is. You see, %terrain% %distance% to the %direction% of where we are now.%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Much appreciated.",
+                        function getResult()
+                        {
+                            if (this.Math.rand(1, 100) <= 20 && this.Contract.getDifficultyMult() > 0.95)
+                            {
+                                this.Flags.set("IsTrap", true);
+                            }
+
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "SurprisingHelpOpportunists1",
+                Title = "Along the way...",
+                Text = "[img]gfx/ui/events/event_76.png[/img]{The stranger is a lone man who keeps his distance, one foot on the path, the other inching toward escape.%SPEECH_ON%Hey there.%SPEECH_OFF%He glances across your men, slowly smiling as though he can sense our being lost.%SPEECH_ON%Searching for the %location% are ya? Hmm, yeah. Well I\'ll tell you what, hand me %hint_bribe% crowns and I\'ll tell you exactly where it is! Come after me with yer swords and I\'ll be gone quicker than you can blink!%SPEECH_OFF% | You watch as the stranger comes into the light of the path, shielding his eyes so as to keep much of his face hidden.%SPEECH_ON%You look like the sort to be in search of something, but you know not where it be! The %location% is tricky like that. Good thing I know where it is. Good thing you, too, can know where it is by sliding %hint_bribe% crowns my way. I\'m the fastest sprinter you ever did see, so don\'t try and wring it out of me with one of them shiny swords you got.%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Fine, here\'s the crowns. Now speak.",
+                        function getResult()
+                        {
+                            return "SurprisingHelpOpportunists2";
+                        }
+
+                    },
+                    {
+                        Text = "No need, we\'ll find it on our own.",
+                        function getResult()
+                        {
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "SurprisingHelpOpportunists2",
+                Title = "Along the way...",
+                Text = "[img]gfx/ui/events/event_76.png[/img]You accept the man\'s offer and he dishes out the details as promised.%SPEECH_ON%You see, it\'s there, of course, %terrain% %distance% to the %direction% of where we are now. Easy.%SPEECH_OFF%He whistles as he walks off, no doubt a very easy payday for him.",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Got it.",
+                        function getResult()
+                        {
+                            this.World.Assets.addMoney(-this.Flags.get("HintBribe"));
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                    this.List.push({
+                        id = 10,
+                        icon = "ui/icons/asset_money.png",
+                        text = "You lose [color=" + this.Const.UI.Color.NegativeEventValue + "]" + this.Flags.get("HintBribe") + "[/color] Crowns"
+                    });
+                }
+
+            });
+            this.m.Screens.push({
+                ID = "AnotherParty1",
+                Title = "At %townname%",
+                Text = "[img]gfx/ui/events/event_51.png[/img]{As you and the %companyname% prepare their journey, %randombrother% states that there is a man who wishes to speak to you directly. You nod and have him led to you. He\'s a glum, small man who states that the \'rulers\' of %townname% have no interest in the %location% other than ones of greed. Of course that\'s the case, so what\'s the problem? The man nods.%SPEECH_ON%Look, I\'ve some folks who are interested in keeping the %location% hidden away for good. If you find it, well, talk to me first. We\'ll make you a pretty penny.%SPEECH_OFF% | While the %companyname% readies its trip to find the %location%, a man sidles up next to you. He hands you a note and departs without saying a word. The scroll reads: LEAVE THE %locationC% WHERE IT BE. IF YOU FIND IT, TALK TO US. OUR CROWNS FOR YOUR SILENCE. THE RULERS OF %townnameC% NEED NOT KNOW NOTHIN\'! | A man approaches the company. Behind him you spy a couple of poor families staring on. You\'re not sure if he\'s their ambassador or not, but either way he comes right for you with a proposition spoken low and quiet.%SPEECH_ON%Listen here, sellsword. If you go out and find the %location%, come to us first. The rulers of %townname% need not bring their greed and lust for power to that place. Leave it to us, alright? We\'ll pay you well.%SPEECH_OFF%Before you can say a word, he straightens up and continues on. When you look back down the road those families are no longer around.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "I\'ll think about it.",
+                        function getResult()
+                        {
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "AnotherParty2",
+                Title = "On your return...",
+                Text = "[img]gfx/ui/events/event_51.png[/img]{As you head toward %townname%, a stranger comes out to the path. He\'s the man you talked to before, but this time he has a satchel in hand.%SPEECH_ON%{You\'ve no reason to tell the rulers of this town where the %location% is. Leave its secrets to us, you\'ve no idea what heirlooms and history we have there. For your silence, we\'re willing to give you this as payment, %bribe% crowns. Please, sir, accept. | Look, sellsword, I know you speak one language and that is the language of money. Take this satchel as a token of our appreciation - if you stay silent. You needn\'t tell the rulers of %townname% where the %location% is. That place belongs to our families. Those petty rulers will only ruin it with their greed and power-seeking. So, what say you, will you take this? There are %bribe% crowns in there. All you gotta do is take it and not talk.}%SPEECH_OFF% | Entering %townname%, you\'re headed off by a familiar face: the man who had greeted you just before you had departed in the first place. But this time he has a satchel with him.%SPEECH_ON%{%bribe% crowns for your silence. Tell the rulers of this town absolutely nothing and it\'s yours. They need not know about our deal, they just need not know where this place is. It\'s important to us, with history beyond measure, and all they\'ll do is raid and pillage it. Please, accept. | Take this, it\'s %bribe% crowns. That\'s how much we\'re prepared to give you for your silence. The rulers of %townname% will take your information and use it to pillage the %location%, because they know of our own familial relations to it and, well, we\'ve long since fallen out of favor around here. We\'ve little left so, please, let us keep our heirlooms and old home.}%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "I don\'t think so. Only our employer will learn where it is.",
+                        function getResult()
+                        {
+                            return "AnotherParty3";
+                        }
+
+                    },
+                    {
+                        Text = "We have a deal. You and no one else will learn where it is.",
+                        function getResult()
+                        {
+                            return "AnotherParty4";
+                        }
+
+                    },
+                    {
+                        Text = "Why get paid only once if we can get paid twice?",
+                        function getResult()
+                        {
+                            return "AnotherParty5";
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "AnotherParty3",
+                Title = "On your return...",
+                Text = "[img]gfx/ui/events/event_51.png[/img]{After telling the man no, he falls to his knees and cries out, much to the amusement of the %companyname%. He wails on about how you\'ve left the historic past of his family in the hands of lechers and usurers. You tell him that you don\'t care. | Telling the man that you\'ve no interest in betraying your original employer sets him off. He tries to attack you, launching forward to glom onto you with angry hands. %randombrother% pushes him away and threatens to kill him with a blade. The man backs off. He sits beside the path, head between his knees, sobbing. One of the men gives him a handkerchief as they pass by. | You tell the man no. He begs. You tell him no again. He begs some more. You suddenly realize you\'ve done with this with a woman or two. It really isn\'t a good look. You tell him as much, but the emotion of the moment is too much for him. He starts to wail, going on about how his family name will be ruined by the greedy bastards that run %townname%. You tell him that his supposed family name would be spared if, perhaps, he was the one running this town. This does not clear his tears.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Out of the way.",
+                        function getResult()
+                        {
+                            return "Success1";
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "AnotherParty4",
+                Title = "On your return...",
+                Text = "[img]gfx/ui/events/event_51.png[/img]{You agree to sell the man the details of your expedition. He\'s overly joyous about the whole affair, but %employer% is not. Apparently, a little child saw this exchange and reported your betrayal to the head of %townname%. Your reputation here has, no doubt, been a little hurt. | Well, on one hand you spared this man\'s supposed familial home from destruction at the hands of those who run %townname%. On the other, those who run %townname% quickly heard of what you\'d done. You should have paid more mind to a small town\'s population to double as rumormills extraordinaire.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Well, %employer% should have just payed us more.",
+                        function getResult()
+                        {
+                            this.World.Assets.addMoney(this.Flags.get("Bribe"));
+                            this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractFail);
+                            this.World.FactionManager.getFaction(this.Contract.getFaction()).addPlayerRelation(this.Const.World.Assets.RelationCivilianContractFail, "Sold the location of " + this.Flags.get("Location") + " to another party");
+                            this.World.Contracts.finishActiveContract(true);
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                    this.List.push({
+                        id = 10,
+                        icon = "ui/icons/asset_money.png",
+                        text = "You gain [color=" + this.Const.UI.Color.PositiveEventValue + "]" + this.Flags.get("Bribe") + "[/color] Crowns"
+                    });
+                }
+
+            });
+            this.m.Screens.push({
+                ID = "AnotherParty5",
+                Title = "On your return...",
+                Text = "[img]gfx/ui/events/event_04.png[/img]You tell the man that you\'ll keep the location of his familial home a secret. While he celebrates, you go and tell %employer% where the %location% is. Getting paid by both sides makes for a pretty sweet gig. Catching hate from both not so much, but what did they expect in dealing with a sellsword?",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Those people will never learn.",
+                        function getResult()
+                        {
+                            this.World.Assets.addMoney(this.Contract.m.Payment.getOnCompletion());
+                            this.World.Assets.addMoney(this.Flags.get("Bribe"));
+                            this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractFail * 2);
+                            this.World.FactionManager.getFaction(this.Contract.getFaction()).addPlayerRelation(this.Const.World.Assets.RelationCivilianContractFail * 1.5, "Gave information to a competitor");
+                            this.World.Contracts.finishActiveContract(true);
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                    this.List.push({
+                        id = 10,
+                        icon = "ui/icons/asset_money.png",
+                        text = "You gain [color=" + this.Const.UI.Color.PositiveEventValue + "]" + this.Contract.m.Payment.getOnCompletion() + "[/color] Crowns"
+                    });
+                    this.List.push({
+                        id = 10,
+                        icon = "ui/icons/asset_money.png",
+                        text = "You gain [color=" + this.Const.UI.Color.PositiveEventValue + "]" + this.Flags.get("Bribe") + "[/color] Crowns"
+                    });
+                }
+
+            });
+            this.m.Screens.push({
+                ID = "Success1",
+                Title = "On your return...",
+                Text = "[img]gfx/ui/events/event_20.png[/img]{%employer% welcomes you back. You hand over your recently illustrated map and he pores over it, swatting the spotted mark with the back of his hand.%SPEECH_ON%Of course that\'s where it is!%SPEECH_OFF%He smirks and pays you what you\'re owed. | You come to %employer%\'s room, a fresh map in hand. He takes it from you and looks it over.%SPEECH_ON%Well then. I\'d mind to think this was a spot too easy, but an agreement is an agreement.%SPEECH_OFF%He hands you a satchel weighed with precisely what is owed. | You report to %employer%, telling him of %location%\'s location. He nods and scribbles, copying the notes from your map. Curious, you ask how he knows you\'re not lying. The man sets down in a chair and leans back, clasping his hands over his belly.%SPEECH_ON%I invested in a tracker who kept close to your company. He made it here before you did and you\'ve but confirmed what I already know. Hope you don\'t mind the measures taken.%SPEECH_OFF%Nodding, you think it a wise move and take your pay and go.}",
+                Image = "",
+                Characters = [],
+                List = [],
+                ShowEmployer = true,
+                Options = [
+                    {
+                        Text = "Crowns well deserved.",
+                        function getResult()
+                        {
+                            this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractSuccess);
+                            this.World.Assets.addMoney(this.Contract.m.Payment.getOnCompletion());
+                            local playerRoster = this.World.getPlayerRoster().getAll();
+                            local xp = this.Contract.m.Payment.getOnCompletion() * 0.1;
+
+                            foreach( bro in playerRoster )
+                            {
+                                bro.addXP(xp);
+                                bro.updateLevel();
+                            }
+
+                            this.World.FactionManager.getFaction(this.Contract.getFaction()).addPlayerRelation(this.Const.World.Assets.RelationCivilianContractSuccess, "Hired to find the " + this.Flags.get("Location"));
+                            this.World.Contracts.finishActiveContract();
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                    local xpGained = this.Math.round(this.Contract.m.Payment.getOnCompletion() * 0.1 * this.Const.Combat.GlobalXPMult);
+                    this.List.push({
+                        id = 10,
+                        icon = "ui/icons/asset_money.png",
+                        text = "You gain [color=" + this.Const.UI.Color.PositiveEventValue + "]" + this.Contract.m.Payment.getOnCompletion() + "[/color] Crowns and [color=" + this.Const.UI.Color.PositiveEventValue + "]" + xpGained + "[/color] Experience"
+                    });
+                }
+
+            });
+        }
+
+    });
+
+	::mods_hookExactClass("contracts/contracts/drive_away_bandits_contract", function(o){
+
+        o.createStates = function()
+        {
+            this.m.States.push({
+                ID = "Offer",
+                function start()
+                {
+                    this.Contract.m.BulletpointsObjectives = [
+                        "Drive off brigands at " + this.Flags.get("DestinationName") + " %direction% of %origin%"
+                    ];
+
+                    if (this.Math.rand(1, 100) <= this.Const.Contracts.Settings.IntroChance)
+                    {
+                        this.Contract.setScreen("Intro");
+                    }
+                    else
+                    {
+                        this.Contract.setScreen("Task");
+                    }
+                }
+
+                function end()
+                {
+                    this.World.Assets.addMoney(this.Contract.m.Payment.getInAdvance());
+                    this.Contract.m.Destination.clearTroops();
+                    this.Contract.m.Destination.setLastSpawnTimeToNow();
+
+                    if (this.Contract.getDifficultyMult() <= 1.15 && !this.Contract.m.Destination.getFlags().get("IsEventLocation"))
+                    {
+                        this.Contract.m.Destination.getLoot().clear();
+                    }
+
+                    this.Contract.addUnitsToEntity(this.Contract.m.Destination, this.Const.World.Spawn.BanditDefenders, 110 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult());
+                    this.Contract.m.Destination.setLootScaleBasedOnResources(110 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult());
+                    this.Contract.m.Destination.setResources(this.Math.min(this.Contract.m.Destination.getResources(), 70 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult()));
+                    this.Contract.m.Destination.setDiscovered(true);
+                    this.World.uncoverFogOfWar(this.Contract.m.Destination.getTile().Pos, 500.0);
+
+                    if (this.World.Assets.getBusinessReputation() >= 500 && this.Contract.getDifficultyMult() >= 0.95 && this.Math.rand(1, 100) <= 20)
+                    {
+                        this.Flags.set("IsRobberBaronPresent", true);
+
+                        if (this.World.Assets.getBusinessReputation() > 600 && this.Math.rand(1, 100) <= 50)
+                        {
+                            this.Flags.set("IsBountyHunterPresent", true);
+                        }
+                    }
+
+                    this.Contract.setScreen("Overview");
+                    this.World.Contracts.setActiveContract(this.Contract);
+                }
+
+            });
+            this.m.States.push({
+                ID = "Running",
+                function start()
+                {
+                    if (this.Contract.m.Destination != null && !this.Contract.m.Destination.isNull())
+                    {
+                        this.Contract.m.Destination.getSprite("selection").Visible = true;
+                        this.Contract.m.Destination.setOnCombatWithPlayerCallback(this.onDestinationAttacked.bindenv(this));
+                    }
+                }
+
+                function update()
+                {
+                    if (this.Contract.m.Destination == null || this.Contract.m.Destination.isNull())
+                    {
+                        if (this.Flags.get("IsRobberBaronDead"))
+                        {
+                            this.Contract.setScreen("RobberBaronDead");
+                            this.World.Contracts.showActiveContract();
+                        }
+                        else if (this.Math.rand(1, 100) <= 10)
+                        {
+                            this.Contract.setScreen("Survivors1");
+                            this.World.Contracts.showActiveContract();
+                        }
+                        else if (this.Math.rand(1, 100) <= 10 && this.World.getPlayerRoster().getSize() < this.World.Assets.getBrothersMax())
+                        {
+                            this.Contract.setScreen("Volunteer1");
+                            this.World.Contracts.showActiveContract();
+                        }
+
+                        this.Contract.setState("Return");
+                    }
+                }
+
+                function onDestinationAttacked( _dest, _isPlayerAttacking = true )
+                {
+                    if (this.Flags.get("IsRobberBaronPresent"))
+                    {
+                        if (!this.Flags.get("IsAttackDialogTriggered"))
+                        {
+                            this.Flags.set("IsAttackDialogTriggered", true);
+                            this.Contract.setScreen("AttackRobberBaron");
+                            this.World.Contracts.showActiveContract();
+                        }
+                        else
+                        {
+                            local properties = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos());
+                            properties.Music = this.Const.Music.BanditTracks;
+                            local party = this.new("scripts/entity/world/party");
+                            party.setFaction(_dest.getFaction());
+                            p.Parties.push(party);
+                            party.EL_setTroopsResourse(0);
+                            this.Const.World.Common.addTroop(party, {
+                                Type = this.Const.World.Spawn.Troops.BanditLeader
+                            }, false);
+                            foreach(troop in party.getTroops()) {
+                                p.Entities.push(troop);
+                            }
+                            properties.EnemyBanners.push(this.Contract.m.Destination.getBanner());
+                            this.World.Contracts.startScriptedCombat(properties, true, true, true);
+                        }
+                    }
+                    else
+                    {
+                        this.World.Contracts.showCombatDialog();
+                    }
+                }
+
+                function onRobberBaronPlaced( _entity, _tag )
+                {
+                    _entity.getFlags().set("IsRobberBaron", true);
+                    _entity.setName(this.Flags.get("RobberBaronName"));
+                }
+
+                function onActorKilled( _actor, _killer, _combatID )
+                {
+                    if (_actor.getFlags().get("IsRobberBaron") == true)
+                    {
+                        this.Flags.set("IsRobberBaronDead", true);
+                    }
+                }
+
+            });
+            this.m.States.push({
+                ID = "Return",
+                function start()
+                {
+                    this.Contract.m.BulletpointsObjectives = [
+                        "Return to " + this.Contract.m.Home.getName()
+                    ];
+                    this.Contract.m.Home.getSprite("selection").Visible = true;
+                }
+
+                function update()
+                {
+                    if (this.Contract.isPlayerAt(this.Contract.m.Home))
+                    {
+                        if (this.Flags.get("IsRobberBaronDead"))
+                        {
+                            this.Contract.setScreen("Success2");
+                        }
+                        else
+                        {
+                            this.Contract.setScreen("Success1");
+                        }
+
+                        this.World.Contracts.showActiveContract();
+                    }
+
+                    if (this.Flags.get("IsRobberBaronDead") && this.Flags.get("IsBountyHunterPresent") && !this.TempFlags.get("IsBountyHunterTriggered") && this.World.Events.getLastBattleTime() + 7.0 < this.Time.getVirtualTimeF() && this.Math.rand(1, 1000) <= 2)
+                    {
+                        this.Contract.setScreen("BountyHunters1");
+                        this.World.Contracts.showActiveContract();
+                    }
+                    else if (this.Flags.get("IsBountyHunterRetreat"))
+                    {
+                        this.Contract.setScreen("BountyHunters3");
+                        this.World.Contracts.showActiveContract();
+                    }
+                }
+
+                function onCombatVictory( _combatID )
+                {
+                    if (_combatID == "BountyHunters")
+                    {
+                        this.Flags.set("IsBountyHunterPresent", false);
+                    }
+                }
+
+                function onRetreatedFromCombat( _combatID )
+                {
+                    if (_combatID == "BountyHunters")
+                    {
+                        this.Flags.set("IsBountyHunterPresent", false);
+                        this.Flags.set("IsBountyHunterRetreat", true);
+                        this.Flags.set("IsRobberBaronDead", false);
+                    }
+                }
+
+            });
+        }
+
+        o.createScreens = function()
+        {
+            this.importScreens(this.Const.Contracts.NegotiationDefault);
+            this.importScreens(this.Const.Contracts.Overview);
+            this.m.Screens.push({
+                ID = "Task",
+                Title = "Negotiations",
+                Text = "[img]gfx/ui/events/event_20.png[/img]{%employer% angrily shakes his head.%SPEECH_ON%Brigands have been tearing up these parts for far too long! I sent a lad, %randomname%\'s son, to go find them. And you know what? Only his head came back. Of course, the idiot brigands sent one of their own to deliver it. We captured and interrogated him... so now we know where they\'re at.%SPEECH_OFF%The man leans back, pedaling his thumbs over one another in thought.%SPEECH_ON%I do not have the men, but I do have the crowns - what say I slip some your way, and you slip a sword theirs?%SPEECH_OFF% | %employer% pours himself a drink, stares at the cup, and pours himself some more. He seems to drain it in one gulp before belching his news.%SPEECH_ON%Brigands killed %randomname% and his whole family. Can you believe that? I know you don\'t know who they are, but they were a well-liked family in these parts. I\'m sure you can already imagine, but I want these brigands done with. I spent half my men just finding their camp, now I\'m ready to spend ha... some of my crowns for you to go kill them. Are you interested?%SPEECH_OFF% | %employer% is looking out a window, dancing a finger along the rim of a drink as he weighs his thoughts.%SPEECH_ON%Brigands have been taking off with precious livestock. They come in the night, the brigands I mean, and cut the bells to make off all quiet like. I\'m sure livestock aren\'t important to you, but one calf, one cow, one bull? That\'s a fortune to some people around these parts.\n\nSo the other day I have a lad follow the animal tracks out of town and now he\'s told me exactly where those brigands are. As I\'m sure you could guess, I don\'t have the men to spare to take these vagabonds on, but crowns... crowns I am not short on. If I were to cross your palms with copper, would you be willing to cross these brigands with steel?%SPEECH_OFF% | %employer% sighs as if he\'s tired of all these troubles, as though he\'s about to start a conversation he\'s already had many times before.%SPEECH_ON%%randomname%, a man of some import here, states that brigands made a pass on his daughters. Now he\'s worried what they\'ll do the next time. Luckily, that man is of some wealth and could easily track these brigands down. If I were to pay you a decent sum, how earnestly could you drive one of them swords of yours through a brigand or two?%SPEECH_OFF% | %employer% takes a seat in a chair big enough to be comfortable for two. He bandies a mug back and forth.%SPEECH_ON%Brigands have been harrying us for weeks now and just yesterday they tried to set fire to a pub. Can you believe that? Who sets fire to such a thing? Luckily we put it out just in time, but things are getting bad around here. If they threaten our precious drink, what will they do next? Luckily, we managed to find where these vagrants are hiding. So... yes I see your look. It\'s a simple task, sellsword: we want you to go kill every last brigand there. Are you willing to work with us?%SPEECH_OFF% | As you settle into the room, %employer% finishes a goblet of cobra wine and heaves the cup out a window. You hear the din of it clattering hollow far, far away. He turns to you.%SPEECH_ON%While walking the roads, brigands swarmed my wagon and made off with all my goods! They left me my life, which is fine, but the gall of what they did keeps me up at night. I see their sneering faces... hear their laughter... I believe it was a message, to go after me, because I refused to pay their \'tolls\'. Well, now I am ready to pay a toll - to you, sellsword. If you go and slaughter these vagabonds, I\'ll pay a tidy toll indeed. What say you?%SPEECH_OFF% | As you begin to take a seat, %employer% throws a scroll at you. It unfurls just as you catch it. You begin to read, but %employer% starts in with the news anyway.%SPEECH_ON%Traders from %randomtown% have all agreed to no longer patronize %townname% until our little brigand problem is done away with. The history of it is pretty simple, as I\'m sure you\'re aware of the brigands\' methods, but these damn vagabonds have been harrying the roads, pillaging caravans and killing merchants.\n\nI know exactly where they are, I just need a man of guts and in need of glory - or gold! - to go and kill them. So what say you, mercenary? Name a price and we can talk.%SPEECH_OFF% | %employer% is shaking when you greet him. He\'s practically frothing with anger - or maybe he\'s just really drunk.%SPEECH_ON%Citizens of this fine town are starving. Why? Because brigands keep sneaking in during the night to raid the granaries! And if we catch them, they burn the buildings down! Now we can\'t defend ourselves by sitting back... Now... I want to defend myself by killing them all.%SPEECH_OFF%The man teeters for a moment, as if about to spill himself across his desk. He steadies before continuing.%SPEECH_ON%I want you to go kill these vagrants, obviously. All you have to do is be interested and... -hic-... name your price.%SPEECH_OFF% | %employer% looks solemnly at the ground. He unfurls a scroll, showing you a face.%SPEECH_ON%This is %randomname%, a brigand at large who we captured the other day. He once lead an outfit of vagrants that used to harry and raid our town day and night. Problem is, he\'s not really the head of a snake, but one head of a hydra. Kill one criminal head, another takes its place. So what\'s the answer? Why, kill them ALL of course. And that\'s exactly what I want you to do, sellsword. Are you interested?%SPEECH_OFF% | %employer% turns to you as you look for somewhere to sit.%SPEECH_ON%Hoy, mercenary, how long has it been since you\'ve slaked your sword with the blood of evil, cruel men?%SPEECH_OFF%He drops the sarcasm and you figure you\'ll be standing now.%SPEECH_ON%We here at %townname% are having a bit of a tiff with some local brigands. Local to us, that is, with their little rat\'s hole not far from here. Obviously, I think the answer to this issue is to hire some finely armed men such as your little company of goodfellas. So, does that pique your interest, mercenary, or do I need to find sturdier men for this task?%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                ShowEmployer = true,
+                ShowDifficulty = true,
+                Options = [
+                    {
+                        Text = "{How many crowns are we talking about? | What is %townname% prepared to pay for their safety? | Let\'s talk money.}",
+                        function getResult()
+                        {
+                            return "Negotiation";
+                        }
+
+                    },
+                    {
+                        Text = "{Not interested. | We have more important matters to settle. | I wish you luck, but we\'ll not be part of this.}",
+                        function getResult()
+                        {
+                            this.World.Contracts.removeContract(this.Contract);
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                }
+
+            });
+            this.m.Screens.push({
+                ID = "AttackRobberBaron",
+                Title = "Before the attack...",
+                Text = "[img]gfx/ui/events/event_54.png[/img]{While spying on the brigand encampment, you notice the profile of a man you\'ve heard the locals almost fervently describing: it is %robberbaron%, a famed robber baron that terrorizes these parts. He\'s got a retinue of brutish looking men following him everywhere he goes.\n\nYou wager his head is worth a few extra crowns. | You didn\'t plan to see him, but it\'s no doubt the man himself: %robberbaron% is at the brigands\' encampment. The famed killer is apparently paying a visit to one of his criminal offshoots, studiously marching around the thieves, pointing his finger to this or that, remarking about the quality of that and this.\n\nA few bodyguards follow him everywhere. You estimate that between him and the rest of the brigands, there\'s about %totalenemy% men mucking about. | The contract was just to wipe out the brigands, but it appears another, much heavier carrot has been added to the stick: %robberbaron%, the infamous killer and road raider, is at the camp. Followed by a bodyguard, the robber baron seems to be assessing one of his criminal outfits.\n\nYou wonder how much %robberbaron%\'s head would weigh in crowns... | %robberbaron%. It\'s him, you know it. Eyeing through a spyglass, you can easily see the silhouette of the infamous robber baron as he moves about the brigands\' encampment. He wasn\'t in your plans, nor mentioned in the contract, but there\'s little doubt that if you bring his head back to town you\'ll be getting a little extra for your troubles. | While spying on the brigands - you count about %totalenemy% men moving about - you spot a figure you did not at all expect: %robberbaron%, the infamous robber baron. The man and his bodyguard detail must be inspecting the state of the camp.\n\nWhat luck! If you could take his head back to your employer, you might just earn yourself a little bonus.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Prepare the attack!",
+                        function getResult()
+                        {
+                            this.Contract.getActiveState().onDestinationAttacked(this.Contract.m.Destination);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "RobberBaronDead",
+                Title = "After the battle...",
+                Text = "[img]gfx/ui/events/event_22.png[/img]{The battle finished, you walk over to %robberbaron%\'s slain body and remove his head with two quick thwacks of your sword, the first cutting the meat, the second the bone. You drive a hook through the lip of neckflesh and draw a rope so as to attach it your hip. | With the fighting over, you quickly search for and find %robberbaron%\'s corpse amongst the dead. He still looks mighty mean even as the color leaves his body. He still looks quite  mean when you relieve his head of his body and though you can\'t see his face any longer as you toss his head into a burlap sack, you assume he still looks pretty mean then, too. | %robberbaron% lies dead at your feet. You turn the body over and straighten out the neck, giving your sword a better target. It takes two good cuts to remove the head which you quickly put into a mealsack. | Now that he\'s dead, %robberbaron% suddenly reminds you of a lot of men you used to know. You don\'t settle on the deja vu for long: with a few quick slashes of a sword, you remove the man\'s head before tossing it into a sack. | %robberbaron% put up a good fight and his neck put up another, the sinews and bones not letting his head go easily as you collect your bounty. | You collect %robberbaron%\'s head. %randombrother% points at it as you walk past.%SPEECH_ON%What is that? Is that %robberbaron%\'s...?%SPEECH_OFF%You shake your head.%SPEECH_ON%Naw, that man is dead. This here is just bonus pay.%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "We move out!",
+                        function getResult()
+                        {
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "BountyHunters1",
+                Title = "Along the way...",
+                Text = "[img]gfx/ui/events/event_07.png[/img]{Heading back to collect on your contract, a few men step out onto the road. One of them points at the head of %robberbaron%. %SPEECH_ON%We are the highest paid bounty hunters in these parts and I believe you\'re carrying off a bit of our business. Give us that there head and all parties shall get to sleep in their beds tonight.%SPEECH_OFF%You laugh.%SPEECH_ON%You will have to try better than that. %robberbaron%\'s head is worth a lot of crowns, my friend.%SPEECH_OFF%The leader of these supposed bounty hunters laughs right back at you. He lifts up a bulbously weighted sack.%SPEECH_ON%This here is %randomname%, one of the more wanted fellas in these parts. And this...%SPEECH_OFF%He holds up another sack.%SPEECH_ON%Is the head of the man who killed him. Understand? So hand over the bounty and we can all be on our way.%SPEECH_OFF% | A man steps out onto the road, straightens up, and postures toward you.%SPEECH_ON%Hello good sirs. I believe you have the head of %robberbaron% in your midst.%SPEECH_OFF%You nod. The man smiles.%SPEECH_ON%Would you please kindly turn it over to me.%SPEECH_OFF%You laugh and shake your head. The man doesn\'t smile, instead he raises a hand and snaps his fingers. A throng of well-armed men pour out of some nearby bushes, marching onto the road to the tune of heavy metal clinks and clanks. They look like what a man on death row might dream of the night before his reckoning. Their leader flashes a gold-speckled grin.%SPEECH_ON%I\'m not gonna ask you again.%SPEECH_OFF% | While talking to %randombrother%, a loud yell draws your attention. You look up the road to see a mob of men standing in your way. They got all manner of weaponry and armor. Their ringleader steps forward, announcing that they are famed bounty hunters.%SPEECH_ON%We only wish to have the head of %robberbaron%.%SPEECH_OFF%You shrug.%SPEECH_ON%We killed the man, we\'re collecting on his head. Now get out of our way.%SPEECH_OFF%When you take one step forward, the bounty hunters raise their weapons. Their leader takes one step toward you.%SPEECH_ON%There\'s a choice to be made here that could get a lot of good men killed. I know it isn\'t easy, but I do suggest you think it over very carefully.%SPEECH_OFF% | A sharp whistle draws the attention of you and your men. You turn to the side of the road to see a group of men emerging from some bushes. Everyone draws their weapons, but the strangers don\'t move a foot further. Their ringleader steps forward. He\'s got a bandolier of ears going across his chest, a summation of his handiwork.%SPEECH_ON%Hello fellas. We here are bounty hunters, if you couldn\'t tell, and I do believe you have one of our bounties.%SPEECH_OFF%You lift the head of %robberbaron%.%SPEECH_ON%You mean this?%SPEECH_OFF%The ringleader smiles warmly.%SPEECH_ON%Of course. Now if you could please hand it over, that\'d sit pretty well with me and my friends.%SPEECH_OFF%Tapping the hilt of his sword, the man grins.%SPEECH_ON%It\'s only a matter of business. I\'m sure you understand.%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Take the damned head then and leave.",
+                        function getResult()
+                        {
+                            this.Flags.set("IsRobberBaronDead", false);
+                            this.Flags.set("IsBountyHunterPresent", false);
+                            this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractPoor);
+                            return "BountyHunters2";
+                        }
+
+                    },
+                    {
+                        Text = "{You\'ll have to pay with blood if you want it so badly. | If you want your head to join this one, go on, take your chances.}",
+                        function getResult()
+                        {
+                            this.TempFlags.set("IsBountyHunterTriggered", true);
+                            this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractSuccess);
+                            local tile = this.World.State.getPlayer().getTile();
+                            local p = this.Const.Tactical.CombatInfo.getClone();
+                            p.Music = this.Const.Music.BanditTracks;
+                            p.TerrainTemplate = this.Const.World.TerrainTacticalTemplate[tile.TacticalType];
+                            p.Tile = tile;
+                            p.CombatID = "BountyHunters";
+                            p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                            p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
+                            local party = this.new("scripts/entity/world/party");
+                            party.setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
+                            p.Parties.push(party);
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.5);
+                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.BountyHunters, 130 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
+                            foreach(troop in party.getTroops()) {
+                                p.Entities.push(troop);
+                            }
+                            this.World.Contracts.startScriptedCombat(p, false, true, true);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "BountyHunters2",
+                Title = "Along the way...",
+                Text = "[img]gfx/ui/events/event_07.png[/img]You\'ve seen enough bloodshed for today and hand the head over.",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Let\'s move on. We still have payment to collect.",
+                        function getResult()
+                        {
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "BountyHunters3",
+                Title = "Along the way...",
+                Text = "[img]gfx/ui/events/event_07.png[/img]The bounty hunters are too much for the %companyname%! Not wanting your men needlessly killed, you order a hasty retreat. Unfortunately, the head of %robberbaron% was lost in the chaos...",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Oh well. We still have payment to collect.",
+                        function getResult()
+                        {
+                            this.Flags.set("IsBountyHunterRetreat", false);
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Survivors1",
+                Title = "After the battle...",
+                Text = "[img]gfx/ui/events/event_22.png[/img]{With the battle drawing to a close, a few enemies drop to their knees and beg for mercy. %randombrother% looks to you for what to do next. | After the battle, your men round-up what brigands remain. The survivors beg for their lives. One looks more like a kid than a man, but he is the quietest of them all. | Realizing their defeat, the few last standing brigands drop their weapons and ask for mercy. You now wonder what they would do were the shoe on the other foot. | The battle\'s over, but decisions are still yet to be made: a few brigands survived the battle. %randombrother% stands over one, his sword to the prisoner\'s neck, and he asks you what you wish to do.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Slit their throats. ",
+                        function getResult()
+                        {
+                            this.World.Assets.addMoralReputation(-1);
+                            return "Survivors2";
+                        }
+
+                    },
+                    {
+                        Text = "Take their arms and chase them away.",
+                        function getResult()
+                        {
+                            this.World.Assets.addMoralReputation(2);
+                            return "Survivors3";
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Survivors2",
+                Title = "After the battle...",
+                Text = "[img]gfx/ui/events/event_22.png[/img]{Altruism is for the naive. You have the prisoners slaughtered. | You recall how many times brigands slew hapless merchants. The thought is barely out of your mind when you give the order to have the prisoners executed. They pipe up a brief protest, but it is cut short by swords and spears. | You turn away.%SPEECH_ON%Through their necks. Make it quick.%SPEECH_OFF%The mercenaries follow the order and you soon here the gargling of dying men. It is not quick at all. | You shake your head \'no\'. The prisoners cry out, but the men are already upon them, hacking and slashing and stabbing. The lucky ones are decapitated before they can even realize the immediacy of their own demise. Those with some fight in them suffer to the very end. | Mercy requires time. Time to look over your shoulder. Time to wonder if it was the right decision. You\'ve no time. You\'ve no mercy. The prisoners are executed and that takes little time at all.} \n\n [img]gfx/ui/icons/asset_moral_reputation.png[/img] The company\'s Moral reputation decreases slightly",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "We have more important things to take care of.",
+                        function getResult()
+                        {
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Survivors3",
+                Title = "After the battle...",
+                Text = "[img]gfx/ui/events/event_22.png[/img]{There\'s been enough killing and dying today. You let the prisoners go, taking their arms and armor before sending them off. | Clemency for thieves and brigands doesn\'t come often, so when you let the prisoners go they practically kiss your feet as though they were attached to a god. | You think for a time, then nod.%SPEECH_ON%Mercy it is. Take their equipment and cut them loose.%SPEECH_OFF%The prisoners are let go, leaving behind what arms and armor they had with them. | You have the brigands strip to their skivvies - if they even have them - then let the men go. %randombrother% rummages through what equipment is left behind as you watch a group of half-naked men hurry away.} \n\n [img]gfx/ui/icons/asset_moral_reputation.png[/img] The company\'s Moral reputation increases slightly",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "We\'re not getting paid for killing them.",
+                        function getResult()
+                        {
+                            return 0;
+                        }
+
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Volunteer1",
+                Title = "After the battle...",
+                Text = "[img]gfx/ui/events/event_22.png[/img]{Just as the battle ends and things begin to quiet, you hear a man shouting. You move toward the noise to find a prisoner of the brigands. He\'s got ropes over his mouth and hands which you quickly undo. As he catches his breath, he meekly asks if maybe he could join your outfit. | You find a prisoner tied up in the brigands\' camp. Freeing him, he explains that he is from %randomtown%, and was kidnapped by the vagabonds just a few days ago. He asks if maybe he could join your band of mercenaries. | Rummaging what\'s left of the brigands\' camp, you discover a prisoner of theirs. Freeing him, the man sits up and explains that the brigands kidnapped him as he was traveling to %randomtown% in seek of work. You wonder if maybe he could work for you instead... | A man is left behind after the battle. He\'s not a brigand, but in fact a prisoner of theirs. When you ask who he is, he mentions that he is from %randomtown% and that he\'s looking for work. You ask if he can wield a sword. He nods.}",
+                Image = "",
+                Characters = [],
+                List = [],
+                Options = [
+                    {
+                        Text = "You might as well join us.",
+                        function getResult()
+                        {
+                            return "Volunteer2";
+                        }
+
+                    },
+                    {
+                        Text = "Go home.",
+                        function getResult()
+                        {
+                            return "Volunteer3";
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                    local roster = this.World.getTemporaryRoster();
+                    this.Contract.m.Dude = roster.create("scripts/entity/tactical/player");
+                    this.Contract.m.Dude.setStartValuesEx(this.Const.CharacterLaborerBackgrounds);
+
+                    if (this.Contract.m.Dude.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand) != null)
+                    {
+                        this.Contract.m.Dude.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand).removeSelf();
+                    }
+
+                    this.Characters.push(this.Contract.m.Dude.getImagePath());
+                }
+
+            });
+            this.m.Screens.push({
+                ID = "Volunteer2",
+                Title = "After the battle...",
+                Text = "[img]gfx/ui/events/event_22.png[/img]{The man joins your ranks, immersing himself in a crowd of brothers who seem to take to him warmly enough for a group of paid killers. The newly hired states he\'s good with all weapons, but you figure you\'ll be the one to decide what he\'s best with. | The prisoner grins from ear to ear as you wave him in. A few brothers ask what weapons they should give him, but you shrug and figure you\'ll see to yourself what to arm the man with.}",
+                Image = "",
+                Characters = [],
+                List = [],
+                Options = [
+                    {
+                        Text = "Let\'s see about a weapon for you.",
+                        function getResult()
+                        {
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                    this.Characters.push(this.Contract.m.Dude.getImagePath());
+                    this.World.getPlayerRoster().add(this.Contract.m.Dude);
+                    this.World.getTemporaryRoster().clear();
+                    this.Contract.m.Dude.onHired();
+                    this.Contract.m.Dude = null;
+                }
+
+            });
+            this.m.Screens.push({
+                ID = "Volunteer3",
+                Title = "After the battle...",
+                Text = "[img]gfx/ui/events/event_22.png[/img]{You shake your head no. The man frowns.%SPEECH_ON%Are you sure? I\'m pretty good with...%SPEECH_OFF%You cut him off.%SPEECH_ON%I\'m sure. Now enjoy your newfound freedom, stranger.%SPEECH_OFF% | You appraise the man and figure he\'s not fit for the life of a sellsword.%SPEECH_ON%We appreciate the offer, stranger, but the mercenary life is a dangerous one. Go home to your family, your work, your home.%SPEECH_OFF% | You\'ve enough men to see you through, although you find yourself tempted to replace %randombrother% just to see the man\'s reaction to a demotion. Instead, you offer the prisoner a handshake and send him on his way. Although disappointed, he does thank you for freeing him.}",
+                Image = "",
+                Characters = [],
+                List = [],
+                Options = [
+                    {
+                        Text = "Off you go.",
+                        function getResult()
+                        {
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                    this.Characters.push(this.Contract.m.Dude.getImagePath());
+                    this.World.getTemporaryRoster().clear();
+                    this.Contract.m.Dude = null;
+                }
+
+            });
+            this.m.Screens.push({
+                ID = "Success1",
+                Title = "On your return...",
+                Text = "[img]gfx/ui/events/event_04.png[/img]{You return to %townname% and talk to %employer%. The details of your journey are simple: you killed the brigands. He nods, smiling tersely before handing over your payment as agreed upon.%SPEECH_ON%Good work, men. Those brigands were giving us plenty of trouble.%SPEECH_OFF% | %employer% opens the door for you as you get to his home. He\'s got a satchel in hand and holds it up.%SPEECH_ON%I take it by your return that the brigands are dead?%SPEECH_OFF%You nod. The man heaves the satchel your way. You tell him you could be lying. %employer% shrugs.%SPEECH_ON%Could be, but word travels fast for those who bite the hands that feed. Good work, sellsword. Unless you\'re lying of course, then I\'ll come find you.%SPEECH_OFF% | %employer% grins as you enter his room and lay a sacked head on his desk.%SPEECH_ON%You need not stain my fineries to show you\'ve completed the task, sellsword. I\'ve already gotten news of your success - the birds in these lands do travel fast, don\'t they? Your payment is in the corner.%SPEECH_OFF% | As you finish your report, %employer% wipes his forehead with a handkerchief.%SPEECH_ON%Really, they\'re all dead then? Boy... you have no idea how much you\'ve lifted off my shoulders, sellsword. No idea at all! Your crowns, as promised.%SPEECH_OFF%He sets a satchel on his desk and you quickly take it. All is there, as promised. | %employer% sips his goblet and nods.%SPEECH_ON%You know, I don\'t take kindly to your sort, but you did a good job, mercenary. %randomname% reported to me, before you even got here, that all the brigands had been slain. It was some mighty fine work by the way he describes it. And, well...%SPEECH_OFF%He heaves a satchel onto the desk.%SPEECH_ON%Here\'s some mighty fine pay, as promised.%SPEECH_OFF% | %employer% leans back in his chair, folding his hands over his lap.%SPEECH_ON%Sellswords don\'t sit right with many folks, I suppose on the account of y\'all killing and destroying whole villages on a shortchanged whim, but I\'ll admit you\'ve done good.%SPEECH_OFF%He nods to a corner of the room where a wooden chest lays unopened.%SPEECH_ON%It\'s all there, but I won\'t be offended if you need to count it.%SPEECH_OFF%You do count it, and it is indeed all there. | %employer%\'s desk is blanketed in dirtied and unfurled scrolls. He\'s smiling warmly over them as if he\'s crooning over a pile of treasure.%SPEECH_ON%Trade deals! Trade deals everywhere! Happy farmers! Happy families! Everyone\'s happy! Ah, it\'s good to be me. And, of course, it\'s good to be you, sellsword, because your pockets just got a little bit heavier!%SPEECH_OFF%The man tosses a small purse your way, then another and another.%SPEECH_ON%I would\'ve paid with a larger satchel, but I just like doing that.%SPEECH_OFF%He cheekily tosses another purse which you casually catch with the sort of unamused aplomb of a man who still has fresh blood on his sword.}",
+                Image = "",
+                Characters = [],
+                List = [],
+                ShowEmployer = true,
+                Options = [
+                    {
+                        Text = "Crowns well deserved.",
+                        function getResult()
+                        {
+                            this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractSuccess);
+                            this.World.Assets.addMoney(this.Contract.m.Payment.getOnCompletion());
+                            this.World.FactionManager.getFaction(this.Contract.getFaction()).addPlayerRelation(this.Const.World.Assets.RelationCivilianContractSuccess, "Destroyed a brigand encampment");
+                            this.World.Contracts.finishActiveContract();
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                    this.Contract.m.Reward = this.Contract.m.Payment.getOnCompletion();
+                    this.List.push({
+                        id = 10,
+                        icon = "ui/icons/asset_money.png",
+                        text = "You gain [color=" + this.Const.UI.Color.PositiveEventValue + "]" + this.Contract.m.Reward + "[/color] Crowns"
+                    });
+                    this.Contract.m.SituationID = this.Contract.resolveSituation(this.Contract.m.SituationID, this.Contract.m.Home, this.List);
+                }
+
+            });
+            this.m.Screens.push({
+                ID = "Success2",
+                Title = "On your return...",
+                Text = "[img]gfx/ui/events/event_04.png[/img]{You throw the criminal\'s head on %employer%\'s table. With a grin, you point at it.%SPEECH_ON%That\'s %robberbaron%.%SPEECH_OFF%%employer% stands up and unveils the burlap sack covering the trophy. He nods.%SPEECH_ON%Aye, that\'s him alright. I guess you\'ll be getting extra for that.%SPEECH_OFF%You\'re paid a tidy sum of %reward% crowns for killing the brigands as well as destroying the leadership of many nearby syndicates. | %employer% leans back as you enter his room, carrying a head by its hair. Luckily, it is not dripping.%SPEECH_ON%This here is %robberbaron%. Or should I say was?%SPEECH_OFF%Slowly standing, %employer% takes a cursory look.%SPEECH_ON%\'Was\' works... So, not only did you destroy the brigands\' rat hole, but you\'ve brought me the head of their leader. That is some mighty fine work, sellsword, and you\'ll be getting extra for this.%SPEECH_OFF%The man forks over a satchel of %original_reward% crowns and then takes a purse off his own self and pitches it toward you. | You hold %robberbaron%\'s head up, its sloped gaze turning to the ropes of bloodied hair. A slow smile etches across %employer%\'s face.%SPEECH_ON%You know what you\'ve done, sellsword? Do you know how much relief you\'ve brought to these parts just by removing that man\'s head from his shoulders? You\'ll be getting more than what you bargained for! %original_reward% crowns for the original task and...%SPEECH_OFF%The man slides a chunky purse across his table.%SPEECH_ON%A little something for that... extra weight you\'ve been carrying around.%SPEECH_OFF%}",
+                Image = "",
+                List = [],
+                ShowEmployer = true,
+                Options = [
+                    {
+                        Text = "Crowns well deserved.",
+                        function getResult()
+                        {
+                            this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractSuccess);
+                            this.World.Assets.addMoney(this.Contract.m.Payment.getOnCompletion() * 2);
+                            this.World.FactionManager.getFaction(this.Contract.getFaction()).addPlayerRelation(this.Const.World.Assets.RelationCivilianContractSuccess, "Destroyed a brigand encampment");
+                            this.World.Contracts.finishActiveContract();
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start()
+                {
+                    this.Contract.m.Reward = this.Contract.m.Payment.getOnCompletion() * 2;
+                    this.Contract.m.OriginalReward = this.Contract.m.Payment.getOnCompletion();
+                    this.List.push({
+                        id = 10,
+                        icon = "ui/icons/asset_money.png",
+                        text = "You gain [color=" + this.Const.UI.Color.PositiveEventValue + "]" + this.Contract.m.Reward + "[/color] Crowns"
+                    });
+                    this.Contract.m.SituationID = this.Contract.resolveSituation(this.Contract.m.SituationID, this.Contract.m.Home, this.List);
+                }
+
+            });
+        }
+
+    });
 
 });
