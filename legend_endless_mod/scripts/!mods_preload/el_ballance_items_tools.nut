@@ -92,7 +92,7 @@ local gt = getroottable();
             return this.m.EL_Level * this.m.EL_RankLevel * 0.25;
         }
 
-        o.onUpdateProperties = function( _properties )
+        o.onUpdateProperties <- function( _properties )
         {
             this.weapon.onUpdateProperties(_properties);
             _properties.Bravery += this.EL_getResolveBonus();

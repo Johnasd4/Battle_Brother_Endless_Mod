@@ -58,15 +58,16 @@ local gt = getroottable();
 
         o.getBonus = function( _properties )
         {
+
+            local actor = this.getContainer().getActor();
             if (!actor.isPlacedOnMap() || ("State" in this.Tactical) && this.Tactical.State.isBattleEnded())
             {
                 return 0;
             }
-
-            local actor = this.getContainer().getActor();
             local targets = this.Tactical.Entities.getAllInstances();
             local bonus = 0;
             local best_bravery = 0;
+
             foreach( tar in targets )
             {
                 foreach( t in tar )

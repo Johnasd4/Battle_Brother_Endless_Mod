@@ -130,10 +130,9 @@ gt.Const.EL_NPC <- {
         }
 
         Resourse = {
-            MinMult = 50,
-            MaxBase = 100,
-            MaxFactor = 1,
-        },
+            MultPurWorldLevel = 1,
+            MultBase = 100
+         },
 
         BossUnit = [
             this.Const.EntityType.TricksterGod,
@@ -692,7 +691,8 @@ gt.Const.EL_NPC <- {
 
 
     EL_Contract = {
-        PatmentMultPurWorldLevel = 0.04
+        PaymentMultPurWorldLevel = 0.04,
+        PaymentMultMaxWorldLevel = 200
     }
 };
 
