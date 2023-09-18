@@ -66,7 +66,7 @@ local gt = getroottable();
                         i = ++i;
                     }
 
-                    $[stack offset 0].Options.push({
+                    this.Options.push({
                         Text = "We can\'t win this. No fight.",
                         function getResult( _event )
                         {
@@ -162,7 +162,7 @@ local gt = getroottable();
                                     properties.Entities = [];
 
                                     local party = this.new("scripts/entity/world/party");
-                                    party.setFaction(this.Const.Faction.Enemy);
+                                    party.EL_setFaction(this.Const.Faction.Enemy);
                                     party.EL_setHaveRandomLeader(false);
                                     party.EL_setHaveStrongestLeader(false);
                                     party.EL_setTroopsResourse(0);
@@ -193,7 +193,7 @@ local gt = getroottable();
                         i = ++i;
                     }
 
-                    $[stack offset 0].Options.push({
+                    this.Options.push({
                         Text = "I\'ve selected everyone I wish to. Now defeat those Oathbringers!",
                         function getResult( _event )
                         {
@@ -204,7 +204,7 @@ local gt = getroottable();
                             properties.Entities = [];
 
                             local party = this.new("scripts/entity/world/party");
-                            party.setFaction(this.Const.Faction.Enemy);
+                            party.EL_setFaction(this.Const.Faction.Enemy);
                             party.EL_setHaveRandomLeader(false);
                             party.EL_setHaveStrongestLeader(false);
                             party.EL_setTroopsResourse(0);

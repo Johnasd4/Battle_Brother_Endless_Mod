@@ -65,7 +65,7 @@ local gt = getroottable();
                         i = ++i;
                     }
 
-                    $[stack offset 0].Options.push({
+                    this.Options.push({
                         Text = "We should leave this place.",
                         function getResult( _event )
                         {
@@ -123,7 +123,7 @@ local gt = getroottable();
                         i = ++i;
                     }
 
-                    $[stack offset 0].Options.push({
+                    this.Options.push({
                         Text = "We should leave this place.",
                         function getResult( _event )
                         {
@@ -159,7 +159,7 @@ local gt = getroottable();
                             properties.Music = this.Const.Music.BeastsTracks;
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
-                            party.setFaction(this.Const.Faction.Enemy);
+                            party.EL_setFaction(this.Const.Faction.Enemy);
                             party.EL_setHaveRandomLeader(false);
                             party.EL_setHaveStrongestLeader(false);
                             party.EL_setTroopsResourse(0);
@@ -282,7 +282,7 @@ local gt = getroottable();
                         i = ++i;
                     }
 
-                    $[stack offset 0].Options.push({
+                    this.Options.push({
                         Text = "This isn\'t worth it. We should leave this place.",
                         function getResult( _event )
                         {
@@ -398,7 +398,7 @@ local gt = getroottable();
                         i = ++i;
                     }
 
-                    $[stack offset 0].Options.push({
+                    this.Options.push({
                         Text = "We should leave this place.",
                         function getResult( _event )
                         {
@@ -456,7 +456,7 @@ local gt = getroottable();
                         i = ++i;
                     }
 
-                    $[stack offset 0].Options.push({
+                    this.Options.push({
                         Text = "We should leave this place.",
                         function getResult( _event )
                         {
@@ -492,7 +492,7 @@ local gt = getroottable();
                             properties.Music = this.Const.Music.BeastsTracks;
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
-                            party.setFaction(this.Const.Faction.Enemy);
+                            party.EL_setFaction(this.Const.Faction.Enemy);
                             party.EL_setHaveRandomLeader(false);
                             party.EL_setHaveStrongestLeader(false);
                             party.EL_setTroopsResourse(0);
@@ -624,7 +624,7 @@ local gt = getroottable();
                         i = ++i;
                     }
 
-                    $[stack offset 0].Options.push({
+                    this.Options.push({
                         Text = "This isn\'t worth it. We should leave this place.",
                         function getResult( _event )
                         {

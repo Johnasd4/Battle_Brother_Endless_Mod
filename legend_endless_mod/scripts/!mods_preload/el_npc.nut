@@ -248,12 +248,12 @@ local gt = getroottable();
         o.m.EL_LootEquipmentEssence <- [0, 0, 0, 0, 0];
         o.m.EL_Faction <- 0;
 
-        o.setFaction = function( _EL_Faction )
+        o.EL_setFaction <- function( _EL_Faction )
         {
             this.m.EL_Faction = _EL_Faction;
         }
 
-        o.getFaction <- function()
+        o.EL_getFaction <- function()
         {
             return this.m.EL_Faction;
         }
@@ -1535,7 +1535,7 @@ local gt = getroottable();
         }
     };
 
-    gt.Const.World.Common.EL_addEntity = function (_EL_troop, _EL_tile, _EL_faction, _EL_rank, _EL_level = -1, _EL_assignEquipments = false)
+    gt.Const.World.Common.EL_addEntity <- function (_EL_troop, _EL_tile, _EL_faction, _EL_rank, _EL_level = -1, _EL_assignEquipments = false)
     {
         local e = this.Tactical.spawnEntity(_EL_troop.Script, tile.Coords);
         local troop_info = this.Const.EL_NPC.EL_Troop.EL_getTroopInfo(_EL_troop);

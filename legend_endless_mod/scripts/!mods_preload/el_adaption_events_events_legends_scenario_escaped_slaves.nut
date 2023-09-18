@@ -36,7 +36,7 @@ local gt = getroottable();
                             properties.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Center;
                             properties.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Circle;
                             local party = this.new("scripts/entity/world/party");
-                            party.setFaction(this.Const.Faction.Enemy);
+                            party.EL_setFaction(this.Const.Faction.Enemy);
                             properties.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.SatoManhunters, (100 + _event.m.ResourceBoost) * _event.m.DifficultyMult * _event.m.DifficultyMultScale, this.Const.Faction.Enemy);
                             foreach(troop in party.getTroops()) {
@@ -106,7 +106,7 @@ local gt = getroottable();
                             properties.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Center;
                             properties.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Circle;
                             local party = this.new("scripts/entity/world/party");
-                            party.setFaction(this.Const.Faction.Enemy);
+                            party.EL_setFaction(this.Const.Faction.Enemy);
                             properties.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.SatoManhunters, (115 + _event.m.ResourceBoost) * _event.m.DifficultyMult * _event.m.DifficultyMultScale, this.Const.Faction.Enemy);
                             foreach(troop in party.getTroops()) {
@@ -173,7 +173,7 @@ local gt = getroottable();
                             properties.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Center;
                             properties.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Circle;
                             local party = this.new("scripts/entity/world/party");
-                            party.setFaction(this.Const.Faction.Enemy);
+                            party.EL_setFaction(this.Const.Faction.Enemy);
                             properties.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Assassins, 90 * _event.m.DifficultyMult * _event.m.DifficultyMultScale, this.Const.Faction.Enemy);
                             foreach(troop in party.getTroops()) {
@@ -213,7 +213,7 @@ local gt = getroottable();
                             properties.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             properties.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local party = this.new("scripts/entity/world/party");
-                            party.setFaction(this.Const.Faction.Enemy);
+                            party.EL_setFaction(this.Const.Faction.Enemy);
                             properties.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.BountyHunters, 125 * _event.m.DifficultyMult * _event.m.DifficultyMultScale, this.Const.Faction.Enemy);
                             foreach(troop in party.getTroops()) {

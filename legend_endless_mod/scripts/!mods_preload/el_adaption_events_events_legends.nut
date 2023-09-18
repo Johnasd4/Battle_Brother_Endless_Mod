@@ -107,7 +107,7 @@ local gt = getroottable();
                             properties.IsAutoAssigningBases = false;
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
-                            party.setFaction(this.Const.Faction.Enemy);
+                            party.EL_setFaction(this.Const.Faction.Enemy);
                             properties.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Barbarians, this.Math.rand(75, 110) * _event.getReputationToDifficultyLightMult(), this.Const.Faction.Enemy);
                             foreach(troop in party.getTroops()) {
@@ -142,7 +142,7 @@ local gt = getroottable();
                             properties.IsAutoAssigningBases = false;
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
-                            party.setFaction(this.Const.Faction.Enemy);
+                            party.EL_setFaction(this.Const.Faction.Enemy);
                             properties.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Barbarians, this.Math.rand(110, 140) * _event.getReputationToDifficultyLightMult(), this.Const.Faction.Enemy);
                             foreach(troop in party.getTroops()) {
@@ -231,7 +231,7 @@ local gt = getroottable();
                             properties.IsAutoAssigningBases = false;
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
-                            party.setFaction(this.Const.Faction.Enemy);
+                            party.EL_setFaction(this.Const.Faction.Enemy);
                             properties.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Barbarians, this.Math.rand(60, 75) * _event.getReputationToDifficultyLightMult(), this.Const.Faction.Enemy);
                             foreach(troop in party.getTroops()) {
@@ -335,7 +335,7 @@ local gt = getroottable();
                             properties.IsAutoAssigningBases = false;
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
-                            party.setFaction(this.Const.Faction.Enemy);
+                            party.EL_setFaction(this.Const.Faction.Enemy);
                             properties.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Barbarians, this.Math.rand(60, 70) * _event.getReputationToDifficultyLightMult(), this.Const.Faction.Enemy);
                             foreach(troop in party.getTroops()) {
@@ -444,7 +444,7 @@ local gt = getroottable();
                         i = ++i;
                     }
 
-                    $[stack offset 0].Options.push({
+                    this.Options.push({
                         Text = "We should leave this place.",
                         function getResult( _event )
                         {
@@ -452,8 +452,8 @@ local gt = getroottable();
                         }
 
                     });
-                    _event.m.Champion = _event.m.Candidates[$[stack offset 0].Math.rand(0, _event.m.Candidates.len() - 1)];
-                    _event.m.Flags.set("EnemyChampionName", $[stack offset 0].Const.Strings.BarbarianNames[$[stack offset 0].Math.rand(0, $[stack offset 0].Const.Strings.BarbarianNames.len() - 1)] + " " + $[stack offset 0].Const.Strings.BarbarianTitles[$[stack offset 0].Math.rand(0, $[stack offset 0].Const.Strings.BarbarianTitles.len() - 1)]);
+                    _event.m.Champion = _event.m.Candidates[this.Math.rand(0, _event.m.Candidates.len() - 1)];
+                    _event.m.Flags.set("EnemyChampionName", this.Const.Strings.BarbarianNames[this.Math.rand(0, this.Const.Strings.BarbarianNames.len() - 1)] + " " + this.Const.Strings.BarbarianTitles[this.Math.rand(0, this.Const.Strings.BarbarianTitles.len() - 1)]);
                 }
 
             });
@@ -503,7 +503,7 @@ local gt = getroottable();
                         i = ++i;
                     }
 
-                    $[stack offset 0].Options.push({
+                    this.Options.push({
                         Text = "Leave him alone. Slaughtering a kid wont bring us any fame.",
                         function getResult( _event )
                         {
@@ -511,8 +511,8 @@ local gt = getroottable();
                         }
 
                     });
-                    _event.m.Champion = _event.m.Candidates[$[stack offset 0].Math.rand(0, _event.m.Candidates.len() - 1)];
-                    _event.m.Flags.set("EnemyChampionName", $[stack offset 0].Const.Strings.KnightNames[$[stack offset 0].Math.rand(0, $[stack offset 0].Const.Strings.KnightNames.len() - 1)]);
+                    _event.m.Champion = _event.m.Candidates[this.Math.rand(0, _event.m.Candidates.len() - 1)];
+                    _event.m.Flags.set("EnemyChampionName", this.Const.Strings.KnightNames[this.Math.rand(0, this.Const.Strings.KnightNames.len() - 1)]);
                 }
 
             });
@@ -532,7 +532,7 @@ local gt = getroottable();
                             properties.Music = this.Const.Music.BarbarianTracks;
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
-                            party.setFaction(this.Const.Faction.Enemy);
+                            party.EL_setFaction(this.Const.Faction.Enemy);
                             party.EL_setHaveRandomLeader(false);
                             party.EL_setHaveStrongestLeader(false);
                             party.EL_setTroopsResourse(0);
@@ -601,7 +601,7 @@ local gt = getroottable();
                             if (r == 0)
                             {
                                 local party = this.new("scripts/entity/world/party");
-                                party.setFaction(this.Const.Faction.Enemy);
+                                party.EL_setFaction(this.Const.Faction.Enemy);
                                 party.EL_setHaveRandomLeader(false);
                                 party.EL_setHaveStrongestLeader(false);
                                 party.EL_setTroopsResourse(0);
@@ -619,7 +619,7 @@ local gt = getroottable();
                             if (r == 1)
                             {
                                 local party = this.new("scripts/entity/world/party");
-                                party.setFaction(this.Const.Faction.Enemy);
+                                party.EL_setFaction(this.Const.Faction.Enemy);
                                 party.EL_setHaveRandomLeader(false);
                                 party.EL_setHaveStrongestLeader(false);
                                 party.EL_setTroopsResourse(0);
@@ -637,7 +637,7 @@ local gt = getroottable();
                             if (r == 2)
                             {
                                 local party = this.new("scripts/entity/world/party");
-                                party.setFaction(this.Const.Faction.Enemy);
+                                party.EL_setFaction(this.Const.Faction.Enemy);
                                 party.EL_setHaveRandomLeader(false);
                                 party.EL_setHaveStrongestLeader(false);
                                 party.EL_setTroopsResourse(0);
@@ -818,7 +818,7 @@ local gt = getroottable();
                         i = ++i;
                     }
 
-                    $[stack offset 0].Options.push({
+                    this.Options.push({
                         Text = "This isn\'t worth it. We should leave.",
                         function getResult( _event )
                         {

@@ -1115,8 +1115,8 @@ this.legend_tournament_enter_event <- this.inherit("scripts/events/event", {
 		this.logInfo("push party");
 		local party = this.new("scripts/entity/world/party");
 		party.getFlags().set("isContractLocation", true);
-		party.setFaction(this.Const.Faction.Enemy);
-		//party.setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Arena).getID());
+		party.EL_setFaction(this.Const.Faction.Enemy);
+		//party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Arena).getID());
 		//Stop copying troops.
 		party.EL_setTroopsResourse(0);
 		p.Parties.push(party);

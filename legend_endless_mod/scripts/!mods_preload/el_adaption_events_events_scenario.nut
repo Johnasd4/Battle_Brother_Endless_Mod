@@ -14,7 +14,7 @@ local gt = getroottable();
             properties.Music = this.Const.Music.NobleTracks;
             properties.Entities = [];
             local party = this.new("scripts/entity/world/party");
-            party.setFaction(this.Const.Faction.Enemy);
+            party.EL_setFaction(this.Const.Faction.Enemy);
             party.EL_setHaveRandomLeader(false);
             party.EL_setHaveStrongestLeader(false);
             party.EL_setTroopsResourse(0);

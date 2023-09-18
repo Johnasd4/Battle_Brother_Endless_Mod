@@ -187,7 +187,7 @@ local gt = getroottable();
                             properties.Entities = [];
                             properties.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Circle;
                             local party = this.new("scripts/entity/world/party");
-                            party.setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
+                            party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
                             properties.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Schrats, this.Math.rand(90, 110), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
                             foreach(troop in party.getTroops()) {
@@ -330,14 +330,14 @@ local gt = getroottable();
                             properties.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Edge;
                             properties.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Random;
                             local party_1 = this.new("scripts/entity/world/party");
-                            party_1.setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
+                            party_1.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
                             properties.Parties.push(party_1);
                             this.Const.World.Common.addUnitsToCombat(party_1, this.Const.World.Spawn.UnholdBog, 100, this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
                             foreach(troop in party_1.getTroops()) {
                                 properties.Entities.push(troop);
                             }
                             local party_2 = this.new("scripts/entity/world/party");
-                            party_2.setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
+                            party_2.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
                             properties.Parties.push(party_2);
                             this.Const.World.Common.addUnitsToCombat(party_2, this.Const.World.Spawn.Schrats, 100, this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
                             foreach(troop in party_2.getTroops()) {
