@@ -1538,9 +1538,15 @@ local gt = getroottable();
     gt.Const.World.Common.EL_addEntity <- function (_EL_troop, _EL_tile, _EL_faction, _EL_rank, _EL_level = -1, _EL_assignEquipments = false)
     {
         local e = this.Tactical.spawnEntity(_EL_troop.Script, tile.Coords);
+
+        if (!this.World.getTime().IsDaytime && _e.getBaseProperties().IsAffectedByNight)
+        {
+            e.getSkills().add(this.new("scripts/skills/special/night_effect"));
+        }
+
         local troop_info = this.Const.EL_NPC.EL_Troop.EL_getTroopInfo(_EL_troop);
         e.EL_setRankLevel(_EL_rank);
-        if(_EL_level != -1) {
+        if(_EL_level == -1) {
 
         }
         else if(_EL_rank != 0) {
@@ -1555,6 +1561,12 @@ local gt = getroottable();
         else if(_EL_level < this.Const.EL_NPC.EL_Troop.MinLevel) {
             _EL_level = this.Const.EL_NPC.EL_Troop.MinLevel;
         }
+
+        if (_EL_rank != 0)
+        {
+            e.makeMiniboss();
+        }
+
         e.EL_bulidNPCPropertiesByLevel(_EL_level);
         e.EL_setCombatLevel(this.Math.min(this.Const.EL_NPC.EL_Troop.MaxCalculateLevel, _EL_level) + troop_info.EL_ExtraCombatLevel);
         e.setFaction(_EL_faction);
