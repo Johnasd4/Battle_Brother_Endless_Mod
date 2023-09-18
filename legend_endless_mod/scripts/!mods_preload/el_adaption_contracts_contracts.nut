@@ -17084,4 +17084,501 @@ local gt = getroottable();
 
     });
 
+    ::mods_hookExactClass("contracts/contracts/tutorial_contract", function(o){
+
+        o.createStates = function()
+        {
+            this.m.States.push({
+                ID = "StartingBattle",
+                function start()
+                {
+                    this.Contract.m.BulletpointsObjectives = [
+                        "Kill %boss%"
+                    ];
+                    this.World.State.m.IsAutosaving = false;
+                }
+
+                function update()
+                {
+                    if (!this.Flags.get("IsTutorialBattleDone"))
+                    {
+                        if (!this.Flags.get("IsIntroShown"))
+                        {
+                            this.Flags.set("IsIntroShown", true);
+                            this.Sound.play("sounds/intro_battle.wav");
+                            this.Contract.setScreen("Intro");
+                            this.World.Contracts.showActiveContract();
+                        }
+                        else
+                        {
+                            local tile = this.World.State.getPlayer().getTile();
+                            local p = this.Const.Tactical.CombatInfo.getClone();
+                            p.Music = this.Const.Music.CivilianTracks;
+                            p.TerrainTemplate = this.Const.World.TerrainTacticalTemplate[tile.TacticalType];
+                            p.Tile = tile;
+                            p.CombatID = "Tutorial1";
+                            p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Custom;
+                            p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Custom;
+                            p.PlayerDeploymentCallback = this.onPlayerDeployment.bindenv(this);
+                            p.EnemyDeploymentCallback = this.onAIDeployment.bindenv(this);
+                            p.IsFleeingProhibited = true;
+                            p.IsAutoAssigningBases = false;
+                            this.World.Contracts.startScriptedCombat(p, false, false, false);
+                        }
+                    }
+                    else
+                    {
+                        this.Contract.setScreen("IntroAftermath");
+                        this.World.Contracts.showActiveContract();
+                    }
+                }
+
+                function onCombatVictory( _combatID )
+                {
+                    if (_combatID == "Tutorial1")
+                    {
+                        this.Flags.set("IsTutorialBattleDone", true);
+                        local brothers = this.World.getPlayerRoster().getAll();
+                        brothers[0].setIsAbleToDie(true);
+                        brothers[1].setIsAbleToDie(true);
+                        brothers[2].setIsAbleToDie(true);
+                        this.World.State.m.IsAutosaving = true;
+                    }
+                }
+
+                function onPlayerDeployment()
+                {
+                    for( local x = 0; x != 32; x = x )
+                    {
+                        for( local y = 0; y != 32; y = y )
+                        {
+                            local tile = this.Tactical.getTileSquare(x, y);
+                            tile.Level = 0;
+
+                            if (x > 11 && x < 22 && y > 12 && y < 21)
+                            {
+                                tile.removeObject();
+
+                                if (tile.IsHidingEntity)
+                                {
+                                    tile.clear();
+                                    tile.IsHidingEntity = false;
+                                }
+                            }
+
+                            y = ++y;
+                        }
+
+                        x = ++x;
+                    }
+
+                    this.Tactical.fillVisibility(this.Const.Faction.Player, true);
+                    local brothers = this.World.getPlayerRoster().getAll();
+                    this.Tactical.addEntityToMap(brothers[0], 13, 15 - 13 / 2);
+                    brothers[0].setIsAbleToDie(false);
+                    this.Tactical.addEntityToMap(brothers[1], 13, 16 - 13 / 2);
+                    brothers[1].setIsAbleToDie(false);
+                    this.Tactical.addEntityToMap(brothers[2], 12, 18 - 12 / 2);
+                    brothers[2].setIsAbleToDie(false);
+                    this.Tactical.CameraDirector.addJumpToTileEvent(0, this.Tactical.getTile(6, 17 - 6 / 2), 0, null, null, 0, 0);
+                    this.Tactical.CameraDirector.addMoveSlowlyToTileEvent(0, this.Tactical.getTile(18, 17 - 18 / 2), 0, null, null, 0, 1000);
+                    this.Contract.spawnBlood(11, 12);
+                    this.Contract.spawnBlood(13, 15);
+                    this.Contract.spawnBlood(14, 17);
+                    this.Contract.spawnBlood(15, 16);
+                    this.Contract.spawnBlood(17, 14);
+                    this.Contract.spawnBlood(15, 15);
+                    this.Contract.spawnBlood(18, 16);
+                    this.Contract.spawnBlood(12, 14);
+                    this.Contract.spawnBlood(13, 16);
+                    this.Contract.spawnBlood(12, 15);
+                    this.Contract.spawnBlood(16, 18);
+                    this.Contract.spawnBlood(15, 17);
+                    this.Contract.spawnArrow(13, 13);
+                    this.Contract.spawnArrow(14, 17);
+                    this.Contract.spawnArrow(17, 15);
+                    this.Contract.spawnCorpse(12, 13);
+                    this.Contract.spawnCorpse(16, 14);
+                    this.Contract.spawnCorpse(17, 16);
+                    this.Contract.spawnCorpse(15, 14);
+                    this.Contract.spawnCorpse(14, 18);
+                }
+
+                function onAIDeployment()
+                {
+                    local e;
+                    this.Const.Movement.AnnounceDiscoveredEntities = false;
+                    local tile = this.Tactical.getTile(16, 8);
+                    e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.BountyHunter, tile, this.Const.Faction.PlayerAnimals, 0, -1);
+                    e.setName("One-Eye");
+                    e.getSprite("socket").setBrush("bust_base_player");
+                    e.assignRandomEquipment();
+                    e.getSkills().removeByID("perk.overwhelm");
+                    e.getSkills().removeByID("perk.nimble");
+                    e.getItems().getItemAtSlot(this.Const.ItemSlot.Body).setArmor(0);
+
+                    if (e.getItems().getItemAtSlot(this.Const.ItemSlot.Head) != null)
+                    {
+                        e.getItems().getItemAtSlot(this.Const.ItemSlot.Head).removeSelf();
+                    }
+
+                    if (e.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand) != null)
+                    {
+                        e.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand).removeSelf();
+                    }
+
+                    e.getBaseProperties().Hitpoints = 5;
+                    e.getBaseProperties().MeleeSkill = -200;
+                    e.getBaseProperties().RangedSkill = 0;
+                    e.getBaseProperties().MeleeDefense = -200;
+                    e.getBaseProperties().Initiative = 200;
+                    e.getSkills().update();
+                    e.setHitpoints(5);
+                    tile = this.Tactical.getTile(15, 18 - 15 / 2);
+                    e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.BountyHunter, tile, this.Const.Faction.PlayerAnimals, 0, -1);
+                    e.setName("Captain Bernhard");
+                    e.getSprite("socket").setBrush("bust_base_player");
+                    e.getSkills().removeByID("perk.overwhelm");
+                    e.getSkills().removeByID("perk.nimble");
+                    local armor = this.Const.World.Common.pickArmor([
+                        [
+                            1,
+                            "mail_hauberk",
+                            32
+                        ]
+                    ]);
+                    armor.setArmor(0);
+                    e.getItems().equip(armor);
+                    e.getItems().equip(this.new("scripts/items/weapons/arming_sword"));
+                    e.getBaseProperties().Hitpoints = 9;
+                    e.getBaseProperties().MeleeSkill = -200;
+                    e.getBaseProperties().RangedSkill = 0;
+                    e.getBaseProperties().MeleeDefense = -200;
+                    e.getBaseProperties().DamageTotalMult = 0.1;
+                    e.getBaseProperties().Initiative = 250;
+                    e.getSkills().update();
+                    e.setHitpoints(5);
+                    tile = this.Tactical.getTile(18, 17 - 18 / 2);
+                    e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.BanditThug, tile, this.Const.Faction.Enemy, 0, -1);
+                    e.getAIAgent().getProperties().OverallDefensivenessMult = 0.0;
+                    e.getAIAgent().getProperties().BehaviorMult[this.Const.AI.Behavior.ID.Retreat] = 0.0;
+                    e.assignRandomEquipment();
+                    e.getBaseProperties().Initiative = 300;
+                    e.getSkills().update();
+                    tile = this.Tactical.getTile(17, 18 - 17 / 2);
+                    e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.BanditThug, tile, this.Const.Faction.Enemy, 0, -1);
+                    e.getAIAgent().getProperties().OverallDefensivenessMult = 0.0;
+                    e.getAIAgent().getProperties().BehaviorMult[this.Const.AI.Behavior.ID.Retreat] = 0.0;
+                    e.assignRandomEquipment();
+                    e.getBaseProperties().Initiative = 200;
+                    e.getSkills().update();
+                    tile = this.Tactical.getTile(19, 17 - 19 / 2);
+                    e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.BanditRaiderLOW, tile, this.Const.Faction.Enemy, 0, -1);
+                    e.setName(this.Flags.get("BossName"));
+                    e.getAIAgent().getProperties().OverallDefensivenessMult = 0.0;
+                    e.getAIAgent().addBehavior(this.new("scripts/ai/tactical/behaviors/ai_retreat_always"));
+                    local items = e.getItems();
+                    items.equip(this.Const.World.Common.pickArmor([
+                        [
+                            1,
+                            "patched_mail_shirt"
+                        ]
+                    ]));
+                    items.equip(this.new("scripts/items/weapons/hunting_bow"));
+                    this.Flags.set("BossHead", e.getSprite("head").getBrush().Name);
+                    this.Flags.set("BossBeard", e.getSprite("beard").HasBrush ? e.getSprite("beard").getBrush().Name : "");
+                    this.Flags.set("BossBeardTop", e.getSprite("beard_top").HasBrush ? e.getSprite("beard_top").getBrush().Name : "");
+                    this.Flags.set("BossHair", e.getSprite("hair").HasBrush ? e.getSprite("hair").getBrush().Name : "");
+                    e.getBaseProperties().Hitpoints = 300;
+                    e.getSkills().update();
+                    e.setHitpoints(180);
+                    e.setMoraleState(this.Const.MoraleState.Wavering);
+                    this.Const.Movement.AnnounceDiscoveredEntities = true;
+                }
+
+            });
+            this.m.States.push({
+                ID = "ReturnAfterIntro",
+                function start()
+                {
+                    this.Contract.m.Home.getSprite("selection").Visible = true;
+                    this.Contract.m.BulletpointsObjectives = [
+                        "Return to " + this.Contract.m.Home.getName() + " to get paid"
+                    ];
+                    this.World.State.getPlayer().setAttackable(false);
+                    this.World.State.m.IsAutosaving = true;
+                }
+
+                function update()
+                {
+                    if (this.World.getTime().Days > 2)
+                    {
+                        this.World.State.getPlayer().setAttackable(true);
+                    }
+
+                    if (this.Contract.isPlayerAt(this.Contract.m.Home))
+                    {
+                        this.Contract.setScreen("PaymentAfterIntro1", false);
+                        this.World.Contracts.showActiveContract();
+                    }
+                }
+
+            });
+            this.m.States.push({
+                ID = "Recruit",
+                function start()
+                {
+                    this.Contract.m.Home.getSprite("selection").Visible = false;
+                    this.Contract.m.BigCity.getSprite("selection").Visible = true;
+                    this.Contract.m.BulletpointsObjectives = [
+                        "Visit %bigcity% %citydirection% of %townname%"
+                    ];
+
+                    if (this.World.getPlayerRoster().getSize() < 6)
+                    {
+                        if (this.Math.max(1, 6 - this.World.getPlayerRoster().getSize()) > 1)
+                        {
+                            this.Contract.m.BulletpointsObjectives.push("Recruit at least " + this.Math.max(1, 6 - this.World.getPlayerRoster().getSize()) + " more men");
+                        }
+                        else
+                        {
+                            this.Contract.m.BulletpointsObjectives.push("Recruit at least one more man");
+                        }
+                    }
+
+                    this.Contract.m.BulletpointsObjectives.push("Buy weapons and armor for your men");
+                    this.World.State.getPlayer().setAttackable(false);
+                    this.Contract.m.BigCity.setDiscovered(true);
+                    this.World.uncoverFogOfWar(this.Contract.m.BigCity.getTile().Pos, 500.0);
+                }
+
+                function update()
+                {
+                    if (this.World.getTime().Days > 4)
+                    {
+                        this.World.State.getPlayer().setAttackable(true);
+                    }
+
+                    if (this.World.getPlayerRoster().getSize() >= 6 && this.Flags.get("IsMarketplaceTipShown"))
+                    {
+                        this.Contract.setState("ReturnAfterRecruiting");
+                    }
+                    else if (this.World.getPlayerRoster().getSize() >= 6 && this.Contract.m.BulletpointsObjectives.len() == 3)
+                    {
+                        this.start();
+                        this.World.Contracts.updateActiveContract();
+                    }
+                    else if (!this.Flags.get("IsMarketplaceTipShown") && this.World.State.getPlayer().getDistanceTo(this.Contract.m.BigCity.get()) <= 600)
+                    {
+                        this.Flags.set("IsMarketplaceTipShown", true);
+                        this.Contract.setScreen("MarketplaceTip");
+                        this.World.Contracts.showActiveContract();
+                    }
+                }
+
+            });
+            this.m.States.push({
+                ID = "ReturnAfterRecruiting",
+                function start()
+                {
+                    this.Contract.m.Home.getSprite("selection").Visible = true;
+                    this.Contract.m.BigCity.getSprite("selection").Visible = false;
+                    this.Contract.m.BulletpointsObjectives = [
+                        "Return to %employer% in %townname%"
+                    ];
+                    this.World.State.getPlayer().setAttackable(false);
+                }
+
+                function update()
+                {
+                    if (this.World.getTime().Days > 6)
+                    {
+                        this.World.State.getPlayer().setAttackable(true);
+                    }
+
+                    if (this.Contract.isPlayerAt(this.Contract.m.Home))
+                    {
+                        local tile = this.Contract.getTileToSpawnLocation(this.World.State.getPlayer().getTile(), 6, 10, [
+                            this.Const.World.TerrainType.Swamp,
+                            this.Const.World.TerrainType.Forest,
+                            this.Const.World.TerrainType.LeaveForest,
+                            this.Const.World.TerrainType.SnowyForest,
+                            this.Const.World.TerrainType.Shore,
+                            this.Const.World.TerrainType.Ocean,
+                            this.Const.World.TerrainType.Mountains
+                        ], false);
+                        tile.clear();
+                        this.Contract.m.Location = this.WeakTableRef(this.World.spawnLocation("scripts/entity/world/locations/bandit_hideout_location", tile.Coords));
+                        this.Contract.m.Location.setResources(0);
+                        this.Contract.m.Location.setBanner("banner_deserters");
+                        this.Contract.m.Location.getSprite("location_banner").Visible = false;
+                        this.Contract.m.Location.setName(this.Flags.get("LocationName"));
+                        this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).addSettlement(this.Contract.m.Location.get(), false);
+                        this.Contract.m.Location.setDiscovered(true);
+                        this.World.uncoverFogOfWar(this.Contract.m.Location.getTile().Pos, 400.0);
+                        this.Contract.m.Location.clearTroops();
+                        this.Const.World.Common.addTroop(this.Contract.m.Location, {
+                            Type = this.Const.World.Spawn.Troops.BanditMarksmanLOW
+                        }, false);
+                        this.Const.World.Common.addTroop(this.Contract.m.Location, {
+                            Type = this.Const.World.Spawn.Troops.BanditThug
+                        }, false);
+                        this.Const.World.Common.addTroop(this.Contract.m.Location, {
+                            Type = this.Const.World.Spawn.Troops.BanditThug
+                        }, false);
+
+                        if (this.World.Assets.getCombatDifficulty() >= this.Const.Difficulty.Normal)
+                        {
+                            this.Const.World.Common.addTroop(this.Contract.m.Location, {
+                                Type = this.Const.World.Spawn.Troops.BanditThug
+                            }, false);
+                        }
+
+                        if (this.World.Assets.getCombatDifficulty() >= this.Const.Difficulty.Hard)
+                        {
+                            this.Const.World.Common.addTroop(this.Contract.m.Location, {
+                                Type = this.Const.World.Spawn.Troops.BanditThug
+                            }, false);
+                        }
+
+                        this.Contract.m.Location.updateStrength();
+                        this.Contract.setScreen("Briefing");
+                        this.World.Contracts.showActiveContract();
+                    }
+                }
+
+            });
+            this.m.States.push({
+                ID = "Finale",
+                function start()
+                {
+                    this.Contract.m.Home.getSprite("selection").Visible = false;
+
+                    if (this.Contract.m.Location != null && !this.Contract.m.Location.isNull())
+                    {
+                        this.Contract.m.Location.getSprite("selection").Visible = true;
+                    }
+
+                    if (this.Contract.m.BigCity != null && !this.Contract.m.BigCity.isNull())
+                    {
+                        this.Contract.m.BigCity.getSprite("selection").Visible = false;
+                    }
+
+                    if (this.Contract.m.Location != null && !this.Contract.m.Location.isNull())
+                    {
+                        this.Contract.m.Location.setOnCombatWithPlayerCallback(this.onLocationAttacked.bindenv(this));
+                    }
+
+                    this.Contract.m.BulletpointsObjectives = [
+                        "Travel to %location% %direction% of %townname%",
+                        "Kill %boss%"
+                    ];
+                    this.Contract.m.BulletpointsPayment = [
+                        "Get 400 crowns on completion"
+                    ];
+                    this.World.State.getPlayer().setAttackable(false);
+                }
+
+                function update()
+                {
+                    if (this.World.getTime().Days > 8)
+                    {
+                        this.World.State.getPlayer().setAttackable(true);
+                    }
+
+                    if (this.Flags.has("IsHoggartDead") || this.Contract.m.Location == null || this.Contract.m.Location.isNull() || !this.Contract.m.Location.isAlive())
+                    {
+                        if (this.Contract.m.Location != null && !this.Contract.m.Location.isNull())
+                        {
+                            this.Contract.m.Location.die();
+                            this.Contract.m.Location = null;
+                        }
+
+                        this.Contract.setScreen("AfterFinale");
+                        this.World.Contracts.showActiveContract();
+                    }
+                }
+
+                function onLocationAttacked( _dest, _isPlayerAttacking = true )
+                {
+                    local properties = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos());
+                    properties.Music = this.Const.Music.BanditTracks;
+                    properties.BeforeDeploymentCallback = this.onDeployment.bindenv(this);
+                    this.World.Contracts.startScriptedCombat(properties, true, true, true);
+                }
+
+                function onDeployment()
+                {
+                    this.Tactical.getTileSquare(21, 17).removeObject();
+                    local tile = this.Tactical.getTile(21, 17 - 21 / 2);
+                    e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.BanditRaiderLOW, tile, this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID(), 0, -1);
+                    e.setName(this.Flags.get("BossName"));
+                    e.m.IsGeneratingKillName = false;
+                    e.getAIAgent().getProperties().BehaviorMult[this.Const.AI.Behavior.ID.Retreat] = 0.0;
+                    e.getFlags().add("IsFinalBoss", true);
+                    local items = e.getItems();
+                    items.equip(this.Const.World.Common.pickArmor([
+                        [
+                            1,
+                            "patched_mail_shirt"
+                        ]
+                    ]));
+                    items.equip(this.new("scripts/items/weapons/falchion"));
+                    local shield = this.new("scripts/items/shields/wooden_shield");
+                    shield.setVariant(4);
+                    items.equip(shield);
+                    e.getSprite("head").setBrush(this.Flags.get("BossHead"));
+                    e.getSprite("beard").setBrush(this.Flags.get("BossBeard"));
+                    e.getSprite("beard_top").setBrush(this.Flags.get("BossBeardTop"));
+                    e.getSprite("hair").setBrush(this.Flags.get("BossHair"));
+                }
+
+                function onActorKilled( _actor, _killer, _combatID )
+                {
+                    if (_actor.getFlags().get("IsFinalBoss") == true)
+                    {
+                        this.Flags.set("IsHoggartDead", true);
+                        this.updateAchievement("TrialByFire", 1, 1);
+                    }
+                }
+
+            });
+            this.m.States.push({
+                ID = "Return",
+                function start()
+                {
+                    this.Contract.m.Home.getSprite("selection").Visible = true;
+                    this.Contract.m.BigCity.getSprite("selection").Visible = false;
+                    this.Contract.m.BulletpointsObjectives = [
+                        "Return to %employer% in %townname% to get paid"
+                    ];
+                    this.World.State.getPlayer().setAttackable(false);
+                }
+
+                function update()
+                {
+                    if (this.World.getTime().Days > 10)
+                    {
+                        this.World.State.getPlayer().setAttackable(true);
+                    }
+
+                    if (this.Contract.isPlayerAt(this.Contract.m.Home))
+                    {
+                        this.Contract.setScreen("Success");
+                        this.World.Contracts.showActiveContract();
+                    }
+                    else if (!this.Flags.get("IsCampingTipShown") && this.Time.getVirtualTimeF() - this.World.Events.getLastBattleTime() >= 10.0)
+                    {
+                        this.Flags.set("IsCampingTipShown", true);
+                        this.Contract.setScreen("CampingTip");
+                        this.World.Contracts.showActiveContract();
+                    }
+                }
+
+            });
+        }
+
+
+    });
+
 });
