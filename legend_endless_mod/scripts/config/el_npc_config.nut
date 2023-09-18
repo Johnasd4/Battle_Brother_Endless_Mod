@@ -146,6 +146,7 @@ gt.Const.EL_NPC <- {
         EliteUnit = [
             this.Const.EntityType.BanditWarlord,
             this.Const.EntityType.BanditLeader,
+            this.Const.EntityType.BarbarianMadman,
             this.Const.EntityType.LegendSkinGhoul,
             this.Const.EntityType.LegendWhiteDirewolf,
             this.Const.EntityType.LegendWhiteWarwolf,

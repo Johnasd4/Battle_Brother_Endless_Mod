@@ -8092,8 +8092,10 @@ local gt = getroottable();
                                 properties.Entities = [];
                                 local party = this.new("scripts/entity/world/party");
                                 party.setFaction(this.Contract.m.Destination.getFaction());
-                                p.Parties.push(party);
+                                party.EL_setHaveRandomLeader(false);
+                                party.EL_setHaveStrongestLeader(false);
                                 party.EL_setTroopsResourse(0);
+                                p.Parties.push(party);
                                 this.Const.World.Common.addTroop(party, {
                                     Type = this.Const.World.Spawn.Troops.BarbarianChampion
                                 }, false, 0, difficulty >= 1.15 ? 1 : 0);
@@ -15640,7 +15642,13 @@ local gt = getroottable();
 
                     if (!alliesIncluded && _dest.getDistanceTo(this.Contract.m.Origin) <= 400)
                     {
-                        this.Const.World.Common.addUnitsToCombat(p.Entities, this.Const.World.Spawn.Noble, 80 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Contract.getFaction());
+                        local party = this.new("scripts/entity/world/party");
+                        party.setFaction(this.Contract.getFaction());
+                        properties.Parties.push(party);
+                        this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Noble, 80 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Contract.getFaction());
+                        foreach(troop in party.getTroops()) {
+                            properties.Entities.push(troop);
+                        }
 
                         foreach( id in this.Contract.m.UnitsSpawned )
                         {

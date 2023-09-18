@@ -1,27 +1,28 @@
 local gt = getroottable();
 
-::mods_registerMod("el_adaption_events_events_legends_locaiton", 1, "el_adaption_events_events_legends_locaiton");
+::mods_registerMod("el_adaption_events_events_dlc6_location", 1, "el_adaption_events_events_dlc6_location");
 ::mods_queue(null, "el_player_npc", function ()
 {
-	::mods_hookExactClass("events/events/legends/location/legend_mummy_enter_event", function(o){
+
+    ::mods_hookExactClass("events/events/dlc6/location/sunken_library_enter_event", function(o){
 
         o.create = function()
         {
-            this.logInfo("legend_mummy_enter_event create");
+            this.logInfo("sunken_library_enter_event create");
 
-            this.m.ID = "event.location.legend_mummy_enter";
+            this.m.ID = "event.location.sunken_library_enter";
             this.m.Title = "As you approach...";
             this.m.Cooldown = 999999.0 * this.World.getTime().SecondsPerDay;
             this.m.IsSpecial = true;
             this.m.Screens.push({
                 ID = "A",
-                Text = "[img]gfx/ui/events/event_173.png[/img]{As the sand swallows your feet you scramble to the zenith of the next sand dune, the crest gives way to more of the same — the sands part between the hypnotising peaks between the valleys, occasionally sprinkled with columns, collapsed entrances and skeletons human and animal alike. Further afield you see the apex of a more rigid structure, the faded motifs strike you first, a small smatter of colour in an otherwise desolate landscape.\n\n As you wade closer the colours become more vivid; teals, maroons and jaundiced yellows all wax and wane in stripes, seemingly telling a tale nobody living can still recant. The air is warm, but stale — time seems to have affected this place differently than anywhere else you have seen so far. \n\n Small pots and urns make mickles around the entryways and columns, this place is a shining beacon for graverobbers but remains untouched and orderly.}",
+                Text = "[img]gfx/ui/events/event_173.png[/img]{The shine and shimmer is so bright you almost think the Gilder Himself has ordained you a proper visit - unfortunately or fortunately, what you\'ve stumbled across is actually a great gilded dome protruding ever so slightly from the sands. Immediately, you test if you can pull some of the gold away, but it has no give. %randombrother% calls you over to a slab of stone which is gapped. Perhaps a belltower at one point? Light fades quick and you can see very little inside. Above the entryway a relief depicts men pulling carts of scrolls.\n\n There\'s a set of words repeatedly scrawled across the relief. None of the languages look remotely familiar to anything you\'ve ever heard or seen. It takes a bit of time until you can find a hurriedly etched translation left by someone approximal to your era: \'the Library, the Labyrinth of the Night, the Labyrinth of the Mind, Leave here as you would Leave a Dream, Tread here as you would Tread a Dream, Leave to Dwell upon the Horror of not Knowing, Enter to be One with Knowing, and in Knowing the Dream, Know the Nightmare\'.%SPEECH_ON%Fair bit ominous, captain, but if you wanna go down in there we got the rope and torches to see to it.%SPEECH_OFF%%randombrother% tells you this, and the look on his face suggests he\'s hoping you decline the proposition.}",
                 Image = "",
                 List = [],
                 Characters = [],
                 Options = [
                     {
-                        Text = "More treasure for us then!",
+                        Text = "Rappel down into the dark!",
                         function getResult( _event )
                         {
                             return "B";
@@ -49,7 +50,7 @@ local gt = getroottable();
             });
             this.m.Screens.push({
                 ID = "B",
-                Text = "[img]gfx/ui/events/event_89.png[/img]{As you slowly pace inside the main monolith the temperature dramatically drops to a more comfortable level. The shade makes your skin writhe with comfort from the heat outside. \n\n The room is mostly blank, the only distinguishing feature aside from the inscribed walls are stone caskets of varying quality — some depict great battles, a figure whipping servants and others who are partaking in a form of ritual that has been purposely defaced with a weapon or chisel. Others remain blank — either not important enough to be worth more time of the craftsmen or simply unfinished. }",
+                Text = "[img]gfx/ui/events/event_89.png[/img]{The climb down is a perilous one, the dark so thick you can\'t even see your own boots. But eventually you hit a marbled floor and quickly light up some torches. You find yourself in a massive hall around which spiral rows and rows of bookcases. Every shelf is adorned with piles of scrolls, many dwelling within glass enclosures. The shelves are stacked upon each other and seem to ascend to the very ceiling from which you descended. Rolling ladders rest at each level, but even further up runs a floating mezzanine with metal chutes stationed here and there. It seems as though once upon a time one was meant to pass these scrolls up and down, though now everything is rusted, and the mezzanine has collapsed in parts.\n\n %randombrother% calls your attention. He points to an enormous scroll flattened behind a sheet of glass. Drawings sprawl over the paper, and upon closer inspection it appears they are blueprints for seemingly everything: the human body, the bodies of many animals, castles, towers, windmills, ships, weapons and armor, boots and gloves, alignments of the stars, and a great number of drawings of things which you have never seen before, things which don\'t make sense.%SPEECH_ON%Captain, this place is not meant for us. The languages, the halls, we should go.%SPEECH_OFF%One of the sellswords expresses the mood in the air. You have absolutely trespassed to a place few have gone before. And if they have gone before, where are they? A place like this surely can\'t stay hidden, right?}",
                 Image = "",
                 List = [],
                 Characters = [],
@@ -70,13 +71,13 @@ local gt = getroottable();
             });
             this.m.Screens.push({
                 ID = "C",
-                Text = "[img]gfx/ui/events/event_89.png[/img]{As you inch closer you begin to realise that fingers have smudged and flailed against the inside enclosure of the sarcophagus, some caskets have been opened from inside, while others had outside assistance. \n\n However, all of them are empty. \n\n The air begins to feel warm again suddenly, there is more in this chamber than you suspected. A figure of a man catches your eye, it opens its mouth as it plods from the darkness. \n\n Words do not come, only a trickle of sand and skin.}",
+                Text = "[img]gfx/ui/events/event_89.png[/img]{%SPEECH_START%Interlopers in the Library.%SPEECH_OFF%The voice scratches along the marbled floor and rises up to meet your ears and continues on, the word \'Libraryyy\' slithering into the dark behind you. Suddenly, a number of the glass cases begin to glow, the phylacteries holding some sort of ethereal energy, and as the light widens it unveils the torso of a black skeleton, its body captured in air. The ribcage holds a book, hooked into place by the sickly folds of its own ribs as a spider would clutch a meal. The skull of the creature stares at you with peerless sockets.%SPEECH_ON%Your kind has already stolen from me, now you dare profane these halls again?%SPEECH_OFF%The phylacteries grow brighter and in turn the skeleton\'s torso grows flesh, weeds of vein and the pulp of skin blossoming outward to cover bone. But it is only the torso which is ensconced. You stare at the phylacteries and they are brimming with energy now, and in staring you can see the ghostly faces smearing along the glass like streaks of rain. You hear a loud clap and turn back to see the Loremaster in full, its eyes aflame with white fire, its limbs skinny yet with smoky muscles winding around its frame, and its lower half is pluming with black ash as it glides forward. The brighter the glass bulbs get, the stronger and faster it becomes!}",
                 Image = "",
                 List = [],
                 Characters = [],
                 Options = [
                     {
-                        Text = "The dead are upon us",
+                        Text = "Fight for your lives! Fight like you\'ve never fought before!",
                         function getResult( _event )
                         {
                             if (this.World.State.getLastLocation() != null)
@@ -86,7 +87,7 @@ local gt = getroottable();
 
                             local p = this.Const.Tactical.CombatInfo.getClone();
                             p.LocationTemplate = clone this.Const.Tactical.LocationTemplate;
-                            p.CombatID = "Mastaba";
+                            p.CombatID = "SunkenLibrary";
                             p.TerrainTemplate = "tactical.sinkhole";
                             p.LocationTemplate.Template[0] = "tactical.sunken_library";
                             p.Music = this.Const.Music.UndeadTracks;
@@ -97,20 +98,12 @@ local gt = getroottable();
                             local f = this.World.FactionManager.getFactionOfType(this.Const.FactionType.Undead).getID();
                             local party = this.new("scripts/entity/world/party");
                             party.setFaction(f);
-                            party.EL_setIsEliteParty(true);
-                            party.EL_setHaveRandomLeader(false);
-                            party.EL_setHaveStrongestLeader(false);
+                            EL_setIsBossParty(true);
                             properties.Parties.push(party);
                             for( local i = 0; i < 4; i = ++i )
                             {
                                 this.Const.World.Common.addTroop(party, {
-                                    Type = this.Const.World.Spawn.Troops.LegendMummyHeavy
-                                }, false);
-                            }
-                            for( local i = 0; i < 4; i = ++i )
-                            {
-                                this.Const.World.Common.addTroop(party, {
-                                    Type = this.Const.World.Spawn.Troops.LegendMummyPriest
+                                    Type = this.Const.World.Spawn.Troops.SkeletonHeavyBodyguard
                                 }, false);
                             }
                             foreach(troop in party.getTroops()) {
@@ -119,8 +112,8 @@ local gt = getroottable();
 
                             p.BeforeDeploymentCallback = function ()
                             {
-                                local light = 4;
-                                local light_tiles = [];
+                                local phylacteries = 10;
+                                local phylactery_tiles = [];
 
                                 do
                                 {
@@ -135,7 +128,7 @@ local gt = getroottable();
                                     {
                                         local skip = false;
 
-                                        foreach( t in light_tiles )
+                                        foreach( t in phylactery_tiles )
                                         {
                                             if (t.getDistanceTo(tile) <= 5)
                                             {
@@ -149,34 +142,32 @@ local gt = getroottable();
                                         }
                                         else
                                         {
-                                            this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.LegendVampireLord, tile, f, 2, -1 ,true);
-                                            light = --light;
-                                            light = light;
-                                            light_tiles.push(tile);
+                                            this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SkeletonPhylactery, tile, f, 1);
+                                            phylacteries = --phylacteries;
+                                            phylactery_tiles.push(tile);
                                         }
                                     }
                                 }
-                                while (light > 0);
+                                while (phylacteries > 0);
 
-                                local toRise = 3;
+                                local toRise = 5;
 
                                 do
                                 {
-                                    local r = this.Math.rand(0, light_tiles.len() - 1);
-                                    local p = light_tiles[r];
+                                    local r = this.Math.rand(0, phylactery_tiles.len() - 1);
+                                    local p = phylactery_tiles[r];
 
                                     if (p.SquareCoords.X > 14)
                                     {
-                                        p.Level = 1;
+                                        p.Level = 3;
                                         toRise = --toRise;
-                                        toRise = toRise;
                                     }
 
-                                    light_tiles.remove(r);
+                                    phylactery_tiles.remove(r);
                                 }
-                                while (toRise > 0 && light_tiles.len() > 0);
+                                while (toRise > 0 && phylactery_tiles.len() > 0);
 
-                                local queen = 1;
+                                local lich = 1;
 
                                 do
                                 {
@@ -189,14 +180,13 @@ local gt = getroottable();
                                     }
                                     else
                                     {
-                                        this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.LegendMummyQueen, tile, f, 2, -1 ,true);
-                                        queen = --queen;
-                                        queen = queen;
+                                        this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SkeletonLich, tile, f, 2, -1, true);
+                                        lich = --lich;
                                     }
                                 }
-                                while (queen > 0);
+                                while (lich > 0);
 
-                                local treasureHunters = 4;
+                                local treasureHunters = 3;
 
                                 do
                                 {
@@ -210,13 +200,14 @@ local gt = getroottable();
                                     else
                                     {
                                         local e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.ZombieTreasureHunter, tile, f, 1, -1, true);
+                                        local item = e.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+                                        item.setCondition(this.Math.rand(item.getConditionMax() / 2, item.getConditionMax()));
                                         treasureHunters = --treasureHunters;
-                                        treasureHunters = treasureHunters;
                                     }
                                 }
                                 while (treasureHunters > 0);
 
-                                local medium = 12;
+                                local heavy = 4;
 
                                 do
                                 {
@@ -229,14 +220,15 @@ local gt = getroottable();
                                     }
                                     else
                                     {
-                                        local e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.LegendMummyLight, tile, f, 1, -1, true);
-                                        medium = --medium;
-                                        medium = medium;
+                                        local e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SkeletonHeavy, tile, f, 1 -1, true);
+                                        local item = e.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+                                        item.setCondition(this.Math.rand(item.getConditionMax() / 2, item.getConditionMax()));
+                                        heavy = --heavy;
                                     }
                                 }
-                                while (medium > 0);
+                                while (heavy > 0);
 
-                                local heavy = 4;
+                                local heavy_polearm = 4;
 
                                 do
                                 {
@@ -249,12 +241,13 @@ local gt = getroottable();
                                     }
                                     else
                                     {
-                                        local e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.LegendMummyHeavy, tile, f, 1, -1, true);
-                                        heavy = --heavy;
-                                        heavy = heavy;
+                                        local e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SkeletonHeavyPolearm, tile, f, 1 -1, true);
+                                        local item = e.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+                                        item.setCondition(this.Math.rand(item.getConditionMax() / 2, item.getConditionMax()));
+                                        heavy_polearm = --heavy_polearm;
                                     }
                                 }
-                                while (heavy > 0);
+                                while (heavy_polearm > 0);
                             };
                             p.AfterDeploymentCallback = function ()
                             {
@@ -275,13 +268,13 @@ local gt = getroottable();
             });
             this.m.Screens.push({
                 ID = "Victory",
-                Text = "[img]gfx/ui/events/event_89.png[/img]{The ancient queen crumbles to ash before you, leaving nothing left in the chamber but sand.}",
+                Text = "[img]gfx/ui/events/event_89.png[/img]{The Lorekeeper collapses onto the ground a pile of ash and the phylacteries slowly fade back to dark. You walk over with torch in hand. Its black skull resides atop the book that once dwelled in its chest.%SPEECH_ON%Captain, I don\'t think we should be touching anything here.%SPEECH_OFF%You ignore one of your men and pick the book up. Its leather covering is stitched together, and as you look closer you can see the flesh of ears and noses encompassing the cover. Immediately, the bones of the slain undead scratch across the marbled floor. One zips between your legs and flies into the pile of ash. A dull white fire alights inside the socket of the skull. That\'s more than enough for you: with a quick command, you get the men to climb back up the rope, yourself the last to leave. As you near the light of the earth above, you take one moment to stare back down and - the black skull is already in your face! It floats alone, eyes burning white, capturing your sight in a cone of fire you cannot understand, and as you stare into it you can hear the voices of your men fade away. The skull floats alone, and you almost feel the urge to let the rope go. The skull speaks to your mind:%SPEECH_ON%It is but one of its gifts, Interloper, and you are not the first to have it. There are many who have taken it, and in the many there is but one end, the one who awaits us all!%SPEECH_OFF%The skull\'s fire snuffs out and it drops away into the dark where you hear a brief clatter. The voices of your men rush back in, louder than ever and you look up to see %randombrother%\'s hand. Grabbing hold, they pull you out. As you exit, the entrance sinks into the sand, and all you have of the place is a strange, fleshen book filled with writings you cannot ever hope to decipher.}",
                 Image = "",
                 List = [],
                 Characters = [],
                 Options = [
                     {
-                        Text = "What was that?",
+                        Text = "What did I just take?",
                         function getResult( _event )
                         {
                             return 0;
@@ -299,20 +292,21 @@ local gt = getroottable();
                     }
 
                     this.World.Assets.getStash().makeEmptySlots(1);
-                    local item = this.new("scripts/items/weapons/legendary/legend_mage_swordstaff");
+                    local item = this.new("scripts/items/special/black_book_item");
                     this.World.Assets.getStash().add(item);
                     this.List.push({
                         id = 10,
                         icon = "ui/items/" + item.getIcon(),
                         text = "You gain " + item.getName()
                     });
-                    this.World.Flags.set("IsMastabaDefeated", true);
+                    this.World.Flags.set("IsLorekeeperDefeated", true);
+                    this.updateAchievement("Lorekeeper", 1, 1);
                 }
 
             });
             this.m.Screens.push({
                 ID = "Defeat",
-                Text = "[img]gfx/ui/events/event_173.png[/img]The mercenaries run out into the blazing sun again.%SPEECH_ON%Perhaps another time?%SPEECH_OFF%One sellsword says. %randombrother% nods.%SPEECH_ON%Another time, aye. Maybe a time far away from now, when I\'m out retired and farkin\' whoors, then y\'all can dip down into the darkness and go gallivanting with dead wizards. Does that time work for y\'all?%SPEECH_OFF%",
+                Text = "[img]gfx/ui/events/event_173.png[/img]The men run and hastily climb up again.%SPEECH_ON%Perhaps another time?%SPEECH_OFF%One sellsword says. %randombrother% nods.%SPEECH_ON%Another time, aye. Maybe a time far away from now, when I\'m out retired and farkin\' whoors, then y\'all can dip down into the darkness and go gallivanting with dead wizards. Does that time work for y\'all?%SPEECH_OFF%",
                 Image = "",
                 List = [],
                 Characters = [],
@@ -339,67 +333,13 @@ local gt = getroottable();
             });
         }
 
-    });
 
-	::mods_hookExactClass("events/events/legends/location/legend_tournament_enter_event", function(o){
 
-        o.selectFight = function( _scale, _type, _lootingStopped )
-        {
-            this.logInfo("legend_tournament_enter_event selectFight");
 
-            local round = this.World.Flags.get("LegendTournamentRound");
-            local roundDifficulty = 0.7 + round * 0.3;
-            this.World.Flags.increment("LegendTournamentRound", 1);
-            local p = this.Const.Tactical.CombatInfo.getClone();
-            p.LocationTemplate = clone this.Const.Tactical.LocationTemplate;
-            p.TerrainTemplate = "tactical.tournament";
-            p.LocationTemplate.Template[0] = "tactical.legend_tournament_floor";
-            p.CombatID = "Legend Tournament";
-            local tracks = [
-                this.Const.Music.OrcsTracks,
-                this.Const.Music.NobleTracks,
-                this.Const.Music.UndeadTracks,
-                this.Const.Music.BanditTracks,
-                this.Const.Music.CivilianTracks,
-                this.Const.Music.BeastsTracks,
-                this.Const.Music.GoblinsTracks,
-                this.Const.Music.OrientalBanditTracks,
-                this.Const.Music.OrientalCityStateTracks,
-                this.Const.Music.BarbarianTracks,
-                this.Const.Music.BattleTracks
-            ];
-            p.Music = tracks[this.Math.rand(0, tracks.len() - 1)];
-            p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Arena;
-            p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Arena;
-            p.IsUsingSetPlayers = false;
-            p.IsFleeingProhibited = true;
-            p.IsLootingProhibited = _lootingStopped;
-            p.IsWithoutAmbience = true;
-            p.IsFogOfWarVisible = false;
-            p.IsArenaMode = true;
-            p.IsAutoAssigningBases = false;
-            p.Players = [];
-            p.Entities = [];
-            this.logInfo("push party");
-            local party = this.new("scripts/entity/world/party");
-            party.setFaction(this.Const.Faction.Enemy);
-            //party.setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Arena).getID());
-            //Stop copying troops.
-            party.EL_setTroopsResourse(0);
-            p.Parties.push(party);
-            this.Const.World.Common.addUnitsToCombat(party, _type, this.Math.pow(_scale, roundDifficulty), this.Const.Faction.Enemy);
-            foreach(troop in party.getTroops()) {
-                p.Entities.push(troop);
-            }
-            p.AfterDeploymentCallback = function ()
-            {
-                this.Tactical.getWeather().setAmbientLightingPreset(1);
-                this.Tactical.getWeather().setAmbientLightingSaturation(1.1);
-            };
-            return p;
-        }
+
+
+
 
     });
-
 
 });
