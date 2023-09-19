@@ -217,21 +217,41 @@ local gt = getroottable();
             kill(_killer, _skill, _fatalityType, _silent);
             if (_killer == null || _killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals)
             {
+                local rank = 0;
+                local level = this.Math.min(this.Const.EL_NPC.EL_Troop.MaxCalculateLevel, this.m.EL_NPCLevel);
+                if(this.m.WorldTroop.EL_IsBossUnit == true) {
+                    rank = 3;
+                }
+                else {
+                    rank = this.m.WorldTroop.EL_RankLevel;
+                }
+                num_1 = this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.CurrentRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level));
+                num_2 = this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.NextRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level));
                 if (this.m.WorldTroop != null && ("Party" in this.m.WorldTroop) && this.m.WorldTroop.Party != null && !this.m.WorldTroop.Party.isNull())
                 {
-                    local rank = 0;
-                    local level = this.Math.min(this.Const.EL_NPC.EL_Troop.MaxCalculateLevel, this.m.EL_NPCLevel)
-                    if(this.m.WorldTroop.EL_IsBossUnit == true) {
-                        rank = 3;
-                    }
-                    else {
-                        rank = this.m.WorldTroop.EL_RankLevel;
-                    }
                     this.m.WorldTroop.Party.EL_addEquipmentEssence(rank, this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.CurrentRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level)));
                     this.m.WorldTroop.Party.EL_addEquipmentEssence(rank + 1, this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.NextRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level)));
                 }
                 else
                 {
+                    local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos(), true);
+                    local party = null;
+                    for(local i = 0; i < p.Parties.len(); ++i) {
+                        if(p.Parties[i].m.Name == "EquipmentEssenceOnly") {
+                            party = p.Parties[i];
+                            break;
+                        }
+                    }
+                    if(party == null)
+                    {
+                        party = this.new("scripts/entity/world/party");
+                        party.EL_setFaction(this.Const.Faction.Enemy);
+                        party.EL_setTroopsResourse(0);
+                        party.m.Name = "EquipmentEssenceOnly";
+                        p.Parties.push(party);
+                    }
+                    party.EL_addEquipmentEssence(rank, this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.CurrentRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level)));
+                    party.EL_addEquipmentEssence(rank + 1, this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.NextRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level)));
 
                 }
             }
