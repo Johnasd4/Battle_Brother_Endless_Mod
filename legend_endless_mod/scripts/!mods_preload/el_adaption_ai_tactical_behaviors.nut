@@ -100,7 +100,7 @@ local gt = getroottable();
 
                 local tile = this.m.Tiles[0].Tile;
                 this.m.Tiles.remove(0);
-                local shadow = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.AlpShadow, tile, _entity.getFaction(), _entity.EL_getRankLevel(), -1);
+                local shadow = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.AlpShadow, tile, _entity.getFaction(), _entity.EL_getRankLevel(), _entity.EL_getLevel());
                 max_shadows = --max_shadows;
                 max_shadows = max_shadows;
 

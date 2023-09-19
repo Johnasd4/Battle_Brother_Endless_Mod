@@ -9,7 +9,7 @@ local gt = getroottable();
 		o.onUpdate = function ( _properties )
 		{
             local actor = this.getContainer().getActor();
-            local level = actor.EL_getNPCLevel();
+            local level = actor.EL_getLevel();
             local rank = actor.EL_getRankLevel();
 
             this.m.Name = this.Const.EL_NPC.EL_Champion.Name[rank];
@@ -128,7 +128,7 @@ local gt = getroottable();
 			this.m.EL_NPCLevel = _in.readI32();
 		}
 
-        o.EL_getNPCLevel <- function() {
+        o.EL_getLevel <- function() {
             return this.m.EL_NPCLevel;
         }
 
@@ -229,6 +229,10 @@ local gt = getroottable();
                     }
                     this.m.WorldTroop.Party.EL_addEquipmentEssence(rank, this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.CurrentRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level)));
                     this.m.WorldTroop.Party.EL_addEquipmentEssence(rank + 1, this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.NextRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level)));
+                }
+                else
+                {
+
                 }
             }
         }
@@ -1575,6 +1579,64 @@ local gt = getroottable();
         local extra_elite_buff_num = 0;
         local extra_leader_buff_num = 0;
         if(troop_info.EL_IsBossUnit == true) {
+            extra_elite_buff_num = this.Const.EL_NPC.EL_NPCBuff.Num.BossUnitExtraRank1;
+            extra_leader_buff_num = this.Const.EL_NPC.EL_NPCBuff.Num.BossUnitExtraRank2;
+        }
+        if(e.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand) == null &&
+           e.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand) == null)
+        {
+            this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(e, this.Const.EL_NPC.EL_NPCBuff.Num.NonHumanoidRank1[_EL_rank] + extra_elite_buff_num, this.Const.EL_NPC.EL_NPCBuff.Num.NonHumanoidRank2[_EL_rank] + extra_leader_buff_num);
+        }
+        else
+        {
+            this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(e, this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank1[_EL_rank] + extra_elite_buff_num, this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank2[_EL_rank] + extra_leader_buff_num);
+        }
+        if(_EL_assignEquipments) {
+            e.assignRandomEquipment();
+        }
+        e.EL_ballanceNPCPropertiesAfterAddingEquipment();
+        return e;
+    }
+
+    gt.Const.World.Common.EL_addEntityByScript <- function (_EL_script, _EL_tile, _EL_faction, _EL_rank, _EL_level = -1, _EL_assignEquipments = false, _EL_isBossUnit = false, _EL_extraCombatLevel = 0)
+    {
+        local e = this.Tactical.spawnEntity(_EL_script, tile.Coords);
+        if(e == null) {
+            return e;
+        }
+        if (!this.World.getTime().IsDaytime && _e.getBaseProperties().IsAffectedByNight)
+        {
+            e.getSkills().add(this.new("scripts/skills/special/night_effect"));
+        }
+
+        e.EL_setRankLevel(_EL_rank);
+        if(_EL_level == -1) {
+
+        }
+        else if(_EL_rank != 0) {
+            _EL_level = this.World.Assets.m.EL_WorldLevel;
+        }
+        else {
+            _EL_level = this.Math.rand(this.World.Assets.m.EL_WorldLevel + this.Const.EL_NPC.EL_Troop.MinLevelOffset, this.World.Assets.m.EL_WorldLevel + this.Const.EL_NPC.EL_Troop.MaxLevelOffset)
+        }
+        if(_EL_level > this.Const.EL_NPC.EL_Troop.MaxLevel) {
+            _EL_level = this.Const.EL_NPC.EL_Troop.MaxLevel;
+        }
+        else if(_EL_level < this.Const.EL_NPC.EL_Troop.MinLevel) {
+            _EL_level = this.Const.EL_NPC.EL_Troop.MinLevel;
+        }
+
+        if (_EL_rank != 0)
+        {
+            e.makeMiniboss();
+        }
+
+        e.EL_bulidNPCPropertiesByLevel(_EL_level);
+        e.EL_setCombatLevel(this.Math.min(this.Const.EL_NPC.EL_Troop.MaxCalculateLevel, _EL_level) + _EL_extraCombatLevel);
+        e.setFaction(_EL_faction);
+        local extra_elite_buff_num = 0;
+        local extra_leader_buff_num = 0;
+        if(_EL_isBossUnit == true) {
             extra_elite_buff_num = this.Const.EL_NPC.EL_NPCBuff.Num.BossUnitExtraRank1;
             extra_leader_buff_num = this.Const.EL_NPC.EL_NPCBuff.Num.BossUnitExtraRank2;
         }

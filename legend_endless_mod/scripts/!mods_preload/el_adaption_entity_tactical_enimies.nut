@@ -9,7 +9,7 @@ local gt = getroottable();
         o.spawnWolf = function( _info )
         {
             this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
-            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Wolf, _info.Tile, _info.Faction, this.EL_getRankLevel(), this.EL_getNPCLevel());
+            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Wolf, _info.Tile, _info.Faction, this.EL_getRankLevel(), this.EL_getLevel());
             if (entity != null)
             {
                 entity.setVariant(this.m.Variant, _info.WolfColor, _info.WolfSaturation, 0.45);
@@ -20,7 +20,7 @@ local gt = getroottable();
         o.spawnGoblin = function( _info )
         {
             this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.Other1][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.Other1].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
-            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.GoblinSkirmisher, _info.Tile, _info.Faction, this.EL_getRankLevel(), this.EL_getNPCLevel());
+            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.GoblinSkirmisher, _info.Tile, _info.Faction, this.EL_getRankLevel(), this.EL_getLevel());
 
             if (entity != null)
             {
@@ -48,7 +48,7 @@ local gt = getroottable();
         o.spawnWolf = function( _info )
         {
             this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
-            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Wolf, _info.Tile, _info.Faction, this.EL_getRankLevel(), this.EL_getNPCLevel());
+            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Wolf, _info.Tile, _info.Faction, this.EL_getRankLevel(), this.EL_getLevel());
             if (entity != null)
             {
                 entity.setVariant(this.m.Variant, _info.WolfColor, _info.WolfSaturation, 0.45);
@@ -59,7 +59,7 @@ local gt = getroottable();
         o.spawnGoblin = function( _info )
         {
             this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.Other1][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.Other1].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
-            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.GoblinSkirmisher, _info.Tile, _info.Faction, this.EL_getRankLevel(), this.EL_getNPCLevel());
+            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.GoblinSkirmisher, _info.Tile, _info.Faction, this.EL_getRankLevel(), this.EL_getLevel());
 
             if (entity != null)
             {
@@ -131,7 +131,7 @@ local gt = getroottable();
                     }
                     else
                     {
-                        local tentacle = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.KrakenTentacle, tile, this.getFaction(), this.EL_getRankLevel(), this.EL_getNPCLevel());
+                        local tentacle = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.KrakenTentacle, tile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
                         tentacle.setParent(this);
                         tentacle.setMode(this.m.IsEnraged ? 1 : 0);
                         tentacle.riseFromGround();
@@ -157,7 +157,7 @@ local gt = getroottable();
 
                 if (tile.IsEmpty)
                 {
-                    local tentacle = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.KrakenTentacle, tile, this.getFaction(), this.EL_getRankLevel(), this.EL_getNPCLevel());
+                    local tentacle = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.KrakenTentacle, tile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
                 }
 
                 if (tile.hasNextTile(this.Const.Direction.N))
@@ -166,7 +166,7 @@ local gt = getroottable();
 
                     if (tile.IsEmpty)
                     {
-                        local tentacle = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.KrakenTentacle, tile, this.getFaction(), this.EL_getRankLevel(), this.EL_getNPCLevel());
+                        local tentacle = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.KrakenTentacle, tile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
                     }
                 }
             }
@@ -179,7 +179,7 @@ local gt = getroottable();
         o.spawnWolf = function( _info )
         {
             this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
-            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.LegendHorse, _info.Tile, _info.Faction, this.EL_getRankLevel(), this.EL_getNPCLevel());
+            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.LegendHorse, _info.Tile, _info.Faction, this.EL_getRankLevel(), this.EL_getLevel());
 
             if (entity != null)
             {
@@ -191,7 +191,7 @@ local gt = getroottable();
         o.spawnGoblin = function( _info )
         {
             this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.Other1][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.Other1].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
-            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.BanditThug, _info.Tile, _info.Faction, this.EL_getRankLevel(), this.EL_getNPCLevel());
+            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.BanditThug, _info.Tile, _info.Faction, this.EL_getRankLevel(), this.EL_getLevel());
 
             if (entity != null)
             {
@@ -353,7 +353,7 @@ local gt = getroottable();
 
                 if (spawnTile != null)
                 {
-                    this.m.Tail = this.WeakTableRef(this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.LegendStollwurmTail, spawnTile, this.getFaction(), this.EL_getRankLevel(), this.EL_getNPCLevel()));
+                    this.m.Tail = this.WeakTableRef(this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.LegendStollwurmTail, spawnTile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel()));
                     this.m.Tail.m.Body = this.WeakTableRef(this);
                     this.m.Tail.getSprite("body").Color = body.Color;
                     this.m.Tail.getSprite("body").Saturation = body.Saturation;
@@ -467,7 +467,7 @@ local gt = getroottable();
 
                 if (spawnTile != null)
                 {
-                    this.m.Tail = this.WeakTableRef(this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.LindwurmTail, spawnTile, this.getFaction(), this.EL_getRankLevel(), this.EL_getNPCLevel()));
+                    this.m.Tail = this.WeakTableRef(this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.LindwurmTail, spawnTile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel()));
                     this.m.Tail.m.Body = this.WeakTableRef(this);
                     this.m.Tail.getSprite("body").Color = body.Color;
                     this.m.Tail.getSprite("body").Saturation = body.Saturation;
@@ -523,7 +523,7 @@ local gt = getroottable();
                         local r = this.Math.rand(0, freeTiles.len() - 1);
                         local tile = freeTiles[r];
                         freeTiles.remove(r);
-                        local rock = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SandGolem, tile, this.getFaction(), this.EL_getRankLevel(), this.EL_getNPCLevel());
+                        local rock = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SandGolem, tile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
                         n = n - 1;
 
                         if (this.getWorldTroop() != null && ("Party" in this.getWorldTroop()) && this.getWorldTroop().Party != null && !this.m.WorldTroop.Party.isNull())
@@ -642,7 +642,7 @@ local gt = getroottable();
             {
                 return;
             }
-            local rock = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SandGolem, _tile, this.m.BackupFaction, this.EL_getRankLevel(), this.EL_getNPCLevel());
+            local rock = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SandGolem, _tile, this.m.BackupFaction, this.EL_getRankLevel(), this.EL_getLevel());
             if (this.m.BackupWorldParty != null)
             {
                 local e;
@@ -755,7 +755,7 @@ local gt = getroottable();
                 local p = candidates[0].Phylactery;
                 local t = p.getTile();
                 p.kill(null, null);
-                local spawn = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SkeletonLich, t, this.getFaction(), this.EL_getRankLevel(), this.EL_getNPCLevel(), true);
+                local spawn = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SkeletonLich, t, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel(), true);
                 this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(this) + " transcends death!");
             }
             else
@@ -810,7 +810,7 @@ local gt = getroottable();
 
             if (tile != null)
             {
-                local spawn = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Spider, tile, this.getFaction(), this.EL_getRankLevel(), this.EL_getNPCLevel());
+                local spawn = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Spider, tile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
                 spawn.setSize(this.Math.rand(60, 75) * 0.01);
                 spawn.m.XP = spawn.m.XP / 2;
                 local allies = this.Tactical.Entities.getInstancesOfFaction(this.getFaction());
@@ -892,7 +892,7 @@ local gt = getroottable();
                 }
 
                 this.spawnSpawnEffect(tile);
-                local e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Ghost, tile, this.m.Info.Faction, this.EL_getRankLevel(), this.EL_getNPCLevel(), true);
+                local e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Ghost, tile, this.m.Info.Faction, this.EL_getRankLevel(), this.EL_getLevel(), true);
                 n = ++n;
                 n = n;
 
@@ -938,7 +938,7 @@ local gt = getroottable();
             }
 
             this.spawnSpawnEffect(this.m.Info.Tile);
-            local e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.GhostKnight, this.m.Info.Tile, this.m.Info.Faction, this.EL_getRankLevel(), this.EL_getNPCLevel(), true);
+            local e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.GhostKnight, this.m.Info.Tile, this.m.Info.Faction, this.EL_getRankLevel(), this.EL_getLevel(), true);
         }
     });
 

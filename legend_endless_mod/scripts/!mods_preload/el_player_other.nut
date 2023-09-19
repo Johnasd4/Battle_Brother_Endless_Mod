@@ -42,23 +42,4 @@ local gt = getroottable();
 		};
 	});
 
-
-	::mods_hookExactClass("skills/actives/unleash_animal", function ( o )
-	{
-		local addAnimalSkills = o.addAnimalSkills;
-		o.addAnimalSkills = function(entity)
-		{
-			addAnimalSkills(entity);
-			local actor = this.getContainer().getActor();
-			local actor_properties = actor.getCurrentProperties();
-			local animal_properties = entity.getBaseProperties();
-			entity.EL_bulidNPCPropertiesByLevel(actor.getLevel());
-			entity.EL_ballanceNPCPropertiesAfterAddingEquipment();
-			//entity.EL_setRankLevel(actor.EL_getRankLevel);
-			animal_properties.EL_CombatLevel = entity.EL_getNPCLevel();
-			entity.getSkills().update();
-			entity.setHitpoints(entity.getHitpointsMax());
-		}
-	});
-
 });

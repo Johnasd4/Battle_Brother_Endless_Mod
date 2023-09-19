@@ -18,7 +18,7 @@ this.el_life_drain_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_
         local hitpoints = _targetEntity.getHitpoints();
         local damage = _skill.getActionPointCost() *
                        this.Const.EL_NPC.EL_NPCBuff.Factor.LifeDrain.HitpointsPurActionPoint[this.m.EL_RankLevel] *
-                       (1 + this.Const.EL_NPC.EL_NPCBuff.Factor.LifeDrain.HitpointsMultPurCombatLevel * user.EL_getNPCLevel());
+                       (1 + this.Const.EL_NPC.EL_NPCBuff.Factor.LifeDrain.HitpointsMultPurCombatLevel * user.EL_getLevel());
         local hit_info = clone this.Const.Tactical.HitInfo;
         hit_info.DamageRegular = final_damage;
         hit_info.DamageDirect = 1.0;
