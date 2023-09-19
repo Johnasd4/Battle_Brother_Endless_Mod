@@ -39,11 +39,12 @@ local gt = getroottable();
             {
                 local spiders = 0;
                 local entities = this.Tactical.TurnSequenceBar.getAllEntities();
-
+                local rank_num = [0, 0, 0];
                 foreach( e in entities )
                 {
                     if (e.getType() == this.Const.EntityType.Spider && !this.isKindOf(e, "spider_bodyguard"))
                     {
+                        rank_num[e.EL_getRankLevel()] += 1;
                         spiders = ++spiders;
                     }
                 }
@@ -90,7 +91,21 @@ local gt = getroottable();
                         }
                         else
                         {
-                            local nest = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SpiderEggs, tile, this.Tactical.State.isScenarioMode() ? this.Const.Faction.Beasts : this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID(), 0);
+                            local total_weight = 0;
+                            for(local i = 0; i < rank_num.len(); ++i) {
+                                total_weight += rank_num[i];
+                            }
+                            local r = this.Math.rand(1, total_weight);
+                            local rank = 0;
+                            for(local i = 0; i < rank_num.len(); ++i) {
+                                if(r > rank_num[i]) {
+                                    r -= rank_num[i];
+                                }
+                                else {
+                                    rank = i;
+                                }
+                            }
+                            local nest = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SpiderEggs, tile, this.Tactical.State.isScenarioMode() ? this.Const.Faction.Beasts : this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID(), rank);
                             eggs = --eggs;
 
                             if (eggs <= 0)
@@ -106,7 +121,7 @@ local gt = getroottable();
     });
 
     if(!("SpiderEggs" in gt.Const.World.Spawn.Troops)) {
-        gt.Const.World.Spawn.Troops.AlpShadow <- {
+        gt.Const.World.Spawn.Troops.SpiderEggs <- {
             ID = this.Const.EntityType.SpiderEggs,
             Variant = 0,
             Strength = 0,

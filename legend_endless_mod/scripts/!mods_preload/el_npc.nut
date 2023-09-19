@@ -1538,7 +1538,9 @@ local gt = getroottable();
     gt.Const.World.Common.EL_addEntity <- function (_EL_troop, _EL_tile, _EL_faction, _EL_rank, _EL_level = -1, _EL_assignEquipments = false)
     {
         local e = this.Tactical.spawnEntity(_EL_troop.Script, tile.Coords);
-
+        if(e == null) {
+            return e;
+        }
         if (!this.World.getTime().IsDaytime && _e.getBaseProperties().IsAffectedByNight)
         {
             e.getSkills().add(this.new("scripts/skills/special/night_effect"));

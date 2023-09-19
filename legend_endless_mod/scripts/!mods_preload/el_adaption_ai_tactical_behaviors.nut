@@ -125,8 +125,8 @@ local gt = getroottable();
         gt.Const.World.Spawn.Troops.AlpShadow <- {
             ID = this.Const.EntityType.AlpShadow,
             Variant = 0,
-            Strength = 0,
-            Cost = 0,
+            Strength = 30,
+            Cost = 30,
             Row = 0,
             Script = "scripts/entity/tactical/enemies/alp_shadow"
         }

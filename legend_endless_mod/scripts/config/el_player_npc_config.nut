@@ -18,8 +18,8 @@ gt.Const.EL_PlayerNPC <- {
 
     EL_RankToMoraleMin = [
         0,
-        0,
-        1
+        1,
+        2
     ]
 
     EL_CombatLevel = {
