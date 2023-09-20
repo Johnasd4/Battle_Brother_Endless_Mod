@@ -122,6 +122,7 @@ local gt = getroottable();
     });
 
     if(!("AlpShadow" in gt.Const.World.Spawn.Troops)) {
+        gt.Const.World.Spawn.Troops.AlpShadow <- {};
         gt.Const.World.Spawn.Troops.AlpShadow <- {
             ID = this.Const.EntityType.AlpShadow,
             Variant = 0,

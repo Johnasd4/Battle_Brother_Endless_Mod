@@ -121,6 +121,7 @@ local gt = getroottable();
     });
 
     if(!("SpiderEggs" in gt.Const.World.Spawn.Troops)) {
+        gt.Const.World.Spawn.Troops.SpiderEggs <- {};
         gt.Const.World.Spawn.Troops.SpiderEggs <- {
             ID = this.Const.EntityType.SpiderEggs,
             Variant = 0,

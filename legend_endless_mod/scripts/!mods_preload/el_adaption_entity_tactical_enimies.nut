@@ -944,7 +944,8 @@ local gt = getroottable();
 
 
     if(!("KrakenTentacle" in gt.Const.World.Spawn.Troops)) {
-        gt.Const.World.Spawn.Troops.AlpShadow <- {
+        gt.Const.World.Spawn.Troops.KrakenTentacle <- {};
+        gt.Const.World.Spawn.Troops.KrakenTentacle <- {
             ID = this.Const.EntityType.KrakenTentacle,
             Variant = 0,
             Strength = 0,
@@ -954,6 +955,7 @@ local gt = getroottable();
         }
     }
     if(!("LegendHorse" in gt.Const.World.Spawn.Troops)) {
+        gt.Const.World.Spawn.Troops.LegendHorse <- {};
         gt.Const.World.Spawn.Troops.LegendHorse <- {
             ID = 0,
             Variant = 0,
@@ -964,6 +966,7 @@ local gt = getroottable();
         }
     }
     if(!("LegendStollwurmTail" in gt.Const.World.Spawn.Troops)) {
+        gt.Const.World.Spawn.Troops.LegendStollwurmTail <- {};
         gt.Const.World.Spawn.Troops.LegendStollwurmTail <- {
             ID = 0,
             Variant = 0,
@@ -974,6 +977,7 @@ local gt = getroottable();
         }
     }
     if(!("LindwurmTail" in gt.Const.World.Spawn.Troops)) {
+        gt.Const.World.Spawn.Troops.LindwurmTail <- {};
         gt.Const.World.Spawn.Troops.LindwurmTail <- {
             ID = 0,
             Variant = 0,
@@ -985,6 +989,7 @@ local gt = getroottable();
     }
 
     if(!("GhostKnight" in gt.Const.World.Spawn.Troops)) {
+        gt.Const.World.Spawn.Troops.GhostKnight <- {};
         gt.Const.World.Spawn.Troops.GhostKnight <- {
             ID = 0,
             Variant = 0,

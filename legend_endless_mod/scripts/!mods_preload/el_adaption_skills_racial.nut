@@ -84,6 +84,7 @@ local gt = getroottable();
 
 
     if(!("EL_LegendGreenwoodSchratSmall" in gt.Const.World.Spawn.Troops)) {
+        gt.Const.World.Spawn.Troops.EL_LegendGreenwoodSchratSmall <- {};
         gt.Const.World.Spawn.Troops.EL_LegendGreenwoodSchratSmall <- {
             ID = this.Const.EntityType.LegendGreenwoodSchratSmall,
             Variant = 0,
@@ -95,6 +96,7 @@ local gt = getroottable();
     }
 
     if(!("EL_SchratSmall" in gt.Const.World.Spawn.Troops)) {
+        gt.Const.World.Spawn.Troops.EL_SchratSmall <- {};
         gt.Const.World.Spawn.Troops.EL_SchratSmall <- {
             ID = this.Const.EntityType.EL_SchratSmall,
             Variant = 0,
