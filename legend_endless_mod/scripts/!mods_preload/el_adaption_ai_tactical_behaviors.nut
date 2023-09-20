@@ -100,7 +100,14 @@ local gt = getroottable();
 
                 local tile = this.m.Tiles[0].Tile;
                 this.m.Tiles.remove(0);
-                local shadow = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.AlpShadow, tile, _entity.getFaction(), _entity.EL_getRankLevel(), _entity.EL_getLevel());
+                local shadow = this.Const.World.Common.EL_addEntity({
+                    ID = this.Const.EntityType.AlpShadow,
+                    Variant = 0,
+                    Strength = 30,
+                    Cost = 30,
+                    Row = 0,
+                    Script = "scripts/entity/tactical/enemies/alp_shadow"
+                }, tile, _entity.getFaction(), _entity.EL_getRankLevel(), _entity.EL_getLevel());
                 max_shadows = --max_shadows;
                 max_shadows = max_shadows;
 
@@ -121,16 +128,5 @@ local gt = getroottable();
 
     });
 
-    if(!("AlpShadow" in gt.Const.World.Spawn.Troops)) {
-        gt.Const.World.Spawn.Troops.AlpShadow <- {};
-        gt.Const.World.Spawn.Troops.AlpShadow <- {
-            ID = this.Const.EntityType.AlpShadow,
-            Variant = 0,
-            Strength = 30,
-            Cost = 30,
-            Row = 0,
-            Script = "scripts/entity/tactical/enemies/alp_shadow"
-        }
-    }
 });
 

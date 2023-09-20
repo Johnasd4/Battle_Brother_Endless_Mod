@@ -36,7 +36,14 @@ local gt = getroottable();
                 if (candidates.len() != 0)
                 {
                     local spawnTile = candidates[this.Math.rand(0, candidates.len() - 1)];
-                    local sapling = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.EL_LegendGreenwoodSchratSmall, spawnTile, actor.getFaction(), actor.EL_getRankLevel(), actor.EL_getLevel());
+                    local sapling = this.Const.World.Common.EL_addEntity({
+                        ID = this.Const.EntityType.LegendGreenwoodSchratSmall,
+                        Variant = 0,
+                        Strength = 280,
+                        Cost = 210,
+                        Row = 0,
+                        Script = "scripts/entity/tactical/enemies/legend_greenwood_schrat_small"
+                    }, spawnTile, actor.getFaction(), actor.EL_getRankLevel(), actor.EL_getLevel());
                     sapling.riseFromGround();
                 }
             }
@@ -75,38 +82,18 @@ local gt = getroottable();
                 if (candidates.len() != 0)
                 {
                     local spawnTile = candidates[this.Math.rand(0, candidates.len() - 1)];
-                    local sapling = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.EL_SchratSmall, spawnTile, actor.getFaction() == this.Const.Faction.Player ? this.Const.Faction.PlayerAnimals : actor.getFaction(), actor.EL_getRankLevel(), actor.EL_getLevel());
+                    local sapling = this.Const.World.Common.EL_addEntity({
+                        ID = this.Const.EntityType.EL_SchratSmall,
+                        Variant = 0,
+                        Strength = 70,
+                        Cost = 70,
+                        Row = 0,
+                        Script = "scripts/entity/tactical/enemies/schrat_small"
+                    }, spawnTile, actor.getFaction() == this.Const.Faction.Player ? this.Const.Faction.PlayerAnimals : actor.getFaction(), actor.EL_getRankLevel(), actor.EL_getLevel());
                     sapling.riseFromGround();
                 }
             }
         }
 	});
-
-
-    if(!("EL_LegendGreenwoodSchratSmall" in gt.Const.World.Spawn.Troops)) {
-        gt.Const.World.Spawn.Troops.EL_LegendGreenwoodSchratSmall <- {};
-        gt.Const.World.Spawn.Troops.EL_LegendGreenwoodSchratSmall <- {
-            ID = this.Const.EntityType.LegendGreenwoodSchratSmall,
-            Variant = 0,
-            Strength = 280,
-            Cost = 210,
-            Row = 0,
-            Script = "scripts/entity/tactical/enemies/legend_greenwood_schrat_small"
-        }
-    }
-
-    if(!("EL_SchratSmall" in gt.Const.World.Spawn.Troops)) {
-        gt.Const.World.Spawn.Troops.EL_SchratSmall <- {};
-        gt.Const.World.Spawn.Troops.EL_SchratSmall <- {
-            ID = this.Const.EntityType.EL_SchratSmall,
-            Variant = 0,
-            Strength = 70,
-            Cost = 70,
-            Row = 0,
-            Script = "scripts/entity/tactical/enemies/schrat_small"
-        }
-    }
-
-
 
 });

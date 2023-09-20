@@ -131,7 +131,14 @@ local gt = getroottable();
                     }
                     else
                     {
-                        local tentacle = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.KrakenTentacle, tile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
+                        local tentacle = this.Const.World.Common.EL_addEntity({
+                            ID = this.Const.EntityType.KrakenTentacle,
+                            Variant = 0,
+                            Strength = 0,
+                            Cost = 0,
+                            Row = 0,
+                            Script = "scripts/entity/tactical/enemies/kraken_tentacle"
+                        }, tile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
                         tentacle.setParent(this);
                         tentacle.setMode(this.m.IsEnraged ? 1 : 0);
                         tentacle.riseFromGround();
@@ -157,7 +164,14 @@ local gt = getroottable();
 
                 if (tile.IsEmpty)
                 {
-                    local tentacle = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.KrakenTentacle, tile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
+                    local tentacle = this.Const.World.Common.EL_addEntity({
+                        ID = this.Const.EntityType.KrakenTentacle,
+                        Variant = 0,
+                        Strength = 0,
+                        Cost = 0,
+                        Row = 0,
+                        Script = "scripts/entity/tactical/enemies/kraken_tentacle"
+                    }, tile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
                 }
 
                 if (tile.hasNextTile(this.Const.Direction.N))
@@ -166,7 +180,14 @@ local gt = getroottable();
 
                     if (tile.IsEmpty)
                     {
-                        local tentacle = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.KrakenTentacle, tile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
+                        local tentacle = this.Const.World.Common.EL_addEntity({
+                            ID = this.Const.EntityType.KrakenTentacle,
+                            Variant = 0,
+                            Strength = 0,
+                            Cost = 0,
+                            Row = 0,
+                            Script = "scripts/entity/tactical/enemies/kraken_tentacle"
+                        }, tile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
                     }
                 }
             }
@@ -179,7 +200,14 @@ local gt = getroottable();
         o.spawnWolf = function( _info )
         {
             this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
-            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.LegendHorse, _info.Tile, _info.Faction, this.EL_getRankLevel(), this.EL_getLevel());
+            local entity = this.Const.World.Common.EL_addEntity({
+                ID = 0,
+                Variant = 0,
+                Strength = 10,
+                Cost = 0,
+                Row = 0,
+                Script = "scripts/entity/tactical/enemies/legend_horse"
+            }, _info.Tile, _info.Faction, this.EL_getRankLevel(), this.EL_getLevel());
 
             if (entity != null)
             {
@@ -353,7 +381,14 @@ local gt = getroottable();
 
                 if (spawnTile != null)
                 {
-                    this.m.Tail = this.WeakTableRef(this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.LegendStollwurmTail, spawnTile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel()));
+                    this.m.Tail = this.WeakTableRef(this.Const.World.Common.EL_addEntity({
+                        ID = 0,
+                        Variant = 0,
+                        Strength = 270,
+                        Cost = 270,
+                        Row = 0,
+                        Script = "scripts/entity/tactical/enemies/legend_stollwurm_tail"
+                    }, spawnTile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel()));
                     this.m.Tail.m.Body = this.WeakTableRef(this);
                     this.m.Tail.getSprite("body").Color = body.Color;
                     this.m.Tail.getSprite("body").Saturation = body.Saturation;
@@ -467,7 +502,14 @@ local gt = getroottable();
 
                 if (spawnTile != null)
                 {
-                    this.m.Tail = this.WeakTableRef(this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.LindwurmTail, spawnTile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel()));
+                    this.m.Tail = this.WeakTableRef(this.Const.World.Common.EL_addEntity({
+                        ID = 0,
+                        Variant = 0,
+                        Strength = 100,
+                        Cost = 90,
+                        Row = 0,
+                        Script = "scripts/entity/tactical/enemies/lindwurm_tail"
+                    }, spawnTile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel()));
                     this.m.Tail.m.Body = this.WeakTableRef(this);
                     this.m.Tail.getSprite("body").Color = body.Color;
                     this.m.Tail.getSprite("body").Saturation = body.Saturation;
@@ -938,67 +980,16 @@ local gt = getroottable();
             }
 
             this.spawnSpawnEffect(this.m.Info.Tile);
-            local e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.GhostKnight, this.m.Info.Tile, this.m.Info.Faction, this.EL_getRankLevel(), this.EL_getLevel(), true);
+            local e = this.Const.World.Common.EL_addEntity({
+                ID = 0,
+                Variant = 0,
+                Strength = 80,
+                Cost = 80,
+                Row = 0,
+                Script = "scripts/entity/tactical/enemies/ghost_knight"
+            }, this.m.Info.Tile, this.m.Info.Faction, this.EL_getRankLevel(), this.EL_getLevel(), true);
         }
     });
-
-
-    if(!("KrakenTentacle" in gt.Const.World.Spawn.Troops)) {
-        gt.Const.World.Spawn.Troops.KrakenTentacle <- {};
-        gt.Const.World.Spawn.Troops.KrakenTentacle <- {
-            ID = this.Const.EntityType.KrakenTentacle,
-            Variant = 0,
-            Strength = 0,
-            Cost = 0,
-            Row = 0,
-            Script = "scripts/entity/tactical/enemies/kraken_tentacle"
-        }
-    }
-    if(!("LegendHorse" in gt.Const.World.Spawn.Troops)) {
-        gt.Const.World.Spawn.Troops.LegendHorse <- {};
-        gt.Const.World.Spawn.Troops.LegendHorse <- {
-            ID = 0,
-            Variant = 0,
-            Strength = 10,
-            Cost = 0,
-            Row = 0,
-            Script = "scripts/entity/tactical/enemies/legend_horse"
-        }
-    }
-    if(!("LegendStollwurmTail" in gt.Const.World.Spawn.Troops)) {
-        gt.Const.World.Spawn.Troops.LegendStollwurmTail <- {};
-        gt.Const.World.Spawn.Troops.LegendStollwurmTail <- {
-            ID = 0,
-            Variant = 0,
-            Strength = 270,
-            Cost = 270,
-            Row = 0,
-            Script = "scripts/entity/tactical/enemies/legend_stollwurm_tail"
-        }
-    }
-    if(!("LindwurmTail" in gt.Const.World.Spawn.Troops)) {
-        gt.Const.World.Spawn.Troops.LindwurmTail <- {};
-        gt.Const.World.Spawn.Troops.LindwurmTail <- {
-            ID = 0,
-            Variant = 0,
-            Strength = 100,
-            Cost = 90,
-            Row = 0,
-            Script = "scripts/entity/tactical/enemies/lindwurm_tail"
-        }
-    }
-
-    if(!("GhostKnight" in gt.Const.World.Spawn.Troops)) {
-        gt.Const.World.Spawn.Troops.GhostKnight <- {};
-        gt.Const.World.Spawn.Troops.GhostKnight <- {
-            ID = 0,
-            Variant = 0,
-            Strength = 80,
-            Cost = 80,
-            Row = 0,
-            Script = "scripts/entity/tactical/enemies/ghost_knight"
-        }
-    }
 
 
 });

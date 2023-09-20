@@ -6,8 +6,6 @@ local gt = getroottable();
 
 	::mods_hookNewObject("entity/tactical/tactical_entity_manager", function(o){
 
-        o.m.EL_Consist = null;
-
         o.updateTileEffects <- function()
         {
             local garbage = [];
@@ -105,7 +103,14 @@ local gt = getroottable();
                                     rank = i;
                                 }
                             }
-                            local nest = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SpiderEggs, tile, this.Tactical.State.isScenarioMode() ? this.Const.Faction.Beasts : this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID(), rank);
+                            local nest = this.Const.World.Common.EL_addEntity({
+                                ID = this.Const.EntityType.SpiderEggs,
+                                Variant = 0,
+                                Strength = 0,
+                                Cost = 0,
+                                Row = 0,
+                                Script = "scripts/entity/tactical/enemies/spider_eggs"
+                            }, tile, this.Tactical.State.isScenarioMode() ? this.Const.Faction.Beasts : this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID(), rank);
                             eggs = --eggs;
 
                             if (eggs <= 0)
@@ -119,17 +124,5 @@ local gt = getroottable();
         }
 
     });
-
-    if(!("SpiderEggs" in gt.Const.World.Spawn.Troops)) {
-        gt.Const.World.Spawn.Troops.SpiderEggs <- {};
-        gt.Const.World.Spawn.Troops.SpiderEggs <- {
-            ID = this.Const.EntityType.SpiderEggs,
-            Variant = 0,
-            Strength = 0,
-            Cost = 0,
-            Row = 0,
-            Script = "scripts/entity/tactical/enemies/spider_eggs"
-        }
-    }
 
 });
