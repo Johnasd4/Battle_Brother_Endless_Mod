@@ -219,7 +219,7 @@ local gt = getroottable();
             {
                 local rank = 0;
                 local level = this.Math.min(this.Const.EL_NPC.EL_Troop.MaxCalculateLevel, this.m.EL_NPCLevel);
-                if(this.m.WorldTroop.EL_IsBossUnit == true) {
+                if(this.m.WorldTroop != null && this.m.WorldTroop.EL_IsBossUnit == true) {
                     rank = 3;
                 }
                 else {
