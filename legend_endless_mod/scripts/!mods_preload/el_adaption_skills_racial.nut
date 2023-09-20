@@ -6,7 +6,7 @@ local gt = getroottable();
 
 	::mods_hookExactClass("skills/racial/legend_greenwood_schrat_racial", function(o){
 
-        this.onDamageReceived = function( _attacker, _damageHitpoints, _damageArmor )
+        o.onDamageReceived = function( _attacker, _damageHitpoints, _damageArmor )
         {
             local actor = this.getContainer().getActor();
 
@@ -45,7 +45,7 @@ local gt = getroottable();
 
 	::mods_hookExactClass("skills/racial/schrat_racial", function(o){
 
-        this.onDamageReceived = function( _attacker, _damageHitpoints, _damageArmor )
+        o.onDamageReceived = function( _attacker, _damageHitpoints, _damageArmor )
         {
             local actor = this.getContainer().getActor();
 
