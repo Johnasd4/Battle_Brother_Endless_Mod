@@ -87,7 +87,7 @@ local gt = getroottable();
 
             if(_t.EL_UnitInfo == null) {
 
-                _e.assignRandomEquipment();
+                _e.EL_assignRandomEquipment();
                 local extra_elite_buff_num = 0;
                 local extra_leader_buff_num = 0;
                 if(_t.EL_IsBossUnit == true) {
@@ -1620,7 +1620,7 @@ local gt = getroottable();
             this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(e, this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank1[_EL_rank] + extra_elite_buff_num, this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank2[_EL_rank] + extra_leader_buff_num);
         }
         if(_EL_assignEquipments) {
-            e.assignRandomEquipment();
+            e.EL_assignRandomEquipment();
         }
         e.EL_ballanceNPCPropertiesAfterAddingEquipment();
         return e;
@@ -1678,7 +1678,7 @@ local gt = getroottable();
             this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(e, this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank1[_EL_rank] + extra_elite_buff_num, this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank2[_EL_rank] + extra_leader_buff_num);
         }
         if(_EL_assignEquipments) {
-            e.assignRandomEquipment();
+            e.EL_assignRandomEquipment();
         }
         e.EL_ballanceNPCPropertiesAfterAddingEquipment();
         return e;
