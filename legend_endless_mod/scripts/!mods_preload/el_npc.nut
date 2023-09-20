@@ -1561,7 +1561,7 @@ local gt = getroottable();
 
     gt.Const.World.Common.EL_addEntity <- function (_EL_troop, _EL_tile, _EL_faction, _EL_rank, _EL_level = -1, _EL_assignEquipments = false)
     {
-        local e = this.Tactical.spawnEntity(_EL_troop.Script, tile.Coords);
+        local e = this.Tactical.spawnEntity(_EL_troop.Script, _EL_tile.Coords);
         if(e == null) {
             return e;
         }
