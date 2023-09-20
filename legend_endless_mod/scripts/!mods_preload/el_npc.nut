@@ -229,8 +229,8 @@ local gt = getroottable();
                 local num_2 = this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.NextRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level));
                 if (this.m.WorldTroop != null && ("Party" in this.m.WorldTroop) && this.m.WorldTroop.Party != null && !this.m.WorldTroop.Party.isNull())
                 {
-                    this.m.WorldTroop.Party.EL_addEquipmentEssence(rank, this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.CurrentRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level)));
-                    this.m.WorldTroop.Party.EL_addEquipmentEssence(rank + 1, this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.NextRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level)));
+                    this.m.WorldTroop.Party.EL_addEquipmentEssence(rank, num_1);
+                    this.m.WorldTroop.Party.EL_addEquipmentEssence(rank + 1, num_2);
                 }
                 else
                 {
@@ -250,8 +250,8 @@ local gt = getroottable();
                         party.m.Name = "EquipmentEssenceOnly";
                         p.Parties.push(party);
                     }
-                    party.EL_addEquipmentEssence(rank, this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.CurrentRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level)));
-                    party.EL_addEquipmentEssence(rank + 1, this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.NextRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level)));
+                    party.EL_addEquipmentEssence(rank, num_1);
+                    party.EL_addEquipmentEssence(rank + 1, num_2);
 
                 }
             }
