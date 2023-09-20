@@ -41,14 +41,19 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
             local skills = actor.getSkills();
             foreach( skill in skills.m.Skills ) {
                 local skill_type = skill.getType();
-                if((skill_type == this.Const.SkillType.StatusEffect ||
-                    skill_type == this.Const.SkillType.Injury ||
-                    skill_type == this.Const.SkillType.PermanentInjury ||
-                    skill_type == this.Const.SkillType.TemporaryInjury ||
-                    skill_type == this.Const.SkillType.DrugEffect ||
-                    skill_type == this.Const.SkillType.SemiInjury ||
-                    skill_type == this.Const.SkillType.DamageOverTime) &&
-                    !(skill.EL_isNPCBuff()))
+                if(!skill.isType(this.Const.SkillType.None) &&
+                   !skill.isType(this.Const.SkillType.Active) &&
+                   !skill.isType(this.Const.SkillType.Trait) &&
+                   !skill.isType(this.Const.SkillType.Racial) &&
+                   !skill.isType(this.Const.SkillType.Special) &&
+                   !skill.isType(this.Const.SkillType.Item) &&
+                   !skill.isType(this.Const.SkillType.Perk) &&
+                   !skill.isType(this.Const.SkillType.Terrain) &&
+                   !skill.isType(this.Const.SkillType.WorldEvent) &&
+                   !skill.isType(this.Const.SkillType.Background) &&
+                   !skill.isType(this.Const.SkillType.Alert) &&
+                   !(skill.EL_isNPCBuff()) &&
+                   skill.getID() != "effects.battle_standard")
                 {
                     skills.remove(skill);
                 }
