@@ -5,7 +5,7 @@ this.el_core_skill <- this.inherit("scripts/skills/skill", {
 	},
 	function create()
 	{
-		this.m.ID = "el_items.core";
+		this.m.ID = "el_items.core_skill";
 		this.m.Name = "Core Strengthen";
 		this.m.Description = "The core used will strengthen your men.";
 		this.m.Type = this.Const.SkillType.Trait;

@@ -19,7 +19,8 @@ gt.Const.EL_Misc <- {
             [5, 20, 50, 100, 200],//RangedDefense
         ],
         Value = [100, 200, 500, 1200, 2500],
-        ValueIncreacePurXP = 0.1
+        ValueIncreacePurXP = 0.1,
+        XPMult = 0.1
 
     }
 

@@ -138,7 +138,11 @@ this.el_core_item <- this.inherit("scripts/items/item", {
 					   "[/color]"
 			});
 		}
-
+		result.push({
+			id = 65,
+			type = "text",
+			text = "Right-click or drag onto the currently selected character in order to drink. This item will be consumed in the process."
+		});
 		return result;
 	}
 
@@ -149,7 +153,7 @@ this.el_core_item <- this.inherit("scripts/items/item", {
 
 	function onUse( _actor, _item = null )
 	{
-		local skill = _actor.getSkills().getSkillByID("el_items.core");
+		local skill = _actor.getSkills().getSkillByID("el_items.core_skill");
 		if(skill == null) {
 			skill = this.new("scripts/skills/el_items/el_core_skill");
 			_actor.getSkills().push(skill);

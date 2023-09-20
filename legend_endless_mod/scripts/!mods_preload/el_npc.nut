@@ -231,6 +231,13 @@ local gt = getroottable();
                 {
                     this.m.WorldTroop.Party.EL_addEquipmentEssence(rank, num_1);
                     this.m.WorldTroop.Party.EL_addEquipmentEssence(rank + 1, num_2);
+
+                    local accessory = this.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
+                    if(accessory.getID() == "el_accessory.core") {
+                        local core = this.new("items/el_misc/el_core_rank_" + accessory.EL_getRankLevel() + "_item");
+                        core.EL_setXP(this.Math.floor(this.getXP() * this.Const.EL_Misc.EL_Core.XPChance.XPMult));
+                        this.m.WorldTroop.Party.addToInventory(core);
+                    }
                 }
                 else
                 {
@@ -254,6 +261,7 @@ local gt = getroottable();
                     party.EL_addEquipmentEssence(rank + 1, num_2);
 
                 }
+
             }
         }
 
