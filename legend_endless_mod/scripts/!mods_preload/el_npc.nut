@@ -225,8 +225,8 @@ local gt = getroottable();
                 else {
                     rank = this.m.WorldTroop.EL_RankLevel;
                 }
-                num_1 = this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.CurrentRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level));
-                num_2 = this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.NextRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level));
+                local num_1 = this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.CurrentRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level));
+                local num_2 = this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.NextRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level));
                 if (this.m.WorldTroop != null && ("Party" in this.m.WorldTroop) && this.m.WorldTroop.Party != null && !this.m.WorldTroop.Party.isNull())
                 {
                     this.m.WorldTroop.Party.EL_addEquipmentEssence(rank, this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.CurrentRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level)));
