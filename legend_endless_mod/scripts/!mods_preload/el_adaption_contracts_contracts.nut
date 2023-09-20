@@ -1832,6 +1832,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.8);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Orcs).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.BerserkersOnly, 80 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Orcs).getID());
@@ -2166,6 +2167,7 @@ local gt = getroottable();
                             p.LocationTemplate.Fortification = this.Const.Tactical.FortificationType.Walls;
                             p.Music = this.Const.Music.OrientalCityStateTracks;
                             local ally_party = this.new("scripts/entity/world/party");
+                            ally_party.EL_setTroopsResourse(ally_party.EL_getTroopsResourse() * 0.7);
                             ally_party.EL_setFaction(this.Contract.getFaction());
                             p.Parties.push(ally_party);
                             this.Const.World.Common.addUnitsToCombat(ally_party, this.Const.World.Spawn.Noble, 70 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Contract.getFaction());
@@ -2173,6 +2175,7 @@ local gt = getroottable();
                                 p.Entities.push(troop);
                             }
                             local enemy_party = this.new("scripts/entity/world/party");
+                            enemy_party.EL_setTroopsResourse(enemy_party.EL_getTroopsResourse() * 2);
                             enemy_party.EL_setFaction(this.Flags.get("EnemyID"));
                             p.Parties.push(enemy_party);
                             this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Southern, 200 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
@@ -2206,6 +2209,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1.3);
                             party.EL_setFaction(this.Flags.get("EnemyID"));
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Southern, 130 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
@@ -2249,11 +2253,12 @@ local gt = getroottable();
                             local enemy_party = this.new("scripts/entity/world/party");
                             enemy_party.EL_setFaction(this.Flags.get("EnemyID"));
                             p.Parties.push(enemy_party);
-                            this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Southern, (130 + (this.Flags.get("MercenariesAsAllies") ? 30 : 0)) * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
 
                             if (this.Flags.get("MercenariesAsAllies"))
                             {
                                 local ally_party = this.new("scripts/entity/world/party");
+                                ally_party.EL_setTroopsResourse(ally_party.EL_getTroopsResourse() * 0.5);
+                                enemy_party.EL_setTroopsResourse(enemy_party.EL_getTroopsResourse() * 1.3);
                                 ally_party.EL_setFaction(this.Contract.getFaction());
                                 p.Parties.push(ally_party);
                                 this.Const.World.Common.addUnitsToCombat(ally_party, this.Const.World.Spawn.Mercenaries, 50 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Contract.getFaction());
@@ -2264,9 +2269,11 @@ local gt = getroottable();
                             }
                             else
                             {
+                                enemy_party.EL_setTroopsResourse(enemy_party.EL_getTroopsResourse() * 1.8);
                                 this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Mercenaries, 50 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
                                 p.EnemyBanners.push(this.Flags.get("MercenaryBanner"));
                             }
+                            this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Southern, (130 + (this.Flags.get("MercenariesAsAllies") ? 30 : 0)) * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
                             foreach(troop in enemy_party.getTroops()) {
                                 p.Entities.push(troop);
                             }
@@ -2289,6 +2296,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.LineForward;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.LineBack;
                             local enemy_party = this.new("scripts/entity/world/party");
+                            enemy_party.EL_setTroopsResourse(enemy_party.EL_getTroopsResourse() * 1.3);
                             enemy_party.EL_setFaction(this.Flags.get("EnemyID"));
                             p.Parties.push(enemy_party);
                             this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Southern, 130 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
@@ -2311,6 +2319,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local enemy_party = this.new("scripts/entity/world/party");
+                            enemy_party.EL_setTroopsResourse(enemy_party.EL_getTroopsResourse() * 1.3);
                             enemy_party.EL_setFaction(this.Flags.get("EnemyID"));
                             p.Parties.push(enemy_party);
                             this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Southern, 130 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
@@ -2343,6 +2352,7 @@ local gt = getroottable();
                         p.LocationTemplate.Fortification = this.Const.Tactical.FortificationType.Walls;
                         p.Music = this.Const.Music.OrientalCityStateTracks;
                         local enemy_party = this.new("scripts/entity/world/party");
+                        enemy_party.EL_setTroopsResourse(enemy_party.EL_getTroopsResourse() * (this.Flags.get("IsCounterAttack") ? 1.1 : 1.3));
                         enemy_party.EL_setFaction(this.Flags.get("EnemyID"));
                         p.Parties.push(enemy_party);
                         this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Southern, (this.Flags.get("IsCounterAttack") ? 110 : 130) * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
@@ -2580,6 +2590,7 @@ local gt = getroottable();
                             p.LocationTemplate.Fortification = this.Const.Tactical.FortificationType.Walls;
                             p.Music = this.Const.Music.NobleTracks;
                             local ally_party = this.new("scripts/entity/world/party");
+                            ally_party.EL_setTroopsResourse(ally_party.EL_getTroopsResourse() * 0.7);
                             ally_party.EL_setFaction(this.Contract.getFaction());
                             p.Parties.push(ally_party);
                             this.Const.World.Common.addUnitsToCombat(ally_party, this.Const.World.Spawn.Southern, 70 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Contract.getFaction());
@@ -2587,6 +2598,7 @@ local gt = getroottable();
                                 p.Entities.push(troop);
                             }
                             local enemy_party = this.new("scripts/entity/world/party");
+                            enemy_party.EL_setTroopsResourse(enemy_party.EL_getTroopsResourse() * 2);
                             enemy_party.EL_setFaction(this.Flags.get("EnemyID"));
                             p.Parties.push(enemy_party);
                             this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Noble, 200 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
@@ -2619,6 +2631,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local enemy_party = this.new("scripts/entity/world/party");
+                            enemy_party.EL_setTroopsResourse(enemy_party.EL_getTroopsResourse() * 1.3);
                             enemy_party.EL_setFaction(this.Flags.get("EnemyID"));
                             p.Parties.push(enemy_party);
                             this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Noble, 130 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
@@ -2654,7 +2667,6 @@ local gt = getroottable();
                             local enemy_party = this.new("scripts/entity/world/party");
                             enemy_party.EL_setFaction(this.Flags.get("EnemyID"));
                             p.Parties.push(enemy_party);
-                            this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Noble, (130 + (this.Flags.get("MercenariesAsAllies") ? 30 : 0)) * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
                             p.AllyBanners = [
                                 this.World.Assets.getBanner()
                             ];
@@ -2665,6 +2677,8 @@ local gt = getroottable();
                             if (this.Flags.get("MercenariesAsAllies"))
                             {
                                 local ally_party = this.new("scripts/entity/world/party");
+                                ally_party.EL_setTroopsResourse(ally_party.EL_getTroopsResourse() * 0.5);
+                                enemy_party.EL_setTroopsResourse(enemy_party.EL_getTroopsResourse() * (1.3 + (this.Flags.get("MercenariesAsAllies") ? 0.3 : 0)));
                                 ally_party.EL_setFaction(this.Contract.getFaction());
                                 p.Parties.push(ally_party);
                                 this.Const.World.Common.addUnitsToCombat(ally_party, this.Const.World.Spawn.Mercenaries, 50 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Contract.getFaction());
@@ -2675,9 +2689,11 @@ local gt = getroottable();
                             }
                             else
                             {
+                                enemy_party.EL_setTroopsResourse(enemy_party.EL_getTroopsResourse() * (1.8 + (this.Flags.get("MercenariesAsAllies") ? 0.3 : 0)));
                                 this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Mercenaries, 50 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
                                 p.EnemyBanners.push(this.Flags.get("MercenaryBanner"));
                             }
+                            this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Noble, (130 + (this.Flags.get("MercenariesAsAllies") ? 30 : 0)) * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
                             foreach(troop in enemy_party.getTroops()) {
                                 p.Entities.push(troop);
                             }
@@ -2700,6 +2716,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.LineForward;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.LineBack;
                             local enemy_party = this.new("scripts/entity/world/party");
+                            enemy_party.EL_setTroopsResourse(enemy_party.EL_getTroopsResourse() * 1.3);
                             enemy_party.EL_setFaction(this.Flags.get("EnemyID"));
                             p.Parties.push(enemy_party);
                             this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Noble, 130 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
@@ -2722,6 +2739,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local enemy_party = this.new("scripts/entity/world/party");
+                            enemy_party.EL_setTroopsResourse(enemy_party.EL_getTroopsResourse() * 1.3);
                             enemy_party.EL_setFaction(this.Flags.get("EnemyID"));
                             p.Parties.push(enemy_party);
                             this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Noble, 130 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
@@ -2753,6 +2771,7 @@ local gt = getroottable();
                         p.LocationTemplate.Fortification = this.Const.Tactical.FortificationType.Walls;
                         p.Music = this.Const.Music.NobleTracks;
                         local enemy_party = this.new("scripts/entity/world/party");
+                        enemy_party.EL_setTroopsResourse(enemy_party.EL_getTroopsResourse() * (this.Flags.get("IsCounterAttack") ? 1.1 : 1.3));
                         enemy_party.EL_setFaction(this.Flags.get("EnemyID"));
                         p.Parties.push(enemy_party);
                         this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Noble, (this.Flags.get("IsCounterAttack") ? 110 : 130) * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
@@ -3422,6 +3441,7 @@ local gt = getroottable();
                         }
 
                         local ally_party = this.new("scripts/entity/world/party");
+                        ally_party.EL_setTroopsResourse(ally_party.EL_getTroopsResourse() * allyStrength * 0.01);
                         ally_party.EL_setFaction(this.Contract.getFaction());
                         p.Parties.push(ally_party);
 
@@ -3444,6 +3464,7 @@ local gt = getroottable();
                         }
 
                         local enemy_party = this.new("scripts/entity/world/party");
+                        enemy_party.EL_setTroopsResourse(enemy_party.EL_getTroopsResourse() * (enemyStrength + 60) * 0.01);
                         enemy_party.EL_setFaction(this.Flags.get("EnemyNobleHouse"));
                         p.Parties.push(enemy_party);
 
@@ -3798,6 +3819,7 @@ local gt = getroottable();
                             ];
 
                             local party = this.new("scripts/entity/world/party");
+                            enemy_party.EL_setTroopsResourse(enemy_party.EL_getTroopsResourse() * (enemyStrength + 60) * 0.01);
                             party.EL_setFaction(this.Const.Faction.Enemy);
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Mercenaries, 100 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Const.Faction.Enemy);
@@ -3916,6 +3938,7 @@ local gt = getroottable();
                                 "banner_noble_11"
                             ];
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.8);
                             party.EL_setFaction(this.Const.Faction.Enemy);
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Peasants, 80 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Const.Faction.Enemy);
@@ -4798,6 +4821,7 @@ local gt = getroottable();
                         p.Entities = [];
 
                         local enemy_party = this.new("scripts/entity/world/party");
+                        enemy_party.EL_setTroopsResourse(enemy_party.EL_getTroopsResourse() * 1.3);
                         enemy_party.EL_setFaction(this.Flags.get("EnemyID"));
                         p.Parties.push(enemy_party);
                         this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Southern, 130 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
@@ -4810,6 +4834,7 @@ local gt = getroottable();
                         if (this.Flags.get("IsLocalsRecruited"))
                         {
                             local ally_party = this.new("scripts/entity/world/party");
+                            ally_party.EL_setTroopsResourse(ally_party.EL_getTroopsResourse() * 0.1);
                             ally_party.EL_setFaction(this.Contract.getFaction());
                             p.Parties.push(ally_party);
                             this.Const.World.Common.addUnitsToCombat(ally_party, this.Const.World.Spawn.PeasantsArmed, 10, this.Contract.getFaction());
@@ -4831,6 +4856,7 @@ local gt = getroottable();
                         p.Entities = [];
 
                         local enemy_party = this.new("scripts/entity/world/party");
+                        enemy_party.EL_setTroopsResourse(enemy_party.EL_getTroopsResourse() * (this.Flags.get("IsEnemyReinforcements") ? 1.3 : 1));
                         enemy_party.EL_setFaction(this.Flags.get("EnemyID"));
                         p.Parties.push(enemy_party);
 
@@ -4847,6 +4873,7 @@ local gt = getroottable();
                         if (this.Flags.get("IsLocalsRecruited"))
                         {
                             local ally_party = this.new("scripts/entity/world/party");
+                            ally_party.EL_setTroopsResourse(ally_party.EL_getTroopsResourse() * 0.5);
                             ally_party.EL_setFaction(this.Contract.getFaction());
                             p.Parties.push(ally_party);
                             this.Const.World.Common.addUnitsToCombat(ally_party, this.Const.World.Spawn.PeasantsArmed, 50, this.Contract.getFaction());
@@ -4879,6 +4906,7 @@ local gt = getroottable();
                                 this.World.Assets.getBanner()
                             ];
                             local ally_party = this.new("scripts/entity/world/party");
+                            ally_party.EL_setTroopsResourse(ally_party.EL_getTroopsResourse() * 0.5);
                             ally_party.EL_setFaction(this.Contract.getFaction());
 
                             p.Parties.push(ally_party);
@@ -5185,6 +5213,7 @@ local gt = getroottable();
                         p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                         p.Entities = [];
                         local enemy_party = this.new("scripts/entity/world/party");
+                        enemy_party.EL_setTroopsResourse(enemy_party.EL_getTroopsResourse() * 1.3);
                         enemy_party.EL_setFaction(this.Flags.get("EnemyID"));
                         p.Parties.push(enemy_party);
                         this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Noble, 130 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
@@ -5200,6 +5229,7 @@ local gt = getroottable();
                         if (this.Flags.get("IsLocalsRecruited"))
                         {
                             local ally_party = this.new("scripts/entity/world/party");
+                            ally_party.EL_setTroopsResourse(ally_party.EL_getTroopsResourse() * 0.1);
                             ally_party.EL_setFaction(this.Contract.getFaction());
                             p.Parties.push(ally_party);
                             this.Const.World.Common.addUnitsToCombat(ally_party, this.Const.World.Spawn.PeasantsSouthern, 10, this.Contract.getFaction());
@@ -5221,6 +5251,7 @@ local gt = getroottable();
                         p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                         p.Entities = [];
                         local enemy_party = this.new("scripts/entity/world/party");
+                        enemy_party.EL_setTroopsResourse(enemy_party.EL_getTroopsResourse() * (this.Flags.get("IsEnemyReinforcements") ? 1.3 : 1));
                         enemy_party.EL_setFaction(this.Flags.get("EnemyID"));
                         p.Parties.push(enemy_party);
                         this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Noble, (this.Flags.get("IsEnemyReinforcements") ? 130 : 100) * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyID"));
@@ -5234,6 +5265,7 @@ local gt = getroottable();
                         if (this.Flags.get("IsLocalsRecruited"))
                         {
                             local ally_party = this.new("scripts/entity/world/party");
+                            ally_party.EL_setTroopsResourse(ally_party.EL_getTroopsResourse() * 0.5);
                             ally_party.EL_setFaction(this.Contract.getFaction());
                             p.Parties.push(ally_party);
                             this.Const.World.Common.addUnitsToCombat(ally_party, this.Const.World.Spawn.PeasantsSouthern, 50, this.Contract.getFaction());
@@ -5265,6 +5297,7 @@ local gt = getroottable();
                                 this.World.Assets.getBanner()
                             ];
                             local ally_party = this.new("scripts/entity/world/party");
+                            ally_party.EL_setTroopsResourse(ally_party.EL_getTroopsResourse() * 0.5);
                             ally_party.EL_setFaction(this.Contract.getFaction());
                             p.Parties.push(ally_party);
                             if (this.Flags.get("IsAlliedReinforcements"))
@@ -5436,6 +5469,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1.2);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Mercenaries, 120 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
@@ -5527,6 +5561,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1.4);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Mercenaries, 140 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
@@ -5647,6 +5682,7 @@ local gt = getroottable();
                                 ];
                             }
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1.2);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Undead).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.UndeadArmy, 120 * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Undead).getID());
@@ -5914,6 +5950,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1.3);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Mercenaries, 130 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
@@ -5996,6 +6033,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1.5);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Mercenaries, 150 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
@@ -6098,6 +6136,7 @@ local gt = getroottable();
                                 ];
                             }
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1.3);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Undead).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.UndeadArmy, 130 * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Undead).getID());
@@ -6381,9 +6420,9 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Center;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Circle;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.5);
                             party.EL_setFaction(this.Contract.m.Destination.getFaction());
                             p.Parties.push(party);
-                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.5);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.GoblinRaiders, 50 * this.Contract.getScaledDifficultyMult(), this.Contract.m.Destination.getFaction());
                             foreach(troop in party.getTroops()) {
                                 p.Entities.push(troop);
@@ -6738,7 +6777,7 @@ local gt = getroottable();
                             local party = this.new("scripts/entity/world/party");
                             party.EL_setFaction(this.Const.Faction.Enemy);
                             p.Parties.push(party);
-                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.5);
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1.5);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.OrcRaiders, 150 * this.Contract.getScaledDifficultyMult(), this.Const.Faction.Enemy);
                             foreach(troop in party.getTroops()) {
                                 p.Entities.push(troop);
@@ -6883,6 +6922,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1.4);
                             party.EL_setFaction(this.Contract.getFaction());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Noble, 140 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Contract.getFaction());
@@ -7120,6 +7160,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.BanditRaiders, 100 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
@@ -7691,9 +7732,9 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1.3);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
                             p.Parties.push(party);
-                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.5);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.BountyHunters, 130 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
                             foreach(troop in party.getTroops()) {
                                 p.Entities.push(troop);
@@ -8326,6 +8367,7 @@ local gt = getroottable();
                             properties.EnemyBanners.push(this.Flags.get("EnemyBanner"));
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1.1);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Barbarians).getID());
                             properties.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Barbarians, 110 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Barbarians).getID());
@@ -8799,6 +8841,7 @@ local gt = getroottable();
                                 }
                             }
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1.2);
                             party.EL_setFaction(this.Contract.m.NobleHouseID);
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Noble, 120 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Contract.m.NobleHouseID);
@@ -9074,6 +9117,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Center;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Circle;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.8);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Undead).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Vampires, 80 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Undead).getID());
@@ -9490,6 +9534,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1.2);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Mercenaries, 120 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
@@ -10035,6 +10080,7 @@ local gt = getroottable();
                             p.EnemyBanners.push(camp.getBanner());
                             p.Entities = [];
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Goblins).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.GreenskinHorde, 100 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Goblins).getID());
@@ -10254,6 +10300,7 @@ local gt = getroottable();
                             p.EnemyBanners.push(nearest_goblins.getBanner());
                             p.Entities = [];
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1.25);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Goblins).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.GoblinRaiders, 125 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Goblins).getID());
@@ -10659,9 +10706,9 @@ local gt = getroottable();
                             if (this.Flags.get("IsAlliedReinforcements"))
                             {
                                 local party = this.new("scripts/entity/world/party");
+                                party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.5);
                                 party.EL_setFaction(this.Contract.getFaction());
                                 p.Parties.push(party);
-                                party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.5);
                                 this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Southern, 50 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Contract.getFaction());
                                 foreach(troop in party.getTroops()) {
                                     p.Entities.push(troop);
@@ -10793,6 +10840,7 @@ local gt = getroottable();
                             p.Music = this.Const.Music.BeastsTracks;
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Alps, 100 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
@@ -10997,6 +11045,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.5);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addTroop(party, {
@@ -11037,6 +11086,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.HexenAndNoSpiders, 100 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
@@ -11146,6 +11196,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.HexenAndNoSpiders, 100 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
@@ -11459,6 +11510,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Edge;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Random;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Undead).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Ghouls, 100 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Undead).getID());
@@ -12264,6 +12316,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 2);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.LegendHexeLeader, 200 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
@@ -12295,6 +12348,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 2);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.LegendHexeLeader, 200 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
@@ -12404,6 +12458,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 2);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.LegendHexeLeader, 200 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
@@ -12626,6 +12681,7 @@ local gt = getroottable();
                             p.Music = this.Const.Music.BeastsTracks;
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 2);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.LegendDemonAlp, 200 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
@@ -12913,6 +12969,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Edge;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Random;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Orcs).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.OrcScouts, 100 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Orcs).getID());
@@ -13348,9 +13405,11 @@ local gt = getroottable();
                             properties.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Center;
                             properties.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Circle;
                             local party = this.new("scripts/entity/world/party");
+                            local dif = this.Math.rand(90, 110);
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * dif * 0.01);
                             party.EL_setFaction(this.Const.Faction.Enemy);
                             properties.Parties.push(party);
-                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.GreenskinHorde, this.Math.rand(90, 110), this.Const.Faction.Enemy);
+                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.GreenskinHorde, dif, this.Const.Faction.Enemy);
                             foreach(troop in party.getTroops()) {
                                 properties.Entities.push(troop);
                             }
@@ -13387,9 +13446,11 @@ local gt = getroottable();
                                 "banner_bandits_03"
                             ];
                             local party = this.new("scripts/entity/world/party");
+                            local dif = this.Math.rand(90, 110);
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * dif * 0.01);
                             party.EL_setFaction(this.Const.Faction.Enemy);
                             properties.Parties.push(party);
-                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.BanditRaiders, this.Math.rand(90, 110), this.Const.Faction.Enemy);
+                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.BanditRaiders, dif, this.Const.Faction.Enemy);
                             foreach(troop in party.getTroops()) {
                                 properties.Entities.push(troop);
                             }
@@ -13882,7 +13943,8 @@ local gt = getroottable();
                                 enemyFaction.getBannerSmall(),
                                 this.Const.ZombieBanners[0]
                             ];
-                            local party = this.new("scripts/entity/world/party");
+                            local party = this.new("scripts/entity/world/party");\
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Zombies).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Necromancer, 100 * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Zombies).getID());
@@ -14299,6 +14361,7 @@ local gt = getroottable();
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.Music = this.Const.Music.NobleTracks;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1.5);
                             party.EL_setFaction(this.Contract.getFaction());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Noble, 150 * this.Contract.getScaledDifficultyMult(), this.Contract.getFaction());
@@ -14502,6 +14565,7 @@ local gt = getroottable();
                             p.LocationTemplate.Fortification = this.Const.Tactical.FortificationType.None;
                             p.LocationTemplate.CutDownTrees = true;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.9);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.BanditScouts, 90 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
@@ -14536,6 +14600,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.9);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Spiders, 90 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
@@ -14934,6 +14999,7 @@ local gt = getroottable();
                         local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos());
                         p.EnemyBanners.push(_dest.getBanner());
                         local party = this.new("scripts/entity/world/party");
+                        party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.9);
                         p.Parties.push(party);
 
                         if (this.Flags.get("IsBandits") && this.Flags.get("ObjectivesDestroyed") == 0)
@@ -15499,6 +15565,7 @@ local gt = getroottable();
                             this.Contract.m.Origin.getOwner().getBannerSmall()
                         ];
                         local party = this.new("scripts/entity/world/party");
+                        party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1.1);
                         party.EL_setFaction(this.Contract.m.Origin.getOwner().getID());
                         p.Parties.push(party);
                         this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Noble, 110 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Contract.m.Origin.getOwner().getID());
@@ -15642,6 +15709,7 @@ local gt = getroottable();
                     if (!alliesIncluded && _dest.getDistanceTo(this.Contract.m.Origin) <= 400)
                     {
                         local party = this.new("scripts/entity/world/party");
+                        party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.8);
                         party.EL_setFaction(this.Contract.getFaction());
                         properties.Parties.push(party);
                         this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Noble, 80 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Contract.getFaction());
@@ -15887,6 +15955,7 @@ local gt = getroottable();
                                 this.Contract.m.Origin.getOwner().getBannerSmall()
                             ];
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1.1);
                             party.EL_setFaction(this.Contract.m.Origin.getOwner().getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Noble, 110 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Contract.m.Origin.getOwner().getID());
@@ -15933,8 +16002,8 @@ local gt = getroottable();
                                 this.Contract.m.Origin.getOwner().getBannerSmall()
                             ];
                             local party_1 = this.new("scripts/entity/world/party");
+                            party_1.EL_setTroopsResourse(party_1.EL_getTroopsResourse() * 0.8);
                             party_1.EL_setFaction(this.Contract.getFaction());
-                            party_1.EL_setTroopsResourse(party_1.EL_getTroopsResourse() * 0.5);
                             p.Parties.push(party_1);
                             this.Const.World.Common.addUnitsToCombat(party_1, this.Const.World.Spawn.Noble, 80 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Contract.getFaction());
                             this.Const.World.Common.addTroop(party_1, {
@@ -15944,8 +16013,8 @@ local gt = getroottable();
                                 p.Entities.push(troop);
                             }
                             local party_2 = this.new("scripts/entity/world/party");
+                            party_2.EL_setTroopsResourse(party_2.EL_getTroopsResourse() * 2);
                             party_2.EL_setFaction(this.Contract.m.Origin.getOwner().getID());
-                            party_2.EL_setTroopsResourse(party_2.EL_getTroopsResourse() * 0.5);
                             p.Parties.push(party_2);
                             this.Const.World.Common.addUnitsToCombat(party_2, this.Const.World.Spawn.Noble, 200 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Contract.m.Origin.getOwner().getID());
                             this.Const.World.Common.addTroop(party_2, {
@@ -16000,6 +16069,7 @@ local gt = getroottable();
                                 this.Contract.m.Origin.getOwner().getBannerSmall()
                             ];
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1.2);
                             party.EL_setFaction(this.Contract.m.Origin.getOwner().getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Noble, 120 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Contract.m.Origin.getOwner().getID());
@@ -16128,6 +16198,7 @@ local gt = getroottable();
                                 this.Contract.m.Origin.getOwner().getBannerSmall()
                             ];
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.8);
                             party.EL_setFaction(this.Contract.m.Origin.getOwner().getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Noble, 80 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Contract.m.Origin.getOwner().getID());
@@ -16370,7 +16441,7 @@ local gt = getroottable();
                             ];
                             local party_1 = this.new("scripts/entity/world/party");
                             party_1.EL_setFaction(this.Contract.getFaction());
-                            party_1.EL_setTroopsResourse(party_1.EL_getTroopsResourse() * 0.5);
+                            party_1.EL_setTroopsResourse(party_1.EL_getTroopsResourse() * 0.9);
                             p.Parties.push(party_1);
                             this.Const.World.Common.addUnitsToCombat(party_1, this.Const.World.Spawn.Noble, 90 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Contract.getFaction());
                             this.Const.World.Common.addTroop(party_1, {
@@ -16381,7 +16452,7 @@ local gt = getroottable();
                             }
                             local party_2 = this.new("scripts/entity/world/party");
                             party_2.EL_setFaction(this.Contract.m.Origin.getOwner().getID());
-                            party_2.EL_setTroopsResourse(party_2.EL_getTroopsResourse() * 0.5);
+                            party_2.EL_setTroopsResourse(party_2.EL_getTroopsResourse() * 2);
                             p.Parties.push(party_2);
                             this.Const.World.Common.addUnitsToCombat(party_2, this.Const.World.Spawn.Noble, 200 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Contract.m.Origin.getOwner().getID());
                             this.Const.World.Common.addTroop(party_2, {
@@ -16710,6 +16781,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.85);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.OrientalBandits).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.NomadRaiders, 30 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.OrientalBandits).getID());
@@ -16918,6 +16990,7 @@ local gt = getroottable();
                             p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Line;
                             local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.85);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.OrientalBandits).getID());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.NomadRaiders, 30 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.OrientalBandits).getID());

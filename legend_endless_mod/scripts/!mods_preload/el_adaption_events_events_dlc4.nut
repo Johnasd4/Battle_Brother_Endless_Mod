@@ -133,9 +133,11 @@ local gt = getroottable();
                             properties.Entities = [];
                             properties.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Circle;
                             local party = this.new("scripts/entity/world/party");
+                            local dif = this.Math.rand(80, 100);
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * dif * 0.01);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
                             properties.Parties.push(party);
-                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Unhold, this.Math.rand(80, 100), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
+                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Unhold, dif, this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
                             foreach(troop in party.getTroops()) {
                                 properties.Entities.push(troop);
                             }

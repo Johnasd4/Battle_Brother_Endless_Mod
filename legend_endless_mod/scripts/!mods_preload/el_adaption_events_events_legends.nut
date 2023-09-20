@@ -107,9 +107,11 @@ local gt = getroottable();
                             properties.IsAutoAssigningBases = false;
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
+                            local dif = this.Math.rand(75, 110);
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * dif * 0.01);
                             party.EL_setFaction(this.Const.Faction.Enemy);
                             properties.Parties.push(party);
-                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Barbarians, this.Math.rand(75, 110) * _event.getReputationToDifficultyLightMult(), this.Const.Faction.Enemy);
+                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Barbarians, dif * _event.getReputationToDifficultyLightMult(), this.Const.Faction.Enemy);
                             foreach(troop in party.getTroops()) {
                                 properties.Entities.push(troop);
                             }
@@ -142,9 +144,11 @@ local gt = getroottable();
                             properties.IsAutoAssigningBases = false;
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
+                            local dif = this.Math.rand(100, 140);
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * dif * 0.01);
                             party.EL_setFaction(this.Const.Faction.Enemy);
                             properties.Parties.push(party);
-                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Barbarians, this.Math.rand(110, 140) * _event.getReputationToDifficultyLightMult(), this.Const.Faction.Enemy);
+                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Barbarians, dif * _event.getReputationToDifficultyLightMult(), this.Const.Faction.Enemy);
                             foreach(troop in party.getTroops()) {
                                 properties.Entities.push(troop);
                             }
@@ -231,9 +235,11 @@ local gt = getroottable();
                             properties.IsAutoAssigningBases = false;
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
+                            local dif = this.Math.rand(60, 75);
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * dif * 0.01);
                             party.EL_setFaction(this.Const.Faction.Enemy);
                             properties.Parties.push(party);
-                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Barbarians, this.Math.rand(60, 75) * _event.getReputationToDifficultyLightMult(), this.Const.Faction.Enemy);
+                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Barbarians, dif * _event.getReputationToDifficultyLightMult(), this.Const.Faction.Enemy);
                             foreach(troop in party.getTroops()) {
                                 properties.Entities.push(troop);
                             }
@@ -335,9 +341,11 @@ local gt = getroottable();
                             properties.IsAutoAssigningBases = false;
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
+                            local dif = this.Math.rand(60, 70);
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * dif * 0.01);
                             party.EL_setFaction(this.Const.Faction.Enemy);
                             properties.Parties.push(party);
-                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Barbarians, this.Math.rand(60, 70) * _event.getReputationToDifficultyLightMult(), this.Const.Faction.Enemy);
+                            this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Barbarians, dif * _event.getReputationToDifficultyLightMult(), this.Const.Faction.Enemy);
                             foreach(troop in party.getTroops()) {
                                 properties.Entities.push(troop);
                             }
