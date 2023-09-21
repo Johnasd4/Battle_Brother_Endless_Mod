@@ -236,7 +236,7 @@ local gt = getroottable();
                     if(accessory != null && accessory.getID() == "el_accessory.core") {
                         local core = this.new("scripts/items/el_misc/el_core_rank_" + accessory.EL_getRankLevel() + "_item");
                         core.EL_setXP(this.Math.floor(this.getXP() * this.Const.EL_Misc.EL_Core.XPMult));
-                        this.m.WorldTroop.Party.addToInventory(core);
+                        this.m.WorldTroop.Party.EL_addLootItem(core);
                     }
                 }
                 else
@@ -279,6 +279,7 @@ local gt = getroottable();
         o.m.EL_TroopsResourse <- 0;
         o.m.EL_LootEquipmentEssence <- [0, 0, 0, 0, 0];
         o.m.EL_Faction <- 0;
+        o.m.EL_LootItems <- [];
 
         o.EL_setFaction <- function( _EL_Faction )
         {
@@ -310,6 +311,7 @@ local gt = getroottable();
             clearTroops();
             this.m.EL_TempTroops = [];
             this.m.EL_LootEquipmentEssence = [0, 0, 0, 0, 0];
+            this.m.EL_LootItems = [];
             this.m.EL_FinishGenerate = false;
 		}
 
@@ -1148,11 +1150,26 @@ local gt = getroottable();
             this.m.EL_LootEquipmentEssence[_EL_rank] += _EL_num;
 		}
 
+		o.EL_dropLootItems <- function( _lootTable )
+        {
+			for(local i = 0; i < this.m.EL_LootItems.len(); ++i) {
+                _lootTable.push(this.m.EL_LootItems[i]);
+            }
+		}
+
+
+        o.EL_addLootItem <- function(_EL_LootItem)
+        {
+            this.m.EL_LootItems.push(_EL_LootItem);
+		}
+
+
 		local onDropLootForPlayer = o.onDropLootForPlayer;
 		o.onDropLootForPlayer = function (_lootTable)
 		{
             onDropLootForPlayer(_lootTable);
             this.EL_dropEquipmentEssence(_lootTable);
+            this.EL_dropLootItems(_lootTable);
 		}
 
 
