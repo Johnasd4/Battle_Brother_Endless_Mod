@@ -13943,7 +13943,7 @@ local gt = getroottable();
                                 enemyFaction.getBannerSmall(),
                                 this.Const.ZombieBanners[0]
                             ];
-                            local party = this.new("scripts/entity/world/party");\
+                            local party = this.new("scripts/entity/world/party");
                             party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 1);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Zombies).getID());
                             p.Parties.push(party);
