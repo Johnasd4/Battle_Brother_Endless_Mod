@@ -34,31 +34,12 @@ local gt = getroottable();
 		o.onAdded = function ()
 		{
 			local actor = this.getContainer().getActor();
-			this.m.Modifiers.Ammo = this.Const.EL_PlayerOther.EL_Donkey.Ammo[player.EL_getRankLevel()];
-			this.m.Modifiers.ArmorParts = this.Const.EL_PlayerOther.EL_Donkey.ArmorParts[player.EL_getRankLevel()];
-			this.m.Modifiers.Meds = this.Const.EL_PlayerOther.EL_Donkey.Meds[player.EL_getRankLevel()];
-			this.m.Modifiers.Stash = this.Const.EL_PlayerOther.EL_Donkey.Stash[player.EL_getRankLevel()];
+			this.m.Modifiers.Ammo = this.Const.EL_PlayerOther.EL_Donkey.Ammo[actor.EL_getRankLevel()];
+			this.m.Modifiers.ArmorParts = this.Const.EL_PlayerOther.EL_Donkey.ArmorParts[actor.EL_getRankLevel()];
+			this.m.Modifiers.Meds = this.Const.EL_PlayerOther.EL_Donkey.Meds[actor.EL_getRankLevel()];
+			this.m.Modifiers.Stash = this.Const.EL_PlayerOther.EL_Donkey.Stash[actor.EL_getRankLevel()];
 			onAdded();
 		};
-	});
-
-
-	::mods_hookExactClass("skills/actives/unleash_animal", function ( o )
-	{
-		local addAnimalSkills = o.addAnimalSkills;
-		o.addAnimalSkills = function(entity)
-		{
-			addAnimalSkills(entity);
-			local actor = this.getContainer().getActor();
-			local actor_properties = actor.getCurrentProperties();
-			local animal_properties = entity.getBaseProperties();
-			entity.EL_bulidNPCPropertiesByLevel(actor.getLevel());
-			entity.EL_ballanceNPCPropertiesAfterAddingEquipment();
-			//entity.EL_setRankLevel(actor.EL_getRankLevel);
-			animal_properties.EL_CombatLevel = entity.EL_getNPCLevel();
-			entity.getSkills().update();
-			entity.setHitpoints(entity.getHitpointsMax());
-		}
 	});
 
 });

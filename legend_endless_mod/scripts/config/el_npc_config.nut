@@ -130,9 +130,9 @@ gt.Const.EL_NPC <- {
         }
 
         Resourse = {
-            MinMult = 70,
-            MaxMult = 130,
-        },
+            MultPurWorldLevel = 1,
+            MultBase = 100
+         },
 
         BossUnit = [
             this.Const.EntityType.TricksterGod,
@@ -146,6 +146,7 @@ gt.Const.EL_NPC <- {
         EliteUnit = [
             this.Const.EntityType.BanditWarlord,
             this.Const.EntityType.BanditLeader,
+            this.Const.EntityType.BarbarianMadman,
             this.Const.EntityType.LegendSkinGhoul,
             this.Const.EntityType.LegendWhiteDirewolf,
             this.Const.EntityType.LegendWhiteWarwolf,
@@ -644,6 +645,7 @@ gt.Const.EL_NPC <- {
             },
             SelfDestruct = {
                 DamageRate = [0, 0.4, 1],
+                WeaponShieldDamageRate = [0, 0.2, 0.5],
                 DamageDecayRatePurTile = 0.5,
                 MaxDistance = 6
             },
@@ -690,7 +692,8 @@ gt.Const.EL_NPC <- {
 
 
     EL_Contract = {
-        PatmentMultPurWorldLevel = 0.04
+        PaymentMultPurWorldLevel = 0.04,
+        PaymentMultMaxWorldLevel = 200
     }
 };
 

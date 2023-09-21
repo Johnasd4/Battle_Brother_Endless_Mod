@@ -6,6 +6,14 @@ local gt = getroottable();
 
 	::mods_hookNewObject("items/legend_armor/legendary/legend_armor_mountain_named", function(o){
 
+        local create = o.create;
+        o.create = function()
+        {
+            create();
+            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+        }
+
+
         o.getTooltip = function()
         {
             local result = this.legend_armor.getTooltip();
@@ -45,6 +53,14 @@ local gt = getroottable();
 
 	::mods_hookNewObject("items/legend_armor/legendary/legend_armor_mountain", function(o){
 
+        local create = o.create;
+        o.create = function()
+        {
+            create();
+            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+        }
+
+
         o.getTooltip = function()
         {
             local result = this.legend_armor.getTooltip();
@@ -83,6 +99,14 @@ local gt = getroottable();
     });
 
 	::mods_hookNewObject("items/legend_armor/legendary/legend_armor_named_warlock_cloak", function(o){
+
+        local create = o.create;
+        o.create = function()
+        {
+            create();
+            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+        }
+
 
         o.getTooltip = function()
         {
@@ -134,6 +158,14 @@ local gt = getroottable();
 
     ::mods_hookNewObject("items/legend_armor/legendary/legend_armor_of_davkul", function(o){
 
+        local create = o.create;
+        o.create = function()
+        {
+            create();
+            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+        }
+
+
         o.getTooltip = function()
         {
             local result = this.legend_armor.getTooltip();
@@ -155,6 +187,14 @@ local gt = getroottable();
     });
 
 	::mods_hookNewObject("items/legend_armor/legendary/legend_emperors_armor_fake", function(o){
+
+        local create = o.create;
+        o.create = function()
+        {
+            create();
+            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+        }
+
 
         o.getTooltip = function()
         {
@@ -189,6 +229,14 @@ local gt = getroottable();
 
 	::mods_hookNewObject("items/legend_armor/legendary/legend_emperors_armor", function(o){
 
+        local create = o.create;
+        o.create = function()
+        {
+            create();
+            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+        }
+
+
         o.getTooltip = function()
         {
             local result = this.armor.getTooltip();
@@ -221,6 +269,14 @@ local gt = getroottable();
     });
 
     ::mods_hookNewObject("items/legend_armor/legendary/legend_emperors_armor", function(o){
+
+        local create = o.create;
+        o.create = function()
+        {
+            create();
+            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+        }
+
 
         o.getTooltip = function()
         {
@@ -260,6 +316,14 @@ local gt = getroottable();
 
     ::mods_hookNewObject("items/legend_armor/legendary/legend_ijirok_armor", function(o){
 
+        local create = o.create;
+        o.create = function()
+        {
+            create();
+            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+        }
+
+
         o.getTooltip = function()
         {
             local result = this.armor.getTooltip();
@@ -298,6 +362,14 @@ local gt = getroottable();
 
 
     ::mods_hookNewObject("items/legend_armor/legendary/legend_skin_armor", function(o){
+
+        local create = o.create;
+        o.create = function()
+        {
+            create();
+            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+        }
+
 
         o.getTooltip = function()
         {

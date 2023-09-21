@@ -138,7 +138,7 @@ local gt = getroottable();
 			return "#ffffff";
 		}
 
-		o.EL_generateByRankAndLevel <- function( EL_level, EL_rankLevel, EL_additionalRarityChance = 0 )
+		o.EL_generateByRankAndLevel <- function( EL_rankLevel, EL_level, EL_additionalRarityChance = 0 )
 		{
 		}
 

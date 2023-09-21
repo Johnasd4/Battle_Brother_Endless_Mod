@@ -6,6 +6,13 @@ local gt = getroottable();
 
 	::mods_hookNewObject("items/armor/legendary/armor_of_davkul", function(o){
 
+        local create = o.create;
+        o.create = function()
+        {
+            create();
+            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+        }
+
         o.getTooltip = function()
         {
             local result = this.armor.getTooltip();
@@ -27,6 +34,13 @@ local gt = getroottable();
     });
 
 	::mods_hookNewObject("items/armor/legendary/emperors_armor_fake", function(o){
+
+        local create = o.create;
+        o.create = function()
+        {
+            create();
+            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+        }
 
         o.getTooltip = function()
         {
@@ -61,6 +75,13 @@ local gt = getroottable();
 
 	::mods_hookNewObject("items/armor/legendary/emperors_armor", function(o){
 
+        local create = o.create;
+        o.create = function()
+        {
+            create();
+            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+        }
+
         o.getTooltip = function()
         {
             local result = this.armor.getTooltip();
@@ -94,6 +115,13 @@ local gt = getroottable();
 
 
     ::mods_hookNewObject("items/armor/legendary/ijirok_armor", function(o){
+
+        local create = o.create;
+        o.create = function()
+        {
+            create();
+            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+        }
 
         o.getTooltip = function()
         {
@@ -133,6 +161,14 @@ local gt = getroottable();
 
     ::mods_hookNewObject("items/armor/legendary/legend_mountain_armor", function(o){
 
+        local create = o.create;
+        o.create = function()
+        {
+            create();
+            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+        }
+
+
         o.getTooltip = function()
         {
             local result = this.armor.getTooltip();
@@ -171,6 +207,14 @@ local gt = getroottable();
     });
 
     ::mods_hookNewObject("items/armor/legendary/legend_skin_armor", function(o){
+
+        local create = o.create;
+        o.create = function()
+        {
+            create();
+            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+        }
+
 
         o.getTooltip = function()
         {

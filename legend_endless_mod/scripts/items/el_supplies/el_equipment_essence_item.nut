@@ -31,6 +31,7 @@ this.el_equipment_essence_item <- this.inherit("scripts/items/item", {
 		this.m.Icon = "el_supplies/equipment_essence_rank_" + this.m.EL_RankLevel + ".png";
 		this.m.SlotType = this.Const.ItemSlot.None;
 		this.m.ItemType = this.Const.Items.ItemType.Supply;
+		this.m.IsDroppedAsLoot = true;
 		this.m.IsConsumed = true;
 		this.m.Value = 0;
 		this.m.EL_Amount = 0;

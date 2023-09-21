@@ -93,6 +93,157 @@ local gt = getroottable();
 			return d;
 		}
 
+		o.getTooltip = function( _targetedWithSkill = null )
+		{
+			if (!this.isPlacedOnMap() || !this.isAlive() || this.isDying())
+			{
+				return [];
+			}
+
+			if (!this.isDiscovered())
+			{
+				local tooltip = [
+					{
+						id = 1,
+						type = "title",
+						text = "Hidden Opponent"
+					}
+				];
+				return tooltip;
+			}
+
+			local tooltip = [
+				{
+					id = 1,
+					type = "title",
+					text = this.getName(),
+					icon = this.getLevelImagePath()
+				}
+			];
+
+			if (this.isHiddenToPlayer())
+			{
+				tooltip.push({
+					id = 3,
+					type = "headerText",
+					icon = "ui/tooltips/warning.png",
+					text = "[color=" + this.Const.UI.Color.NegativeValue + "]Not currently in sight[/color]"
+				});
+			}
+			else
+			{
+				if (_targetedWithSkill != null && this.isKindOf(_targetedWithSkill, "skill"))
+				{
+					local tile = this.getTile();
+
+					if (tile.IsVisibleForEntity && _targetedWithSkill.isUsableOn(tile))
+					{
+						local hitchance = _targetedWithSkill.getHitchance(this);
+						tooltip.push({
+							id = 3,
+							type = "headerText",
+							icon = "ui/icons/hitchance.png",
+							children = _targetedWithSkill.getHitFactors(tile),
+							text = "[color=" + this.Const.UI.Color.PositiveValue + "]" + hitchance + "%[/color] chance to hit"
+						});
+					}
+				}
+
+				if (this.m.IsActingEachTurn)
+				{
+					local turnsToGo = this.Tactical.TurnSequenceBar.getTurnsUntilActive(this.getID());
+
+					if (this.Tactical.TurnSequenceBar.getActiveEntity() == this)
+					{
+						tooltip.push({
+							id = 4,
+							type = "text",
+							icon = "ui/icons/initiative.png",
+							text = "Acting right now!"
+						});
+					}
+					else if (this.m.IsTurnDone || turnsToGo == null)
+					{
+						tooltip.push({
+							id = 4,
+							type = "text",
+							icon = "ui/icons/initiative.png",
+							text = "Turn done"
+						});
+					}
+					else
+					{
+						tooltip.push({
+							id = 4,
+							type = "text",
+							icon = "ui/icons/initiative.png",
+							text = "Acts in " + turnsToGo + (turnsToGo > 1 ? " turns" : " turn")
+						});
+					}
+				}
+
+				tooltip.push({
+					id = 5,
+					type = "progressbar",
+					icon = "ui/icons/armor_head.png",
+					value = this.getArmor(this.Const.BodyPart.Head),
+					valueMax = this.getArmorMax(this.Const.BodyPart.Head),
+					text = this.getArmor(this.Const.BodyPart.Head) + " / " + this.getArmorMax(this.Const.BodyPart.Head),
+					style = "armor-head-slim"
+				});
+				tooltip.push({
+					id = 6,
+					type = "progressbar",
+					icon = "ui/icons/armor_body.png",
+					value = this.getArmor(this.Const.BodyPart.Body),
+					valueMax = this.getArmorMax(this.Const.BodyPart.Body),
+					text = this.getArmor(this.Const.BodyPart.Body) + " / " + this.getArmorMax(this.Const.BodyPart.Body),
+					style = "armor-body-slim"
+				});
+				tooltip.push({
+					id = 7,
+					type = "progressbar",
+					icon = "ui/icons/health.png",
+					value = this.getHitpoints() >= 0 ? this.getHitpoints() : 0,
+					valueMax = this.getHitpointsMax(),
+					text = (this.getHitpoints() >= 0 ? this.getHitpoints() : 0) + " / " + this.getHitpointsMax(),
+					style = "hitpoints-slim"
+				});
+				tooltip.push({
+					id = 8,
+					type = "progressbar",
+					icon = "ui/icons/morale.png",
+					value = this.getMoraleState(),
+					valueMax = this.Const.MoraleState.COUNT - 1,
+					text = this.Const.MoraleStateName[this.getMoraleState()],
+					style = "morale-slim"
+				});
+				tooltip.push({
+					id = 9,
+					type = "progressbar",
+					icon = "ui/icons/fatigue.png",
+					value = this.getFatigue(),
+					valueMax = this.getFatigueMax(),
+					text = this.getFatigue() + " / " + this.getFatigueMax(),
+					style = "fatigue-slim"
+				});
+				local result = [];
+				local statusEffects = this.getSkills().query(this.Const.SkillType.StatusEffect | this.Const.SkillType.TemporaryInjury, false, true);
+
+				foreach( i, statusEffect in statusEffects )
+				{
+					tooltip.push({
+						id = 100 + i,
+						type = "text",
+						icon = statusEffect.getIcon(),
+						text = statusEffect.getName()
+					});
+				}
+			}
+
+			return tooltip;
+		}
+
 		o.checkMorale = function(_change, _difficulty, _type = this.Const.MoraleCheckType.Default, _showIconBeforeMoraleIcon = "", _noNewLine = false)
 		{
 
