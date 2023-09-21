@@ -1133,6 +1133,7 @@ local gt = getroottable();
 		o.EL_dropEquipmentEssence <- function( _lootTable )
         {
 			for(local i = 0; i < this.m.EL_LootEquipmentEssence.len(); ++i) {
+                this.logInfo("scripts/items/el_supplies/el_equipment_essence_rank_" + i + "_item");
                 local num = this.m.EL_LootEquipmentEssence[i];
                 if(num == 0) {
                     continue;
