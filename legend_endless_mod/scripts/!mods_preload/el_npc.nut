@@ -235,7 +235,7 @@ local gt = getroottable();
                     local accessory = this.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
                     if(accessory != null && accessory.getID() == "el_accessory.core") {
                         local core = this.new("scripts/items/el_misc/el_core_rank_" + accessory.EL_getRankLevel() + "_item");
-                        core.EL_setXP(this.Math.floor(this.getXP() * this.Const.EL_Misc.EL_Core.XPChance.XPMult));
+                        core.EL_setXP(this.Math.floor(this.getXP() * this.Const.EL_Misc.EL_Core.XPMult));
                         this.m.WorldTroop.Party.addToInventory(core);
                     }
                 }
