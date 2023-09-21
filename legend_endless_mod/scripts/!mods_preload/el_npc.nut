@@ -1137,7 +1137,9 @@ local gt = getroottable();
                 if(num == 0) {
                     continue;
                 }
-                local essence = this.new("scripts/items/el_supplies/el_equipment_essence_rank_" + i + "_item");
+                local script = "scripts/items/el_supplies/el_equipment_essence_rank_" + i + "_item";
+                this.logInfo(script);
+                local essence = this.new(script);
                 essence.EL_setAmount(num);
                 _lootTable.push(essence);
             }
