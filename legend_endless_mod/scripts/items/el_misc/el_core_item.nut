@@ -153,6 +153,8 @@ this.el_core_item <- this.inherit("scripts/items/item", {
 
 	function onUse( _actor, _item = null )
 	{
+		_actor.addXP(this.m.EL_XP);
+		_actor.updateLevel();
 		local skill = _actor.getSkills().getSkillByID("el_items.core_skill");
 		if(skill == null) {
 			skill = this.new("scripts/skills/el_items/el_core_skill");
@@ -177,6 +179,7 @@ this.el_core_item <- this.inherit("scripts/items/item", {
 
 	function onSerialize( _out )
 	{
+		_out.writeI32(this.m.EL_XP);
 		for(local i = 0; i < this.Const.Attributes.COUNT; ++i) {
 			_out.writeI32(this.m.EL_PropertiesXP[i]);
 		}
@@ -184,6 +187,7 @@ this.el_core_item <- this.inherit("scripts/items/item", {
 
 	function onDeserialize( _in )
 	{
+		this.m.EL_XP = _in.readI32();
 		for(local i = 0; i < this.Const.Attributes.COUNT; ++i) {
 			this.m.EL_PropertiesXP[i] = _in.readI32();
 		}
