@@ -5,7 +5,7 @@ this.el_core_item <- this.inherit("scripts/items/item", {
 	},
 	function create()
 	{
-		this.m.ID = "accessory.el_core_rank_" + this.m.EL_RankLevel + ".png";
+		this.m.ID = "accessory.el_core_rank_" + this.m.EL_RankLevel;
 		this.m.Name = "Core";
 		this.m.Description = "A core, can be used to strengthen your men or sell it for crowns.";
 		this.m.SlotType = this.Const.ItemSlot.None;
