@@ -37,7 +37,7 @@ this.el_core_skill <- this.inherit("scripts/skills/skill", {
 			text = "Hitpoints [color=" + this.Const.UI.Color.PositiveValue + "]+" +
 				   this.m.EL_Properties[this.Const.Attributes.Hitpoints] +
 				   "[/color] (Next level : [color=" + this.Const.UI.Color.PositiveValue + "]" +
-				   EL_PropertiesXPNeed[this.Const.Attributes.Hitpoints] +
+				   this.m.EL_PropertiesXPNeed[this.Const.Attributes.Hitpoints] +
 				   "[/color] XP)"
 		});
 		ret.push({
@@ -47,7 +47,7 @@ this.el_core_skill <- this.inherit("scripts/skills/skill", {
 			text = "Resolve [color=" + this.Const.UI.Color.PositiveValue + "]+" +
 				   this.m.EL_Properties[this.Const.Attributes.Bravery] +
 				   "[/color] (Next level : [color=" + this.Const.UI.Color.PositiveValue + "]" +
-				   EL_PropertiesXPNeed[this.Const.Attributes.Bravery] +
+				   this.m.EL_PropertiesXPNeed[this.Const.Attributes.Bravery] +
 				   "[/color] XP)"
 		});
 		ret.push({
@@ -57,7 +57,7 @@ this.el_core_skill <- this.inherit("scripts/skills/skill", {
 			text = "Stamina [color=" + this.Const.UI.Color.PositiveValue + "]+" +
 				   this.m.EL_Properties[this.Const.Attributes.Fatigue] +
 				   "[/color] (Next level : [color=" + this.Const.UI.Color.PositiveValue + "]" +
-				   EL_PropertiesXPNeed[this.Const.Attributes.Fatigue] +
+				   this.m.EL_PropertiesXPNeed[this.Const.Attributes.Fatigue] +
 				   "[/color] XP)"
 		});
 		ret.push({
@@ -67,7 +67,7 @@ this.el_core_skill <- this.inherit("scripts/skills/skill", {
 			text = "Initiative [color=" + this.Const.UI.Color.PositiveValue + "]+" +
 				   this.m.EL_Properties[this.Const.Attributes.Initiative] +
 				   "[/color] (Next level : [color=" + this.Const.UI.Color.PositiveValue + "]" +
-				   EL_PropertiesXPNeed[this.Const.Attributes.Initiative] +
+				   this.m.EL_PropertiesXPNeed[this.Const.Attributes.Initiative] +
 				   "[/color] XP)"
 		});
 		ret.push({
@@ -77,7 +77,7 @@ this.el_core_skill <- this.inherit("scripts/skills/skill", {
 			text = "Melee Skill [color=" + this.Const.UI.Color.PositiveValue + "]+" +
 				   this.m.EL_Properties[this.Const.Attributes.MeleeSkill] +
 				   "[/color] (Next level : [color=" + this.Const.UI.Color.PositiveValue + "]" +
-				   EL_PropertiesXPNeed[this.Const.Attributes.MeleeSkill] +
+				   this.m.EL_PropertiesXPNeed[this.Const.Attributes.MeleeSkill] +
 				   "[/color] XP)"
 		});
 		ret.push({
@@ -87,7 +87,7 @@ this.el_core_skill <- this.inherit("scripts/skills/skill", {
 			text = "Ranged Skill [color=" + this.Const.UI.Color.PositiveValue + "]+" +
 				   this.m.EL_Properties[this.Const.Attributes.RangedSkill] +
 				   "[/color] (Next level : [color=" + this.Const.UI.Color.PositiveValue + "]" +
-				   EL_PropertiesXPNeed[this.Const.Attributes.RangedSkill] +
+				   this.m.EL_PropertiesXPNeed[this.Const.Attributes.RangedSkill] +
 				   "[/color] XP)"
 		});
 		ret.push({
@@ -97,7 +97,7 @@ this.el_core_skill <- this.inherit("scripts/skills/skill", {
 			text = "Melee Defense [color=" + this.Const.UI.Color.PositiveValue + "]+" +
 				   this.m.EL_Properties[this.Const.Attributes.MeleeDefense] +
 				   "[/color] (Next level : [color=" + this.Const.UI.Color.PositiveValue + "]" +
-				   EL_PropertiesXPNeed[this.Const.Attributes.MeleeDefense] +
+				   this.m.EL_PropertiesXPNeed[this.Const.Attributes.MeleeDefense] +
 				   "[/color] XP)"
 		});
 		ret.push({
@@ -107,7 +107,7 @@ this.el_core_skill <- this.inherit("scripts/skills/skill", {
 			text = "Ranged Defense [color=" + this.Const.UI.Color.PositiveValue + "]+" +
 				   this.m.EL_Properties[this.Const.Attributes.RangedDefense] +
 				   "[/color] (Next level : [color=" + this.Const.UI.Color.PositiveValue + "]" +
-				   EL_PropertiesXPNeed[this.Const.Attributes.RangedDefense] +
+				   this.m.EL_PropertiesXPNeed[this.Const.Attributes.RangedDefense] +
 				   "[/color] XP)"
 		});
 		return ret;

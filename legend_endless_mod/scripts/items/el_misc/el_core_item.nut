@@ -141,7 +141,7 @@ this.el_core_item <- this.inherit("scripts/items/item", {
 		result.push({
 			id = 65,
 			type = "text",
-			text = "Right-click or drag onto the currently selected character in order to drink. This item will be consumed in the process."
+			text = "Right-click or drag onto the currently selected character in order to use. This item will be consumed in the process."
 		});
 		return result;
 	}
