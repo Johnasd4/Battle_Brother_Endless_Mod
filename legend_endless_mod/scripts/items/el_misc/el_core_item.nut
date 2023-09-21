@@ -134,7 +134,7 @@ this.el_core_item <- this.inherit("scripts/items/item", {
 				type = "text",
 				icon = "ui/icons/ranged_defense.png",
 				text = "Ranged Defense XP [color=" + this.Const.UI.Color.PositiveValue + "]+" +
-					   this.m.EL_Properties[this.Const.Attributes.RangedDefense] +
+					   this.m.EL_PropertiesXP[this.Const.Attributes.RangedDefense] +
 					   "[/color]"
 			});
 		}
