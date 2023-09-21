@@ -159,7 +159,7 @@ this.el_core_item <- this.inherit("scripts/items/item", {
 			_actor.getSkills().add(skill);
 		}
 		for(local i = 0; i < this.Const.Attributes.COUNT; ++i) {
-			skill.EL_addPropertiesXP(this.m.EL_PropertiesXP[i]);
+			skill.EL_addPropertiesXP(this.m.EL_PropertiesXP[i], i);
 		}
 		this.Sound.play("sounds/combat/eat_01.wav", this.Const.Sound.Volume.Inventory);
 		return true;
