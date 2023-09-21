@@ -156,7 +156,7 @@ this.el_core_item <- this.inherit("scripts/items/item", {
 		local skill = _actor.getSkills().getSkillByID("el_items.core_skill");
 		if(skill == null) {
 			skill = this.new("scripts/skills/el_items/el_core_skill");
-			_actor.getSkills().push(skill);
+			_actor.getSkills().add(skill);
 		}
 		for(local i = 0; i < this.Const.Attributes.COUNT; ++i) {
 			skill.EL_addPropertiesXP(this.m.EL_PropertiesXP[i]);
