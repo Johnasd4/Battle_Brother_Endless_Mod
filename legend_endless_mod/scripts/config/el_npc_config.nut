@@ -97,8 +97,8 @@ gt.Const.EL_NPC <- {
 
         EquipmentEssence = {
             CurrentRankMult = 1,
-            NextRankMult = 0.1,
-            DropLevelFactor = 1.1
+            NextRankMult = 0.34,
+            DropLevelMult = 0.04
         }
 
 
