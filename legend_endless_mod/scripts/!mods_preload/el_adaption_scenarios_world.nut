@@ -189,7 +189,7 @@ local gt = getroottable();
 
     });
 
-	::mods_hookExactClass("scenarios/world/cultists_scenario", function(o){
+	::mods_hookExactClass("scenarios/world/deserters_scenario", function(o){
 
         o.setupBro = function( _bro, _faction )
         {
