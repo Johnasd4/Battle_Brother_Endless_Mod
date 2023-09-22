@@ -218,7 +218,7 @@ local gt = getroottable();
             if (_killer == null || _killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals)
             {
                 local rank = 0;
-                local  = this.m.EL_NPCLevel;
+                local level = this.m.EL_NPCLevel;
                 if(this.m.WorldTroop != null && this.m.WorldTroop.EL_IsBossUnit == true) {
                     rank = 3;
                 }
