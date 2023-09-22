@@ -306,6 +306,8 @@ local gt = getroottable();
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Arena).getID());
                             //Stop copying troops.
                             party.EL_setTroopsResourse(0);
+                            party.EL_setHaveRandomLeader(false);
+                            party.EL_setHaveStrongestLeader(false);
                             p.Parties.push(party);
 
                             local baseDifficulty = 30;
@@ -1621,6 +1623,13 @@ local gt = getroottable();
             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Arena).getID());
             //Stop copying troops.
             party.EL_setTroopsResourse(0);
+            party.EL_setHaveStrongestLeader(false);
+            if(this.m.Flags.get("Round") == 3 && this.World.Assets.m.EL_WorldLevel >= 50) {
+                party.EL_setHaveRandomLeader(true);
+            }
+            else {
+                party.EL_setHaveRandomLeader(false);
+            }
             p.Parties.push(party);
 
             local baseDifficulty = 45 + 10 * this.m.Flags.get("Round");
