@@ -15,7 +15,7 @@ local gt = getroottable();
 		o.m.EL_BaseWithRankValue <- 0;
 
 		local onSerialize = o.onSerialize;
-		o.onSerialize = function( _out )
+		o.onSerialize = function( _out ) 
 		{
 			onSerialize(_out);
 			_out.writeI32(this.m.EL_Level);
@@ -28,7 +28,7 @@ local gt = getroottable();
 		}
 
 		local onDeserialize = o.onDeserialize;
-		o.onDeserialize = function( _in )
+		o.onDeserialize = function( _in ) 
 		{
 			onDeserialize(_in);
 			this.m.EL_Level = _in.readI32();
@@ -38,6 +38,18 @@ local gt = getroottable();
 			this.m.EL_BaseWithRankConditionMax = _in.readI32();
 			this.m.EL_BaseNoRankValue = _in.readI32();
 			this.m.EL_BaseWithRankValue = _in.readI32();
+		}
+
+		o.EL_hasEntry <- function( _id )
+		{
+			foreach(entry in this.m.EL_Entrylist)
+			{
+				if(_id == entry.getID())
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 
 		o.EL_addEntryList <- function( _entry )
@@ -57,9 +69,9 @@ local gt = getroottable();
 			return this.m.EL_BaseNoRankConditionMax;
 		}
 
-		o.EL_setBaseNoRankConditionMax <- function( EL_baseNoRankConditionMax )
+		o.EL_setBaseNoRankConditionMax <- function( _EL_baseNoRankConditionMax )
 		{
-			this.m.EL_BaseNoRankConditionMax = EL_baseNoRankConditionMax;
+			this.m.EL_BaseNoRankConditionMax = _EL_baseNoRankConditionMax;
 		}
 
 		o.EL_getBaseWithRankConditionMax <- function()
@@ -67,9 +79,9 @@ local gt = getroottable();
 			return this.m.EL_BaseWithRankConditionMax;
 		}
 
-		o.EL_setBaseWithRankConditionMax <- function( EL_baseWithRankConditionMax )
+		o.EL_setBaseWithRankConditionMax <- function( _EL_baseWithRankConditionMax )
 		{
-			this.m.EL_BaseWithRankConditionMax = EL_baseWithRankConditionMax;
+			this.m.EL_BaseWithRankConditionMax = _EL_baseWithRankConditionMax;
 		}
 
 		o.EL_getBaseNoRankValue <- function()
@@ -77,9 +89,9 @@ local gt = getroottable();
 			return this.m.EL_BaseNoRankValue;
 		}
 
-		o.EL_setBaseNoRankValue <- function( EL_BaseNoRankValue )
+		o.EL_setBaseNoRankValue <- function( _EL_baseNoRankValue )
 		{
-			this.m.EL_BaseNoRankValue = EL_BaseNoRankValue;
+			this.m.EL_BaseNoRankValue = _EL_baseNoRankValue;
 		}
 
 		o.EL_getLevelAddtionStaminaModifier <- function()
@@ -92,11 +104,14 @@ local gt = getroottable();
 			return this.m.EL_Level;
 		}
 
-		o.EL_setLevel <- function( EL_level )
+		o.EL_setLevel <- function( _EL_level )
 		{
-			this.m.EL_Level = EL_level;
-			this.m.EL_CurrentLevel = EL_level;
-			EL_updateLevelProperties();
+			if(this.m.EL_Level != -1)
+			{
+				this.m.EL_Level = this.Math.max(0, this.Math.min(this.m.EL_Level, _EL_level));
+				this.m.EL_CurrentLevel = this.m.EL_Level;
+				EL_updateLevelProperties();
+			}
 		}
 
 		o.EL_getCurrentLevel <- function()
@@ -104,12 +119,15 @@ local gt = getroottable();
 			return this.m.EL_CurrentLevel;
 		}
 
-		o.EL_setCurrentLevel <- function( EL_level )
+		o.EL_setCurrentLevel <- function( _EL_level )
 		{
-			this.m.EL_CurrentLevel = EL_level;
-			local percent = (this.m.Condition * 1.0)/ this.m.ConditionMax;
-			EL_updateLevelProperties();
-			this.m.Condition = this.Math.round(this.m.ConditionMax * percent);
+			if(this.m.EL_Level != -1)
+			{
+				this.m.EL_CurrentLevel = this.Math.max(0, this.Math.min(this.m.EL_Level, _EL_level));
+				local percent = (this.m.Condition * 1.0)/ this.m.ConditionMax;
+				EL_updateLevelProperties();
+				this.m.Condition = this.Math.floor(this.m.ConditionMax * percent);
+			}
 		}
 
 		o.EL_getRankLevel <- function()
@@ -117,15 +135,16 @@ local gt = getroottable();
 			return this.m.EL_RankLevel;
 		}
 
-		o.EL_setRankLevel <- function( EL_rankLevel )
+		o.EL_setRankLevel <- function( _EL_rankLevel )
 		{
-			this.m.EL_RankLevel = EL_rankLevel;
-			EL_recast();
+			this.m.EL_RankLevel = _EL_rankLevel;
+			EL_recraft();
 		}
 
-		o.EL_getLevelAddtionStaminaModifier <- function()
+		o.EL_addRankLevel <- function()
 		{
-			return 0;
+			++this.m.EL_RankLevel;
+			EL_recraft();
 		}
 
 		o.EL_getLevelString <- function()
@@ -138,10 +157,10 @@ local gt = getroottable();
 			return "#ffffff";
 		}
 
-		o.EL_generateByRankAndLevel <- function( EL_rankLevel, EL_level, EL_additionalRarityChance = 0 )
+		o.EL_generateByRankAndLevel <- function( _EL_rankLevel, EL_level, EL_additionalRarityChance = 0 )
 		{
 		}
-
+		
 		o.EL_updateLevelProperties <- function()
 		{
 		}
@@ -166,38 +185,34 @@ local gt = getroottable();
 		{
 		}
 
-		o.EL_getUpgradeEquipmentEssence <- function()
+		o.EL_getUpgradeEssence <- function()
 		{
 			return 0;
 		}
 
-		o.EL_getDisassembleEquipmentEssence <- function()
+		o.EL_getDisassembleEssence <- function()
 		{
 			return 0;
 		}
 
-		o.EL_getRecastEquipmentEssence <- function()
+		o.EL_getRecraftEssence <- function()
 		{
 			return 0;
 		}
-
 	});
 
+	
+	for(local i = 0; i < this.Const.EL_Item_Other.EL_InValidItem.len(); ++i) {	
+		::mods_hookExactClass("items/" + this.Const.EL_Item_Other.EL_InValidItem[i], function ( o )
+		{
+			o.EL_generateByRankAndLevel <- function( _EL_rankLevel, EL_level, EL_additionalRarityChance = 0 )
+			{
+			}
 
-
-	// ::mods_hookNewObjectOnce("ui/global/data_helper", o.( o )
-    // {
-	//     local convertItemToUIData = o.convertItemToUIData;
-	//     o.convertItemToUIData = o.( _item, _forceSmallIcon, _owner = null )
-    // 	{
-    // 		if (_item == null) return null;
-    // 		local result = convertItemToUIData(_item, _forceSmallIcon, _owner);
-    // 		if(_item.isItemType(this.Const.Items.ItemType.Weapon))
-    // 		{
-    // 			result.level <- _item.EL_getItemLevelString();
-    //             //this.logInfo("输入成功");
-	// 	    }
-	//     	return result;
-	//     }
-    // });
+			o.isAmountShown = function()
+			{
+				return false;
+			}
+		});
+	}
 });
