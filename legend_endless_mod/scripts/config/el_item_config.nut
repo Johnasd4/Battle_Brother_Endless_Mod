@@ -6,9 +6,8 @@ if (!("EL_Item" in gt.Const))
 }
 
 gt.Const.EL_Item <- {
-
 	MaxLevel = 100,
-
+	
 	Colour = [
 		"#646464",//gray
 		"#006400",//green
@@ -28,5 +27,4 @@ gt.Const.EL_Item <- {
 		Rare = 5,
 		Special = 6
 	}
-
 };
