@@ -296,7 +296,7 @@ gt.Const.EL_Weapon <- {
 				6
 			],
 			TwoHanded = [
-				100,
+				0,
 				4,
 				8,
 				12,
