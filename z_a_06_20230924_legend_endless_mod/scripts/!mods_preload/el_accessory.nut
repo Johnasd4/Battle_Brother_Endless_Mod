@@ -337,7 +337,7 @@ local gt = getroottable();
         o.create = function()
         {
             create();
-            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Fine, 100);
+            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Fine, 0);
         }
 	});
 
@@ -347,7 +347,7 @@ local gt = getroottable();
         o.create = function()
         {
             create();
-            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Epic, 100);
+            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Epic, 0);
         }
 	});
 });
