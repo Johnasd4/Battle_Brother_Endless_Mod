@@ -6,7 +6,7 @@ this.el_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario
 		this.m.Name = "Test Scenario Name";
 		this.m.Description = "Test description.";
 		this.m.Difficulty = 1;
-		this.m.Order = -1000;
+		this.m.Order = 99999;
 		this.m.IsFixedLook = true;
 		this.m.StartingRosterTier = this.Const.Roster.getTierForSize(12);
 		this.m.RosterTierMax = this.Const.Roster.getTierForSize(21);
