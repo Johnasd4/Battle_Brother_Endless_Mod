@@ -14,7 +14,7 @@ this.el_hitpoints_recovery_rate_entry <- this.inherit("scripts/skills/el_entrys/
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Health Recovery per turn" + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_HitpointsRecoveryRateAddition) + "[/color]"
+			text = "[color=" + colour + "]Health Recovery per turn" + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_HitpointsRecoveryRateAddition) + "%[/color]"
 		};
 		return result;
 	}
