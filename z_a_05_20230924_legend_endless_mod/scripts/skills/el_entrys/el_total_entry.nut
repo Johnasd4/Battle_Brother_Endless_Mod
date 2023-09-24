@@ -12,7 +12,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 
         EL_CombatLevelAddition = 0.0,
         EL_ActionPointAddition = 0,
-		EL_FatigueRecoveryRateAddition = 0,
+		EL_FatigueRecoveryAddition = 0,
 		EL_DamageMultAddition = 0.0,
 		EL_DamageReceivedMultAddition = 0.0,
 		EL_HitpointsRecoveryRateAddition = 0,
@@ -92,7 +92,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 
         this.m.EL_CombatLevelAddition = 0.0;
         this.m.EL_ActionPointAddition = 0;
-		this.m.EL_FatigueRecoveryRateAddition = 0;
+		this.m.EL_FatigueRecoveryAddition = 0;
 		this.m.EL_DamageMultAddition = 0.0;
 		this.m.EL_DamageReceivedMultAddition = 0.0;
 		this.m.EL_HitpointsRecoveryRateAddition = 0;
@@ -245,12 +245,12 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 				text = "Action Points + " + this.m.EL_ActionPointAddition
 			});
 		}
-		if(this.m.EL_FatigueRecoveryRateAddition)
+		if(this.m.EL_FatigueRecoveryAddition)
 		{
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Fatigue Recovery 1 turn + " + this.m.EL_FatigueRecoveryRateAddition
+				text = "Fatigue Recovery 1 turn + " + this.m.EL_FatigueRecoveryAddition
 			});
 		}
 		if(this.m.EL_DamageMultAddition)

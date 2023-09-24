@@ -41,9 +41,12 @@ this.el_condition_recover_rate_entry <- this.inherit("scripts/skills/el_entrys/e
     function onTurnStart()
 	{
         local armor = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Body);
-        local condition_recover = this.Math.round(armor.getConditionMax() * this.m.EL_ConditionRecoverRateAddition);
-        armor.setCondition(this.Math.min(armor.getConditionMax(), armor.getCondition() + condition_recover));
-		this.logInfo("armor entry-turn recover conditon:" + condition_recover);
+		if(armor != null)
+		{
+			local condition_recover = this.Math.round(armor.getConditionMax() * this.m.EL_ConditionRecoverRateAddition * 0.01);
+			armor.setCondition(this.Math.min(armor.getConditionMax(), armor.getCondition() + condition_recover));
+			this.logInfo("armor entry-turn recover conditon:" + condition_recover);
+		}
 	}
 
 	function EL_refreshTotalEntry( _EL_totalEntry )

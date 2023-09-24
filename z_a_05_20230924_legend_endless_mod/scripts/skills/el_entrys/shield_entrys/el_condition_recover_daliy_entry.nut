@@ -41,9 +41,12 @@ this.el_condition_recover_daliy_entry <- this.inherit("scripts/skills/el_entrys/
 	function onNewDay()
 	{
         local shield = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Offhand);
-        local condition_recover = this.Math.round(shield.getConditionMax() * this.m.EL_ConditionRecoverDaliyAddition);
-        shield.setCondition(this.Math.min(shield.getConditionMax(), shield.getCondition() + condition_recover));
-		this.logInfo("shield entry-daliy recover conditon:" + condition_recover);
+		if(shield != null)
+		{
+			local condition_recover = this.Math.round(shield.getConditionMax() * this.m.EL_ConditionRecoverDaliyAddition * 0.01);
+			shield.setCondition(this.Math.min(shield.getConditionMax(), shield.getCondition() + condition_recover));
+			this.logInfo("shield entry-daliy recover conditon:" + condition_recover);
+		}
 	}
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
