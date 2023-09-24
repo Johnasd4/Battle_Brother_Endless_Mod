@@ -715,7 +715,7 @@ local gt = getroottable();
             this.m.Inventory = [];
             this.m.Name = _in.readString();
             this.m.Description = _in.readString();
-            this.m.EL_Faction = _in.writeI32();
+            this.m.EL_Faction = _in.readI32();
             if (this.hasLabel("name"))
             {
                 this.getLabel("name").Text = this.getName();
