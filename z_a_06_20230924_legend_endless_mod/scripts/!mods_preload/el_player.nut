@@ -75,6 +75,25 @@ local gt = getroottable();
 
 		o.updateLevel = function ()
 		{
+			while (this.m.Level > 0 && this.m.XP < this.Const.LevelXP[this.m.Level])
+			{
+				--this.m.Level;
+				--this.m.LevelUps;
+				--this.m.BaseProperties.EL_CombatLevel;
+
+				if(this.m.Level < this.Const.EL_Player.EL_PlayerLevel.Part1){
+					--this.m.PerkPoints;
+				}
+				else if(this.m.Level >= this.Const.EL_Player.EL_PlayerLevel.Part1 &&
+					    (this.Const.EL_Player.EL_PlayerLevel.Max - this.m.Level - 1) % this.Const.EL_Player.EL_Champion.PerkPointFrequency[this.m.EL_RankLevel] == 0){
+					--this.m.PerkPoints;
+				}
+
+				local background = this.getBackground();
+				this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(this.m.Level, background);
+				this.m.Skills.onUpdateLevel();
+
+			}
 			while (this.m.Level < this.Const.LevelXP.len() && this.m.XP >= this.Const.LevelXP[this.m.Level])
 			{
 				if(this.m.Level < this.Const.EL_Player.EL_PlayerLevel.Part1){
