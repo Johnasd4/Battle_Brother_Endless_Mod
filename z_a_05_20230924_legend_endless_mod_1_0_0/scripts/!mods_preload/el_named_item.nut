@@ -1,0 +1,242 @@
+local gt = getroottable();
+
+::mods_registerMod("el_named_item", 1, "el_named_item");
+::mods_queue(null, "el_item", function ()
+{
+	::mods_hookExactClass("items/weapons/named/named_weapon", function ( o )
+	{
+		o.m.EL_RankLevel <- 1;
+		
+		o.randomizeValues = function ()
+		{
+		}
+
+		o.onSerialize = function ( _out )
+		{
+			_out.writeString(this.m.Name);
+		    _out.writeF32(0);
+		    this.weapon.onSerialize(_out);
+		}
+
+		o.onDeserialize = function ( _in )
+		{
+			this.m.Name = _in.readString();
+		    _in.readF32();
+		    this.weapon.onDeserialize(_in);
+		    this.updateVariant();
+
+    		if (this.isRuned())
+	    	{
+	    		this.updateRuneSigil();
+	    	}
+		}
+	});	
+
+	::mods_hookExactClass("items/shields/named/named_shield", function ( o )
+	{
+		o.m.EL_RankLevel <- 1;
+		
+		o.randomizeValues = function ()
+		{
+		}
+
+		o.onSerialize = function ( _out )
+		{
+			this.shield.onSerialize(_out);
+			_out.writeString(this.m.Name);
+		}
+
+		o.onDeserialize = function ( _in )
+		{
+			this.shield.onDeserialize(_in);
+			this.m.Name = _in.readString();
+
+			if (this.isRuned())
+			{
+				this.updateRuneSigil();
+			}
+		}
+	});
+
+	::mods_hookExactClass("items/armor/named/named_armor", function ( o )
+	{
+		o.m.EL_RankLevel <- 1;
+		
+		o.randomizeValues = function ()
+		{
+		}
+
+		o.onSerialize = function ( _out )
+		{
+			this.shield.onSerialize(_out);
+			_out.writeString(this.m.Name);
+		}
+
+		o.onDeserialize = function ( _in )
+		{
+			this.shield.onDeserialize(_in);
+			this.m.Name = _in.readString();
+
+			if (this.isRuned())
+			{
+				this.updateRuneSigil();
+			}
+		}
+	});
+
+	::mods_hookExactClass("items/armor/named/named_armor", function ( o )
+	{
+		o.m.EL_RankLevel <- 1;
+		
+		o.randomizeValues = function ()
+		{
+		}
+
+		o.onSerialize = function ( _out )
+		{
+			this.armor.onSerialize(_out);
+			_out.writeString(this.m.Name);
+		}
+
+		o.onDeserialize = function ( _in )
+		{
+			this.armor.onDeserialize(_in);
+			this.m.Name = _in.readString();
+
+			if (this.isRuned())
+			{
+				this.updateRuneSigil();
+			}
+		}
+	});
+
+	::mods_hookExactClass("items/helmets/named/named_helmet", function ( o )
+	{
+		o.m.EL_RankLevel <- 1;
+		
+		o.randomizeValues = function ()
+		{
+		}
+
+		o.onSerialize = function ( _out )
+		{
+			this.helmet.onSerialize(_out);
+			_out.writeString(this.m.Name);
+		}
+
+		o.onDeserialize = function ( _in )
+		{
+			this.helmet.onDeserialize(_in);
+			this.m.Name = _in.readString();
+
+			if (this.isRuned())
+			{
+				this.updateRuneSigil();
+			}
+		}
+	});
+
+	::mods_hookExactClass("items/legend_armor/legend_cloth_named", function ( o )
+	{
+		o.m.EL_RankLevel <- 1;
+		
+		o.randomizeValues = function ()
+		{
+		}
+
+		o.onSerialize = function ( _out )
+		{
+			_out.writeString(this.m.Name);
+			this.legend_armor.onSerialize(_out);
+		}
+
+		o.onDeserialize = function ( _in )
+		{
+			this.m.Name = _in.readString();
+			this.legend_armor.onDeserialize(_in);
+			this.updateVariant();
+
+			if (this.isRuned())
+			{
+				this.updateRuneSigil();
+			}
+		}
+	});
+
+	::mods_hookExactClass("items/legend_armor/legend_named_armor_upgrade", function ( o )
+	{
+		o.m.EL_RankLevel <- 1;
+		
+		o.randomizeValues = function ()
+		{
+		}
+
+		o.onSerialize = function ( _out )
+		{
+			_out.writeString(this.m.Name);
+			this.legend_armor_upgrade.onSerialize(_out);
+		}
+
+		o.onDeserialize = function ( _in )
+		{
+			this.m.Name = _in.readString();
+			this.legend_armor_upgrade.onDeserialize(_in);
+		}
+	});
+	
+	::mods_hookExactClass("items/legend_armor/legend_named_armor", function ( o )
+	{
+		o.m.EL_RankLevel <- 1;
+		
+		o.randomizeValues = function ()
+		{
+		}
+
+		o.onSerialize = function ( _out )
+		{
+			_out.writeString(this.m.Name);
+			this.legend_armor.onSerialize(_out);
+		}
+
+		o.onDeserialize = function ( _in )
+		{
+			this.m.Name = _in.readString();
+			this.legend_armor.onDeserialize(_in);
+
+			if (this.isRuned())
+			{
+				this.updateRuneSigil();
+			}
+		}
+	});
+	
+	::mods_hookExactClass("items/legend_helmets/legend_named_helmet_upgrade", function ( o )
+	{
+		o.m.EL_RankLevel <- 1;
+		
+		o.randomizeValues = function ()
+		{
+		}
+
+		o.onSerialize = function ( _out )
+		{
+			_out.writeString(this.m.Name);
+		this.legend_helmet_upgrade.onSerialize(_out);
+		}
+
+		o.onDeserialize = function ( _in )
+		{
+			this.m.Name = _in.readString();
+		this.legend_helmet_upgrade.onDeserialize(_in);
+		}
+	})
+
+	for(local i = 0; i < this.Const.EL_Item_Other.EL_SpecialNamedItem.len(); ++i) {	
+		::mods_hookExactClass("items/" + this.Const.EL_Item_Other.EL_SpecialNamedItem[i], function ( o )
+		{
+			o.randomizeValues = function ()
+			{
+			}
+		});
+	}
+});
