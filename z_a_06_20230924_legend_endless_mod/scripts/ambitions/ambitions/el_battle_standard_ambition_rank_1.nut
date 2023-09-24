@@ -37,27 +37,47 @@ this.el_battle_standard_ambition_rank_1 <- this.inherit("scripts/ambitions/ambit
 
 	function onReward()
 	{
-		local item;
 		local stash = this.World.Assets.getStash();
 		local standard = stash.getItemByID("weapon.player_banner");
+		if(standard == null) {
+			local roster = this.World.getPlayerRoster().getAll();
+			foreach( bro in roster )
+			{
+				local item = bro.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+
+				if (item != null && item.getID() == "weapon.player_banner")
+				{
+					standard = item;
+				}
+
+				for( local i = 0; i < bro.getItems().getUnlockedBagSlots(); i = i )
+				{
+					item = bro.getItems().getItemAtBagSlot(i);
+
+					if (item != null && item.getID() == "weapon.player_banner")
+					{
+						standard = item;
+					}
+					i = ++i;
+				}
+			}
+
+		}
 		local level = standard.EL_getLevel();
 		local payment = 5000 - level * 25;
-		stash.remove(standard);
 		this.World.Assets.addMoney(-payment);
 		this.m.SuccessList.push({
 			id = 10,
 			icon = "ui/icons/asset_money.png",
 			text = "You spend [color=" + this.Const.UI.Color.NegativeEventValue + "]" + payment + "[/color] Crowns"
 		});
-		item = this.new("scripts/items/tools/player_banner");
-		item.EL_generateByRankAndLevel(1, 0);
-		item.setVariant(this.World.Assets.getBannerID());
-		stash.add(item);
 		this.m.SuccessList.push({
 			id = 10,
-			icon = "ui/items/" + item.getIcon(),
-			text = "You gain " + this.Const.Strings.getArticle(item.getName()) + item.getName()
+			icon = "ui/items/" + standard.getIcon(),
+			text = "Your standard is now more stronger."
 		});
+		standard.EL_setRankLevel(1);
+		standard.EL_setLevel(0);
 	}
 
 	function onSerialize( _out )
