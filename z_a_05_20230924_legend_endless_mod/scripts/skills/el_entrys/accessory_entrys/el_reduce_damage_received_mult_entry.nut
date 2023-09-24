@@ -46,7 +46,7 @@ this.el_reduce_damage_received_mult_entry <- this.inherit("scripts/skills/el_ent
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
-		_EL_totalEntry.m.EL_DamageReceivedMultAddition += this.m.EL_CurrentLevel * this.m.DamageReceivedMult;
+		_EL_totalEntry.m.EL_DamageReceivedMultAddition += this.m.EL_CurrentLevel * this.m.EL_ReduceDamageReceivedMultAddition;
 	}
     
     function onSerialize( _out )

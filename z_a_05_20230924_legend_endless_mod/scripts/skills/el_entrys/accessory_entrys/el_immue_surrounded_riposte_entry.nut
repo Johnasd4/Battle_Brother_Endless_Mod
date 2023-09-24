@@ -12,7 +12,7 @@ this.el_immue_surrounded_riposte_entry <- this.inherit("scripts/skills/el_entrys
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "Immune Surrounded, Immune Knock Riposte[/color]"
+			text = "[color=" + colour + "]Immune Surrounded, Immune Riposte[/color]"
 		};
 		return result;
 	}

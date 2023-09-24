@@ -1,9 +1,9 @@
-this.el_immue_bleeding_poisoned_fire_miasma_entry <- this.inherit("scripts/skills/el_entrys/accessory_entrys/el_accessory_entry", {
+this.el_immue_stun_root_disarm_entry <- this.inherit("scripts/skills/el_entrys/accessory_entrys/el_accessory_entry", {
 	m = {},
 	function create()
 	{
 		this.el_entry.create();
-		this.m.ID = this.Const.EL_Accessory.EL_Entry.Factor.EL_ImmueBleedingPoisonedFireMiasma.ID;
+		this.m.ID = this.Const.EL_Accessory.EL_Entry.Factor.EL_ImmueStunRootDisarm.ID;
 	}
 
 	function getTooltip( _id )
@@ -12,7 +12,7 @@ this.el_immue_bleeding_poisoned_fire_miasma_entry <- this.inherit("scripts/skill
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "Immune Bleeding, Immune Poisoned, Immune Fire, Immune Miasma[/color]"
+			text = "[color=" + colour + "]Immune Stun, Immune Root, Immune Disarm[/color]"
 		};
 		return result;
 	}
@@ -39,10 +39,9 @@ this.el_immue_bleeding_poisoned_fire_miasma_entry <- this.inherit("scripts/skill
 		this.el_entry.onUpdate(_properties);
 		if(this.m.EL_CurrentLevel)
 		{
-            _properties.IsImmuneToBleeding = true;
-            _properties.IsImmuneToPoison = true;
-            _properties.IsImmuneToFire = true;
-            _properties.IsResistantToMiasma = true;
+            _properties.IsImmuneToStun = true;
+            _properties.IsImmuneToRoot = true;
+            _properties.IsImmuneToDisarm = true;
 		}
 	}
 
@@ -50,7 +49,7 @@ this.el_immue_bleeding_poisoned_fire_miasma_entry <- this.inherit("scripts/skill
 	{
 		if(this.m.EL_CurrentLevel)
 		{
-			_EL_totalEntry.m.EL_ImmueBleedingPoisonedFireMiasma = true;
+			_EL_totalEntry.m.EL_ImmueStunRootDisarm = true;
 		}
 	}
     

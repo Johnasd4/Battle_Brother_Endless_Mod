@@ -12,7 +12,7 @@ this.el_immue_grab_knock_twirl_entry <- this.inherit("scripts/skills/el_entrys/a
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "Immune Grab, Immune Knock Back, Immune Twirl[/color]"
+			text = "[color=" + colour + "]Immune Grab, Immune Knock Back, Immune Twirl[/color]"
 		};
 		return result;
 	}

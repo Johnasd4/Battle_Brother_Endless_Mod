@@ -291,6 +291,74 @@ local gt = getroottable();
             return this.m.EL_Faction;
         }
 
+        o.isPlayerControlled = function()
+        {
+            return this.Const.FactionType.Player == (("getFaction" in this) ? this.getFaction() : this.EL_getFaction());
+        }
+
+        o.isAlliedWithPlayer = function()
+        {
+            local faction = (("getFaction" in this) ? this.getFaction() : this.EL_getFaction());
+            return faction == 0 || faction == this.Const.FactionType.Player || this.World.FactionManager.isAlliedWithPlayer(faction);
+        }
+
+        o.isAlliedWith = function( _p )
+        {
+            local faction = (("getFaction" in this) ? this.getFaction() : this.EL_getFaction());
+            if (faction == 0)
+            {
+                return true;
+            }
+
+            local f = _p;
+
+            if (typeof _p == "instance" || typeof _p == "table")
+            {
+                f = _p.getFaction();
+            }
+
+            return f == faction || this.World.FactionManager.isAllied(faction, f);
+        }
+
+        o. updatePlayerRelation = function()
+        {
+            local faction = (("getFaction" in this) ? this.getFaction() : this.EL_getFaction());
+            if (this.isPlayerControlled())
+            {
+                return;
+            }
+
+            if (!this.hasLabel("name"))
+            {
+                return;
+            }
+
+            if (!this.isAlliedWithPlayer())
+            {
+                if (this.World.FactionManager.getFaction(faction).isPlayerRelationPermanent())
+                {
+                    this.getLabel("name").Color = this.Const.Factions.PermanentHostileColor;
+                }
+                else
+                {
+                    this.getLabel("name").Color = this.Const.Factions.HostileColor;
+                }
+            }
+            else
+            {
+                this.getLabel("name").Color = this.Const.Factions.NeutralColor;
+            }
+        }
+
+        o.onDiscovered = function()
+        {
+            local faction = (("getFaction" in this) ? this.getFaction() : this.EL_getFaction());
+            if (!this.World.State.isPaused() && this.isAttackable() && faction != 0 && !this.isAlliedWithPlayer())
+            {
+                this.World.State.playEnemyDiscoveredSound();
+            }
+        }
+
         local getTroops = o.getTroops;
 		o.getTroops = function()
         {
@@ -521,6 +589,7 @@ local gt = getroottable();
         {
             _out.writeString(this.m.Name);
             _out.writeString(this.m.Description);
+            _out.writeI32(this.m.EL_Faction);
             _out.writeU8(this.Math.min(255, this.m.Troops.len()));
 
             foreach( t in this.m.Troops )
@@ -646,7 +715,7 @@ local gt = getroottable();
             this.m.Inventory = [];
             this.m.Name = _in.readString();
             this.m.Description = _in.readString();
-
+            this.m.EL_Faction = _in.writeI32();
             if (this.hasLabel("name"))
             {
                 this.getLabel("name").Text = this.getName();
@@ -662,7 +731,7 @@ local gt = getroottable();
                 troop.Strength = _in.readF32();
                 troop.Row = _in.readI8();
                 troop.Party = this.WeakTableRef(this);
-                troop.Faction = this.getFaction();
+                troop.Faction = (("getFaction" in this) ? this.getFaction() : this.EL_getFaction());
 
 
 
@@ -777,7 +846,7 @@ local gt = getroottable();
                 troop.Strength = _in.readF32();
                 troop.Row = _in.readI8();
                 troop.Party = this.WeakTableRef(this);
-                troop.Faction = this.getFaction();
+                troop.Faction = (("getFaction" in this) ? this.getFaction() : this.EL_getFaction());
 
                 if (_in.getMetaData().getVersion() >= 48)
                 {
@@ -854,6 +923,10 @@ local gt = getroottable();
 
 
             _in.readBool();
+        }
+
+        o.EL_getTroopsResourse <- function() {
+            return this.m.EL_TroopsResourse;
         }
 
         o.EL_setTroopsResourse <- function( _EL_troopsResourse ) {
@@ -1485,14 +1558,13 @@ local gt = getroottable();
     {
         local troop = clone _troop.Type;
         troop.Party <- this.WeakTableRef(_party);
-        troop.Faction <- _party.getFaction();
+        troop.Faction <- ("getFaction" in _party) ? _party.getFaction() : _party.EL_getFaction();
         troop.Name <- "";
         troop.EL_EliteChance <- _minibossify + this.World.Assets.m.ChampionChanceAdditional + troop.Variant;
         troop.EL_ExtraCombatLevel <- 0;
         troop.EL_RankLevel <- _EL_RankLevel;
         troop.EL_IsBossUnit <- false;
         troop.EL_UnitInfo <- null;
-
         _party.EL_addTroop(troop);
         if (_updateStrength)
         {

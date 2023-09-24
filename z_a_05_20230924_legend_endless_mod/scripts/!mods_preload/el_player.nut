@@ -216,7 +216,15 @@ local gt = getroottable();
 			}
 		}
 
-		o.addXP = function ( _xp, _scale = true )
+		o.EL_setLevel <- function(_EL_level) {
+			if(_EL_level >= this.Const.LevelXP.len()) {
+				_EL_level = this.Const.LevelXP.len() - 1;
+			}
+			this.m.XP = this.Const.LevelXP[_EL_level - 1];
+			this.updateLevel();
+		}
+
+		o.addXP = function( _xp, _scale = true )
 		{
 			if (this.m.Level >= this.Const.LevelXP.len() || this.isGuest())
 			{

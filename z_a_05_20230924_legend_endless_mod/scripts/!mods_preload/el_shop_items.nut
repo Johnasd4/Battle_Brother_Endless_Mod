@@ -1809,6 +1809,7 @@ local gt = getroottable();
             {
                 local r = i.R;
                 local p = this.Math.rand(0, 100) * rarityMult;
+                //this.logInfo(i.S+" r:"+r+" p:"+p);
                 if( p >= r )
                 {
                     r = r + p;
@@ -1887,7 +1888,7 @@ local gt = getroottable();
                         local isMedicine = item.getID() == "supplies.medicine";
                         local isMineral = item.getID() == "misc.uncut_gems" || item.getID() == "misc.copper_ingots" || item.getID() == "misc.gold_ingots" || item.getID() == "misc.iron_ingots";
                         local isBuilding = item.getID() == "misc.quality_wood" || item.getID() == "misc.copper_ingots" || item.getID() == "misc.tin_ingots" || item.getID() == "misc.iron_ingots";
-                        
+                        //this.logInfo(" isFood："+isFood+" p："+p+" r:"+r);
                         while (p >= r && num < EL_maxNumitems)
                         {
                             ++num;
@@ -1899,10 +1900,13 @@ local gt = getroottable();
                             }
                         }
                         
+                        //this.logInfo("final p："+p+" r:"+r);
                         num += p / r;
                         num = this.Math.floor(num * (1 + EL_worldLevel * this.Const.EL_Shop.EL_ItemNumberLevelFactor));
                         local EL_maxNum = (!isTrader && item.isItemType(this.Const.Items.ItemType.TradeGood)) ? EL_maxNumitems : EL_maxNum;
                         EL_maxNum = (num > EL_maxNum) ? EL_maxNum : num;
+                        
+                        //this.logInfo("生成运算中EL_maxNum" + EL_maxNum);
                         for(local index = 0; index < EL_maxNum; ++index)
                         {
                             if (isHelm)
@@ -1937,11 +1941,13 @@ local gt = getroottable();
                                 item = this.new("scripts/items/" + i.S);
                             }
                             
-                            if (!isFood || p * foodRarityMult >= r)
+                            //this.logInfo("item ID:"+item.getID());
+                            
+                            if (!isFood || p * foodRarityMult >= i.R)
                             {
-                                if (!isMedicine || p * medicineRarityMult >= r)
+                                if (!isMedicine || p * medicineRarityMult >= i.R)
                                 {
-                                    if (!isMineral || p * mineralRarityMult >= r)
+                                    if (!isMineral || p * mineralRarityMult >= i.R)
                                     {
                                         if (!isBuilding || p * buildingRarityMult >= r)
                                         {

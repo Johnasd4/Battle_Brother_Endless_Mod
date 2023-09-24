@@ -46,7 +46,7 @@ this.el_initiative_entry <- this.inherit("scripts/skills/el_entrys/accessory_ent
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
-		_EL_totalEntry.m.EL_InitiativeAddition += this.Math.round(this.m.EL_CurrentLevel * this.m.Initiative);
+		_EL_totalEntry.m.EL_InitiativeAddition += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_InitiativeAddition);
 	}
     
     function onSerialize( _out )

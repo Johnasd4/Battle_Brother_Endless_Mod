@@ -12,7 +12,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 
         EL_CombatLevelAddition = 0.0,
         EL_ActionPointAddition = 0,
-		EL_FatigueRecoverAddition = 0,
+		EL_FatigueRecoveryRateAddition = 0,
 		EL_DamageMultAddition = 0.0,
 		EL_DamageReceivedMultAddition = 0.0,
 		EL_HitpointsRecoveryRateAddition = 0,
@@ -92,7 +92,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 
         this.m.EL_CombatLevelAddition = 0.0;
         this.m.EL_ActionPointAddition = 0;
-		this.m.EL_FatigueRecoverAddition = 0;
+		this.m.EL_FatigueRecoveryRateAddition = 0;
 		this.m.EL_DamageMultAddition = 0.0;
 		this.m.EL_DamageReceivedMultAddition = 0.0;
 		this.m.EL_HitpointsRecoveryRateAddition = 0;
@@ -245,12 +245,12 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 				text = "Action Points + " + this.m.EL_ActionPointAddition
 			});
 		}
-		if(this.m.EL_FatigueRecoverAddition)
+		if(this.m.EL_FatigueRecoveryRateAddition)
 		{
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Fatigue Recovery 1 turn + " + this.m.EL_FatigueRecoverAddition
+				text = "Fatigue Recovery 1 turn + " + this.m.EL_FatigueRecoveryRateAddition
 			});
 		}
 		if(this.m.EL_DamageMultAddition)
@@ -548,7 +548,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Immune Surrounded, Immune Knock Riposte"
+				text = "Immune Surrounded, Immune Riposte"
 			});
 		}
 		return result;

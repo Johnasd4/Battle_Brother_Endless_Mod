@@ -209,7 +209,7 @@ local gt = getroottable();
 			{
 			}
 
-			o.isAmountShown = function()
+			o.isAmountShown <- function()
 			{
 				return false;
 			}
