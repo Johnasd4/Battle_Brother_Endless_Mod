@@ -46,7 +46,7 @@ this.el_fatigue_recover_entry <- this.inherit("scripts/skills/el_entrys/el_entry
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
-		_EL_totalEntry.m.EL_FatigueRecoveryAddition += this.m.EL_FatigueRecoverAddition;
+		_EL_totalEntry.m.EL_FatigueRecoverAddition += this.m.EL_FatigueRecoverAddition;
 	}
     
     function onSerialize( _out )
