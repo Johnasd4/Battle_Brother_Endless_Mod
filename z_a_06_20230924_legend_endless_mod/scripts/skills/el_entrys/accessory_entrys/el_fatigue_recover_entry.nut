@@ -41,12 +41,12 @@ this.el_fatigue_recover_entry <- this.inherit("scripts/skills/el_entrys/accessor
 	function onUpdate( _properties )
 	{
 		this.el_entry.onUpdate(_properties);
-		_properties.EL_FatigueRecoveryRate += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_FatigueRecoverAddition);
+		_properties.FatigueRecoveryRate += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_FatigueRecoverAddition);
 	}
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
-		_EL_totalEntry.m.EL_FatigueRecoveryAddition += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_FatigueRecoverAddition);
+		_EL_totalEntry.m.EL_FatigueRecoverAddition += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_FatigueRecoverAddition);
 	}
     
     function onSerialize( _out )
