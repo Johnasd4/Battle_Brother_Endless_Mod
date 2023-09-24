@@ -124,9 +124,8 @@ local gt = getroottable();
 			if(this.m.EL_Level != -1)
 			{
 				this.m.EL_CurrentLevel = this.Math.max(0, this.Math.min(this.m.EL_Level, _EL_level));
-				local percent = (this.m.Condition * 1.0)/ this.m.ConditionMax;
 				EL_updateLevelProperties();
-				this.m.Condition = this.Math.floor(this.m.ConditionMax * percent);
+				this.m.Condition = (this.m.Condition > this.m.ConditionMax) ? this.m.ConditionMax : this.m.Condition;
 			}
 		}
 
