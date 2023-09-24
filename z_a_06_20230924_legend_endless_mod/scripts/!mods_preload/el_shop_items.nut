@@ -1335,83 +1335,93 @@ local gt = getroottable();
     
     ::mods_hookExactClass("entity/world/settlements/buildings/armorsmith_oriental_building", function ( o )
 	{
-        o.onUpdateShopList = function ()
-		{
-            local list = [
+            o.onUpdateShopList = function ()
+            {
+                local list = [
                 {
-                    R = 10,
+                    R = 0,
                     P = 1.0,
-                    S = "weapons/militia_spear"
-                },
-                {
-                    R = 20,
-                    P = 1.0,
-                    S = "weapons/pitchfork"
+                    S = "armor/oriental/linothorax"
                 },
                 {
                     R = 10,
-                    P = 1.0,
-                    S = "weapons/knife"
-                },
-                {
-                    R = 30,
-                    P = 1.0,
-                    S = "weapons/short_bow"
-                },
-                {
-                    R = 60,
-                    P = 1.0,
-                    S = "weapons/oriental/composite_bow"
-                },
-                {
-                    R = 30,
-                    P = 1.0,
-                    S = "weapons/javelin"
-                },
-                {
-                    R = 40,
-                    P = 1.0,
-                    S = "weapons/oriental/saif"
-                },
-                {
-                    R = 70,
-                    P = 1.0,
-                    S = "weapons/scimitar"
-                },
-                {
-                    R = 40,
-                    P = 1.0,
-                    S = "weapons/oriental/light_southern_mace"
-                },
-                {
-                    R = 70,
-                    P = 1.0,
-                    S = "weapons/oriental/firelance"
-                },
-                {
-                    R = 30,
-                    P = 1.0,
-                    S = "ammo/quiver_of_arrows"
-                },
-                {
-                    R = 10,
-                    P = 1.0,
-                    S = "armor/oriental/cloth_sash"
-                },
-                {
-                    R = 40,
-                    P = 1.0,
-                    S = "armor/oriental/nomad_robe"
-                },
-                {
-                    R = 20,
                     P = 1.0,
                     S = "armor/oriental/padded_vest"
                 },
                 {
+                    R = 40,
+                    P = 1.0,
+                    S = "armor/oriental/mail_and_lamellar_plating"
+                },
+                {
+                    R = 60,
+                    P = 1.0,
+                    S = "armor/oriental/padded_mail_and_lamellar_hauberk"
+                },
+                {
+                    R = 35,
+                    P = 1.0,
+                    S = "armor/oriental/southern_long_mail_with_padding"
+                },
+                {
+                    R = 25,
+                    P = 1.0,
+                    S = "armor/oriental/southern_mail_shirt"
+                },
+                {
+                    R = 50,
+                    P = 1.0,
+                    S = "armor/mail_shirt"
+                },
+                {
+                    R = 70,
+                    P = 1.0,
+                    S = "armor/mail_hauberk"
+                },
+                {
+                    R = 70,
+                    P = 1.0,
+                    S = "armor/scale_armor"
+                },
+                {
+                    R = 85,
+                    P = 1.0,
+                    S = "armor/lamellar_harness"
+                },
+                {
+                    R = 85,
+                    P = 1.0,
+                    S = "armor/heavy_lamellar_armor"
+                },
+                {
                     R = 30,
                     P = 1.0,
-                    S = "armor/oriental/linothorax"
+                    S = "shields/oriental/southern_light_shield"
+                },
+                {
+                    R = 30,
+                    P = 1.0,
+                    S = "shields/oriental/southern_light_shield"
+                },
+                {
+                    R = 30,
+                    P = 1.0,
+                    S = "shields/oriental/southern_light_shield"
+                },
+                {
+                    R = 30,
+                    P = 1.0,
+                    S = "shields/oriental/metal_round_shield"
+                },
+                {
+                    R = 30,
+                    P = 1.0,
+                    S = "shields/oriental/metal_round_shield"
+                },
+                {
+                    R = 40,
+                    P = 1.0,
+                    S = "helmets/oriental/heavy_lamellar_helmet"
                 },
                 {
                     R = 0,
@@ -1419,9 +1429,24 @@ local gt = getroottable();
                     S = "helmets/oriental/southern_head_wrap"
                 },
                 {
-                    R = 10,
+                    R = 30,
                     P = 1.0,
-                    S = "helmets/oriental/southern_head_wrap"
+                    S = "helmets/oriental/southern_helmet_with_coif"
+                },
+                {
+                    R = 30,
+                    P = 1.0,
+                    S = "helmets/oriental/kamy_southern_helmet"
+                },
+                {
+                    R = 20,
+                    P = 1.0,
+                    S = "helmets/oriental/spiked_skull_cap_with_mail"
+                },
+                {
+                    R = 65,
+                    P = 1.0,
+                    S = "helmets/oriental/turban_helmet"
                 },
                 {
                     R = 30,
@@ -1429,180 +1454,55 @@ local gt = getroottable();
                     S = "helmets/oriental/wrapped_southern_helmet"
                 },
                 {
-                    R = 40,
-                    P = 1.0,
-                    S = "helmets/oriental/spiked_skull_cap_with_mail"
-                },
-                {
-                    R = 15,
-                    P = 1.0,
-                    S = "shields/oriental/southern_light_shield"
-                },
-                {
-                    R = 0,
-                    P = 1.0,
-                    S = "supplies/rice_item"
-                },
-                {
-                    R = 50,
-                    P = 1.0,
-                    S = "supplies/rice_item"
-                },
-                {
-                    R = 0,
-                    P = 1.0,
-                    S = "supplies/medicine_item"
-                },
-                {
-                    R = 0,
-                    P = 1.0,
-                    S = "supplies/medicine_item"
-                },
-                {
-                    R = 50,
-                    P = 1.0,
-                    S = "supplies/medicine_item"
-                },
-                {
-                    R = 0,
-                    P = 1.0,
-                    S = "supplies/ammo_item"
-                },
-                {
-                    R = 0,
-                    P = 1.0,
-                    S = "supplies/ammo_item"
-                },
-                {
-                    R = 50,
-                    P = 1.0,
-                    S = "supplies/ammo_item"
-                },
-                {
-                    R = 0,
-                    P = 1.0,
-                    S = "supplies/armor_parts_item"
-                },
-                {
-                    R = 0,
-                    P = 1.0,
-                    S = "supplies/armor_parts_item"
-                },
-                {
-                    R = 10,
-                    P = 1.0,
-                    S = "supplies/armor_parts_item"
-                },
-                {
-                    R = 50,
-                    P = 1.0,
-                    S = "supplies/armor_parts_item"
-                },
-                {
-                    R = 10,
-                    P = 1.0,
-                    S = "accessory/bandage_item"
-                },
-                {
-                    R = 20,
-                    P = 1.0,
-                    S = "tools/throwing_net"
-                },
-                {
                     R = 60,
                     P = 1.0,
-                    S = "helmets/legend_earings"
-                },
-                {
-                    R = 60,
-                    P = 1.0,
-                    S = "helmets/legend_headband_coin"
-                },
-                {
-                    R = 50,
-                    P = 1.0,
-                    S = "helmets/legend_southern_cloth_headress"
-                },
-                {
-                    R = 40,
-                    P = 1.0,
-                    S = "helmets/legend_southern_veil"
-                },
-                {
-                    R = 80,
-                    P = 1.0,
-                    S = "helmets/legend_southern_veil_coin"
-                },
-                {
-                    R = 70,
-                    P = 1.0,
-                    S = "helmets/legend_headress_coin"
+                    S = "helmets/mail_coif"
                 }
             ];
 
-            if (this.m.Settlement.getSize() >= 2 && !this.m.Settlement.hasAttachedLocation("attached_location.fishing_huts"))
+            if (!::Legends.Mod.ModSettings.getSetting("UnlayeredArmor").getValue())
             {
-                list.push({
-                    R = 50,
-                    P = 1.0,
-                    S = "supplies/dried_fish_item"
-                });
+                foreach( i in this.Const.Items.LegendNamedSouthernArmorLayers )
+                {
+                    if (this.Math.rand(1, 100) <= 33)
+                    {
+                        list.push({
+                            R = 99,
+                            P = 2.0,
+                            S = i
+                        });
+                    }
+                }
             }
 
-            if (this.m.Settlement.getSize() >= 3 && !this.m.Settlement.hasAttachedLocation("attached_location.goat_herd"))
+            foreach( i in this.Const.Items.NamedArmors )
             {
-                list.push({
-                    R = 50,
-                    P = 1.0,
-                    S = "supplies/goat_cheese_item"
-                });
-                list.push({
-                    R = 50,
-                    P = 1.0,
-                    S = "supplies/dried_lamb_item"
-                });
+                if (this.Math.rand(1, 100) <= 33)
+                {
+                    list.push({
+                        R = 99,
+                        P = 2.0,
+                        S = i
+                    });
+                }
             }
 
-            if (this.m.Settlement.getSize() >= 3 && !this.m.Settlement.hasAttachedLocation("attached_location.plantation"))
+            foreach( i in this.Const.Items.NamedHelmets )
             {
-                list.push({
-                    R = 50,
-                    P = 1.0,
-                    S = "supplies/dates_item"
-                });
+                if (this.Math.rand(1, 100) <= 33)
+                {
+                    list.push({
+                        R = 99,
+                        P = 2.0,
+                        S = i
+                    });
+                }
             }
 
-            if (!this.m.Settlement.hasAttachedLocation("attached_location.wheat_farm"))
-            {
-                list.push({
-                    R = 30,
-                    P = 1.0,
-                    S = "supplies/bread_item"
-                });
-            }
-
-            if (this.m.Settlement.getSize() >= 3)
+            if (this.Const.DLC.Unhold && ::Legends.Mod.ModSettings.getSetting("UnlayeredArmor").getValue())
             {
                 list.push({
                     R = 60,
-                    P = 1.0,
-                    S = "supplies/cured_rations_item"
-                });
-            }
-
-            if (this.m.Settlement.getSize() >= 3 || this.m.Settlement.isMilitary())
-            {
-                list.push({
-                    R = 90,
-                    P = 1.0,
-                    S = "accessory/falcon_item"
-                });
-            }
-
-            if (this.Const.DLC.Unhold && ::Legends.Mod.ModSettings.getSetting("UnlayeredArmor").getValue() && (this.m.Settlement.isMilitary() && this.m.Settlement.getSize() >= 3 || this.m.Settlement.getSize() >= 2))
-            {
-                list.push({
-                    R = 65,
                     P = 1.0,
                     S = "misc/paint_set_item"
                 });
@@ -1636,33 +1536,93 @@ local gt = getroottable();
                     P = 1.0,
                     S = "misc/paint_white_green_yellow_item"
                 });
-            }
 
-            if (this.Const.DLC.Unhold)
-            {
-                list.extend([
-                    {
-                        R = 90,
-                        P = 1.0,
-                        S = "weapons/two_handed_wooden_hammer"
-                    },
-                    {
-                        R = 80,
-                        P = 1.0,
-                        S = "weapons/throwing_spear"
-                    }
-                ]);
-            }
-
-            if (this.Const.DLC.Wildmen)
-            {
-                list.extend([
-                    {
-                        R = 50,
-                        P = 1.0,
-                        S = "weapons/warfork"
-                    }
-                ]);
+                if (::Legends.Mod.ModSettings.getSetting("UnlayeredArmor").getValue())
+                {
+                    list.push({
+                        R = 85,
+                        P = 1.25,
+                        S = "armor_upgrades/metal_plating_upgrade"
+                    });
+                    list.push({
+                        R = 85,
+                        P = 1.25,
+                        S = "armor_upgrades/metal_pauldrons_upgrade"
+                    });
+                    list.push({
+                        R = 85,
+                        P = 1.25,
+                        S = "armor_upgrades/mail_patch_upgrade"
+                    });
+                    list.push({
+                        R = 85,
+                        P = 1.25,
+                        S = "armor_upgrades/leather_shoulderguards_upgrade"
+                    });
+                    list.push({
+                        R = 85,
+                        P = 1.25,
+                        S = "armor_upgrades/leather_neckguard_upgrade"
+                    });
+                    list.push({
+                        R = 85,
+                        P = 1.25,
+                        S = "armor_upgrades/joint_cover_upgrade"
+                    });
+                    list.push({
+                        R = 85,
+                        P = 1.25,
+                        S = "armor_upgrades/heraldic_plates_upgrade"
+                    });
+                    list.push({
+                        R = 85,
+                        P = 1.25,
+                        S = "armor_upgrades/double_mail_upgrade"
+                    });
+                }
+                else
+                {
+                    list.push({
+                        R = 85,
+                        P = 1.25,
+                        S = "legend_armor/armor_upgrades/legend_metal_plating_upgrade"
+                    });
+                    list.push({
+                        R = 85,
+                        P = 1.25,
+                        S = "legend_armor/armor_upgrades/legend_metal_pauldrons_upgrade"
+                    });
+                    list.push({
+                        R = 85,
+                        P = 1.25,
+                        S = "legend_armor/armor_upgrades/legend_mail_patch_upgrade"
+                    });
+                    list.push({
+                        R = 85,
+                        P = 1.25,
+                        S = "legend_armor/armor_upgrades/legend_leather_shoulderguards_upgrade"
+                    });
+                    list.push({
+                        R = 85,
+                        P = 1.25,
+                        S = "legend_armor/armor_upgrades/legend_leather_neckguard_upgrade"
+                    });
+                    list.push({
+                        R = 85,
+                        P = 1.25,
+                        S = "legend_armor/armor_upgrades/legend_joint_cover_upgrade"
+                    });
+                    list.push({
+                        R = 85,
+                        P = 1.25,
+                        S = "legend_armor/armor_upgrades/legend_heraldic_plates_upgrade"
+                    });
+                    list.push({
+                        R = 85,
+                        P = 1.25,
+                        S = "legend_armor/armor_upgrades/legend_double_mail_upgrade"
+                    });
+                }
             }
             //EL_OVERRIDE
             list.push({

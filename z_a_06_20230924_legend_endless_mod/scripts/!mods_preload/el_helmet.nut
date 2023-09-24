@@ -125,6 +125,7 @@ local gt = getroottable();
             this.m.EL_BaseNoRankStaminaModifier = _in.readI32();
             this.m.EL_BaseWithRankStaminaModifier = _in.readI32();
 			this.m.Vision = _in.readI8();
+			EL_updateLevelProperties();
 		}
 
 		o.isAmountShown = function()
@@ -755,6 +756,7 @@ local gt = getroottable();
 			}
 			_out.writeI32(this.m.EL_BaseNoRankStaminaModifier);
 			_out.writeI32(this.m.EL_BaseWithRankStaminaModifier);
+			_out.writeF32(this.m.Condition);
 		}
 
 		local onDeserialize = o.onDeserialize;
@@ -770,6 +772,8 @@ local gt = getroottable();
 			}
             this.m.EL_BaseNoRankStaminaModifier = _in.readI32();
             this.m.EL_BaseWithRankStaminaModifier = _in.readI32();
+			EL_updateLevelProperties();
+            this.m.Condition = _in.readF32();
 		}
 
 		o.isAmountShown = function()

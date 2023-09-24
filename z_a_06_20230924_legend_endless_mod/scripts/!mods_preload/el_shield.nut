@@ -120,6 +120,7 @@ local gt = getroottable();
 			_out.writeI32(this.m.EL_BaseWithRankMeleeDefense);
 			_out.writeI32(this.m.EL_BaseWithRankRangedDefense);
 			_out.writeI32(this.m.EL_BaseWithRankStaminaModifier);
+			_out.writeF32(this.m.Condition);
 		}
 
 		local onDeserialize = o.onDeserialize;
@@ -145,6 +146,8 @@ local gt = getroottable();
             this.m.EL_BaseWithRankMeleeDefense = _in.readI32();
 			this.m.EL_BaseWithRankRangedDefense = _in.readI32();
 			this.m.EL_BaseWithRankStaminaModifier = _in.readI32();
+			EL_updateLevelProperties();
+			this.m.Condition = _in.readF32();
 		}
 
 		o.isAmountShown = function()
