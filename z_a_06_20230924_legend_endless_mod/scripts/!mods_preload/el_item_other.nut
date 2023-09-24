@@ -165,6 +165,7 @@ local gt = getroottable();
 	});
 
 	::mods_hookExactClass("items/item_container", function(o) {
+		while(!("addToBag" in o)) o = o[o.SuperName];
         local addToBag = o.addToBag;
         o.addToBag = function( _item, _slot = -1, _force = false )
         {
@@ -188,13 +189,13 @@ local gt = getroottable();
                     _item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
                 }
             }
-            this.logInfo("item generate: LV"+_item.m.EL_Level+"rank:"+_Item.m.EL_RankLevel);
+            //this.logInfo("item generate: LV"+_item.m.EL_Level+"rank:"+_Item.m.EL_RankLevel);
             addToBag( _item, _slot, _force );
         }
 	});
 
-    ::mods_hookExactClass("items/stash_container", function(o) {
-		// while(!("add" in o)) o = o[o.SuperName];
+    ::mods_hookClass("items/stash_container", function(o) {
+		while(!("add" in o)) o = o[o.SuperName];
         local add = o.add;
         o.add = function( _item )
         {
