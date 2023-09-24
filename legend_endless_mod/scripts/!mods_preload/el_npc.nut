@@ -218,15 +218,15 @@ local gt = getroottable();
             if (_killer == null || _killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals)
             {
                 local rank = 0;
-                local level = this.Math.min(this.Const.EL_NPC.EL_Troop.MaxCalculateLevel, this.m.EL_NPCLevel);
+                local level = this.m.EL_NPCLevel;
                 if(this.m.WorldTroop != null && this.m.WorldTroop.EL_IsBossUnit == true) {
                     rank = 3;
                 }
                 else {
                     rank = this.m.WorldTroop.EL_RankLevel;
                 }
-                local num_1 = this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.CurrentRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level));
-                local num_2 = this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.NextRankMult * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelFactor, level));
+                local num_1 = this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.CurrentRankMult * this.Math.pow(1 + this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelMult * level, this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropPowFactor));
+                local num_2 = this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.NextRankMult * this.Math.pow(1 + this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelMult * level, this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropPowFactor));
                 if (this.m.WorldTroop != null && ("Party" in this.m.WorldTroop) && this.m.WorldTroop.Party != null && !this.m.WorldTroop.Party.isNull())
                 {
                     this.m.WorldTroop.Party.EL_addEquipmentEssence(rank, num_1);
