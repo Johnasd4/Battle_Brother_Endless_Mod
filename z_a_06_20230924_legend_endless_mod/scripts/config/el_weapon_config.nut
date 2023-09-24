@@ -470,10 +470,10 @@ gt.Const.EL_Weapon <- {
 					1666
 				],
 				ColourRange = [
-					120,
-					123.33,
-					126.66,
-					130
+					20,
+					23.33,
+					26.66,
+					30
 				]
 			},
 			EL_DirectDamageAdd = {
