@@ -184,6 +184,7 @@ local gt = getroottable();
 			onSerialize(_out);
 
 			_out.writeU8(this.m.EL_Entrylist.len());
+			this.logInfo(this.m.EL_Entrylist.len());
 			if(this.m.EL_Entrylist.len() != 0)
 			{
 				foreach(entry in this.m.EL_Entrylist)
@@ -228,6 +229,7 @@ local gt = getroottable();
 			_out.writeI32(this.m.EL_BaseWithRankAdditionalAccuracy);
 			_out.writeI32(this.m.EL_BaseWithRankFatigueOnSkillUse);
 			_out.writeI32(this.m.EL_BaseWithRankRangeMax);
+			_out.writeF32(this.m.Condition);
 		}
 
 		local onDeserialize = o.onDeserialize;
@@ -236,6 +238,7 @@ local gt = getroottable();
 			onDeserialize(_in);
 
 			local EL_EntrylistLen = _in.readU8();
+			this.logInfo(EL_EntrylistLen);
 			for( local i = 0; i != EL_EntrylistLen; ++i )
 			{
 				local entry = this.new(this.IO.scriptFilenameByHash(_in.readI32()));
@@ -277,6 +280,8 @@ local gt = getroottable();
 			this.m.EL_BaseWithRankAdditionalAccuracy = _in.readI32();
 			this.m.EL_BaseWithRankFatigueOnSkillUse = _in.readI32();
 			this.m.EL_BaseWithRankRangeMax = _in.readI32();
+			EL_updateLevelProperties();
+			this.m.Condition = _in.readF32();
 		}
 
 		o.isAmountShown = function()

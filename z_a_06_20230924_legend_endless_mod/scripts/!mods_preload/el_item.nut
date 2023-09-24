@@ -111,6 +111,7 @@ local gt = getroottable();
 				this.m.EL_Level = this.Math.max(0, this.Math.min(this.m.EL_Level, _EL_level));
 				this.m.EL_CurrentLevel = this.m.EL_Level;
 				EL_updateLevelProperties();
+				this.m.Condition = (this.m.Condition > this.m.ConditionMax) ? this.m.ConditionMax : this.m.Condition;
 			}
 		}
 
