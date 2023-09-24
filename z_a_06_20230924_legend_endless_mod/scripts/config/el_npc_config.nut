@@ -603,7 +603,7 @@ gt.Const.EL_NPC <- {
                 BraveryOffset = [0, 40, 100],
                 MoraleCheckChance = [0, 40, 100],
                 BaseOffset = 50,
-                RankFactor = 25,
+                RankFactor = 10,
                 CombatLevelFactor = 1.04,
                 DistanceFactor = 3
             },
