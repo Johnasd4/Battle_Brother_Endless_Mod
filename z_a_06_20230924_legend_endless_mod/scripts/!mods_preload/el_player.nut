@@ -431,7 +431,7 @@ local gt = getroottable();
 			}
 
 			setStartValuesEx(_backgrounds, _addTraits, _gender, _addEquipment);
-			this.Const.EL_Player.EL_PerkTree.EL_AddRandomPerkTreeToPlayer(this, this.Const.EL_Player.EL_Talent.RankBonus[this.m.EL_RankLevel]);
+			this.Const.EL_Player.EL_PerkTree.EL_AddRandomPerkTreeToPlayer(this, this.Const.EL_Player.EL_Champion.PerksOffset[this.m.EL_RankLevel]);
 			this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(this.m.Level, this.m.Background);
 		};
 

@@ -107,8 +107,8 @@ gt.Const.EL_Player <- {
         ],
         PerksOffset = [
             0,
-            14,
-            35
+            20,
+            50
         ],
     }
 
