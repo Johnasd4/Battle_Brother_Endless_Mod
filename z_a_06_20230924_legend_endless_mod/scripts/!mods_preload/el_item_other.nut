@@ -11,7 +11,7 @@ local gt = getroottable();
 
 			local actor = this.getContainer().getActor();
 			local level = actor.getLevel();
-			this.logInfo("actor："+actor.getName());
+			//this.logInfo("actor："+actor.getName());
 			local main_hand = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
             local off_hand = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand);
             local body = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
@@ -19,27 +19,27 @@ local gt = getroottable();
 			local accessory = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
 			if(main_hand != null)
 			{
-				this.logInfo("main_hand："+main_hand.getName());
+				//this.logInfo("main_hand："+main_hand.getName());
 				main_hand.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
 			}
 			if(off_hand != null)
 			{
-				this.logInfo("off_hand："+off_hand.getName());
+				//this.logInfo("off_hand："+off_hand.getName());
 				off_hand.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
 			}
 			if(body != null)
 			{
-				this.logInfo("body："+body.getName());
+				//this.logInfo("body："+body.getName());
 				body.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
 			}
 			if(head != null)
 			{
-				this.logInfo("head："+head.getName());
+				//this.logInfo("head："+head.getName());
 				head.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
 			}
 			if(accessory != null)
 			{
-				this.logInfo("accessory："+accessory.getName());
+				//this.logInfo("accessory："+accessory.getName());
 				accessory.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
 			}
 			this.adjustHiringCostBasedOnEquipment();
@@ -56,12 +56,12 @@ local gt = getroottable();
             local body = this.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
             local head = this.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
 			local accessory = this.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
-			this.logInfo(this.getName());
+			//this.logInfo(this.getName());
 			if(accessory == null)
 			{
 				if(main_hand == null && off_hand == null)
 				{
-					this.m.Items.equip(this.new("scripts/items/accessory/el_core_item"));
+					this.m.Items.equip(this.new("scripts/items/el_accessory/el_core_item"));
 				}
 				else
 				{
@@ -96,7 +96,6 @@ local gt = getroottable();
 					local r = this.Math.rand(0, this.Const.EL_Accessory.EL_RarirtyEntry.Pool.Entrys.len() - 1);
 					accessory.EL_addRarityEntry(this.new(this.Const.EL_Accessory.EL_RarityEntry.Pool.Entrys[r].Scripts));
 				}
-
 			}
 
 			foreach(item in items)
@@ -114,9 +113,55 @@ local gt = getroottable();
 				{
 					item.EL_addRankLevel();
 				}
-				this.logInfo("item ID = "+ item.m.ID+", rank:"+item.m.EL_RankLevel+", level:"+item.m.EL_Level);
+				//this.logInfo("item ID = "+ item.m.ID+", rank:"+item.m.EL_RankLevel+", level:"+item.m.EL_Level);
 			}
         }
+	});
+
+	::mods_hookNewObjectOnce("states/world/asset_manager", function ( o )
+	{
+        local setCampaignSettings = o.setCampaignSettings;
+		o.setCampaignSettings = function( _settings )
+		{
+			setCampaignSettings(_settings);
+			local bros = this.World.getPlayerRoster().getAll();
+
+			foreach( bro in bros )
+			{
+				local level = bro.getLevel();
+				this.logInfo("bro："+bro.getName());
+				local main_hand = bro.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+				local off_hand = bro.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand);
+				local body = bro.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
+				local head = bro.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
+				local accessory = bro.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
+				if(main_hand != null)
+				{
+					//this.logInfo("main_hand："+main_hand.getName());
+					main_hand.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
+				}
+				if(off_hand != null)
+				{
+					//this.logInfo("off_hand："+off_hand.getName());
+					off_hand.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
+				}
+				if(body != null)
+				{
+					//this.logInfo("body："+body.getName());
+					body.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
+				}
+				if(head != null)
+				{
+					//this.logInfo("head："+head.getName());
+					head.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
+				}
+				if(accessory != null)
+				{
+					//this.logInfo("accessory："+accessory.getName());
+					accessory.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
+				}
+			}
+		}
 	});
 
 	::mods_hookClass("items/item_container", function(o) {
