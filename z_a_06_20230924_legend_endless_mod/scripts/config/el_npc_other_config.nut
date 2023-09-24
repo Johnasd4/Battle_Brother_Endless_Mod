@@ -36,13 +36,13 @@ gt.Const.EL_NPCOther <- {
     EL_Ghost = {
         GhastlyTouch = {
             BaseOffset = 0,
-            RankFactor = 10,
+            RankFactor = 0,
             CombatLevelFactor = 1.04
         },
 
         HrrificScream = {
             BaseOffset = 50,
-            RankFactor = 10,
+            RankFactor = 0,
             CombatLevelFactor = 1.04
         }
     }

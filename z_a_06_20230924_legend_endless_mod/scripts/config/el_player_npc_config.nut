@@ -41,18 +41,18 @@ gt.Const.EL_PlayerNPC <- {
         },
         Death = {
             BaseOffset = 0,
-            RankFactor = 10,
+            RankFactor = 0,
             CombatLevelFactor = 1.04,
             DistanceFactor = 3
         },
         Move = {
             BaseOffset = 50,
-            RankFactor = 10,
+            RankFactor = 0,
             CombatLevelFactor = 1.04,
         },
         Fleeing = {
             BaseOffset = 25,
-            RankFactor = 10,
+            RankFactor = 0,
             CombatLevelFactor = 1.04,
             DistanceFactor = 3
         },
