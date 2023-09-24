@@ -164,7 +164,7 @@ local gt = getroottable();
 		}
 	});
 
-	::mods_hookClass("items/item_container", function(o) {
+	::mods_hookExactClass("items/item_container", function(o) {
         local addToBag = o.addToBag;
         o.addToBag = function( _item, _slot = -1, _force = false )
         {
@@ -186,15 +186,14 @@ local gt = getroottable();
                 else
                 {
                     _item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
-
                 }
             }
-            //this.logInfo("item generate: LV"+_item.m.EL_Level+"rank:"+_Item.m.EL_RankLevel);
-            addToBag( _item, _slot = -1, _force = false )
+            this.logInfo("item generate: LV"+_item.m.EL_Level+"rank:"+_Item.m.EL_RankLevel);
+            addToBag( _item, _slot, _force );
         }
 	});
 
-    ::mods_hookClass("items/stash_container", function(o) {
+    ::mods_hookExactClass("items/stash_container", function(o) {
 		// while(!("add" in o)) o = o[o.SuperName];
         local add = o.add;
         o.add = function( _item )
@@ -229,7 +228,7 @@ local gt = getroottable();
 		local tactical_helper_addHintsToTooltip = o.tactical_helper_addHintsToTooltip;
 		o.tactical_helper_addHintsToTooltip = function( _activeEntity, _entity, _item, _itemOwner, _ignoreStashLocked = false )
 		{
-			local tooltip = tactical_helper_addHintsToTooltip(_activeEntity, _entity, _item, _itemOwner, _ignoreStashLocked = false);
+			local tooltip = tactical_helper_addHintsToTooltip(_activeEntity, _entity, _item, _itemOwner, _ignoreStashLocked);
             switch(_itemOwner)
             {
             case "camp-screen-repair-dialog-module.stash":
