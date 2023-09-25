@@ -381,14 +381,7 @@ local gt = getroottable();
 
                 if (spawnTile != null)
                 {
-                    this.m.Tail = this.WeakTableRef(this.Const.World.Common.EL_addEntity({
-                        ID = 0,
-                        Variant = 0,
-                        Strength = 270,
-                        Cost = 270,
-                        Row = 0,
-                        Script = "scripts/entity/tactical/enemies/legend_stollwurm_tail"
-                    }, spawnTile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel()));
+                    this.m.Tail = this.WeakTableRef(this.Tactical.spawnEntity("scripts/entity/tactical/enemies/legend_stollwurm_tail", spawnTile.Coords.X, spawnTile.Coords.Y, this.getID()));
                     this.m.Tail.m.Body = this.WeakTableRef(this);
                     this.m.Tail.getSprite("body").Color = body.Color;
                     this.m.Tail.getSprite("body").Saturation = body.Saturation;
@@ -397,6 +390,27 @@ local gt = getroottable();
         }
 
     });
+
+	::mods_hookExactClass("entity/tactical/enemies/legend_stollwurm_tail", function(o){
+
+		o.EL_getRankLevel <- function ()
+		{
+			return this.m.Body.m.EL_RankLevel;
+		}
+		o.EL_getCombatLevel <- function ()
+		{
+			return this.m.Body.m.CurrentProperties.EL_CombatLevel;
+		}
+        o.getName <- function()
+		{
+			return this.m.Name + " - Lv" + this.m.Body.m.EL_NPCLevel + "(" + ((this.Math.round(this.EL_getCombatLevel() * 10) * 0.1)) + ")";
+		}
+        o.getXP <- function()
+		{
+			return this.m.Body.m.XP;
+		}
+    });
+
 
 	::mods_hookExactClass("entity/tactical/enemies/lindwurm", function(o){
 
@@ -502,14 +516,7 @@ local gt = getroottable();
 
                 if (spawnTile != null)
                 {
-                    this.m.Tail = this.WeakTableRef(this.Const.World.Common.EL_addEntity({
-                        ID = 0,
-                        Variant = 0,
-                        Strength = 100,
-                        Cost = 90,
-                        Row = 0,
-                        Script = "scripts/entity/tactical/enemies/lindwurm_tail"
-                    }, spawnTile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel()));
+                    this.m.Tail = this.WeakTableRef(this.Tactical.spawnEntity("scripts/entity/tactical/enemies/lindwurm_tail", spawnTile.Coords.X, spawnTile.Coords.Y, this.getID()));
                     this.m.Tail.m.Body = this.WeakTableRef(this);
                     this.m.Tail.getSprite("body").Color = body.Color;
                     this.m.Tail.getSprite("body").Saturation = body.Saturation;
@@ -517,6 +524,26 @@ local gt = getroottable();
             }
         }
 
+    });
+
+	::mods_hookExactClass("entity/tactical/enemies/lindwurm_tail", function(o){
+
+		o.EL_getRankLevel <- function ()
+		{
+			return this.m.Body.m.EL_RankLevel;
+		}
+		o.EL_getCombatLevel <- function ()
+		{
+			return this.m.Body.m.CurrentProperties.EL_CombatLevel;
+		}
+        o.getName <- function()
+		{
+			return this.m.Name + " - Lv" + this.m.Body.m.EL_NPCLevel + "(" + ((this.Math.round(this.EL_getCombatLevel() * 10) * 0.1)) + ")";
+		}
+        o.getXP <- function()
+		{
+			return this.m.Body.m.XP;
+		}
     });
 
 	::mods_hookExactClass("entity/tactical/enemies/sand_golem", function(o){
