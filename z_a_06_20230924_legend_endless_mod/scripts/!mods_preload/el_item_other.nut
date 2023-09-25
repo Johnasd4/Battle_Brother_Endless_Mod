@@ -219,7 +219,7 @@ local gt = getroottable();
         o.add = function( _item )
         {
             //this.logInfo("item generate: LV"+_item.m.EL_Level+"rank:"+_Item.m.EL_RankLevel);
-			
+			if(_item != null)
 			local EL_worldLevel = this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.EL_Item.MaxLevel);
 			local level = this.Math.rand(this.Math.max(0 ,EL_worldLevel - this.Const.EL_Item_Other.MinLevelInEventAndCraft), EL_worldLevel + this.Const.EL_Item_Other.MaxLevelInEventAndCraft);
 			local random = this.Math.rand(1, 1000);
@@ -305,7 +305,7 @@ local gt = getroottable();
 			{
 				return null;
 			}
-			this.logInfo("use onUpgradeItem !!!!!!!!!!!!!!");
+			//this.logInfo("use onUpgradeItem !!!!!!!!!!!!!!");
 
 			local essence_need = item.EL_getUpgradeEssence();
 			local rank = item.EL_getRankLevel();
