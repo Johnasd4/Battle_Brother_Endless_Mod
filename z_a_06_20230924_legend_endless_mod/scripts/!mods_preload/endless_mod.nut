@@ -5,5 +5,6 @@ local gt = getroottable();
 {
 
 	::mods_registerJS("el_hiring_screen.js");
+	::mods_registerJS("el_equipment_operate_screen.js");
 
 });

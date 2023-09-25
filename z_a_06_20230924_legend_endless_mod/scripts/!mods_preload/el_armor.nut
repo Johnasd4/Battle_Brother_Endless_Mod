@@ -164,8 +164,7 @@ local gt = getroottable();
         }
 		o.EL_getLevelAddtionStaminaModifier <- function()
 		{
-			local result = this.m.StaminaModifier - this.m.EL_BaseWithRankStaminaModifier;
-			return result;
+			return this.m.StaminaModifier - this.m.EL_BaseWithRankStaminaModifier;
 		}
 
 		//Initialize equipment based on level and rank after generating items
@@ -459,6 +458,18 @@ local gt = getroottable();
 			}
 			++this.m.EL_RankLevel;
 			EL_recraft();
+		}
+		o.EL_getLevelAddtionStaminaModifier <- function()
+		{
+			local result = this.m.StaminaModifier - this.m.EL_BaseWithRankStaminaModifier;
+			foreach(upgrade in this.m.Upgrades)
+			{
+				if (upgrade != null)
+				{
+					result += upgrade.EL_getLevelAddtionStaminaModifier();
+				}
+			}
+			return result;
 		}
 
 		//Initialize equipment based on level and rank after generating items

@@ -184,7 +184,6 @@ local gt = getroottable();
 			onSerialize(_out);
 
 			_out.writeU8(this.m.EL_Entrylist.len());
-			this.logInfo(this.m.EL_Entrylist.len());
 			if(this.m.EL_Entrylist.len() != 0)
 			{
 				foreach(entry in this.m.EL_Entrylist)
@@ -238,7 +237,6 @@ local gt = getroottable();
 			onDeserialize(_in);
 
 			local EL_EntrylistLen = _in.readU8();
-			this.logInfo(EL_EntrylistLen);
 			for( local i = 0; i != EL_EntrylistLen; ++i )
 			{
 				local entry = this.new(this.IO.scriptFilenameByHash(_in.readI32()));
