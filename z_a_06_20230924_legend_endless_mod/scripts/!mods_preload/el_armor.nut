@@ -547,6 +547,16 @@ local gt = getroottable();
 			}
         }
 
+		o.getCondition <- function()
+		{
+			return this.Math.floor(this.getAddedValue("getCondition", this.m.Condition));
+		}
+
+		o.getConditionMax <- function()
+		{
+			return this.Math.floor(this.getAddedValue("getConditionMax", this.m.ConditionMax));
+		}
+
 		o.isAmountShown = function()
 		{
 			return true;
@@ -554,9 +564,9 @@ local gt = getroottable();
 		
 		o.getAmountString = function()
 		{
-			if(this.m.Condition < this.m.ConditionMax)
+			if(this.getCondition() < this.getConditionMax())
 			{
-				return "lv" + this.m.EL_Level + ":" + this.Math.floor(this.m.Condition / (this.m.ConditionMax * 1.0) * 100) + "%";
+				return "lv" + this.m.EL_Level + ":" + this.Math.floor(this.getCondition() / (this.getConditionMax() * 1.0) * 100) + "%";
 			}
 			return "lv" + this.m.EL_Level;
 		}

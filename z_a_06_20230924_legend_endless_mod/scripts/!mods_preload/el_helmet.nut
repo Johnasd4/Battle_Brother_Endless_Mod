@@ -108,6 +108,7 @@ local gt = getroottable();
 			_out.writeI32(this.m.EL_BaseNoRankStaminaModifier);
 			_out.writeI32(this.m.EL_BaseWithRankStaminaModifier);
 			_out.writeI8(this.m.Vision);
+			_out.writeF32(this.m.Condition);
 		}
 
 
@@ -126,6 +127,7 @@ local gt = getroottable();
             this.m.EL_BaseWithRankStaminaModifier = _in.readI32();
 			this.m.Vision = _in.readI8();
 			EL_updateLevelProperties();
+            this.m.Condition = _in.readF32();
 		}
 
 		o.isAmountShown = function()
@@ -548,6 +550,16 @@ local gt = getroottable();
 			}
         }
 
+		o.getCondition <- function()
+		{
+			return this.Math.floor(this.getAddedValue("getCondition", this.m.Condition));
+		}
+
+		o.getConditionMax <- function()
+		{
+			return this.Math.floor(this.getAddedValue("getConditionMax", this.m.ConditionMax));
+		}
+
 		o.isAmountShown = function()
 		{
 			return true;
@@ -555,9 +567,9 @@ local gt = getroottable();
 		
 		o.getAmountString = function()
 		{
-			if(this.m.Condition < this.m.ConditionMax)
+			if(this.getCondition() < this.getConditionMax())
 			{
-				return "lv" + this.m.EL_Level + ":" + this.Math.floor(this.m.Condition / (this.m.ConditionMax * 1.0) * 100) + "%";
+				return "lv" + this.m.EL_Level + ":" + this.Math.floor(this.getCondition() / (this.getConditionMax() * 1.0) * 100) + "%";
 			}
 			return "lv" + this.m.EL_Level;
 		}
@@ -759,6 +771,7 @@ local gt = getroottable();
 			}
 			_out.writeI32(this.m.EL_BaseNoRankStaminaModifier);
 			_out.writeI32(this.m.EL_BaseWithRankStaminaModifier);
+			_out.writeI8(this.m.Vision);
 			_out.writeF32(this.m.Condition);
 		}
 
@@ -775,6 +788,7 @@ local gt = getroottable();
 			}
             this.m.EL_BaseNoRankStaminaModifier = _in.readI32();
             this.m.EL_BaseWithRankStaminaModifier = _in.readI32();
+			this.m.Vision = _in.readI8();
 			EL_updateLevelProperties();
             this.m.Condition = _in.readF32();
 		}
