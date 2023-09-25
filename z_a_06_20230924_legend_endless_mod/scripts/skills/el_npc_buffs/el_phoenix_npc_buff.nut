@@ -38,26 +38,6 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
             if(this.m.EL_RiseTimesLeft == 0) {
                 actor.setIsAbleToDie(true);
             }
-            local skills = actor.getSkills();
-            foreach( skill in skills.m.Skills ) {
-                local skill_type = skill.getType();
-                if(!skill.isType(this.Const.SkillType.None) &&
-                   !skill.isType(this.Const.SkillType.Active) &&
-                   !skill.isType(this.Const.SkillType.Trait) &&
-                   !skill.isType(this.Const.SkillType.Racial) &&
-                   !skill.isType(this.Const.SkillType.Special) &&
-                   !skill.isType(this.Const.SkillType.Item) &&
-                   !skill.isType(this.Const.SkillType.Perk) &&
-                   !skill.isType(this.Const.SkillType.Terrain) &&
-                   !skill.isType(this.Const.SkillType.WorldEvent) &&
-                   !skill.isType(this.Const.SkillType.Background) &&
-                   !skill.isType(this.Const.SkillType.Alert) &&
-                   !(skill.EL_isNPCBuff()) &&
-                   skill.getID() != "effects.battle_standard")
-                {
-                    skills.remove(skill);
-                }
-            }
 
             actor.setHitpoints(actor.getHitpointsMax());
             actor.setActionPoints(actor.getActionPointsMax());
@@ -121,11 +101,33 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
                 properties.Armor[this.Const.BodyPart.Head] = 0;
             }
 
+            local skills = actor.getSkills();
+            foreach( skill in skills.m.Skills ) {
+                local skill_type = skill.getType();
+                if(!skill.isType(this.Const.SkillType.None) &&
+                   !skill.isType(this.Const.SkillType.Active) &&
+                   !skill.isType(this.Const.SkillType.Trait) &&
+                   !skill.isType(this.Const.SkillType.Racial) &&
+                   !skill.isType(this.Const.SkillType.Special) &&
+                   !skill.isType(this.Const.SkillType.Item) &&
+                   !skill.isType(this.Const.SkillType.Perk) &&
+                   !skill.isType(this.Const.SkillType.Terrain) &&
+                   !skill.isType(this.Const.SkillType.WorldEvent) &&
+                   !skill.isType(this.Const.SkillType.Background) &&
+                   !skill.isType(this.Const.SkillType.Alert) &&
+                   !(skill.EL_isNPCBuff()) &&
+                   skill.getID() != "effects.battle_standard")
+                {
+                    skills.remove(skill);
+                }
+            }
+
             if (!actor.isHiddenToPlayer())
             {
                 this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " is rising!");
             }
             actor.getSkills().update();
+
         }
     }
 
