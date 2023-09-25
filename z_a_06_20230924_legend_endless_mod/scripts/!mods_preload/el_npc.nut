@@ -223,7 +223,7 @@ local gt = getroottable();
                     rank = 3;
                 }
                 else {
-                    rank = this.m.WorldTroop.EL_RankLevel;
+                    rank = this.EL_getRankLevel();
                 }
                 local num_1 = this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.CurrentRankMult * this.Math.pow(1 + this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelMult * level, this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropPowFactor));
                 local num_2 = this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.NextRankMult * this.Math.pow(1 + this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelMult * level, this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropPowFactor));
