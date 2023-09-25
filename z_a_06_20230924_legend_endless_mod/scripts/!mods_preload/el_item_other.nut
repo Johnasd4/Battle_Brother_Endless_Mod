@@ -183,64 +183,64 @@ local gt = getroottable();
 		}
 	});
 
-	// ::mods_hookNewObject("items/item_container", function(o) {
-	// 	//while(!("addToBag" in o)) o = o[o.SuperName];
-    //     local addToBag = o.addToBag;
-    //     o.addToBag = function( _item, _slot = -1, _force = false )
-    //     {
-    //         if(_item != null)
-    //         {
-    //             local EL_worldLevel = this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.EL_Item.MaxLevel);
-    //             local level = this.Math.rand(this.Math.max(0 ,EL_worldLevel - this.Const.EL_Item_Other.MinLevelInEventAndCraft), EL_worldLevel + this.Const.EL_Item_Other.MaxLevelInEventAndCraft);
-    //             local random = this.Math.rand(1, 1000);
-    //             if(random <= this.Const.EL_Shop.EL_ItemRankUpOnceChance.EL_getChance(EL_worldLevel))
-    //             {
-    //                 _item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Premium, level);
-    //                 //this.logInfo("物品升阶");
-    //             }
-    //             else if(random > this.Const.EL_Shop.EL_ItemRankUpTwiceChance.EL_getChance(EL_worldLevel))
-    //             {
-    //                 _item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Fine, level);
-    //                 //this.logInfo("物品升阶大成功");
-    //             }
-    //             else
-    //             {
-    //                 _item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
-    //             }
-    //         }
-    //         //this.logInfo("item generate: LV"+_item.m.EL_Level+"rank:"+_Item.m.EL_RankLevel);
-    //         addToBag( _item, _slot, _force );
-    //     }
-	// });
+// 	// ::mods_hookNewObject("items/item_container", function(o) {
+// 	// 	//while(!("addToBag" in o)) o = o[o.SuperName];
+//     //     local addToBag = o.addToBag;
+//     //     o.addToBag = function( _item, _slot = -1, _force = false )
+//     //     {
+//     //         if(_item != null)
+//     //         {
+//     //             local EL_worldLevel = this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.EL_Item.MaxLevel);
+//     //             local level = this.Math.rand(this.Math.max(0 ,EL_worldLevel - this.Const.EL_Item_Other.MinLevelInEventAndCraft), EL_worldLevel + this.Const.EL_Item_Other.MaxLevelInEventAndCraft);
+//     //             local random = this.Math.rand(1, 1000);
+//     //             if(random <= this.Const.EL_Shop.EL_ItemRankUpOnceChance.EL_getChance(EL_worldLevel))
+//     //             {
+//     //                 _item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Premium, level);
+//     //                 //this.logInfo("物品升阶");
+//     //             }
+//     //             else if(random > this.Const.EL_Shop.EL_ItemRankUpTwiceChance.EL_getChance(EL_worldLevel))
+//     //             {
+//     //                 _item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Fine, level);
+//     //                 //this.logInfo("物品升阶大成功");
+//     //             }
+//     //             else
+//     //             {
+//     //                 _item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
+//     //             }
+//     //         }
+//     //         //this.logInfo("item generate: LV"+_item.m.EL_Level+"rank:"+_Item.m.EL_RankLevel);
+//     //         addToBag( _item, _slot, _force );
+//     //     }
+// 	// });
 
     ::mods_hookClass("items/stash_container", function(o) {
-		while(!("add" in o)) o = o[o.SuperName];
+		//while(!("add" in o)) o = o[o.SuperName];
         local add = o.add;
         o.add = function( _item )
         {
-            if(_item != null)
-            {
-                local EL_worldLevel = this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.EL_Item.MaxLevel);
-                local level = this.Math.rand(this.Math.max(0 ,EL_worldLevel - this.Const.EL_Item_Other.MinLevelInEventAndCraft), EL_worldLevel + this.Const.EL_Item_Other.MaxLevelInEventAndCraft);
-                local random = this.Math.rand(1, 1000);
-                if(random <= this.Const.EL_Shop.EL_ItemRankUpOnceChance.EL_getChance(EL_worldLevel))
-                {
-                    _item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Premium, level);
-                    //this.logInfo("物品升阶");
-                }
-                else if(random > this.Const.EL_Shop.EL_ItemRankUpTwiceChance.EL_getChance(EL_worldLevel))
-                {
-                    _item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Fine, level);
-                    //this.logInfo("物品升阶大成功");
-                }
-                else
-                {
-                    _item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
-
-                }
-            }
             //this.logInfo("item generate: LV"+_item.m.EL_Level+"rank:"+_Item.m.EL_RankLevel);
-            add(_item);
+			if(_item != null)
+			{
+				local EL_worldLevel = this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.EL_Item.MaxLevel);
+				local level = this.Math.rand(this.Math.max(0 ,EL_worldLevel - this.Const.EL_Item_Other.MinLevelInEventAndCraft), EL_worldLevel + this.Const.EL_Item_Other.MaxLevelInEventAndCraft);
+				local random = this.Math.rand(1, 1000);
+				
+				if(random <= this.Const.EL_Shop.EL_ItemRankUpOnceChance.EL_getChance(EL_worldLevel))
+				{
+					_item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Premium, level);
+					//this.logInfo("物品升阶");
+				}
+				else if(random > this.Const.EL_Shop.EL_ItemRankUpTwiceChance.EL_getChance(EL_worldLevel))
+				{
+					_item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Fine, level);
+					//this.logInfo("物品升阶大成功");
+				}
+				else
+				{
+					_item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
+				}
+			}
+			return add(_item);
         }
 	});
 
@@ -284,16 +284,16 @@ local gt = getroottable();
 		}
 	});
 
-    ::mods_hookClass("skills/skill", function(o) {
-		while(!("onItemSet" in o)) o = o[o.SuperName];
-		o.onItemSet = function() {
-			local item = this.getItem();
-			if(item != null && item.isItemType(this.Const.Items.ItemType.Weapon))
-			{
-		    	this.m.MaxRange = this.Math.max(this.m.MaxRange, item.getRangeMax());
-			}
-		}
-	});
+    // ::mods_hookClass("skills/skill", function(o) {
+	// 	while(!("onItemSet" in o)) o = o[o.SuperName];
+	// 	o.onItemSet = function() {
+	// 		local item = this.getItem();
+	// 		if(item != null && item.isItemType(this.Const.Items.ItemType.Weapon))
+	// 		{
+	// 	    	this.m.MaxRange = this.Math.max(this.m.MaxRange, item.getRangeMax());
+	// 		}
+	// 	}
+	// });
 
 	::mods_hookExactClass("ui/screens/world/modules/world_town_screen/town_shop_dialog_module", function(o){
         o.EL_onUpgradeItem <- function( _itemIndex )
