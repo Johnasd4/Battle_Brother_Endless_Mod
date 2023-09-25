@@ -75,7 +75,7 @@ local gt = getroottable();
 
 		o.updateLevel = function ()
 		{
-			while (this.m.Level > 0 && this.m.XP < this.Const.LevelXP[this.m.Level])
+			while (this.m.Level > 0 && this.m.XP < this.Const.LevelXP[this.m.Level - 1])
 			{
 				--this.m.Level;
 				--this.m.LevelUps;
