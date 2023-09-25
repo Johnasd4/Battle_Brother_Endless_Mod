@@ -389,17 +389,15 @@ local gt = getroottable();
                 bro = roster.create("scripts/entity/tactical/player");
                 bro.setStartValuesEx([
                     "gladiator_origin_background"
-                ], true, -1, true, 2);
+                ], true, -1, true, 0);
                 bro.getSkills().removeByID("trait.survivor");
                 bro.getSkills().removeByID("trait.greedy");
                 bro.getSkills().removeByID("trait.loyal");
                 bro.getSkills().removeByID("trait.disloyal");
-                bro.getSkills().add(this.new("scripts/skills/traits/player_character_trait"));
                 bro.getSkills().add(this.new("scripts/skills/traits/arena_fighter_trait"));
                 bro.getFlags().set("ArenaFightsWon", 5);
                 bro.getFlags().set("ArenaFights", 5);
                 bro.setPlaceInFormation(3 + i);
-                bro.getFlags().set("IsPlayerCharacter", true);
                 bro.getSprite("miniboss").setBrush("bust_miniboss_gladiators");
                 bro.m.HireTime = this.Time.getVirtualTimeF();
                 bro.EL_setLevel(3);
