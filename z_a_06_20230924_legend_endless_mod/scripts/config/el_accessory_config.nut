@@ -78,11 +78,14 @@ gt.Const.EL_Accessory <- {
 					Scripts = "scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_faith_of_the_rock_entry"
 				},
 				{
-					Scripts = "scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_fight_and_win_entry_entry"
+					Scripts = "scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_fight_and_win_entry"
 				},
 				// {
 				// 	Scripts = "scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_massacre_desire_entry"
 				// },
+				{
+					Scripts = "scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_master_feat_entry"
+				},
 				{
 					Scripts = "scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_toxic_blade_thrust_entry"
 				}
@@ -136,6 +139,12 @@ gt.Const.EL_Accessory <- {
 			},
 			EL_MassacreDesire = {
 				DamageMult = 0.1
+			},
+			EL_MasterFeat = {
+				SkillFactor = 1,
+				DamageFactor = 0.01,
+				MeleeDefenseFactor = 1,
+				RangedDefenseFactor = 1
 			},
 			EL_ToxicBladeThrust = {
 				DamageBonus = 0.25,
