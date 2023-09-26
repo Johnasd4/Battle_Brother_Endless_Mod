@@ -131,7 +131,7 @@ gt.Const.EL_NPC <- {
         }
 
         Resourse = {
-            MultPurWorldLevel = 1,
+            MultPurWorldLevel = 0.5,
             MultBase = 100
          },
 
