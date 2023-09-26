@@ -147,6 +147,11 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
             }
         }
 	}
+	
+	function onUpdate( _properties )
+	{
+		this.onRefresh();
+	}
 
     function getTooltip()
 	{
@@ -309,7 +314,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Direct Damage Add + " + this.m.EL_WeaponArmorDamageMultAddition + "%"
+				text = "Armor Damage Mult + " + this.m.EL_WeaponArmorDamageMultAddition + "%"
 			});
 		}
 		if(this.m.EL_WeaponDirectDamageAddAddition)

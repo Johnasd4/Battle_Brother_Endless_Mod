@@ -85,7 +85,7 @@ local gt = getroottable();
 		o.onUnequip = function ()
 		{	
 			onUnequip();
-			this.addSkill(this.new("scripts/skills/el_entrys/el_total_entry"));
+			//this.addSkill(this.new("scripts/skills/el_entrys/el_total_entry"));
 			if( this.m.EL_CurrentLevel < this.m.EL_Level )
 			{
 				this.m.EL_CurrentLevel = this.m.EL_Level;
@@ -393,7 +393,7 @@ local gt = getroottable();
 		o.onUnequip = function ()
 		{	
 			onUnequip();
-			this.addSkill(this.new("scripts/skills/el_entrys/el_total_entry"));
+			//this.addSkill(this.new("scripts/skills/el_entrys/el_total_entry"));
 			if( this.m.EL_CurrentLevel < this.m.EL_Level )
 			{
 				this.m.EL_CurrentLevel = this.m.EL_Level;
