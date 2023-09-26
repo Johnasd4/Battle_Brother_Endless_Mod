@@ -109,7 +109,7 @@ local gt = getroottable();
 			local difficulty = -_user.getBravery() +
 							   this.Const.EL_NPCOther.EL_Ghost.HrrificScream.BaseOffset +
 							   this.Const.EL_NPCOther.EL_Ghost.HrrificScream.RankFactor * (target.EL_getRankLevel() - _user.EL_getRankLevel()) +
-							   this.Math.pow(this.Const.EL_Ghost.HrrificScream.Factor.CombatLevelFactor, this.Math.abs(target.EL_getCombatLevel() - _user.EL_getCombatLevel())) * (target.EL_getCombatLevel() - _user.EL_getCombatLevel());
+							   this.Math.pow(this.Const.EL_NPCOther.EL_Ghost.HrrificScream.Factor.CombatLevelFactor, this.Math.abs(target.EL_getCombatLevel() - _user.EL_getCombatLevel())) * (target.EL_getCombatLevel() - _user.EL_getCombatLevel());
 			_targetTile.getEntity().checkMorale(-1, difficulty, this.Const.MoraleCheckType.MentalAttack);
 			_targetTile.getEntity().checkMorale(-1, difficulty, this.Const.MoraleCheckType.MentalAttack);
 			_targetTile.getEntity().checkMorale(-1, difficulty, this.Const.MoraleCheckType.MentalAttack);

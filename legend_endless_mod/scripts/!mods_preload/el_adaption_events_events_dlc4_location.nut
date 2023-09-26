@@ -166,8 +166,15 @@ local gt = getroottable();
                             party.EL_setTroopsResourse(0);
                             properties.Parties.push(party);
                             this.Const.World.Common.addTroop(party, {
-                                Type = this.Const.World.Spawn.Troops.BarbarianMadman
-                            }, false);
+                                Type = {
+                                    ID = this.Const.EntityType.BarbarianMadman,
+                                    Variant = 0,
+                                    Strength = 200,
+                                    Cost = 200,
+                                    Row = 0,
+                                    Script = "scripts/entity/tactical/humans/barbarian_madman"
+                                }
+                            }, false, 0, 1);
                             foreach(troop in party.getTroops()) {
                                 properties.Entities.push(troop);
                             }

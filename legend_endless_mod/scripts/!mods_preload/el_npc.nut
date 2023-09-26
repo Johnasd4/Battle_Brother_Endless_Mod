@@ -910,7 +910,7 @@ local gt = getroottable();
             if(_EL_troop.Strength == 0) {
                 _EL_troop.Strength = this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.CrticalPoint;
             }
-            if(this.m.EL_FinishGenerate && this.m.strength < this.m.EL_TroopsResourse) {
+            if(this.m.EL_FinishGenerate && this.m.Strength < this.m.EL_TroopsResourse) {
                 if(this.m.Troops.len() >= this.Const.EL_NPC.EL_Troop.MaxTroopNum) {
                     return;
                 }
@@ -1673,7 +1673,7 @@ local gt = getroottable();
         if(e == null) {
             return e;
         }
-        if (!this.World.getTime().IsDaytime && _e.getBaseProperties().IsAffectedByNight)
+        if (!this.World.getTime().IsDaytime && e.getBaseProperties().IsAffectedByNight)
         {
             e.getSkills().add(this.new("scripts/skills/special/night_effect"));
         }

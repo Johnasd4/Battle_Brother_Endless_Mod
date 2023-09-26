@@ -67,23 +67,23 @@ gt.Const.EL_Player <- {
     EL_Champion = {
         XPMult = [
             1,
-            0.333,
-            0.1
+            0.5,
+            0.2
         ],
         HiringCostMult = [
             1,
-            3,
+            4,
             10
         ],
         HiringCostOffset = [
             0,
-            3000,
+            4000,
             10000
         ],
         DailyCostMult = [
             1,
-            3,
-            10
+            2,
+            5
         ],
         DailyFoodMult = [
             1,
@@ -92,8 +92,8 @@ gt.Const.EL_Player <- {
         ],
         CombatLevelOffset = [
             0,
-            3,
-            10
+            2,
+            5
         ],
         PerkPointsOffset = [
             0,

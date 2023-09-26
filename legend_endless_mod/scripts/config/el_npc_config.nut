@@ -16,14 +16,14 @@ gt.Const.EL_NPC <- {
             ],
             Mult = [
                 1,
-                3,
-                10
+                2,
+                5
             ]
         },
         CombatLevelOffset = [
             0,
-            3,
-            10
+            2,
+            5
         ],
         ActionPointsOffset = [
             0,
@@ -104,7 +104,7 @@ gt.Const.EL_NPC <- {
 
 
         ExtraCombatLevel = {
-            BossLevel = 10,
+            BossLevel = 5,
             CrticalPoint = 10,
             MultPart1 = 1,
             MultPart2 = 0.1,

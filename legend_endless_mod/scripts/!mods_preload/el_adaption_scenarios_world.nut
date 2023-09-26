@@ -498,14 +498,14 @@ local gt = getroottable();
         o.onSpawnAssets = function()
         {
             local roster = this.World.getPlayerRoster();
-
+            local player_unit = this.Math.rand(0, 2);
             for( local i = 0; i < 3; i = i )
             {
                 local bro;
                 bro = roster.create("scripts/entity/tactical/player");
                 bro.setStartValuesEx([
                     "gladiator_origin_background"
-                ]);
+                ], true, -1, true, i == player_unit ? 2 : 0);
                 bro.getSkills().removeByID("trait.survivor");
                 bro.getSkills().removeByID("trait.greedy");
                 bro.getSkills().removeByID("trait.loyal");
@@ -514,10 +514,13 @@ local gt = getroottable();
                 bro.getFlags().set("ArenaFightsWon", 5);
                 bro.getFlags().set("ArenaFights", 5);
                 bro.setPlaceInFormation(3 + i);
-                bro.getFlags().set("IsPlayerCharacter", true);
+                bro.getFlags().set("IsPlayerCharacter", i == player_unit ? true : false);
                 bro.getSprite("miniboss").setBrush("bust_miniboss_gladiators");
                 bro.m.HireTime = this.Time.getVirtualTimeF();
-                bro.EL_setLevel(3);
+                bro.EL_setLevel(1);
+                if(i == player_unit) {
+                    bro.getSkills().add(this.new("scripts/skills/traits/player_character_trait"));
+                }
                 i = ++i;
             }
 
@@ -687,7 +690,7 @@ local gt = getroottable();
             }
 
             local bros = roster.getAll();
-            bros[0].EL_setLevel(4);
+            bros[0].EL_setLevel(1);
             bros[0].getSkills().add(this.new("scripts/skills/traits/player_character_trait"));
             bros[0].getFlags().set("IsPlayerCharacter", true);
             this.World.Assets.addBusinessReputation(this.m.StartingBusinessReputation);
@@ -1918,7 +1921,7 @@ local gt = getroottable();
             bros[0].getFlags().set("IsPlayerCharacter", true);
             bros[0].getSprite("miniboss").setBrush("bust_miniboss_lone_wolf");
             bros[0].m.HireTime = this.Time.getVirtualTimeF();
-            bros[0].EL_setLevel(4);
+            bros[0].EL_setLevel(1);
             bros[0].setVeteranPerks(2);
             this.World.Assets.addBusinessReputation(this.m.StartingBusinessReputation);
             this.World.Flags.set("HasLegendCampTraining", true);
