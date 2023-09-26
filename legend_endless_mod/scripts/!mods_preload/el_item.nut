@@ -209,7 +209,7 @@ local gt = getroottable();
 			{
 			}
 
-			o.EL_updateRankLevelProperties <- function()
+			o.EL_updateLevelProperties <- function()
 			{
 			}
 
