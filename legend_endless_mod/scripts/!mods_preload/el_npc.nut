@@ -1650,7 +1650,7 @@ local gt = getroottable();
 
     gt.Const.World.Common.EL_addEntityByScript <- function (_EL_script, _EL_tile, _EL_faction, _EL_rank, _EL_level = -1, _EL_assignEquipments = false, _EL_isBossUnit = false, _EL_extraCombatLevel = 0)
     {
-        local e = this.Tactical.spawnEntity(_EL_script, tile.Coords);
+        local e = this.Tactical.spawnEntity(_EL_script, _EL_tile.Coords);
         if(e == null) {
             return e;
         }

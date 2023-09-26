@@ -109,7 +109,7 @@ local gt = getroottable();
 
         o.getDescription = function()
         {
-            return "This character is bleeding profusely from a recently received wound and will lose [color=" + this.Const.UI.Color.NegativeValue + "]" + this.Math.ceil(this.m.Damage * this.getContainer().getActor().getBaseProperties().Hitpoints / 100) + "[/color] hitpoints each turn for [color=" + this.Const.UI.Color.NegativeValue + "]" + this.m.TurnsLeft + "[/color] more turn(s).";
+            return "This character is bleeding profusely from a recently received wound and will lose [color=" + this.Const.UI.Color.NegativeValue + "]" + this.Math.ceil(this.m.Damage * this.getContainer().getActor().getBaseProperties().Hitpoints * 0.01) + "[/color] hitpoints each turn for [color=" + this.Const.UI.Color.NegativeValue + "]" + this.m.TurnsLeft + "[/color] more turn(s).";
         }
 
         o.applyDamage = function()
@@ -120,8 +120,7 @@ local gt = getroottable();
                 local actor = this.getContainer().getActor();
                 this.spawnIcon("status_effect_01", actor.getTile());
                 local hitInfo = clone this.Const.Tactical.HitInfo;
-                hitInfo.DamageRegular = this.m.Damage * (actor.getSkills().hasSkill("effects.hyena_potion") ? 0.5 : 1.0);
-                hitInfo.DamageRegular =
+                hitInfo.DamageRegular = this.Math.ceil(this.m.Damage * this.getContainer().getActor().getBaseProperties().Hitpoints * 0.01 * (actor.getSkills().hasSkill("effects.hyena_potion") ? 0.5 : 1.0));
                 hitInfo.DamageDirect = 1.0;
                 hitInfo.BodyPart = this.Const.BodyPart.Body;
                 hitInfo.BodyDamageMult = 1.0;
