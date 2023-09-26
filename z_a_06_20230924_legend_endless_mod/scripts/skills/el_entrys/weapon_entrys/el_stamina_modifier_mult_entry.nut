@@ -40,7 +40,7 @@ this.el_stamina_modifier_mult_entry <- this.inherit("scripts/skills/el_entrys/el
 
 	function EL_onItemUpdate( _item )
 	{
-        _item.m.StaminaModifier *= (1.0 - this.m.EL_StaminaModifierMultAddition);
+        _item.m.StaminaModifier = this.Math.floor(_item.m.StaminaModifier * (1.0 - this.m.EL_StaminaModifierMultAddition * 0.01));
 	}
 
 	function EL_refreshTotalEntry( _EL_totalEntry )

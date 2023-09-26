@@ -37,6 +37,11 @@ this.el_value_mult_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
 		local randomMax = this.Const.EL_Shield.EL_Entry.Factor.EL_ValueMult.RandomMaxValueMult[this.getItem().m.EL_RankLevel];
 		this.m.EL_ValueMultAddition = this.Const.EL_Shield.EL_Entry.Factor.EL_ValueMult.BaseValueMult + this.Math.rand(randomMin, randomMax);
 	}
+
+	function EL_onItemUpdate( _item )
+	{
+        _item.m.Value *= (1.0 + this.m.EL_ValueMultAddition * 0.01);
+	}
     
     function onSerialize( _out )
 	{

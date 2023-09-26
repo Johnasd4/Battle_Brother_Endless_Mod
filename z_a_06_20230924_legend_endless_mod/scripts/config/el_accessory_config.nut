@@ -664,11 +664,16 @@ gt.Const.EL_Accessory <- {
 				index_pool.push(i);
 			}
 		}
-		do {
+		while(1)
+		{
 			local r = this.Math.rand(0, index_pool.len() - 1);
 			local entry = this.new(this.Const.EL_Accessory.EL_Entry.Pool.Entrys[index_pool[r]].Scripts);
 			index_pool.remove(r);
-		} while (!_EL_item.EL_hasEntry(entry.getID()))
+			if(!_EL_item.EL_hasEntry(entry.getID()))
+			{
+				break;
+			}
+		}
         entry.EL_setCurrentLevel(EL_Accessory.EL_Entry.EntryNum.NormalAccessory[_EL_item.m.EL_RankLevel]);
         _EL_item.EL_addEntryList(entry);
 	}
