@@ -216,7 +216,7 @@ local gt = getroottable();
         {
             local freeTiles = [];
             local lucky = this.Math.rand(1, 100) <= 20;
-            local actor = this.getContainer().getActor();
+            local actor = _data.User;
             if (_data.TargetTile.IsEmpty)
             {
                 freeTiles.push({
