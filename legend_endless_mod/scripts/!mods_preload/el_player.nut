@@ -574,6 +574,7 @@ local gt = getroottable();
 				actor.m.PerkPoints = 10;
 			}
 			actor.m.Level = 1;
+			actor.m.PerkPoints += this.Const.EL_Player.EL_Champion.PerkPointsOffset[actor.m.EL_RankLevel];
 			actor.m.BaseProperties.EL_CombatLevel = 1 + this.Const.EL_Player.EL_Champion.CombatLevelOffset[actor.m.EL_RankLevel];
 			if(this.m.Level < this.Const.LevelXP.len()) {
 				actor.m.XP = this.Const.LevelXP[this.m.Level - 1];
