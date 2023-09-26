@@ -63,13 +63,15 @@ local gt = getroottable();
 				if(main_hand == null && off_hand == null)
 				{
 					this.m.Items.equip(this.new("scripts/items/el_accessory/el_core_item"));
+					accessory = this.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
+					accessory.EL_generateByRankAndLevel(rank_level, this.EL_getLevel());
 				}
 				else
 				{
 					local r = this.Math.rand(0, this.Const.EL_Accessory.EL_NormalAccessoryList.len() - 1);
 					this.m.Items.equip(this.new("scripts/items/" + this.Const.EL_Accessory.EL_NormalAccessoryList[r]));
+					accessory = this.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
 				}
-				accessory = this.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
 			}
 
 			local items = [];
@@ -107,7 +109,6 @@ local gt = getroottable();
 					accessory.EL_addRarityEntry(this.new(this.Const.EL_Accessory.EL_RarityEntry.Pool.Entrys[r].Scripts));
 				}
 			}
-
 			foreach(item in items)
 			{
 				item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, this.EL_getLevel());
