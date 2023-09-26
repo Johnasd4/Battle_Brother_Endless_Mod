@@ -58,5 +58,30 @@ local gt = getroottable();
                 this.update();
             }
         }
+
+        o.onSerialize = function( _out )
+        {
+            local numSkills = 0;
+
+            foreach( skill in this.m.Skills )
+            {
+                if (skill.isSerialized() && !skill.EL_isEntryEffect())
+                {
+                    numSkills = ++numSkills;
+                    numSkills = numSkills;
+                }
+            }
+
+            _out.writeU16(numSkills);
+
+            foreach( skill in this.m.Skills )
+            {
+                if (skill.isSerialized() && !skill.EL_isEntryEffect())
+                {
+                    _out.writeI32(skill.ClassNameHash);
+                    skill.onSerialize(_out);
+                }
+            }
+        }
 	});
 });

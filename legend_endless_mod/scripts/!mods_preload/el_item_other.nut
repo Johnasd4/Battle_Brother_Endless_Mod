@@ -244,6 +244,36 @@ local gt = getroottable();
         }
 	});
 
+	::mods_hookClass("entity/world/world_entity", function(o) {
+		while(!("getTroops" in o)) o = o[o.SuperName];
+
+		local onDropLootForPlayer = o.onDropLootForPlayer;
+		o.onDropLootForPlayer = function (_lootTable)
+		{
+            onDropLootForPlayer(_lootTable);
+			local EL_worldLevel = this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.EL_Item.MaxLevel);
+			local level = this.Math.rand(this.Math.max(0 ,EL_worldLevel - this.Const.EL_Item_Other.MinLevelInEventAndCraft), EL_worldLevel + this.Const.EL_Item_Other.MaxLevelInEventAndCraft);
+			foreach(item in _lootTable)
+			{
+				local random = this.Math.rand(1, 1000);
+				if(random <= this.Const.EL_Shop.EL_ItemRankUpOnceChance.EL_getChance(EL_worldLevel))
+				{
+					item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Premium, level);
+					//this.logInfo("物品升阶");
+				}
+				else if(random > this.Const.EL_Shop.EL_ItemRankUpTwiceChance.EL_getChance(EL_worldLevel))
+				{
+					item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Fine, level);
+					//this.logInfo("物品升阶大成功");
+				}
+				else
+				{
+					item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
+				}
+			}
+		}
+	});
+
     ::mods_hookNewObject("ui/screens/tooltip/tooltip_events", function(o) {
 		local tactical_helper_addHintsToTooltip = o.tactical_helper_addHintsToTooltip;
 		o.tactical_helper_addHintsToTooltip = function( _activeEntity, _entity, _item, _itemOwner, _ignoreStashLocked = false )
@@ -259,7 +289,7 @@ local gt = getroottable();
 					local essence_upgrade = _item.EL_getUpgradeEssence();
 					local essence_recraft = _item.EL_getRecraftEssence();
 					local essence_disassemble = _item.EL_getDisassembleEssence();
-					local rank = _item.EL_getRankLevel();
+					local rank = _item.m.EL_RankLevel;
 					tooltip.push({
 						id = 4,
 						type = "hint",
@@ -276,7 +306,7 @@ local gt = getroottable();
                         id = 4,
                         type = "hint",
                         icon = "ui/icons/mouse_right_button_ctrl_and_shift.png",
-                        text = "Disassemble it to get [img]gfx/ui/tooltips/equipment_essence_rank_" + rank + ".png[/img]" + essence_recraft
+                        text = "Disassemble it to get [img]gfx/ui/tooltips/equipment_essence_rank_" + rank + ".png[/img]" + essence_disassemble
                     });
                 }
             }
@@ -306,7 +336,7 @@ local gt = getroottable();
 			//this.logInfo("use onUpgradeItem !!!!!!!!!!!!!!");
 
 			local essence_need = item.EL_getUpgradeEssence();
-			local rank = item.EL_getRankLevel();
+			local rank = item.m.EL_RankLevel;
 			local essence_have = this.World.Assets.EL_getEquipmentEssence(rank);
 			local essence_need_rank = [0,0,0,0,0];
 			while(rank > 0 && essence_need > essence_have)
@@ -344,7 +374,7 @@ local gt = getroottable();
 			//this.logInfo("use onRecraftItem !!!!!!!!!!!!!!");
 
 			local essence_need = item.EL_getUpgradeEssence();
-			local rank = item.EL_getRankLevel();
+			local rank = item.m.EL_RankLevel;
 			local essence_have = this.World.Assets.EL_getEquipmentEssence(rank);
 			local essence_need_rank = [0,0,0,0,0];
 			while(rank > 0 && essence_need > essence_have)
@@ -379,11 +409,15 @@ local gt = getroottable();
 			{
 				return null;
 			}
+			if (item == null)
+			{
+				return null;
+			}
 			this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
 			//this.logInfo("use onDisassembleItem !!!!!!!!!!!!!!");
 
 			local essence_need = item.EL_getDisassembleEssence();
-			this.World.Assets.EL_addEquipmentEssence(item.EL_getRankLevel(), essence_need);
+			this.World.Assets.EL_addEquipmentEssence(item.m.EL_RankLevel, essence_need);
 
 			local result = {
 				Item = this.UIDataHelper.convertItemToUIData(item, true, this.Const.UI.ItemOwner.Stash),
