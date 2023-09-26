@@ -292,19 +292,35 @@ local gt = getroottable();
             return this.m.EL_Faction;
         }
 
+        local removeTroop = o.removeTroop;
+		o.removeTroop = function( _t )
+        {
+            if(!this.m.EL_FinishGenerate) {
+                this.m.EL_FinishGenerate = true;
+                this.m.EL_TroopsResourse = this.m.Strength;
+            }
+            return removeTroop();
+		}
+
         local getTroops = o.getTroops;
 		o.getTroops = function()
         {
-            this.m.EL_FinishGenerate = true;
+            if(!this.m.EL_FinishGenerate) {
+                this.m.EL_FinishGenerate = true;
+                this.m.EL_TroopsResourse = this.m.Strength;
+            }
             return getTroops();
 		}
 
-        local getStrength = o.getStrength;
-		o.getStrength = function()
+        function getStrength()
         {
-            this.m.EL_FinishGenerate = true;
-            return getStrength();
-		}
+            if(!this.m.EL_FinishGenerate) {
+                this.m.EL_FinishGenerate = true;
+                this.m.EL_TroopsResourse = this.m.Strength;
+            }
+            return this.m.Strength;
+        }
+
 
         local clearTroops = o.clearTroops;
 		o.clearTroops = function()
@@ -314,17 +330,17 @@ local gt = getroottable();
             this.m.EL_LootEquipmentEssence = [0, 0, 0, 0, 0];
             this.m.EL_LootItems = [];
             this.m.EL_FinishGenerate = false;
-		}
-
-        local getTooltip = o.getTooltip;
-		o.getTooltip = function()
-        {
-            this.m.EL_FinishGenerate = true;
-            return getTooltip();
+            local resources_mult = 0.01 * this.Math.rand(this.Const.EL_NPC.EL_Troop.Resourse.MultBase, this.Const.EL_NPC.EL_Troop.Resourse.MultBase + world_level * this.Const.EL_NPC.EL_Troop.Resourse.MultPurWorldLevel);
+            resources_mult = this.Math.rand(0, 1) == 1 ? resources_mult : (1 / resources_mult);
+            this.m.EL_TroopsResourse = this.Math.round(this.World.Assets.m.EL_WorldStrength * resources_mult);
 		}
 
 		o.getTroopComposition = function()
         {
+            if(!this.m.EL_FinishGenerate) {
+                this.m.EL_FinishGenerate = true;
+                this.m.EL_TroopsResourse = this.m.Strength;
+            }
             local entities = [];
             local champions = [];
             local entityTypes = [
@@ -893,7 +909,7 @@ local gt = getroottable();
             if(_EL_troop.Strength == 0) {
                 _EL_troop.Strength = this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.CrticalPoint;
             }
-            if(this.m.EL_FinishGenerate) {
+            if(this.m.EL_FinishGenerate && this.m.strength < this.m.EL_TroopsResourse) {
                 if(this.m.Troops.len() >= this.Const.EL_NPC.EL_Troop.MaxTroopNum) {
                     return;
                 }
@@ -921,12 +937,13 @@ local gt = getroottable();
 
                 _EL_troop.EL_ExtraCombatLevel = troop_info.EL_ExtraCombatLevel;
                 //Build names
-                if(_EL_troop.EL_RankLevel != 0) {
+                if(_EL_troop.EL_RankLevel == 2) {
                     _EL_troop.Name = this.Const.EL_NPC.EL_Troop.NamePrefix[_EL_troop.EL_RankLevel];
                     _EL_troop.Name += this.Const.EL_NPC.EL_Troop.Name[this.Math.rand(0, this.Const.EL_NPC.EL_Troop.Name.len() - 1)];
                     _EL_troop.Name += this.Const.EL_NPC.EL_Troop.NameSuffix[_EL_troop.EL_RankLevel];
                 }
                 this.m.Troops.push(_EL_troop);
+                this.updateStrength();
             }
             else {
                 if(this.m.EL_TempTroops.len() >= this.Const.EL_NPC.EL_Troop.MaxTroopNum) {
@@ -1133,7 +1150,6 @@ local gt = getroottable();
                     }
                 }
             }
-            this.updateStrength();
             return;
         }
 
