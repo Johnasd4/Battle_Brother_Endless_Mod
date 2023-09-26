@@ -394,7 +394,9 @@ local gt = getroottable();
                 bro.getSkills().removeByID("trait.greedy");
                 bro.getSkills().removeByID("trait.loyal");
                 bro.getSkills().removeByID("trait.disloyal");
-                bro.getSkills().add(this.new("scripts/skills/traits/player_character_trait"));
+                if(i == player_unit) {
+                    bro.getSkills().add(this.new("scripts/skills/traits/player_character_trait"));
+                }
                 bro.getSkills().add(this.new("scripts/skills/traits/arena_fighter_trait"));
                 bro.getFlags().set("ArenaFightsWon", 5);
                 bro.getFlags().set("ArenaFights", 5);
