@@ -299,7 +299,7 @@ local gt = getroottable();
                 this.m.EL_FinishGenerate = true;
                 this.m.EL_TroopsResourse = this.m.Strength;
             }
-            return removeTroop();
+            return removeTroop(_t);
 		}
 
         local getTroops = o.getTroops;
@@ -330,6 +330,7 @@ local gt = getroottable();
             this.m.EL_LootEquipmentEssence = [0, 0, 0, 0, 0];
             this.m.EL_LootItems = [];
             this.m.EL_FinishGenerate = false;
+            local world_level = this.World.Assets.m.EL_WorldLevel;
             local resources_mult = 0.01 * this.Math.rand(this.Const.EL_NPC.EL_Troop.Resourse.MultBase, this.Const.EL_NPC.EL_Troop.Resourse.MultBase + world_level * this.Const.EL_NPC.EL_Troop.Resourse.MultPurWorldLevel);
             resources_mult = this.Math.rand(0, 1) == 1 ? resources_mult : (1 / resources_mult);
             this.m.EL_TroopsResourse = this.Math.round(this.World.Assets.m.EL_WorldStrength * resources_mult);
@@ -915,7 +916,9 @@ local gt = getroottable();
                 }
                 local troop_info = this.Const.EL_NPC.EL_Troop.EL_getTroopInfo(_EL_troop);
                 //Calculate ranks, level, combat level.
-                if(troop_info.EL_IsBossUnit) {
+                if(_EL_troop.EL_RankLevel != 0) {
+                }
+                else if(troop_info.EL_IsBossUnit) {
                     _EL_troop.EL_RankLevel = this.Math.max(2, _EL_troop.EL_RankLevel);
                     _EL_troop.EL_IsBossUnit = true;
                 }
