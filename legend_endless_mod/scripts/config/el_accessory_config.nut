@@ -68,6 +68,9 @@ gt.Const.EL_Accessory <- {
 	EL_RarityEntry = {
 		Pool = {
 			Entrys = [
+				{
+					Scripts = "scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_bloody_cutting_entry"
+				},
 				// {
 				// 	Scripts = "scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_bloody_knock_entry"
 				// },
@@ -98,9 +101,13 @@ gt.Const.EL_Accessory <- {
 			1000,
 		],
 		Factor = {
+			EL_BloodyCutting = {
+				TargetHealthLossExtraDamageFactor = 0.5,
+				BleedingFactor = 1.0
+			},
 			EL_BloodyKnock = {
 				DamageMult = 5
-			}
+			},
 			EL_CircleofLife = {
 				HitpointsRecover = 0.2,
 				FatigueRecover = 0.2,
@@ -664,17 +671,17 @@ gt.Const.EL_Accessory <- {
 				index_pool.push(i);
 			}
 		}
-		while(1)
+		while(index_pool.len() != 0)
 		{
 			local r = this.Math.rand(0, index_pool.len() - 1);
 			local entry = this.new(this.Const.EL_Accessory.EL_Entry.Pool.Entrys[index_pool[r]].Scripts);
 			index_pool.remove(r);
 			if(!_EL_item.EL_hasEntry(entry.getID()))
 			{
+				entry.EL_setCurrentLevel(this.Const.EL_Accessory.EL_Entry.EntryNumFactor.NormalAccessory[_EL_item.m.EL_RankLevel]);
+				_EL_item.EL_addEntryList(entry);
 				break;
 			}
 		}
-        entry.EL_setCurrentLevel(EL_Accessory.EL_Entry.EntryNum.NormalAccessory[_EL_item.m.EL_RankLevel]);
-        _EL_item.EL_addEntryList(entry);
 	}
 };

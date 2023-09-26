@@ -5,7 +5,7 @@ local gt = getroottable();
 {
     ::mods_hookExactClass("items/accessory/accessory", function ( o )
 	{
-		o.m.EL_RarityEntry <- null;
+		o.m.EL_RarityEntry <- null;//this.new("scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_bloody_cutting_entry");//
 
 		local onEquip = o.onEquip;
 		o.onEquip = function ()
@@ -18,7 +18,7 @@ local gt = getroottable();
 			}
 			if(this.m.EL_RarityEntry != null && this.getContainer().getActor().getFaction() == this.Const.Faction.Player)//this.m.EL_RarityEntry != null &&
 			{
-				//this.logInfo("Rarity entry is equip, name = " + this.m.EL_RarityEntry.m.Name);
+				this.logInfo("Rarity entry is equip, name = " + this.m.EL_RarityEntry.m.Name);
 				//this.addSkill(this.new("scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_massacre_desire_entry"));
 				this.addSkill(this.m.EL_RarityEntry);
 			}
@@ -28,6 +28,7 @@ local gt = getroottable();
 		o.onUnequip = function ()
 		{
 			onUnequip();
+			this.addSkill(this.new("scripts/skills/el_entrys/el_total_entry"));
 			if( this.m.EL_CurrentLevel < this.m.EL_Level )
 			{
 				this.m.EL_CurrentLevel = this.m.EL_Level;
@@ -219,7 +220,11 @@ local gt = getroottable();
 				{
 					this.m.EL_Level += 1;
 					this.m.EL_CurrentLevel += 1;
-					if(this.m.EL_Entrylist[this.m.EL_Entrylist.len() - 1].m.EL_CurrentLevel != 1.0)
+					if(this.m.EL_Level == 1)
+					{
+						this.Const.EL_Accessory.EL_addItemEntry(this);
+					}
+					else if(this.m.EL_Entrylist[this.m.EL_Entrylist.len() - 1].m.EL_CurrentLevel != 1.0)
 					{
 						this.m.EL_Entrylist[this.m.EL_Entrylist.len() - 1].EL_upgrade();
 					}
