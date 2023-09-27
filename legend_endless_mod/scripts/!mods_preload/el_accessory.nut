@@ -207,11 +207,11 @@ local gt = getroottable();
 					this.m.EL_RankLevel += _EL_rankLevel;
 					this.m.EL_Level = this.Math.min(this.Const.EL_Item.MaxLevel, EL_level);
 					EL_updateRankLevelProperties();
-					this.m.EL_CurrentLevel = this.m.EL_Level;
 					this.Const.EL_Accessory.EL_assignItemRarityEntry(this, EL_additionalRarityChance);
 					this.Const.EL_Accessory.EL_assignItemEntrys(this, this.Const.EL_Accessory.EL_Entry.EntryNumFactor.NormalAccessory[this.m.EL_RankLevel] * this.m.EL_Level);
 					EL_updateLevelProperties();
 				}
+				this.m.EL_CurrentLevel = this.m.EL_Level;
 			}
 
 			o.EL_upgrade <- function()
@@ -257,7 +257,7 @@ local gt = getroottable();
 			o.EL_updateLevelProperties <- function()
 			{
 				this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Accessory.EL_LevelFactor.Value * this.m.EL_CurrentLevel));
-				local entryNum = this.Const.EL_Accessory.EL_Entry.EntryNumFactor.NormalAccessory[this.m.EL_RankLevel] * this.m.EL_CurrentLevel;
+				local entryNum = this.Const.EL_Accessory.EL_Entry.EntryNumFactor.NormalAccessory[this.m.EL_RankLevel] * this.m.EL_Level;
 				for(local num = 0.0; num < this.m.EL_Entrylist.len(); ++num)
 				{
 					this.m.EL_Entrylist[num].EL_setCurrentLevel(entryNum - num);
@@ -355,5 +355,25 @@ local gt = getroottable();
             create();
             EL_generateByRankAndLevel(this.Const.EL_Item.Type.Epic, 0);
         }
+	});
+
+	::mods_hookExactClass("items/accessory/sergeant_badge_item", function ( o )
+	{
+		o.getBuyPrice = function()
+		{
+			if (this.isSold())
+			{
+				return this.getSellPrice();
+			}
+
+			if (("State" in this.World) && this.World.State != null && this.World.State.getCurrentTown() != null)
+			{
+				return this.Math.max(this.getSellPrice(), this.Math.ceil(this.getValue() * this.getBuyPriceMult() * this.getPriceMult() * this.World.State.getCurrentTown().getBuyPriceMult() * this.Const.Difficulty.BuyPriceMult[this.World.Assets.getEconomicDifficulty()]));
+			}
+			else
+			{
+				return this.Math.ceil(this.getValue() * this.getPriceMult());
+			}
+		}
 	});
 });

@@ -179,11 +179,11 @@ local gt = getroottable();
 			{
 				this.m.EL_RankLevel += _EL_rankLevel;
 				this.m.EL_Level = this.Math.min(this.Const.EL_Item.MaxLevel, EL_level);
-				this.m.EL_CurrentLevel = this.m.EL_Level;
 				EL_init();
 				EL_updateRankLevelProperties();
 				this.Const.EL_Helmet.EL_assignItemEntrys(this, this.Const.EL_Helmet.EL_Entry.EntryNum.NormalHelmet[this.m.EL_RankLevel]);
 			}
+			this.m.EL_CurrentLevel = this.m.EL_Level;
 			EL_updateLevelProperties();
 			this.m.Condition = this.Math.floor(this.m.ConditionMax * percent);
         }
@@ -220,7 +220,7 @@ local gt = getroottable();
 		o.EL_updateLevelProperties <- function()
         {
 			this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Helmet.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
-			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Helmet.EL_LevelFactor.Value * this.m.EL_CurrentLevel));
+			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Helmet.EL_LevelFactor.Value * this.m.EL_Level));
 			this.m.StaminaModifier = this.Math.floor(this.m.EL_BaseWithRankStaminaModifier * (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.m.EL_CurrentLevel));
 			if(this.m.EL_Entrylist.len() != 0)
 			{
@@ -493,11 +493,11 @@ local gt = getroottable();
 			{
 				this.m.EL_RankLevel += _EL_rankLevel;
 				this.m.EL_Level = this.Math.min(this.Const.EL_Item.MaxLevel, EL_level);
-				this.m.EL_CurrentLevel = this.m.EL_Level;
 				EL_init();
 				EL_updateRankLevelProperties();
 				this.Const.EL_Helmet.EL_assignItemEntrys(this, this.Const.EL_Helmet.EL_Entry.EntryNum.NormalHelmet[this.m.EL_RankLevel]);
 			}
+			this.m.EL_CurrentLevel = this.m.EL_Level;
 			EL_updateLevelProperties();
 			this.m.Condition = this.Math.floor(this.m.ConditionMax * percent);
         }
@@ -843,11 +843,11 @@ local gt = getroottable();
 			{
 				this.m.EL_RankLevel += _EL_rankLevel;
 				this.m.EL_Level = this.Math.min(this.Const.EL_Item.MaxLevel, EL_level);
-				this.m.EL_CurrentLevel = this.m.EL_Level;
 				EL_init();
 				EL_updateRankLevelProperties();
 				this.Const.EL_Helmet.EL_assignItemEntrys(this, this.Const.EL_Helmet.EL_Entry.EntryNum.NormalHelmet[this.m.EL_RankLevel]);
 			}
+			this.m.EL_CurrentLevel = this.m.EL_Level;
 			EL_updateLevelProperties();
 			this.m.Condition = this.Math.floor(this.m.ConditionMax * percent);
         }
@@ -885,7 +885,7 @@ local gt = getroottable();
 		o.EL_updateLevelProperties <- function()
         {
 			this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Helmet.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
-			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Helmet.EL_LevelFactor.Value * this.m.EL_CurrentLevel));
+			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Helmet.EL_LevelFactor.Value * this.m.EL_Level));
 			this.m.StaminaModifier = this.Math.floor(this.m.EL_BaseWithRankStaminaModifier * (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.m.EL_CurrentLevel));
 			if(this.m.EL_Entrylist.len() != 0)
 			{

@@ -378,12 +378,12 @@ local gt = getroottable();
 			{
 				this.m.EL_RankLevel += _EL_rankLevel;
 				this.m.EL_Level = this.Math.min(this.Const.EL_Item.MaxLevel, EL_level);
-				this.m.EL_CurrentLevel = this.m.EL_Level;
 				local entryCount = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_Entry.EntryNum.OneHanded[this.m.EL_RankLevel] : this.Const.EL_Weapon.EL_Entry.EntryNum.TwoHanded[this.m.EL_RankLevel];
         		EL_init();
 				EL_updateRankLevelProperties();
 				this.Const.EL_Weapon.EL_assignItemEntrys(this, entryCount);
 			}
+			this.m.EL_CurrentLevel = this.m.EL_Level;
 			EL_updateLevelProperties();
 			this.m.Condition = this.m.ConditionMax * percent;
 		}
@@ -434,7 +434,7 @@ local gt = getroottable();
 		o.EL_updateLevelProperties <- function()
         {
 			this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Weapon.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
-			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Weapon.EL_LevelFactor.Value * this.m.EL_CurrentLevel));
+			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Weapon.EL_LevelFactor.Value * this.m.EL_Level));
 			this.m.RegularDamage = this.Math.ceil(this.m.EL_BaseWithRankRegularDamage * (1 + this.Const.EL_Weapon.EL_LevelFactor.RegularDamage * this.m.EL_CurrentLevel));
 			this.m.RegularDamageMax = this.Math.ceil(this.m.EL_BaseWithRankRegularDamageMax * (1 + this.Const.EL_Weapon.EL_LevelFactor.RegularDamageMax * this.m.EL_CurrentLevel));
 			this.m.StaminaModifier = this.Math.floor(this.m.EL_BaseWithRankStaminaModifier * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.m.EL_CurrentLevel));

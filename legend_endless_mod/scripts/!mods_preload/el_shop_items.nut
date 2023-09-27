@@ -1316,14 +1316,14 @@ local gt = getroottable();
 			});
             list.push({
 				R = 90,
-				P = 1.2,
+				P = 3.0,
 				S = "accessory/sergeant_badge_item"
 			});
             foreach( i in this.Const.EL_Accessory.EL_SeniorAccessoryList )
             {
                 list.push({
                     R = 99,
-                    P = 2.0,
+                    P = 5.0,
                     S = i
                 });
             }
@@ -1642,14 +1642,14 @@ local gt = getroottable();
 			});
             list.push({
 				R = 90,
-				P = 1.2,
+				P = 3.0,
 				S = "accessory/sergeant_badge_item"
 			});
             foreach( i in this.Const.EL_Accessory.EL_SeniorAccessoryList )
             {
                 list.push({
                     R = 99,
-                    P = 2.0,
+                    P = 5.0,
                     S = i
                 });
             }
