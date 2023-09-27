@@ -15,7 +15,7 @@ local gt = getroottable();
             properties.Entities = [];
             local party = this.new("scripts/entity/world/party");
             party.EL_setFaction(this.Const.Faction.Enemy);
-            party.EL_TempPartyInit();
+            party.EL_tempPartyInit();
             party.EL_setHaveRandomLeader(false);
             party.EL_setHaveStrongestLeader(false);
             party.EL_setTroopsResourse(0);

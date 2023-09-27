@@ -253,7 +253,7 @@ local gt = getroottable();
                     {
                         party = this.new("scripts/entity/world/party");
                         party.EL_setFaction(this.Const.Faction.Enemy);
-                        party.EL_TempPartyInit();
+                        party.EL_tempPartyInit();
                         party.EL_setTroopsResourse(0);
                         party.m.Name = "EquipmentEssenceOnly";
                         p.Parties.push(party);
@@ -283,7 +283,7 @@ local gt = getroottable();
         o.m.EL_Faction <- 0;
         o.m.EL_LootItems <- [];
 
-        o.EL_TempPartyInit <- function() {
+        o.EL_tempPartyInit <- function() {
             this.getFaction <- function() { return this.EL_getFaction(); };
             this.m.EL_IsTempParty = true;
         }
