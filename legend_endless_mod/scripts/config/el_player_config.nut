@@ -72,18 +72,23 @@ gt.Const.EL_Player <- {
         ],
         HiringCostMult = [
             1,
-            4,
-            10
+            2,
+            5
         ],
         HiringCostOffset = [
             0,
             4000,
-            10000
+            25000
         ],
         DailyCostMult = [
             1,
             2,
             5
+        ],
+        DailyCostOffset = [
+            0,
+            40,
+            250
         ],
         DailyFoodMult = [
             1,

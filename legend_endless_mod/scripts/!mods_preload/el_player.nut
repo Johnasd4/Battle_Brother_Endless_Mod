@@ -600,9 +600,8 @@ local gt = getroottable();
 				//this.logInfo("DailyCost 1 : " + this.m.DailyCost);
 				//this.logInfo("DailyWage 1 : " + _properties.DailyWage);
 				local actor = this.getContainer().getActor();
-				local wage = this.Math.round(this.m.DailyCost * this.m.DailyCostMult);
+				local wage = this.Math.round((this.m.DailyCost * this.Const.EL_Player.EL_Champion.DailyCostMult[actor.EL_getRankLevel()] + this.Const.EL_Player.EL_Champion.DailyCostOffset[actor.EL_getRankLevel()] ) * this.m.DailyCostMult);
 				_properties.DailyWage += wage * (1 + actor.getLevel() * this.Const.EL_Player.EL_DailyCostLevelMult);
-				_properties.DailyWage *= this.Const.EL_Player.EL_Champion.DailyCostMult[actor.EL_getRankLevel()];
 				_properties.DailyWage = this.Math.ceil(_properties.DailyWage);
 				//this.logInfo("DailyWage 2 : " + _properties.DailyWage);
 
