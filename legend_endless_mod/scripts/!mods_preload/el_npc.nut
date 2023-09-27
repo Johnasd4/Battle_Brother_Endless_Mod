@@ -253,7 +253,7 @@ local gt = getroottable();
                     {
                         party = this.new("scripts/entity/world/party");
                         party.EL_setFaction(this.Const.Faction.Enemy);
-                        party.getFaction <- function() { return this.EL_getFaction(); };
+                        party.EL_TempPartyInit();
                         party.EL_setTroopsResourse(0);
                         party.m.Name = "EquipmentEssenceOnly";
                         p.Parties.push(party);
@@ -272,6 +272,7 @@ local gt = getroottable();
 		while(!("getTroops" in o)) o = o[o.SuperName];
 		o.m.EL_TempTroops <- [];
         o.m.EL_FinishGenerate <- false;
+        o.m.EL_IsTempParty <- false;
 		o.m.EL_IsBossParty <- false;
         o.m.EL_IsEliteParty <- false;
         o.m.EL_IsPlayer <- false;
@@ -281,6 +282,11 @@ local gt = getroottable();
         o.m.EL_LootEquipmentEssence <- [0, 0, 0, 0, 0];
         o.m.EL_Faction <- 0;
         o.m.EL_LootItems <- [];
+
+        o.EL_TempPartyInit <- function() {
+            this.EL_TempPartyInit();
+            this.m.EL_IsTempParty = true;
+        }
 
         o.EL_setFaction <- function( _EL_Faction )
         {
@@ -415,7 +421,7 @@ local gt = getroottable();
                 }
                 this.m.Strength = unit_strength * (1 + this.Math.pow(unit_population / this.Const.EL_NPC.EL_Troop.TotalResourse.Factor1, this.Const.EL_NPC.EL_Troop.TotalResourse.Factor2));
             }
-            if (this.hasLabel("name"))
+            if (!this.m.EL_IsTempParty && this.hasLabel("name"))
             {
                 if (!this.isPlayerControlled())
                 {
@@ -662,6 +668,7 @@ local gt = getroottable();
                 _out.writeI32(this.IO.scriptHashByFilename(t.Script));
             }
 
+            _out.writeBool(this.m.EL_IsTempParty);
             _out.writeBool(this.m.EL_FinishGenerate);
             _out.writeBool(this.m.EL_IsBossParty);
             _out.writeBool(this.m.EL_IsEliteParty);
@@ -881,6 +888,7 @@ local gt = getroottable();
                 i = ++i;
             }
 
+            this.m.EL_IsTempParty = _in.writeBool();
             this.m.EL_FinishGenerate = _in.readBool();
             this.m.EL_IsBossParty = _in.readBool();
             this.m.EL_IsEliteParty = _in.readBool();

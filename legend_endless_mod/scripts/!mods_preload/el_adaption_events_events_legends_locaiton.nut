@@ -97,7 +97,7 @@ local gt = getroottable();
                             local f = this.World.FactionManager.getFactionOfType(this.Const.FactionType.Undead).getID();
                             local party = this.new("scripts/entity/world/party");
                             party.EL_setFaction(f);
-                            party.getFaction <- function() { return this.EL_getFaction(); };
+                            party.EL_TempPartyInit();
                             party.EL_setIsEliteParty(true);
                             party.EL_setHaveRandomLeader(false);
                             party.EL_setHaveStrongestLeader(false);
@@ -384,7 +384,7 @@ local gt = getroottable();
             this.logInfo("push party");
             local party = this.new("scripts/entity/world/party");
             party.EL_setFaction(this.Const.Faction.Enemy);
-            party.getFaction <- function() { return this.EL_getFaction(); };
+            party.EL_TempPartyInit();
             //party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Arena).getID());
             //Stop copying troops.
             party.EL_setTroopsResourse(0);

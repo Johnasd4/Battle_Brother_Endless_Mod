@@ -98,7 +98,7 @@ local gt = getroottable();
                             local f = this.World.FactionManager.getFactionOfType(this.Const.FactionType.Undead).getID();
                             local party = this.new("scripts/entity/world/party");
                             party.EL_setFaction(f);
-                            party.getFaction <- function() { return this.EL_getFaction(); };
+                            party.EL_TempPartyInit();
                             EL_setIsBossParty(true);
                             properties.Parties.push(party);
                             for( local i = 0; i < 4; i = ++i )

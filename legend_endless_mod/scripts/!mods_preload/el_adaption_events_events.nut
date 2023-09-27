@@ -146,7 +146,7 @@ local gt = getroottable();
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
                             party.EL_setFaction(this.Const.Faction.Enemy);
-                            party.getFaction <- function() { return this.EL_getFaction(); };
+                            party.EL_TempPartyInit();
                             properties.Parties.push(party);
                             for( local i = 0; i < 25; i = i )
                             {
@@ -246,7 +246,7 @@ local gt = getroottable();
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
                             party.EL_setFaction(this.Const.Faction.Enemy);
-                            party.getFaction <- function() { return this.EL_getFaction(); };
+                            party.EL_TempPartyInit();
                             properties.Parties.push(party);
                             for( local i = 0; i < 25; i = i )
                             {
@@ -294,7 +294,7 @@ local gt = getroottable();
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
                             party.EL_setFaction(this.Const.Faction.Enemy);
-                            party.getFaction <- function() { return this.EL_getFaction(); };
+                            party.EL_TempPartyInit();
                             properties.Parties.push(party);
                             for( local i = 0; i < 25; i = i )
                             {
@@ -458,7 +458,7 @@ local gt = getroottable();
                             properties.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Circle;
                             local party = this.new("scripts/entity/world/party");
                             party.EL_setFaction(this.Const.Faction.Enemy);
-                            party.getFaction <- function() { return this.EL_getFaction(); };
+                            party.EL_TempPartyInit();
                             properties.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Direwolves, this.Math.rand(40, 70), this.Const.Faction.Enemy);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Ghouls, this.Math.rand(40, 70), this.Const.Faction.Enemy);
@@ -661,7 +661,7 @@ local gt = getroottable();
                             ];
                             local party = this.new("scripts/entity/world/party");
                             party.EL_setFaction(_event.m.NobleHouse.getID());
-                            party.getFaction <- function() { return this.EL_getFaction(); };
+                            party.EL_TempPartyInit();
                             properties.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Noble, this.Math.rand(80, 100) * _event.getReputationToDifficultyLightMult(), _event.m.NobleHouse.getID());
                             foreach(troop in party.getTroops()) {
@@ -737,7 +737,7 @@ local gt = getroottable();
                             ];
                             local party = this.new("scripts/entity/world/party");
                             party.EL_setFaction(_event.m.NobleHouse.getID());
-                            party.getFaction <- function() { return this.EL_getFaction(); };
+                            party.EL_TempPartyInit();
                             properties.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Noble, this.Math.rand(80, 100) * _event.getReputationToDifficultyLightMult(), _event.m.NobleHouse.getID());
                             foreach(troop in party.getTroops()) {
@@ -885,7 +885,7 @@ local gt = getroottable();
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
                             party.EL_setFaction(this.Const.Faction.Enemy);
-                            party.getFaction <- function() { return this.EL_getFaction(); };
+                            party.EL_TempPartyInit();
                             properties.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.BanditDefenders, this.Math.rand(90, 110) * _event.getReputationToDifficultyLightMult(), this.Const.Faction.Enemy);
                             foreach(troop in party.getTroops()) {
@@ -920,7 +920,7 @@ local gt = getroottable();
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
                             party.EL_setFaction(this.Const.Faction.Enemy);
-                            party.getFaction <- function() { return this.EL_getFaction(); };
+                            party.EL_TempPartyInit();
                             properties.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Direwolves, this.Math.rand(90, 110) * _event.getReputationToDifficultyLightMult(), this.Const.Faction.Enemy);
                             foreach(troop in party.getTroops()) {
@@ -1057,7 +1057,7 @@ local gt = getroottable();
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
                             party.EL_setFaction(this.Const.Faction.Enemy);
-                            party.getFaction <- function() { return this.EL_getFaction(); };
+                            party.EL_TempPartyInit();
                             properties.Parties.push(party);
                             for( local i = 0; i < 50; i = i )
                             {
@@ -1485,7 +1485,7 @@ local gt = getroottable();
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
                             party.EL_setFaction(this.Const.Faction.Enemy);
-                            party.getFaction <- function() { return this.EL_getFaction(); };
+                            party.EL_TempPartyInit();
                             properties.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Militia, this.Math.rand(90, 130), this.Const.Faction.Enemy);
                             foreach(troop in party.getTroops()) {
@@ -1691,7 +1691,7 @@ local gt = getroottable();
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
                             party.EL_setFaction(this.Const.Faction.Enemy);
-                            party.getFaction <- function() { return this.EL_getFaction(); };
+                            party.EL_TempPartyInit();
                             properties.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.GoblinRaiders, this.Math.rand(90, 110) * _event.getReputationToDifficultyLightMult(), this.Const.Faction.Enemy);
                             foreach(troop in party.getTroops()) {
@@ -1767,7 +1767,7 @@ local gt = getroottable();
                             properties.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Random;
                             local ally_party = this.new("scripts/entity/world/party");
                             ally_party.EL_setFaction(this.Const.Faction.PlayerAnimals);
-                            ally_party.getFaction <- function() { return this.EL_getFaction(); };
+                            ally_party.EL_TempPartyInit();
                             properties.Parties.push(ally_party);
                             this.Const.World.Common.addUnitsToCombat(ally_party, this.Const.World.Spawn.Peasants, this.Math.rand(40, 50) * _event.getReputationToDifficultyLightMult(), this.Const.Faction.PlayerAnimals);
                             foreach(troop in ally_party.getTroops()) {
@@ -1775,7 +1775,7 @@ local gt = getroottable();
                             }
                             local enemy_party = this.new("scripts/entity/world/party");
                             enemy_party.EL_setFaction(this.Const.Faction.Enemy);
-                            enemy_party.getFaction <- function() { return this.EL_getFaction(); };
+                            enemy_party.EL_TempPartyInit();
                             properties.Parties.push(enemy_party);
                             this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.GoblinRaiders, this.Math.rand(90, 110) * _event.getReputationToDifficultyLightMult(), this.Const.Faction.Enemy);
                             foreach(troop in enemy_party.getTroops()) {
@@ -2003,7 +2003,7 @@ local gt = getroottable();
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
                             party.EL_setFaction(this.Const.Faction.Enemy);
-                            party.getFaction <- function() { return this.EL_getFaction(); };
+                            party.EL_TempPartyInit();
                             properties.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Ghouls, this.Math.rand(70, 90), this.Const.Faction.Enemy);
                             foreach(troop in party.getTroops()) {
@@ -2097,7 +2097,7 @@ local gt = getroottable();
                             ];
                             local party = this.new("scripts/entity/world/party");
                             party.EL_setFaction(this.Const.Faction.Enemy);
-                            party.getFaction <- function() { return this.EL_getFaction(); };
+                            party.EL_TempPartyInit();
                             properties.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.GreenskinHorde, this.Math.rand(70, 90), this.Const.Faction.Enemy);
                             foreach(troop in party.getTroops()) {
@@ -2232,7 +2232,7 @@ local gt = getroottable();
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Undead).getID());
-                            party.getFaction <- function() { return this.EL_getFaction(); };
+                            party.EL_TempPartyInit();
                             properties.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Zombies, this.Math.rand(80, 120), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Undead).getID());
                             this.Const.World.Common.addTroop(party, {
@@ -2418,7 +2418,7 @@ local gt = getroottable();
                             properties.Entities = [];
                             local party = this.new("scripts/entity/world/party");
                             party.EL_setFaction(this.Const.Faction.Enemy);
-                            party.getFaction <- function() { return this.EL_getFaction(); };
+                            party.EL_TempPartyInit();
                             properties.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.PeasantsArmed, this.Math.rand(50, 100), this.Const.Faction.Enemy);
                             foreach(troop in party.getTroops()) {
@@ -2501,7 +2501,7 @@ local gt = getroottable();
                             properties.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Center;
                             local ally_party = this.new("scripts/entity/world/party");
                             ally_party.EL_setFaction(this.Const.Faction.PlayerAnimals);
-                            ally_party.getFaction <- function() { return this.EL_getFaction(); };
+                            ally_party.EL_TempPartyInit();
                             properties.Parties.push(ally_party);
                             this.Const.World.Common.addUnitsToCombat(ally_party, this.Const.World.Spawn.Peasants, this.Math.rand(10, 30), this.Const.Faction.PlayerAnimals);
                             foreach(troop in ally_party.getTroops()) {
@@ -2509,7 +2509,7 @@ local gt = getroottable();
                             }
                             local enemy_party = this.new("scripts/entity/world/party");
                             enemy_party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Undead).getID());
-                            enemy_party.getFaction <- function() { return this.EL_getFaction(); };
+                            enemy_party.EL_TempPartyInit();
                             properties.Parties.push(enemy_party);
                             this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.ZombiesLight, this.Math.rand(60, 90), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Undead).getID());
                             foreach(troop in enemy_party.getTroops()) {

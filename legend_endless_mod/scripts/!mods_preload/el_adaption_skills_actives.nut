@@ -386,7 +386,7 @@ local gt = getroottable();
 
                 n = --n;
 
-                while (n >= 0 && freeTiles.len() >= 1)
+                if (n >= 0 && freeTiles.len() >= 1)
                 {
                     local tile = freeTiles[0].Tile;
                     freeTiles.remove(0);
@@ -423,7 +423,7 @@ local gt = getroottable();
 
                 n = --n;
 
-                while (n >= 0 && freeTiles.len() >= 1)
+                if (n >= 0 && freeTiles.len() >= 1)
                 {
                     local tile = freeTiles[0].Tile;
                     freeTiles.remove(0);
