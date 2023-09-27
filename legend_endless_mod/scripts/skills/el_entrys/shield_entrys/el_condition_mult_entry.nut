@@ -42,11 +42,6 @@ this.el_condition_mult_entry <- this.inherit("scripts/skills/el_entrys/el_entry"
 	{
         _item.m.ConditionMax *= (1.0 + this.m.EL_ConditionMultAddition * 0.01);
 	}
-
-	function EL_refreshTotalEntry( _EL_totalEntry )
-	{
-		_EL_totalEntry.m.EL_ShieldConditionMultAddition += this.m.EL_ConditionMultAddition;
-	}
     
     function onSerialize( _out )
 	{

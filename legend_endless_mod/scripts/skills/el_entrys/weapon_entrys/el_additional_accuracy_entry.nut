@@ -14,7 +14,7 @@ this.el_additional_accuracy_entry <- this.inherit("scripts/skills/el_entrys/el_e
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Additional accuracy + " + this.m.EL_AdditionalAccuracy + "%[/color]"
+			text = "[color=" + colour + "]chance to hit + " + this.m.EL_AdditionalAccuracy + "%[/color]"
 		};
 		return result;
 	}
@@ -42,12 +42,7 @@ this.el_additional_accuracy_entry <- this.inherit("scripts/skills/el_entrys/el_e
 	{
         _item.m.AdditionalAccuracy = _item.m.EL_BaseWithRankAdditionalAccuracy + this.m.EL_AdditionalAccuracy;
 	}
-
-	function EL_refreshTotalEntry( _EL_totalEntry )
-	{
-		_EL_totalEntry.m.EL_WeaponAdditionalAccuracy += this.m.EL_AdditionalAccuracy;
-	}
-    
+	
     function onSerialize( _out )
 	{
 		_out.writeI32(this.m.EL_AdditionalAccuracy);

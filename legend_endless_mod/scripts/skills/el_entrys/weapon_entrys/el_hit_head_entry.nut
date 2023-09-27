@@ -42,11 +42,6 @@ this.el_hit_head_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
 	{
         _item.m.ChanceToHitHead = _item.m.EL_BaseWithRankChanceToHitHead + this.m.EL_HitHeadAddition;
 	}
-
-	function EL_refreshTotalEntry( _EL_totalEntry )
-	{
-		_EL_totalEntry.m.EL_WeaponHitHeadAddition += this.m.EL_HitHeadAddition;
-	}
     
     function onSerialize( _out )
 	{

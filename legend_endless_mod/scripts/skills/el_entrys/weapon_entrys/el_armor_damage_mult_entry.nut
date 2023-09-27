@@ -14,7 +14,7 @@ this.el_armor_damage_mult_entry <- this.inherit("scripts/skills/el_entrys/el_ent
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Armor Damage Mult + " + this.m.EL_ArmorDamageMultAddition + "%[/color]"
+			text = "[color=" + colour + "]Additional " + this.m.EL_ArmorDamageMultAddition + "% effective against armor[/color]"
 		};
 		return result;
 	}
@@ -41,11 +41,6 @@ this.el_armor_damage_mult_entry <- this.inherit("scripts/skills/el_entrys/el_ent
 	function EL_onItemUpdate( _item )
 	{
         _item.m.ArmorDamageMult = _item.m.EL_BaseWithRankArmorDamageMult + this.m.EL_ArmorDamageMultAddition * 0.01;
-	}
-
-	function EL_refreshTotalEntry( _EL_totalEntry )
-	{
-		_EL_totalEntry.m.EL_WeaponArmorDamageMultAddition += this.m.EL_ArmorDamageMultAddition;
 	}
     
     function onSerialize( _out )

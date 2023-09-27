@@ -349,7 +349,7 @@ local gt = getroottable();
 			}
 			if(essence_need < essence_have)
 			{
-				if(item.EL_getLevel() == -1)
+				if(item.EL_getLevel() != -1)
 				{
 					this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
 				}
@@ -390,7 +390,7 @@ local gt = getroottable();
 			}
 			if(essence_need < essence_have)
 			{
-				if(item.EL_getLevel() == -1)
+				if(item.EL_getLevel() != -1)
 				{
 					this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
 				}
@@ -417,7 +417,7 @@ local gt = getroottable();
 				return null;
 			}
 			//this.logInfo("use onDisassembleItem !!!!!!!!!!!!!!");
-			if(item.EL_getLevel() == -1)
+			if(item.EL_getLevel() != -1)
 			{
 				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
 			}

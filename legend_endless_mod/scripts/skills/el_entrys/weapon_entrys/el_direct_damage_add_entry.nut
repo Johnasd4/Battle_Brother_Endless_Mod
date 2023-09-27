@@ -14,7 +14,7 @@ this.el_direct_damage_add_entry <- this.inherit("scripts/skills/el_entrys/el_ent
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Direct Damage Add + " + this.m.EL_DirectDamageAddAddition + "%[/color]"
+			text = "[color=" + colour + "]Additional " + this.m.EL_DirectDamageAddAddition + "% of damage ignores armor[/color]"
 		};
 		return result;
 	}
@@ -41,11 +41,6 @@ this.el_direct_damage_add_entry <- this.inherit("scripts/skills/el_entrys/el_ent
 	function EL_onItemUpdate( _item )
 	{
         _item.m.DirectDamageAdd = _item.m.EL_BaseWithRankDirectDamageAdd + this.m.EL_DirectDamageAddAddition * 0.01;
-	}
-
-	function EL_refreshTotalEntry( _EL_totalEntry )
-	{
-		_EL_totalEntry.m.EL_WeaponDirectDamageAddAddition += this.m.EL_DirectDamageAddAddition;
 	}
     
     function onSerialize( _out )
