@@ -1020,21 +1020,21 @@ local gt = getroottable();
                     local used_resourse = 0;
                     local random_leader_avilable_index = [];
                     if(this.m.EL_HaveStrongestLeader && !troops_info[i].EL_IsWeakUnit && this.m.Troops[i].Strength >= this.Const.EL_NPC.EL_Troop.Rank2LeastStrength) {
-                        this.m.Troops[i].EL_RankLevel = this.Math.min(2, this.m.Troops[i].EL_RankLevel);
+                        this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevel);
                         unit_strength += this.m.Troops[i].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[i].EL_RankLevel];
                         unit_population += troops_info[i].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[i].EL_RankLevel];
                         ++i;
                     }
                     for(; i < troops_info.len(); ++i) {
                         if(troops_info[i].EL_IsBossUnit) {
-                            this.m.Troops[i].EL_RankLevel = this.Math.min(2, this.m.Troops[i].EL_RankLevel);
+                            this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevel);
                             this.m.Troops[i].EL_IsBossUnit = true;
                         }
                         else if(troops_info[i].EL_IsWeakUnit) {
-                            this.m.Troops[i].EL_RankLevel = this.Math.min(0, this.m.Troops[i].EL_RankLevel);
+                            this.m.Troops[i].EL_RankLevel = this.Math.max(0, this.m.Troops[i].EL_RankLevel);
                         }
                         else {
-                            this.m.Troops[i].EL_RankLevel = this.Math.min(1, this.m.Troops[i].EL_RankLevel);
+                            this.m.Troops[i].EL_RankLevel = this.Math.max(1, this.m.Troops[i].EL_RankLevel);
                             if(this.m.Troops[i].Strength >= this.Const.EL_NPC.EL_Troop.Rank2LeastStrength) {
                                 random_leader_avilable_index.push(i);
                             }
@@ -1048,7 +1048,7 @@ local gt = getroottable();
                         local random_leader_index = random_leader_avilable_index[this.Math.rand(0, random_leader_avilable_index.len() - 1)];
                         unit_strength -= this.m.Troops[random_leader_index].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[random_leader_index].EL_RankLevel];
                         unit_population -= troops_info[random_leader_index].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[random_leader_index].EL_RankLevel];
-                        this.m.Troops[random_leader_index].EL_RankLevel = this.Math.min(2, this.m.Troops[random_leader_index].EL_RankLevel);
+                        this.m.Troops[random_leader_index].EL_RankLevel = this.Math.max(2, this.m.Troops[random_leader_index].EL_RankLevel);
                         if(this.Const.EL_NPC.EL_Troop.BossChance >= this.Math.rand(1, 100)) {
                             this.m.Troops[random_leader_index].EL_IsBossUnit = true;
                         }
@@ -1061,14 +1061,14 @@ local gt = getroottable();
                         for(local j = 0; this.m.Troops.len() >= this.Const.EL_NPC.EL_Troop.MaxTroopNum; j = (j + 1) % troops_info.len()) {
                             local troop = clone this.m.Troops[j];
                             if(troops_info[j].EL_IsBossUnit) {
-                                troop.EL_RankLevel = this.Math.min(2, troop.EL_RankLevel);
+                                troop.EL_RankLevel = this.Math.max(2, troop.EL_RankLevel);
                                 troop.EL_IsBossUnit = true;
                             }
                             else if(troops_info[j].EL_IsWeakUnit) {
-                                troop.EL_RankLevel = this.Math.min(0, troop.EL_RankLevel);
+                                troop.EL_RankLevel = this.Math.max(0, troop.EL_RankLevel);
                             }
                             else {
-                                troop.EL_RankLevel = this.Math.min(1, troop.EL_RankLevel);
+                                troop.EL_RankLevel = this.Math.max(1, troop.EL_RankLevel);
                             }
 
                             troop.EL_ExtraCombatLevel = troops_info[j].EL_ExtraCombatLevel;
