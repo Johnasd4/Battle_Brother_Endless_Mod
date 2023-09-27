@@ -118,8 +118,8 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
             }
         }
 	}
-	
-	function onUpdate( _properties )
+
+	function onAfterUpdate( _properties )
 	{
 		this.onRefresh();
 	}
