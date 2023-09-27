@@ -91,6 +91,9 @@ gt.Const.EL_Accessory <- {
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_toxic_blade_thrust_entry"
+				},
+				{
+					Scripts = "scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_unbreakable_entry"
 				}
 			]
 		}

@@ -260,7 +260,7 @@ local gt = getroottable();
 			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Shield.EL_LevelFactor.Value * this.m.EL_Level));
 			this.m.MeleeDefense = this.Math.ceil(this.m.EL_BaseWithRankMeleeDefense * (1 + this.Const.EL_Shield.EL_LevelFactor.MeleeDefense * this.m.EL_CurrentLevel));
 			this.m.RangedDefense = this.Math.ceil(this.m.EL_BaseWithRankRangedDefense * (1 + this.Const.EL_Shield.EL_LevelFactor.RangedDefense * this.m.EL_CurrentLevel));
-			this.m.StaminaModifier = this.Math.floor(this.m.EL_BaseWithRankStaminaModifier * (1 + this.Const.EL_Shield.EL_LevelFactor.StaminaModifier * this.m.EL_CurrentLevel));
+			this.m.StaminaModifier = this.Math.floor(this.m.EL_BaseWithRankStaminaModifier * (1 + this.Const.EL_Shield.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
 			if(this.m.EL_Entrylist.len() != 0)
 			{
 				foreach(entry in this.m.EL_Entrylist)
