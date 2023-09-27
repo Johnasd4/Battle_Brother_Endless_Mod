@@ -136,7 +136,7 @@ local gt = getroottable();
                             local dif = this.Math.rand(80, 100);
                             party.EL_setTroopsResourse(party.EL_getTroopsResourse() * dif * 0.01);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
-                            party.EL_TempPartyInit();
+                            party.EL_tempPartyInit();
                             properties.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Unhold, dif, this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
                             foreach(troop in party.getTroops()) {

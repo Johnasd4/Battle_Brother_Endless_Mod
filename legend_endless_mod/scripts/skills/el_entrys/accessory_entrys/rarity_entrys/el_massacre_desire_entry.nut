@@ -30,7 +30,7 @@ this.el_massacre_desire_entry <- this.inherit("scripts/skills/skill", {
 
 	function EL_isNegativeEffect( _skill )
 	{
-		foreach( id in this.Const.EL_Item_Other.NagativeEffectID)
+		foreach( id in this.Const.EL_Item_Other.NegativeEffectID)
 		{
 			if(_skill.m.ID == id)
 			{
@@ -135,7 +135,7 @@ this.el_massacre_desire_entry <- this.inherit("scripts/skills/skill", {
 
 	function EL_isNegativeEffect( _skill )
 	{
-		foreach( _id in this.Const.Item.NagativeEffectID)
+		foreach( _id in this.Const.EL_Item_Other.NegativeEffectID)
 		{
 			if(_skill.m.ID == _id)
 			{

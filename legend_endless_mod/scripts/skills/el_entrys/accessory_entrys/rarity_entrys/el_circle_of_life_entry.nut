@@ -13,6 +13,8 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 		//this.m.IconMini = "el_circle_of_life_entry_mini";
 		this.m.Overlay = "el_circle_of_life_entry";
 		this.m.Type = this.Const.SkillType.StatusEffect;
+        this.m.EL_IsRising = false;
+		this.m.EL_RiseTimesLeft = 0;
 	}
 
 	function getTooltip()
@@ -98,16 +100,17 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
         local item = this.m.Container.getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
 		if (_targetEntity != null && item != null && item.isItemType(this.Const.Items.ItemType.OneHanded) && item.isWeaponType(this.Const.Items.WeaponType.Mace))
 		{
-			_targetEntity.getSkills().add(this.new("scripts/skills/effects/stunned_effect"));
+			this.EL_drainFatigueAndHitpoints(_skill, _targetEntity);
 		}
 	}
 
 	function onTurnStart()
 	{
         local item = this.m.Container.getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
-		if (_targetEntity != null && item != null && item.isItemType(this.Const.Items.ItemType.OneHanded) && item.isWeaponType(this.Const.Items.WeaponType.Mace))
+		if (item != null && item.isItemType(this.Const.Items.ItemType.OneHanded) && item.isWeaponType(this.Const.Items.WeaponType.Mace))
 		{
 			local user = this.getContainer().getActor();	
+			local skills = user.getSkills();
 			local skills = user.getSkills();
 			if(this.m.EL_IsRising)
 			{
@@ -118,7 +121,6 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 				if(this.m.EL_RiseTimesLeft == 0) {
 					user.setIsAbleToDie(true);
 				}
-				local skills = user.getSkills();
 				foreach( skill in skills.m.Skills ) {
 					local skill_type = skill.getType();
 					if(!skill.isType(this.Const.SkillType.None) &&
@@ -131,9 +133,8 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 					!skill.isType(this.Const.SkillType.Terrain) &&
 					!skill.isType(this.Const.SkillType.WorldEvent) &&
 					!skill.isType(this.Const.SkillType.Background) &&
-					!skill.isType(this.Const.SkillType.Alert) &&
-					!(skill.EL_isNPCBuff()) &&
-					skill.getID() != "effects.battle_standard")
+					!skill.isType(this.Const.SkillType.Alert) ||
+					this.EL_isNegativeEffect(skill))
 					{
 						skills.remove(skill);
 					}
@@ -141,9 +142,7 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 				user.setHitpoints(user.getHitpointsMax());
 				user.setActionPoints(user.getActionPointsMax());
 				user.setFatigue(0);
-				if(this.m.EL_MoraleState != this.Const.MoraleState.Ignore) {
-					user.setMoraleState(this.Const.MoraleState.Confident);
-				}
+                user.setMoraleState(this.Const.MoraleState.Confident);
 				local armor = user.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
 				if(armor != null) {
 					armor.setArmor(armor.getArmorMax());
@@ -165,6 +164,7 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 				{
 					if(this.EL_isNegativeEffect(skills.m.Skills[i]))
 					{
+						this.logInfo(skills.m.Skills[i].getID());
 						index_pool.push(i);
 					}
 				}
@@ -192,7 +192,7 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 	function onDamageReceived( _attacker, _damageHitpoints, _damageArmor )
     {
         local item = this.m.Container.getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
-		if (_targetEntity != null && item != null && item.isItemType(this.Const.Items.ItemType.OneHanded) && item.isWeaponType(this.Const.Items.WeaponType.Mace))
+		if (item != null && item.isItemType(this.Const.Items.ItemType.OneHanded) && item.isWeaponType(this.Const.Items.WeaponType.Mace))
 		{
 			local user = this.getContainer().getActor();
 			if ((this.m.EL_RiseTimesLeft > 0 && _damageHitpoints > user.getHitpoints()) || user.getHitpoints() <= 0)
@@ -202,8 +202,7 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 				user.m.IsAttackable = false;
 				user.setActionPoints(0);
 				user.setFatigue(user.getFatigueMax());
-				this.m.EL_MoraleState = user.getMoraleState();
-				user.m.MoraleState = this.Const.MoraleState.Ignore;
+           		user.m.MoraleState = this.Const.MoraleState.Ignore;
 				local armor = user.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
 				if(armor != null) {
 					armor.setArmor(0);
@@ -226,28 +225,30 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 
 	function onCombatStarted()
 	{
-		this.m.TempStacks = EL_RiseTimesLeft = this.Const.EL_Accessory.EL_RarityEntry.Factor.EL_CircleofLife.RiseNum;
+		this.m.EL_RiseTimesLeft = this.Const.EL_Accessory.EL_RarityEntry.Factor.EL_CircleofLife.RiseNum;
 	}
 
     function EL_drainFatigueAndHitpoints( _skill, _targetEntity )
     {
         local user = this.getContainer().getActor();
-		local fatigue_drain = this.Math.min(_targetEntity.getFatigueMax() - _targetEntity.getFatigue(), _targetEntity.getFatigueMax() * this.Const.EL_Accessory.EL_RarityEntry.Factor.EL_CircleofLife.FatigueDrainPercent[_targetEntity.EL_getRankLevel()]);
+		local fatigue_drain = this.Math.max(_targetEntity.getFatigueMax() - _targetEntity.getFatigue(), _targetEntity.getFatigueMax() * this.Const.EL_Accessory.EL_RarityEntry.Factor.EL_CircleofLife.FatigueDrainPercent[_targetEntity.EL_getRankLevel()]);
+		this.logInfo("fatigue_drain:" + fatigue_drain);
 		this.applyFatigueDamage(_targetEntity, fatigue_drain);
-		user.setFatigue(this.Math.min(0, user.getFatigue() - fatigue_drain));
+		user.setFatigue(this.Math.max(0, user.getFatigue() - fatigue_drain));
 		local hitpoints_drain = this.Math.min(_targetEntity.getHitpoints(), _targetEntity.getHitpointsMax() * this.Const.EL_Accessory.EL_RarityEntry.Factor.EL_CircleofLife.HitpointsDrainPercent[_targetEntity.EL_getRankLevel()]);
 		local hit_info = clone this.Const.Tactical.HitInfo;
 		hit_info.DamageRegular = hitpoints_drain;
 		hit_info.DamageDirect = 1.0;
 		hit_info.BodyPart = this.Const.BodyPart.Body;
 		hit_info.BodyDamageMult = 1.0;
+		this.logInfo("hitpoints_drain:" + hitpoints_drain);
 		_targetEntity.onDamageReceived(user, this, hit_info);
-		user.setHitpoints(this.Math.max(user.getHitpointsMax(), user.getHitpoints() + hitpoints_drain));
+		user.setHitpoints(this.Math.min(user.getHitpointsMax(), user.getHitpoints() + hitpoints_drain));
     }
 
 	function EL_isNegativeEffect( _skill )
 	{
-		foreach( id in this.Const.EL_Item_Other.NagativeEffectID)
+		foreach( id in this.Const.EL_Item_Other.NegativeEffectID)
 		{
 			if(_skill.m.ID == id)
 			{
