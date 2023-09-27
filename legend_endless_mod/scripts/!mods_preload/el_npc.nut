@@ -394,6 +394,10 @@ local gt = getroottable();
 
 		o.updateStrength = function()
         {
+            if (!this.isAlive())
+            {
+                return;
+            }
             if(this.m.EL_IsBossParty) {
                 this.m.Strength = 99999999;
             }
@@ -410,6 +414,20 @@ local gt = getroottable();
                     }
                 }
                 this.m.Strength = unit_strength * (1 + this.Math.pow(unit_population / this.Const.EL_NPC.EL_Troop.TotalResourse.Factor1, this.Const.EL_NPC.EL_Troop.TotalResourse.Factor2));
+            }
+            if (this.hasLabel("name"))
+            {
+                if (!this.isPlayerControlled())
+                {
+                    if (this.m.Troops.len() != 0 && this.m.IsShowingStrength)
+                    {
+                        this.getLabel("name").Text = this.getName() + " (" + this.m.Troops.len() + ")";
+                    }
+                    else
+                    {
+                        this.getLabel("name").Text = this.getName();
+                    }
+                }
             }
         }
 
