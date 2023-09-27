@@ -312,7 +312,7 @@ local gt = getroottable();
             return getTroops();
 		}
 
-        function getStrength()
+        o.getStrength = function()
         {
             if(!this.m.EL_FinishGenerate) {
                 this.m.EL_FinishGenerate = true;
