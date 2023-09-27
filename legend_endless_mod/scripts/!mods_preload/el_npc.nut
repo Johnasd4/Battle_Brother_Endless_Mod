@@ -284,7 +284,7 @@ local gt = getroottable();
         o.m.EL_LootItems <- [];
 
         o.EL_TempPartyInit <- function() {
-            this.EL_TempPartyInit();
+            this.getFaction <- function() { return this.EL_getFaction(); };
             this.m.EL_IsTempParty = true;
         }
 
