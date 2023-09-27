@@ -42,11 +42,6 @@ this.el_shield_damage_mult_entry <- this.inherit("scripts/skills/el_entrys/el_en
 	{
         _item.m.ShieldDamage = this.Math.ceil(_item.m.ShieldDamage * (1.0 + this.m.EL_ShieldDamageMultAddition * 0.01));
 	}
-
-	function EL_refreshTotalEntry( _EL_totalEntry )
-	{
-		_EL_totalEntry.m.EL_WeaponShieldDamageMultAddition += this.m.EL_ShieldDamageMultAddition;
-	}
     
     function onSerialize( _out )
 	{

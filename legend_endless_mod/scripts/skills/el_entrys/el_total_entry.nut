@@ -20,24 +20,13 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 		EL_VampireRateAddition = 0.0,
 		EL_TargetAttractionMultAddition = 0,
 
-		EL_WeaponAdditionalAccuracy = 0,
-		EL_WeaponArmorDamageMultAddition = 0,
-		EL_WeaponDirectDamageAddAddition = 0,
-        EL_WeaponHitHeadAddition = 0,
-		EL_WeaponShieldDamageMultAddition = 0,
-        EL_WeaponConditionMultAddition = 0.0,
+		EL_WeaponUseSkillfatigueAddition = 0,
         EL_WeaponConditionRecoverDaliyAddition = 0.0,
         EL_WeaponConditionRecoverRateAddition = 0.0,
-        EL_WeaponStaminaModifierMultAddition = 0.0,
 		
-		EL_ShieldMeleeDefenseAddition = 0,
-		EL_ShieldRangedDefenseAddition = 0,
-		EL_ShieldDoubleDefenseAddition = 0,
 		EL_ShieldUseSkillfatigueAddition = 0,
-		EL_ShieldConditionMultAddition = 0.0,
 		EL_ShieldConditionRecoverDaliyAddition = 0,
         EL_ShieldConditionRecoverRateAddition = 0.0,
-		EL_ShieldStaminaModifierMultAddition = 0.0,
 
 		EL_HelmetConditionMultAddition = 0.0,
 		EL_HelmetConditionRecoverDaliyAddition = 0.0,
@@ -100,34 +89,16 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 		this.m.EL_VampireRateAddition = 0.0;
 		this.m.EL_TargetAttractionMultAddition = 0;
 
-		this.m.EL_WeaponAdditionalAccuracy = 0;
-		this.m.EL_WeaponArmorDamageMultAddition = 0.0;
-		this.m.EL_WeaponDirectDamageAddAddition = 0.0;
-        this.m.EL_WeaponHitHeadAddition = 0;
-		this.m.EL_WeaponShieldDamageMultAddition = 0;
-        this.m.EL_WeaponConditionMultAddition = 0.0;
+		this.m.EL_WeaponUseSkillfatigueAddition = 0;
         this.m.EL_WeaponConditionRecoverDaliyAddition = 0.0;
         this.m.EL_WeaponConditionRecoverRateAddition = 0.0;
-        this.m.EL_WeaponStaminaModifierMultAddition = 0.0;
-		
-		this.m.EL_ShieldMeleeDefenseAddition = 0;
-		this.m.EL_ShieldRangedDefenseAddition = 0;
-		this.m.EL_ShieldDoubleDefenseAddition = 0;
 		this.m.EL_ShieldUseSkillfatigueAddition = 0;
-		this.m.EL_ShieldConditionMultAddition = 0.0;
 		this.m.EL_ShieldConditionRecoverDaliyAddition = 0.0;
         this.m.EL_ShieldConditionRecoverRateAddition = 0.0;
-		this.m.EL_ShieldStaminaModifierMultAddition = 0.0;
-
-		this.m.EL_HelmetConditionMultAddition = 0.0;
 		this.m.EL_HelmetConditionRecoverDaliyAddition = 0.0;
         this.m.EL_HelmetConditionRecoverRateAddition = 0.0;
-		this.m.EL_HelmetStaminaModifierMultAddition = 0.0;
-
-		this.m.EL_ArmorConditionMultAddition = 0.0;
 		this.m.EL_ArmorConditionRecoverDaliyAddition = 0.0;
         this.m.EL_ArmorConditionRecoverRateAddition = 0.0;
-		this.m.EL_ArmorStaminaModifierMultAddition = 0.0;
 		
 		this.m.EL_ImmueBleedingPoisonedFireMiasma = false;
 		this.m.EL_ImmueGrabKnockTwirl = false;
@@ -301,52 +272,13 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 
 
 
-		if(this.m.EL_WeaponAdditionalAccuracy)
+
+		if(this.m.EL_WeaponUseSkillfatigueAddition)
 		{
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Additional accuracy + " + this.m.EL_WeaponAdditionalAccuracy + "%"
-			});
-		}
-		if(this.m.EL_WeaponArmorDamageMultAddition)
-		{
-			result.push({
-				id = 10,
-				type = "text",
-				text = "Armor Damage Mult + " + this.m.EL_WeaponArmorDamageMultAddition + "%"
-			});
-		}
-		if(this.m.EL_WeaponDirectDamageAddAddition)
-		{
-			result.push({
-				id = 10,
-				type = "text",
-				text = "Direct Damage Add + " + this.m.EL_WeaponDirectDamageAddAddition + "%"
-			});
-		}
-		if(this.m.EL_WeaponHitHeadAddition)
-		{
-			result.push({
-				id = 10,
-				type = "text",
-				text = "Chance to hit the head + " + this.m.EL_WeaponHitHeadAddition + "%"
-			});
-		}
-		if(this.m.EL_WeaponShieldDamageMultAddition)
-		{
-			result.push({
-				id = 10,
-				type = "text",
-				text = "Shield Damage + " + this.m.EL_WeaponShieldDamageMultAddition + "%"
-			});
-		}
-		if(this.m.EL_WeaponConditionMultAddition)
-		{
-			result.push({
-				id = 10,
-				type = "text",
-				text = "Weapon Durability + " + this.m.EL_WeaponConditionMultAddition + "%"
+				text = "Weapon skills build up " + this.m.EL_WeaponUseSkillfatigueAddition + " less fatigue."
 			});
 		}
 		if(this.m.EL_WeaponConditionRecoverDaliyAddition)
@@ -365,56 +297,12 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 				text = "Each Turn Recover + " + this.m.EL_WeaponConditionRecoverRateAddition + "% Weapon Durability"
 			});
 		}
-		if(this.m.EL_WeaponStaminaModifierMultAddition)
-		{
-			result.push({
-				id = 10,
-				type = "text",
-				text = "Weapon Weight - " + this.m.EL_WeaponStaminaModifierMultAddition + "%"
-			});
-		}
-		
-
-
-		
-		if(this.m.EL_ShieldMeleeDefenseAddition)
-		{
-			result.push({
-				id = 10,
-				type = "text",
-				text = "Shield Melee Defense + " + this.m.EL_ShieldMeleeDefenseAddition
-			});
-		}
-		if(this.m.EL_ShieldRangedDefenseAddition)
-		{
-			result.push({
-				id = 10,
-				type = "text",
-				text = "Shield Ranged Defense + " + this.m.EL_ShieldRangedDefenseAddition
-			});
-		}
-		if(this.m.EL_ShieldDoubleDefenseAddition)
-		{
-			result.push({
-				id = 10,
-				type = "text",
-				text = "Shield Melee Defense and Ranged Defense + " + this.m.EL_ShieldDoubleDefenseAddition
-			});
-		}
 		if(this.m.EL_ShieldUseSkillfatigueAddition)
 		{
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Shield skills build up " + this.m.EL_ShieldUseSkillfatigueAddition
-			});
-		}
-		if(this.m.EL_ShieldConditionMultAddition)
-		{
-			result.push({
-				id = 10,
-				type = "text",
-				text = "Shield Durability + " + this.m.EL_ShieldConditionMultAddition + "%"
+				text = "Shield skills build up " + this.m.EL_ShieldUseSkillfatigueAddition + " less fatigue."
 			});
 		}
 		if(this.m.EL_ShieldConditionRecoverDaliyAddition)
@@ -433,26 +321,6 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 				text = "Each Turn Recover + " + this.m.EL_ShieldConditionRecoverRateAddition + "% Shield Durability"
 			});
 		}
-		if(this.m.EL_ShieldStaminaModifierMultAddition)
-		{
-			result.push({
-				id = 10,
-				type = "text",
-				text = "Shield Weight - " + this.m.EL_ShieldStaminaModifierMultAddition + "%"
-			});
-		}
-
-
-
-		
-		if(this.m.EL_HelmetConditionMultAddition)
-		{
-			result.push({
-				id = 10,
-				type = "text",
-				text = "Helmet Durability + " + this.m.EL_HelmetConditionMultAddition + "%"
-			});
-		}
 		if(this.m.EL_HelmetConditionRecoverDaliyAddition)
 		{
 			result.push({
@@ -469,26 +337,6 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 				text = "Each Turn Recover + " + this.m.EL_HelmetConditionRecoverRateAddition + "% Helmet Durability"
 			});
 		}
-		if(this.m.EL_HelmetStaminaModifierMultAddition)
-		{
-			result.push({
-				id = 10,
-				type = "text",
-				text = "Helmet Weight - " + this.m.EL_HelmetStaminaModifierMultAddition + "%"
-			});
-		}
-
-
-
-		
-		if(this.m.EL_ArmorConditionMultAddition)
-		{
-			result.push({
-				id = 10,
-				type = "text",
-				text = "Armor Durability + " + this.m.EL_ArmorConditionMultAddition + "%"
-			});
-		}
 		if(this.m.EL_ArmorConditionRecoverDaliyAddition)
 		{
 			result.push({
@@ -503,14 +351,6 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 				id = 10,
 				type = "text",
 				text = "Each Turn Recover + " + this.m.EL_ArmorConditionRecoverRateAddition + "% Armor Durability"
-			});
-		}
-		if(this.m.EL_ArmorStaminaModifierMultAddition)
-		{
-			result.push({
-				id = 10,
-				type = "text",
-				text = "Armor Weight - " + this.m.EL_ArmorStaminaModifierMultAddition + "%"
 			});
 		}
 

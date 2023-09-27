@@ -43,11 +43,6 @@ this.el_shield_double_defense_entry <- this.inherit("scripts/skills/el_entrys/el
         _item.m.MeleeDefense += this.m.EL_ShieldDoubleDefenseAddition;
         _item.m.RangedDefense += this.m.EL_ShieldDoubleDefenseAddition;
 	}
-
-	function EL_refreshTotalEntry( _EL_totalEntry )
-	{
-		_EL_totalEntry.m.EL_ShieldDoubleDefenseAddition += this.m.EL_ShieldDoubleDefenseAddition;
-	}
     
     function onSerialize( _out )
 	{

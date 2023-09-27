@@ -278,6 +278,10 @@ gt.Const.EL_Weapon <- {
 					function EL_ifEligible(_EL_item) { return true; }
 				},
 				{
+					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_use_skill_fatigue_entry",
+					function EL_ifEligible(_EL_item) { return true; }
+				},
+				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_value_mult_entry",
 					function EL_ifEligible(_EL_item) { return true; }
 				},
@@ -666,6 +670,30 @@ gt.Const.EL_Weapon <- {
 					23.33,
 					26.66,
 					30
+				]
+			},
+			EL_UseSkillfatigue = {
+				ID = "weapon_entry.use_skill_fatigue",
+				BaseUseSkillfatigue = 0,
+				RandomMinUseSkillfatigue = [
+					1,
+					1,
+					2,
+					2,
+					3
+				],
+				RandomMaxUseSkillfatigue = [
+					1,
+					1,
+					2,
+					3,
+					3
+				],
+				ColourRange = [
+					1,
+					1,
+					2,
+					2
 				]
 			},
 			EL_ValueMult = {

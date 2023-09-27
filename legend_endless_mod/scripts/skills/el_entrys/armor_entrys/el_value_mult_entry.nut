@@ -14,7 +14,7 @@ this.el_value_mult_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Value + " + this.m.EL_ValueMultAddition + "%[/color]"
+			text = "[color=" + colour + "]Worth + " + this.m.EL_ValueMultAddition + "%[/color]"
 		};
 		return result;
 	}

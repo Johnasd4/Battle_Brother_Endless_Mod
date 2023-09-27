@@ -23,7 +23,7 @@ local gt = getroottable();
                     {
                         if(skill.EL_isEntryEffect())
                         {
-                            this.logInfo("词条重复叠加成功1");
+                            this.logInfo("词条重复叠加成功" + _skill.getID());
                         }
                         else
                         {

@@ -42,11 +42,6 @@ this.el_shield_melee_defense_entry <- this.inherit("scripts/skills/el_entrys/el_
 	{
         _item.m.MeleeDefense += this.m.EL_ShieldMeleeDefenseAddition;
 	}
-
-	function EL_refreshTotalEntry( _EL_totalEntry )
-	{
-		_EL_totalEntry.m.EL_ShieldMeleeDefenseAddition += this.m.EL_ShieldMeleeDefenseAddition;
-	}
     
     function onSerialize( _out )
 	{
