@@ -749,7 +749,7 @@ local gt = getroottable();
                                 outfits.push([
                                     _in.readU8(),
                                     _in.readString(),
-                                    _in.readString()
+                                    _in.readU8()
                                 ]);
                             }
                         }
@@ -861,7 +861,7 @@ local gt = getroottable();
                                 outfits.push([
                                     _in.readU8(),
                                     _in.readString(),
-                                    _in.readString()
+                                    _in.readU8()
                                 ]);
                             }
                         }
