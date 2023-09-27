@@ -749,7 +749,7 @@ local gt = getroottable();
                                 outfits.push([
                                     _in.readU8(),
                                     _in.readString(),
-                                    _in.readU8()
+                                    _in.readString()
                                 ]);
                             }
                         }
@@ -861,7 +861,7 @@ local gt = getroottable();
                                 outfits.push([
                                     _in.readU8(),
                                     _in.readString(),
-                                    _in.readU8()
+                                    _in.readString()
                                 ]);
                             }
                         }
@@ -888,7 +888,7 @@ local gt = getroottable();
                 i = ++i;
             }
 
-            this.m.EL_IsTempParty = _in.writeBool();
+            this.m.EL_IsTempParty = _in.readBool();
             this.m.EL_FinishGenerate = _in.readBool();
             this.m.EL_IsBossParty = _in.readBool();
             this.m.EL_IsEliteParty = _in.readBool();
