@@ -221,7 +221,7 @@ local gt = getroottable();
         {
 			this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Helmet.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
 			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Helmet.EL_LevelFactor.Value * this.m.EL_Level));
-			this.m.StaminaModifier = this.Math.floor(this.m.EL_BaseWithRankStaminaModifier * (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.m.EL_CurrentLevel));
+			this.m.StaminaModifier = this.Math.floor(this.m.EL_BaseWithRankStaminaModifier * (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
 			if(this.m.EL_Entrylist.len() != 0)
 			{
 				foreach(entry in this.m.EL_Entrylist)
@@ -886,7 +886,7 @@ local gt = getroottable();
         {
 			this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Helmet.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
 			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Helmet.EL_LevelFactor.Value * this.m.EL_Level));
-			this.m.StaminaModifier = this.Math.floor(this.m.EL_BaseWithRankStaminaModifier * (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.m.EL_CurrentLevel));
+			this.m.StaminaModifier = this.Math.floor(this.m.EL_BaseWithRankStaminaModifier * (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
 			if(this.m.EL_Entrylist.len() != 0)
 			{
 				foreach(entry in this.m.EL_Entrylist)

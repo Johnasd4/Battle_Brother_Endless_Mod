@@ -349,7 +349,10 @@ local gt = getroottable();
 			}
 			if(essence_need < essence_have)
 			{
-				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+				if(item.EL_getLevel() == -1)
+				{
+					this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+				}
 				essence_need_rank[rank] = essence_need;
 				for(local rank = 0; rank < this.Const.EL_Item.Type.Legendary; ++rank)
 				{
@@ -387,7 +390,10 @@ local gt = getroottable();
 			}
 			if(essence_need < essence_have)
 			{
-				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+				if(item.EL_getLevel() == -1)
+				{
+					this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+				}
 				essence_need_rank[rank] = essence_need;
 				for(local rank = 0; rank < this.Const.EL_Item.Type.Legendary; ++rank)
 				{
@@ -410,21 +416,26 @@ local gt = getroottable();
 			{
 				return null;
 			}
-			if (item == null)
-			{
-				return null;
-			}
-			this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
 			//this.logInfo("use onDisassembleItem !!!!!!!!!!!!!!");
-
+			if(item.EL_getLevel() == -1)
+			{
+				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+			}
 			local essence_need = item.EL_getDisassembleEssence();
 			this.World.Assets.EL_addEquipmentEssence(item.m.EL_RankLevel, essence_need);
+			item.EL_disassemble();
 
 			local result = {
-				Item = this.UIDataHelper.convertItemToUIData(item, true, this.Const.UI.ItemOwner.Stash),
-				Assets = this.m.Parent.queryAssetsInformation()
+				Result = 0,
+				Assets = this.m.Parent.queryAssetsInformation(),
+				Shop = [],
+				Stash = [],
+				StashSpaceUsed = this.Stash.getNumberOfFilledSlots(),
+				StashSpaceMax = this.Stash.getCapacity(),
+				IsRepairOffered = this.m.Shop.isRepairOffered()
 			};
-			item.EL_disassemble();
+			this.UIDataHelper.convertItemsToUIData(this.m.Shop.getStash().getItems(), result.Shop, this.Const.UI.ItemOwner.Shop);
+			result.Stash = this.UIDataHelper.convertStashToUIData(false, this.m.InventoryFilter);
 			return result;
 		}
 	});

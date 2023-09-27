@@ -144,35 +144,9 @@ WorldTownScreenShopDialogModule.prototype.EL_disassembleItem = function(_itemIdx
 	var self = this;
 	this.EL_notifyBackendDisassembleItem(_itemIdx, function (data)
     {
-        //self.updateAssets(data.Assets);
-        //self.updateStashList(data.Stash, data.Capacity);
-        //self.updateShopList(data.Repairs, data.Capacity);
+		self.mParent.loadAssetData(data.Assets);
+		self.updateStashList(data.Stash);
     });
-    
-	// var self = this;
-	// this.notifyBackendSwapItem(_sourceItemIdx, _sourceItemOwner, _targetItemIdx, _targetItemOwner, function (data)
-	// {
-	// 	if (data === undefined || data == null || typeof (data) !== 'object')
-	// 	{
-	// 		console.error("ERROR: Failed to swap item. Reason: Invalid data result.");
-	// 		return;
-	// 	}
-
-	// 	if ('Assets' in data)
-	// 	{
-	// 		self.updateAssets(data.Assets);
-	// 	}
-
-	// 	if ('Stash' in data)
-	// 	{
-	// 		self.updateStashList(data.Stash, data.Capacity);
-	// 	}
-
-	// 	if ('Repairs' in data)
-	// 	{
-	// 		self.updateShopList(data.Repairs, data.Capacity);
-	// 	}
-	// });
 }
 
 WorldTownScreenShopDialogModule.prototype.EL_upgradeItem = function(_itemIdx)
@@ -213,5 +187,5 @@ WorldTownScreenShopDialogModule.prototype.EL_notifyBackendUpgradeItem = function
 };
 WorldTownScreenShopDialogModule.prototype.EL_notifyBackendRecraftItem = function (_itemIdx, _callback)
 {
-	SQ.call(this.mSQHandle, 'EL_onRecraftItem', _itemIdx);
+	SQ.call(this.mSQHandle, 'EL_onRecraftItem', _itemIdx, _callback);
 };
