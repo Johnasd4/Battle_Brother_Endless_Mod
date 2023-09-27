@@ -100,7 +100,6 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
             else {
                 properties.Armor[this.Const.BodyPart.Head] = 0;
             }
-
             local skills = actor.getSkills();
             foreach( skill in skills.m.Skills ) {
                 local skill_type = skill.getType();
@@ -121,6 +120,8 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
                     skills.remove(skill);
                 }
             }
+            _properties.IsRooted = false;
+            _properties.IsMovable = true;
 
             if (!actor.isHiddenToPlayer())
             {
