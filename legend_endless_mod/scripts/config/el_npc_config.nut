@@ -88,7 +88,7 @@ gt.Const.EL_NPC <- {
         Rank2LeastStrength = 20,
         MinLevel = 0,
         MaxLevel = 200,
-        MaxTroopNum = 255,
+        MaxTroopNum = 100,
         MaxCalculateLevel = 100,
         MinLevelOffset = -10,
         MaxLevelOffset = 0,

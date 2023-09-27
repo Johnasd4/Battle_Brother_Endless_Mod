@@ -928,43 +928,42 @@ local gt = getroottable();
             if(_EL_troop.Strength == 0) {
                 _EL_troop.Strength = this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.CrticalPoint;
             }
-            if(this.m.EL_FinishGenerate && this.m.Strength < this.m.EL_TroopsResourse) {
-                if(this.m.Troops.len() >= this.Const.EL_NPC.EL_Troop.MaxTroopNum) {
-                    return;
-                }
-                local troop_info = this.Const.EL_NPC.EL_Troop.EL_getTroopInfo(_EL_troop);
-                //Calculate ranks, level, combat level.
-                if(_EL_troop.EL_RankLevel != 0) {
-                }
-                else if(troop_info.EL_IsBossUnit) {
-                    _EL_troop.EL_RankLevel = this.Math.max(2, _EL_troop.EL_RankLevel);
-                    _EL_troop.EL_IsBossUnit = true;
-                }
-                else if(troop_info.EL_IsEliteUnit) {
-                    _EL_troop.EL_RankLevel = this.Math.max(1, _EL_troop.EL_RankLevel);
-                }
-                else if(troop_info.EL_IsWeakUnit) {
-                    _EL_troop.EL_RankLevel = this.Math.max(0, _EL_troop.EL_RankLevel);
-                }
-                else {
-                    if(this.m.EL_IsBossParty || this.m.EL_IsEliteParty) {
+            if(this.m.EL_FinishGenerate) {
+                if(this.m.Strength < this.m.EL_TroopsResourse && this.m.Troops.len() >= this.Const.EL_NPC.EL_Troop.MaxTroopNum) {
+                    local troop_info = this.Const.EL_NPC.EL_Troop.EL_getTroopInfo(_EL_troop);
+                    //Calculate ranks, level, combat level.
+                    if(_EL_troop.EL_RankLevel != 0) {
+                    }
+                    else if(troop_info.EL_IsBossUnit) {
+                        _EL_troop.EL_RankLevel = this.Math.max(2, _EL_troop.EL_RankLevel);
+                        _EL_troop.EL_IsBossUnit = true;
+                    }
+                    else if(troop_info.EL_IsEliteUnit) {
                         _EL_troop.EL_RankLevel = this.Math.max(1, _EL_troop.EL_RankLevel);
                     }
-                    else {
-                        local elite_chance = this.Const.EL_NPC.EL_NormalTeam.EliteChance.EL_getChance(this.World.Assets.m.EL_WorldLevel);
-                        _EL_troop.EL_RankLevel = this.Math.max((this.Math.rand(1, 1000) >= elite_chance * 10) ? 0 : 1, _EL_troop.EL_RankLevel);
+                    else if(troop_info.EL_IsWeakUnit) {
+                        _EL_troop.EL_RankLevel = this.Math.max(0, _EL_troop.EL_RankLevel);
                     }
-                }
+                    else {
+                        if(this.m.EL_IsBossParty || this.m.EL_IsEliteParty) {
+                            _EL_troop.EL_RankLevel = this.Math.max(1, _EL_troop.EL_RankLevel);
+                        }
+                        else {
+                            local elite_chance = this.Const.EL_NPC.EL_NormalTeam.EliteChance.EL_getChance(this.World.Assets.m.EL_WorldLevel);
+                            _EL_troop.EL_RankLevel = this.Math.max((this.Math.rand(1, 1000) >= elite_chance * 10) ? 0 : 1, _EL_troop.EL_RankLevel);
+                        }
+                    }
 
-                _EL_troop.EL_ExtraCombatLevel = troop_info.EL_ExtraCombatLevel;
-                //Build names
-                if(_EL_troop.EL_RankLevel == 2) {
-                    _EL_troop.Name = this.Const.EL_NPC.EL_Troop.NamePrefix[_EL_troop.EL_RankLevel];
-                    _EL_troop.Name += this.Const.EL_NPC.EL_Troop.Name[this.Math.rand(0, this.Const.EL_NPC.EL_Troop.Name.len() - 1)];
-                    _EL_troop.Name += this.Const.EL_NPC.EL_Troop.NameSuffix[_EL_troop.EL_RankLevel];
+                    _EL_troop.EL_ExtraCombatLevel = troop_info.EL_ExtraCombatLevel;
+                    //Build names
+                    if(_EL_troop.EL_RankLevel == 2) {
+                        _EL_troop.Name = this.Const.EL_NPC.EL_Troop.NamePrefix[_EL_troop.EL_RankLevel];
+                        _EL_troop.Name += this.Const.EL_NPC.EL_Troop.Name[this.Math.rand(0, this.Const.EL_NPC.EL_Troop.Name.len() - 1)];
+                        _EL_troop.Name += this.Const.EL_NPC.EL_Troop.NameSuffix[_EL_troop.EL_RankLevel];
+                    }
+                    this.m.Troops.push(_EL_troop);
+                    this.updateStrength();
                 }
-                this.m.Troops.push(_EL_troop);
-                this.updateStrength();
             }
             else {
                 if(this.m.EL_TempTroops.len() >= this.Const.EL_NPC.EL_Troop.MaxTroopNum) {
