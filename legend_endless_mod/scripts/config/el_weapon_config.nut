@@ -203,7 +203,7 @@ gt.Const.EL_Weapon <- {
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_action_point_entry",
 					function EL_ifEligible(_EL_item) { 
-						if(_EL_item.m.EL_RankLevel >= 2)
+						if(_EL_item.m.EL_RankLevel > 1)
 						{
 							return true;
 						} 
@@ -283,7 +283,14 @@ gt.Const.EL_Weapon <- {
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_value_mult_entry",
-					function EL_ifEligible(_EL_item) { return true; }
+					function EL_ifEligible(_EL_item) 
+					{ 
+						if(_EL_item.m.EL_RankLevel > 1)
+						{
+							return true;
+						} 
+						return false;
+					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_vampire_entry",
@@ -464,14 +471,14 @@ gt.Const.EL_Weapon <- {
 					1,
 					334,
 					667,
-					1666
+					1667
 				],
 				RandomMaxDamageMult = [
 					666,
 					1000,
 					1333,
-					1666,
-					1666
+					1667,
+					1667
 				],
 				ColourRange = [
 					20,
@@ -697,28 +704,7 @@ gt.Const.EL_Weapon <- {
 				]
 			},
 			EL_ValueMult = {
-				ID = "weapon_entry.value_mult",
-				BaseValueMult = 500,
-				RandomMinValueMult = [
-					1,
-					1,
-					201,
-					401,
-					1000
-				],
-				RandomMaxValueMult = [
-					400,
-					600,
-					800,
-					1000,
-					1000
-				],
-				ColourRange = [
-					700,
-					900,
-					1100,
-					1300
-				]
+				ID = "entry.value_mult"
 			},
 			EL_Vampire = {
 				ID = "weapon_entry.vampire",

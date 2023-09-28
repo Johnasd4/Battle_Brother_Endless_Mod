@@ -78,6 +78,9 @@ gt.Const.EL_Accessory <- {
 					Scripts = "scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_circle_of_life_entry"
 				},
 				{
+					Scripts = "scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_eye_of_death_entry"
+				},
+				{
 					Scripts = "scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_faith_of_the_rock_entry"
 				},
 				{
@@ -128,6 +131,9 @@ gt.Const.EL_Accessory <- {
 					0.01
 				]
 			},
+			EL_EyeOfDeath = {
+				HitHeadMult = 2
+			}
 			EL_FaithOfTheRock = {
 				TargetAttractionMult = 1000
 			},
@@ -172,7 +178,7 @@ gt.Const.EL_Accessory <- {
                 {
 					Scripts = "scripts/skills/el_entrys/accessory_entrys/el_action_point_entry",
 					function EL_ifEligible(_EL_item, _entryLevel = 1) {
-						if(_EL_item.m.EL_RankLevel >= 2 && _entryLevel >= 1)
+						if(_EL_item.m.EL_RankLevel > 1 && _entryLevel >= 1)
 						{
 							return true;
 						}
@@ -219,7 +225,7 @@ gt.Const.EL_Accessory <- {
 				{
 					Scripts = "scripts/skills/el_entrys/accessory_entrys/el_immue_bleeding_poisoned_fire_miasma_entry",
 					function EL_ifEligible(_EL_item, _entryLevel = 1) {
-						if(_EL_item.m.EL_RankLevel >= 2 && _entryLevel >= 1)
+						if(_EL_item.m.EL_RankLevel > 1 && _entryLevel >= 1)
 						{
 							return true;
 						}
@@ -236,7 +242,7 @@ gt.Const.EL_Accessory <- {
 				{
 					Scripts = "scripts/skills/el_entrys/accessory_entrys/el_immue_grab_knock_twirl_entry",
 					function EL_ifEligible(_EL_item, _entryLevel = 1) {
-						if(_EL_item.m.EL_RankLevel >= 2 && _entryLevel >= 1)
+						if(_EL_item.m.EL_RankLevel > 1 && _entryLevel >= 1)
 						{
 							return true;
 						}
@@ -253,7 +259,7 @@ gt.Const.EL_Accessory <- {
 				{
 					Scripts = "scripts/skills/el_entrys/accessory_entrys/el_immue_overwhelm_dazed_entry",
 					function EL_ifEligible(_EL_item, _entryLevel = 1) {
-						if(_EL_item.m.EL_RankLevel >= 2 && _entryLevel >= 1)
+						if(_EL_item.m.EL_RankLevel > 1 && _entryLevel >= 1)
 						{
 							return true;
 						}
@@ -270,7 +276,7 @@ gt.Const.EL_Accessory <- {
 				{
 					Scripts = "scripts/skills/el_entrys/accessory_entrys/el_immue_stun_root_disarm_entry",
 					function EL_ifEligible(_EL_item, _entryLevel = 1) {
-						if(_EL_item.m.EL_RankLevel >= 2 && _entryLevel >= 1)
+						if(_EL_item.m.EL_RankLevel > 1 && _entryLevel >= 1)
 						{
 							return true;
 						}
@@ -287,7 +293,7 @@ gt.Const.EL_Accessory <- {
 				{
 					Scripts = "scripts/skills/el_entrys/accessory_entrys/el_immue_surrounded_riposte_entry",
 					function EL_ifEligible(_EL_item, _entryLevel = 1) {
-						if(_EL_item.m.EL_RankLevel >= 2 && _entryLevel >= 1)
+						if(_EL_item.m.EL_RankLevel > 1 && _entryLevel >= 1)
 						{
 							return true;
 						}
@@ -318,8 +324,20 @@ gt.Const.EL_Accessory <- {
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/accessory_entrys/el_value_mult_entry",
-					function EL_ifEligible(_EL_item, _entryLevel = 1) { return true; }
-                    function EL_ifNeedRemove(_entryLevel) { return false; }
+					function EL_ifEligible(_EL_item, _entryLevel = 1) {
+						if(_EL_item.m.EL_RankLevel > 1 && _entryLevel >= 1)
+						{
+							return true;
+						}
+						return false;
+					}
+                    function EL_ifNeedRemove(_entryLevel) {
+                        if(_entryLevel != 1)
+						{
+							return true;
+						}
+						return false;
+                    }
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/accessory_entrys/el_xp_gain_mult_entry",
@@ -573,28 +591,7 @@ gt.Const.EL_Accessory <- {
 				]
 			},
 			EL_ValueMult = {
-				ID = "accessory_entry.value_mult",
-				BaseValueMult = 500,
-				RandomMinValueMult = [
-					1,
-					1,
-					201,
-					401,
-					1000
-				],
-				RandomMaxValueMult = [
-					400,
-					600,
-					800,
-					1000,
-					1000
-				],
-				ColourRange = [
-					700,
-					900,
-					1100,
-					1300
-				]
+				ID = "entry.value_mult"
 			},
 			EL_XPGainMult = {
 				ID = "accessory_entry.xp_gain_mult",

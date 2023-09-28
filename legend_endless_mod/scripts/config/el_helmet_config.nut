@@ -105,7 +105,14 @@ gt.Const.EL_Helmet <- {
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/helmet_entrys/el_value_mult_entry",
-					function EL_ifEligible(_EL_item) { return true; }
+					function EL_ifEligible(_EL_item) 
+					{ 
+						if(_EL_item.m.EL_RankLevel > 1)
+						{
+							return true;
+						} 
+						return false;
+					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/helmet_entrys/el_vision_entry",
@@ -388,28 +395,7 @@ gt.Const.EL_Helmet <- {
 				]
 			},
 			EL_ValueMult = {
-				ID = "helmet_entry.value_mult",
-				BaseValueMult = 500,
-				RandomMinValueMult = [
-					1,
-					1,
-					201,
-					401,
-					1000
-				],
-				RandomMaxValueMult = [
-					400,
-					600,
-					800,
-					1000,
-					1000
-				],
-				ColourRange = [
-					700,
-					900,
-					1100,
-					1300
-				]
+				ID = "entry.value_mult"
 			},
 			EL_Vision = {
 				ID = "helmet_entry.vision",

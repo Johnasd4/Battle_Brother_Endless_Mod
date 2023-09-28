@@ -84,7 +84,6 @@ this.el_toxic_blade_thrust_entry <- this.inherit("scripts/skills/skill", {
 		if (_targetEntity != null && item != null && item.isWeaponType(this.Const.Items.WeaponType.Dagger) && _skill.m.IsWeaponSkill)
 		{
 			//this.logInfo("Use Skill name:"+_skill.getID());
-			_properties.IsIgnoringArmorOnAttack = true;
 			local number = EL_hasNegativeEffectNumber(_targetEntity);
 			//this.logInfo("target negative effect num:" + number);
 			_properties.DamageTotalMult *= (1.0 + number * this.Const.EL_Accessory.EL_RarityEntry.Factor.EL_ToxicBladeThrust.DamageBonus);

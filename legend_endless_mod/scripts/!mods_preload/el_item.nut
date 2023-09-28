@@ -39,6 +39,29 @@ local gt = getroottable();
 			this.m.EL_BaseNoRankValue = _in.readI32();
 			this.m.EL_BaseWithRankValue = _in.readI32();
 		}
+	
+		o.getSellPrice = function()
+		{
+			if (this.isBought())
+			{
+				return this.getBuyPrice();
+			}
+			if (("State" in this.World) && this.World.State != null && this.World.State.getCurrentTown() != null)
+			{
+				foreach(entry in this.m.EL_Entrylist)
+				{
+					if(entry.getID() == "entry.value_mult")
+					{
+						return this.Math.floor(this.getValue() * this.getSellPriceMult() * this.World.Assets.m.SellPriceTradeMult * this.World.State.getCurrentTown().getSellPriceMult() * this.Const.World.Assets.SellPriceNotProducedHere * this.Const.World.Assets.SellPriceNotLocalCulture);
+					}
+				}
+				return this.Math.floor(this.getValue() * this.getSellPriceMult() * this.Const.World.Assets.BaseSellPrice * this.World.State.getCurrentTown().getSellPriceMult() * this.Const.Difficulty.SellPriceMult[this.World.Assets.getEconomicDifficulty()]);
+			}
+			else
+			{
+				return this.Math.floor(this.getValue() * this.Const.World.Assets.BaseSellPrice);
+			}
+		}
 
 		o.EL_hasEntry <- function( _id )
 		{

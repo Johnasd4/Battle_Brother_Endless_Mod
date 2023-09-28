@@ -76,8 +76,8 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
         local user = this.getContainer().getActor();
         user.setIsAbleToDie(false);
 	}
-    
-	function onTargetHit( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
+
+	function onBeforeTargetHit( _skill, _targetEntity, _hitInfo )
 	{
 		if (!_targetEntity.isAlive() || _targetEntity.isDying())
 		{
@@ -111,7 +111,6 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 		{
 			local user = this.getContainer().getActor();	
 			local skills = user.getSkills();
-			local skills = user.getSkills();
 			if(this.m.EL_IsRising)
 			{
 				this.m.EL_IsRising = false;
@@ -133,7 +132,8 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 					!skill.isType(this.Const.SkillType.Terrain) &&
 					!skill.isType(this.Const.SkillType.WorldEvent) &&
 					!skill.isType(this.Const.SkillType.Background) &&
-					!skill.isType(this.Const.SkillType.Alert) ||
+					!skill.isType(this.Const.SkillType.Alert) &&
+					skill != this ||
 					this.EL_isNegativeEffect(skill))
 					{
 						skills.remove(skill);
@@ -164,13 +164,14 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 				{
 					if(this.EL_isNegativeEffect(skills.m.Skills[i]))
 					{
-						this.logInfo(skills.m.Skills[i].getID());
+						this.logInfo("check: "+skills.m.Skills[i].getID());
 						index_pool.push(i);
 					}
 				}
 				if(index_pool.len() != 0)
 				{
 					local r = this.Math.rand(0, index_pool.len() - 1);
+					this.logInfo("remove: "+skills.m.Skills[r].getID());
 					skills.remove(skills.m.Skills[r]);
 				}
 				user.setHitpoints(this.Math.min(user.getHitpointsMax(), user.getHitpoints() + this.Math.round(user.getHitpointsMax() * this.Const.EL_Accessory.EL_RarityEntry.Factor.EL_CircleofLife.HitpointsRecover)));

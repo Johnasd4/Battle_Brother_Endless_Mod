@@ -29,123 +29,6 @@ this.el_core_item <- this.inherit("scripts/items/item", {
 		this.m.Value = this.Math.floor(this.Const.EL_Misc.EL_Core.Value[this.m.EL_RankLevel] * (1 + total_xp * this.Const.EL_Misc.EL_Core.ValueIncreacePurXP));
 	}
 
-	function getTooltip()
-	{
-		local result = [
-			{
-				id = 1,
-				type = "title",
-				text = this.getName()
-			},
-			{
-				id = 2,
-				type = "description",
-				text = this.getDescription()
-			}
-		];
-		result.push({
-			id = 10,
-			type = "text",
-			text = this.getValueString()
-		});
-		if(this.m.EL_XP > 0) {
-			result.push({
-				id = 10,
-				type = "text",
-				icon = "ui/icons/xp_received.png",
-				text = "XP [color=" + this.Const.UI.Color.PositiveValue + "]+" +
-					   this.m.EL_XP +
-					   "[/color]"
-			});
-		}
-		if(this.m.EL_PropertiesXP[this.Const.Attributes.Hitpoints] > 0) {
-			result.push({
-				id = 10,
-				type = "text",
-				icon = "ui/icons/health.png",
-				text = "Hitpoints XP [color=" + this.Const.UI.Color.PositiveValue + "]+" +
-					   this.m.EL_PropertiesXP[this.Const.Attributes.Hitpoints] +
-					   "[/color]"
-			});
-		}
-		if(this.m.EL_PropertiesXP[this.Const.Attributes.Bravery] > 0) {
-			result.push({
-				id = 10,
-				type = "text",
-				icon = "ui/icons/health.png",
-				text = "Resolve XP [color=" + this.Const.UI.Color.PositiveValue + "]+" +
-					   this.m.EL_PropertiesXP[this.Const.Attributes.Bravery] +
-					   "[/color]"
-			});
-		}
-		if(this.m.EL_PropertiesXP[this.Const.Attributes.Fatigue] > 0) {
-			result.push({
-				id = 10,
-				type = "text",
-				icon = "ui/icons/fatigue.png",
-				text = "Stamina XP [color=" + this.Const.UI.Color.PositiveValue + "]+" +
-					   this.m.EL_PropertiesXP[this.Const.Attributes.Fatigue] +
-					   "[/color]"
-			});
-		}
-		if(this.m.EL_PropertiesXP[this.Const.Attributes.Initiative] > 0) {
-			result.push({
-				id = 10,
-				type = "text",
-				icon = "ui/icons/initiative.png",
-				text = "Initiative XP [color=" + this.Const.UI.Color.PositiveValue + "]+" +
-					   this.m.EL_PropertiesXP[this.Const.Attributes.Initiative] +
-					   "[/color]"
-			});
-		}
-		if(this.m.EL_PropertiesXP[this.Const.Attributes.MeleeSkill] > 0) {
-			result.push({
-				id = 10,
-				type = "text",
-				icon = "ui/icons/melee_skill.png",
-				text = "Melee Skill XP [color=" + this.Const.UI.Color.PositiveValue + "]+" +
-					   this.m.EL_PropertiesXP[this.Const.Attributes.MeleeSkill] +
-					   "[/color]"
-			});
-		}
-		if(this.m.EL_PropertiesXP[this.Const.Attributes.RangedSkill] > 0) {
-			result.push({
-				id = 10,
-				type = "text",
-				icon = "ui/icons/ranged_skill.png",
-				text = "Ranged Skill XP [color=" + this.Const.UI.Color.PositiveValue + "]+" +
-					   this.m.EL_PropertiesXP[this.Const.Attributes.RangedSkill] +
-					   "[/color]"
-			});
-		}
-		if(this.m.EL_PropertiesXP[this.Const.Attributes.MeleeDefense] > 0) {
-			result.push({
-				id = 10,
-				type = "text",
-				icon = "ui/icons/melee_defense.png",
-				text = "Melee Defense XP [color=" + this.Const.UI.Color.PositiveValue + "]+" +
-					   this.m.EL_PropertiesXP[this.Const.Attributes.MeleeDefense] +
-					   "[/color]"
-			});
-		}
-		if(this.m.EL_PropertiesXP[this.Const.Attributes.RangedDefense] > 0) {
-			result.push({
-				id = 10,
-				type = "text",
-				icon = "ui/icons/ranged_defense.png",
-				text = "Ranged Defense XP [color=" + this.Const.UI.Color.PositiveValue + "]+" +
-					   this.m.EL_PropertiesXP[this.Const.Attributes.RangedDefense] +
-					   "[/color]"
-			});
-		}
-		result.push({
-			id = 65,
-			type = "text",
-			text = "Right-click or drag onto the currently selected character in order to use. This item will be consumed in the process."
-		});
-		return result;
-	}
-
 	function playInventorySound( _eventType )
 	{
 		this.Sound.play("sounds/cloth_01.wav", this.Const.Sound.Volume.Inventory);
@@ -167,14 +50,16 @@ this.el_core_item <- this.inherit("scripts/items/item", {
 		return true;
 	}
 
-	function getSellPriceMult()
+	function getSellPrice()
 	{
-		return this.World.State.getCurrentTown().getBeastPartsPriceMult();
-	}
-
-	function getBuyPriceMult()
-	{
-		return this.World.State.getCurrentTown().getBeastPartsPriceMult();
+			if (("State" in this.World) && this.World.State != null && this.World.State.getCurrentTown() != null)
+			{
+				return this.Math.floor(this.getValue() * this.getSellPriceMult() * this.World.Assets.m.SellPriceTradeMult * this.World.State.getCurrentTown().getSellPriceMult() * this.Const.World.Assets.SellPriceNotProducedHere * this.Const.World.Assets.SellPriceNotLocalCulture);
+			}
+			else
+			{
+				return this.Math.floor(this.getValue() * this.Const.World.Assets.BaseSellPrice);
+			}
 	}
 
 	function onSerialize( _out )
