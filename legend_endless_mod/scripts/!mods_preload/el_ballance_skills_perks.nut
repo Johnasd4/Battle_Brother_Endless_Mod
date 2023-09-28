@@ -560,7 +560,8 @@ local gt = getroottable();
 
 		o.getInitiativeBonus = function( _bonus )
 		{
-			return this.Math.floor(0.01 * _bonus * this.getContainer().getActor().getItems().getStaminaModifier([
+			local actor = this.getContainer().getActor();
+			return this.Math.floor(0.01 * _bonus * actor.getItems().getStaminaModifier([
 				::Const.ItemSlot.Body,
 				::Const.ItemSlot.Head
 			]) * -1 / (1 + 0.04 * actor.EL_getCombatLevel()));

@@ -171,9 +171,7 @@ local gt = getroottable();
 
             foreach( bro in bros )
             {
-                bro.m.PerkPoints = 1;
-                bro.m.LevelUps = 1;
-                bro.m.Level = 2;
+                bro.EL_setLevel(2);
             }
 
             this.World.Assets.addBusinessReputation(this.m.StartingBusinessReputation);
@@ -821,6 +819,7 @@ local gt = getroottable();
             this.addScenarioPerk(bro.getBackground(), this.Const.Perks.PerkDefs.Rebound);
             this.addScenarioPerk(bro.getBackground(), this.Const.Perks.PerkDefs.LegendFavouredEnemyZombie);
             bro.setPlaceInFormation(4);
+            bro.EL_setLevel(1);
             bro.getFlags().set("IsPlayerCharacter", true);
             bro.getSprite("socket").setBrush("bust_base_crusader");
             bro.getSprite("miniboss").setBrush("bust_miniboss_crusader");
