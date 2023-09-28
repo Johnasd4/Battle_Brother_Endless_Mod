@@ -5,7 +5,7 @@ local gt = getroottable();
 {
     ::mods_hookExactClass("items/accessory/accessory", function ( o )
 	{
-		o.m.EL_RarityEntry <- null;//this.new("scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_bloody_cutting_entry");//
+		o.m.EL_RarityEntry <- null;//this.new(this.Const.EL_Accessory.EL_RarityEntry.Pool.Entrys[1].Scripts);//
 
 		local onEquip = o.onEquip;
 		o.onEquip = function ()
@@ -16,10 +16,9 @@ local gt = getroottable();
 			{
 				this.EL_addEntry(entry);
 			}
-			if(this.m.EL_RarityEntry != null && this.getContainer().getActor().getFaction() == this.Const.Faction.Player)//this.m.EL_RarityEntry != null &&
+			if(this.m.EL_RarityEntry != null && this.getContainer().getActor().getFaction() == this.Const.Faction.Player)
 			{
 				this.logInfo("Rarity entry is equip, name = " + this.m.EL_RarityEntry.m.Name);
-				//this.addSkill(this.new("scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_massacre_desire_entry"));
 				this.addSkill(this.m.EL_RarityEntry);
 			}
 		}

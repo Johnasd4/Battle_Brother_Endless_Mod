@@ -747,4 +747,31 @@ local gt = getroottable();
 	    	return ret;
     	}
 	});
+	
+    ::mods_hookExactClass("items/ammo/ammo", function ( o )
+	{
+		local consumeAmmo = o.consumeAmmo;
+		o.consumeAmmo = function()
+		{
+			local item = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+			if(item != null)
+			{
+				foreach(entry in this.m.EL_Entrylist)
+				{
+					if(entry.getID() == "weapon_entry.el_save_ammo" && this.Math.rand(1, 1000) < this.m.EL_SaveAmmoChance * 10)
+					{
+						if (skills.hasSkill("entry.el_pursuit_of_wind") || skills.hasSkill("entry.el_eye_of_death") || skills.hasSkill("entry.el_gunfire_licks_the_heavens") || skills.hasSkill("entry.el_infinite_penetration"))
+						{
+						}
+						else
+						{
+							consumeAmmo();
+						}
+						return;
+					}
+				}
+			}
+
+		}
+	});
 });

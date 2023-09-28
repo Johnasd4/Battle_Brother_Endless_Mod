@@ -83,7 +83,7 @@ gt.Const.EL_Shield <- {
 					Scripts = "scripts/skills/el_entrys/shield_entrys/el_action_point_entry",
 					function EL_ifEligible(_EL_item) 
 					{ 
-						if(_EL_item.m.EL_RankLevel >= 2)
+						if(_EL_item.m.EL_RankLevel > 1)
 						{
 							return true;
 						} 
@@ -152,7 +152,14 @@ gt.Const.EL_Shield <- {
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/shield_entrys/el_value_mult_entry",
-					function EL_ifEligible(_EL_item) { return true; }
+					function EL_ifEligible(_EL_item) 
+					{ 
+						if(_EL_item.m.EL_RankLevel > 1)
+						{
+							return true;
+						} 
+						return false;
+					}
 				}
 			],
 		},
@@ -532,28 +539,7 @@ gt.Const.EL_Shield <- {
 				]
 			},
 			EL_ValueMult = {
-				ID = "sheild_entry.value_mult",
-				BaseValueMult = 500,
-				RandomMinValueMult = [
-					1,
-					1,
-					201,
-					401,
-					1000
-				],
-				RandomMaxValueMult = [
-					400,
-					600,
-					800,
-					1000,
-					1000
-				],
-				ColourRange = [
-					700,
-					900,
-					1100,
-					1300
-				]
+				ID = "entry.value_mult"
 			}
 		}
 	},

@@ -88,13 +88,13 @@ this.el_unbreakable_entry <- this.inherit("scripts/skills/skill", {
 				if(damage + armorDamage > this.m.MaxTotalDamage)
 				{
 					this.m.MaxDamageHitInfo = clone _hitInfo;
-					this.logInfo("copy_hitInfo.s DamageArmor:" + this.m.MaxDamageHitInfo.DamageArmor);
-					this.logInfo("copy_hitInfo.s DamageRegular:" + this.m.MaxDamageHitInfo.DamageRegular);
+					//this.logInfo("copy_hitInfo.s DamageArmor:" + this.m.MaxDamageHitInfo.DamageArmor);
+					//this.logInfo("copy_hitInfo.s DamageRegular:" + this.m.MaxDamageHitInfo.DamageRegular);
 					this.m.Attacker = _attacker;
-					this.logInfo("this.m.Attacker" + this.m.Attacker.getName());
+					//this.logInfo("this.m.Attacker" + this.m.Attacker.getName());
 					this.m.MaxTotalDamage = damage + armorDamage;
 				}
-				this.logInfo("this.m.MaxTotalDamage:"+this.m.MaxTotalDamage);
+				//this.logInfo("this.m.MaxTotalDamage:"+this.m.MaxTotalDamage);
             	_properties.DamageReceivedTotalMult = 0;
 			}
         }
@@ -109,8 +109,8 @@ this.el_unbreakable_entry <- this.inherit("scripts/skills/skill", {
 			this.m.IsTurnStart = true;
 			if(this.m.Attacker != null)
 			{
-				this.logInfo("HitInfo.s DamageArmor:" + this.m.MaxDamageHitInfo.DamageArmor);
-				this.logInfo("HitInfo.s DamageRegular:" + this.m.MaxDamageHitInfo.DamageRegular);
+				//this.logInfo("HitInfo.s DamageArmor:" + this.m.MaxDamageHitInfo.DamageArmor);
+				//this.logInfo("HitInfo.s DamageRegular:" + this.m.MaxDamageHitInfo.DamageRegular);
                 this.getContainer().getActor().onDamageReceived(this.m.Attacker, this, this.m.MaxDamageHitInfo);
 			}
 			this.m.IsTurnStart = false;

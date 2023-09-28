@@ -28,7 +28,7 @@ this.el_core_item <- this.inherit("scripts/items/item", {
 		}
 		this.m.Value = this.Math.floor(this.Const.EL_Misc.EL_Core.Value[this.m.EL_RankLevel] * (1 + total_xp * this.Const.EL_Misc.EL_Core.ValueIncreacePurXP));
 	}
-
+	
 	function getTooltip()
 	{
 		local result = [
@@ -167,14 +167,16 @@ this.el_core_item <- this.inherit("scripts/items/item", {
 		return true;
 	}
 
-	function getSellPriceMult()
+	function getSellPrice()
 	{
-		return this.World.State.getCurrentTown().getBeastPartsPriceMult();
-	}
-
-	function getBuyPriceMult()
-	{
-		return this.World.State.getCurrentTown().getBeastPartsPriceMult();
+			if (("State" in this.World) && this.World.State != null && this.World.State.getCurrentTown() != null)
+			{
+				return this.Math.floor(this.getValue() * this.getSellPriceMult() * this.World.Assets.m.SellPriceTradeMult * this.World.State.getCurrentTown().getSellPriceMult() * this.Const.World.Assets.SellPriceNotProducedHere * this.Const.World.Assets.SellPriceNotLocalCulture);
+			}
+			else
+			{
+				return this.Math.floor(this.getValue() * this.Const.World.Assets.BaseSellPrice);
+			}
 	}
 
 	function onSerialize( _out )
