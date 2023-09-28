@@ -1,4 +1,4 @@
-this.el_core_item <- this.inherit("scripts/items/item", {
+this.el_core_item <- this.inherit("scripts/items/trade/trading_good_item", {
 	m = {
 		EL_PropertiesXP = [],
 		EL_XP = 0
@@ -9,7 +9,7 @@ this.el_core_item <- this.inherit("scripts/items/item", {
 		this.m.Name = "Core";
 		this.m.Description = "A core, can be used to strengthen your men or sell it for crowns.";
 		this.m.SlotType = this.Const.ItemSlot.None;
-		this.m.ItemType = this.Const.Items.ItemType.Usable | this.Const.Items.ItemType.Misc;
+		this.m.ItemType = this.Const.Items.ItemType.TradeGood | this.Const.Items.ItemType.Usable | this.Const.Items.ItemType.Misc;
 		this.m.IsDroppedAsLoot = true;
 		this.m.IsAllowedInBag = false;
 		this.m.IsUsable = true;
@@ -165,18 +165,6 @@ this.el_core_item <- this.inherit("scripts/items/item", {
 		}
 		this.Sound.play("sounds/combat/eat_01.wav", this.Const.Sound.Volume.Inventory);
 		return true;
-	}
-
-	function getSellPrice()
-	{
-			if (("State" in this.World) && this.World.State != null && this.World.State.getCurrentTown() != null)
-			{
-				return this.Math.floor(this.getValue() * this.getSellPriceMult() * this.World.Assets.m.SellPriceTradeMult * this.World.State.getCurrentTown().getSellPriceMult() * this.Const.World.Assets.SellPriceNotProducedHere * this.Const.World.Assets.SellPriceNotLocalCulture);
-			}
-			else
-			{
-				return this.Math.floor(this.getValue() * this.Const.World.Assets.BaseSellPrice);
-			}
 	}
 
 	function onSerialize( _out )
