@@ -1646,7 +1646,7 @@ local gt = getroottable();
 
         local troop_info = this.Const.EL_NPC.EL_Troop.EL_getTroopInfo(_EL_troop);
         e.EL_setRankLevel(_EL_rank);
-        if(_EL_level == -1) {
+        if(_EL_level != -1) {
 
         }
         else if(_EL_rank != 0) {
@@ -1704,7 +1704,7 @@ local gt = getroottable();
         }
 
         e.EL_setRankLevel(_EL_rank);
-        if(_EL_level == -1) {
+        if(_EL_level != -1) {
 
         }
         else if(_EL_rank != 0) {
