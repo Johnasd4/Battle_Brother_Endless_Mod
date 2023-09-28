@@ -28,7 +28,7 @@ this.el_core_item <- this.inherit("scripts/items/item", {
 		}
 		this.m.Value = this.Math.floor(this.Const.EL_Misc.EL_Core.Value[this.m.EL_RankLevel] * (1 + total_xp * this.Const.EL_Misc.EL_Core.ValueIncreacePurXP));
 	}
-	
+
 	function getTooltip()
 	{
 		local result = [
@@ -195,9 +195,9 @@ this.el_core_item <- this.inherit("scripts/items/item", {
 		}
 	}
 
-	function EL_setXP( _EL_xp )
+	function EL_generateCoreXPByActorXP( _EL_xp )
 	{
-		this.m.EL_XP = _EL_xp;
+		this.m.EL_XP = _EL_xp * this.Const.EL_Misc.EL_Core.XPMult[this.m.EL_RankLevel];
 	}
 
 });
