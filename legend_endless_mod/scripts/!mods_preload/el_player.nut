@@ -1268,10 +1268,28 @@ local gt = getroottable();
 						}
 					}
 					return ret;
-			}
+				a;
+				case "character-stats.Fatigue":
+					return [
+						{
+							id = 1,
+							type = "title",
+							text = "Fatigue"
+						},
+						{
+							id = 2,
+							type = "description",
+							text = "Fatigue is gained for every action, like moving or using skills, and when being hit in combat or dodging in melee. It is reduced at a fixed rate of 10 each turn or as much as necessary for a character to start every turn with 10 less than their maximum fatigue. The recovery rate will be increased by 1 every 20 maximum fatigue. If a character accumulates too much fatigue they may need to rest a turn (i.e. do nothing) before being able to use more specialized skills again."
+						}
+					];
+
+				}
 
 			return general_queryUIElementTooltipData(_entityId, _elementId, _elementOwner);
 		}
+
+
+
 	});
 
 	::mods_hookNewObjectOnce("ui/global/data_helper", function ( o )
