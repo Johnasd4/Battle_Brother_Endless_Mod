@@ -616,6 +616,34 @@ local gt = getroottable();
 		}
 	});
 
+	::mods_hookNewObject("skills/perks/perk_nimble", function ( o )
+	{
+
+		o.getChance = function ()
+		{
+
+
+			local fat = 0;
+			local body = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Body);
+			local head = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Head);
+			local actor = this.getContainer().getActor();
+
+			if (body != null)
+			{
+				fat = fat + body.getStaminaModifier();
+			}
+
+			if (head != null)
+			{
+				fat = fat + head.getStaminaModifier();
+			}
+
+			fat = this.Math.min(0, fat + 15);
+			fat /= (1 + actor.EL_getCombatLevel() * 0.04);
+			local ret = this.Math.minf(1.0, 1.0 - 0.6 + this.Math.pow(this.Math.abs(fat), 1.23) * 0.01);
+			return ret;
+		}
+	});
 
 	::mods_hookNewObject("skills/perks/perk_ptr_bulwark", function ( o )
 	{
