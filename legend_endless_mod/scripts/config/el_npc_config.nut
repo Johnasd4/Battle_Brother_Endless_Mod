@@ -147,6 +147,7 @@ gt.Const.EL_NPC <- {
         EliteUnit = [
             this.Const.EntityType.BanditWarlord,
             this.Const.EntityType.BanditLeader,
+            this.Const.EntityType.BarbarianChosen,
             this.Const.EntityType.BarbarianMadman,
             this.Const.EntityType.LegendSkinGhoul,
             this.Const.EntityType.LegendWhiteDirewolf,
@@ -165,7 +166,6 @@ gt.Const.EL_NPC <- {
             this.Const.EntityType.OrcWarlord,
             this.Const.EntityType.GoblinLeader,
             this.Const.EntityType.NomadLeader,
-            this.Const.EntityType.SkeletonPhylactery,
             this.Const.EntityType.SkeletonBoss,
             this.Const.EntityType.ZombieBoss,
             this.Const.EntityType.LegendVampireLord,
@@ -175,16 +175,7 @@ gt.Const.EL_NPC <- {
         WeakUnit = [
             this.Const.EntityType.Peasant,
             this.Const.EntityType.PeasantSouthern,
-            this.Const.EntityType.LegendPeasantButcher,
-            this.Const.EntityType.LegendPeasantBlacksmith,
-            this.Const.EntityType.LegendPeasantMonk,
-            this.Const.EntityType.LegendPeasantFarmhand,
-            this.Const.EntityType.LegendPeasantMinstrel,
-            this.Const.EntityType.LegendPeasantPoacher,
-            this.Const.EntityType.LegendPeasantWoodsman,
-            this.Const.EntityType.LegendPeasantMiner,
-            this.Const.EntityType.LegendPeasantSquire,
-            this.Const.EntityType.LegendPeasantWitchHunter,
+            this.Const.EntityType.Slave,
             this.Const.EntityType.CaravanDonkey,
             this.Const.EntityType.MilitaryDonkey
         ]
