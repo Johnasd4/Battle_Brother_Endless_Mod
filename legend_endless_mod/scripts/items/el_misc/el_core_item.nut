@@ -197,7 +197,7 @@ this.el_core_item <- this.inherit("scripts/items/item", {
 
 	function EL_generateCoreXPByActorXP( _EL_xp )
 	{
-		this.m.EL_XP = this.Math.floor(_EL_xp * this.Const.EL_Misc.EL_Core.XPMult[this.m.EL_RankLevel] * 0.01);
+		this.m.EL_XP = this.Math.floor(_EL_xp * this.Const.EL_Misc.EL_Core.XPMult[this.m.EL_RankLevel]);
 	}
 
 });

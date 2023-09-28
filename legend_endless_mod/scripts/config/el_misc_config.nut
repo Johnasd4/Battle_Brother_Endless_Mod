@@ -20,7 +20,7 @@ gt.Const.EL_Misc <- {
         ],
         Value = [100, 200, 500, 1200, 2500],
         ValueIncreacePurXP = 0.1,
-        XPMult = [20, 50, 100, 200, 400]
+        XPMult = [0.2, 0.5, 1, 2, 4]
 
     }
 
