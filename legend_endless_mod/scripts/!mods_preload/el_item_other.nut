@@ -42,6 +42,15 @@ local gt = getroottable();
 				//this.logInfo("accessory："+accessory.getName());
 				accessory.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
 			}
+			for( local i = 0; i < actor.getItems().getUnlockedBagSlots(); i = i )
+			{
+				local bag_item = actor.getItems().getItemAtBagSlot(i);
+				if (bag_item != null)
+				{
+					bag_item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
+				}
+				i = ++i;
+			}
 			this.adjustHiringCostBasedOnEquipment();
 		}
 	});
