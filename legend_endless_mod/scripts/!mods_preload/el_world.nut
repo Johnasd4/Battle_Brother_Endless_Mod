@@ -9,7 +9,9 @@ local gt = getroottable();
 		local onInit = o.onInit;
 		o.onInit = function() {
 			onInit();
-			this.m.Events.m.Events.push(this.new("scripts/events/mods/el_world/el_world_change_event"));
+			if(this.m.Events.getEvent("event.el_world_change") == null) {
+				this.m.Events.m.Events.push(this.new("scripts/events/mods/el_world/el_world_change_event"));
+			}
 		}
 	});
 
