@@ -28,7 +28,7 @@ this.el_combat_level_entry <- this.inherit("scripts/skills/el_entrys/accessory_e
 			};
 		}
 	}
-	
+
 	function EL_getEntryColour()
 	{
         for (local index = 0; index < this.Const.EL_Item.Type.Legendary; ++index)
@@ -58,7 +58,7 @@ this.el_combat_level_entry <- this.inherit("scripts/skills/el_entrys/accessory_e
 	{
 		_EL_totalEntry.m.EL_CombatLevelAddition += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_CombatLevelAddition * 100) * 0.01;
 	}
-    
+
     function onSerialize( _out )
 	{
 		_out.writeF32(this.m.EL_CombatLevelAddition);

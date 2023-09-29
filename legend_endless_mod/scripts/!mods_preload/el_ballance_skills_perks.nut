@@ -435,28 +435,81 @@ local gt = getroottable();
 
 	::mods_hookNewObject("skills/perks/perk_legend_lithe", function ( o )
 	{
+		o.isHidden <- function()
+		{
+			return this.getContainer().hasSkill("perk.nimble") || (::Math.floor(this.getHitpointsDamageReduction() * 100) >= 100 && ::Math.floor(this.getArmorDamageReduction() * 100) >= 100);
+		}
 
-		o.getBonus = function()
+		o.getTooltip = function()
 		{
 			local actor = this.getContainer().getActor();
-			local bodyitem = actor.getBodyItem();
-
-			if (bodyitem == null)
+			local tooltip = this.skill.getTooltip();
+			local hpBonus = ::Math.round(this.getHitpointsDamageReduction() * 100);
+			if (hpBonus < 100)
 			{
-				return 0;
+				tooltip.push({
+					id = 6,
+					type = "text",
+					icon = "ui/icons/special.png",
+					text = "Damage to hitpoints from attacks is reduced by [color=" + this.Const.UI.Color.PositiveValue + "]" + (100-hpBonus) + "%[/color]"
+				});
+			}
+			local armorBonus = ::Math.round(this.getArmorDamageReduction() * 100);
+			if (armorBonus < 100)
+			{
+				tooltip.push({
+					id = 6,
+					type = "text",
+					icon = "ui/icons/special.png",
+					text = "Damage to armor from attacks is reduced by [color=" + this.Const.UI.Color.PositiveValue + "]" + (100-armorBonus) + "%[/color]"
+				});
 			}
 
-			local armorFatMult = this.getArmorFatPenMult(actor.getItems().getStaminaModifier([
-				::Const.ItemSlot.Body,
-				::Const.ItemSlot.Head
-			]) / (1 + 0.04 * actor.EL_getCombatLevel()));
+			if (hpBonus >= 100 && armorBonus >= 100)
+			{
+				tooltip.push({
+					id = 6,
+					type = "text",
+					icon = "ui/tooltips/warning.png",
+					text = "[color=" + this.Const.UI.Color.NegativeValue + "]This character\'s body and head armor are too heavy to gain any benefit from being lithe[/color]"
+				});
+			}
+			tooltip.push({
+				id = 6,
+				type = "hint",
+				text = "Armor weight between [color=" + this.Const.UI.Color.PositiveValue + "]" + (25 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color] ~ [color=" + this.Const.UI.Color.PositiveValue + "]" +
+					   (35 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color] best fit."
+			});
+			return tooltip;
+		}
 
+		o.getHitpointsDamageReduction <- function()
+		{
+			local actor = this.getContainer().getActor();
+			local fat = this.getContainer().getActor().getItems().getStaminaModifier([::Const.ItemSlot.Body, ::Const.ItemSlot.Head]) / (1 + 0.04 * actor.EL_getCombatLevel());
+			fat = ::Math.min(0, fat + 35);
+			return ::Math.minf(1.0, 1.0 - 0.3 + this.Math.pow(this.Math.abs(fat), 1.23) * 0.01);
+		}
 
-			local totalArmorDurability = actor.getArmor(this.Const.BodyPart.Head) + actor.getArmor(this.Const.BodyPart.Body);
-			local maxArmorDurability = actor.getArmorMax(this.Const.BodyPart.Head) + actor.getArmorMax(this.Const.BodyPart.Body);
-			local bonus = this.Math.maxf(this.m.BonusMin, this.Math.minf(this.m.BonusMax, this.m.BonusMax * armorFatMult));
-			bonus = bonus * (0.5 * totalArmorDurability / (maxArmorDurability * 1.0) + 0.5);
-			return this.Math.floor(bonus);
+		o.getArmorDamageReduction <- function()
+		{
+			local actor = this.getContainer().getActor();
+			local fat = this.getContainer().getActor().getItems().getStaminaModifier([::Const.ItemSlot.Body, ::Const.ItemSlot.Head]) / (1 + 0.04 * actor.EL_getCombatLevel());
+			fat = ::Math.min(0, fat + 35);
+			return ::Math.minf(1.0, 1.0 - 0.15 + this.Math.pow(this.Math.abs(fat), 1.23) * 0.01);
+		}
+
+		o.onBeforeDamageReceived <- function ( _attacker, _skill, _hitInfo, _properties )
+		{
+			if (_attacker != null && _attacker.getID() == this.getContainer().getActor().getID() || _skill == null || !_skill.isAttack() || !_skill.isUsingHitchance())
+			{
+				return;
+			}
+
+			if (this.getContainer().hasSkill("perk.nimble")) return;
+
+			_properties.DamageReceivedRegularMult *= this.getHitpointsDamageReduction();
+			_properties.DamageReceivedArmorMult *= this.getArmorDamageReduction();
 		}
 
 	});
@@ -619,6 +672,38 @@ local gt = getroottable();
 	::mods_hookNewObject("skills/perks/perk_nimble", function ( o )
 	{
 
+		o.getTooltip = function()
+		{
+			local actor = this.getContainer().getActor();
+			local fm = this.Math.round(this.getChance() * 100);
+			local tooltip = this.skill.getTooltip();
+
+			if (fm < 100)
+			{
+				tooltip.push({
+					id = 6,
+					type = "text",
+					icon = "ui/icons/special.png",
+					text = "Only receive [color=" + this.Const.UI.Color.PositiveValue + "]" + fm + "%[/color] of any damage to hitpoints from attacks"
+				});
+			}
+			else
+			{
+				tooltip.push({
+					id = 6,
+					type = "text",
+					icon = "ui/tooltips/warning.png",
+					text = "[color=" + this.Const.UI.Color.NegativeValue + "]This character\'s body and head armor are too heavy as to gain any benefit from being nimble[/color]"
+				});
+			}
+			tooltip.push({
+				id = 6,
+				type = "hint",
+				text = "Armor weight below [color=" + this.Const.UI.Color.PositiveValue + "]" + (15 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color] best fit."
+			});
+			return tooltip;
+		}
+
 		o.getChance = function ()
 		{
 
@@ -650,8 +735,6 @@ local gt = getroottable();
 		o.m.ArmorPercentageAsBonus = 1;
 
 	});
-
-	gt.Const.Strings.PerkDescription.PTRBulwark <- "\'Not much to be afraid of behind a suit of plate!\'\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• Resolve is increased by [color=" + this.Const.UI.Color.PositiveValue + "]1%[/color] of the combined current durability of head and body armor.\n• This bonus is [color=" + this.Const.UI.Color.PositiveValue + "]doubled[/color] against negative morale checks except mental attacks.";
 
 	::mods_hookNewObject("skills/perks/perk_ptr_dent_armor", function ( o )
 	{
@@ -794,5 +877,8 @@ local gt = getroottable();
 			}
 		}
 	});
+
+	gt.Const.Strings.PerkDescription.PTRBulwark <- "\'Not much to be afraid of behind a suit of plate!\'\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• Resolve is increased by [color=" + this.Const.UI.Color.PositiveValue + "]1%[/color] of the combined current durability of head and body armor.\n• This bonus is [color=" + this.Const.UI.Color.PositiveValue + "]doubled[/color] against negative morale checks except mental attacks.";
+
 
 });
