@@ -672,6 +672,38 @@ local gt = getroottable();
 	::mods_hookNewObject("skills/perks/perk_nimble", function ( o )
 	{
 
+		o.getTooltip = function()
+		{
+			local actor = this.getContainer().getActor();
+			local fm = this.Math.round(this.getChance() * 100);
+			local tooltip = this.skill.getTooltip();
+
+			if (fm < 100)
+			{
+				tooltip.push({
+					id = 6,
+					type = "text",
+					icon = "ui/icons/special.png",
+					text = "Only receive [color=" + this.Const.UI.Color.PositiveValue + "]" + fm + "%[/color] of any damage to hitpoints from attacks"
+				});
+			}
+			else
+			{
+				tooltip.push({
+					id = 6,
+					type = "text",
+					icon = "ui/tooltips/warning.png",
+					text = "[color=" + this.Const.UI.Color.NegativeValue + "]This character\'s body and head armor are too heavy as to gain any benefit from being nimble[/color]"
+				});
+			}
+			tooltip.push({
+				id = 6,
+				type = "hint",
+				text = "Armor weight below [color=" + this.Const.UI.Color.PositiveValue + "]" + (15 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color] best fit."
+			});
+			return tooltip;
+		}
+
 		o.getChance = function ()
 		{
 
