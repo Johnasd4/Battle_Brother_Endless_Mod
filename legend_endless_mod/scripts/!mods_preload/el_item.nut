@@ -210,17 +210,17 @@ local gt = getroottable();
 
 		o.EL_getUpgradeEssence <- function()
 		{
-			return 0;
+			return [0, 0, 0, 0, 0];
 		}
 
 		o.EL_getDisassembleEssence <- function()
 		{
-			return 0;
+			return [0, 0, 0, 0, 0];
 		}
 
 		o.EL_getRecraftEssence <- function()
 		{
-			return 0;
+			return [0, 0, 0, 0, 0];
 		}
 	});
 

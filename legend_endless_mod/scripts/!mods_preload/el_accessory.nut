@@ -314,17 +314,23 @@ local gt = getroottable();
 
 			o.EL_getUpgradeEssence <- function()
 			{
-				return this.Math.round(this.Const.EL_Accessory.EL_Essence.SlotFactor * this.Const.EL_Shield.EL_Essence.UpgradeFactor * this.Math.pow((1 + this.Const.EL_Accessory.EL_Essence.LevelFactor * this.m.EL_Level), this.Const.EL_Accessory.EL_Essence.PowFactor));
+				local result = [0, 0, 0, 0, 0];
+				result[this.m.EL_RankLevel] += this.Math.round(this.Const.EL_Accessory.EL_Essence.SlotFactor * this.Const.EL_Shield.EL_Essence.UpgradeFactor * this.Math.pow((1 + this.Const.EL_Accessory.EL_Essence.LevelFactor * this.m.EL_Level), this.Const.EL_Accessory.EL_Essence.PowFactor));
+				return result;
 			}
 
 			o.EL_getDisassembleEssence <- function()
 			{
-				return this.Math.round(this.Const.EL_Accessory.EL_Essence.SlotFactor * this.Const.EL_Shield.EL_Essence.DisassembleFactor * this.Math.pow((1 + this.Const.EL_Accessory.EL_Essence.LevelFactor * this.m.EL_Level), this.Const.EL_Accessory.EL_Essence.PowFactor));
+				local result = [0, 0, 0, 0, 0];
+				result[this.m.EL_RankLevel] += this.Math.round(this.Const.EL_Accessory.EL_Essence.SlotFactor * this.Const.EL_Shield.EL_Essence.DisassembleFactor * this.Math.pow((1 + this.Const.EL_Accessory.EL_Essence.LevelFactor * this.m.EL_Level), this.Const.EL_Accessory.EL_Essence.PowFactor));
+				return result;
 			}
 
 			o.EL_getRecraftEssence <- function()
 			{
-				return this.Math.round(this.Const.EL_Accessory.EL_Essence.SlotFactor * this.Const.EL_Shield.EL_Essence.RecraftFactor * this.Math.pow((1 + this.Const.EL_Accessory.EL_Essence.LevelFactor * this.World.Assets.m.EL_WorldLevel), this.Const.EL_Accessory.EL_Essence.PowFactor));
+				local result = [0, 0, 0, 0, 0];
+				result[this.m.EL_RankLevel] += this.Math.round(this.Const.EL_Accessory.EL_Essence.SlotFactor * this.Const.EL_Shield.EL_Essence.RecraftFactor * this.Math.pow((1 + this.Const.EL_Accessory.EL_Essence.LevelFactor * this.World.Assets.m.EL_WorldLevel), this.Const.EL_Accessory.EL_Essence.PowFactor));
+				return result;
 			}
 		});
 	}

@@ -23,20 +23,13 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 		EL_WeaponUseSkillfatigueAddition = 0,
         EL_WeaponConditionRecoverDaliyAddition = 0.0,
         EL_WeaponConditionRecoverRateAddition = 0.0,
-		
 		EL_ShieldUseSkillfatigueAddition = 0,
 		EL_ShieldConditionRecoverDaliyAddition = 0,
         EL_ShieldConditionRecoverRateAddition = 0.0,
-
-		EL_HelmetConditionMultAddition = 0.0,
 		EL_HelmetConditionRecoverDaliyAddition = 0.0,
         EL_HelmetConditionRecoverRateAddition = 0.0,
-		EL_HelmetStaminaModifierMultAddition = 0.0,
-
-		EL_ArmorConditionMultAddition = 0.0,
 		EL_ArmorConditionRecoverDaliyAddition = 0.0,
         EL_ArmorConditionRecoverRateAddition = 0.0,
-		EL_ArmorStaminaModifierMultAddition = 0.0,
 		
 		EL_ImmueBleedingPoisonedFireMiasma = false,
 		EL_ImmueGrabKnockTwirl = false,
@@ -259,6 +252,14 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 				id = 10,
 				type = "text",
 				text = "Experience Gain + " + this.m.EL_XPGainMultAddition + "%"
+			});
+		}
+		if(this.m.EL_VampireRateAddition)
+		{
+			result.push({
+				id = 10,
+				type = "text",
+				text = "Vampire rate + " + this.m.EL_VampireRateAddition + "%"
 			});
 		}
 		if(this.m.EL_TargetAttractionMultAddition)
