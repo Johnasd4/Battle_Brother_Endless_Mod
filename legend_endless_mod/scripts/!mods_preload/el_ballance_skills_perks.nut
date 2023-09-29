@@ -438,7 +438,7 @@ local gt = getroottable();
 
 		o.getBonus = function()
 		{
-			local actor = this.getContainer().getActor();
+
 			local bodyitem = actor.getBodyItem();
 
 			if (bodyitem == null)
@@ -449,7 +449,7 @@ local gt = getroottable();
 			local armorFatMult = this.getArmorFatPenMult(actor.getItems().getStaminaModifier([
 				::Const.ItemSlot.Body,
 				::Const.ItemSlot.Head
-			]) / (1 + 0.04 * actor.EL_getCombatLevel()));
+			] / (1 + 0.04 * actor.EL_getCombatLevel())));
 
 
 			local totalArmorDurability = actor.getArmor(this.Const.BodyPart.Head) + actor.getArmor(this.Const.BodyPart.Body);

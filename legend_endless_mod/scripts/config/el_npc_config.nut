@@ -94,6 +94,7 @@ gt.Const.EL_NPC <- {
         MaxLevelOffset = 0,
         BossTroopMinLeaders = 2,
         BossChance = 1,
+        UnitGenerateMinCalculateResourse = 20
 
         EquipmentEssence = {
             CurrentRankMult = 1,

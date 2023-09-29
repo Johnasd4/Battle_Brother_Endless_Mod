@@ -63,7 +63,7 @@ gt.Const.EL_World <- {
     ],
 
     EL_WorldChangeEvent = {
-        Cooldown = 4,
+        Cooldown = 40,
         OptionNum = 16,
         OptionNumPurPage = 4,
         RewardTimesPurLevel = 1,
