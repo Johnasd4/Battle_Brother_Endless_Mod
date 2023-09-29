@@ -589,9 +589,9 @@ local gt = getroottable();
                 _out.writeI32(t.EL_ExtraCombatLevel);
                 _out.writeI32(t.EL_RankLevel);
                 _out.writeBool(t.EL_IsBossUnit);
-                _out.writeI32(0);
-                _out.writeI32(0);
-                _out.writeI32(0);
+                _out.writeI32(t.EL_ExtraBuffNum[0]);
+                _out.writeI32(t.EL_ExtraBuffNum[1]);
+                _out.writeI32(t.EL_ExtraBuffNum[2]);
 
                 if ("Outfits" in t)
                 {
@@ -654,9 +654,9 @@ local gt = getroottable();
                 _out.writeI32(t.EL_ExtraCombatLevel);
                 _out.writeI32(t.EL_RankLevel);
                 _out.writeBool(t.EL_IsBossUnit);
-                _out.writeI32(0);
-                _out.writeI32(0);
-                _out.writeI32(0);
+                _out.writeI32(t.EL_ExtraBuffNum[0]);
+                _out.writeI32(t.EL_ExtraBuffNum[1]);
+                _out.writeI32(t.EL_ExtraBuffNum[2]);
 
                 if ("Outfits" in t)
                 {
@@ -739,6 +739,9 @@ local gt = getroottable();
                 troop.EL_ExtraCombatLevel = _in.readI32();
                 troop.EL_RankLevel = _in.readI32();
                 troop.EL_IsBossUnit = _in.readBool()
+                troop.EL_ExtraBuffNum[0] = _in.readI32();
+                troop.EL_ExtraBuffNum[1] = _in.readI32();
+                troop.EL_ExtraBuffNum[2] = _in.readI32();
 
                 if (_in.getMetaData().getVersion() >= 71)
                 {
@@ -851,6 +854,9 @@ local gt = getroottable();
                 troop.EL_ExtraCombatLevel = _in.readI32();
                 troop.EL_RankLevel = _in.readI32();
                 troop.EL_IsBossUnit = _in.readBool();
+                troop.EL_ExtraBuffNum[0] = _in.readI32();
+                troop.EL_ExtraBuffNum[1] = _in.readI32();
+                troop.EL_ExtraBuffNum[2] = _in.readI32();
 
                 if (_in.getMetaData().getVersion() >= 71)
                 {
