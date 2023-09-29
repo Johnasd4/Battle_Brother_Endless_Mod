@@ -267,7 +267,7 @@ gt.Const.EL_NPC <- {
             else {
                 ret.EL_ExtraCombatLevel = this.Math.pow((_EL_troop.Strength - this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.CrticalPoint) * this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.MultPart2, 0.5);
             }
-            ret.EL_ExtraCombatLevel += this.Math.min(this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.ExtraCombatLevelMax, this.Math.rand(this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.RandomMin, this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.RandomMax) * this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.RandomMult);
+            ret.EL_ExtraCombatLevel = this.Math.min(this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.ExtraCombatLevelMax, this.Math.rand(this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.RandomMin, this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.RandomMax) * this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.RandomMult + ret.EL_ExtraCombatLevel);
             return ret;
         }
     }

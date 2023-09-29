@@ -651,8 +651,6 @@ local gt = getroottable();
 
 	});
 
-	gt.Const.Strings.PerkDescription.PTRBulwark <- "\'Not much to be afraid of behind a suit of plate!\'\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• Resolve is increased by [color=" + this.Const.UI.Color.PositiveValue + "]1%[/color] of the combined current durability of head and body armor.\n• This bonus is [color=" + this.Const.UI.Color.PositiveValue + "]doubled[/color] against negative morale checks except mental attacks.";
-
 	::mods_hookNewObject("skills/perks/perk_ptr_dent_armor", function ( o )
 	{
 		o.onTargetHit = function( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
@@ -794,5 +792,8 @@ local gt = getroottable();
 			}
 		}
 	});
+
+	gt.Const.Strings.PerkDescription.PTRBulwark <- "\'Not much to be afraid of behind a suit of plate!\'\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• Resolve is increased by [color=" + this.Const.UI.Color.PositiveValue + "]1%[/color] of the combined current durability of head and body armor.\n• This bonus is [color=" + this.Const.UI.Color.PositiveValue + "]doubled[/color] against negative morale checks except mental attacks.";
+
 
 });
