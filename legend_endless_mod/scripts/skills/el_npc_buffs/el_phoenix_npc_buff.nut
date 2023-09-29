@@ -120,8 +120,8 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
                     skills.remove(skill);
                 }
             }
-            _properties.IsRooted = false;
-            _properties.IsMovable = true;
+            properties.IsRooted = false;
+            properties.IsMovable = true;
 
             if (!actor.isHiddenToPlayer())
             {

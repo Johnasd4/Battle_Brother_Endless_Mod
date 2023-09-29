@@ -76,7 +76,6 @@ this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
             head_armor_hit_info.Injuries = this.Const.Injury.BurningHead;
             affect_targets[i].onDamageReceived(this.getContainer().getActor(), this, head_armor_hit_info);
 
-            local actor = this.getContainer().getActor();
             local main_hand = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
             if(main_hand != null) {
                 main_hand.setCondition(this.Math.max(0, main_hand.getCondition() - this.Math.floor(main_hand.getConditionMax() * this.Const.EL_NPC.EL_NPCBuff.Factor.SelfDestruct.WeaponShieldDamageRate[this.m.EL_RankLevel])));

@@ -94,7 +94,8 @@ gt.Const.EL_NPC <- {
         MaxLevelOffset = 0,
         BossTroopMinLeaders = 2,
         BossChance = 1,
-        UnitGenerateMinCalculateResourse = 20
+        UnitGenerateMinCalculateResourse = 20,
+        EliteUnitChangeMult = 2.5
 
         EquipmentEssence = {
             CurrentRankMult = 1,
@@ -128,7 +129,7 @@ gt.Const.EL_NPC <- {
         ],
 
         TotalResourse = {
-            Factor1 = 60,
+            Factor1 = 100,
             Factor2 = 5
         }
 
@@ -147,31 +148,31 @@ gt.Const.EL_NPC <- {
         ],
 
         EliteUnit = [
-            // this.Const.EntityType.BanditWarlord,
-            // //this.Const.EntityType.BanditLeader,
-            // //this.Const.EntityType.BarbarianChosen,
-            // this.Const.EntityType.BarbarianMadman,
-            // this.Const.EntityType.LegendSkinGhoul,
-            // this.Const.EntityType.LegendWhiteDirewolf,
-            // this.Const.EntityType.LegendWhiteWarwolf,
-            // this.Const.EntityType.LegendRedbackSpider,
-            // this.Const.EntityType.LegendRockUnhold,
-            // this.Const.EntityType.LegendDemonAlp,
-            // this.Const.EntityType.LegendStollwurm,
-            // this.Const.EntityType.LegendGreenwoodSchrat,
-            // this.Const.EntityType.LegendGreenwoodSchratSmall,
-            // this.Const.EntityType.LegendHexeLeader,
-            // //this.Const.EntityType.Swordmaster,
-            // //this.Const.EntityType.MasterArcher,
-            // this.Const.EntityType.LegendOrcElite,
-            // this.Const.EntityType.LegendOrcBehemoth,
-            // //this.Const.EntityType.OrcWarlord,
-            // //this.Const.EntityType.GoblinLeader,
-            // //this.Const.EntityType.NomadLeader,
-            // this.Const.EntityType.SkeletonBoss,
-            // this.Const.EntityType.ZombieBoss,
-            // this.Const.EntityType.LegendVampireLord,
-            // this.Const.EntityType.LegendMummyQueen,
+            this.Const.EntityType.BanditWarlord,
+            this.Const.EntityType.BanditLeader,
+            this.Const.EntityType.BarbarianChosen,
+            this.Const.EntityType.BarbarianMadman,
+            this.Const.EntityType.LegendSkinGhoul,
+            this.Const.EntityType.LegendWhiteDirewolf,
+            this.Const.EntityType.LegendWhiteWarwolf,
+            this.Const.EntityType.LegendRedbackSpider,
+            this.Const.EntityType.LegendRockUnhold,
+            this.Const.EntityType.LegendDemonAlp,
+            this.Const.EntityType.LegendStollwurm,
+            this.Const.EntityType.LegendGreenwoodSchrat,
+            this.Const.EntityType.LegendGreenwoodSchratSmall,
+            this.Const.EntityType.LegendHexeLeader,
+            this.Const.EntityType.Swordmaster,
+            this.Const.EntityType.MasterArcher,
+            this.Const.EntityType.LegendOrcElite,
+            this.Const.EntityType.LegendOrcBehemoth,
+            this.Const.EntityType.OrcWarlord,
+            this.Const.EntityType.GoblinLeader,
+            this.Const.EntityType.NomadLeader,
+            this.Const.EntityType.SkeletonBoss,
+            this.Const.EntityType.ZombieBoss,
+            this.Const.EntityType.LegendVampireLord,
+            this.Const.EntityType.LegendMummyQueen,
         ],
 
         WeakUnit = [
@@ -557,11 +558,15 @@ gt.Const.EL_NPC <- {
         ],
 
         Num = {
-            HumanoidRank1 = [0, 1, 3],
+            HumanoidRank0 = [0, 2, 0],
+            HumanoidRank1 = [0, 1, 2],
             HumanoidRank2 = [0, 0, 1],
-            NonHumanoidRank1 = [0, 3, 9],
+            NonHumanoidRank0 = [0, 6, 0],
+            NonHumanoidRank1 = [0, 3, 6],
             NonHumanoidRank2 = [0, 0, 3],
-
+            ExtraBuffRank0 = [1, 2, 0],
+            ExtraBuffRank1 = [0, 1, 2],
+            ExtraBuffRank2 = [0, 0, 1],
             BossUnitExtraRank1 = 4,
             BossUnitExtraRank2 = 2
 
@@ -569,51 +574,51 @@ gt.Const.EL_NPC <- {
 
         Factor = {
             Berserk = {
-                DamageDirectMult = [1.1, 1.4, 2]
+                DamageDirectMult = [1.2, 1.4, 2]
             },
             Charge = {
-                KnockBackChance = [10, 40, 100]
+                KnockBackChance = [20, 40, 100]
             },
             StunningStrike = {
-                StunChance = [10, 40, 100]
+                StunChance = [20, 40, 100]
             },
             Endurance = {
             },
             EnergyDrain = {
-                FatiguePurActionPoint = [1, 4, 10]
+                FatiguePurActionPoint = [2, 4, 10]
             },
             Evasion = {
                 MeleeState = 1,
                 RangeState = 2,
-                DefenseOffset = [20, 80, 200]
+                DefenseOffset = [40, 80, 200]
             },
             Growth = {
-                DamageMultPurStack = [0.01, 0.04, 0.1],
-                DamageReceivedMultPurStack = [0.01, 0.04, 0.1],
-                MeleeSkillOffsetPurStack = [0.2 ,0.8, 2],
-                RangedSkillOffsetPurStack = [0.2 ,0.8, 2],
-                MeleeDefenseOffsetPurStack = [0.2 ,0.8, 2],
-                RangedDefenseOffsetPurStack = [0.2 ,0.8, 2],
+                DamageMultPurStack = [0.02, 0.04, 0.1],
+                DamageReceivedMultPurStack = [0.02, 0.04, 0.1],
+                MeleeSkillOffsetPurStack = [0.4 ,0.8, 2],
+                RangedSkillOffsetPurStack = [0.4 ,0.8, 2],
+                MeleeDefenseOffsetPurStack = [0.4 ,0.8, 2],
+                RangedDefenseOffsetPurStack = [0.4 ,0.8, 2],
             },
             Intimidate = {
-                BraveryOffset = [10, 40, 100],
-                MoraleCheckChance = [10, 40, 100],
+                BraveryOffset = [20, 40, 100],
+                MoraleCheckChance = [20, 40, 100],
                 BaseOffset = 50,
                 RankFactor = 0,
                 CombatLevelFactor = 1.04,
                 DistanceFactor = 3
             },
             LifeDrain = {
-                HitpointsPurActionPoint = [0.25, 1, 2.5],
+                HitpointsPurActionPoint = [0.5, 1, 2.5],
                 HitpointsMultPurCombatLevel = 0.04,
                 RecoverMult = 10,
             }
             LightningSpeed = {
-                InitiativeOffset = [20, 80, 200],
-                ActionPointsOffset = [0.5, 2, 5]
+                InitiativeOffset = [40, 80, 200],
+                ActionPointsOffset = [1, 2, 5]
             },
             MultipleAttacks = {
-                DamageDirectMult = [0.1, 0.4, 1]
+                DamageDirectMult = [0.2, 0.4, 1]
             }
             Phoenix = {
                 RiseTimes = [0, 1, 3],
@@ -630,36 +635,36 @@ gt.Const.EL_NPC <- {
 
             },
             Recovery = {
-                HitpointsRecoveryRate = [0.02, 0.08, 0.2],
-                FatigueRecoveryRate = [0.02, 0.08, 0.2],
-                ArmorRecoveryRate = [0.02, 0.08, 0.2],
+                HitpointsRecoveryRate = [0.04, 0.08, 0.2],
+                FatigueRecoveryRate = [0.04, 0.08, 0.2],
+                ArmorRecoveryRate = [0.04, 0.08, 0.2],
             },
             Retaliation = {
-                AttackChance = [10, 40, 100]
+                AttackChance = [20, 40, 100]
             },
             Revenge = {
-                DamageMultPurStack = [0.01, 0.04, 0.1],
+                DamageMultPurStack = [0.02, 0.04, 0.1],
             },
             SelfDestruct = {
-                DamageRate = [0.1, 0.4, 1],
-                WeaponShieldDamageRate = [0.05, 0.2, 0.5],
+                DamageRate = [0.2, 0.4, 1],
+                WeaponShieldDamageRate = [0.1, 0.2, 0.5],
                 DamageDecayRatePurTile = 0.5,
                 MaxDistance = 6
             },
             Tank = {
-                HitpointsMult = [1.2, 1.8, 3],
-                Stamina = [20, 80, 200],
-                ArmorMult = [1.2, 1.8, 3]
+                HitpointsMult = [1.4, 1.8, 3],
+                Stamina = [40, 80, 200],
+                ArmorMult = [1.4, 1.8, 3]
             },
             ThickSkin = {
-                DamageReceivedMult = [0.2, 0.8, 2]
+                DamageReceivedMult = [0.4, 0.8, 2]
             },
             Veteran = {
-                CombatLevelOffset = [0.5, 2, 5]
+                CombatLevelOffset = [1, 2, 5]
             },
             WeaponMaster = {
-                MeleeSkillOffset = [10, 40, 100],
-                RangedSkillOffset = [10, 40, 100]
+                MeleeSkillOffset = [20, 40, 100],
+                RangedSkillOffset = [20, 40, 100]
             }
         }
 
@@ -670,6 +675,13 @@ gt.Const.EL_NPC <- {
                     index_pool.push(i);
                 }
             }
+            for(local i = 0; i < _EL_rank2Num && index_pool.len() != 0; ++i) {
+                local r = this.Math.rand(0, index_pool.len() - 1);
+                local skill = this.new(this.Const.EL_NPC.EL_NPCBuff.Pool[index_pool[r]].Scripts);
+                skill.EL_setRankLevel(2);
+                _EL_npc.getSkills().add(skill);
+                index_pool.remove(r);
+            }
             for(local i = 0; i < _EL_rank1Num && index_pool.len() != 0; ++i) {
                 local r = this.Math.rand(0, index_pool.len() - 1);
                 local skill = this.new(this.Const.EL_NPC.EL_NPCBuff.Pool[index_pool[r]].Scripts);
@@ -677,10 +689,10 @@ gt.Const.EL_NPC <- {
                 _EL_npc.getSkills().add(skill);
                 index_pool.remove(r);
             }
-            for(local i = 0; i < _EL_rank2Num && index_pool.len() != 0; ++i) {
+            for(local i = 0; i < _EL_rank0Num && index_pool.len() != 0; ++i) {
                 local r = this.Math.rand(0, index_pool.len() - 1);
                 local skill = this.new(this.Const.EL_NPC.EL_NPCBuff.Pool[index_pool[r]].Scripts);
-                skill.EL_setRankLevel(2);
+                skill.EL_setRankLevel(0);
                 _EL_npc.getSkills().add(skill);
                 index_pool.remove(r);
             }
