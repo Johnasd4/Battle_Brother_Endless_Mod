@@ -11,12 +11,22 @@ this.el_bravery_entry <- this.inherit("scripts/skills/el_entrys/accessory_entrys
 	function getTooltip( _id )
 	{
 		local colour = this.EL_getEntryColour();
-		local result = {
-			id = _id,
-			type = "text",
-			text = "[color=" + colour + "]Resolve + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_BraveryAddition) + "[/color]"
-		};
-		return result;
+		if(this.m.EL_CurrentLevel != 1)
+		{
+			return {
+				id = _id,
+				type = "text",
+				text = "[color=" + colour + "]Resolve + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_BraveryAddition) + " (" + this.m.EL_BraveryAddition + ")[/color]"
+			};
+		}
+		else 
+		{
+			return {
+				id = _id,
+				type = "text",
+				text = "[color=" + colour + "]Resolve + " + this.m.EL_BraveryAddition + "[/color]"
+			};
+		}
 	}
 
 	function EL_getEntryColour()

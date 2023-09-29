@@ -11,12 +11,22 @@ this.el_reduce_damage_received_mult_entry <- this.inherit("scripts/skills/el_ent
 	function getTooltip( _id )
 	{
 		local colour = this.EL_getEntryColour();
-		local result = {
-			id = _id,
-			type = "text",
-			text = "[color=" + colour + "]Receive Damage - " + this.m.EL_CurrentLevel * this.m.EL_ReduceDamageReceivedMultAddition + "%[/color]"
-		};
-		return result;
+		if(this.m.EL_CurrentLevel != 1)
+		{
+			return {
+				id = _id,
+				type = "text",
+				text = "[color=" + colour + "]Receive Damage - " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ReduceDamageReceivedMultAddition * 100) * 0.01 + "% (" + this.m.EL_ReduceDamageReceivedMultAddition + "%)[/color]"
+			};
+		}
+		else 
+		{
+			return {
+				id = _id,
+				type = "text",
+				text = "[color=" + colour + "]Receive Damage - " + this.m.EL_ReduceDamageReceivedMultAddition + "%[/color]"
+			};
+		}
 	}
 	
 	function EL_getEntryColour()
@@ -46,7 +56,7 @@ this.el_reduce_damage_received_mult_entry <- this.inherit("scripts/skills/el_ent
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
-		_EL_totalEntry.m.EL_DamageReceivedMultAddition += this.m.EL_CurrentLevel * this.m.EL_ReduceDamageReceivedMultAddition;
+		_EL_totalEntry.m.EL_DamageReceivedMultAddition += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ReduceDamageReceivedMultAddition * 100) * 0.01;
 	}
     
     function onSerialize( _out )

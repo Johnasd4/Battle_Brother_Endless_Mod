@@ -255,8 +255,8 @@ local gt = getroottable();
 
 			o.EL_updateLevelProperties <- function()
 			{
-				this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Accessory.EL_LevelFactor.Value * this.m.EL_CurrentLevel));
-				local entryNum = this.Const.EL_Accessory.EL_Entry.EntryNumFactor.NormalAccessory[this.m.EL_RankLevel] * this.m.EL_Level;
+				this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Accessory.EL_LevelFactor.Value * this.m.EL_Level));
+				local entryNum = this.Const.EL_Accessory.EL_Entry.EntryNumFactor.NormalAccessory[this.m.EL_RankLevel] * this.m.EL_CurrentLevel;
 				for(local num = 0.0; num < this.m.EL_Entrylist.len(); ++num)
 				{
 					this.m.EL_Entrylist[num].EL_setCurrentLevel(entryNum - num);
@@ -314,17 +314,23 @@ local gt = getroottable();
 
 			o.EL_getUpgradeEssence <- function()
 			{
-				return this.Math.round(this.Const.EL_Accessory.EL_Essence.SlotFactor * this.Const.EL_Shield.EL_Essence.UpgradeFactor * this.Math.pow((1 + this.Const.EL_Accessory.EL_Essence.LevelFactor * this.m.EL_Level), this.Const.EL_Accessory.EL_Essence.PowFactor));
+				local result = [0, 0, 0, 0, 0];
+				result[this.m.EL_RankLevel] += this.Math.round(this.Const.EL_Accessory.EL_Essence.SlotFactor * this.Const.EL_Shield.EL_Essence.UpgradeFactor * this.Math.pow((1 + this.Const.EL_Accessory.EL_Essence.LevelFactor * this.m.EL_Level), this.Const.EL_Accessory.EL_Essence.PowFactor));
+				return result;
 			}
 
 			o.EL_getDisassembleEssence <- function()
 			{
-				return this.Math.round(this.Const.EL_Accessory.EL_Essence.SlotFactor * this.Const.EL_Shield.EL_Essence.DisassembleFactor * this.Math.pow((1 + this.Const.EL_Accessory.EL_Essence.LevelFactor * this.m.EL_Level), this.Const.EL_Accessory.EL_Essence.PowFactor));
+				local result = [0, 0, 0, 0, 0];
+				result[this.m.EL_RankLevel] += this.Math.round(this.Const.EL_Accessory.EL_Essence.SlotFactor * this.Const.EL_Shield.EL_Essence.DisassembleFactor * this.Math.pow((1 + this.Const.EL_Accessory.EL_Essence.LevelFactor * this.m.EL_Level), this.Const.EL_Accessory.EL_Essence.PowFactor));
+				return result;
 			}
 
 			o.EL_getRecraftEssence <- function()
 			{
-				return this.Math.round(this.Const.EL_Accessory.EL_Essence.SlotFactor * this.Const.EL_Shield.EL_Essence.RecraftFactor * this.Math.pow((1 + this.Const.EL_Accessory.EL_Essence.LevelFactor * this.World.Assets.m.EL_WorldLevel), this.Const.EL_Accessory.EL_Essence.PowFactor));
+				local result = [0, 0, 0, 0, 0];
+				result[this.m.EL_RankLevel] += this.Math.round(this.Const.EL_Accessory.EL_Essence.SlotFactor * this.Const.EL_Shield.EL_Essence.RecraftFactor * this.Math.pow((1 + this.Const.EL_Accessory.EL_Essence.LevelFactor * this.World.Assets.m.EL_WorldLevel), this.Const.EL_Accessory.EL_Essence.PowFactor));
+				return result;
 			}
 		});
 	}
