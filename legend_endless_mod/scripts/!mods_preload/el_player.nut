@@ -564,15 +564,6 @@ local gt = getroottable();
 
 				actor.setName(names[this.Math.rand(0, names.len() - 1)]);
 			}
-
-			if (this.m.Level <= 11)
-			{
-				actor.m.PerkPoints = this.m.Level - 1;
-			}
-			else
-			{
-				actor.m.PerkPoints = 10;
-			}
 			actor.m.Level = 1;
 			actor.m.PerkPoints += this.Const.EL_Player.EL_Champion.PerkPointsOffset[actor.m.EL_RankLevel];
 			actor.m.BaseProperties.EL_CombatLevel = 1 + this.Const.EL_Player.EL_Champion.CombatLevelOffset[actor.m.EL_RankLevel];

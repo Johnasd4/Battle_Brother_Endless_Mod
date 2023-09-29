@@ -501,7 +501,10 @@ gt.Const.EL_NPC <- {
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_phoenix_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(_EL_npc.EL_getRankLevel() == 0) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_recovery_npc_buff",
@@ -566,51 +569,51 @@ gt.Const.EL_NPC <- {
 
         Factor = {
             Berserk = {
-                DamageDirectMult = [1, 1.4, 2]
+                DamageDirectMult = [1.1, 1.4, 2]
             },
             Charge = {
-                KnockBackChance = [0, 40, 100]
+                KnockBackChance = [10, 40, 100]
             },
             StunningStrike = {
-                StunChance = [0, 40, 100]
+                StunChance = [10, 40, 100]
             },
             Endurance = {
             },
             EnergyDrain = {
-                FatiguePurActionPoint = [0, 4, 10]
+                FatiguePurActionPoint = [1, 4, 10]
             },
             Evasion = {
                 MeleeState = 1,
                 RangeState = 2,
-                DefenseOffset = [0, 80, 200]
+                DefenseOffset = [20, 80, 200]
             },
             Growth = {
-                DamageMultPurStack = [0, 0.04, 0.1],
-                DamageReceivedMultPurStack = [0, 0.04, 0.1],
-                MeleeSkillOffsetPurStack = [0 ,0.8, 2],
-                RangedSkillOffsetPurStack = [0 ,0.8, 2],
-                MeleeDefenseOffsetPurStack = [0 ,0.8, 2],
-                RangedDefenseOffsetPurStack = [0 ,0.8, 2],
+                DamageMultPurStack = [0.01, 0.04, 0.1],
+                DamageReceivedMultPurStack = [0.01, 0.04, 0.1],
+                MeleeSkillOffsetPurStack = [0.2 ,0.8, 2],
+                RangedSkillOffsetPurStack = [0.2 ,0.8, 2],
+                MeleeDefenseOffsetPurStack = [0.2 ,0.8, 2],
+                RangedDefenseOffsetPurStack = [0.2 ,0.8, 2],
             },
             Intimidate = {
-                BraveryOffset = [0, 40, 100],
-                MoraleCheckChance = [0, 40, 100],
+                BraveryOffset = [10, 40, 100],
+                MoraleCheckChance = [10, 40, 100],
                 BaseOffset = 50,
                 RankFactor = 0,
                 CombatLevelFactor = 1.04,
                 DistanceFactor = 3
             },
             LifeDrain = {
-                HitpointsPurActionPoint = [0, 1, 2.5],
+                HitpointsPurActionPoint = [0.25, 1, 2.5],
                 HitpointsMultPurCombatLevel = 0.04,
                 RecoverMult = 10,
             }
             LightningSpeed = {
-                InitiativeOffset = [0, 80, 200],
-                ActionPointsOffset = [0, 2, 5]
+                InitiativeOffset = [20, 80, 200],
+                ActionPointsOffset = [0.5, 2, 5]
             },
             MultipleAttacks = {
-                DamageDirectMult = [0, 0.4, 1]
+                DamageDirectMult = [0.1, 0.4, 1]
             }
             Phoenix = {
                 RiseTimes = [0, 1, 3],
@@ -627,40 +630,40 @@ gt.Const.EL_NPC <- {
 
             },
             Recovery = {
-                HitpointsRecoveryRate = [0, 0.08, 0.2],
-                FatigueRecoveryRate = [0, 0.08, 0.2],
-                ArmorRecoveryRate = [0, 0.08, 0.2],
+                HitpointsRecoveryRate = [0.02, 0.08, 0.2],
+                FatigueRecoveryRate = [0.02, 0.08, 0.2],
+                ArmorRecoveryRate = [0.02, 0.08, 0.2],
             },
             Retaliation = {
-                AttackChance = [0, 40, 100]
+                AttackChance = [10, 40, 100]
             },
             Revenge = {
-                DamageMultPurStack = [0, 0.04, 0.1],
+                DamageMultPurStack = [0.01, 0.04, 0.1],
             },
             SelfDestruct = {
-                DamageRate = [0, 0.4, 1],
-                WeaponShieldDamageRate = [0, 0.2, 0.5],
+                DamageRate = [0.1, 0.4, 1],
+                WeaponShieldDamageRate = [0.05, 0.2, 0.5],
                 DamageDecayRatePurTile = 0.5,
                 MaxDistance = 6
             },
             Tank = {
-                HitpointsMult = [1, 1.8, 3],
-                Stamina = [0, 80, 200],
-                ArmorMult = [1, 1.8, 3]
+                HitpointsMult = [1.2, 1.8, 3],
+                Stamina = [20, 80, 200],
+                ArmorMult = [1.2, 1.8, 3]
             },
             ThickSkin = {
-                DamageReceivedMult = [0, 0.8, 2]
+                DamageReceivedMult = [0.2, 0.8, 2]
             },
             Veteran = {
-                CombatLevelOffset = [0, 2, 5]
+                CombatLevelOffset = [0.5, 2, 5]
             },
             WeaponMaster = {
-                MeleeSkillOffset = [0, 40, 100],
-                RangedSkillOffset = [0, 40, 100]
+                MeleeSkillOffset = [10, 40, 100],
+                RangedSkillOffset = [10, 40, 100]
             }
         }
 
-        function EL_assignNPCBuffs(_EL_npc, _EL_rank1Num, _EL_rank2Num) {
+        function EL_assignNPCBuffs(_EL_npc, _EL_rank0Num, _EL_rank1Num, _EL_rank2Num) {
             local index_pool = [];
             for(local i = 0; i < this.Const.EL_NPC.EL_NPCBuff.Pool.len(); ++i) {
                 if(this.Const.EL_NPC.EL_NPCBuff.Pool[i].EL_ifEligible(_EL_npc)) {

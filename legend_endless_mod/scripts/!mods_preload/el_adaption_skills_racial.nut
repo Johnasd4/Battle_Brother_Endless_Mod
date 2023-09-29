@@ -37,7 +37,7 @@ local gt = getroottable();
                 {
                     local spawnTile = candidates[this.Math.rand(0, candidates.len() - 1)];
                     local sapling = this.Const.World.Common.EL_addEntity({
-                        ID = this.Const.EntityType.LegendGreenwoodSchratSmall,
+                        ID = 0,
                         Variant = 0,
                         Strength = 280,
                         Cost = 210,
@@ -83,7 +83,7 @@ local gt = getroottable();
                 {
                     local spawnTile = candidates[this.Math.rand(0, candidates.len() - 1)];
                     local sapling = this.Const.World.Common.EL_addEntity({
-                        ID = this.Const.EntityType.EL_SchratSmall,
+                        ID = 0,
                         Variant = 0,
                         Strength = 70,
                         Cost = 70,

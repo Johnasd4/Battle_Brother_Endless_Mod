@@ -4,17 +4,6 @@ local gt = getroottable();
 ::mods_queue(null, "endless_mod", function ()
 {
 
-	::mods_hookExactClass("states/world_state", function ( o )
-	{
-		local onInit = o.onInit;
-		o.onInit = function() {
-			onInit();
-			if(this.m.Events.getEvent("event.el_world_change") == null) {
-				this.m.Events.m.Events.push(this.new("scripts/events/mods/el_world/el_world_change_event"));
-			}
-		}
-	});
-
 	::mods_hookNewObjectOnce("states/world/asset_manager", function ( o )
 	{
 		o.m.EL_BaseWorldLevel <- this.Const.EL_World.EL_WorldLevel.Min;

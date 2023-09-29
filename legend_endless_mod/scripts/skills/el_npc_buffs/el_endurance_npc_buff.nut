@@ -10,6 +10,10 @@ this.el_endurance_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_b
 
 	function onUpdate( _properties )
 	{
+        if(this.m.EL_RankLevel == 0) {
+            _properties.IsImmuneToStun = true;
+            _properties.IsImmuneToRoot = true;
+        }
         if(this.m.EL_RankLevel == 1) {
             _properties.IsImmuneToStun = true;
             _properties.IsImmuneToDaze = true;
