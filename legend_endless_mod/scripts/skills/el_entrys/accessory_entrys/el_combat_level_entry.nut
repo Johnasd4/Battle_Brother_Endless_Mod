@@ -11,12 +11,22 @@ this.el_combat_level_entry <- this.inherit("scripts/skills/el_entrys/accessory_e
 	function getTooltip( _id )
 	{
 		local colour = this.EL_getEntryColour();
-		local result = {
-			id = _id,
-			type = "text",
-			text = "[color=" + colour + "]CombatLevel + " + this.m.EL_CurrentLevel * this.m.EL_CombatLevelAddition + "[/color]"
-		};
-		return result;
+		if(this.m.EL_CurrentLevel != 1)
+		{
+			return {
+				id = _id,
+				type = "text",
+				text = "[color=" + colour + "]CombatLevel + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_CombatLevelAddition * 100) * 0.01 + " (" + this.m.EL_CombatLevelAddition + ")[/color]"
+			};
+		}
+		else 
+		{
+			return {
+				id = _id,
+				type = "text",
+				text = "[color=" + colour + "]CombatLevel + " + this.m.EL_CombatLevelAddition + "[/color]"
+			};
+		}
 	}
 
 	function EL_getEntryColour()
@@ -46,7 +56,7 @@ this.el_combat_level_entry <- this.inherit("scripts/skills/el_entrys/accessory_e
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
-		_EL_totalEntry.m.EL_CombatLevelAddition += this.m.EL_CurrentLevel * this.m.EL_CombatLevelAddition;
+		_EL_totalEntry.m.EL_CombatLevelAddition += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_CombatLevelAddition * 100) * 0.01;
 	}
 
     function onSerialize( _out )

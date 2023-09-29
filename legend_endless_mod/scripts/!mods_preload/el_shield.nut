@@ -388,17 +388,26 @@ local gt = getroottable();
 
 		o.EL_getUpgradeEssence <- function()
 		{
-			return this.Const.EL_Shield.EL_Essence.SlotFactor * this.Const.EL_Shield.EL_Essence.UpgradeFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Shield.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
+			local result = [0, 0, 0, 0, 0];
+			result[this.m.EL_RankLevel] +=  this.Const.EL_Shield.EL_Essence.SlotFactor * this.Const.EL_Shield.EL_Essence.UpgradeFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Shield.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
+			return result;
 		}
 
 		o.EL_getDisassembleEssence <- function()
 		{
-			return this.Const.EL_Shield.EL_Essence.SlotFactor * this.Const.EL_Shield.EL_Essence.DisassembleFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Shield.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
+			local result = [0, 0, 0, 0, 0];
+			result[this.m.EL_RankLevel] += this.Const.EL_Shield.EL_Essence.SlotFactor * this.Const.EL_Shield.EL_Essence.DisassembleFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Shield.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
+			return result;
 		}
 
 		o.EL_getRecraftEssence <- function()
 		{
-			return this.Const.EL_Shield.EL_Essence.SlotFactor * this.Const.EL_Shield.EL_Essence.RecraftFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Shield.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel));
+			local result = [0, 0, 0, 0, 0];
+			if(this.m.EL_RankLevel)
+			{
+				result[this.m.EL_RankLevel] += this.Const.EL_Shield.EL_Essence.SlotFactor * this.Const.EL_Shield.EL_Essence.RecraftFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Shield.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel));
+			}
+			return result;
 		}
 	});
 });

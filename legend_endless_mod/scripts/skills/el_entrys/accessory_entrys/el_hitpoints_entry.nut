@@ -11,12 +11,22 @@ this.el_hitpoints_entry <- this.inherit("scripts/skills/el_entrys/accessory_entr
 	function getTooltip( _id )
 	{
 		local colour = this.EL_getEntryColour();
-		local result = {
-			id = _id,
-			type = "text",
-			text = "[color=" + colour + "]Hitpoints + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_HitpointsAddition) + "[/color]"
-		};
-		return result;
+		if(this.m.EL_CurrentLevel != 1)
+		{
+			return {
+				id = _id,
+				type = "text",
+				text = "[color=" + colour + "]Hitpoints + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_HitpointsAddition) + " (" + this.m.EL_HitpointsAddition + ")[/color]"
+			};
+		}
+		else 
+		{
+			return {
+				id = _id,
+				type = "text",
+				text = "[color=" + colour + "]Hitpoints + " + this.m.EL_HitpointsAddition + "[/color]"
+			};
+		}
 	}
 
 	function EL_getEntryColour()

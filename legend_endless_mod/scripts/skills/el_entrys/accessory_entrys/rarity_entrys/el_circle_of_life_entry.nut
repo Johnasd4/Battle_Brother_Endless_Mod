@@ -77,7 +77,21 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
         user.setIsAbleToDie(false);
 	}
 
-	function onBeforeTargetHit( _skill, _targetEntity, _hitInfo )
+	// function onBeforeTargetHit( _skill, _targetEntity, _hitInfo )
+	// {
+	// 	if (!_targetEntity.isAlive() || _targetEntity.isDying())
+	// 	{
+	// 		return;
+	// 	}
+    //     local item = this.m.Container.getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+	// 	if (_targetEntity != null && item != null && item.isItemType(this.Const.Items.ItemType.OneHanded) && item.isWeaponType(this.Const.Items.WeaponType.Mace))
+	// 	{
+	// 		_targetEntity.getSkills().add(this.new("scripts/skills/effects/stunned_effect"));
+	// 		this.EL_drainFatigueAndHitpoints(_skill, _targetEntity);
+	// 	}
+	// }
+    
+	function onTargetHit( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
 	{
 		if (!_targetEntity.isAlive() || _targetEntity.isDying())
 		{
