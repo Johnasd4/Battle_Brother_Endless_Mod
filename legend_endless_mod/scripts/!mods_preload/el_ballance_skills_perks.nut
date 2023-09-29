@@ -438,7 +438,7 @@ local gt = getroottable();
 
 		o.getBonus = function()
 		{
-
+			local actor = this.getContainer().getActor();
 			local bodyitem = actor.getBodyItem();
 
 			if (bodyitem == null)
