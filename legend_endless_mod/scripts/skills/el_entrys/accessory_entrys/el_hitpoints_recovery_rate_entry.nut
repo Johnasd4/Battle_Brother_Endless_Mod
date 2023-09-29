@@ -11,12 +11,22 @@ this.el_hitpoints_recovery_rate_entry <- this.inherit("scripts/skills/el_entrys/
 	function getTooltip( _id )
 	{
 		local colour = this.EL_getEntryColour();
-		local result = {
-			id = _id,
-			type = "text",
-			text = "[color=" + colour + "]Health Recovery per turn" + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_HitpointsRecoveryRateAddition) + "%[/color]"
-		};
-		return result;
+		if(this.m.EL_CurrentLevel != 1)
+		{
+			return {
+				id = _id,
+				type = "text",
+				text = "[color=" + colour + "]Health Recovery per turn" + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_HitpointsRecoveryRateAddition * 100) * 0.01 + "% (" + this.m.EL_HitpointsRecoveryRateAddition + "%)[/color]"
+			};
+		}
+		else 
+		{
+			return {
+				id = _id,
+				type = "text",
+				text = "[color=" + colour + "]Health Recovery per turn" + this.m.EL_HitpointsRecoveryRateAddition + "%[/color]"
+			};
+		}
 	}
 
 	function EL_getEntryColour()
@@ -46,7 +56,7 @@ this.el_hitpoints_recovery_rate_entry <- this.inherit("scripts/skills/el_entrys/
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
-		_EL_totalEntry.m.EL_HitpointsRecoveryRateAddition += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_HitpointsRecoveryRateAddition);
+		_EL_totalEntry.m.EL_HitpointsRecoveryRateAddition += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_HitpointsRecoveryRateAddition * 100) * 0.01;
 	}
 
     function onSerialize( _out )

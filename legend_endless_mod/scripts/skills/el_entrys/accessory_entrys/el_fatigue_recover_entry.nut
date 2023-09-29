@@ -11,12 +11,22 @@ this.el_fatigue_recover_entry <- this.inherit("scripts/skills/el_entrys/accessor
 	function getTooltip( _id )
 	{
 		local colour = this.EL_getEntryColour();
-		local result = {
-			id = _id,
-			type = "text",
-			text = "[color=" + colour + "]Fatigue Recovery 1 turn + " +  this.Math.round(this.m.EL_CurrentLevel * this.m.EL_FatigueRecoverAddition) + "[/color]"
-		};
-		return result;
+		if(this.m.EL_CurrentLevel != 1)
+		{
+			return {
+				id = _id,
+				type = "text",
+				text = "[color=" + colour + "]Fatigue Recovery per turn + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_FatigueRecoverAddition) + " (" + this.m.EL_FatigueRecoverAddition + ")[/color]"
+			};
+		}
+		else 
+		{
+			return {
+				id = _id,
+				type = "text",
+				text = "[color=" + colour + "]Fatigue Recovery per turn + " + this.m.EL_FatigueRecoverAddition + "[/color]"
+			};
+		}
 	}
 
 	function EL_getEntryColour()

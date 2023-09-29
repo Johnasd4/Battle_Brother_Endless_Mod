@@ -84,7 +84,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 		this.m.EL_FatigueRecoverAddition = 0;
 		this.m.EL_DamageMultAddition = 0.0;
 		this.m.EL_DamageReceivedMultAddition = 0.0;
-		this.m.EL_HitpointsRecoveryRateAddition = 0;
+		this.m.EL_HitpointsRecoveryRateAddition = 0.0;
         this.m.EL_XPGainMultAddition = 0.0;
 		this.m.EL_VampireRateAddition = 0.0;
 		this.m.EL_TargetAttractionMultAddition = 0;
@@ -226,7 +226,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Fatigue Recovery 1 turn + " + this.m.EL_FatigueRecoverAddition
+				text = "Fatigue Recovery per turn + " + this.m.EL_FatigueRecoverAddition
 			});
 		}
 		if(this.m.EL_DamageMultAddition)

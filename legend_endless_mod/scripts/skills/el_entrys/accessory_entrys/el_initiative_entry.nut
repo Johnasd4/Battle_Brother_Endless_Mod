@@ -11,12 +11,22 @@ this.el_initiative_entry <- this.inherit("scripts/skills/el_entrys/accessory_ent
 	function getTooltip( _id )
 	{
 		local colour = this.EL_getEntryColour();
-		local result = {
-			id = _id,
-			type = "text",
-			text = "[color=" + colour + "]Initiative + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_InitiativeAddition) + "[/color]"
-		};
-		return result;
+		if(this.m.EL_CurrentLevel != 1)
+		{
+			return {
+				id = _id,
+				type = "text",
+				text = "[color=" + colour + "]Initiative + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_InitiativeAddition) + " (" + this.m.EL_InitiativeAddition + ")[/color]"
+			};
+		}
+		else 
+		{
+			return {
+				id = _id,
+				type = "text",
+				text = "[color=" + colour + "]Initiative + " + this.m.EL_InitiativeAddition + "[/color]"
+			};
+		}
 	}
 
 	function EL_getEntryColour()

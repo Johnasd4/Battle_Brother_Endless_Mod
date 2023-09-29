@@ -16,6 +16,7 @@ this.el_accessory_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
         {
             this.m.EL_CurrentLevel = _EL_currentLevel;
         }
+        //this.logInfo("ID:" + this.m.ID + " currentLevel:" + this.m.EL_CurrentLevel);
 	},
     function EL_upgrade()
 	{
