@@ -32,7 +32,7 @@ gt.Const.EL_Shield <- {
 		LevelFactor = 0.04,
 		SlotFactor = 5,
 		UpgradeFactor = 1,
-		DisassembleFactor = 1,
+		DisassembleFactor = 0.2,
 		RecraftFactor = 1
 	},
 	EL_RankPropertiesInitFunctions = [

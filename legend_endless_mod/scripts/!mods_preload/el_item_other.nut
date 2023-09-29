@@ -114,7 +114,7 @@ local gt = getroottable();
 				items.push(accessory);
 				if(this.m.WorldTroop.EL_IsBossUnit)
 				{
-					local r = this.Math.rand(0, this.Const.EL_Accessory.EL_RarirtyEntry.Pool.Entrys.len() - 1);
+					local r = this.Math.rand(0, this.Const.EL_Accessory.EL_RarityEntry.Pool.Entrys.len() - 1);
 					accessory.EL_addRarityEntry(this.new(this.Const.EL_Accessory.EL_RarityEntry.Pool.Entrys[r].Scripts));
 				}
 			}
@@ -357,6 +357,7 @@ local gt = getroottable();
 							disassemble_rank_pool.push(rank);
 						}
 					}
+					//this.logInfo("pool:" + disassemble_rank_pool.len());
 					switch(upgrade_rank_pool.len())
 					{
 					case 0:
@@ -588,12 +589,19 @@ local gt = getroottable();
 				return null;
 			}
 			//this.logInfo("use onUpgradeItem !!!!!!!!!!!!!!");
+			if(item.EL_getLevel() >=  this.Const.EL_Item.MaxLevel)
+			{
+				return null;
+			}
 
 			local essence_need = item.EL_getUpgradeEssence();
+			//this.logInfo("essence_need[0]" +essence_need[0]+" essence_need[1]" +essence_need[1]+" essence_need[2]" +essence_need[2]+" essence_need[3]" +essence_need[3]+" essence_need[4]" +essence_need[4]);
 			local essence_reduce = [0, 0, 0, 0, 0];
 			local if_eligible = true;
-			for(local rank = this.Const.EL_Item.Type.Legendary; rank > 0; --rank)
+			for(local rank = this.Const.EL_Item.Type.Legendary; rank >= 0; --rank)
 			{
+				//this.logInfo("Test:rank" +rank+" essence_need[rank]" +essence_need[rank]+" this.World.Assets.EL_getEquipmentEssence(rank)" +this.World.Assets.EL_getEquipmentEssence(rank)+" essence_reduce[rank]" +essence_reduce[rank]);
+
 				if(essence_need[rank] > this.World.Assets.EL_getEquipmentEssence(rank) - essence_reduce[rank])
 				{
 					essence_reduce[rank] = this.World.Assets.EL_getEquipmentEssence(rank);
@@ -621,8 +629,9 @@ local gt = getroottable();
 				}
 				else
 				{
-					essence_reduce[rank] = essence_need[rank];
+					essence_reduce[rank] += essence_need[rank];
 				}
+				//this.logInfo("Test:rank" +rank+" essence_reduce[0]" +essence_reduce[0]+" essence_reduce[1]" +essence_reduce[1]+" essence_reduce[2]" +essence_reduce[2]+" essence_reduce[3]" +essence_reduce[3]+" essence_reduce[4]" +essence_reduce[4]);
 
 				if(if_eligible == false)
 				{
@@ -658,11 +667,15 @@ local gt = getroottable();
 				return null;
 			}
 			//this.logInfo("use onRecraftItem !!!!!!!!!!!!!!");
-
-			local essence_need = item.EL_getUpgradeEssence();
+			if(item.EL_getLevel() >=  this.Const.EL_Item.MaxLevel)
+			{
+				return null;
+			}
+			local essence_need = item.EL_getRecraftEssence();
+			//this.logInfo("essence_need[0]" +essence_need[0]+" essence_need[1]" +essence_need[1]+" essence_need[2]" +essence_need[2]+" essence_need[3]" +essence_need[3]+" essence_need[4]" +essence_need[4]);
 			local essence_reduce = [0, 0, 0, 0, 0];
 			local if_eligible = true;
-			for(local rank = this.Const.EL_Item.Type.Legendary; rank > 0; --rank)
+			for(local rank = this.Const.EL_Item.Type.Legendary; rank >= 0; --rank)
 			{
 				if(essence_need[rank] > this.World.Assets.EL_getEquipmentEssence(rank) - essence_reduce[rank])
 				{
@@ -691,7 +704,7 @@ local gt = getroottable();
 				}
 				else
 				{
-					essence_reduce[rank] = essence_need[rank];
+					essence_reduce[rank] += essence_need[rank];
 				}
 				if(if_eligible == false)
 				{
@@ -700,6 +713,7 @@ local gt = getroottable();
 			}
 			if(if_eligible)
 			{
+				//this.logInfo("essence_reduce[0]" +essence_reduce[0]+" essence_reduce[1]" +essence_reduce[1]+" essence_reduce[2]" +essence_reduce[2]+" essence_reduce[3]" +essence_reduce[3]+" essence_reduce[4]" +essence_reduce[4]);
 				if(item.EL_getLevel() != -1 && item.EL_getRankLevel())
 				{
 					this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
@@ -730,7 +744,8 @@ local gt = getroottable();
 			{
 				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
 			}
-			local essence_reduce = item.EL_getUpgradeEssence();
+			local essence_reduce = item.EL_getDisassembleEssence();
+			//this.logInfo("essence_reduce[0]" +essence_reduce[0]+" essence_reduce[1]" +essence_reduce[1]+" essence_reduce[2]" +essence_reduce[2]+" essence_reduce[3]" +essence_reduce[3]+" essence_reduce[4]" +essence_reduce[4]);
 			for(local rank = 0; rank < this.Const.EL_Item.Type.Legendary; ++rank)
 			{
 				this.World.Assets.EL_addEquipmentEssence(rank, essence_reduce[rank]);

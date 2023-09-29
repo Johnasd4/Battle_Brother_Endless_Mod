@@ -2,7 +2,7 @@ this.el_fight_and_win_entry <- this.inherit("scripts/skills/skill", {
 	m = {},
 	function create()
 	{
-		this.el_entry.create();
+		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "entry.el_fight_and_win";
 		this.m.Name = "Fight And Win";
 		this.m.Description = "Storm like suppression, target riddled with flaws, victory in control.";//暴风般的压制，目标破绽百出，胜利已尽在掌握

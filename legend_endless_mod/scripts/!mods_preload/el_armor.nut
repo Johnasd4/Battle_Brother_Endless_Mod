@@ -595,7 +595,11 @@ local gt = getroottable();
             {
 				if(upgrade != null)
 				{
-					result[upgrade.m.EL_RankLevel] += upgrade.EL_getUpgradeEssence();
+					local array = upgrade.EL_getUpgradeEssence();
+					for(local index = 0; index < this.Const.EL_Item.Type.Legendary; ++index)
+					{
+						result[index] += array[index];
+					}
 				}
             }
 			return result;
@@ -609,7 +613,11 @@ local gt = getroottable();
             {
 				if(upgrade != null)
 				{
-					result[upgrade.m.EL_RankLevel] += upgrade.EL_getDisassembleEssence();
+					local array = upgrade.EL_getDisassembleEssence();
+					for(local index = 0; index < this.Const.EL_Item.Type.Legendary; ++index)
+					{
+						result[index] += array[index];
+					}
 				}
             }
 			return result;
@@ -624,9 +632,13 @@ local gt = getroottable();
 			}
 			foreach(upgrade in this.m.Upgrades)
             {
-				if(upgrade != null && upgrade.m.EL_RankLevel)
+				if(upgrade != null)
 				{
-					result[upgrade.m.EL_RankLevel] += upgrade.EL_getRecraftEssence();
+					local array = upgrade.EL_getRecraftEssence();
+					for(local index = 0; index < this.Const.EL_Item.Type.Legendary; ++index)
+					{
+						result[index] += array[index];
+					}
 				}
             }
 			//this.logInfo("result[0]" +result[0]+" result[1]" +result[1]+" result[2]" +result[2]+" result[3]" +result[3]+" result[4]" +result[4]);
@@ -968,17 +980,26 @@ local gt = getroottable();
 
 		o.EL_getUpgradeEssence <- function()
 		{
-			return this.Const.EL_Armor.EL_Essence.SlotFactor * this.Const.EL_Armor.EL_Essence.UpgradeFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
+			local result = [0, 0, 0, 0, 0];
+			result[this.m.EL_RankLevel] += this.Const.EL_Armor.EL_Essence.SlotFactor * this.Const.EL_Armor.EL_Essence.UpgradeFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
+			return result;
 		}
 
 		o.EL_getDisassembleEssence <- function()
 		{
-			return this.Const.EL_Armor.EL_Essence.SlotFactor * this.Const.EL_Armor.EL_Essence.DisassembleFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
+			local result = [0, 0, 0, 0, 0];
+			result[this.m.EL_RankLevel] += this.Const.EL_Armor.EL_Essence.SlotFactor * this.Const.EL_Armor.EL_Essence.DisassembleFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
+			return result;
 		}
 
 		o.EL_getRecraftEssence <- function()
 		{
-			return this.Const.EL_Armor.EL_Essence.SlotFactor * this.Const.EL_Armor.EL_Essence.RecraftFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel));
+			local result = [0, 0, 0, 0, 0];
+			if(this.m.EL_RankLevel)
+			{
+				result[this.m.EL_RankLevel] += this.Const.EL_Armor.EL_Essence.SlotFactor * this.Const.EL_Armor.EL_Essence.RecraftFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel));
+			}
+			return result;
 		}
 	});
 });
