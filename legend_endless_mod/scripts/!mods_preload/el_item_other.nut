@@ -124,7 +124,7 @@ local gt = getroottable();
 				if(world_level > this.Const.EL_Item_Other.EL_NPCEquipment.RankUpMinWorldLevel)
 				{
 					local r = this.Math.rand(1, 1000);
-					if(this.Math.rand(1, 1000) < this.Const.EL_Item.EL_NPCEquipmentRankUpChanceFactor[r] * (world_level - this.Const.EL_Item_Other.EL_NPCEquipment.RankUpMinWorldLevel))
+					if(this.Math.rand(1, 1000) < this.Const.EL_Item.RankUpChanceFactor[rank_level] * (world_level - this.Const.EL_Item_Other.EL_NPCEquipment.RankUpMinWorldLevel))
 					{
 						item.EL_addRankLevel();
 					}
