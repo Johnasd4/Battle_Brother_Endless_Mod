@@ -673,6 +673,7 @@ gt.Const.EL_NPC <- {
 
         function EL_assignNPCBuffs(_EL_npc, _EL_rank0Num, _EL_rank1Num, _EL_rank2Num) {
             local index_pool = [];
+            local skills = _EL_npc.getSkills();
             for(local i = 0; i < this.Const.EL_NPC.EL_NPCBuff.Pool.len(); ++i) {
                 if(this.Const.EL_NPC.EL_NPCBuff.Pool[i].EL_ifEligible(_EL_npc)) {
                     index_pool.push(i);
@@ -681,22 +682,43 @@ gt.Const.EL_NPC <- {
             for(local i = 0; i < _EL_rank2Num && index_pool.len() != 0; ++i) {
                 local r = this.Math.rand(0, index_pool.len() - 1);
                 local skill = this.new(this.Const.EL_NPC.EL_NPCBuff.Pool[index_pool[r]].Scripts);
-                skill.EL_setRankLevel(2);
-                _EL_npc.getSkills().add(skill);
+                if(skills.getSkillByID(skill.getID()) == null)
+                {
+                    skill.EL_setRankLevel(2);
+                    skills.add(skill);
+                }
+                else
+                {
+                    --i;
+                }
                 index_pool.remove(r);
             }
             for(local i = 0; i < _EL_rank1Num && index_pool.len() != 0; ++i) {
                 local r = this.Math.rand(0, index_pool.len() - 1);
                 local skill = this.new(this.Const.EL_NPC.EL_NPCBuff.Pool[index_pool[r]].Scripts);
-                skill.EL_setRankLevel(1);
-                _EL_npc.getSkills().add(skill);
+                if(skills.getSkillByID(skill.getID()) == null)
+                {
+                    skill.EL_setRankLevel(1);
+                    skills.add(skill);
+                }
+                else
+                {
+                    --i;
+                }
                 index_pool.remove(r);
             }
             for(local i = 0; i < _EL_rank0Num && index_pool.len() != 0; ++i) {
                 local r = this.Math.rand(0, index_pool.len() - 1);
                 local skill = this.new(this.Const.EL_NPC.EL_NPCBuff.Pool[index_pool[r]].Scripts);
-                skill.EL_setRankLevel(0);
-                _EL_npc.getSkills().add(skill);
+                if(skills.getSkillByID(skill.getID()) == null)
+                {
+                    skill.EL_setRankLevel(0);
+                    skills.add(skill);
+                }
+                else
+                {
+                    --i;
+                }
                 index_pool.remove(r);
             }
         }
