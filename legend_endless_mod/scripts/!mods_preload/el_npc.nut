@@ -570,6 +570,9 @@ local gt = getroottable();
 		o.create = function()
         {
             create();
+            if(!this.World.Flags.has("EL_WorldChangeEvent")) {
+				this.World.Flags.set("EL_WorldChangeEvent", this.Const.EL_World.EL_WorldChangeEvent.DefaultOption);
+			}
             local world_level = this.World.Assets.m.EL_WorldLevel;
             local elite_team_chance = this.Const.EL_NPC.EL_EliteTeam.EliteTeamChance.EL_getChance(world_level);
             local random_leader_chance = 0;
