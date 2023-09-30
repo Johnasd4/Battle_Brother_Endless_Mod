@@ -14,7 +14,8 @@ gt.Const.EL_Item_Other <- {
         RankUpChanceFactor = [
             10,
             25,
-            25
+            25,
+			25
         ]
 	},
 

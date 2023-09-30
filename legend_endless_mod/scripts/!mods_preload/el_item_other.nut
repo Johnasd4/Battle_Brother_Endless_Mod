@@ -112,7 +112,7 @@ local gt = getroottable();
 			if(accessory != null)
 			{
 				items.push(accessory);
-				if(this.m.WorldTroop.EL_IsBossUnit)
+				if(this.m.WorldTroop != null && this.m.WorldTroop.EL_IsBossUnit)
 				{
 					local r = this.Math.rand(0, this.Const.EL_Accessory.EL_RarityEntry.Pool.Entrys.len() - 1);
 					accessory.EL_addRarityEntry(this.new(this.Const.EL_Accessory.EL_RarityEntry.Pool.Entrys[r].Scripts));
@@ -124,7 +124,7 @@ local gt = getroottable();
 				if(world_level > this.Const.EL_Item_Other.EL_NPCEquipment.RankUpMinWorldLevel)
 				{
 					local r = this.Math.rand(1, 1000);
-					if(this.Math.rand(1, 1000) < this.Const.EL_Item.EL_NPCEquipmentRankUpChanceFactor[r] * (world_level - this.Const.EL_Item_Other.EL_NPCEquipment.RankUpMinWorldLevel))
+					if(this.Math.rand(1, 1000) < this.Const.EL_Item_Other.EL_NPCEquipment.RankUpChanceFactor[rank_level] * (world_level - this.Const.EL_Item_Other.EL_NPCEquipment.RankUpMinWorldLevel))
 					{
 						item.EL_addRankLevel();
 					}
