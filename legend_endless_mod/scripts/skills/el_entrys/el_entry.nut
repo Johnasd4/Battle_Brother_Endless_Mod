@@ -39,7 +39,7 @@ this.el_entry <- this.inherit("scripts/skills/skill", {
 	function onDeserialize( _in )
 	{
 	}
-	
+
 	function onUpdate( _properties )
 	{
 		// if(this.getContainer().getActor().getFaction() == this.Const.Faction.Player)

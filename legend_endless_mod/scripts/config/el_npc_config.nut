@@ -621,7 +621,7 @@ gt.Const.EL_NPC <- {
                 DamageDirectMult = [0.2, 0.4, 1]
             }
             Phoenix = {
-                RiseTimes = [1, 2, 4],
+                RiseTimes = [1, 2, 3],
                 DamageMultPurStack = 0.1,
                 DamageReceivedMultPurStack = 0.1,
                 HitPointsMultPurStack = 0.1,

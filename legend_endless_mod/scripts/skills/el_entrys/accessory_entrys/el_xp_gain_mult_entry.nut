@@ -19,7 +19,7 @@ this.el_xp_gain_mult_entry <- this.inherit("scripts/skills/el_entrys/accessory_e
 				text = "[color=" + colour + "]Experience Gain + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_XPGainMultAddition * 100) * 0.01 + "% (" + this.m.EL_XPGainMultAddition + "%)[/color]"
 			};
 		}
-		else 
+		else
 		{
 			return {
 				id = _id,
@@ -58,7 +58,7 @@ this.el_xp_gain_mult_entry <- this.inherit("scripts/skills/el_entrys/accessory_e
 	{
 		_EL_totalEntry.m.EL_XPGainMultAddition += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_XPGainMultAddition * 100) * 0.01;
 	}
-    
+
     function onSerialize( _out )
 	{
 		_out.writeF32(this.m.EL_XPGainMultAddition);
