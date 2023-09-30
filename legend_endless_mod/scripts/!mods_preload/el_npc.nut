@@ -1763,6 +1763,7 @@ local gt = getroottable();
             extra_elite_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank1[_EL_rank];
             extra_leader_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank2[_EL_rank];
         }
+        local chance = this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldChangeEvent")] * 100 - 100;
         while(true) {
             local r = this.Math.rand(1, this.Const.EL_NPC.EL_Troop.ExtraBuffRollMax);
             if(r >= chance) {
@@ -1858,6 +1859,7 @@ local gt = getroottable();
             extra_elite_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank1[_EL_rank];
             extra_leader_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank2[_EL_rank];
         }
+        local chance = this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldChangeEvent")] * 100 - 100;
         while(true) {
             local r = this.Math.rand(1, this.Const.EL_NPC.EL_Troop.ExtraBuffRollMax);
             if(r >= chance) {
@@ -1873,7 +1875,7 @@ local gt = getroottable();
             else if(_EL_rank == 1)
             {
                 extra_leader_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank2[1];
-                extra_elite_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank1[1];
+                 += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank1[1];
                 extra_normal_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank0[1];
             }
             else
