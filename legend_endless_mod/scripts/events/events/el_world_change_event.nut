@@ -190,10 +190,12 @@ this.el_world_change_event <- this.inherit("scripts/events/event", {
 		if (this.World.getTime().Days < this.Const.EL_World.EL_WorldChangeEvent.Cooldown)
 		{
 			this.m.Score = 0;
+			return;
 		}
 		if(this.Time.getVirtualTimeF() < this.m.CooldownUntil)
 		{
 			this.m.Score = 0;
+			return;
 		}
 		this.m.Score = 9999;
 	}

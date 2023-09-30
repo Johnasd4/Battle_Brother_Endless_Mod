@@ -95,6 +95,8 @@ gt.Const.EL_NPC <- {
         BossTroopMinLeaders = 2,
         BossChance = 1,
         UnitGenerateMinCalculateResourse = 20,
+        ExtraBuffRollMax = 40,
+        ExtraBuffStrengthMultPurTime = 2,
         EliteUnitChangeMult = 2.5
 
         EquipmentEssence = {
@@ -564,8 +566,8 @@ gt.Const.EL_NPC <- {
             NonHumanoidRank0 = [0, 6, 0],
             NonHumanoidRank1 = [0, 3, 6],
             NonHumanoidRank2 = [0, 0, 3],
-            ExtraBuffRank0 = [1, 2, 0],
-            ExtraBuffRank1 = [0, 1, 2],
+            ExtraBuffRank0 = [1, 0, 0],
+            ExtraBuffRank1 = [0, 1, 0],
             ExtraBuffRank2 = [0, 0, 1],
             BossUnitExtraRank1 = 4,
             BossUnitExtraRank2 = 2
@@ -590,7 +592,8 @@ gt.Const.EL_NPC <- {
             Evasion = {
                 MeleeState = 1,
                 RangeState = 2,
-                DefenseOffset = [40, 80, 200]
+                DefenseOffset = [10, 20, 50],
+                DefenseOffsetSelectedMult = 4,
             },
             Growth = {
                 DamageMultPurStack = [0.02, 0.04, 0.1],
@@ -621,7 +624,7 @@ gt.Const.EL_NPC <- {
                 DamageDirectMult = [0.2, 0.4, 1]
             }
             Phoenix = {
-                RiseTimes = [0, 1, 3],
+                RiseTimes = [1, 2, 4],
                 DamageMultPurStack = 0.1,
                 DamageReceivedMultPurStack = 0.1,
                 HitPointsMultPurStack = 0.1,
