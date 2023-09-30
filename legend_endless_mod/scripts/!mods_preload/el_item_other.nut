@@ -589,6 +589,10 @@ local gt = getroottable();
 				return null;
 			}
 			//this.logInfo("use onUpgradeItem !!!!!!!!!!!!!!");
+			if(item == null)
+			{
+				return null;
+			}
 			if(item.EL_getLevel() >=  this.Const.EL_Item.MaxLevel)
 			{
 				return null;
@@ -667,6 +671,10 @@ local gt = getroottable();
 				return null;
 			}
 			//this.logInfo("use onRecraftItem !!!!!!!!!!!!!!");
+			if(item == null)
+			{
+				return null;
+			}
 			if(item.EL_getLevel() >=  this.Const.EL_Item.MaxLevel)
 			{
 				return null;
@@ -736,6 +744,10 @@ local gt = getroottable();
 		{
 			local item = this.Stash.getItemAtIndex(_itemIndex).item;
 			if (!this.m.Shop.isRepairOffered() && item != null)
+			{
+				return null;
+			}
+			if(item == null)
 			{
 				return null;
 			}
