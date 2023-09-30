@@ -1875,7 +1875,7 @@ local gt = getroottable();
             else if(_EL_rank == 1)
             {
                 extra_leader_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank2[1];
-                 += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank1[1];
+                extra_elite_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank1[1];
                 extra_normal_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank0[1];
             }
             else
