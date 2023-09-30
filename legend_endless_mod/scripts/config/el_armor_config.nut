@@ -152,26 +152,26 @@ gt.Const.EL_Armor <- {
 			},
 			EL_ConditionMult = {
 				ID = "armor_entry.condition_mult",
-				BaseConditionMult = 25,
+				BaseConditionMult = 12.5,
 				RandomMinConditionMult = [
 					1,
 					1,
+					501,
 					1001,
-					2001,
-					5000
+					1500
 				],
 				RandomMaxConditionMult = [
+					1000,
+					1500,
 					2000,
-					3000,
-					4000,
-					5000,
-					5000
+					2500,
+					2500
 				],
 				ColourRange = [
-					35,
-					45,
-					55,
-					65
+					17.5,
+					22.5,
+					27.5,
+					32.5
 				]
 			},
 			EL_ConditionRecoverDaliy = {
