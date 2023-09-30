@@ -574,6 +574,7 @@ local gt = getroottable();
             local elite_team_chance = this.Const.EL_NPC.EL_EliteTeam.EliteTeamChance.EL_getChance(world_level);
             local random_leader_chance = 0;
             local strongest_leader_chance = 0;
+            elite_team_chance *= this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldChangeEvent")];
             if(elite_team_chance * 10 >= this.Math.rand(1, 1000)) {
                 this.m.EL_IsEliteParty = true;
             }
@@ -585,6 +586,8 @@ local gt = getroottable();
                 random_leader_chance = this.Const.EL_NPC.EL_NormalTeam.RandomLeaderChance.EL_getChance(world_level);
                 strongest_leader_chance = this.Const.EL_NPC.EL_NormalTeam.StrongestLeaderChance.EL_getChance(world_level);
             }
+            random_leader_chance *= this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldChangeEvent")];
+            strongest_leader_chance *= this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldChangeEvent")];
             if(random_leader_chance * 10 >= this.Math.rand(1, 1000)) {
                 this.m.EL_HaveRandomLeader = true;
             }
