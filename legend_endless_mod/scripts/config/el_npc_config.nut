@@ -504,10 +504,7 @@ gt.Const.EL_NPC <- {
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_phoenix_npc_buff",
-                function EL_ifEligible(_EL_npc) {
-                    if(_EL_npc.EL_getRankLevel() == 0) { return false; }
-                    return true;
-                }
+                function EL_ifEligible(_EL_npc) { return true; }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_recovery_npc_buff",
@@ -652,7 +649,7 @@ gt.Const.EL_NPC <- {
                 DamageRate = [0.2, 0.4, 1],
                 WeaponShieldDamageRate = [0.1, 0.2, 0.5],
                 DamageDecayRatePurTile = 0.5,
-                MaxDistance = 6
+                MaxDistance = 3
             },
             Tank = {
                 HitpointsMult = [1.4, 1.8, 3],
