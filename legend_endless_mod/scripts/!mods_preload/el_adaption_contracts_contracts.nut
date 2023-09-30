@@ -6,6 +6,24 @@ local gt = getroottable();
 
 	::mods_hookExactClass("contracts/contracts/arena_contract", function(o){
 
+        local setup = o.setup;
+        o.setup = function()
+        {
+            this.logInfo("arena_contract setup");
+            setup();
+            local day = this.World.getTime().Days;
+            if(this.World.Assets.m.EL_LastArenaDay == day)
+            {
+                ++this.World.Assets.m.EL_ArenaLevel;
+            }
+            else
+            {
+                this.World.Assets.m.EL_LastArenaDay = day;
+                this.World.Assets.m.EL_ArenaLevel = 0;
+            }
+            this.m.Payment.Pool *= this.World.Assets.m.EL_ArenaLevel + 1;
+        }
+
         o.createScreens = function()
         {
             this.logInfo("arena_contract createScreens");
@@ -583,15 +601,84 @@ local gt = getroottable();
                                 }
                             }
 
-                            // for( local i = 0; i < p.Entities.len(); i = i )
-                            // {
-                            //     p.Entities[i].Faction <- this.Contract.getFaction();
-                            //     i = ++i;
-                            // }
                             p.Entities = [];
                             foreach(troop in party.getTroops()) {
                                 p.Entities.push(troop);
                             }
+
+                            local temp_level = this.World.Assets.m.EL_ArenaLevel;
+                            //1
+                            if(temp_level > 0) {
+                                foreach(troop in party.getTroops()) {
+                                    if(troop.EL_RankLevel == 0)
+                                    {
+                                        troop.EL_RankLevel = 1;
+                                        break;
+                                    }
+                                }
+                                --temp_level;
+                            }
+                            //2
+                            if(temp_level > 0) {
+                                foreach(troop in party.getTroops()) {
+                                    if(troop.EL_RankLevel == 0)
+                                    {
+                                        troop.EL_RankLevel = 1;
+                                    }
+                                }
+                                --temp_level;
+                            }
+                            //3
+                            if(temp_level > 0) {
+                                foreach(troop in party.getTroops()) {
+                                    troop.EL_ExtraBuffNum[1] += 1;
+                                }
+                                --temp_level;
+                            }
+                            //4
+                            if(temp_level > 0) {
+                                foreach(troop in party.getTroops()) {
+                                    troop.EL_ExtraBuffNum[1] += 1;
+                                }
+                                --temp_level;
+                            }
+                            //5
+                            if(temp_level > 0) {
+                                foreach(troop in party.getTroops()) {
+                                    troop.EL_ExtraBuffNum[1] += 1;
+                                }
+                                --temp_level;
+                            }
+                            //6
+                            if(temp_level > 0) {
+                                foreach(troop in party.getTroops()) {
+                                    if(troop.EL_RankLevel == 1)
+                                    {
+                                        troop.EL_RankLevel = 2;
+                                        break;
+                                    }
+                                }
+                                --temp_level;
+                            }
+                            //7
+                            if(temp_level > 0) {
+                                foreach(troop in party.getTroops()) {
+                                    if(troop.EL_RankLevel == 2)
+                                    {
+                                        troop.EL_ExtraBuffNum[2] += troop.EL_ExtraBuffNum[1];
+                                        troop.EL_ExtraBuffNum[1] = 0;
+                                    }
+                                }
+                                --temp_level;
+                            }
+                            //8
+                            while(temp_level > 0) {
+                                foreach(troop in party.getTroops()) {
+                                    troop.EL_ExtraCombatLevel += 1;
+                                }
+                                --temp_level;
+                            }
+
 
                             this.World.Contracts.startScriptedCombat(p, false, false, false);
                             return 0;
@@ -1393,7 +1480,7 @@ local gt = getroottable();
                     R = 10,
                     function F( _contract, _difficulty, _party )
                     {
-                        for( local i = 0; i < _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.Mercenary, _d); i = i )
+                        for( local i = 0; i < _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.Mercenary, _difficulty); i = i )
                         {
                             this.Const.World.Common.addTroop(_party, {
                                 Type = this.Const.World.Spawn.Troops.Mercenary
@@ -1412,7 +1499,7 @@ local gt = getroottable();
                     R = 10,
                     function F( _contract, _difficulty, _party )
                     {
-                        for( local i = 0; i < _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.Unhold, _d); i = i )
+                        for( local i = 0; i < _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.Unhold, _difficulty); i = i )
                         {
                             this.Const.World.Common.addTroop(_party, {
                                 Type = this.Const.World.Spawn.Troops.Unhold
@@ -1431,7 +1518,7 @@ local gt = getroottable();
                     R = 5,
                     function F( _contract, _difficulty, _party )
                     {
-                        for( local i = 0; i < this.Math.min(3, _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.Lindwurm, _d)); i = i )
+                        for( local i = 0; i < this.Math.min(3, _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.Lindwurm, _difficulty)); i = i )
                         {
                             this.Const.World.Common.addTroop(_party, {
                                 Type = this.Const.World.Spawn.Troops.Lindwurm
@@ -1450,7 +1537,7 @@ local gt = getroottable();
                     R = 10,
                     function F( _contract, _difficulty, _party )
                     {
-                        for( local i = 0; i < _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.SandGolemMEDIUM, _d); i = i )
+                        for( local i = 0; i < _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.SandGolemMEDIUM, _difficulty); i = i )
                         {
                             this.Const.World.Common.addTroop(_party, {
                                 Type = this.Const.World.Spawn.Troops.SandGolemMEDIUM
@@ -1469,7 +1556,7 @@ local gt = getroottable();
                     R = 10,
                     function F( _contract, _difficulty, _party )
                     {
-                        for( local i = 0; i < _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.Gladiator, _d); i = i )
+                        for( local i = 0; i < _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.Gladiator, _difficulty); i = i )
                         {
                             this.Const.World.Common.addTroop(Gladiator, {
                                 Type = this.Const.World.Spawn.Troops.SandGolemMEDIUM
@@ -1488,7 +1575,7 @@ local gt = getroottable();
                     R = 5,
                     function F( _contract, _difficulty, _party )
                     {
-                        for( local i = 0; i < _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.Spider, _d); i = i )
+                        for( local i = 0; i < _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.Spider, _difficulty); i = i )
                         {
                             this.Const.World.Common.addTroop(Gladiator, {
                                 Type = this.Const.World.Spawn.Troops.Spider
@@ -1507,7 +1594,7 @@ local gt = getroottable();
                     R = 10,
                     function F( _contract, _difficulty, _party )
                     {
-                        for( local i = 0; i < _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.NomadOutlaw, _d); i = i )
+                        for( local i = 0; i < _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.NomadOutlaw, _difficulty); i = i )
                         {
                             this.Const.World.Common.addTroop(Gladiator, {
                                 Type = this.Const.World.Spawn.Troops.NomadOutlaw
@@ -1526,7 +1613,7 @@ local gt = getroottable();
                     R = 5,
                     function F( _contract, _difficulty, _party )
                     {
-                        for( local i = 0; i < _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.Serpent, _d); i = i )
+                        for( local i = 0; i < _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.Serpent, _difficulty); i = i )
                         {
                             this.Const.World.Common.addTroop(Gladiator, {
                                 Type = this.Const.World.Spawn.Troops.Serpent
@@ -1545,7 +1632,7 @@ local gt = getroottable();
                     R = 5,
                     function F( _contract, _difficulty, _party )
                     {
-                        for( local i = 0; i < _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.HyenaHIGH, _d); i = i )
+                        for( local i = 0; i < _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.HyenaHIGH, _difficulty); i = i )
                         {
                             this.Const.World.Common.addTroop(Gladiator, {
                                 Type = this.Const.World.Spawn.Troops.HyenaHIGH
@@ -7590,13 +7677,13 @@ local gt = getroottable();
                             local party = this.new("scripts/entity/world/party");
                             party.EL_setFaction(_dest.getFaction());
                             party.EL_tempPartyInit();
-                            p.Parties.push(party);
+                            properties.Parties.push(party);
                             party.EL_setTroopsResourse(0);
                             this.Const.World.Common.addTroop(party, {
                                 Type = this.Const.World.Spawn.Troops.BanditLeader
                             }, false);
                             foreach(troop in party.getTroops()) {
-                                p.Entities.push(troop);
+                                properties.Entities.push(troop);
                             }
                             properties.EnemyBanners.push(this.Contract.m.Destination.getBanner());
                             this.World.Contracts.startScriptedCombat(properties, true, true, true);

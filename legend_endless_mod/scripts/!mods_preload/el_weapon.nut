@@ -756,7 +756,7 @@ local gt = getroottable();
 	    	return ret;
     	}
 	});
-	
+
     ::mods_hookExactClass("items/ammo/ammo", function ( o )
 	{
 		local consumeAmmo = o.consumeAmmo;

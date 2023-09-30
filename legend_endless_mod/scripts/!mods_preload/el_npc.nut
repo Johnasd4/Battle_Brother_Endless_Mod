@@ -250,7 +250,6 @@ local gt = getroottable();
         local kill = o.kill;
         o.kill = function( _killer = null, _skill = null, _fatalityType = this.Const.FatalityType.None, _silent = false )
         {
-            kill(_killer, _skill, _fatalityType, _silent);
             if (_killer == null || _killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals)
             {
                 local rank = 0;
@@ -298,8 +297,8 @@ local gt = getroottable();
                     party.EL_addEquipmentEssence(rank + 1, num_2);
 
                 }
-
             }
+            kill(_killer, _skill, _fatalityType, _silent);
         }
 
 	});
@@ -1707,7 +1706,7 @@ local gt = getroottable();
         }
     };
 
-    gt.Const.World.Common.EL_addEntity <- function (_EL_troop, _EL_tile, _EL_faction, _EL_rank, _EL_level = -1, _EL_assignEquipments = false)
+    gt.Const.World.Common.EL_addEntity <- function (_EL_troop, _EL_tile, _EL_faction, _EL_rank, _EL_level = -1, _EL_assignEquipments = true)
     {
         local e = this.Tactical.spawnEntity(_EL_troop.Script, _EL_tile.Coords);
         if(e == null) {
@@ -1786,7 +1785,7 @@ local gt = getroottable();
         return e;
     }
 
-    gt.Const.World.Common.EL_addEntityByScript <- function (_EL_script, _EL_tile, _EL_faction, _EL_rank, _EL_level = -1, _EL_assignEquipments = false, _EL_isBossUnit = false, _EL_extraCombatLevel = 0)
+    gt.Const.World.Common.EL_addEntityByScript <- function (_EL_script, _EL_tile, _EL_faction, _EL_rank, _EL_level = -1, _EL_assignEquipments = true, _EL_isBossUnit = false, _EL_extraCombatLevel = 0)
     {
         local e = this.Tactical.spawnEntity(_EL_script, _EL_tile.Coords);
         if(e == null) {

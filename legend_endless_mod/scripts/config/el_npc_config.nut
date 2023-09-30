@@ -568,7 +568,7 @@ gt.Const.EL_NPC <- {
             ExtraBuffRank0 = [1, 0, 0],
             ExtraBuffRank1 = [0, 1, 0],
             ExtraBuffRank2 = [0, 0, 1],
-            BossUnitExtraRank1 = 4,
+            BossUnitExtraRank1 = 0,
             BossUnitExtraRank2 = 2
 
         }

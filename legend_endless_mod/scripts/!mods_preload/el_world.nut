@@ -13,6 +13,9 @@ local gt = getroottable();
 		o.m.EL_CurrentUpdateDay <- 0;
 		o.m.EL_EquipmentEssence <- [0, 0, 0, 0, 0];
 
+		o.m.EL_LastArenaDay <- 0;
+		o.m.EL_ArenaLevel <- 0;
+
 		local onSerialize = o.onSerialize;
 		o.onSerialize = function ( _out )
 		{
@@ -22,6 +25,8 @@ local gt = getroottable();
 			_out.writeI32(this.m.EL_WorldLevelOffset);
 			_out.writeI32(this.m.EL_WorldStrength);
 			_out.writeI32(this.m.EL_CurrentUpdateDay);
+			_out.writeI32(this.m.EL_LastArenaDay);
+			_out.writeI32(this.m.EL_ArenaLevel);
 			for(local i = 0; i < this.m.EL_EquipmentEssence.len(); ++i) {
                 _out.writeI32(this.m.EL_EquipmentEssence[i]);
             }
@@ -36,6 +41,8 @@ local gt = getroottable();
 			this.m.EL_WorldLevelOffset = _in.readI32();
 			this.m.EL_WorldStrength = _in.readI32();
 			this.m.EL_CurrentUpdateDay = _in.readI32();
+			this.m.EL_LastArenaDay = _in.readI32();
+			this.m.EL_ArenaLevel = _in.readI32();
 			for(local i = 0; i < this.m.EL_EquipmentEssence.len(); ++i) {
                 this.m.EL_EquipmentEssence[i] = _in.readI32();
             }
