@@ -205,6 +205,7 @@ local gt = getroottable();
 					EL_init();
 					this.m.EL_RankLevel += _EL_rankLevel;
 					this.m.EL_Level = this.Math.min(this.Const.EL_Item.MaxLevel, EL_level);
+					this.m.EL_CurrentLevel = this.m.EL_Level;
 					EL_updateRankLevelProperties();
 					this.Const.EL_Accessory.EL_assignItemRarityEntry(this, EL_additionalRarityChance);
 					this.Const.EL_Accessory.EL_assignItemEntrys(this, this.Const.EL_Accessory.EL_Entry.EntryNumFactor.NormalAccessory[this.m.EL_RankLevel] * this.m.EL_Level);
