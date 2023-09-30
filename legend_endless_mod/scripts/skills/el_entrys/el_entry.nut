@@ -42,10 +42,10 @@ this.el_entry <- this.inherit("scripts/skills/skill", {
 	
 	function onUpdate( _properties )
 	{
-		if(this.getContainer().getActor().getFaction() == this.Const.Faction.Player)
-		{
-			this.m.Container.add(this.new("scripts/skills/el_entrys/el_total_entry"));
-		}
+		// if(this.getContainer().getActor().getFaction() == this.Const.Faction.Player)
+		// {
+		this.m.Container.add(this.new("scripts/skills/el_entrys/el_total_entry"));
+		// }
 	}
 
 	function EL_onItemUpdate( _item )
