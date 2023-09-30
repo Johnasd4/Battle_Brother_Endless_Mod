@@ -415,14 +415,14 @@ gt.Const.EL_Accessory <- {
 					1,
 					334,
 					667,
-					1666
+					1667
 				],
 				RandomMaxDamageMult = [
 					666,
 					1000,
 					1333,
-					1666,
-					1666
+					1667,
+					1667
 				],
 				ColourRange = [
 					20,

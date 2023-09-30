@@ -670,6 +670,27 @@ local gt = getroottable();
 		local getTooltip = o.getTooltip;
 		o.getTooltip = function ()
 		{
+			if(this.m.EL_Level == -1)
+			{
+				local EL_worldLevel = this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.EL_Item.MaxLevel);
+				local level = this.Math.rand(this.Math.max(0 ,EL_worldLevel - this.Const.EL_Item_Other.MinLevelInEventAndCraft), EL_worldLevel + this.Const.EL_Item_Other.MaxLevelInEventAndCraft);
+				local random = this.Math.rand(1, 1000);
+				
+				if(random <= this.Const.EL_Shop.EL_ItemRankUpOnceChance.EL_getChance(EL_worldLevel))
+				{
+					_item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Premium, level);
+					//this.logInfo("物品升阶");
+				}
+				else if(random > this.Const.EL_Shop.EL_ItemRankUpTwiceChance.EL_getChance(EL_worldLevel))
+				{
+					_item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Fine, level);
+					//this.logInfo("物品升阶大成功");
+				}
+				else
+				{
+					_item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
+				}
+			}
 			local result = getTooltip();
 
 			if(this.m.EL_RankLevel == 0)

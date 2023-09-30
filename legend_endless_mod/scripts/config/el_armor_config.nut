@@ -374,14 +374,14 @@ gt.Const.EL_Armor <- {
 					1,
 					333,
 					666,
-					1666
+					1667
 				],
 				RandomMaxStaminaModifierMult = [
 					666,
 					1000,
 					1333,
-					1666,
-					1666
+					1667,
+					1667
 				],
 				ColourRange = [
 					20,
