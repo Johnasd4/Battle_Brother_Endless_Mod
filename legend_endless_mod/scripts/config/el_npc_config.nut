@@ -559,12 +559,12 @@ gt.Const.EL_NPC <- {
         Num = {
             HumanoidRank0 = [0, 0, 0],
             HumanoidRank1 = [0, 1, 0],
-//            HumanoidRank2 = [0, 0, 1],
-            HumanoidRank2 = [99, 99, 99],
+            HumanoidRank2 = [0, 0, 1],
+//            HumanoidRank2 = [99, 99, 99],
             NonHumanoidRank0 = [0, 0, 0],
             NonHumanoidRank1 = [0, 3, 0],
-//            NonHumanoidRank2 = [0, 0, 3],
-            NonHumanoidRank2 = [99, 99, 99],
+            NonHumanoidRank2 = [0, 0, 3],
+//            NonHumanoidRank2 = [99, 99, 99],
             ExtraBuffRank0 = [1, 0, 0],
             ExtraBuffRank1 = [0, 1, 0],
             ExtraBuffRank2 = [0, 0, 1],
@@ -659,7 +659,7 @@ gt.Const.EL_NPC <- {
                 ArmorMult = [1.4, 1.8, 3]
             },
             ThickSkin = {
-                DamageReceivedMult = [0.4, 0.8, 2]
+                DamageReceivedMult = [0.4, 0.8, 2.0]
             },
             Veteran = {
                 CombatLevelOffset = [1, 2, 5]
