@@ -1,15 +1,8 @@
 this.el_entry <- this.inherit("scripts/skills/skill", {
-	m = {
-		ID = -1
-	},
+	m = {},
 	function create()
 	{
 		this.m.Order = this.Const.SkillOrder.First + 1;
-	}
-
-	function EL_getID()
-	{
-		return this.m.ID;
 	}
 
 	function setItem( _i )
@@ -42,10 +35,14 @@ this.el_entry <- this.inherit("scripts/skills/skill", {
 
 	function onUpdate( _properties )
 	{
-		// if(this.getContainer().getActor().getFaction() == this.Const.Faction.Player)
-		// {
-		this.m.Container.add(this.new("scripts/skills/el_entrys/el_total_entry"));
-		// }
+	}
+
+	function onAdded()
+	{
+		if(this.getContainer().getActor().getFaction() == this.Const.Faction.Player)
+		{
+			this.m.Container.add(this.new("scripts/skills/el_entrys/el_total_entry"));
+		}
 	}
 
 	function EL_onItemUpdate( _item )
