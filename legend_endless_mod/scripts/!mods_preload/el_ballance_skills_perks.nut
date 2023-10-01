@@ -706,8 +706,6 @@ local gt = getroottable();
 
 		o.getChance = function ()
 		{
-
-
 			local fat = 0;
 			local body = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Body);
 			local head = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Head);
@@ -723,8 +721,8 @@ local gt = getroottable();
 				fat = fat + head.getStaminaModifier();
 			}
 
-			fat = this.Math.min(0, fat + 15);
 			fat /= (1 + actor.EL_getCombatLevel() * 0.04);
+			fat = this.Math.min(0, fat + 15);
 			local ret = this.Math.minf(1.0, 1.0 - 0.6 + this.Math.pow(this.Math.abs(fat), 1.23) * 0.01);
 			return ret;
 		}

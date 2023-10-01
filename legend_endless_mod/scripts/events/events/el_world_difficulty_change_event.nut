@@ -1,14 +1,14 @@
-this.el_world_change_event <- this.inherit("scripts/events/event", {
+this.el_world_difficulty_change_event <- this.inherit("scripts/events/event", {
 	m = {},
 	function create()
 	{
-		this.m.ID = "event.el_world_change";
-		this.m.Title = "Difficulty Customization";
-		this.m.Cooldown = this.Const.EL_World.EL_WorldChangeEvent.Cooldown * this.World.getTime().SecondsPerDay;
+		this.m.ID = "event.el_world_difficulty_change";
+		this.m.Title = "World Difficulty Customization";
+		this.m.Cooldown = this.Const.EL_World.EL_WorldChangeEvent.DifficultyCooldown * this.World.getTime().SecondsPerDay;
 		local select_screen_num = this.Math.ceil(this.Const.EL_World.EL_WorldChangeEvent.OptionNum / this.Const.EL_World.EL_WorldChangeEvent.OptionNumPurPage);
 		for(local page = 0; page < select_screen_num; ++page) {
 			local screen = {
-				ID = "el_world_change_event_select_page_" + page,
+				ID = "el_world_difficulty_change_event_select_page_" + page,
 				Text = "Nothing in particular but a periodical event for you to optimize the strength difficulty after played a fair long time, aiming to help you have a better experience.\n\n",
 				Image = "",
 				List = [],
@@ -24,24 +24,16 @@ this.el_world_change_event <- this.inherit("scripts/events/event", {
 			}
 			for(local option_num = 0; option_num < current_page_option_num; ++option_num) {
 				local option_index = page * this.Const.EL_World.EL_WorldChangeEvent.OptionNumPurPage + option_num;
-				local world_level_offset = this.Const.EL_World.EL_WorldChangeEvent.WorldLevelOffset[option_index];
 				local mult_persent = this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[option_index] * 100;
 				local option = {
-					Text = "World Difficulty " + mult_persent + "%, ",
+					Text = "World Difficulty " + mult_persent + "%",
 					Index = option_index,
 					function getResult( _event )
 					{
-						this.World.Flags.set("EL_WorldChangeEvent", this.Index);
-						this.World.Assets.m.EL_WorldLevelOffset += this.Const.EL_World.EL_WorldChangeEvent.WorldLevelOffset[this.World.Flags.get("EL_WorldChangeEvent")];
+						this.World.Flags.set("EL_WorldDifficultyChangeEvent", this.Index);
 						this.World.Assets.EL_UpdateWorldStrengthAndLevel();
-						return "el_world_change_event_result_page_" + this.Index;
+						return "el_world_difficulty_change_event_result_page_" + this.Index;
 					}
-				}
-				if(world_level_offset >= 0) {
-					option.Text += "World Level + " + world_level_offset + ".";
-				}
-				else if(world_level_offset < 0){
-					option.Text += "World Level - " + -world_level_offset + ".";
 				}
 				screen.Options.push(option);
 			}
@@ -51,7 +43,7 @@ this.el_world_change_event <- this.inherit("scripts/events/event", {
 					Index = (page + 1) % select_screen_num,
 					function getResult( _event )
 					{
-						return "el_world_change_event_select_page_" + this.Index;
+						return "el_world_difficulty_change_event_select_page_" + this.Index;
 					}
 				}
 				local previous_page_option = {
@@ -59,7 +51,7 @@ this.el_world_change_event <- this.inherit("scripts/events/event", {
 					Index = (page + select_screen_num - 1) % select_screen_num,
 					function getResult( _event )
 					{
-						return "el_world_change_event_select_page_" + this.Index;
+						return "el_world_difficulty_change_event_select_page_" + this.Index;
 					}
 				}
 				screen.Options.push(next_page_option);
@@ -69,7 +61,7 @@ this.el_world_change_event <- this.inherit("scripts/events/event", {
 		}
 		for(local page = 0; page < this.Const.EL_World.EL_WorldChangeEvent.OptionNum; ++page) {
 			local screen = {
-				ID = "el_world_change_event_result_page_" + page,
+				ID = "el_world_difficulty_change_event_result_page_" + page,
 				Index = page,
 				Text = "Have a nice game.\n",
 				Image = "",
@@ -187,7 +179,7 @@ this.el_world_change_event <- this.inherit("scripts/events/event", {
 
 	function onUpdateScore()
 	{
-		if (this.World.getTime().Days < this.Const.EL_World.EL_WorldChangeEvent.Cooldown)
+		if (this.World.getTime().Days < this.Const.EL_World.EL_WorldChangeEvent.DifficultyCooldown)
 		{
 			this.m.Score = 0;
 			return;
@@ -208,8 +200,8 @@ this.el_world_change_event <- this.inherit("scripts/events/event", {
 
 	function onDetermineStartScreen()
 	{
-		local page_index = this.Math.floor(this.World.Flags.get("EL_WorldChangeEvent") / this.Const.EL_World.EL_WorldChangeEvent.OptionNumPurPage);
-		return "el_world_change_event_select_page_" + page_index;
+		local page_index = this.Math.floor(this.World.Flags.get("EL_WorldDifficultyChangeEvent") / this.Const.EL_World.EL_WorldChangeEvent.OptionNumPurPage);
+		return "el_world_difficulty_change_event_select_page_" + page_index;
 	}
 
 });

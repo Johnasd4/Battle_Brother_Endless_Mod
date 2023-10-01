@@ -67,7 +67,7 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
             {
                 this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " rised!");
             }
-            this.getContainer().getActor().getSkills().update();
+            actor.getSkills().update();
         }
 	}
 
@@ -107,6 +107,7 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
                    !skill.isType(this.Const.SkillType.Active) &&
                    !skill.isType(this.Const.SkillType.Trait) &&
                    !skill.isType(this.Const.SkillType.Racial) &&
+                   !skill.isType(this.Const.SkillType.StatusEffect) &&
                    !skill.isType(this.Const.SkillType.Special) &&
                    !skill.isType(this.Const.SkillType.Item) &&
                    !skill.isType(this.Const.SkillType.Perk) &&
@@ -120,8 +121,11 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
                     skills.remove(skill);
                 }
             }
-            properties.IsRooted = false;
-            properties.IsMovable = true;
+            local stunned_effect = skills.getSkillByID("effects.stunned");
+            if(stunned_effect != null)
+            {
+                skills.remove(stunned_effect);
+            }
 
             if (!actor.isHiddenToPlayer())
             {

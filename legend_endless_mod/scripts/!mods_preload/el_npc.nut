@@ -78,7 +78,6 @@ local gt = getroottable();
             //this.logInfo("_t.EL_ExtraCombatLevel " + _t.EL_ExtraCombatLevel);
             _e.EL_setCombatLevel(this.Math.min(this.Const.EL_NPC.EL_Troop.MaxCalculateLevel, npc_level) + _t.EL_ExtraCombatLevel);
             _e.EL_setRankLevel(_t.EL_RankLevel);
-
             if (_t.EL_RankLevel != 0)
             {
                 _e.makeMiniboss();
@@ -108,10 +107,10 @@ local gt = getroottable();
                     extra_elite_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank1[_t.EL_RankLevel];
                     extra_leader_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank2[_t.EL_RankLevel];
                 }
-                local chance = this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldChangeEvent")] * 100 - 100;
+                local chance = this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldDifficultyChangeEvent")] * 100 - 100;
                 while(true) {
                     local r = this.Math.rand(1, this.Const.EL_NPC.EL_Troop.ExtraBuffRollMax);
-                    if(r >= chance) {
+                    if(r > chance) {
                         break;
                     }
                     chance -= this.Const.EL_NPC.EL_Troop.ExtraBuffRollMax;
@@ -229,16 +228,16 @@ local gt = getroottable();
                 this.m.BaseProperties.ArmorMax[this.Const.BodyPart.Head] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
             }
             if(main_hand != null) {
-                this.m.BaseProperties.Stamina += main_hand.EL_getLevelAddtionStaminaModifier();
+                this.m.BaseProperties.Stamina -= main_hand.EL_getLevelAddtionStaminaModifier();
             }
             if(off_hand != null) {
-                this.m.BaseProperties.Stamina += off_hand.EL_getLevelAddtionStaminaModifier();
+                this.m.BaseProperties.Stamina -= off_hand.EL_getLevelAddtionStaminaModifier();
             }
             if(body != null) {
-                this.m.BaseProperties.Stamina += body.EL_getLevelAddtionStaminaModifier();
+                this.m.BaseProperties.Stamina -= body.EL_getLevelAddtionStaminaModifier();
             }
             if(head != null) {
-                this.m.BaseProperties.Stamina += head.EL_getLevelAddtionStaminaModifier();
+                this.m.BaseProperties.Stamina -= head.EL_getLevelAddtionStaminaModifier();
             }
         }
 
@@ -569,14 +568,14 @@ local gt = getroottable();
 		o.create = function()
         {
             create();
-            if(!this.World.Flags.has("EL_WorldChangeEvent")) {
-				this.World.Flags.set("EL_WorldChangeEvent", this.Const.EL_World.EL_WorldChangeEvent.DefaultOption);
+            if(!this.World.Flags.has("EL_WorldDifficultyChangeEvent")) {
+				this.World.Flags.set("EL_WorldDifficultyChangeEvent", this.Const.EL_World.EL_WorldChangeEvent.DefaultOption);
 			}
             local world_level = this.World.Assets.m.EL_WorldLevel;
             local elite_team_chance = this.Const.EL_NPC.EL_EliteTeam.EliteTeamChance.EL_getChance(world_level);
             local random_leader_chance = 0;
             local strongest_leader_chance = 0;
-            elite_team_chance *= this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldChangeEvent")];
+            elite_team_chance *= this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldDifficultyChangeEvent")];
             if(elite_team_chance * 10 >= this.Math.rand(1, 1000)) {
                 this.m.EL_IsEliteParty = true;
             }
@@ -588,8 +587,8 @@ local gt = getroottable();
                 random_leader_chance = this.Const.EL_NPC.EL_NormalTeam.RandomLeaderChance.EL_getChance(world_level);
                 strongest_leader_chance = this.Const.EL_NPC.EL_NormalTeam.StrongestLeaderChance.EL_getChance(world_level);
             }
-            random_leader_chance *= this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldChangeEvent")];
-            strongest_leader_chance *= this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldChangeEvent")];
+            random_leader_chance *= this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldDifficultyChangeEvent")];
+            strongest_leader_chance *= this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldDifficultyChangeEvent")];
             if(random_leader_chance * 10 >= this.Math.rand(1, 1000)) {
                 this.m.EL_HaveRandomLeader = true;
             }
@@ -1293,6 +1292,36 @@ local gt = getroottable();
             this.EL_dropLootItems(_lootTable);
 		}
 
+
+	});
+
+	::mods_hookExactClass("entity/world/location", function(o) {
+
+        o.onBeforeCombatStarted = function()
+        {
+            this.world_entity.onBeforeCombatStarted();
+
+            if (this.m.IsSpawningDefenders && this.m.DefenderSpawnList != null && this.m.Resources != 0)
+            {
+                if (this.m.Troops.len() != 0 && this.m.DefenderSpawnDay != 0 && this.World.getTime().Days - this.m.DefenderSpawnDay < 10)
+                {
+                    return;
+                }
+
+                this.createDefenders();
+            }
+
+
+
+            if (this.m.Troops.len() == 0)
+            {
+                this.logInfo("this.m.IsSpawningDefenders" + this.m.IsSpawningDefenders);
+                this.logInfo("this.m.DefenderSpawnList" + (this.m.DefenderSpawnList == null));
+                this.logInfo("this.m.Resources" + this.m.Resources);
+                this.logWarning("Location forfeited combat - no defenders in spawnlist!");
+                this.onCombatLost();
+            }
+        }
 
 	});
 

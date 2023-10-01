@@ -58,12 +58,12 @@ local gt = getroottable();
                 {
                     this.Text = "[img]gfx/ui/events/event_155.png[/img]Dozens of men mingle about the arena\'s entrance. Some stand stoically, not wishing to give any hint of their capabilities. Others, however, boast and brag with aplomb, either sincerely confident in their martial skills or hoping their bravado masks any holes in their game.\n\n";
                     this.Text += "A grizzled man, the master of the arena, holds up a scroll and taps it with a hook for a hand.";
-                    local baseDifficulty = 30;
+                    local baseDifficulty = 30 + this.World.Assets.m.EL_ArenaLevel * 10;
 
-                    if (this.World.Statistics.getFlags().getAsInt("ArenaRegularFightsWon") > 0 && this.World.Statistics.getFlags().getAsInt("ArenaRegularFightsWon") % 5 == 0)
-                    {
-                        baseDifficulty = baseDifficulty + 10;
-                    }
+                    // if (this.World.Statistics.getFlags().getAsInt("ArenaRegularFightsWon") > 0 && this.World.Statistics.getFlags().getAsInt("ArenaRegularFightsWon") % 5 == 0)
+                    // {
+                    //     baseDifficulty = baseDifficulty + 10;
+                    // }
 
                     baseDifficulty = baseDifficulty * this.Contract.getScaledDifficultyMult();
 
@@ -237,11 +237,14 @@ local gt = getroottable();
                         this.Contract.m.BulletpointsObjectives[1] = "Enter the arena again to start the fight against %champion1% and %amount% nomads";
                         this.Text += "%SPEECH_ON%Recognize this face? There\'s a reason the artists spent time on this here pamphlet and then handed them out to every set of eyes settin\' in those seats upstairs. It\'s %champion1%, one of the greatest fighters in this land. Maybe some day they\'ll make yer face look so pretty, if the Vizier could ever find someone so talented to salvage, well, whatever ye got there between the ears, hegheghegh.%SPEECH_OFF%";
                     }
-
-                    if (this.World.Statistics.getFlags().getAsInt("ArenaRegularFightsWon") > 0 && this.World.Statistics.getFlags().getAsInt("ArenaRegularFightsWon") % 5 == 0)
+                    if (this.World.Assets.m.EL_ArenaLevel == 7)
                     {
                         this.Text += "He pauses.%SPEECH_ON%We expect important guests for this bout, so everything is set up for you to die proper bloody this time, got it? And if you can\'t do that, then have your lot dispatch their opponents in the most spectacular way to please the crowd. Do that, and I\'ll hand you a proper piece of gladiator gear ontop of the coin.%SPEECH_OFF%";
                     }
+                    // if (this.World.Statistics.getFlags().getAsInt("ArenaRegularFightsWon") > 0 && this.World.Statistics.getFlags().getAsInt("ArenaRegularFightsWon") % 5 == 0)
+                    // {
+                    //     this.Text += "He pauses.%SPEECH_ON%We expect important guests for this bout, so everything is set up for you to die proper bloody this time, got it? And if you can\'t do that, then have your lot dispatch their opponents in the most spectacular way to please the crowd. Do that, and I\'ll hand you a proper piece of gladiator gear ontop of the coin.%SPEECH_OFF%";
+                    // }
 
                     this.Text += "He points to some strange looking collars and continues.%SPEECH_ON%When you\'re ready, put these on the three men who\'ll be doing the fighting. This lets us know who to take into the pits. Anyone not wearing these will not be allowed in, not you, not the Vizier, dare I say even the Gilder may be turned down.%SPEECH_OFF%";
                 }
@@ -330,12 +333,12 @@ local gt = getroottable();
                             party.EL_setHaveStrongestLeader(false);
                             p.Parties.push(party);
 
-                            local baseDifficulty = 30;
+                            local baseDifficulty = 30 + this.World.Assets.m.EL_ArenaLevel * 10;
 
-                            if (this.World.Statistics.getFlags().getAsInt("ArenaRegularFightsWon") > 0 && this.World.Statistics.getFlags().getAsInt("ArenaRegularFightsWon") % 5 == 0)
-                            {
-                                baseDifficulty = baseDifficulty + 10;
-                            }
+                            // if (this.World.Statistics.getFlags().getAsInt("ArenaRegularFightsWon") > 0 && this.World.Statistics.getFlags().getAsInt("ArenaRegularFightsWon") % 5 == 0)
+                            // {
+                            //     baseDifficulty = baseDifficulty + 10;
+                            // }
 
                             baseDifficulty = baseDifficulty * this.Contract.getScaledDifficultyMult();
 
@@ -719,10 +722,14 @@ local gt = getroottable();
                             this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractSuccess);
                             this.World.Assets.addMoney(this.Contract.m.Payment.getOnCompletion());
 
-                            if (this.World.Statistics.getFlags().getAsInt("ArenaRegularFightsWon") > 0 && this.World.Statistics.getFlags().getAsInt("ArenaRegularFightsWon") % 5 == 0)
+                            if (this.World.Assets.m.EL_ArenaLevel == 7)
                             {
                                 return "Gladiators";
                             }
+                            // if (this.World.Statistics.getFlags().getAsInt("ArenaRegularFightsWon") > 0 && this.World.Statistics.getFlags().getAsInt("ArenaRegularFightsWon") % 5 == 0)
+                            // {
+                            //     return "Gladiators";
+                            // }
                             else
                             {
                                 this.Contract.getHome().getBuilding("building.arena").refreshCooldown();
@@ -840,78 +847,38 @@ local gt = getroottable();
                             break;
                         }
                     }
-
-                    if (this.World.Statistics.getFlags().getAsInt("ArenaRegularFightsWon") > 0 && this.World.Statistics.getFlags().getAsInt("ArenaRegularFightsWon") % 5 == 0)
+                    switch(this.World.Assets.m.EL_ArenaLevel)
                     {
-                        local r;
-                        local a;
-                        local u;
-
-                        if (this.World.Statistics.getFlags().getAsInt("ArenaFightsWon") == 5)
-                        {
-                            r = 1;
-                        }
-                        else if (this.World.Statistics.getFlags().getAsInt("ArenaFightsWon") == 10)
-                        {
-                            r = 3;
-                        }
-                        else if (this.World.Statistics.getFlags().getAsInt("ArenaFightsWon") == 15)
-                        {
-                            r = 2;
-                        }
-                        else
-                        {
-                            r = this.Math.rand(1, 3);
-                        }
-
-                        switch(r)
-                        {
                         case 1:
-                            a = this.Const.World.Common.pickArmor([
-                                [
-                                    1,
-                                    "oriental/gladiator_harness"
-                                ]
-                            ]);
-                            a.setUpgrade(this.new("scripts/items/" + (!::Legends.Mod.ModSettings.getSetting("UnlayeredArmor").getValue() ? "legend_armor/armor_upgrades/legend_light_gladiator_upgrade" : "armor_upgrades/light_gladiator_upgrade")));
-                            this.List.push({
-                                id = 12,
-                                icon = "ui/items/armor_upgrades/upgrade_24.png",
-                                text = "You gain a " + a.getName()
-                            });
+                            local reward_item = this.new("scripts/items/el_misc/el_core_rank_0_item");
+                            reward_item.EL_generateCoreXPByActorXP(this.Const.LevelXP[this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1))]);
+                            this.World.Assets.getStash().makeEmptySlots(1);
+                            this.World.Assets.getStash().add(reward_item);
                             break;
-
                         case 2:
-                            a = this.Const.World.Common.pickArmor([
-                                [
-                                    1,
-                                    "oriental/gladiator_harness"
-                                ]
-                            ]);
-                            a.setUpgrade(this.new("scripts/items/" + (!::Legends.Mod.ModSettings.getSetting("UnlayeredArmor").getValue() ? "legend_armor/armor_upgrades/legend_heavy_gladiator_upgrade" : "armor_upgrades/heavy_gladiator_upgrade")));
-                            this.List.push({
-                                id = 12,
-                                icon = "ui/items/armor_upgrades/upgrade_25.png",
-                                text = "You gain a " + a.getName()
-                            });
+                            local reward_item = this.new("scripts/items/el_misc/el_core_rank_1_item");
+                            reward_item.EL_generateCoreXPByActorXP(this.Const.LevelXP[this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1))]);
+                            this.World.Assets.getStash().makeEmptySlots(1);
+                            this.World.Assets.getStash().add(reward_item);
                             break;
-
                         case 3:
-                            a = ::new(::MSU.Array.rand([
-                                "scripts/items/legend_helmets/helm/legend_helmet_southern_gladiator_helm_crested",
-                                "scripts/items/legend_helmets/helm/legend_helmet_southern_gladiator_helm_split",
-                                "scripts/items/legend_helmets/helm/legend_helmet_southern_gladiator_helm_masked"
-                            ]));
-                            this.List.push({
-                                id = 12,
-                                icon = "ui/items/" + a.getIcon(),
-                                text = "You gain a " + a.getName()
-                            });
+                            local reward_item = this.new("scripts/items/el_misc/el_core_rank_2_item");
+                            reward_item.EL_generateCoreXPByActorXP(this.Const.LevelXP[this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1))]);
+                            this.World.Assets.getStash().makeEmptySlots(1);
+                            this.World.Assets.getStash().add(reward_item);
                             break;
-                        }
-
-                        this.World.Assets.getStash().makeEmptySlots(1);
-                        this.World.Assets.getStash().add(a);
+                        case 4:
+                            local reward_item = this.new("scripts/items/el_misc/el_core_rank_3_item");
+                            reward_item.EL_generateCoreXPByActorXP(this.Const.LevelXP[this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1))]);
+                            this.World.Assets.getStash().makeEmptySlots(1);
+                            this.World.Assets.getStash().add(reward_item);
+                            break;
+                        case 5:
+                            local reward_item = this.new("scripts/items/el_misc/el_core_rank_4_item");
+                            reward_item.EL_generateCoreXPByActorXP(this.Const.LevelXP[this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1))]);
+                            this.World.Assets.getStash().makeEmptySlots(1);
+                            this.World.Assets.getStash().add(reward_item);
+                            break;
                     }
                 }
 
@@ -1558,8 +1525,8 @@ local gt = getroottable();
                     {
                         for( local i = 0; i < _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.Gladiator, _difficulty); i = i )
                         {
-                            this.Const.World.Common.addTroop(Gladiator, {
-                                Type = this.Const.World.Spawn.Troops.SandGolemMEDIUM
+                            this.Const.World.Common.addTroop(_party, {
+                                Type = this.Const.World.Spawn.Troops.Gladiator
                             }, false);
                             //_contract.addToCombat(_e, this.Const.World.Spawn.Troops.Gladiator);
                             i = ++i;
@@ -1577,7 +1544,7 @@ local gt = getroottable();
                     {
                         for( local i = 0; i < _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.Spider, _difficulty); i = i )
                         {
-                            this.Const.World.Common.addTroop(Gladiator, {
+                            this.Const.World.Common.addTroop(_party, {
                                 Type = this.Const.World.Spawn.Troops.Spider
                             }, false);
                             //_contract.addToCombat(_e, this.Const.World.Spawn.Troops.Spider);
@@ -1596,7 +1563,7 @@ local gt = getroottable();
                     {
                         for( local i = 0; i < _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.NomadOutlaw, _difficulty); i = i )
                         {
-                            this.Const.World.Common.addTroop(Gladiator, {
+                            this.Const.World.Common.addTroop(_party, {
                                 Type = this.Const.World.Spawn.Troops.NomadOutlaw
                             }, false);
                             //_contract.addToCombat(_e, this.Const.World.Spawn.Troops.NomadOutlaw);
@@ -1615,7 +1582,7 @@ local gt = getroottable();
                     {
                         for( local i = 0; i < _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.Serpent, _difficulty); i = i )
                         {
-                            this.Const.World.Common.addTroop(Gladiator, {
+                            this.Const.World.Common.addTroop(_party, {
                                 Type = this.Const.World.Spawn.Troops.Serpent
                             }, false);
                             //_contract.addToCombat(_e, this.Const.World.Spawn.Troops.Serpent);
@@ -1634,7 +1601,7 @@ local gt = getroottable();
                     {
                         for( local i = 0; i < _contract.getAmountToSpawn(this.Const.World.Spawn.Troops.HyenaHIGH, _difficulty); i = i )
                         {
-                            this.Const.World.Common.addTroop(Gladiator, {
+                            this.Const.World.Common.addTroop(_party, {
                                 Type = this.Const.World.Spawn.Troops.HyenaHIGH
                             }, false);
                             //_contract.addToCombat(_e, this.Const.World.Spawn.Troops.HyenaHIGH);

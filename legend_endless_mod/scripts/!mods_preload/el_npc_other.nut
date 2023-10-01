@@ -90,7 +90,7 @@ local gt = getroottable();
 				local difficulty = -_user.getBravery() +
 								   this.Const.EL_NPCOther.EL_Ghost.GhastlyTouch.BaseOffset +
 								   this.Const.EL_NPCOther.EL_Ghost.GhastlyTouch.RankFactor * (target.EL_getRankLevel() - _user.EL_getRankLevel()) +
-								   this.Math.pow(this.Const.EL_Ghost.GhastlyTouch.Factor.CombatLevelFactor, this.Math.abs(target.EL_getCombatLevel() - _user.EL_getCombatLevel())) * (target.EL_getCombatLevel() - _user.EL_getCombatLevel());
+								   this.Math.pow(this.Const.EL_NPCOther.EL_Ghost.GhastlyTouch.CombatLevelFactor, this.Math.abs(target.EL_getCombatLevel() - _user.EL_getCombatLevel())) * (target.EL_getCombatLevel() - _user.EL_getCombatLevel());
 				_targetTile.getEntity().checkMorale(-1, difficulty, this.Const.MoraleCheckType.MentalAttack);
 			}
 			return ret;

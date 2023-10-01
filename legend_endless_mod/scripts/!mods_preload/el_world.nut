@@ -67,8 +67,8 @@ local gt = getroottable();
 		o.EL_UpdateWorldStrengthAndLevel <- function() {
 			local day = this.World.getTime().Days;
 			this.m.EL_CurrentUpdateDay = day;
-			if(!this.World.Flags.has("EL_WorldChangeEvent")) {
-				this.World.Flags.set("EL_WorldChangeEvent", this.Const.EL_World.EL_WorldChangeEvent.DefaultOption);
+			if(!this.World.Flags.has("EL_WorldDifficultyChangeEvent")) {
+				this.World.Flags.set("EL_WorldDifficultyChangeEvent", this.Const.EL_World.EL_WorldChangeEvent.DefaultOption);
 			}
 			//Calculate world level.
 			if(this.m.EL_BaseWorldLevel < this.Const.EL_World.EL_WorldLevel.BaseStableLevel){
@@ -90,7 +90,7 @@ local gt = getroottable();
 			}
 			//Calculate world strength.
 			local temp_world_strength = this.Const.EL_World.EL_WorldStrength.getWorldStrength(day);
-			local difficult_mult = this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldChangeEvent")] *
+			local difficult_mult = this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldDifficultyChangeEvent")] *
 								   this.Const.EL_World.EL_WorldStartMult[this.getCombatDifficulty()];
 			temp_world_strength *= difficult_mult;
 

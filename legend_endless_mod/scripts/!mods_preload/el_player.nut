@@ -1208,7 +1208,7 @@ local gt = getroottable();
 						type = "hint",
 						text = "World Strength: " + this.World.Assets.m.EL_WorldStrength +
 						       "\nWorld Level: " + this.World.Assets.m.EL_WorldLevel +
-							   "\nWorld Difficulty: " + (this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.has("EL_WorldChangeEvent") ? this.World.Flags.get("EL_WorldChangeEvent") : this.Const.EL_World.EL_WorldChangeEvent.DefaultOption] * 100) + "%"
+							   "\nWorld Difficulty: " + (this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.has("EL_WorldDifficultyChangeEvent") ? this.World.Flags.get("EL_WorldDifficultyChangeEvent") : this.Const.EL_World.EL_WorldChangeEvent.DefaultOption] * 100) + "%"
 					});
 
 					id = ++id;

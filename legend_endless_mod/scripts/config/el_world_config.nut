@@ -63,7 +63,8 @@ gt.Const.EL_World <- {
     ],
 
     EL_WorldChangeEvent = {
-        Cooldown = 50,
+        DifficultyCooldown = 50,
+        LevelCooldown = 30,
         OptionNum = 16,
         OptionNumPurPage = 4,
         RewardTimesPurLevel = 1,
@@ -88,22 +89,22 @@ gt.Const.EL_World <- {
             3,
         ],
         WorldLevelOffset = [
-            -3,
-            -3,
-            -2,
-            -2,
             -1,
-            -1,
-            0,  //1
-            1,
+            0,
             1,
             2,
-            2,
-            3,
             3,
             4,
-            4,
-            5
+            5,  //1
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
         ]
     }
 

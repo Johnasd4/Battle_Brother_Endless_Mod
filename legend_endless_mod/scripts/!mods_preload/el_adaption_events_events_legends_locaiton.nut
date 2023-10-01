@@ -101,7 +101,7 @@ local gt = getroottable();
                             party.EL_setIsEliteParty(true);
                             party.EL_setHaveRandomLeader(false);
                             party.EL_setHaveStrongestLeader(false);
-                            properties.Parties.push(party);
+                            p.Parties.push(party);
                             for( local i = 0; i < 4; i = ++i )
                             {
                                 this.Const.World.Common.addTroop(party, {
@@ -115,7 +115,7 @@ local gt = getroottable();
                                 }, false);
                             }
                             foreach(troop in party.getTroops()) {
-                                properties.Entities.push(troop);
+                                p.Entities.push(troop);
                             }
 
                             p.BeforeDeploymentCallback = function ()
