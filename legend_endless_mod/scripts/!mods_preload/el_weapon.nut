@@ -375,10 +375,7 @@ local gt = getroottable();
         {
 
 			local percent = 0;
-			if(this.m.ConditionMax != 0)
-			{
-				percent = (this.m.Condition * 1.0)/ this.m.ConditionMax;
-			}
+			percent = (this.m.Condition * 1.0)/ this.m.ConditionMax;
 			if(this.m.EL_Level == -1)
 			{
 				this.m.EL_RankLevel += _EL_rankLevel;
@@ -391,10 +388,7 @@ local gt = getroottable();
 			this.m.EL_CurrentLevel = this.m.EL_Level;
 
 			EL_updateLevelProperties();
-			if(this.m.ConditionMax != 0)
-			{
-				this.m.Condition = this.m.ConditionMax * percent;
-			}
+			this.m.Condition = this.m.ConditionMax * percent;
 		}
 
         o.EL_upgrade <- function()
