@@ -167,6 +167,8 @@ local gt = getroottable();
             return this.m.EL_NPCLevel;
         }
 
+        o.EL_resetOtherStates <- function() {}
+
 		local onInit = o.onInit;
 		o.onInit = function() {
 			onInit();
@@ -317,6 +319,13 @@ local gt = getroottable();
         o.m.EL_Faction <- 0;
         o.m.EL_LootItems <- [];
 
+        o.onBeforeCombatStarted = function() {
+            // this.Const.World.Common.addTroop(this, {
+            //     Type = this.Const.World.Spawn.Troops.Ghost
+            // }, false);
+        }
+
+
         o.EL_tempPartyInit <- function() {
             this.getFaction <- function() { return this.EL_getFaction(); };
             this.m.EL_IsTempParty = true;
@@ -337,30 +346,9 @@ local gt = getroottable();
         {
             if(!this.m.EL_FinishGenerate) {
                 this.m.EL_FinishGenerate = true;
-                this.m.EL_TroopsResourse = this.m.Strength;
             }
             return removeTroop(_t);
 		}
-
-        local getTroops = o.getTroops;
-		o.getTroops = function()
-        {
-            if(!this.m.EL_FinishGenerate) {
-                this.m.EL_FinishGenerate = true;
-                this.m.EL_TroopsResourse = this.m.Strength;
-            }
-            return getTroops();
-		}
-
-        o.getStrength = function()
-        {
-            if(!this.m.EL_FinishGenerate) {
-                this.m.EL_FinishGenerate = true;
-                this.m.EL_TroopsResourse = this.m.Strength;
-            }
-            return this.m.Strength;
-        }
-
 
         local clearTroops = o.clearTroops;
 		o.clearTroops = function()
@@ -380,7 +368,6 @@ local gt = getroottable();
         {
             if(!this.m.EL_FinishGenerate) {
                 this.m.EL_FinishGenerate = true;
-                this.m.EL_TroopsResourse = this.m.Strength;
             }
             local entities = [];
             local champions = [];
@@ -987,47 +974,51 @@ local gt = getroottable();
                 _EL_troop.Strength = this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.CrticalPoint;
             }
             if(this.m.EL_FinishGenerate) {
-                if(this.m.Troops.len() >= this.Const.EL_NPC.EL_Troop.MaxTroopNum) {
-                    local troop_info = this.Const.EL_NPC.EL_Troop.EL_getTroopInfo(_EL_troop);
-                    //Calculate ranks, level, combat level.
-                    if(_EL_troop.EL_RankLevel != 0) {
-                    }
-                    else if(troop_info.EL_IsBossUnit) {
-                        _EL_troop.EL_RankLevel = this.Math.max(2, _EL_troop.EL_RankLevel);
-                        _EL_troop.EL_IsBossUnit = true;
-                    }
-                    else if(troop_info.EL_IsWeakUnit) {
-                        _EL_troop.EL_RankLevel = this.Math.max(0, _EL_troop.EL_RankLevel);
+                local troop_info = this.Const.EL_NPC.EL_Troop.EL_getTroopInfo(_EL_troop);
+                //Calculate ranks, level, combat level.
+                if(_EL_troop.EL_RankLevel != 0) {
+                }
+                else if(troop_info.EL_IsBossUnit) {
+                    _EL_troop.EL_RankLevel = this.Math.max(2, _EL_troop.EL_RankLevel);
+                    _EL_troop.EL_IsBossUnit = true;
+                }
+                else if(troop_info.EL_IsWeakUnit) {
+                    _EL_troop.EL_RankLevel = this.Math.max(0, _EL_troop.EL_RankLevel);
+                }
+                else {
+                    if(this.m.EL_IsBossParty || this.m.EL_IsEliteParty) {
+                        _EL_troop.EL_RankLevel = this.Math.max(1, _EL_troop.EL_RankLevel);
                     }
                     else {
-                        if(this.m.EL_IsBossParty || this.m.EL_IsEliteParty) {
-                            _EL_troop.EL_RankLevel = this.Math.max(1, _EL_troop.EL_RankLevel);
+                        local elite_chance = this.Const.EL_NPC.EL_NormalTeam.EliteChance.EL_getChance(this.World.Assets.m.EL_WorldLevel);
+                        if(troop_info.EL_IsEliteUnit)
+                        {
+                            elite_chance *= this.Const.EL_NPC.EL_Troop.EliteUnitChangeMult
                         }
-                        else {
-                            local elite_chance = this.Const.EL_NPC.EL_NormalTeam.EliteChance.EL_getChance(this.World.Assets.m.EL_WorldLevel);
-                            if(troop_info.EL_IsEliteUnit)
-                            {
-                                elite_chance *= this.Const.EL_NPC.EL_Troop.EliteUnitChangeMult
-                            }
-                            _EL_troop.EL_RankLevel = this.Math.max((this.Math.rand(1, 1000) >= elite_chance * 10) ? 0 : 1, _EL_troop.EL_RankLevel);
-                        }
+                        _EL_troop.EL_RankLevel = this.Math.max((this.Math.rand(1, 1000) >= elite_chance * 10) ? 0 : 1, _EL_troop.EL_RankLevel);
                     }
-
-                    _EL_troop.EL_ExtraCombatLevel = troop_info.EL_ExtraCombatLevel;
-                    //Build names
-                    if(_EL_troop.EL_RankLevel == 2) {
-                        _EL_troop.Name = this.Const.EL_NPC.EL_Troop.NamePrefix[_EL_troop.EL_RankLevel];
-                        _EL_troop.Name += this.Const.EL_NPC.EL_Troop.Name[this.Math.rand(0, this.Const.EL_NPC.EL_Troop.Name.len() - 1)];
-                        _EL_troop.Name += this.Const.EL_NPC.EL_Troop.NameSuffix[_EL_troop.EL_RankLevel];
-                    }
-                    this.m.Troops.push(_EL_troop);
-                    this.updateStrength();
                 }
+
+                _EL_troop.EL_ExtraCombatLevel = troop_info.EL_ExtraCombatLevel;
+                //Build names
+                if(_EL_troop.EL_RankLevel == 2) {
+                    _EL_troop.Name = this.Const.EL_NPC.EL_Troop.NamePrefix[_EL_troop.EL_RankLevel];
+                    _EL_troop.Name += this.Const.EL_NPC.EL_Troop.Name[this.Math.rand(0, this.Const.EL_NPC.EL_Troop.Name.len() - 1)];
+                    _EL_troop.Name += this.Const.EL_NPC.EL_Troop.NameSuffix[_EL_troop.EL_RankLevel];
+                }
+                local i = 0;
+                for( ; i < this.m.Troops.len(); ++i) {
+                    if(_EL_troop.Strength > this.m.Troops[i].Strength) {
+                        this.m.Troops.insert(i, _EL_troop);
+                        break;
+                    }
+                }
+                if(i == this.m.Troops.len()) {
+                    this.m.Troops.push(_EL_troop);
+                }
+                this.updateStrength();
             }
             else {
-                if(this.m.EL_TempTroops.len() >= this.Const.EL_NPC.EL_Troop.MaxTroopNum) {
-                    return;
-                }
                 //Puts the troop in the temp troops.
                 local i = 0;
                 for(; i < this.m.EL_TempTroops.len(); ++i) {
@@ -1239,6 +1230,9 @@ local gt = getroottable();
 
                     }
                 }
+                while(this.m.Troops.len() > this.Const.EL_NPC.EL_Troop.MaxTroopNum) {
+                    this.m.Troops.remove(this.Const.EL_NPC.EL_Troop.MaxTroopNum);
+                }
                 // //Build names
                 for(local i = 0; i < this.m.Troops.len(); ++i) {
                     if(this.m.Troops[i].EL_RankLevel == 2) {
@@ -1292,36 +1286,6 @@ local gt = getroottable();
             this.EL_dropLootItems(_lootTable);
 		}
 
-
-	});
-
-	::mods_hookExactClass("entity/world/location", function(o) {
-
-        o.onBeforeCombatStarted = function()
-        {
-            this.world_entity.onBeforeCombatStarted();
-
-            if (this.m.IsSpawningDefenders && this.m.DefenderSpawnList != null && this.m.Resources != 0)
-            {
-                if (this.m.Troops.len() != 0 && this.m.DefenderSpawnDay != 0 && this.World.getTime().Days - this.m.DefenderSpawnDay < 10)
-                {
-                    return;
-                }
-
-                this.createDefenders();
-            }
-
-
-
-            if (this.m.Troops.len() == 0)
-            {
-                this.logInfo("this.m.IsSpawningDefenders" + this.m.IsSpawningDefenders);
-                this.logInfo("this.m.DefenderSpawnList" + (this.m.DefenderSpawnList == null));
-                this.logInfo("this.m.Resources" + this.m.Resources);
-                this.logWarning("Location forfeited combat - no defenders in spawnlist!");
-                this.onCombatLost();
-            }
-        }
 
 	});
 
@@ -1741,7 +1705,7 @@ local gt = getroottable();
         if(e == null) {
             return e;
         }
-        if (!this.World.getTime().IsDaytime && _e.getBaseProperties().IsAffectedByNight)
+        if (!this.World.getTime().IsDaytime && e.getBaseProperties().IsAffectedByNight)
         {
             e.getSkills().add(this.new("scripts/skills/special/night_effect"));
         }

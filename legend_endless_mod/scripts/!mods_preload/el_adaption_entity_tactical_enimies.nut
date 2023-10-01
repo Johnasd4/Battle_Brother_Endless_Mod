@@ -84,6 +84,12 @@ local gt = getroottable();
 
 	::mods_hookExactClass("entity/tactical/enemies/kraken", function(o){
 
+        o.m.EL_TentacleDestroyedNum <- 0;
+
+        o.EL_resetOtherStates = function() {
+            this.m.EL_TentacleDestroyedNum = 0;
+        }
+
         o.onTentacleDestroyed = function()
         {
             if (!this.isAlive() || this.isDying())
@@ -103,19 +109,19 @@ local gt = getroottable();
             }
 
             local hitInfo = clone this.Const.Tactical.HitInfo;
-            hitInfo.DamageRegular = this.Math.max(35, 190 - (this.m.TentaclesDestroyed - 1) * 5);
+            hitInfo.DamageRegular = this.Math.round(this.getHitpointsMax() * (0.01 + this.m.EL_TentacleDestroyedNum * 0.01));
             hitInfo.DamageDirect = 1.0;
             hitInfo.BodyPart = this.Const.BodyPart.Head;
             hitInfo.BodyDamageMult = 1.0;
             hitInfo.FatalityChanceMult = 0.0;
             this.onDamageReceived(this, null, hitInfo);
-
+            ++EL_TentacleDestroyedNum;
             if (!this.isAlive() || this.isDying())
             {
                 return;
             }
 
-            for( local numTentacles = this.Math.max(4, this.Math.min(8, this.Math.ceil(this.getHitpointsPct() * 2.0 * 8))); this.m.Tentacles.len() < numTentacles;  )
+            for( local numTentacles = 15; this.m.Tentacles.len() < numTentacles;  )
             {
                 local mapSize = this.Tactical.getMapSize();
                 local myTile = this.getTile();
@@ -134,8 +140,8 @@ local gt = getroottable();
                         local tentacle = this.Const.World.Common.EL_addEntity({
                             ID = this.Const.EntityType.KrakenTentacle,
                             Variant = 0,
-                            Strength = 0,
-                            Cost = 0,
+                            Strength = 200,
+                            Cost = 200,
                             Row = 0,
                             Script = "scripts/entity/tactical/enemies/kraken_tentacle"
                         }, tile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
@@ -151,47 +157,95 @@ local gt = getroottable();
             }
         }
 
-        o.onPlacedOnMap = function()
+        o.onInit = function()
         {
-            this.actor.onPlacedOnMap();
-            this.getTile().clear();
-            this.getTile().IsHidingEntity = false;
+            this.actor.onInit();
+            local b = this.m.BaseProperties;
+            b.setValues(this.Const.Tactical.Actor.Kraken);
+            b.TargetAttractionMult = 3.0;
+            b.IsAffectedByNight = false;
+            b.IsMovable = false;
+            b.IsAffectedByInjuries = false;
+            b.IsRooted = true;
+            b.IsImmuneToDisarm = true;
+            b.IsAffectedByRain = false;
+            this.m.ActionPoints = b.ActionPoints;
+            this.m.Hitpoints = b.Hitpoints;
+            this.m.CurrentProperties = clone b;
+            this.m.ActionPointCosts = this.Const.DefaultMovementAPCost;
+            this.m.FatigueCosts = this.Const.DefaultMovementFatigueCost;
+
+            if (!this.Tactical.State.isScenarioMode())
+            {
+                if (!this.World.Flags.get("IsKrakenDefeated"))
+                {
+                    this.setName("Beast of Beasts");
+                }
+                else
+                {
+                    this.setName(this.Const.Strings.KrakenNames[this.Math.rand(0, this.Const.Strings.KrakenNames.len() - 1)]);
+                }
+            }
+
+            this.addSprite("socket").setBrush("bust_base_beasts");
+            local body = this.addSprite("body");
+            body.setBrush("bust_kraken_body_01");
+
+            if (this.Math.rand(0, 100) < 90)
+            {
+                body.varySaturation(0.2);
+            }
+
+            if (this.Math.rand(0, 100) < 90)
+            {
+                body.varyColor(0.08, 0.08, 0.08);
+            }
+
+            this.addDefaultStatusSprites();
+            this.setSpriteOffset("arrow", this.createVec(20, 190));
+            this.m.Skills.add(this.new("scripts/skills/actives/kraken_devour_skill"));
+            this.m.Skills.add(this.new("scripts/skills/perks/perk_hold_out"));
+            this.m.Skills.add(this.new("scripts/skills/perks/perk_steel_brow"));
+            this.m.Skills.add(this.new("scripts/skills/perks/perk_stalwart"));
+            this.m.Skills.add(this.new("scripts/skills/perks/perk_legend_composure"));
+            this.m.Skills.add(this.new("scripts/skills/perks/perk_legend_poison_immunity"));
             local myTile = this.getTile();
 
-            if (myTile.hasNextTile(this.Const.Direction.N))
+            for( local i = 0; i < 15; i = i )
             {
-                local tile = myTile.getNextTile(this.Const.Direction.N);
+                local mapSize = this.Tactical.getMapSize();
 
-                if (tile.IsEmpty)
+                for( local attempts = 0; attempts < 500; attempts = attempts )
                 {
-                    local tentacle = this.Const.World.Common.EL_addEntity({
-                        ID = this.Const.EntityType.KrakenTentacle,
-                        Variant = 0,
-                        Strength = 0,
-                        Cost = 0,
-                        Row = 0,
-                        Script = "scripts/entity/tactical/enemies/kraken_tentacle"
-                    }, tile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
-                }
+                    local x = this.Math.rand(this.Math.max(0, myTile.SquareCoords.X - 2), this.Math.min(mapSize.X - 1, myTile.SquareCoords.X + 8));
+                    local y = this.Math.rand(this.Math.max(0, myTile.SquareCoords.Y - 8), this.Math.min(mapSize.Y - 1, myTile.SquareCoords.Y + 8));
+                    local tile = this.Tactical.getTileSquare(x, y);
 
-                if (tile.hasNextTile(this.Const.Direction.N))
-                {
-                    local tile = tile.getNextTile(this.Const.Direction.N);
-
-                    if (tile.IsEmpty)
+                    if (!tile.IsEmpty)
+                    {
+                    }
+                    else
                     {
                         local tentacle = this.Const.World.Common.EL_addEntity({
                             ID = this.Const.EntityType.KrakenTentacle,
                             Variant = 0,
-                            Strength = 0,
-                            Cost = 0,
+                            Strength = 200,
+                            Cost = 200,
                             Row = 0,
                             Script = "scripts/entity/tactical/enemies/kraken_tentacle"
-                        }, tile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
+                        }, tile, this.getFaction(), this.EL_getRankLevel(), this.World.Assets.m.EL_WorldLevel);
+                        tentacle.setParent(this);
+                        this.m.Tentacles.push(this.WeakTableRef(tentacle));
+                        break;
                     }
+
+                    attempts = ++attempts;
                 }
+
+                i = ++i;
             }
         }
+
 
     });
 

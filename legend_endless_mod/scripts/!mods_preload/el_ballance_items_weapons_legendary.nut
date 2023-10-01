@@ -10,7 +10,7 @@ local gt = getroottable();
         o.create = function()
         {
             create();
-            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+            this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
     });
@@ -21,7 +21,7 @@ local gt = getroottable();
         o.create = function()
         {
             create();
-            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+            this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
     });
@@ -33,7 +33,7 @@ local gt = getroottable();
         o.create = function()
         {
             create();
-            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+            this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
     });

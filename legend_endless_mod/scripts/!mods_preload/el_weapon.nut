@@ -373,7 +373,12 @@ local gt = getroottable();
 		//Initialize equipment based on level and rank after generating items
         o.EL_generateByRankAndLevel <- function( _EL_rankLevel, EL_level, EL_additionalRarityChance = 0 )
         {
-			local percent = (this.m.Condition * 1.0)/ this.m.ConditionMax;
+
+			local percent = 0;
+			if(this.m.ConditionMax != 0)
+			{
+				percent = (this.m.Condition * 1.0)/ this.m.ConditionMax;
+			}
 			if(this.m.EL_Level == -1)
 			{
 				this.m.EL_RankLevel += _EL_rankLevel;
@@ -384,8 +389,12 @@ local gt = getroottable();
 				this.Const.EL_Weapon.EL_assignItemEntrys(this, entryCount);
 			}
 			this.m.EL_CurrentLevel = this.m.EL_Level;
+
 			EL_updateLevelProperties();
-			this.m.Condition = this.m.ConditionMax * percent;
+			if(this.m.ConditionMax != 0)
+			{
+				this.m.Condition = this.m.ConditionMax * percent;
+			}
 		}
 
         o.EL_upgrade <- function()
@@ -433,7 +442,10 @@ local gt = getroottable();
 
 		o.EL_updateLevelProperties <- function()
         {
-			this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Weapon.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
+			if(this.m.ConditionMax != 1)
+			{
+				this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Weapon.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
+			}
 			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Weapon.EL_LevelFactor.Value * this.m.EL_Level));
 			this.m.RegularDamage = this.Math.ceil(this.m.EL_BaseWithRankRegularDamage * (1 + this.Const.EL_Weapon.EL_LevelFactor.RegularDamage * this.m.EL_CurrentLevel));
 			this.m.RegularDamageMax = this.Math.ceil(this.m.EL_BaseWithRankRegularDamageMax * (1 + this.Const.EL_Weapon.EL_LevelFactor.RegularDamageMax * this.m.EL_CurrentLevel));

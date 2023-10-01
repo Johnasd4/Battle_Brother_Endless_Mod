@@ -1351,10 +1351,10 @@ local gt = getroottable();
 				}
 			}
 
-			if (!_targetEntity.isAbleToDie() && _targetEntity.getHitpoints() == 1)
-			{
-				toHit = 0;
-			}
+			// if (!_targetEntity.isAbleToDie() && _targetEntity.getHitpoints() == 1)
+			// {
+			// 	toHit = 0;
+			// }
 
 			if (!this.isUsingHitchance())
 			{

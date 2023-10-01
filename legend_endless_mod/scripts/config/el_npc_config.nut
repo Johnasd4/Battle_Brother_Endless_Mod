@@ -88,7 +88,7 @@ gt.Const.EL_NPC <- {
         Rank2LeastStrength = 20,
         MinLevel = 0,
         MaxLevel = 200,
-        MaxTroopNum = 100,
+        MaxTroopNum = 70,
         MaxCalculateLevel = 100,
         MinLevelOffset = -10,
         MaxLevelOffset = 0,
@@ -648,6 +648,8 @@ gt.Const.EL_NPC <- {
                 DamageMultPurStack = [0.02, 0.04, 0.1],
             },
             SelfDestruct = {
+                DamageBase = 100,
+                DamageMultPurCombatLevel = 0.04,
                 DamageRate = [0.2, 0.4, 1],
                 WeaponShieldDamageRate = [0.1, 0.2, 0.5],
                 DamageDecayRatePurTile = 0.5,

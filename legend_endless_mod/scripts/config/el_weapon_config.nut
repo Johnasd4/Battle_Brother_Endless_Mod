@@ -29,7 +29,7 @@ gt.Const.EL_Weapon <- {
 		RangeMax = 3,
 		Vision = 3,
 		AmmoMax = 2,
-		AdditionalExplosionRange = 1 
+		AdditionalExplosionRange = 1
 	},
 	EL_LevelFactor = {
 		Condition = 0.04,
@@ -77,10 +77,10 @@ gt.Const.EL_Weapon <- {
 			ifUsable = function( _weapon )
 			{
                 if (_weapon.m.ChanceToHitHead > 0)
-		        {  
+		        {
                     return true;
                 }
-                return false;                
+                return false;
 			},
 			changeValues = function( _weapon, _isReduceWeight = 0  )
 			{
@@ -92,7 +92,7 @@ gt.Const.EL_Weapon <- {
 		{
 			ifUsable = function( _weapon )
 			{
-                return true;    
+                return true;
 			},
 			changeValues = function( _weapon, _isReduceWeight = 0  )
 			{
@@ -135,8 +135,8 @@ gt.Const.EL_Weapon <- {
 			{
                 if (_weapon.m.EL_BaseWithRankAdditionalAccuracy != 0 || _weapon.isItemType(this.Const.Items.ItemType.RangedWeapon))
 		        {
-                    return true;    
-		        } 
+                    return true;
+		        }
                 return false;
 			},
 			changeValues = function( _weapon, _isReduceWeight = 0  )
@@ -151,7 +151,7 @@ gt.Const.EL_Weapon <- {
 			{
                 if (_weapon.isWeaponType(this.Const.Items.WeaponType.Bow) || _weapon.isWeaponType(this.Const.Items.WeaponType.Crossbow))
 		        {
-                    return true;                    
+                    return true;
 		        }
                 return false;
 			},
@@ -169,7 +169,7 @@ gt.Const.EL_Weapon <- {
 			{
                 if (_weapon.isWeaponType(this.Const.Items.WeaponType.Throwing))
 		        {
-                    return true;                    
+                    return true;
 		        }
                 return false;
 			},
@@ -186,7 +186,7 @@ gt.Const.EL_Weapon <- {
 			{
                 if (_weapon.isWeaponType(this.Const.Items.WeaponType.Firearm))
 		        {
-                    return true;                    
+                    return true;
 		        }
                 return false;
 			},
@@ -202,12 +202,9 @@ gt.Const.EL_Weapon <- {
 			Entrys = [
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_action_point_entry",
-					function EL_ifEligible(_EL_item) { 
-						if(_EL_item.m.EL_RankLevel > 1)
-						{
-							return true;
-						} 
-						return false;
+					function EL_ifEligible(_EL_item) {
+						if(_EL_item.m.EL_RankLevel <= 1) { return false; }
+						return true;
 					}
 				},
 				{
@@ -224,15 +221,24 @@ gt.Const.EL_Weapon <- {
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_condition_mult_entry",
-					function EL_ifEligible(_EL_item) { return true; }
+					function EL_ifEligible(_EL_item) {
+						if(_EL_item.getConditionMax() == 1) { return false; }
+						return true;
+					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_condition_recover_daliy_entry",
-					function EL_ifEligible(_EL_item) { return true; }
+					function EL_ifEligible(_EL_item) {
+						if(_EL_item.getConditionMax() == 1) { return false; }
+						return true;
+					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_condition_recover_rate_entry",
-					function EL_ifEligible(_EL_item) { return true; }
+					function EL_ifEligible(_EL_item) {
+						if(_EL_item.getConditionMax() == 1) { return false; }
+						return true;
+					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_damage_mult_entry",
@@ -252,7 +258,10 @@ gt.Const.EL_Weapon <- {
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_melee_skill_entry",
-					function EL_ifEligible(_EL_item) { return true; }
+					function EL_ifEligible(_EL_item) {
+						if(!_EL_item.isItemType(this.Const.Items.ItemType.MeleeWeapon)) { return false; }
+						return true;
+					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_ranged_defense_entry",
@@ -260,17 +269,16 @@ gt.Const.EL_Weapon <- {
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_ranged_skill_entry",
-					function EL_ifEligible(_EL_item) { return true; }
+					function EL_ifEligible(_EL_item) {
+						if(!_EL_item.isItemType(this.Const.Items.ItemType.RangedWeapon)) { return false; }
+						return true;
+					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_shield_damage_mult_entry",
-					function EL_ifEligible(_EL_item) 
-					{ 
-						if(_EL_item.m.EL_BaseWithRankShieldDamage >= 16)
-						{
-							return true; 
-						}
-						return false; 
+					function EL_ifEligible(_EL_item) {
+						if(_EL_item.m.EL_BaseWithRankShieldDamage < 16) { return false; }
+						return true;
 					}
 				},
 				{
@@ -283,13 +291,9 @@ gt.Const.EL_Weapon <- {
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_value_mult_entry",
-					function EL_ifEligible(_EL_item) 
-					{ 
-						if(_EL_item.m.EL_RankLevel > 1)
-						{
-							return true;
-						} 
-						return false;
+					function EL_ifEligible(_EL_item) {
+						if(_EL_item.m.EL_RankLevel <= 1) { return false; }
+						return true;
 					}
 				},
 				{

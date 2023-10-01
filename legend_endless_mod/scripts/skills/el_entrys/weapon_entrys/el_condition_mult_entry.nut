@@ -40,9 +40,9 @@ this.el_condition_mult_entry <- this.inherit("scripts/skills/el_entrys/el_entry"
 
 	function EL_onItemUpdate( _item )
 	{
-        _item.m.ConditionMax *= (1.0 + this.m.EL_ConditionMultAddition * 0.01);
+        _item.m.ConditionMax = this.Math.ceil(_item.m.ConditionMax * (1.0 + this.m.EL_ConditionMultAddition * 0.01));
 	}
-    
+
     function onSerialize( _out )
 	{
 		_out.writeF32(this.m.EL_ConditionMultAddition);

@@ -10,7 +10,7 @@ local gt = getroottable();
         o.create = function()
         {
             create();
-            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+            this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
 
@@ -57,7 +57,7 @@ local gt = getroottable();
         o.create = function()
         {
             create();
-            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+            this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
 
@@ -104,7 +104,7 @@ local gt = getroottable();
         o.create = function()
         {
             create();
-            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+            this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
 
@@ -162,7 +162,7 @@ local gt = getroottable();
         o.create = function()
         {
             create();
-            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+            this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
 
@@ -192,7 +192,7 @@ local gt = getroottable();
         o.create = function()
         {
             create();
-            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+            this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
 
@@ -233,7 +233,7 @@ local gt = getroottable();
         o.create = function()
         {
             create();
-            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+            this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
 
@@ -268,59 +268,13 @@ local gt = getroottable();
 
     });
 
-    ::mods_hookNewObject("items/legend_armor/legendary/legend_emperors_armor", function(o){
-
-        local create = o.create;
-        o.create = function()
-        {
-            create();
-            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
-        }
-
-
-        o.getTooltip = function()
-        {
-            local result = this.armor.getTooltip();
-            result.push({
-                id = 6,
-                type = "text",
-                icon = "ui/icons/health.png",
-                text = "Heals [color=" + this.Const.UI.Color.PositiveValue + "]40%[/color] hitpoints of the wearer each turn"
-            });
-            return result;
-        }
-
-        o.onTurnStart = function()
-        {
-            local actor = this.getContainer().getActor();
-            local healthMissing = actor.getHitpointsMax() - actor.getHitpoints();
-            local healthAdded = this.Math.min(healthMissing, this.Math.floor(actor.getHitpointsMax() * 0.4));
-
-            if (healthAdded <= 0)
-            {
-                return;
-            }
-
-            actor.setHitpoints(actor.getHitpoints() + healthAdded);
-            actor.setDirty(true);
-
-            if (!actor.isHiddenToPlayer())
-            {
-                this.Tactical.spawnIconEffect("status_effect_79", actor.getTile(), this.Const.Tactical.Settings.SkillIconOffsetX, this.Const.Tactical.Settings.SkillIconOffsetY, this.Const.Tactical.Settings.SkillIconScale, this.Const.Tactical.Settings.SkillIconFadeInDuration, this.Const.Tactical.Settings.SkillIconStayDuration, this.Const.Tactical.Settings.SkillIconFadeOutDuration, this.Const.Tactical.Settings.SkillIconMovement);
-                this.Sound.play("sounds/enemies/unhold_regenerate_01.wav", this.Const.Sound.Volume.RacialEffect * 1.25, actor.getPos());
-                this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " heals for " + healthAdded + " points");
-            }
-        }
-
-    });
-
     ::mods_hookNewObject("items/legend_armor/legendary/legend_ijirok_armor", function(o){
 
         local create = o.create;
         o.create = function()
         {
             create();
-            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+            this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
 
@@ -367,7 +321,7 @@ local gt = getroottable();
         o.create = function()
         {
             create();
-            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+            this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
 

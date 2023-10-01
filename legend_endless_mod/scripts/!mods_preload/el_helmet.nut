@@ -83,7 +83,7 @@ local gt = getroottable();
 
 		local onUnequip = o.onUnequip;
 		o.onUnequip = function ()
-		{	
+		{
 			onUnequip();
 			//this.addSkill(this.new("scripts/skills/el_entrys/el_total_entry"));
 			if( this.m.EL_CurrentLevel < this.m.EL_Level )
@@ -135,7 +135,7 @@ local gt = getroottable();
 		{
 			return true;
 		}
-		
+
 		o.getAmountString = function()
 		{
 			if(this.m.Condition < this.m.ConditionMax)
@@ -402,7 +402,7 @@ local gt = getroottable();
 
 		local onUnequip = o.onUnequip;
 		o.onUnequip = function ()
-		{	
+		{
 			onUnequip();
 			//this.addSkill(this.new("scripts/skills/el_entrys/el_total_entry"));
 			if( this.m.EL_CurrentLevel < this.m.EL_Level )
@@ -411,7 +411,7 @@ local gt = getroottable();
 				EL_updateLevelProperties();
 			}
 		}
-		
+
 		o.EL_setLevel <- function( _EL_level )
 		{
 			if(this.m.EL_Level != -1)
@@ -572,7 +572,7 @@ local gt = getroottable();
 		{
 			return true;
 		}
-		
+
 		o.getAmountString = function()
 		{
 			if(this.getCondition() < this.getConditionMax())
@@ -666,7 +666,7 @@ local gt = getroottable();
 	{
 		o.m.EL_BaseNoRankStaminaModifier <- 0;
         o.m.EL_BaseWithRankStaminaModifier <- 0;
-		
+
 		local getTooltip = o.getTooltip;
 		o.getTooltip = function ()
 		{
@@ -675,7 +675,7 @@ local gt = getroottable();
 				local EL_worldLevel = this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.EL_Item.MaxLevel);
 				local level = this.Math.rand(this.Math.max(0 ,EL_worldLevel - this.Const.EL_Item_Other.MinLevelInEventAndCraft), EL_worldLevel + this.Const.EL_Item_Other.MaxLevelInEventAndCraft);
 				local random = this.Math.rand(1, 1000);
-				
+
 				if(random <= this.Const.EL_Shop.EL_ItemRankUpOnceChance.EL_getChance(EL_worldLevel))
 				{
 					this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Premium, level);
@@ -812,7 +812,7 @@ local gt = getroottable();
 
 		local onUnequip = o.onUnequip;
 		o.onUnequip = function ()
-		{	
+		{
 			onUnequip();
 			if( this.m.EL_CurrentLevel < this.m.EL_Level )
 			{
@@ -862,7 +862,7 @@ local gt = getroottable();
 		{
 			return true;
 		}
-		
+
 		o.getAmountString = function()
 		{
 			if(this.m.Condition < this.m.ConditionMax)
@@ -952,7 +952,7 @@ local gt = getroottable();
 				local EL_worldLevel = this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.EL_Item.MaxLevel);
 				local level = this.Math.rand(this.Math.max(0 ,EL_worldLevel - this.Const.EL_Item_Other.MinLevelInEventAndCraft), EL_worldLevel + this.Const.EL_Item_Other.MaxLevelInEventAndCraft);
 				local random = this.Math.rand(1, 1000);
-				
+
 				if(random <= this.Const.EL_Shop.EL_ItemRankUpOnceChance.EL_getChance(EL_worldLevel))
 				{
 					this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Premium, level);

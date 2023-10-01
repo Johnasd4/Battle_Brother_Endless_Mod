@@ -88,7 +88,7 @@ local gt = getroottable();
 
 		local onUnequip = o.onUnequip;
 		o.onUnequip = function ()
-		{	
+		{
 			onUnequip();
 			//this.addSkill(this.new("scripts/skills/el_entrys/el_total_entry"));
 			if( this.m.EL_CurrentLevel < this.m.EL_Level )
@@ -127,7 +127,7 @@ local gt = getroottable();
 		local onDeserialize = o.onDeserialize;
 		o.onDeserialize = function ( _in )
 		{
-			onDeserialize(_in);			
+			onDeserialize(_in);
 
 			local EL_EntrylistLen = _in.readU8();
 			for( local i = 0; i != EL_EntrylistLen; ++i )
@@ -155,7 +155,7 @@ local gt = getroottable();
 		{
 			return true;
 		}
-		
+
 		o.getAmountString = function()
 		{
 			if(this.m.Condition < this.m.ConditionMax)

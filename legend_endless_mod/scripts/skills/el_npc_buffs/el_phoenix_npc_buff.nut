@@ -80,6 +80,7 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
             this.m.EL_IsRising = true;
             local actor = this.getContainer().getActor();
             local properties = actor.getCurrentProperties();
+            actor.EL_resetOtherStates();
             actor.m.IsAttackable = false;
             actor.setActionPoints(0);
             actor.setFatigue(actor.getFatigueMax());
@@ -107,7 +108,7 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
                    !skill.isType(this.Const.SkillType.Active) &&
                    !skill.isType(this.Const.SkillType.Trait) &&
                    !skill.isType(this.Const.SkillType.Racial) &&
-                   !skill.isType(this.Const.SkillType.StatusEffect) &&
+                   //!skill.isType(this.Const.SkillType.StatusEffect) &&
                    !skill.isType(this.Const.SkillType.Special) &&
                    !skill.isType(this.Const.SkillType.Item) &&
                    !skill.isType(this.Const.SkillType.Perk) &&
@@ -121,11 +122,11 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
                     skills.remove(skill);
                 }
             }
-            local stunned_effect = skills.getSkillByID("effects.stunned");
-            if(stunned_effect != null)
-            {
-                skills.remove(stunned_effect);
-            }
+            // local stunned_effect = skills.getSkillByID("effects.stunned");
+            // if(stunned_effect != null)
+            // {
+            //     skills.remove(stunned_effect);
+            // }
 
             if (!actor.isHiddenToPlayer())
             {

@@ -851,31 +851,36 @@ local gt = getroottable();
                     {
                         case 1:
                             local reward_item = this.new("scripts/items/el_misc/el_core_rank_0_item");
-                            reward_item.EL_generateCoreXPByActorXP(this.Const.LevelXP[this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1))]);
+                            local xp_level = this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1));
+                            reward_item.EL_generateCoreXPByActorXP(this.Math.floor(this.Const.LevelXP[xp_level] - this.Const.LevelXP[xp_level - 1]));
                             this.World.Assets.getStash().makeEmptySlots(1);
                             this.World.Assets.getStash().add(reward_item);
                             break;
                         case 2:
                             local reward_item = this.new("scripts/items/el_misc/el_core_rank_1_item");
-                            reward_item.EL_generateCoreXPByActorXP(this.Const.LevelXP[this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1))]);
+                            local xp_level = this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1));
+                            reward_item.EL_generateCoreXPByActorXP(this.Math.floor(this.Const.LevelXP[xp_level] - this.Const.LevelXP[xp_level - 1]));
                             this.World.Assets.getStash().makeEmptySlots(1);
                             this.World.Assets.getStash().add(reward_item);
                             break;
                         case 3:
                             local reward_item = this.new("scripts/items/el_misc/el_core_rank_2_item");
-                            reward_item.EL_generateCoreXPByActorXP(this.Const.LevelXP[this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1))]);
+                            local xp_level = this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1));
+                            reward_item.EL_generateCoreXPByActorXP(this.Math.floor(this.Const.LevelXP[xp_level] - this.Const.LevelXP[xp_level - 1]));
                             this.World.Assets.getStash().makeEmptySlots(1);
                             this.World.Assets.getStash().add(reward_item);
                             break;
                         case 4:
                             local reward_item = this.new("scripts/items/el_misc/el_core_rank_3_item");
-                            reward_item.EL_generateCoreXPByActorXP(this.Const.LevelXP[this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1))]);
+                            local xp_level = this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1));
+                            reward_item.EL_generateCoreXPByActorXP(this.Math.floor(this.Const.LevelXP[xp_level] - this.Const.LevelXP[xp_level - 1]));
                             this.World.Assets.getStash().makeEmptySlots(1);
                             this.World.Assets.getStash().add(reward_item);
                             break;
                         case 5:
                             local reward_item = this.new("scripts/items/el_misc/el_core_rank_4_item");
-                            reward_item.EL_generateCoreXPByActorXP(this.Const.LevelXP[this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1))]);
+                            local xp_level = this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1));
+                            reward_item.EL_generateCoreXPByActorXP(this.Math.floor(this.Const.LevelXP[xp_level] - this.Const.LevelXP[xp_level - 1]));
                             this.World.Assets.getStash().makeEmptySlots(1);
                             this.World.Assets.getStash().add(reward_item);
                             break;

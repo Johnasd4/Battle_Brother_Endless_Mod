@@ -79,7 +79,8 @@ this.el_world_level_change_event <- this.inherit("scripts/events/event", {
 				function start( _event )
 				{
 					local brothers = this.World.getPlayerRoster().getAll();
-					local xp = this.Math.floor(this.Const.LevelXP[this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1))] * 0.1 * this.Index);
+					local xp_level = this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1));
+					local xp = this.Math.floor((this.Const.LevelXP[xp_level] - this.Const.LevelXP[xp_level - 1]) * 0.2 * this.Index);
 					foreach( brother in brothers )
 					{
 						brother.addXP(xp);
