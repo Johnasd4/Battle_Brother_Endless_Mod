@@ -18,7 +18,7 @@ this.el_value_mult_entry <- this.inherit("scripts/skills/el_entrys/accessory_ent
 		};
 		return result;
 	}
-    
+
 	function EL_setCurrentLevel(_EL_currentLevel)
 	{
 		if(_EL_currentLevel >= 1)
@@ -30,21 +30,21 @@ this.el_value_mult_entry <- this.inherit("scripts/skills/el_entrys/accessory_ent
 			this.m.EL_CurrentLevel = 0.0;
 		}
 	}
-	
+
 	function EL_getEntryColour()
 	{
 		return this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special];
 	}
-    
+
     function onSerialize( _out )
 	{
 		_out.writeI32(this.m.EL_ValueMultAddition);
-		_out.writeF32(this.m.EL_CurrentLevel);
+		this.el_accessory_entry.onSerialize(_out);
 	}
 
 	function onDeserialize( _in )
 	{
 		this.m.EL_ValueMultAddition = _in.readI32();
-		this.m.EL_CurrentLevel = _in.readF32();
+		this.el_accessory_entry.onDeserialize(_in);
 	}
 });

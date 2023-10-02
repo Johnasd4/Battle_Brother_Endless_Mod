@@ -19,7 +19,7 @@ this.el_initiative_entry <- this.inherit("scripts/skills/el_entrys/accessory_ent
 				text = "[color=" + colour + "]Initiative + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_InitiativeAddition) + " (" + this.m.EL_InitiativeAddition + ")[/color]"
 			};
 		}
-		else 
+		else
 		{
 			return {
 				id = _id,
@@ -58,16 +58,16 @@ this.el_initiative_entry <- this.inherit("scripts/skills/el_entrys/accessory_ent
 	{
 		_EL_totalEntry.m.EL_InitiativeAddition += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_InitiativeAddition);
 	}
-    
+
     function onSerialize( _out )
 	{
 		_out.writeI32(this.m.EL_InitiativeAddition);
-		_out.writeF32(this.m.EL_CurrentLevel);
+		this.el_accessory_entry.onSerialize(_out);
 	}
 
 	function onDeserialize( _in )
 	{
 		this.m.EL_InitiativeAddition = _in.readI32();
-		this.m.EL_CurrentLevel = _in.readF32();
+		this.el_accessory_entry.onDeserialize(_in);
 	}
 });

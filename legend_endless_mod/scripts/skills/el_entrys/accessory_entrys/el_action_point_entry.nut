@@ -51,16 +51,16 @@ this.el_action_point_entry <- this.inherit("scripts/skills/el_entrys/accessory_e
 			_EL_totalEntry.m.EL_ActionPointAddition += this.m.EL_ActionPointAddition;
 		}
 	}
-    
+
     function onSerialize( _out )
 	{
 		_out.writeI32(this.m.EL_ActionPointAddition);
-		_out.writeF32(this.m.EL_CurrentLevel);
+		this.el_accessory_entry.onSerialize(_out);
 	}
 
 	function onDeserialize( _in )
 	{
 		this.m.EL_ActionPointAddition = _in.readI32();
-		this.m.EL_CurrentLevel = _in.readF32();
+		this.el_accessory_entry.onDeserialize(_in);
 	}
 });

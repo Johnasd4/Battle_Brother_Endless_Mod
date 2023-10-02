@@ -573,7 +573,7 @@ local gt = getroottable();
 		o.onUpdate = function( _properties )
 		{
 			_properties.IsContentWithBeingInReserve = true;
-			_properties.BraveryMult += 10;
+			_properties.Bravery += 10;
 		}
 
 	});

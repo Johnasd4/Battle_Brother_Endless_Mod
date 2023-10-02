@@ -19,7 +19,7 @@ this.el_reduce_damage_received_mult_entry <- this.inherit("scripts/skills/el_ent
 				text = "[color=" + colour + "]Receive Damage - " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ReduceDamageReceivedMultAddition * 100) * 0.01 + "% (" + this.m.EL_ReduceDamageReceivedMultAddition + "%)[/color]"
 			};
 		}
-		else 
+		else
 		{
 			return {
 				id = _id,
@@ -28,7 +28,7 @@ this.el_reduce_damage_received_mult_entry <- this.inherit("scripts/skills/el_ent
 			};
 		}
 	}
-	
+
 	function EL_getEntryColour()
 	{
         for (local index = 0; index < this.Const.EL_Item.Type.Legendary; ++index)
@@ -58,16 +58,16 @@ this.el_reduce_damage_received_mult_entry <- this.inherit("scripts/skills/el_ent
 	{
 		_EL_totalEntry.m.EL_DamageReceivedMultAddition += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ReduceDamageReceivedMultAddition * 100) * 0.01;
 	}
-    
+
     function onSerialize( _out )
 	{
 		_out.writeF32(this.m.EL_ReduceDamageReceivedMultAddition);
-		_out.writeF32(this.m.EL_CurrentLevel);
+		this.el_accessory_entry.onSerialize(_out);
 	}
 
 	function onDeserialize( _in )
 	{
 		this.m.EL_ReduceDamageReceivedMultAddition = _in.readF32();
-		this.m.EL_CurrentLevel = _in.readF32();
+		this.el_accessory_entry.onDeserialize(_in);
 	}
 });

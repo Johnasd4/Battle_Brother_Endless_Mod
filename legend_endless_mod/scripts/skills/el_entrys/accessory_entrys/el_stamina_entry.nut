@@ -19,7 +19,7 @@ this.el_stamina_entry <- this.inherit("scripts/skills/el_entrys/accessory_entrys
 				text = "[color=" + colour + "]Fatigue + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_StaminaAddition) + " (" + this.m.EL_StaminaAddition + ")[/color]"
 			};
 		}
-		else 
+		else
 		{
 			return {
 				id = _id,
@@ -28,7 +28,7 @@ this.el_stamina_entry <- this.inherit("scripts/skills/el_entrys/accessory_entrys
 			};
 		}
 	}
-	
+
 	function EL_getEntryColour()
 	{
         for (local index = 0; index < this.Const.EL_Item.Type.Legendary; ++index)
@@ -59,16 +59,16 @@ this.el_stamina_entry <- this.inherit("scripts/skills/el_entrys/accessory_entrys
 	{
 		_EL_totalEntry.m.EL_StaminaAddition += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_StaminaAddition);
 	}
-    
+
     function onSerialize( _out )
 	{
 		_out.writeI32(this.m.EL_StaminaAddition);
-		_out.writeF32(this.m.EL_CurrentLevel);
+		this.el_accessory_entry.onSerialize(_out);
 	}
 
 	function onDeserialize( _in )
 	{
 		this.m.EL_StaminaAddition = _in.readI32();
-		this.m.EL_CurrentLevel = _in.readF32();
+		this.el_accessory_entry.onDeserialize(_in);
 	}
 });

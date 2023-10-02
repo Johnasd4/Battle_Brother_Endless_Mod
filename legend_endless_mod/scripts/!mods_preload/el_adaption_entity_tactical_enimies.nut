@@ -86,7 +86,7 @@ local gt = getroottable();
 
         o.m.EL_TentacleDestroyedNum <- 0;
 
-        o.EL_resetOtherStates = function() {
+        o.EL_resetOtherStates <- function() {
             this.m.EL_TentacleDestroyedNum = 0;
         }
 

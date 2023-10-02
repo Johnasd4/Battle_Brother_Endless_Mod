@@ -19,7 +19,7 @@ this.el_hitpoints_entry <- this.inherit("scripts/skills/el_entrys/accessory_entr
 				text = "[color=" + colour + "]Hitpoints + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_HitpointsAddition) + " (" + this.m.EL_HitpointsAddition + ")[/color]"
 			};
 		}
-		else 
+		else
 		{
 			return {
 				id = _id,
@@ -58,16 +58,16 @@ this.el_hitpoints_entry <- this.inherit("scripts/skills/el_entrys/accessory_entr
 	{
 		_EL_totalEntry.m.EL_HitpointsAddition += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_HitpointsAddition);
 	}
-    
+
     function onSerialize( _out )
 	{
 		_out.writeI32(this.m.EL_HitpointsAddition);
-		_out.writeF32(this.m.EL_CurrentLevel);
+		this.el_accessory_entry.onSerialize(_out);
 	}
 
 	function onDeserialize( _in )
 	{
 		this.m.EL_HitpointsAddition = _in.readI32();
-		this.m.EL_CurrentLevel = _in.readF32();
+		this.el_accessory_entry.onDeserialize(_in);
 	}
 });

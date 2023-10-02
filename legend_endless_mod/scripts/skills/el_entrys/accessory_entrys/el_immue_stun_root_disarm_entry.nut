@@ -16,7 +16,7 @@ this.el_immue_stun_root_disarm_entry <- this.inherit("scripts/skills/el_entrys/a
 		};
 		return result;
 	}
-    
+
 	function EL_setCurrentLevel(_EL_currentLevel)
 	{
 		if(_EL_currentLevel >= 1)
@@ -52,14 +52,14 @@ this.el_immue_stun_root_disarm_entry <- this.inherit("scripts/skills/el_entrys/a
 			_EL_totalEntry.m.EL_ImmueStunRootDisarm = true;
 		}
 	}
-    
+
     function onSerialize( _out )
 	{
-		_out.writeF32(this.m.EL_CurrentLevel);
+		this.el_accessory_entry.onSerialize(_out);
 	}
 
 	function onDeserialize( _in )
 	{
-		this.m.EL_ActionPointAddition = _in.readI32();
+		this.el_accessory_entry.onDeserialize(_in);
 	}
 });

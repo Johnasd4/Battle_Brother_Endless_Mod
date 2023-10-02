@@ -53,7 +53,7 @@ this.el_condition_recover_rate_entry <- this.inherit("scripts/skills/el_entrys/e
 	{
 		_EL_totalEntry.m.EL_WeaponConditionRecoverRateAddition += this.m.EL_ConditionRecoverRateAddition;
 	}
-    
+
     function onSerialize( _out )
 	{
 		_out.writeF32(this.m.EL_ConditionRecoverRateAddition);

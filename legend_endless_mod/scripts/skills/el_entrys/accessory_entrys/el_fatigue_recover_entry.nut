@@ -19,7 +19,7 @@ this.el_fatigue_recover_entry <- this.inherit("scripts/skills/el_entrys/accessor
 				text = "[color=" + colour + "]Fatigue Recovery per turn + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_FatigueRecoverAddition) + " (" + this.m.EL_FatigueRecoverAddition + ")[/color]"
 			};
 		}
-		else 
+		else
 		{
 			return {
 				id = _id,
@@ -58,16 +58,16 @@ this.el_fatigue_recover_entry <- this.inherit("scripts/skills/el_entrys/accessor
 	{
 		_EL_totalEntry.m.EL_FatigueRecoverAddition += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_FatigueRecoverAddition);
 	}
-    
+
     function onSerialize( _out )
 	{
 		_out.writeI32(this.m.EL_FatigueRecoverAddition);
-		_out.writeF32(this.m.EL_CurrentLevel);
+		this.el_accessory_entry.onSerialize(_out);
 	}
 
 	function onDeserialize( _in )
 	{
 		this.m.EL_FatigueRecoverAddition = _in.readI32();
-		this.m.EL_CurrentLevel = _in.readF32();
+		this.el_accessory_entry.onDeserialize(_in);
 	}
 });

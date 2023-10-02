@@ -51,14 +51,14 @@ this.el_immue_overwhelm_dazed_entry <- this.inherit("scripts/skills/el_entrys/ac
 			_EL_totalEntry.m.EL_ImmueOverwhelmDazed = true;
 		}
 	}
-    
+
     function onSerialize( _out )
 	{
-		_out.writeF32(this.m.EL_CurrentLevel);
+		this.el_accessory_entry.onSerialize(_out);
 	}
 
 	function onDeserialize( _in )
 	{
-		this.m.EL_ActionPointAddition = _in.readI32();
+		this.el_accessory_entry.onDeserialize(_in);
 	}
 });

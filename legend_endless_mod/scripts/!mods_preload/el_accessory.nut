@@ -226,7 +226,7 @@ local gt = getroottable();
 					}
 					else if(this.m.EL_Entrylist[this.m.EL_Entrylist.len() - 1].m.EL_CurrentLevel != 1.0)
 					{
-						this.m.EL_Entrylist[this.m.EL_Entrylist.len() - 1].EL_upgrade();
+						this.m.EL_Entrylist[this.m.EL_Entrylist.len() - 1].EL_upgrade(this.Const.EL_Accessory.EL_Entry.EntryNumFactor.NormalAccessory[this.m.EL_RankLevel]);
 					}
 					else
 					{

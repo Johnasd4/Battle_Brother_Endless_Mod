@@ -65,7 +65,7 @@ local gt = getroottable();
             local body = this.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
             local head = this.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
 			local accessory = this.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
-			
+
 			//this.logInfo(this.getName());
 			if(accessory == null)
 			{
@@ -234,7 +234,7 @@ local gt = getroottable();
 				local EL_worldLevel = this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.EL_Item.MaxLevel);
 				local level = this.Math.rand(this.Math.max(0 ,EL_worldLevel - this.Const.EL_Item_Other.MinLevelInEventAndCraft), EL_worldLevel + this.Const.EL_Item_Other.MaxLevelInEventAndCraft);
 				local random = this.Math.rand(1, 1000);
-				
+
 				if(random <= this.Const.EL_Shop.EL_ItemRankUpOnceChance.EL_getChance(EL_worldLevel))
 				{
 					_item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Premium, level);
@@ -375,7 +375,7 @@ local gt = getroottable();
 							id = 4,
 							type = "hint",
 							icon = "ui/icons/mouse_right_button_ctrl.png",
-							text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[1] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[1]] 
+							text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[1] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[1]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[0] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[0]] + " to have it upgrade"
 						});
 						break;
@@ -384,8 +384,8 @@ local gt = getroottable();
 							id = 4,
 							type = "hint",
 							icon = "ui/icons/mouse_right_button_ctrl.png",
-							text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[2] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[2]] 
-							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[1] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[1]] 
+							text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[2] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[2]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[1] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[1]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[0] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[0]] + " to have it upgrade"
 						});
 						break;
@@ -394,9 +394,9 @@ local gt = getroottable();
 							id = 4,
 							type = "hint",
 							icon = "ui/icons/mouse_right_button_ctrl.png",
-							text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[3] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[3]] 
-							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[2] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[2]] 
-							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[1] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[1]] 
+							text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[3] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[3]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[2] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[2]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[1] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[1]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[0] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[0]] + " to have it upgrade"
 						});
 						break;
@@ -405,10 +405,10 @@ local gt = getroottable();
 							id = 4,
 							type = "hint",
 							icon = "ui/icons/mouse_right_button_ctrl.png",
-							text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[4] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[4]] 
-							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[3] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[3]] 
-							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[2] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[2]] 
-							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[1] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[1]] 
+							text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[4] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[4]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[3] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[3]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[2] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[2]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[1] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[1]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_pool[0] + ".png[/img]" + essence_upgrade[upgrade_rank_pool[0]] + " to have it upgrade"
 						});
 						break;
@@ -430,7 +430,7 @@ local gt = getroottable();
 							id = 4,
 							type = "hint",
 							icon = "ui/icons/mouse_right_button_shift.png",
-							text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_rank_pool[1] + ".png[/img]" + essence_recraft[recraft_rank_pool[1]] 
+							text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_rank_pool[1] + ".png[/img]" + essence_recraft[recraft_rank_pool[1]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_rank_pool[0] + ".png[/img]" + essence_upgrade[recraft_rank_pool[0]] + " to have it recraft"
 						});
 						break;
@@ -439,7 +439,7 @@ local gt = getroottable();
 							id = 4,
 							type = "hint",
 							icon = "ui/icons/mouse_right_button_shift.png",
-							text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_rank_pool[2] + ".png[/img]" + essence_recraft[recraft_rank_pool[2]] 
+							text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_rank_pool[2] + ".png[/img]" + essence_recraft[recraft_rank_pool[2]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_rank_pool[1] + ".png[/img]" + essence_upgrade[recraft_rank_pool[1]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_rank_pool[0] + ".png[/img]" + essence_upgrade[recraft_rank_pool[0]] + " to have it recraft"
 						});
@@ -449,8 +449,8 @@ local gt = getroottable();
 							id = 4,
 							type = "hint",
 							icon = "ui/icons/mouse_right_button_shift.png",
-							text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_rank_pool[3] + ".png[/img]" + essence_upgrade[recraft_rank_pool[3]] 
-							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_rank_pool[2] + ".png[/img]" + essence_upgrade[recraft_rank_pool[2]] 
+							text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_rank_pool[3] + ".png[/img]" + essence_upgrade[recraft_rank_pool[3]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_rank_pool[2] + ".png[/img]" + essence_upgrade[recraft_rank_pool[2]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_rank_pool[1] + ".png[/img]" + essence_upgrade[recraft_rank_pool[1]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_rank_pool[0] + ".png[/img]" + essence_upgrade[recraft_rank_pool[0]] + " to have it recraft"
 						});
@@ -460,9 +460,9 @@ local gt = getroottable();
 							id = 4,
 							type = "hint",
 							icon = "ui/icons/mouse_right_button_shift.png",
-							text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_rank_pool[4] + ".png[/img]" + essence_upgrade[recraft_rank_pool[4]] 
-							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_rank_pool[3] + ".png[/img]" + essence_upgrade[recraft_rank_pool[3]] 
-							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_rank_pool[2] + ".png[/img]" + essence_upgrade[recraft_rank_pool[2]] 
+							text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_rank_pool[4] + ".png[/img]" + essence_upgrade[recraft_rank_pool[4]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_rank_pool[3] + ".png[/img]" + essence_upgrade[recraft_rank_pool[3]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_rank_pool[2] + ".png[/img]" + essence_upgrade[recraft_rank_pool[2]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_rank_pool[1] + ".png[/img]" + essence_upgrade[recraft_rank_pool[1]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_rank_pool[0] + ".png[/img]" + essence_upgrade[recraft_rank_pool[0]] + " to have it recraft"
 						});
@@ -485,7 +485,7 @@ local gt = getroottable();
 							id = 4,
 							type = "hint",
 							icon = "ui/icons/mouse_right_button_ctrl_and_shift.png",
-							text = "Disassemble it to get [img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_rank_pool[1] + ".png[/img]" + essence_disassemble[disassemble_rank_pool[1]] 
+							text = "Disassemble it to get [img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_rank_pool[1] + ".png[/img]" + essence_disassemble[disassemble_rank_pool[1]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_rank_pool[0] + ".png[/img]" + essence_upgrade[disassemble_rank_pool[0]]
 						});
 						break;
@@ -494,7 +494,7 @@ local gt = getroottable();
 							id = 4,
 							type = "hint",
 							icon = "ui/icons/mouse_right_button_ctrl_and_shift.png",
-							text = "Disassemble it to get [img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_rank_pool[2] + ".png[/img]" + essence_disassemble[disassemble_rank_pool[2]] 
+							text = "Disassemble it to get [img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_rank_pool[2] + ".png[/img]" + essence_disassemble[disassemble_rank_pool[2]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_rank_pool[1] + ".png[/img]" + essence_upgrade[disassemble_rank_pool[1]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_rank_pool[0] + ".png[/img]" + essence_upgrade[disassemble_rank_pool[0]]
 						});
@@ -504,7 +504,7 @@ local gt = getroottable();
 							id = 4,
 							type = "hint",
 							icon = "ui/icons/mouse_right_button_ctrl_and_shift.png",
-							text = "Disassemble it to get [img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_rank_pool[3] + ".png[/img]" + essence_disassemble[disassemble_rank_pool[3]] 
+							text = "Disassemble it to get [img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_rank_pool[3] + ".png[/img]" + essence_disassemble[disassemble_rank_pool[3]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_rank_pool[2] + ".png[/img]" + essence_upgrade[disassemble_rank_pool[2]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_rank_pool[1] + ".png[/img]" + essence_upgrade[disassemble_rank_pool[1]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_rank_pool[0] + ".png[/img]" + essence_upgrade[disassemble_rank_pool[0]]
@@ -515,7 +515,7 @@ local gt = getroottable();
 							id = 4,
 							type = "hint",
 							icon = "ui/icons/mouse_right_button_ctrl_and_shift.png",
-							text = "Disassemble it to get [img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_rank_pool[4] + ".png[/img]" + essence_disassemble[disassemble_rank_pool[4]] 
+							text = "Disassemble it to get [img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_rank_pool[4] + ".png[/img]" + essence_disassemble[disassemble_rank_pool[4]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_rank_pool[3] + ".png[/img]" + essence_upgrade[disassemble_rank_pool[3]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_rank_pool[2] + ".png[/img]" + essence_upgrade[disassemble_rank_pool[2]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_rank_pool[1] + ".png[/img]" + essence_upgrade[disassemble_rank_pool[1]]
@@ -600,60 +600,27 @@ local gt = getroottable();
 
 			local essence_need = item.EL_getUpgradeEssence();
 			//this.logInfo("essence_need[0]" +essence_need[0]+" essence_need[1]" +essence_need[1]+" essence_need[2]" +essence_need[2]+" essence_need[3]" +essence_need[3]+" essence_need[4]" +essence_need[4]);
-			local essence_reduce = [0, 0, 0, 0, 0];
-			local if_eligible = true;
-			for(local rank = this.Const.EL_Item.Type.Legendary; rank >= 0; --rank)
+			for(local rank = this.Const.EL_Item.Type.Legendary; rank > 0; --rank)
 			{
-				//this.logInfo("Test:rank" +rank+" essence_need[rank]" +essence_need[rank]+" this.World.Assets.EL_getEquipmentEssence(rank)" +this.World.Assets.EL_getEquipmentEssence(rank)+" essence_reduce[rank]" +essence_reduce[rank]);
-
-				if(essence_need[rank] > this.World.Assets.EL_getEquipmentEssence(rank) - essence_reduce[rank])
+				if(essence_need[rank] > this.World.Assets.EL_getEquipmentEssence(rank))
 				{
-					essence_reduce[rank] = this.World.Assets.EL_getEquipmentEssence(rank);
-					essence_need[rank] -= essence_reduce[rank];
-					essence_need[rank] *= this.Const.EL_Item_Other.EssenceRankUpNeedFactor;
-					local lower_rank = rank - 1;
-					if(lower_rank == -1)
-					{
-						if_eligible = false;
-						break;
-					}
-					while(essence_need[rank] > this.World.Assets.EL_getEquipmentEssence(lower_rank) - essence_reduce[lower_rank])
-					{
-						essence_reduce[lower_rank] += this.World.Assets.EL_getEquipmentEssence(lower_rank) - essence_reduce[lower_rank];
-						essence_need[lower_rank] -= essence_reduce[lower_rank];
-						essence_need[rank] *= this.Const.EL_Item_Other.EssenceRankUpNeedFactor;
-						if(lower_rank == 0)
-						{
-							if_eligible = false;
-							break;
-						}
-						--lower_rank;
-					}
-					essence_reduce[lower_rank] += essence_need[rank];
-				}
-				else
-				{
-					essence_reduce[rank] += essence_need[rank];
-				}
-				//this.logInfo("Test:rank" +rank+" essence_reduce[0]" +essence_reduce[0]+" essence_reduce[1]" +essence_reduce[1]+" essence_reduce[2]" +essence_reduce[2]+" essence_reduce[3]" +essence_reduce[3]+" essence_reduce[4]" +essence_reduce[4]);
-
-				if(if_eligible == false)
-				{
-					break;
+					essence_need[rank - 1] += (essence_need[rank] - this.World.Assets.EL_getEquipmentEssence(rank)) * this.Const.EL_Item_Other.EssenceRankUpNeedFactor;
+					essence_need[rank] = this.World.Assets.EL_getEquipmentEssence(rank);
 				}
 			}
-			if(if_eligible)
-			{	
+
+			if(essence_need[0] <= this.World.Assets.EL_getEquipmentEssence(0))
+			{
 				//this.logInfo("essence_reduce[0]" +essence_reduce[0]+" essence_reduce[1]" +essence_reduce[1]+" essence_reduce[2]" +essence_reduce[2]+" essence_reduce[3]" +essence_reduce[3]+" essence_reduce[4]" +essence_reduce[4]);
 				if(item.EL_getLevel() != -1)
 				{
 					this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+					for(local rank = 0; rank < this.Const.EL_Item.Type.Legendary; ++rank)
+					{
+						this.World.Assets.EL_addEquipmentEssence(rank, -essence_need[rank]);
+					}
+					item.EL_upgrade();
 				}
-				for(local rank = 0; rank < this.Const.EL_Item.Type.Legendary; ++rank)
-				{
-					this.World.Assets.EL_addEquipmentEssence(rank, -essence_reduce[rank]);
-				}
-				item.EL_upgrade();
 			}
 
 			local result = {
@@ -681,56 +648,28 @@ local gt = getroottable();
 			}
 			local essence_need = item.EL_getRecraftEssence();
 			//this.logInfo("essence_need[0]" +essence_need[0]+" essence_need[1]" +essence_need[1]+" essence_need[2]" +essence_need[2]+" essence_need[3]" +essence_need[3]+" essence_need[4]" +essence_need[4]);
-			local essence_reduce = [0, 0, 0, 0, 0];
-			local if_eligible = true;
-			for(local rank = this.Const.EL_Item.Type.Legendary; rank >= 0; --rank)
+
+			for(local rank = this.Const.EL_Item.Type.Legendary; rank > 0; --rank)
 			{
-				if(essence_need[rank] > this.World.Assets.EL_getEquipmentEssence(rank) - essence_reduce[rank])
+				if(essence_need[rank] > this.World.Assets.EL_getEquipmentEssence(rank))
 				{
-					essence_reduce[rank] = this.World.Assets.EL_getEquipmentEssence(rank);
-					essence_need[rank] -= essence_reduce[rank];
-					essence_need[rank] *= this.Const.EL_Item_Other.EssenceRankUpNeedFactor;
-					local lower_rank = rank - 1;
-					if(lower_rank == -1)
-					{
-						if_eligible = false;
-						break;
-					}
-					while(essence_need[rank] > this.World.Assets.EL_getEquipmentEssence(lower_rank) - essence_reduce[lower_rank])
-					{
-						essence_reduce[lower_rank] += this.World.Assets.EL_getEquipmentEssence(lower_rank) - essence_reduce[lower_rank];
-						essence_need[lower_rank] -= essence_reduce[lower_rank];
-						essence_need[rank] *= this.Const.EL_Item_Other.EssenceRankUpNeedFactor;
-						--lower_rank;
-						if(lower_rank == -1)
-						{
-							if_eligible = false;
-							break;
-						}
-					}
-					essence_reduce[lower_rank] += essence_need[rank];
-				}
-				else
-				{
-					essence_reduce[rank] += essence_need[rank];
-				}
-				if(if_eligible == false)
-				{
-					break;
+					essence_need[rank - 1] += (essence_need[rank] - this.World.Assets.EL_getEquipmentEssence(rank)) * this.Const.EL_Item_Other.EssenceRankUpNeedFactor;
+					essence_need[rank] = this.World.Assets.EL_getEquipmentEssence(rank);
 				}
 			}
-			if(if_eligible)
+
+			if(essence_need[0] <= this.World.Assets.EL_getEquipmentEssence(0))
 			{
 				//this.logInfo("essence_reduce[0]" +essence_reduce[0]+" essence_reduce[1]" +essence_reduce[1]+" essence_reduce[2]" +essence_reduce[2]+" essence_reduce[3]" +essence_reduce[3]+" essence_reduce[4]" +essence_reduce[4]);
-				if(item.EL_getLevel() != -1 && item.EL_getRankLevel())
+				if(item.EL_getLevel() != -1 && (item.EL_getRankLevel() || item.isItemType(this.Const.Items.ItemType.Accessory)))
 				{
 					this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+					for(local rank = 0; rank < this.Const.EL_Item.Type.Legendary; ++rank)
+					{
+						this.World.Assets.EL_addEquipmentEssence(rank, -essence_need[rank]);
+					}
+					item.EL_recraft();
 				}
-				for(local rank = 0; rank < this.Const.EL_Item.Type.Legendary; ++rank)
-				{
-					this.World.Assets.EL_addEquipmentEssence(rank, -essence_reduce[rank]);
-				}
-				item.EL_recraft();
 			}
 
 			local result = {

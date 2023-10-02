@@ -293,7 +293,7 @@ local gt = getroottable();
 
             if (freeTiles.len() != 0)
             {
-                local rock = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SandGolem, freeTiles[0].Tile, _data.User.getFaction(), actor.EL_getRankLevel(), actor.EL_getLevel());
+                local rock = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SandGolem, freeTiles[0].Tile, _data.User.getFaction(), _data.User.EL_getRankLevel(), _data.User.EL_getLevel());
 
                 if (_data.User.getWorldTroop() != null && ("Party" in _data.User.getWorldTroop()) && _data.User.getWorldTroop().Party != null)
                 {
@@ -390,7 +390,7 @@ local gt = getroottable();
                 {
                     local tile = freeTiles[0].Tile;
                     freeTiles.remove(0);
-                    local rock = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SandGolemMEDIUM, freeTiles[0].Tile, _data.User.getFaction(), actor.EL_getRankLevel(), actor.EL_getLevel());
+                    local rock = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SandGolemMEDIUM, freeTiles[0].Tile, _data.User.getFaction(), _data.User.EL_getRankLevel(), _data.User.EL_getLevel());
 
                     if (_data.User.getWorldTroop() != null && ("Party" in _data.User.getWorldTroop()) && _data.User.getWorldTroop().Party != null)
                     {
@@ -427,7 +427,7 @@ local gt = getroottable();
                 {
                     local tile = freeTiles[0].Tile;
                     freeTiles.remove(0);
-                    local rock = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SandGolem, tile, _data.User.getFaction(), actor.EL_getRankLevel(), actor.EL_getLevel());
+                    local rock = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SandGolem, tile, _data.User.getFaction(), _data.User.EL_getRankLevel(), _data.User.EL_getLevel());
 
                     if (_data.User.getWorldTroop() != null && ("Party" in _data.User.getWorldTroop()) && _data.User.getWorldTroop().Party != null)
                     {

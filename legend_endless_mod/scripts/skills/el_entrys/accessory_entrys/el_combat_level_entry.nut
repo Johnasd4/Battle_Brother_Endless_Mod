@@ -19,7 +19,7 @@ this.el_combat_level_entry <- this.inherit("scripts/skills/el_entrys/accessory_e
 				text = "[color=" + colour + "]CombatLevel + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_CombatLevelAddition * 100) * 0.01 + " (" + this.m.EL_CombatLevelAddition + ")[/color]"
 			};
 		}
-		else 
+		else
 		{
 			return {
 				id = _id,
@@ -62,12 +62,12 @@ this.el_combat_level_entry <- this.inherit("scripts/skills/el_entrys/accessory_e
     function onSerialize( _out )
 	{
 		_out.writeF32(this.m.EL_CombatLevelAddition);
-		_out.writeF32(this.m.EL_CurrentLevel);
+		this.el_accessory_entry.onSerialize(_out);
 	}
 
 	function onDeserialize( _in )
 	{
 		this.m.EL_CombatLevelAddition = _in.readF32();
-		this.m.EL_CurrentLevel = _in.readF32();
+		this.el_accessory_entry.onDeserialize(_in);
 	}
 });

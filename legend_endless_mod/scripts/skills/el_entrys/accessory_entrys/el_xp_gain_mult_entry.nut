@@ -62,12 +62,12 @@ this.el_xp_gain_mult_entry <- this.inherit("scripts/skills/el_entrys/accessory_e
     function onSerialize( _out )
 	{
 		_out.writeF32(this.m.EL_XPGainMultAddition);
-		_out.writeF32(this.m.EL_CurrentLevel);
+		this.el_accessory_entry.onSerialize(_out);
 	}
 
 	function onDeserialize( _in )
 	{
 		this.m.EL_XPGainMultAddition = _in.readF32();
-		this.m.EL_CurrentLevel = _in.readF32();
+		this.el_accessory_entry.onDeserialize(_in);
 	}
 });
