@@ -124,4 +124,41 @@ local gt = getroottable();
 
 	});
 
+	::mods_hookNewObject("skills/actives/legend_staff_lunge_skill", function(o){
+
+        function onAnySkillUsed( _skill, _targetEntity, _properties )
+        {
+            if (_skill == this)
+            {
+                local actor = this.getContainer().getActor();
+                _properties.DamageTotalMult *= this.Math.max(1 + actor.getInitiative() * 0.005, 0);
+
+                if (this.getContainer().getActor().getCurrentProperties().IsSpecializedInSpears)
+                {
+                    _properties.MeleeSkill += 5;
+                }
+            }
+        }
+	});
+
+	::mods_hookNewObject("skills/actives/lunge_skill", function(o){
+
+        function onAnySkillUsed( _skill, _targetEntity, _properties )
+        {
+            if (_skill == this)
+            {
+                local actor = this.getContainer().getActor();
+                _properties.DamageTotalMult *= this.Math.max(1 + actor.getInitiative() * 0.005, 0);
+
+                if (this.getContainer().getActor().getCurrentProperties().IsSpecializedInSpears)
+                {
+                    _properties.MeleeSkill += 5;
+                }
+            }
+        }
+
+
+
+	});
+
 });

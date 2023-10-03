@@ -48,6 +48,7 @@ this.el_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario
 		this.World.Assets.addBusinessReputation(this.m.StartingBusinessReputation);
 		this.World.Flags.set("HasLegendCampTraining", true);
 		this.World.Assets.getStash().add(this.new("scripts/items/supplies/smoked_ham_item"));
+		this.World.Assets.getStash().add(this.new("scripts/items/el_accessory/el_arena_champion_item"));
 		this.World.Assets.m.Money = 999999;
 		this.World.Assets.m.ArmorParts = 99;
 		this.World.Assets.m.Medicine = 99;

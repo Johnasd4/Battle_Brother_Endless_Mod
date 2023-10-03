@@ -120,7 +120,6 @@ local gt = getroottable();
 					icon = this.getLevelImagePath()
 				}
 			];
-
 			if (this.isHiddenToPlayer())
 			{
 				tooltip.push({
@@ -229,7 +228,10 @@ local gt = getroottable();
 				});
 				local result = [];
 				local statusEffects = this.getSkills().query(this.Const.SkillType.StatusEffect | this.Const.SkillType.TemporaryInjury, false, true);
-
+				local info_skill = this.getSkills().getSkillByID("el_racial.info_display");
+				if(info_skill != null) {
+					info_skill.EL_refresh();
+				}
 				foreach( i, statusEffect in statusEffects )
 				{
 					tooltip.push({
@@ -244,7 +246,7 @@ local gt = getroottable();
 			return tooltip;
 		}
 
-		o.checkMorale = function(_change, _difficulty, _type = this.Const.MoraleCheckType.Default, _showIconBeforeMoraleIcon = "", _noNewLine = false)
+		o.checkMorale = function(_change, _difficulty, _type = this.Const.MoraleCheckType.Default, _showIconBeforeMoraleIcon = "", _noNewLine = false, _EL_noCheck = false)
 		{
 
 			if (this.isAlive() && !this.isDying())
@@ -370,7 +372,12 @@ local gt = getroottable();
 				head_count_bouns = -this.Const.EL_PlayerNPC.EL_Morale.HeadCount.Factor3 * this.Math.pow(-head_count_gap, this.Const.EL_PlayerNPC.EL_Morale.HeadCount.Factor2);
 			}
 
-			if (_change > 0)
+
+
+			if(_EL_noCheck == true) {
+
+			}
+			else if (_change > 0)
 			{
 				if (this.Math.rand(1, 100) > this.Math.minf(95, bravery + _difficulty + head_count_bouns - threatBonus))
 				{
@@ -988,10 +995,9 @@ local gt = getroottable();
 			if (this.isPlayerControlled() && this.getMoraleState() > this.Const.MoraleState.Breaking && this.getMoraleState() != this.Const.MoraleState.Ignore && (_tile.SquareCoords.X == 0 || _tile.SquareCoords.Y == 0 || _tile.SquareCoords.X == 31 || _tile.SquareCoords.Y == 31))
 			{
 				local change = this.getMoraleState() - this.Const.MoraleState.Breaking;
-				this.checkMorale(-change, -1000);
+				this.checkMorale(-change, -1000, this.Const.MoraleCheckType.Default, "", false);
 				//this.logInfo("Side checkMorale");
 			}
-
 			if (this.m.IsEmittingMovementSounds && this.Const.Tactical.TerrainMovementSound[_tile.Subtype].len() != 0)
 			{
 				local sound = this.Const.Tactical.TerrainMovementSound[_tile.Subtype][this.Math.rand(0, this.Const.Tactical.TerrainMovementSound[_tile.Subtype].len() - 1)];
@@ -1019,6 +1025,7 @@ local gt = getroottable();
 		o.getXPValue = function() {
 			return this.actor.getXPValue();
 		}
+
 	});
 
 

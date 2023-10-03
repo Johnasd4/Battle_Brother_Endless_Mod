@@ -74,7 +74,7 @@ local gt = getroottable();
 		o.onEquip = function ()
 		{
 			onEquip();
-			this.addSkill(this.new("scripts/skills/el_items/el_item_level_check"));
+			this.addSkill(this.new("scripts/skills/el_items/el_item_level_check_skill"));
 			foreach(entry in this.m.EL_Entrylist)
 			{
 				this.EL_addEntry(entry);
@@ -83,7 +83,7 @@ local gt = getroottable();
 
 		local onUnequip = o.onUnequip;
 		o.onUnequip = function ()
-		{	
+		{
 			onUnequip();
 			//this.addSkill(this.new("scripts/skills/el_entrys/el_total_entry"));
 			if( this.m.EL_CurrentLevel < this.m.EL_Level )
@@ -133,7 +133,7 @@ local gt = getroottable();
 		{
 			return true;
 		}
-		
+
 		o.getAmountString = function()
 		{
 			if(this.m.Condition < this.m.ConditionMax)
@@ -217,7 +217,30 @@ local gt = getroottable();
 
 		o.EL_updateLevelProperties <- function()
         {
-			
+			if(this.m.EL_Level == -1)
+			{
+				local EL_worldLevel = this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.EL_Item.MaxLevel);
+				local level = this.Math.rand(this.Math.max(0 ,EL_worldLevel - this.Const.EL_Item_Other.MinLevelInEventAndCraft), EL_worldLevel + this.Const.EL_Item_Other.MaxLevelInEventAndCraft);
+				local random = this.Math.rand(1, 1000);
+
+				if(random <= this.Const.EL_Shop.EL_ItemRankUpOnceChance.EL_getChance(EL_worldLevel))
+				{
+					this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Premium, level);
+					//this.logInfo("物品升阶");
+				}
+				else if(random > this.Const.EL_Shop.EL_ItemRankUpTwiceChance.EL_getChance(EL_worldLevel))
+				{
+					this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Fine, level);
+					//this.logInfo("物品升阶大成功");
+				}
+				else
+				{
+					this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
+				}
+			}
+			if(this.m.EL_BaseWithRankConditionMax == 0) {
+				this.m.EL_BaseWithRankConditionMax = this.m.ConditionMax;
+			}
 			this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Armor.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
 			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Armor.EL_LevelFactor.Value * this.m.EL_Level));
 			this.m.StaminaModifier = this.Math.floor(this.m.EL_BaseWithRankStaminaModifier * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
@@ -392,7 +415,7 @@ local gt = getroottable();
 		o.onEquip = function ()
 		{
 			onEquip();
-			this.addSkill(this.new("scripts/skills/el_items/el_item_level_check"));
+			this.addSkill(this.new("scripts/skills/el_items/el_item_level_check_skill"));
 			foreach(entry in this.m.EL_Entrylist)
 			{
 				this.EL_addEntry(entry);
@@ -401,7 +424,7 @@ local gt = getroottable();
 
 		local onUnequip = o.onUnequip;
 		o.onUnequip = function ()
-		{	
+		{
 			onUnequip();
 			//this.addSkill(this.new("scripts/skills/el_entrys/el_total_entry"));
 			if( this.m.EL_CurrentLevel < this.m.EL_Level )
@@ -410,7 +433,7 @@ local gt = getroottable();
 				EL_updateLevelProperties();
 			}
 		}
-		
+
 		o.EL_setLevel <- function( _EL_level )
 		{
 			if(this.m.EL_Level != -1)
@@ -444,7 +467,7 @@ local gt = getroottable();
 				this.m.Condition = (this.m.Condition > this.m.ConditionMax) ? this.m.ConditionMax : this.m.Condition;
 			}
 		}
-		
+
 
 		o.EL_setRankLevel <- function( _EL_rankLevel )
 		{
@@ -573,7 +596,7 @@ local gt = getroottable();
 		{
 			return true;
 		}
-		
+
 		o.getAmountString = function()
 		{
 			if(this.getCondition() < this.getConditionMax())
@@ -587,7 +610,7 @@ local gt = getroottable();
 		{
 			return this.Const.EL_Item.Colour[this.m.EL_RankLevel];
 		}
-		
+
 		o.EL_getUpgradeEssence <- function()
 		{
 			local result = [0, 0, 0, 0, 0];
@@ -651,7 +674,7 @@ local gt = getroottable();
 	{
 		o.m.EL_BaseNoRankStaminaModifier <- 0;
         o.m.EL_BaseWithRankStaminaModifier <- 0;
-		
+
 		local getTooltip = o.getTooltip;
 		o.getTooltip = function ()
 		{
@@ -660,7 +683,7 @@ local gt = getroottable();
 				local EL_worldLevel = this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.EL_Item.MaxLevel);
 				local level = this.Math.rand(this.Math.max(0 ,EL_worldLevel - this.Const.EL_Item_Other.MinLevelInEventAndCraft), EL_worldLevel + this.Const.EL_Item_Other.MaxLevelInEventAndCraft);
 				local random = this.Math.rand(1, 1000);
-				
+
 				if(random <= this.Const.EL_Shop.EL_ItemRankUpOnceChance.EL_getChance(EL_worldLevel))
 				{
 					this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Premium, level);
@@ -779,7 +802,7 @@ local gt = getroottable();
 		o.onEquip = function ()
 		{
 			onEquip();
-			this.addSkill(this.new("scripts/skills/el_items/el_item_level_check"));
+			this.addSkill(this.new("scripts/skills/el_items/el_item_level_check_skill"));
             foreach(entry in this.m.EL_Entrylist)
 			{
 				this.EL_addEntry(entry);
@@ -788,7 +811,7 @@ local gt = getroottable();
 
 		local onUnequip = o.onUnequip;
 		o.onUnequip = function ()
-		{	
+		{
 			onUnequip();
 			if( this.m.EL_CurrentLevel < this.m.EL_Level )
 			{
@@ -836,7 +859,7 @@ local gt = getroottable();
 		{
 			return true;
 		}
-		
+
 		o.getAmountString = function()
 		{
 			if(this.m.Condition < this.m.ConditionMax)
@@ -926,7 +949,7 @@ local gt = getroottable();
 				local EL_worldLevel = this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.EL_Item.MaxLevel);
 				local level = this.Math.rand(this.Math.max(0 ,EL_worldLevel - this.Const.EL_Item_Other.MinLevelInEventAndCraft), EL_worldLevel + this.Const.EL_Item_Other.MaxLevelInEventAndCraft);
 				local random = this.Math.rand(1, 1000);
-				
+
 				if(random <= this.Const.EL_Shop.EL_ItemRankUpOnceChance.EL_getChance(EL_worldLevel))
 				{
 					this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Premium, level);
@@ -941,6 +964,9 @@ local gt = getroottable();
 				{
 					this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
 				}
+			}
+			if(this.m.EL_BaseWithRankConditionMax == 0) {
+				this.m.EL_BaseWithRankConditionMax = this.m.ConditionMax;
 			}
 			this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Armor.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
 			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Armor.EL_LevelFactor.Value * this.m.EL_Level));

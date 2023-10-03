@@ -286,7 +286,6 @@ local gt = getroottable();
 				}
 				_xp *= mult_factor;
 			}
-			_xp = this.Math.ceil(_xp);
 			// xp multiplying end
 			if (this.m.XP + _xp * this.m.CurrentProperties.XPGainMult >= this.Const.LevelXP[this.Const.LevelXP.len() - 1])
 			{
@@ -1290,12 +1289,12 @@ local gt = getroottable();
 		{
 			addCharacterToUIData(_entity, _target);
 			if(_entity.getLevel() < this.Const.EL_Player.EL_PlayerLevel.Max) {
-				_target.xpValue = _entity.getXP() - this.Const.LevelXP[_entity.getLevel() - 1];
-				_target.xpValueMax = this.Const.LevelXP[_entity.getLevel()] - this.Const.LevelXP[_entity.getLevel() - 1];
+				_target.xpValue = this.Math.floor(_entity.getXP() - this.Const.LevelXP[_entity.getLevel() - 1]);
+				_target.xpValueMax = this.Math.floor(this.Const.LevelXP[_entity.getLevel()] - this.Const.LevelXP[_entity.getLevel() - 1]);
 			}
 			else {
-				_target.xpValue = this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevel.Max - 1] - this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevel.Max - 2];
-				_target.xpValueMax = this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevel.Max - 1] - this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevel.Max - 2];
+				_target.xpValue = this.Math.floor(this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevel.Max - 1] - this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevel.Max - 2]);
+				_target.xpValueMax = this.Math.floor(this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevel.Max - 1] - this.Const.LevelXP[this.Const.EL_Player.EL_PlayerLevel.Max - 2]);
 			}
 		}
 

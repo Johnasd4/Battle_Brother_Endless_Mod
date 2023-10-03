@@ -309,6 +309,7 @@ local gt = getroottable();
 		{
 			return this.m.Body.m.XP;
 		}
+
     });
 
 	::mods_hookExactClass("entity/tactical/enemies/lindwurm_tail", function(o){

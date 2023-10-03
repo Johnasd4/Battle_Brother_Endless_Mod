@@ -402,7 +402,7 @@ local gt = getroottable();
                 bro.getFlags().set("IsPlayerCharacter", i == player_unit ? true : false);
                 bro.getSprite("miniboss").setBrush("bust_miniboss_gladiators");
                 bro.m.HireTime = this.Time.getVirtualTimeF();
-                bro.EL_setLevel(3);
+                bro.EL_setLevel(1);
                 i = ++i;
             }
 

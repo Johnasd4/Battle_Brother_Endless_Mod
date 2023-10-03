@@ -51,7 +51,7 @@ this.el_hitpoints_recovery_rate_entry <- this.inherit("scripts/skills/el_entrys/
     function onTurnStart()
 	{
         local actor = this.getContainer().getActor();
-        actor.setHitpoints(this.Math.min(actor.getHitpointsMax(), actor.getHitpoints() + this.Math.round(actor.getHitpointsMax() * this.m.EL_CurrentLevel * this.m.EL_HitpointsRecoveryRateAddition)));
+        actor.setHitpoints(this.Math.min(actor.getHitpointsMax(), actor.getHitpoints() + this.Math.round(actor.getHitpointsMax() * this.m.EL_CurrentLevel * this.m.EL_HitpointsRecoveryRateAddition * 0.01)));
     }
 
 	function EL_refreshTotalEntry( _EL_totalEntry )

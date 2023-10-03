@@ -11,7 +11,7 @@ local gt = getroottable();
 		o.onEquip = function ()
 		{
 			onEquip();
-			this.addSkill(this.new("scripts/skills/el_items/el_item_level_check"));
+			this.addSkill(this.new("scripts/skills/el_items/el_item_level_check_skill"));
 			foreach(entry in this.m.EL_Entrylist)
 			{
 				this.EL_addEntry(entry);

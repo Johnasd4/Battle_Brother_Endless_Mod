@@ -15,7 +15,7 @@ local gt = getroottable();
 		o.m.EL_BaseWithRankValue <- 0;
 
 		local onSerialize = o.onSerialize;
-		o.onSerialize = function( _out ) 
+		o.onSerialize = function( _out )
 		{
 			onSerialize(_out);
 			_out.writeI32(this.m.EL_Level);
@@ -28,7 +28,7 @@ local gt = getroottable();
 		}
 
 		local onDeserialize = o.onDeserialize;
-		o.onDeserialize = function( _in ) 
+		o.onDeserialize = function( _in )
 		{
 			onDeserialize(_in);
 			this.m.EL_Level = _in.readI32();
@@ -39,7 +39,7 @@ local gt = getroottable();
 			this.m.EL_BaseNoRankValue = _in.readI32();
 			this.m.EL_BaseWithRankValue = _in.readI32();
 		}
-	
+
 		o.getSellPrice = function()
 		{
 			if (this.isBought())
@@ -183,7 +183,7 @@ local gt = getroottable();
 		o.EL_generateByRankAndLevel <- function( _EL_rankLevel, EL_level, EL_additionalRarityChance = 0 )
 		{
 		}
-		
+
 		o.EL_updateLevelProperties <- function()
 		{
 		}
@@ -224,8 +224,8 @@ local gt = getroottable();
 		}
 	});
 
-	
-	for(local i = 0; i < this.Const.EL_Item_Other.EL_InValidItem.len(); ++i) {	
+
+	for(local i = 0; i < this.Const.EL_Item_Other.EL_InValidItem.len(); ++i) {
 		::mods_hookExactClass("items/" + this.Const.EL_Item_Other.EL_InValidItem[i], function ( o )
 		{
 			o.EL_generateByRankAndLevel <- function( _EL_rankLevel, EL_level, EL_additionalRarityChance = 0 )

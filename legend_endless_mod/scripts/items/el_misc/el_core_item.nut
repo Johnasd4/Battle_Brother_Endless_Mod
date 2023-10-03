@@ -49,12 +49,26 @@ this.el_core_item <- this.inherit("scripts/items/trade/trading_good_item", {
 			text = this.getValueString()
 		});
 		if(this.m.EL_XP > 0) {
+
+			local xp_string = "";
+			if(this.m.EL_XP < this.Math.pow(10, 3)) {
+				xp_string = this.m.EL_XP;
+			}
+			else if(this.m.EL_XP < this.Math.pow(10, 6)) {
+				xp_string = this.Math.floor(this.m.EL_XP / this.Math.pow(10, 3)) + 'k';
+			}
+			else if(this.m.EL_XP < this.Math.pow(10, 9)) {
+				xp_string = this.Math.floor(this.m.EL_XP / this.Math.pow(10, 6)) + 'm';
+			}
+			else {
+				xp_string = this.Math.floor(this.m.EL_XP / this.Math.pow(10, 9)) + 'b';
+			}
 			result.push({
 				id = 10,
 				type = "text",
 				icon = "ui/icons/xp_received.png",
 				text = "XP [color=" + this.Const.UI.Color.PositiveValue + "]+" +
-					   this.m.EL_XP +
+					   xp_string +
 					   "[/color]"
 			});
 		}

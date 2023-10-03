@@ -79,7 +79,7 @@ local gt = getroottable();
 		o.onEquip = function ()
 		{
 			onEquip();
-			this.addSkill(this.new("scripts/skills/el_items/el_item_level_check"));
+			this.addSkill(this.new("scripts/skills/el_items/el_item_level_check_skill"));
             foreach(entry in this.m.EL_Entrylist)
 			{
 				this.EL_addEntry(entry);
@@ -256,6 +256,9 @@ local gt = getroottable();
 
 		o.EL_updateLevelProperties <- function()
         {
+			if(this.m.EL_BaseWithRankConditionMax == 0) {
+				this.m.EL_BaseWithRankConditionMax = this.m.ConditionMax;
+			}
 			this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Shield.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
 			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Shield.EL_LevelFactor.Value * this.m.EL_Level));
 			this.m.MeleeDefense = this.Math.ceil(this.m.EL_BaseWithRankMeleeDefense * (1 + this.Const.EL_Shield.EL_LevelFactor.MeleeDefense * this.m.EL_CurrentLevel));

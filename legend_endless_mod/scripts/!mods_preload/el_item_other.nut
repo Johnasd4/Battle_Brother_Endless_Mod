@@ -129,7 +129,7 @@ local gt = getroottable();
 						item.EL_addRankLevel();
 					}
 				}
-				if(rank_level == 2)
+				if(rank_level == 2 && item.isItemType(this.Const.Items.ItemType.Accessory))
 				{
 					item.EL_addRankLevel();
 				}

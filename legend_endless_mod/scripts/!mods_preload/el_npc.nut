@@ -6,6 +6,12 @@ local gt = getroottable();
 
 	::mods_hookExactClass("skills/racial/champion_racial", function ( o )
 	{
+        local create = o.create;
+        o.create = function()
+        {
+            this.m.IsHidden = true;
+        }
+
 		o.onUpdate = function ( _properties )
 		{
             local actor = this.getContainer().getActor();
@@ -167,6 +173,10 @@ local gt = getroottable();
             return this.m.EL_NPCLevel;
         }
 
+        o.getLevel <- function() {
+            return this.m.EL_NPCLevel;
+        }
+
         o.EL_resetOtherStates <- function() {}
 
 		local onInit = o.onInit;
@@ -187,6 +197,7 @@ local gt = getroottable();
         }
 
         o.EL_bulidNPCPropertiesByLevel <- function( _EL_npcLevel ) {
+            this.m.Skills.add(this.new("scripts/skills/el_racial/el_info_display_racial"));
             this.m.EL_NPCLevel = _EL_npcLevel;
             local level_ups = _EL_npcLevel - this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset;
             if(level_ups < 0) {
@@ -1727,7 +1738,6 @@ local gt = getroottable();
         else if(_EL_level < this.Const.EL_NPC.EL_Troop.MinLevel) {
             _EL_level = this.Const.EL_NPC.EL_Troop.MinLevel;
         }
-
         if (_EL_rank != 0)
         {
             e.makeMiniboss();
@@ -1830,7 +1840,6 @@ local gt = getroottable();
         else if(_EL_level < this.Const.EL_NPC.EL_Troop.MinLevel) {
             _EL_level = this.Const.EL_NPC.EL_Troop.MinLevel;
         }
-
         if (_EL_rank != 0)
         {
             e.makeMiniboss();

@@ -645,7 +645,7 @@ gt.Const.EL_NPC <- {
                 AttackChance = [20, 40, 100]
             },
             Revenge = {
-                DamageMultPurStack = [0.02, 0.04, 0.1],
+                DamageMultPurStack = [0.04, 0.08, 0.2],
             },
             SelfDestruct = {
                 DamageBase = 100,
@@ -653,7 +653,7 @@ gt.Const.EL_NPC <- {
                 DamageRate = [0.2, 0.4, 1],
                 WeaponShieldDamageRate = [0.1, 0.2, 0.5],
                 DamageDecayRatePurTile = 0.5,
-                MaxDistance = 3
+                MaxDistance = 2
             },
             Tank = {
                 HitpointsMult = [1.4, 1.8, 3],
