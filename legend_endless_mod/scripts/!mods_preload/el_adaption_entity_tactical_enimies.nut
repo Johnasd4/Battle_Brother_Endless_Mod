@@ -115,13 +115,13 @@ local gt = getroottable();
             hitInfo.BodyDamageMult = 1.0;
             hitInfo.FatalityChanceMult = 0.0;
             this.onDamageReceived(this, null, hitInfo);
-            ++EL_TentacleDestroyedNum;
+            ++this.m.EL_TentacleDestroyedNum;
             if (!this.isAlive() || this.isDying())
             {
                 return;
             }
 
-            for( local numTentacles = 15; this.m.Tentacles.len() < numTentacles;  )
+            for( local numTentacles = 8; this.m.Tentacles.len() < numTentacles;  )
             {
                 local mapSize = this.Tactical.getMapSize();
                 local myTile = this.getTile();
@@ -211,7 +211,7 @@ local gt = getroottable();
             this.m.Skills.add(this.new("scripts/skills/perks/perk_legend_poison_immunity"));
             local myTile = this.getTile();
 
-            for( local i = 0; i < 15; i = i )
+            for( local i = 0; i < 8; i = i )
             {
                 local mapSize = this.Tactical.getMapSize();
 
