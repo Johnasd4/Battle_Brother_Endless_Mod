@@ -154,7 +154,7 @@ WorldTownScreenShopDialogModule.prototype.EL_upgradeItem = function(_itemIdx)
 	var self = this;
 	this.EL_notifyBackendUpgradeItem(_itemIdx, function(_result)
 	{
-		if(_result.Item != null)
+		if(_result.Item != undefined)
 		{
 			self.updateSlotItem(WorldTownScreenShop.ItemOwner.Stash, self.mStashSlots, _result.Item, _itemIdx, WorldTownScreenShop.ItemFlag.Updated);
 		}
@@ -168,7 +168,7 @@ WorldTownScreenShopDialogModule.prototype.EL_recraftItem = function(_itemIdx)
 	var self = this;
 	this.EL_notifyBackendRecraftItem(_itemIdx, function(_result)
 	{
-		if(_result.Item != null)
+		if(_result.Item != undefined)
 		{
 			self.updateSlotItem(WorldTownScreenShop.ItemOwner.Stash, self.mStashSlots, _result.Item, _itemIdx, WorldTownScreenShop.ItemFlag.Updated);
 		}

@@ -378,7 +378,7 @@ local gt = getroottable();
 			percent = (this.m.Condition * 1.0)/ this.m.ConditionMax;
 			if(this.m.EL_Level == -1)
 			{
-				this.m.EL_RankLevel += _EL_rankLevel;
+				this.m.EL_RankLevel = this.Math.min(this.m.EL_RankLevel + _EL_rankLevel, 4);
 				this.m.EL_Level = this.Math.min(this.Const.EL_Item.MaxLevel, EL_level);
 				local entryCount = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_Entry.EntryNum.OneHanded[this.m.EL_RankLevel] : this.Const.EL_Weapon.EL_Entry.EntryNum.TwoHanded[this.m.EL_RankLevel];
         		EL_init();

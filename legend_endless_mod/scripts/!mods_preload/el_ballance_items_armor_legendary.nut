@@ -4,7 +4,7 @@ local gt = getroottable();
 ::mods_queue(null, "el_player_npc", function ()
 {
 
-	::mods_hookNewObject("items/armor/legendary/armor_of_davkul", function(o){
+	::mods_hookExactClass("items/armor/legendary/armor_of_davkul", function(o){
 
         local create = o.create;
         o.create = function()
@@ -33,7 +33,7 @@ local gt = getroottable();
 
     });
 
-	::mods_hookNewObject("items/armor/legendary/emperors_armor_fake", function(o){
+	::mods_hookExactClass("items/armor/legendary/emperors_armor_fake", function(o){
 
         o.getTooltip = function()
         {
@@ -66,7 +66,7 @@ local gt = getroottable();
 
     });
 
-	::mods_hookNewObject("items/armor/legendary/emperors_armor", function(o){
+	::mods_hookExactClass("items/armor/legendary/emperors_armor", function(o){
 
         local create = o.create;
         o.create = function()
@@ -107,7 +107,7 @@ local gt = getroottable();
     });
 
 
-    ::mods_hookNewObject("items/armor/legendary/ijirok_armor", function(o){
+    ::mods_hookExactClass("items/armor/legendary/ijirok_armor", function(o){
 
         local create = o.create;
         o.create = function()
@@ -152,15 +152,7 @@ local gt = getroottable();
 
     });
 
-    ::mods_hookNewObject("items/armor/legendary/legend_mountain_armor", function(o){
-
-        local create = o.create;
-        o.create = function()
-        {
-            create();
-            this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
-        }
-
+    ::mods_hookExactClass("items/armor/legendary/legend_mountain_armor", function(o){
 
         o.getTooltip = function()
         {
@@ -199,7 +191,7 @@ local gt = getroottable();
 
     });
 
-    ::mods_hookNewObject("items/armor/legendary/legend_skin_armor", function(o){
+    ::mods_hookExactClass("items/armor/legendary/legend_skin_armor", function(o){
 
         local create = o.create;
         o.create = function()

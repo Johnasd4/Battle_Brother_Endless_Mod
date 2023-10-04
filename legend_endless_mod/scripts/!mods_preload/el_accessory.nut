@@ -203,7 +203,7 @@ local gt = getroottable();
 				if(this.m.EL_Level == -1)
 				{
 					EL_init();
-					this.m.EL_RankLevel += _EL_rankLevel;
+					this.m.EL_RankLevel = this.Math.min(this.m.EL_RankLevel + _EL_rankLevel, 3);
 					this.m.EL_Level = this.Math.min(this.Const.EL_Item.MaxLevel, EL_level);
 					this.m.EL_CurrentLevel = this.m.EL_Level;
 					EL_updateRankLevelProperties();

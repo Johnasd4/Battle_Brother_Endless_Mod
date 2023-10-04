@@ -4,6 +4,80 @@ local gt = getroottable();
 ::mods_queue(null, "el_player_npc", function ()
 {
 
+
+	::mods_hookExactClass("skills/actives/legend_field_repairs", function(o){
+
+        o.getTooltip = function()
+        {
+            local ret = this.getDefaultUtilityTooltip();
+            ret.push({
+                id = 6,
+                type = "text",
+                icon = "ui/icons/vision.png",
+                text = "Has a range of [color=" + this.Const.UI.Color.PositiveValue + "]" + this.m.MaxRange + "[/color]."
+            });
+            ret.push({
+                id = 7,
+                type = "text",
+                icon = "ui/icons/asset_money.png",
+                text = "You have [color=" + this.Const.UI.Color.PositiveValue + "]" + this.Math.floor(this.World.Assets.getArmorParts()) + "[/color] tools."
+            });
+            local combat_level = this.getContainer().getActor().EL_getCombatLevel();
+            local max_repairs = this.Math.floor(this.World.Assets.getArmorParts() * 5 * (1 + combat_level * 0.04));
+            ret.push({
+                id = 8,
+                type = "text",
+                icon = "ui/icons/asset_money.png",
+                text = "You can repair max [color=" + this.Const.UI.Color.PositiveValue + "]" + max_repairs + "[/color] points of armor."
+            });
+            return ret;
+        }
+
+
+        o.onUse = function( _user, _targetTile )
+        {
+            local target = _targetTile.getEntity();
+            local head = target.getHeadItem();
+            local headArmor = head == null ? 0 : head.getArmor();
+            local maxHeadArmor = head == null ? 0 : head.getArmorMax();
+            local body = target.getBodyItem();
+            local bodyArmor = body == null ? 0 : body.getArmor();
+            local maxBodyArmor = body == null ? 0 : body.getArmorMax();
+            local combat_level = this.getContainer().getActor().EL_getCombatLevel();
+            local cost = 0;
+            local max_cost = this.Math.min(this.Math.floor(this.m.MaxTools * (1 + combat_level * 0.04)), this.Math.floor(this.World.Assets.getArmorParts()));
+
+            for( ; cost < max_cost; ++cost )
+            {
+                if (headArmor >= bodyArmor && maxBodyArmor != bodyArmor)
+                {
+                    bodyArmor = this.Math.minf(maxBodyArmor, bodyArmor + this.m.RepairPerTool);
+                    continue;
+                }
+                else if(headArmor < bodyArmor && maxHeadArmor != headArmor)
+                {
+                    headArmor = this.Math.minf(maxHeadArmor, headArmor + this.m.RepairPerTool);
+                    continue;
+                }
+                else if(maxBodyArmor != bodyArmor) {
+                    bodyArmor = this.Math.minf(maxBodyArmor, bodyArmor + this.m.RepairPerTool);
+                    continue;
+                }
+                else if(maxHeadArmor != headArmor) {
+                    headArmor = this.Math.minf(maxHeadArmor, headArmor + this.m.RepairPerTool);
+                    continue;
+                }
+                break;
+            }
+            body.setArmor(bodyArmor);
+            head.setArmor(headArmor);
+            target.setDirty(true);
+            this.World.Assets.addArmorParts(cost * -1);
+        }
+
+	});
+
+
 	::mods_hookExactClass("skills/actives/legend_spawn_skill", function(o){
 
         o.onUse = function( _user, _targetTile )

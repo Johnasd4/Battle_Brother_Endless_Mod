@@ -4,7 +4,7 @@ local gt = getroottable();
 ::mods_queue(null, "el_player_npc", function ()
 {
 
-	::mods_hookNewObject("items/tools/player_banner", function(o){
+	::mods_hookExactClass("items/tools/player_banner", function(o){
 
         o.getTooltip = function()
         {

@@ -177,7 +177,7 @@ local gt = getroottable();
 			local percent = (this.m.Condition * 1.0)/ this.m.ConditionMax;
 			if(this.m.EL_Level == -1)
 			{
-				this.m.EL_RankLevel += _EL_rankLevel;
+				this.m.EL_RankLevel = this.Math.min(this.m.EL_RankLevel + _EL_rankLevel, 4);
 				this.m.EL_Level = this.Math.min(this.Const.EL_Item.MaxLevel, EL_level);
 				EL_init();
 				EL_updateRankLevelProperties();
@@ -500,7 +500,7 @@ local gt = getroottable();
 			local percent = (this.m.Condition * 1.0)/ this.m.ConditionMax;
 			if(this.m.EL_Level == -1)
 			{
-				this.m.EL_RankLevel += _EL_rankLevel;
+				this.m.EL_RankLevel = this.Math.min(this.m.EL_RankLevel + _EL_rankLevel, 4);
 				this.m.EL_Level = this.Math.min(this.Const.EL_Item.MaxLevel, EL_level);
 				EL_init();
 				EL_updateRankLevelProperties();
@@ -907,7 +907,7 @@ local gt = getroottable();
 			local percent = (this.m.Condition * 1.0)/ this.m.ConditionMax;
 			if(this.m.EL_Level == -1)
 			{
-				this.m.EL_RankLevel += _EL_rankLevel;
+				this.m.EL_RankLevel = this.Math.min(this.m.EL_RankLevel + _EL_rankLevel, 4);
 				this.m.EL_Level = this.Math.min(this.Const.EL_Item.MaxLevel, EL_level);
 				EL_init();
 				EL_updateRankLevelProperties();

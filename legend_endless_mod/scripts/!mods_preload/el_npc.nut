@@ -9,6 +9,7 @@ local gt = getroottable();
         local create = o.create;
         o.create = function()
         {
+            create();
             this.m.IsHidden = true;
         }
 
@@ -198,8 +199,8 @@ local gt = getroottable();
 
         o.EL_bulidNPCPropertiesByLevel <- function( _EL_npcLevel ) {
             this.m.Skills.add(this.new("scripts/skills/el_racial/el_info_display_racial"));
-            this.m.EL_NPCLevel = _EL_npcLevel;
-            local level_ups = _EL_npcLevel - this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset;
+            this.m.EL_NPCLevel = this.Math.min(_EL_npcLevel, this.Const.EL_NPC.EL_LevelUp.MaxPropertiesLevel);
+            local level_ups = this.m.EL_NPCLevel - this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset;
             if(level_ups < 0) {
                 level_ups = 0;
             }
@@ -361,6 +362,7 @@ local gt = getroottable();
         {
             if(!this.m.EL_FinishGenerate) {
                 this.m.EL_FinishGenerate = true;
+                o.m.EL_TempTroops = [];
             }
             return removeTroop(_t);
 		}
@@ -383,6 +385,7 @@ local gt = getroottable();
         {
             if(!this.m.EL_FinishGenerate) {
                 this.m.EL_FinishGenerate = true;
+                o.m.EL_TempTroops = [];
             }
             local entities = [];
             local champions = [];

@@ -4,7 +4,7 @@ local gt = getroottable();
 ::mods_queue(null, "el_player_npc", function ()
 {
 
-	::mods_hookNewObject("items/legend_armor/runes/legend_rune_safety", function(o){
+	::mods_hookExactClass("items/legend_armor/runes/legend_rune_safety", function(o){
 
         o.getTooltip = function()
         {

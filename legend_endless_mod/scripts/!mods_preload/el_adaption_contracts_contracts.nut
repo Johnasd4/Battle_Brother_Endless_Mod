@@ -654,7 +654,7 @@ local gt = getroottable();
                             //5
                             while(temp_level > 0) {
                                 foreach(troop in party.getTroops()) {
-                                    troop.EL_ExtraCombatLevel += 1;
+                                    troop.EL_ExtraCombatLevel += 5;
                                 }
                                 --temp_level;
                             }

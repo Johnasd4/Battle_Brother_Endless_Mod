@@ -4,7 +4,7 @@ local gt = getroottable();
 ::mods_queue(null, "el_player_npc", function ()
 {
 
-	::mods_hookNewObject("items/armor_upgrades/legend_hexe_leader_cloak_upgrade", function(o){
+	::mods_hookExactClass("items/armor_upgrades/legend_hexe_leader_cloak_upgrade", function(o){
 
         o.getTooltip = function()
         {

@@ -67,14 +67,16 @@ this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
             head_armor_hit_info.Injuries = this.Const.Injury.BurningHead;
             affect_targets[i].onDamageReceived(this.getContainer().getActor(), this, head_armor_hit_info);
 
-            local body_hit_info = clone this.Const.Tactical.HitInfo;
-            body_hit_info.DamageRegular = final_damage;
-            body_hit_info.DamageDirect = 1;
-            body_hit_info.BodyPart = this.Const.BodyPart.Body;
-            body_hit_info.BodyDamageMult = 1.0;
-            body_hit_info.FatalityChanceMult = 0.0;
-            body_hit_info.Injuries = this.Const.Injury.BurningBody;
-            affect_targets[i].onDamageReceived(this.getContainer().getActor(), this, body_hit_info);
+            if(affect_targets[i]!= null && !affect_targets[i].isDying() && affect_targets[i].isAlive()) {
+                local body_hit_info = clone this.Const.Tactical.HitInfo;
+                body_hit_info.DamageRegular = final_damage;
+                body_hit_info.DamageDirect = 1;
+                body_hit_info.BodyPart = this.Const.BodyPart.Body;
+                body_hit_info.BodyDamageMult = 1.0;
+                body_hit_info.FatalityChanceMult = 0.0;
+                body_hit_info.Injuries = this.Const.Injury.BurningBody;
+                affect_targets[i].onDamageReceived(this.getContainer().getActor(), this, body_hit_info);
+            }
 
             if(affect_targets[i]!= null && !affect_targets[i].isDying() && affect_targets[i].isAlive()) {
                 local head_hit_info = clone this.Const.Tactical.HitInfo;

@@ -4,7 +4,7 @@ local gt = getroottable();
 ::mods_queue(null, "el_player_npc", function ()
 {
 
-	::mods_hookNewObject("items/weapons/legendary/legend_mage_swordstaff", function(o){
+	::mods_hookExactClass("items/weapons/legendary/legend_mage_swordstaff", function(o){
 
         local create = o.create;
         o.create = function()
@@ -15,7 +15,7 @@ local gt = getroottable();
 
     });
 
-	::mods_hookNewObject("items/weapons/legendary/lightbringer_sword", function(o){
+	::mods_hookExactClass("items/weapons/legendary/lightbringer_sword", function(o){
 
         local create = o.create;
         o.create = function()
@@ -27,7 +27,7 @@ local gt = getroottable();
     });
 
 
-	::mods_hookNewObject("items/weapons/legendary/obsidian_dagger", function(o){
+	::mods_hookExactClass("items/weapons/legendary/obsidian_dagger", function(o){
 
         local create = o.create;
         o.create = function()

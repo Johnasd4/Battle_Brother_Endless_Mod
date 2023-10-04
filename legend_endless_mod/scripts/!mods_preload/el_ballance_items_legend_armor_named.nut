@@ -4,7 +4,7 @@ local gt = getroottable();
 ::mods_queue(null, "el_player_npc", function ()
 {
 
-	::mods_hookNewObject("items/legend_armor/named/legend_armor_cloak_emperors", function(o){
+	::mods_hookExactClass("items/legend_armor/named/legend_armor_cloak_emperors", function(o){
 
         o.getTooltip = function()
         {
@@ -36,7 +36,7 @@ local gt = getroottable();
 
     });
 
-	::mods_hookNewObject("items/legend_armor/named/legend_armor_cloak_rich", function(o){
+	::mods_hookExactClass("items/legend_armor/named/legend_armor_cloak_rich", function(o){
 
         o.getTooltip = function()
         {
@@ -68,7 +68,7 @@ local gt = getroottable();
 
     });
 
-	::mods_hookNewObject("items/legend_armor/named/legend_armor_named_tabard", function(o){
+	::mods_hookExactClass("items/legend_armor/named/legend_armor_named_tabard", function(o){
 
         o.getTooltip = function()
         {

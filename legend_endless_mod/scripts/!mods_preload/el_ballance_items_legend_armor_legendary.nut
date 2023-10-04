@@ -4,14 +4,7 @@ local gt = getroottable();
 ::mods_queue(null, "el_player_npc", function ()
 {
 
-	::mods_hookNewObject("items/legend_armor/legendary/legend_armor_mountain_named", function(o){
-
-        local create = o.create;
-        o.create = function()
-        {
-            create();
-            this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
-        }
+	::mods_hookExactClass("items/legend_armor/legendary/legend_armor_mountain_named", function(o){
 
 
         o.getTooltip = function()
@@ -51,15 +44,7 @@ local gt = getroottable();
 
     });
 
-	::mods_hookNewObject("items/legend_armor/legendary/legend_armor_mountain", function(o){
-
-        local create = o.create;
-        o.create = function()
-        {
-            create();
-            this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
-        }
-
+	::mods_hookExactClass("items/legend_armor/legendary/legend_armor_mountain", function(o){
 
         o.getTooltip = function()
         {
@@ -98,11 +83,12 @@ local gt = getroottable();
 
     });
 
-	::mods_hookNewObject("items/legend_armor/legendary/legend_armor_named_warlock_cloak", function(o){
+	::mods_hookExactClass("items/legend_armor/legendary/legend_armor_named_warlock_cloak", function(o){
 
         local create = o.create;
         o.create = function()
         {
+            this.logInfo("legend_armor_named_warlock_cloak create");
             create();
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
@@ -110,7 +96,7 @@ local gt = getroottable();
 
         o.getTooltip = function()
         {
-            local result = this.named_armor.getTooltip();
+            local result = this.legend_named_armor.getTooltip();
             result.push({
                 id = 6,
                 type = "text",
@@ -156,11 +142,12 @@ local gt = getroottable();
 
 
 
-    ::mods_hookNewObject("items/legend_armor/legendary/legend_armor_of_davkul", function(o){
+    ::mods_hookExactClass("items/legend_armor/legendary/legend_armor_of_davkul", function(o){
 
         local create = o.create;
         o.create = function()
         {
+            this.logInfo("legend_armor_of_davkul create");
             create();
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
@@ -186,7 +173,7 @@ local gt = getroottable();
 
     });
 
-	::mods_hookNewObject("items/legend_armor/legendary/legend_emperors_armor_fake", function(o){
+	::mods_hookExactClass("items/legend_armor/legendary/legend_emperors_armor_fake", function(o){
 
         o.getTooltip = function()
         {
@@ -219,11 +206,12 @@ local gt = getroottable();
 
     });
 
-	::mods_hookNewObject("items/legend_armor/legendary/legend_emperors_armor", function(o){
+	::mods_hookExactClass("items/legend_armor/legendary/legend_emperors_armor", function(o){
 
         local create = o.create;
         o.create = function()
         {
+            this.logInfo("legend_emperors_armor create");
             create();
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
@@ -260,11 +248,12 @@ local gt = getroottable();
 
     });
 
-    ::mods_hookNewObject("items/legend_armor/legendary/legend_ijirok_armor", function(o){
+    ::mods_hookExactClass("items/legend_armor/legendary/legend_ijirok_armor", function(o){
 
         local create = o.create;
         o.create = function()
         {
+            this.logInfo("legend_ijirok_armor create");
             create();
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
@@ -307,11 +296,12 @@ local gt = getroottable();
     });
 
 
-    ::mods_hookNewObject("items/legend_armor/legendary/legend_skin_armor", function(o){
+    ::mods_hookExactClass("items/legend_armor/legendary/legend_skin_armor", function(o){
 
         local create = o.create;
         o.create = function()
         {
+            this.logInfo("legend_skin_armor create");
             create();
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }

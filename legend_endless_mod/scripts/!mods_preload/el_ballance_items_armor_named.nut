@@ -4,7 +4,7 @@ local gt = getroottable();
 ::mods_queue(null, "el_player_npc", function ()
 {
 
-	::mods_hookNewObject("items/armor/named/legend_named_warlock_cloak", function(o){
+	::mods_hookExactClass("items/armor/named/legend_named_warlock_cloak", function(o){
 
         o.getTooltip = function()
         {

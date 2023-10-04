@@ -49,6 +49,21 @@ this.el_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario
 		this.World.Flags.set("HasLegendCampTraining", true);
 		this.World.Assets.getStash().add(this.new("scripts/items/supplies/smoked_ham_item"));
 		this.World.Assets.getStash().add(this.new("scripts/items/el_accessory/el_arena_champion_item"));
+		this.World.Assets.getStash().add(this.new("scripts/items/el_accessory/el_arena_champion_item"));
+		this.World.Assets.getStash().add(this.new("scripts/items/el_accessory/el_arena_champion_item"));
+		this.World.Assets.getStash().add(this.new("scripts/items/el_accessory/el_arena_champion_item"));
+		this.World.Assets.getStash().add(this.new("scripts/items/el_accessory/el_arena_champion_item"));
+		this.World.Assets.getStash().add(this.new("scripts/items/legend_armor/armor/legend_armor_hexe_leader_cloak_upgrade"));
+		this.World.Assets.getStash().add(this.new("scripts/items/legend_armor/legendary/legend_armor_mountain_named"));
+		this.World.Assets.getStash().add(this.new("scripts/items/legend_armor/legendary/legend_armor_mountain"));
+		this.World.Assets.getStash().add(this.new("scripts/items/legend_armor/legendary/legend_armor_named_warlock_cloak"));
+		this.World.Assets.getStash().add(this.new("scripts/items/legend_armor/legendary/legend_armor_of_davkul"));
+		this.World.Assets.getStash().add(this.new("scripts/items/legend_armor/legendary/legend_emperors_armor"));
+		this.World.Assets.getStash().add(this.new("scripts/items/legend_armor/legendary/legend_ijirok_armor"));
+		this.World.Assets.getStash().add(this.new("scripts/items/legend_armor/legendary/legend_skin_armor"));
+
+
+
 		this.World.Assets.m.Money = 999999;
 		this.World.Assets.m.ArmorParts = 99;
 		this.World.Assets.m.Medicine = 99;
