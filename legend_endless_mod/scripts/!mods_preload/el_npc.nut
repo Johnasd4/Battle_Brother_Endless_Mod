@@ -217,6 +217,7 @@ local gt = getroottable();
             this.m.XP *= this.Const.EL_NPC.EL_Champion.XP.Mult[this.m.EL_RankLevel];
 
             this.m.XP *= this.Math.pow(this.Const.EL_NPC.EL_LevelUp.XPFactor, this.Math.min(level_ups, this.Const.EL_NPC.EL_LevelUp.MaxXPLevel));
+            this.m.XP = this.Math.floor(this.m.XP * this.Math.max(1, 1 + (this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldDifficultyChangeEvent")] - 1) * 0.5));
         }
 
         o.EL_ballanceNPCPropertiesAfterAddingEquipment <- function() {
@@ -272,8 +273,11 @@ local gt = getroottable();
                 else {
                     rank = this.EL_getRankLevel();
                 }
-                local num_1 = this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.CurrentRankMult * this.Math.pow(1 + this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelMult * level, this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropPowFactor));
-                local num_2 = this.Math.floor(this.Const.EL_NPC.EL_Troop.EquipmentEssence.NextRankMult * this.Math.pow(1 + this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelMult * level, this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropPowFactor));
+                local num_1 = this.Const.EL_NPC.EL_Troop.EquipmentEssence.CurrentRankMult * this.Math.pow(1 + this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelMult * level, this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropPowFactor);
+                local num_2 = this.Const.EL_NPC.EL_Troop.EquipmentEssence.NextRankMult * this.Math.pow(1 + this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelMult * level, this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropPowFactor);
+                num_1 = this.Math.floor(num_1 * this.Math.max(1, 1 + (this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldDifficultyChangeEvent")] - 1) * 0.5));
+                num_2 = this.Math.floor(num_2 * this.Math.max(1, 1 + (this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldDifficultyChangeEvent")] - 1) * 0.5));
+
                 if (this.m.WorldTroop != null && ("Party" in this.m.WorldTroop) && this.m.WorldTroop.Party != null && !this.m.WorldTroop.Party.isNull())
                 {
                     this.m.WorldTroop.Party.EL_addEquipmentEssence(rank, num_1);

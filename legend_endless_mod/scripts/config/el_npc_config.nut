@@ -100,8 +100,8 @@ gt.Const.EL_NPC <- {
         EliteUnitChangeMult = 2.5
 
         EquipmentEssence = {
-            CurrentRankMult = 1,
-            NextRankMult = 0.34,
+            CurrentRankMult = 5,
+            NextRankMult = 1,
             DropLevelMult = 0.04,
             DropPowFactor = 2
         }

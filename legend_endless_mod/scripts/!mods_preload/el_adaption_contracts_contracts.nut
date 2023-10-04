@@ -824,33 +824,31 @@ local gt = getroottable();
                             break;
                         }
                     }
+                    local xp_level = this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1));
+                    local core_xp = this.Math.floor(this.Const.LevelXP[xp_level] - this.Const.LevelXP[xp_level - 1] * this.Math.max(1, 1 + (this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldDifficultyChangeEvent")] - 1) * 0.5));
                     switch(this.World.Assets.m.EL_ArenaLevel)
                     {
                         case 0:
                             local reward_item = this.new("scripts/items/el_misc/el_core_rank_0_item");
-                            local xp_level = this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1));
-                            reward_item.EL_generateCoreXPByActorXP(this.Math.floor(this.Const.LevelXP[xp_level] - this.Const.LevelXP[xp_level - 1]));
+                            reward_item.EL_generateCoreXPByActorXP(core_xp);
                             this.World.Assets.getStash().makeEmptySlots(1);
                             this.World.Assets.getStash().add(reward_item);
                             break;
                         case 1:
                             local reward_item = this.new("scripts/items/el_misc/el_core_rank_1_item");
-                            local xp_level = this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1));
-                            reward_item.EL_generateCoreXPByActorXP(this.Math.floor(this.Const.LevelXP[xp_level] - this.Const.LevelXP[xp_level - 1]));
+                            reward_item.EL_generateCoreXPByActorXP(core_xp);
                             this.World.Assets.getStash().makeEmptySlots(1);
                             this.World.Assets.getStash().add(reward_item);
                             break;
                         case 2:
                             local reward_item = this.new("scripts/items/el_misc/el_core_rank_2_item");
-                            local xp_level = this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1));
-                            reward_item.EL_generateCoreXPByActorXP(this.Math.floor(this.Const.LevelXP[xp_level] - this.Const.LevelXP[xp_level - 1]));
+                            reward_item.EL_generateCoreXPByActorXP(core_xp);
                             this.World.Assets.getStash().makeEmptySlots(1);
                             this.World.Assets.getStash().add(reward_item);
                             break;
                         case 3:
                             local reward_item = this.new("scripts/items/el_misc/el_core_rank_3_item");
-                            local xp_level = this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1));
-                            reward_item.EL_generateCoreXPByActorXP(this.Math.floor(this.Const.LevelXP[xp_level] - this.Const.LevelXP[xp_level - 1]));
+                            reward_item.EL_generateCoreXPByActorXP(core_xp);
                             this.World.Assets.getStash().makeEmptySlots(1);
                             this.World.Assets.getStash().add(reward_item);
                             break;
@@ -898,8 +896,7 @@ local gt = getroottable();
                                 for(local i = 0; i < 1; ++i)
                                 {
                                     local reward_item = this.new("scripts/items/el_misc/el_core_rank_4_item");
-                                    local xp_level = this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1));
-                                    reward_item.EL_generateCoreXPByActorXP(this.Math.floor(this.Const.LevelXP[xp_level] - this.Const.LevelXP[xp_level - 1]));
+                                    reward_item.EL_generateCoreXPByActorXP(core_xp);
                                     this.World.Assets.getStash().makeEmptySlots(1);
                                     this.World.Assets.getStash().add(reward_item);
                                 }
@@ -910,8 +907,7 @@ local gt = getroottable();
                             for(local i = 0; i < this.World.Assets.m.EL_ArenaLevel - 3; ++i)
                             {
                                 local reward_item = this.new("scripts/items/el_misc/el_core_rank_4_item");
-                                local xp_level = this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1));
-                                reward_item.EL_generateCoreXPByActorXP(this.Math.floor(this.Const.LevelXP[xp_level] - this.Const.LevelXP[xp_level - 1]));
+                                reward_item.EL_generateCoreXPByActorXP(core_xp);
                                 this.World.Assets.getStash().makeEmptySlots(1);
                                 this.World.Assets.getStash().add(reward_item);
                             }

@@ -117,7 +117,9 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
                    !skill.isType(this.Const.SkillType.Background) &&
                    !skill.isType(this.Const.SkillType.Alert) &&
                    !(skill.EL_isNPCBuff()) &&
-                   skill.getID() != "effects.battle_standard")
+                   skill.getID() != "effects.battle_standard" &&
+                   skill.getID() != "effects.ptr_armor_fatigue_recovery"
+                )
                 {
                     skills.remove(skill);
                 }

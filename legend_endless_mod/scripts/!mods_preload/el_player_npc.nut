@@ -23,6 +23,11 @@ local gt = getroottable();
 			//this.logInfo("this.EL_RankLevel : " + this.m.EL_RankLevel);
 		}
 
+		local getFatigueMax = o.getFatigueMax;
+		o.getFatigueMax = function() {
+			return this.Math.max(0, getFatigueMax());
+		}
+
 		local onTurnStart = o.onTurnStart;
 		o.onTurnStart = function() {
 			onTurnStart();

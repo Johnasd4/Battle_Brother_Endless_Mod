@@ -129,7 +129,7 @@ local gt = getroottable();
 						item.EL_addRankLevel();
 					}
 				}
-				if(rank_level == 2 && item.isItemType(this.Const.Items.ItemType.Accessory))
+				if(rank_level == 2 && !item.isItemType(this.Const.Items.ItemType.Accessory))
 				{
 					item.EL_addRankLevel();
 				}
@@ -193,35 +193,75 @@ local gt = getroottable();
 		}
 	});
 
-// 	// ::mods_hookNewObject("items/item_container", function(o) {
-// 	// 	//while(!("addToBag" in o)) o = o[o.SuperName];
-//     //     local addToBag = o.addToBag;
-//     //     o.addToBag = function( _item, _slot = -1, _force = false )
-//     //     {
-//     //         if(_item != null)
-//     //         {
-//     //             local EL_worldLevel = this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.EL_Item.MaxLevel);
-//     //             local level = this.Math.rand(this.Math.max(0 ,EL_worldLevel - this.Const.EL_Item_Other.MinLevelInEventAndCraft), EL_worldLevel + this.Const.EL_Item_Other.MaxLevelInEventAndCraft);
-//     //             local random = this.Math.rand(1, 1000);
-//     //             if(random <= this.Const.EL_Shop.EL_ItemRankUpOnceChance.EL_getChance(EL_worldLevel))
-//     //             {
-//     //                 _item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Premium, level);
-//     //                 //this.logInfo("物品升阶");
-//     //             }
-//     //             else if(random > this.Const.EL_Shop.EL_ItemRankUpTwiceChance.EL_getChance(EL_worldLevel))
-//     //             {
-//     //                 _item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Fine, level);
-//     //                 //this.logInfo("物品升阶大成功");
-//     //             }
-//     //             else
-//     //             {
-//     //                 _item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
-//     //             }
-//     //         }
-//     //         //this.logInfo("item generate: LV"+_item.m.EL_Level+"rank:"+_Item.m.EL_RankLevel);
-//     //         addToBag( _item, _slot, _force );
-//     //     }
-// 	// });
+	::mods_hookNewObject("items/item_container", function(o) {
+
+		o.unequip = function( _item )
+		{
+
+			if (_item == null || _item == -1)
+			{
+				return false;
+			}
+
+			if (_item.getCurrentSlotType() == this.Const.ItemSlot.None || _item.getCurrentSlotType() == this.Const.ItemSlot.Bag)
+			{
+				this.logWarning("Attempted to unequip item " + _item.getName() + ", but is not equipped");
+				return false;
+			}
+			if(_item.getSlotType() == -1) {
+				this.logWarning("attempt to unequip none slot item " + _item.getID());
+				return false;
+			}
+
+			if (_item != null && _item != -1 && _item.getCurrentSlotType() != ::Const.ItemSlot.None && _item.getCurrentSlotType() != ::Const.ItemSlot.Bag && !::MSU.isNull(this.m.Actor) && this.m.Actor.isAlive())
+			{
+				foreach (item in this.m.Items[_item.getSlotType()])
+				{
+					if (item == _item)
+					{
+						this.m.Actor.getSkills().onUnequip(_item);
+						break;
+					}
+				}
+			}
+
+			for( local i = 0; i < this.m.Items[_item.getSlotType()].len(); i = i )
+			{
+				if (this.m.Items[_item.getSlotType()][i] == _item)
+				{
+					_item.onUnequip();
+					_item.setContainer(null);
+					_item.setCurrentSlotType(this.Const.ItemSlot.None);
+					this.m.Items[_item.getSlotType()][i] = null;
+
+					if (_item.getBlockedSlotType() != null)
+					{
+						for( local i = 0; i < this.m.Items[_item.getBlockedSlotType()].len(); i = i )
+						{
+							if (this.m.Items[_item.getBlockedSlotType()][i] == -1)
+							{
+								this.m.Items[_item.getBlockedSlotType()][i] = null;
+								break;
+							}
+
+							i = ++i;
+						}
+					}
+
+					if (this.m.Actor != null && !this.m.Actor.isNull() && this.m.Actor.isAlive())
+					{
+						this.m.Actor.getSkills().update();
+					}
+
+					return true;
+				}
+
+				i = ++i;
+			}
+
+			return false;
+		}
+	});
 
     ::mods_hookClass("items/stash_container", function(o) {
 		//while(!("add" in o)) o = o[o.SuperName];

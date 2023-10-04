@@ -55,13 +55,13 @@ this.el_core_item <- this.inherit("scripts/items/trade/trading_good_item", {
 				xp_string = this.m.EL_XP;
 			}
 			else if(this.m.EL_XP < this.Math.pow(10, 6)) {
-				xp_string = this.Math.floor(this.m.EL_XP / this.Math.pow(10, 3)) + 'k';
+				xp_string = this.Math.floor(this.m.EL_XP / this.Math.pow(10, 3)) + "k";
 			}
 			else if(this.m.EL_XP < this.Math.pow(10, 9)) {
-				xp_string = this.Math.floor(this.m.EL_XP / this.Math.pow(10, 6)) + 'm';
+				xp_string = this.Math.floor(this.m.EL_XP / this.Math.pow(10, 6)) + "m";
 			}
 			else {
-				xp_string = this.Math.floor(this.m.EL_XP / this.Math.pow(10, 9)) + 'b';
+				xp_string = this.Math.floor(this.m.EL_XP / this.Math.pow(10, 9)) + "b";
 			}
 			result.push({
 				id = 10,

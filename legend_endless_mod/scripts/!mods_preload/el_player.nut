@@ -26,9 +26,8 @@ local gt = getroottable();
 			{
 				food = food * 2;
 			}
-
-			food = food - this.World.State.getPlayer().getFoodModifier();
 			food *= this.Const.EL_Player.EL_Champion.DailyFoodMult[this.m.EL_RankLevel];
+			food = this.Math.max(1, food - this.World.State.getPlayer().getFoodModifier());
 			return food;
 		};
 

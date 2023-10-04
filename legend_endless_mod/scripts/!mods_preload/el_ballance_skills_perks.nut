@@ -477,8 +477,8 @@ local gt = getroottable();
 			tooltip.push({
 				id = 6,
 				type = "hint",
-				text = "Armor weight between [color=" + this.Const.UI.Color.PositiveValue + "]" + (25 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color] ~ [color=" + this.Const.UI.Color.PositiveValue + "]" +
-					   (35 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color] best fit."
+				text = "Armor weight between [color=" + this.Const.UI.Color.PositiveValue + "]" + this.Math.floor(25 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color] ~ [color=" + this.Const.UI.Color.PositiveValue + "]" +
+					   this.Math.floor(35 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color] best fit."
 			});
 			return tooltip;
 		}
@@ -699,7 +699,7 @@ local gt = getroottable();
 			tooltip.push({
 				id = 6,
 				type = "hint",
-				text = "Armor weight below [color=" + this.Const.UI.Color.PositiveValue + "]" + (15 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color] best fit."
+				text = "Armor weight below [color=" + this.Const.UI.Color.PositiveValue + "]" + this.Math.floor(15 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color] best fit."
 			});
 			return tooltip;
 		}
@@ -875,6 +875,90 @@ local gt = getroottable();
 			}
 		}
 	});
+
+	::mods_hookNewObject("skills/perks/perk_ptr_utilitarian", function ( o )
+	{
+
+		o.getTooltip = function()
+		{
+			local tooltip = this.skill.getTooltip();
+			local fat = this.getTotalArmorFat();
+			local actor = this.getContainer().getActor();
+			local meleeSkillBonus = this.getMeleeSkillBonus(fat);
+			if (meleeSkillBonus > 0)
+			{
+				tooltip.push({
+					id = 10,
+					type = "text",
+					icon = "ui/icons/melee_skill.png",
+					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + meleeSkillBonus + "[/color] Melee Skill"
+				});
+			}
+			else if (meleeSkillBonus < 0)
+			{
+				tooltip.push({
+					id = 10,
+					type = "text",
+					icon = "ui/icons/melee_skill.png",
+					text = "[color=" + this.Const.UI.Color.NegativeValue + "]-" + meleeSkillBonus + "[/color] Melee Skill"
+				});
+			}
+
+			local fatReductionBonus = this.getFatigueReductionBonus(fat);
+			if (fatReductionBonus > 0)
+			{
+				tooltip.push({
+					id = 10,
+					type = "text",
+					icon = "ui/icons/fatigue.png",
+					text = "Skills build up [color=" + this.Const.UI.Color.PositiveValue + "]-" + fatReductionBonus + "%[/color] Fatigue"
+				});
+			}
+			else if (fatReductionBonus < 0)
+			{
+				tooltip.push({
+					id = 10,
+					type = "text",
+					icon = "ui/icons/melee_skill.png",
+					text = "Skills build up [color=" + this.Const.UI.Color.NegativeValue + "]+" + this.Math.abs(fatReductionBonus) + "%[/color] Fatigue"
+				});
+			}
+
+			local damageBonus = this.getDamageBonus(fat);
+			if (damageBonus > 0)
+			{
+				tooltip.push({
+					id = 10,
+					type = "text",
+					icon = "ui/icons/damage_dealt.png",
+					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + damageBonus + "%[/color] Melee Damage"
+				});
+			}
+			tooltip.push({
+				id = 6,
+				type = "hint",
+				text = "The limit weight is [color=" + this.Const.UI.Color.PositiveValue + "]" + this.Math.floor(15 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color]."
+			});
+			return tooltip;
+		}
+
+		o.onUpdate = function( _properties )
+		{
+			if (!this.isEnabled())
+			{
+				return;
+			}
+			this.m.PivotFat = this.Math.floor(15 * (1 + _properties.EL_CombatLevel * 0.04));
+			this.m.FatReductionMaxBonus = this.Math.floor(15 * (1 + _properties.EL_CombatLevel * 0.04));
+			local fat = this.getTotalArmorFat();
+
+			_properties.MeleeSkill += this.getMeleeSkillBonus(fat);
+			_properties.FatigueEffectMult *= 1.0 - this.getFatigueReductionBonus(fat) * 0.01;
+			_properties.MeleeDamageMult *= 1.0 + this.getDamageBonus(fat) * 0.01;
+		}
+	});
+
+
 
 	gt.Const.Strings.PerkDescription.PTRBulwark <- "\'Not much to be afraid of behind a suit of plate!\'\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• Resolve is increased by [color=" + this.Const.UI.Color.PositiveValue + "]1%[/color] of the combined current durability of head and body armor.\n• This bonus is [color=" + this.Const.UI.Color.PositiveValue + "]doubled[/color] against negative morale checks except mental attacks.";
 

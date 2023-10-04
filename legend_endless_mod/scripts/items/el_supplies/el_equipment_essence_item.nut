@@ -9,13 +9,13 @@ this.el_equipment_essence_item <- this.inherit("scripts/items/item", {
 			return this.m.EL_Amount;
 		}
 		else if(this.m.EL_Amount < this.Math.pow(10, 6)) {
-			return this.Math.floor(this.m.EL_Amount / this.Math.pow(10, 3)) + 'k';
+			return this.Math.floor(this.m.EL_Amount / this.Math.pow(10, 3)) + "k";
 		}
 		else if(this.m.EL_Amount < this.Math.pow(10, 9)) {
-			return this.Math.floor(this.m.EL_Amount / this.Math.pow(10, 6)) + 'm';
+			return this.Math.floor(this.m.EL_Amount / this.Math.pow(10, 6)) + "m";
 		}
 		else {
-			return this.Math.floor(this.m.EL_Amount / this.Math.pow(10, 9)) + 'b';
+			return this.Math.floor(this.m.EL_Amount / this.Math.pow(10, 9)) + "b";
 		}
 	}
 

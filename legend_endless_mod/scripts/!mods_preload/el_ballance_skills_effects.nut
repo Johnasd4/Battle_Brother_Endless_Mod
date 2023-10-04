@@ -1148,6 +1148,123 @@ local gt = getroottable();
 
 	});
 
+	::mods_hookNewObject("skills/effects/ptr_armor_fatigue_recovery_effect", function(o){
+
+        o.isHidden = function()
+        {
+            return false;
+        }
+
+        o.getTooltip = function()
+        {
+            local tooltip = this.skill.getTooltip();
+            local actor = this.getContainer().getActor();
+            local properties = actor.getCurrentProperties();
+            local armorFat = -1 * actor.getItems().getStaminaModifier([
+				::Const.ItemSlot.Body,
+				::Const.ItemSlot.Head
+			]);
+            local extra_movement_fatigue_cost = this.Math.floor((armorFat / (1.0 + actor.getLevel() * 0.04)) * 0.05 - 1);
+
+            local body_armor = 0;
+            local head_armor = 0;
+            local body_armor_max = 0;
+            local head_armor_max = 0;
+            local body = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
+            if(body != null) {
+                body_armor = body.getCondition();
+                body_armor_max = body.getConditionMax();
+            }
+            else {
+                body_armor = properties.Armor[this.Const.BodyPart.Body];
+                body_armor_max = properties.ArmorMax[this.Const.BodyPart.Body];
+            }
+
+            local head = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
+            if(head != null) {
+                head_armor = head.getCondition();
+                head_armor_max = head.getConditionMax();
+            }
+            else {
+                head_armor = properties.Armor[this.Const.BodyPart.Head];
+                head_armor_max = properties.ArmorMax[this.Const.BodyPart.Head];
+            }
+            local persent = 1;
+            if(head_armor + body_armor != 0) {
+                local persent = 1.0 * (head_armor + body_armor) / (1.0 * (head_armor_max + body_armor_max));
+            }
+            local damage_received_direct_mult = this.Math.maxf(0, 1 - (armorFat / (1.0 + actor.getLevel() * 0.04)) * 0.05 * 0.10 * persent);
+
+            if(extra_movement_fatigue_cost > 0) {
+                tooltip.push({
+                    id = 10,
+                    type = "text",
+                    icon = "ui/icons/fatigue.png",
+                    text = "[color=" + this.Const.UI.Color.NegativeValue + "]+" + extra_movement_fatigue_cost + "[/color] Fatigue built per tile traveled."
+                });
+            }
+            else if(extra_movement_fatigue_cost < 0) {
+                tooltip.push({
+                    id = 10,
+                    type = "text",
+                    icon = "ui/icons/fatigue.png",
+                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]-" + (-extra_movement_fatigue_cost) + "[/color] Fatigue built per tile traveled."
+                });
+            }
+            tooltip.push({
+                id = 10,
+                type = "text",
+                icon = "ui/icons/fatigue.png",
+                text = "Recieve [color=" + this.Const.UI.Color.PositiveValue + "]" + (this.Math.floor(damage_received_direct_mult * 100)) + "%[/color] hitpoints damage."
+            });
+            return tooltip;
+        }
+
+
+        o.onUpdate = function( _properties )
+        {
+            local actor = this.getContainer().getActor();
+            local armorFat = -1 * actor.getItems().getStaminaModifier([
+				::Const.ItemSlot.Body,
+				::Const.ItemSlot.Head
+			]);
+            local extra_movement_fatigue_cost = this.Math.floor((armorFat / (1.0 + actor.getLevel() * 0.04)) * 0.05 - 1);
+            _properties.MovementFatigueCostAdditional += extra_movement_fatigue_cost;
+
+            local body_armor = 0;
+            local head_armor = 0;
+            local body_armor_max = 0;
+            local head_armor_max = 0;
+            local body = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
+            if(body != null) {
+                body_armor = body.getCondition();
+                body_armor_max = body.getConditionMax();
+            }
+            else {
+                body_armor = _properties.Armor[this.Const.BodyPart.Body];
+                body_armor_max = _properties.ArmorMax[this.Const.BodyPart.Body];
+            }
+
+            local head = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
+            if(head != null) {
+                head_armor = head.getCondition();
+                head_armor_max = head.getConditionMax();
+            }
+            else {
+                head_armor = _properties.Armor[this.Const.BodyPart.Head];
+                head_armor_max = _properties.ArmorMax[this.Const.BodyPart.Head];
+            }
+            local persent = 1;
+            if(head_armor + body_armor != 0) {
+                local persent = 1.0 * (head_armor + body_armor) / (1.0 * (head_armor_max + body_armor_max));
+            }
+            local damage_received_direct_mult = this.Math.maxf(0, 1 - (armorFat / (1.0 + actor.getLevel() * 0.04)) * 0.05 * 0.10 * persent);
+            _properties.DamageReceivedDirectMult *= damage_received_direct_mult;
+        }
+
+	});
+
+
 	::mods_hookNewObject("skills/effects/ptr_arrow_to_the_knee_debuff_effect", function(o){
 
         o.getTooltip = function()

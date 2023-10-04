@@ -772,24 +772,22 @@ local gt = getroottable();
 		o.consumeAmmo = function()
 		{
 			local item = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+			local skills = this.getContainer().getActor().getSkills();
 			if(item != null)
 			{
 				foreach(entry in this.m.EL_Entrylist)
 				{
 					if(entry.getID() == "weapon_entry.el_save_ammo" && this.Math.rand(1, 1000) < this.m.EL_SaveAmmoChance * 10)
 					{
-						if (skills.hasSkill("entry.el_pursuit_of_wind") || skills.hasSkill("entry.el_eye_of_death") || skills.hasSkill("entry.el_gunfire_licks_the_heavens") || skills.hasSkill("entry.el_infinite_penetration"))
-						{
-						}
-						else
-						{
-							consumeAmmo();
-						}
 						return;
 					}
 				}
+				if (skills.hasSkill("entry.el_pursuit_of_wind") || skills.hasSkill("entry.el_eye_of_death") || skills.hasSkill("entry.el_gunfire_licks_the_heavens") || skills.hasSkill("entry.el_infinite_penetration"))
+				{
+					return;
+				}
+				consumeAmmo();
 			}
-
 		}
 	});
 });
