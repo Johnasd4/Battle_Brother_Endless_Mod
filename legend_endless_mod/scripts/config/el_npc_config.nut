@@ -654,7 +654,7 @@ gt.Const.EL_NPC <- {
                 DamageRate = [0.2, 0.4, 1],
                 WeaponShieldDamageRate = [0.1, 0.2, 0.5],
                 DamageDecayRatePurTile = 0.5,
-                MaxDistance = 2
+                MaxDistance = 1
             },
             Tank = {
                 HitpointsMult = [1.4, 1.8, 3],

@@ -362,7 +362,6 @@ local gt = getroottable();
         {
             if(!this.m.EL_FinishGenerate) {
                 this.m.EL_FinishGenerate = true;
-                o.m.EL_TempTroops = [];
             }
             return removeTroop(_t);
 		}
@@ -385,7 +384,6 @@ local gt = getroottable();
         {
             if(!this.m.EL_FinishGenerate) {
                 this.m.EL_FinishGenerate = true;
-                o.m.EL_TempTroops = [];
             }
             local entities = [];
             local champions = [];
