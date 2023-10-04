@@ -3593,7 +3593,7 @@ local gt = getroottable();
                         this.Const.World.Common.addUnitsToCombat(enemy_party, this.Const.World.Spawn.Mercenaries, 60 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.Flags.get("EnemyNobleHouse"));
 
                         this.Const.World.Common.addTroop(enemy_party, {
-                            Type = this.Const.World.Spawn.Troops.knight
+                            Type = this.Const.World.Spawn.Troops.Knight
                         }, false, 0, this.Contract.getDifficultyMult() >= 1.15 ? 1 : 0);
 
                         p.Entities = [];

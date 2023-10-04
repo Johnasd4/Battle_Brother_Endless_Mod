@@ -35,6 +35,9 @@ this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
         }
 
         for(local i = 0; i < affect_targets.len(); ++i) {
+            if(affect_targets[i]== null || affect_targets[i].isDying() || !affect_targets[i].isAlive()) {
+                continue;
+            }
             local distance = actor.getTile().getDistanceTo(affect_targets[i].getTile());
             //this.logInfo("distance " + i + " " + distance);
             local damage_persent = 1 - (distance - 1) * this.Math.pow(this.Const.EL_NPC.EL_NPCBuff.Factor.SelfDestruct.DamageDecayRatePurTile, distance);
@@ -48,6 +51,7 @@ this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
             if(off_hand != null) {
                 off_hand.setCondition(this.Math.max(0, off_hand.getCondition() - this.Math.floor(off_hand.getConditionMax() * this.Const.EL_NPC.EL_NPCBuff.Factor.SelfDestruct.WeaponShieldDamageRate[this.m.EL_RankLevel] * damage_persent)));
             }
+
 
             local body_armor_hit_info = clone this.Const.Tactical.HitInfo;
             body_armor_hit_info.DamageArmor = final_damage;
