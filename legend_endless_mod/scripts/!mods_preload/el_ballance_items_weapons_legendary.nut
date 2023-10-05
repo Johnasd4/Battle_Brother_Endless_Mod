@@ -24,6 +24,20 @@ local gt = getroottable();
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
+        o.getTooltip = function()
+        {
+            local result = this.weapon.getTooltip();
+            result.push({
+                id = 6,
+                type = "text",
+                icon = "ui/icons/special.png",
+                text = "Inflicts an additional [color=" + this.Const.UI.Color.DamageValue + "]5%[/color] targets current hitpoints + [color=" + this.Const.UI.Color.DamageValue + "]20[/color] damage that ignores armor. The lightning won't hit the same target and will pass on until no targets left."
+            });
+            return result;
+        }
+
+
+
     });
 
 

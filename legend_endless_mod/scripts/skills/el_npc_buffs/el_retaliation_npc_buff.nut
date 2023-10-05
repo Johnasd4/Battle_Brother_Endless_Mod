@@ -47,6 +47,9 @@ this.el_retaliation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
 			return;
 		}
         if(this.Math.rand(1, 100) <= this.Const.EL_NPC.EL_NPCBuff.Factor.Retaliation.AttackChance[this.m.EL_RankLevel]) {
+            if(actor == null || actor.isDying() || !actor.isAlive()) {
+                return;
+            }
             local skill = this.EL_getAttackSkill(actor.getTile().getDistanceTo(_EL_attacker.getTile()));
             if (skill != null && (actor.getFatigue() + skill.getFatigueCost() < actor.getFatigueMax()))
             {
