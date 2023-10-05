@@ -116,6 +116,7 @@ local gt = getroottable();
 		o.onDeserialize = function ( _in )
 		{
 			onDeserialize(_in);
+			this.m.EL_Entrylist.clear();
 			local EL_EntrylistLen = _in.readU8();
 			for( local i = 0; i != EL_EntrylistLen; ++i )
 			{
@@ -323,7 +324,10 @@ local gt = getroottable();
 		o.EL_getUpgradeEssence <- function()
 		{
 			local result = [0, 0, 0, 0, 0];
-			result[this.m.EL_RankLevel] += this.Const.EL_Armor.EL_Essence.SlotFactor * this.Const.EL_Armor.EL_Essence.UpgradeFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
+			if(this.m.EL_Level <= 100)
+			{
+				result[this.m.EL_RankLevel] += this.Const.EL_Armor.EL_Essence.SlotFactor * this.Const.EL_Armor.EL_Essence.UpgradeFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
+			}
 			return result;
 		}
 
@@ -614,7 +618,10 @@ local gt = getroottable();
 		o.EL_getUpgradeEssence <- function()
 		{
 			local result = [0, 0, 0, 0, 0];
-			result[this.m.EL_RankLevel] += this.Const.EL_Armor.EL_Essence.SlotFactor * this.Const.EL_Armor.EL_Essence.UpgradeFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
+			if(this.m.EL_Level <= 100)
+			{
+				result[this.m.EL_RankLevel] += this.Const.EL_Armor.EL_Essence.SlotFactor * this.Const.EL_Armor.EL_Essence.UpgradeFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
+			}
 			foreach(upgrade in this.m.Upgrades)
             {
 				if(upgrade != null)
@@ -842,6 +849,7 @@ local gt = getroottable();
 		o.onDeserialize = function ( _in )
 		{
 			onDeserialize(_in);
+			this.m.EL_Entrylist.clear();
 			local EL_EntrylistLen = _in.readU8();
 			for( local i = 0; i != EL_EntrylistLen; ++i )
 			{
@@ -1050,7 +1058,10 @@ local gt = getroottable();
 		o.EL_getUpgradeEssence <- function()
 		{
 			local result = [0, 0, 0, 0, 0];
-			result[this.m.EL_RankLevel] += this.Const.EL_Armor.EL_Essence.SlotFactor * this.Const.EL_Armor.EL_Essence.UpgradeFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
+			if(this.m.EL_Level <= 100)
+			{
+				result[this.m.EL_RankLevel] += this.Const.EL_Armor.EL_Essence.SlotFactor * this.Const.EL_Armor.EL_Essence.UpgradeFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
+			}
 			return result;
 		}
 

@@ -636,10 +636,10 @@ local gt = getroottable();
 			{
 				return null;
 			}
-			if(item.EL_getLevel() >=  this.Const.EL_Item.MaxLevel)
-			{
-				return null;
-			}
+			// if(item.EL_getLevel() >=  this.Const.EL_Item.MaxLevel)
+			// {
+			// 	return null;
+			// }
 
 			local essence_need = item.EL_getUpgradeEssence();
 			//this.logInfo("essence_need[0]" +essence_need[0]+" essence_need[1]" +essence_need[1]+" essence_need[2]" +essence_need[2]+" essence_need[3]" +essence_need[3]+" essence_need[4]" +essence_need[4]);
@@ -685,10 +685,6 @@ local gt = getroottable();
 			{
 				return null;
 			}
-			if(item.EL_getLevel() >=  this.Const.EL_Item.MaxLevel)
-			{
-				return null;
-			}
 			local essence_need = item.EL_getRecraftEssence();
 			//this.logInfo("essence_need[0]" +essence_need[0]+" essence_need[1]" +essence_need[1]+" essence_need[2]" +essence_need[2]+" essence_need[3]" +essence_need[3]+" essence_need[4]" +essence_need[4]);
 
@@ -700,9 +696,10 @@ local gt = getroottable();
 					essence_need[rank] = this.World.Assets.EL_getEquipmentEssence(rank);
 				}
 			}
-
+			
 			if(essence_need[0] <= this.World.Assets.EL_getEquipmentEssence(0))
 			{
+				//this.logInfo("essence_need[0]" +essence_need[0]+" essence_need[1]" +essence_need[1]+" essence_need[2]" +essence_need[2]+" essence_need[3]" +essence_need[3]+" essence_need[4]" +essence_need[4]);
 				//this.logInfo("essence_reduce[0]" +essence_reduce[0]+" essence_reduce[1]" +essence_reduce[1]+" essence_reduce[2]" +essence_reduce[2]+" essence_reduce[3]" +essence_reduce[3]+" essence_reduce[4]" +essence_reduce[4]);
 				if(item.EL_getLevel() != -1 && (item.EL_getRankLevel() || item.isItemType(this.Const.Items.ItemType.Accessory)))
 				{

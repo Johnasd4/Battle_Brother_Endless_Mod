@@ -38,9 +38,20 @@ this.el_additional_accuracy_entry <- this.inherit("scripts/skills/el_entrys/el_e
 		this.m.EL_AdditionalAccuracy = this.Const.EL_Weapon.EL_Entry.Factor.EL_AdditionalAccuracy.BaseAdditionalAccuracy + this.Math.rand(randomMin, randomMax);
 	}
 
-	function EL_onItemUpdate( _item )
+	function onAnySkillUsed( _skill, _targetEntity, _properties )
 	{
-        _item.m.AdditionalAccuracy = _item.m.EL_BaseWithRankAdditionalAccuracy + this.m.EL_AdditionalAccuracy;
+		if (_skill.m.IsWeaponSkill)
+		{
+            local user = this.getContainer().getActor();
+			if(_skill.m.IsRanged)
+			{
+				_properties.RangedSkill += this.m.EL_AdditionalAccuracy;
+			}
+			else
+			{
+				_properties.MeleeSkill += this.m.EL_AdditionalAccuracy;
+			}
+		}
 	}
 	
     function onSerialize( _out )
