@@ -19,10 +19,12 @@ this.el_core_item <- this.inherit("scripts/items/trade/trading_good_item", {
 		for(local i = 0; i < this.Const.Attributes.COUNT; ++i) {
 			local xp = 0;
 			local chance = this.Const.EL_Misc.EL_Core.XPChance[i][this.m.EL_RankLevel];
-			while(this.Math.rand(1, 100) <= chance) {
-				chance *= 0.5;
+			local r = this.Math.rand(1, 100);
+			while(r <= chance) {
+				chance -= r;
 				xp += 1;
 				total_xp += 1;
+				r = this.Math.rand(1, 100);
 			}
 			this.m.EL_PropertiesXP.push(xp);
 		}
