@@ -50,8 +50,6 @@ this.el_rarity_entry_stone_item <- this.inherit("scripts/items/trade/trading_goo
 
 	function onUse( _actor, _item = null )
 	{
-		_actor.addXP(this.m.EL_XP);
-		_actor.updateLevel();
 		local skill = _actor.getSkills().getSkillByID("el_items.core_skill");
 		if(skill == null) {
 			skill = this.new("scripts/skills/el_items/el_core_skill");
@@ -66,24 +64,27 @@ this.el_rarity_entry_stone_item <- this.inherit("scripts/items/trade/trading_goo
 
 	function onSerialize( _out )
 	{
-		_out.writeI32(this.m.EL_XP);
-		for(local i = 0; i < this.Const.Attributes.COUNT; ++i) {
-			_out.writeI32(this.m.EL_PropertiesXP[i]);
+		if(this.m.EL_RarityEntry != null)
+		{
+			_out.writeU8(1);
+			_out.writeI32(this.m.EL_RarityEntry.ClassNameHash);
+			this.m.EL_RarityEntry.onSerialize(_out);
+		}
+		else
+		{
+			_out.writeU8(0);
 		}
 	}
 
 	function onDeserialize( _in )
 	{
-		this.m.EL_XP = _in.readI32();
-		for(local i = 0; i < this.Const.Attributes.COUNT; ++i) {
-			this.m.EL_PropertiesXP[i] = _in.readI32();
+		
+		local has_rarity_entry = _in.readU8();
+		if(has_rarity_entry)
+		{
+			this.m.EL_RarityEntry = this.new(this.IO.scriptFilenameByHash(_in.readI32()));
+			this.m.EL_RarityEntry.onDeserialize(_in);
 		}
 	}
-
-	function EL_generateCoreXPByActorXP( _EL_xp )
-	{
-		this.m.EL_XP = this.Math.floor(_EL_xp * this.Const.EL_Misc.EL_Core.XPMult[this.m.EL_RankLevel]);
-	}
-
 });
 

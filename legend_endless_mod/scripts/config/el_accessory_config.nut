@@ -111,7 +111,7 @@ gt.Const.EL_Accessory <- {
 		],
 		Factor = {
 			EL_BloodyCutting = {
-				TargetHealthLossExtraDamageFactor = 0.5,
+				TargetHealthLossExtraDamageFactor = 0.2,
 				BleedingFactor = 1.0
 			},
 			EL_BloodyKnock = {
