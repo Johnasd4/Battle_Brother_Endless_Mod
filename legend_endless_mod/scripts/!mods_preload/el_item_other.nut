@@ -121,17 +121,20 @@ local gt = getroottable();
 			foreach(item in items)
 			{
 				item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, this.EL_getLevel());
-				if(world_level > this.Const.EL_Item_Other.EL_NPCEquipment.RankUpMinWorldLevel)
+				if(item.EL_getRankLevel() < 2)
 				{
-					local r = this.Math.rand(1, 1000);
-					if(this.Math.rand(1, 1000) < this.Const.EL_Item_Other.EL_NPCEquipment.RankUpChanceFactor[rank_level] * (world_level - this.Const.EL_Item_Other.EL_NPCEquipment.RankUpMinWorldLevel))
+					if(world_level > this.Const.EL_Item_Other.EL_NPCEquipment.RankUpMinWorldLevel)
+					{
+						local r = this.Math.rand(1, 1000);
+						if(this.Math.rand(1, 1000) < this.Const.EL_Item_Other.EL_NPCEquipment.RankUpChanceFactor[rank_level] * (world_level - this.Const.EL_Item_Other.EL_NPCEquipment.RankUpMinWorldLevel))
+						{
+							item.EL_addRankLevel();
+						}
+					}
+					if(rank_level == 2 && !item.isItemType(this.Const.Items.ItemType.Accessory))
 					{
 						item.EL_addRankLevel();
-					}
-				}
-				if(rank_level == 2 && !item.isItemType(this.Const.Items.ItemType.Accessory))
-				{
-					item.EL_addRankLevel();
+					}	
 				}
 				//this.logInfo("item ID = "+ item.m.ID+", rank:"+item.m.EL_RankLevel+", level:"+item.m.EL_Level);
 			}
