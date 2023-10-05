@@ -52,6 +52,7 @@ local gt = getroottable();
 				{
 					if(entry.getID() == "entry.value_mult")
 					{
+						this.logInfo("SellPriceTradeMult:"+this.World.Assets.m.SellPriceTradeMult+" SellPriceNotProducedHere:"+this.Const.World.Assets.SellPriceNotProducedHere+" SellPriceNotLocalCulture:"+this.Const.World.Assets.SellPriceNotLocalCulture)
 						return this.Math.floor(this.getValue() * this.getSellPriceMult() * this.World.Assets.m.SellPriceTradeMult * this.World.State.getCurrentTown().getSellPriceMult() * this.Const.World.Assets.SellPriceNotProducedHere * this.Const.World.Assets.SellPriceNotLocalCulture);
 					}
 				}
@@ -62,6 +63,24 @@ local gt = getroottable();
 				return this.Math.floor(this.getValue() * this.Const.World.Assets.BaseSellPrice);
 			}
 		}
+
+		// o.onNewDay <- function()
+		// {
+		// 	foreach(entry in this.m.EL_Entrylist)
+		// 	{
+		// 		if(entry.getID() == this.Const.EL_Weapon.EL_Entry.Factor.EL_ConditionRecoverDaliy.ID || entry.getID() == this.Const.EL_Shield.EL_Entry.Factor.EL_ConditionRecoverDaliy.ID || entry.getID() == this.Const.EL_Armor.EL_Entry.Factor.EL_ConditionRecoverDaliy.ID || entry.getID() == this.Const.EL_Helmet.EL_Entry.Factor.EL_ConditionRecoverDaliy.ID)
+		// 		{
+		// 			//this.logInfo("111111111111111111111:");
+		// 			local item = entry.getItem();
+		// 			if(item != null)
+		// 			{
+		// 				local condition_recover = this.Math.round(item.getConditionMax() * entry.m.EL_ConditionRecoverDaliyAddition * 0.01);
+		// 				item.setCondition(this.Math.min(item.getConditionMax(), item.getCondition() + condition_recover));
+		// 				//this.logInfo("item entry-daliy recover conditon:" + condition_recover);
+		// 			}
+		// 		}
+		// 	}
+		// }
 
 		o.EL_hasEntry <- function( _id )
 		{

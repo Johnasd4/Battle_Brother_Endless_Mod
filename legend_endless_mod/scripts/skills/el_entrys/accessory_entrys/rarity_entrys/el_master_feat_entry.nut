@@ -91,7 +91,6 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
 		{
             local user = this.getContainer().getActor();
             local bonus = this.Math.max(0, user.getInitiative() - _targetEntity.getInitiative());
-            local bonus = this.Math.max(0, user.getInitiative() - _targetEntity.getInitiative());
             this.logInfo("before skill:"+_properties.MeleeSkill);
             this.logInfo("before damage_mult:"+_properties.DamageTotalMult);
 			_properties.MeleeSkill += bonus * this.Const.EL_Accessory.EL_RarityEntry.Factor.EL_MasterFeat.SkillFactor;

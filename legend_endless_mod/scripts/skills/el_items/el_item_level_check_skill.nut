@@ -18,48 +18,33 @@ this.el_item_level_check_skill <- this.inherit("scripts/skills/skill", {
 		local item = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
         if (item != null)
         {
-            if(combatLevel < item.m.EL_Level)
-            {
-                item.EL_setCurrentLevel(combatLevel);
-                //this.logInfo("角色ID：" + this.getContainer().getActor().getName());
-                //this.logInfo("主手限制等级：" + combatLevel);
-            }
+            item.EL_setCurrentLevel(combatLevel);
+            //this.logInfo("角色ID：" + this.getContainer().getActor().getName());
+            //this.logInfo("主手限制等级：" + combatLevel);
         }
         item = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Offhand);
         if (item != null)
         {
-            if(combatLevel < item.m.EL_Level)
-            {
-                item.EL_setCurrentLevel(combatLevel);
-                //this.logInfo("副手限制等级：" + combatLevel);
-            }
+            item.EL_setCurrentLevel(combatLevel);
+            //this.logInfo("副手限制等级：" + combatLevel);
         }
         item = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Body);
         if (item != null)
         {
-            if(combatLevel < item.m.EL_Level)
-            {
-                item.EL_setCurrentLevel(combatLevel);
-                //this.logInfo("护甲限制等级：" + combatLevel);
-            }
+            item.EL_setCurrentLevel(combatLevel);
+            //this.logInfo("护甲限制等级：" + combatLevel);
         }
         item = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Head);
         if (item != null)
         {
-            if(combatLevel < item.m.EL_Level)
-            {
-                item.EL_setCurrentLevel(combatLevel);
-                //this.logInfo("头盔限制等级：" + combatLevel);
-            }
+            item.EL_setCurrentLevel(combatLevel);
+            //this.logInfo("头盔限制等级：" + combatLevel);
         }
         item = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
         if (item != null)
         {
-            if(combatLevel < item.m.EL_Level)
-            {
-                item.EL_setCurrentLevel(combatLevel);
-                //this.logInfo("饰品限制等级：" + combatLevel);
-            }
+            item.EL_setCurrentLevel(combatLevel);
+            //this.logInfo("饰品限制等级：" + combatLevel);
         }
 	}
 });

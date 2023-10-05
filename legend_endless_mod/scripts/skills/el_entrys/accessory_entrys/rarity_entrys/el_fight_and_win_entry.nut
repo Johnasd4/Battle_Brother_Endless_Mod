@@ -4,7 +4,7 @@ this.el_fight_and_win_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "entry.el_fight_and_win";
-		this.m.Name = "Fight And Win";
+		this.m.Name = "Fight And Win(One-Handed Flail)";
 		this.m.Description = "Storm like suppression, target riddled with flaws, victory in control.";//暴风般的压制，目标破绽百出，胜利已尽在掌握
 		this.m.Icon = "el_entrys/el_fight_and_win_entry.png";
 		//this.m.IconMini = "el_fight_and_win_entry_mini";
@@ -48,7 +48,7 @@ this.el_fight_and_win_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip one handed flail to take effect..[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip One-Handed Flail to take effect..[/color]"
             });
         }
 		return result;

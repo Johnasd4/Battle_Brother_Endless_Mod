@@ -38,14 +38,13 @@ this.el_condition_recover_daliy_entry <- this.inherit("scripts/skills/el_entrys/
 		this.m.EL_ConditionRecoverDaliyAddition = this.Const.EL_Helmet.EL_Entry.Factor.EL_ConditionRecoverDaliy.BaseConditionRecoverDaliy + this.Math.rand(randomMin, randomMax) * 0.01;
 	}
 
-	function onNewDay()
+	function EL_onNewDay( _item )
 	{
-        local helmet = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Head);
-		if(helmet != null)
+		if(_item != null)
 		{
-			local condition_recover = this.Math.round(helmet.getConditionMax() * this.m.EL_ConditionRecoverDaliyAddition * 0.01);
-			helmet.setCondition(this.Math.min(helmet.getConditionMax(), helmet.getCondition() + condition_recover));
-			//this.logInfo("helmet entry-daliy recover conditon:" + condition_recover);
+			local condition_recover = this.Math.round(_item.getConditionMax() * this.m.EL_ConditionRecoverDaliyAddition * 0.01);
+			_item.setCondition(this.Math.min(_item.getConditionMax(), _item.getCondition() + condition_recover));
+			this.logInfo("_item entry-daliy recover conditon:" + condition_recover);
 		}
 	}
 
