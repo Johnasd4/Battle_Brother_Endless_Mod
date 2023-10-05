@@ -782,6 +782,89 @@ local gt = getroottable();
 
 	});
 
+	::mods_hookNewObject("skills/perks/perk_ptr_flail_spinner", function ( o )
+	{
+
+		o.spinFlail = function(_skill, _targetTile)
+		{
+			local targetEntity = _targetTile.getEntity();
+			if (targetEntity == null)
+			{
+				return;
+			}
+
+			if (this.m.IsSpinningFlail || this.Math.rand(1,100) > this.m.Chance)
+			{
+				return;
+			}
+
+			local user = this.getContainer().getActor();
+
+			if (this.Tactical.TurnSequenceBar.getActiveEntity().getID() != null && this.Tactical.TurnSequenceBar.getActiveEntity().getID() == user.getID())
+			{
+				if (!user.isHiddenToPlayer() || _targetTile.IsVisibleForPlayer)
+				{
+					this.getContainer().setBusy(true);
+					this.Time.scheduleEvent(this.TimeUnit.Virtual, 300, function ( perk )
+					{
+						targetEntity = _targetTile.getEntity();
+						if (targetEntity!= null && !targetEntity.isDying() && targetEntity.isAlive())
+						{
+							this.logDebug("[" + user.getName() + "] is Spinning The Flail on target [" + targetEntity.getName() + "] with skill [" + _skill.getName() + "]");
+							if (!user.isHiddenToPlayer() && _targetTile.IsVisibleForPlayer)
+							{
+								this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(user) + " is Spinning the Flail");
+							}
+
+							perk.m.IsSpinningFlail = true;
+
+							local isAbleToDie = targetEntity.m.IsAbleToDie;
+							if (!user.isPlayerControlled())
+							{
+								targetEntity.m.IsAbleToDie = false;
+							}
+
+							_skill.useForFree(_targetTile);
+
+							if (!user.isPlayerControlled())
+							{
+								targetEntity.m.IsAbleToDie = isAbleToDie;
+							}
+
+							perk.m.IsSpinningFlail = false;
+						}
+
+						this.getContainer().setBusy(false);
+
+					}.bindenv(this), this);
+				}
+				else
+				{
+					if (targetEntity.isAlive())
+					{
+						this.logDebug("[" + user.getName() + "] is Spinning The Flail on target [" + targetEntity.getName() + "] with skill [" + _skill.getName() + "]");
+						this.m.IsSpinningFlail = true;
+
+						local isAbleToDie = targetEntity.m.IsAbleToDie;
+						if (!user.isPlayerControlled())
+						{
+							targetEntity.m.IsAbleToDie = false;
+						}
+
+						_skill.useForFree(_targetTile);
+
+						if (!user.isPlayerControlled())
+						{
+							targetEntity.m.IsAbleToDie = isAbleToDie;
+						}
+
+						this.m.IsSpinningFlail = false;
+					}
+				}
+			}
+		}
+	});
+
 	::mods_hookNewObject("skills/perks/perk_ptr_know_their_weakness", function ( o )
 	{
 		if("getMeleeBonus" in o) {
