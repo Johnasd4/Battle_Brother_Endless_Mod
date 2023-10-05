@@ -231,6 +231,19 @@ local gt = getroottable();
 					text = this.getFatigue() + " / " + this.getFatigueMax(),
 					style = "fatigue-slim"
 				});
+
+				//basic info
+				local melee_skill = this.m.CurrentProperties.getMeleeSkill();
+				local ranged_skill = this.m.CurrentProperties.getRangedSkill();
+				local melee_defense = this.m.CurrentProperties.getMeleeDefense();
+				local ranged_defense = this.m.CurrentProperties.getRangedDefense();
+				tooltip.push({
+					id = 99,
+					type = "text",
+					icon = this.Const.EL_NPC.EL_Champion.Icon[this.m.EL_RankLevel],
+					text = "Atk: " + melee_skill + " " + ranged_skill + " Def: " + melee_defense + " " + ranged_defense
+				});
+
 				local result = [];
 				local statusEffects = this.getSkills().query(this.Const.SkillType.StatusEffect | this.Const.SkillType.TemporaryInjury, false, true);
 				foreach( i, statusEffect in statusEffects )
