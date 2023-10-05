@@ -124,14 +124,14 @@ gt.Const.EL_Accessory <- {
 				HelmetConditonRecover = 0.2,
 				RiseNum = 1,
 				FatigueDrainPercent = [
-					1.0,
 					0.2,
-					0.05
+					0.2,
+					0.2
 				],
 				HitpointsDrainPercent = [
-					0.2,
-					0.04,
-					0.01
+					0.05,
+					0.05,
+					0.05
 				]
 			},
 			EL_EyeOfDeath = {
@@ -168,9 +168,9 @@ gt.Const.EL_Accessory <- {
 			EL_ToxicBladeThrust = {
 				DamageBonus = 0.25,
 				DebuffNum = [
-					3,
 					2,
-					1
+					2,
+					2
 				]
 			}
 		}
