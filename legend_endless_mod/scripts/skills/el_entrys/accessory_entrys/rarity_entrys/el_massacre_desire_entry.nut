@@ -6,7 +6,7 @@ this.el_massacre_desire_entry <- this.inherit("scripts/skills/skill", {
     },
 	function create()
 	{
-		this.el_entry.create();
+		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "entrys.el_massacre_desire";
 		this.m.Name = "Massacre Desire(One-Handed Axe)";
 		this.m.Description = "More, more blood!";
@@ -14,13 +14,16 @@ this.el_massacre_desire_entry <- this.inherit("scripts/skills/skill", {
 		//this.m.IconMini = "el_massacre_desire_entry_mini";
 		this.m.Overlay = "el_massacre_desire_entry";
 		this.m.Type = this.Const.SkillType.StatusEffect;
+        this.m.TempStacks = 0;
+        this.m.Stacks = 0;
+        this.m.TotalBonus = 0.0;
 	}
 
 	function getName()
 	{
-		if(Stacks)
+		if(this.m.Stacks)
 		{
-			return this.m.Name + " kills: " + Stacks;
+			return this.m.Name + " kills: " + this.m.Stacks;
 		}
 		else
 		{
@@ -72,10 +75,15 @@ this.el_massacre_desire_entry <- this.inherit("scripts/skills/skill", {
 			{
 				id = 6,
                 type = "text",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Clear all negative effects and Injury.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Clear all negative effects and Injury, Recover 100% Hitpoints, Fatigue and Action Points.[/color]"
 			},
 			{
 				id = 7,
+                type = "text",
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Clear all negative effects and Injury.[/color]"
+			},
+			{
+				id = 8,
                 type = "text",
                 icon = "ui/icons/special.png",
 				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Current effect: Attack damage + " + (this.Math.round((this.m.TempStacks * this.Const.EL_Accessory.EL_RarityEntry.Factor.EL_MassacreDesire.DamageMult + this.m.TotalBonus * 0.01) * 10000) * 0.01) + "%.[/color]"
@@ -91,7 +99,7 @@ this.el_massacre_desire_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip One-Handed Axe to take effect..[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip One-Handed Axe to take effect.[/color]"
             });
         }
 		return result;

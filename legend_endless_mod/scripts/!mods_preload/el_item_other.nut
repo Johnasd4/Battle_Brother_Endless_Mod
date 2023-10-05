@@ -658,7 +658,7 @@ local gt = getroottable();
 				if(item.EL_getLevel() != -1)
 				{
 					this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
-					for(local rank = 0; rank < this.Const.EL_Item.Type.Legendary; ++rank)
+					for(local rank = 0; rank <= this.Const.EL_Item.Type.Legendary; ++rank)
 					{
 						this.World.Assets.EL_addEquipmentEssence(rank, -essence_need[rank]);
 					}
@@ -704,7 +704,7 @@ local gt = getroottable();
 				if(item.EL_getLevel() != -1 && (item.EL_getRankLevel() || item.isItemType(this.Const.Items.ItemType.Accessory)))
 				{
 					this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
-					for(local rank = 0; rank < this.Const.EL_Item.Type.Legendary; ++rank)
+					for(local rank = 0; rank <= this.Const.EL_Item.Type.Legendary; ++rank)
 					{
 						this.World.Assets.EL_addEquipmentEssence(rank, -essence_need[rank]);
 					}
@@ -737,7 +737,7 @@ local gt = getroottable();
 			}
 			local essence_reduce = item.EL_getDisassembleEssence();
 			//this.logInfo("essence_reduce[0]" +essence_reduce[0]+" essence_reduce[1]" +essence_reduce[1]+" essence_reduce[2]" +essence_reduce[2]+" essence_reduce[3]" +essence_reduce[3]+" essence_reduce[4]" +essence_reduce[4]);
-			for(local rank = 0; rank < this.Const.EL_Item.Type.Legendary; ++rank)
+			for(local rank = 0; rank <= this.Const.EL_Item.Type.Legendary; ++rank)
 			{
 				this.World.Assets.EL_addEquipmentEssence(rank, essence_reduce[rank]);
 			}

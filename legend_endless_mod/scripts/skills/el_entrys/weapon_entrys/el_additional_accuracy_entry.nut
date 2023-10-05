@@ -42,7 +42,6 @@ this.el_additional_accuracy_entry <- this.inherit("scripts/skills/el_entrys/el_e
 	{
 		if (_skill.m.IsWeaponSkill)
 		{
-            local user = this.getContainer().getActor();
 			if(_skill.m.IsRanged)
 			{
 				_properties.RangedSkill += this.m.EL_AdditionalAccuracy;
@@ -52,6 +51,12 @@ this.el_additional_accuracy_entry <- this.inherit("scripts/skills/el_entrys/el_e
 				_properties.MeleeSkill += this.m.EL_AdditionalAccuracy;
 			}
 		}
+	}
+
+	function EL_refreshTotalEntry( _EL_totalEntry )
+	{
+		++_EL_totalEntry.m.EL_EntryNum;
+		_EL_totalEntry.m.EL_AdditionalAccuracyAddition += this.m.EL_AdditionalAccuracy;
 	}
 	
     function onSerialize( _out )

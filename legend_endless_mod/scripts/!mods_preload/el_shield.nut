@@ -1,6 +1,6 @@
 local gt = getroottable();
 
-::mods_registerMod("EL_Shield", 1, "EL_Shield");
+::mods_registerMod("el_shield", 1, "el_shield");
 ::mods_queue(null, "el_item", function ()
 {
     ::mods_hookExactClass("items/shields/shield", function ( o )
@@ -73,6 +73,24 @@ local gt = getroottable();
 				});
 			}
 			return result;
+		}
+
+		local onUpdateProperties = o.onUpdateProperties;
+		o.onUpdateProperties = function ( _properties )
+		{
+			if (this.m.Condition == 0)
+			{
+				return;
+			}
+			local mult = 1.0;
+			if (this.getContainer().getActor().getCurrentProperties().IsSpecializedInShields)
+			{
+				mult = 1.25;
+			}
+			_properties.MeleeDefense += this.Math.floor(this.m.MeleeDefense * mult);
+			_properties.RangedDefense += this.Math.floor(this.m.RangedDefense * mult);
+			local staminaMult = this.getContainer().getActor().getSkills().hasSkill("perk.brawny") ? 0.7 : 1.0;
+			_properties.Stamina += this.Math.floor(this.m.StaminaModifier * staminaMult);
 		}
 
 		local onEquip = o.onEquip;

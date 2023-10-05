@@ -135,7 +135,13 @@ local gt = getroottable();
 		local onUpdateProperties = o.onUpdateProperties;
 		o.onUpdateProperties = function ( _properties )
 		{
-			onUpdateProperties(_properties);
+			local staminaMult = this.getContainer().getActor().getSkills().hasSkill("perk.brawny") ? 0.7 : 1.0;
+			_properties.Stamina += this.Math.floor(this.m.StaminaModifier * staminaMult);
+			_properties.DamageRegularMin += this.m.RegularDamage;
+			_properties.DamageRegularMax += this.m.RegularDamageMax;
+			_properties.DamageArmorMult *= this.m.ArmorDamageMult;
+			_properties.DamageDirectAdd += this.m.DirectDamageAdd;
+			_properties.HitChance[this.Const.BodyPart.Head] += this.m.ChanceToHitHead;
 			_properties.Vision += this.m.EL_Vision;
 			//local currentProperties = getContainer().getActor().getCurrentProperties();
 			//_properties.Hitpoints += _properties.Hitpoints * 0.2;

@@ -44,12 +44,13 @@ this.el_condition_recover_daliy_entry <- this.inherit("scripts/skills/el_entrys/
 		{
 			local condition_recover = this.Math.round(_item.getConditionMax() * this.m.EL_ConditionRecoverDaliyAddition * 0.01);
 			_item.setCondition(this.Math.min(_item.getConditionMax(), _item.getCondition() + condition_recover));
-			this.logInfo("_item entry-daliy recover conditon:" + condition_recover);
+			//this.logInfo("_item entry-daliy recover conditon:" + condition_recover);
 		}
 	}
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
+		++_EL_totalEntry.m.EL_EntryNum;
 		_EL_totalEntry.m.EL_HelmetConditionRecoverDaliyAddition += this.m.EL_ConditionRecoverDaliyAddition;
 	}
     

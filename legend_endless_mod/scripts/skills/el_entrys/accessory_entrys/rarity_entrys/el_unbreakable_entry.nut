@@ -10,7 +10,7 @@ this.el_unbreakable_entry <- this.inherit("scripts/skills/skill", {
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "entrys.el_unbreakable";
 		this.m.Name = "Unbreakable(One-Handed Hammer)";
-		this.m.Description = "Accomplish a task with ease.";//游刃有余
+		this.m.Description = "Like an iron tower, standing still.";//身入铁塔，屹立不倒
 		this.m.Icon = "el_entrys/el_unbreakable_entry.png";
 		//this.m.IconMini = "el_master_feat_entry_mini";
 		this.m.Overlay = "el_unbreakable_entry";

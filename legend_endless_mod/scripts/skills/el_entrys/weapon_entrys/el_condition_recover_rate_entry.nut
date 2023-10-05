@@ -51,6 +51,7 @@ this.el_condition_recover_rate_entry <- this.inherit("scripts/skills/el_entrys/e
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
+		++_EL_totalEntry.m.EL_EntryNum;
 		_EL_totalEntry.m.EL_WeaponConditionRecoverRateAddition += this.m.EL_ConditionRecoverRateAddition;
 	}
 

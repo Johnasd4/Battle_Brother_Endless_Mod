@@ -50,6 +50,7 @@ this.el_condition_recover_daliy_entry <- this.inherit("scripts/skills/el_entrys/
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
+		++_EL_totalEntry.m.EL_EntryNum;
 		_EL_totalEntry.m.EL_WeaponConditionRecoverDaliyAddition += this.m.EL_ConditionRecoverDaliyAddition;
 	}
     

@@ -56,6 +56,7 @@ this.el_reduce_damage_received_mult_entry <- this.inherit("scripts/skills/el_ent
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
+		++_EL_totalEntry.m.EL_EntryNum;
 		_EL_totalEntry.m.EL_DamageReceivedMultAddition += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ReduceDamageReceivedMultAddition * 100) * 0.01;
 	}
 

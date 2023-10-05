@@ -257,6 +257,13 @@ gt.Const.EL_Weapon <- {
 					function EL_ifEligible(_EL_item) { return true; }
 				},
 				{
+					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_melee_range_max_entry",
+					function EL_ifEligible(_EL_item) {
+						if(!_EL_item.isItemType(this.Const.Items.ItemType.MeleeWeapon) || _EL_item.m.EL_RankLevel <= 1) { return false; }
+						return true;
+					}
+				},
+				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_melee_skill_entry",
 					function EL_ifEligible(_EL_item) {
 						if(!_EL_item.isItemType(this.Const.Items.ItemType.MeleeWeapon)) { return false; }
@@ -266,6 +273,13 @@ gt.Const.EL_Weapon <- {
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_ranged_defense_entry",
 					function EL_ifEligible(_EL_item) { return true; }
+				},
+				{
+					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_ranged_range_max_vision_entry",
+					function EL_ifEligible(_EL_item) {
+						if(!_EL_item.isItemType(this.Const.Items.ItemType.RangedWeapon) || _EL_item.m.EL_RankLevel <= 1) { return false; }
+						return true;
+					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_ranged_skill_entry",
@@ -563,6 +577,10 @@ gt.Const.EL_Weapon <- {
 					26
 				]
 			},
+			EL_MeleeRangeMax = {
+				ID = "weapon_entry.melee_range_max",
+				RangeMax = 1
+			},
 			EL_MeleeSkill = {
 				ID = "weapon_entry.melee_skill",
 				BaseMeleeSkill = 10,
@@ -610,6 +628,10 @@ gt.Const.EL_Weapon <- {
 					22,
 					26
 				]
+			},
+			EL_RangedRangeMaxAndVision = {
+				ID = "weapon_entry.ranged_range_max_and_vision",
+				RangeMaxAndVision = 4
 			},
 			EL_RangedSkill = {
 				ID = "weapon_entry.ranged_skill",

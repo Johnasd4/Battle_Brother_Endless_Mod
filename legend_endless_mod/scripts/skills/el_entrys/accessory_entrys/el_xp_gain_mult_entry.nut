@@ -56,6 +56,7 @@ this.el_xp_gain_mult_entry <- this.inherit("scripts/skills/el_entrys/accessory_e
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
+		++_EL_totalEntry.m.EL_EntryNum;
 		_EL_totalEntry.m.EL_XPGainMultAddition += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_XPGainMultAddition * 100) * 0.01;
 	}
 

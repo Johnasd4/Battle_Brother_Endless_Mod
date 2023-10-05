@@ -46,6 +46,7 @@ this.el_immue_overwhelm_dazed_entry <- this.inherit("scripts/skills/el_entrys/ac
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
+		++_EL_totalEntry.m.EL_EntryNum;
 		if(this.m.EL_CurrentLevel)
 		{
 			_EL_totalEntry.m.EL_ImmueOverwhelmDazed = true;

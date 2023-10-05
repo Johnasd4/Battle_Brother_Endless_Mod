@@ -45,6 +45,7 @@ this.el_use_skill_fatigue_entry <- this.inherit("scripts/skills/el_entrys/el_ent
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
+		++_EL_totalEntry.m.EL_EntryNum;
 		_EL_totalEntry.m.EL_WeaponUseSkillfatigueAddition += this.m.EL_UseSkillfatigueAddition;
 	}
     

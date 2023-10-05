@@ -1,5 +1,6 @@
 this.el_total_entry <- this.inherit("scripts/skills/skill", {
 	m = {
+		EL_EntryNum = 0,
 		EL_HitpointsAddition = 0,
 		EL_StaminaAddition = 0,
 		EL_BraveryAddition = 0,
@@ -19,6 +20,9 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
         EL_XPGainMultAddition = 0.0,
 		EL_VampireRateAddition = 0.0,
 		EL_TargetAttractionMultAddition = 0,
+		EL_AdditionalAccuracyAddition = 0,
+		EL_RangeMaxAddition = 0,
+		EL_RangeMaxAndVisionAddition = 0,
 
 		EL_WeaponUseSkillfatigueAddition = 0,
         EL_WeaponConditionRecoverDaliyAddition = 0.0,
@@ -62,6 +66,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 
     function Init()
 	{
+		this.m.EL_EntryNum = 0;
 		this.m.EL_HitpointsAddition = 0;
 		this.m.EL_StaminaAddition = 0;
 		this.m.EL_BraveryAddition = 0;
@@ -81,6 +86,9 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
         this.m.EL_XPGainMultAddition = 0.0;
 		this.m.EL_VampireRateAddition = 0.0;
 		this.m.EL_TargetAttractionMultAddition = 0;
+		this.m.EL_AdditionalAccuracyAddition = 0;
+		this.m.EL_RangeMaxAddition = 0;
+		this.m.EL_RangeMaxAndVisionAddition = 0;
 
 		this.m.EL_WeaponUseSkillfatigueAddition = 0;
         this.m.EL_WeaponConditionRecoverDaliyAddition = 0.0;
@@ -110,6 +118,10 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
                 skill.EL_refreshTotalEntry(this);
             }
         }
+		if(this.m.EL_EntryNum == 0)
+		{
+			this.removeSelf();
+		}
 	}
 
 	function onAfterUpdate( _properties )
@@ -352,6 +364,32 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 				id = 10,
 				type = "text",
 				text = "Each Turn Recover + " + this.m.EL_ArmorConditionRecoverRateAddition + "% Armor Durability"
+			});
+		}
+		if(this.m.EL_AdditionalAccuracyAddition)
+		{
+			result.push({
+				id = 10,
+				type = "text",
+				text = "chance to hit + " + this.m.EL_AdditionalAccuracyAddition + "%"
+			});
+		}
+		this.logInfo("EL_RangeMaxAddition" + this.m.EL_RangeMaxAddition);
+		if(this.m.EL_RangeMaxAddition)
+		{
+			result.push({
+				id = 10,
+				type = "text",
+				text = "Weapon Skill range + " + this.m.EL_RangeMaxAddition
+			});
+		}
+		this.logInfo("EL_RangeMaxAndVisionAddition" + this.m.EL_RangeMaxAndVisionAddition);
+		if(this.m.EL_RangeMaxAndVisionAddition)
+		{
+			result.push({
+				id = 10,
+				type = "text",
+				text = "Weapon Skill range and Vision + " + this.m.EL_RangeMaxAndVisionAddition
 			});
 		}
 

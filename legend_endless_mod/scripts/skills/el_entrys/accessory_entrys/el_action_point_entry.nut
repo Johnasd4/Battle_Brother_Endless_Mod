@@ -46,6 +46,7 @@ this.el_action_point_entry <- this.inherit("scripts/skills/el_entrys/accessory_e
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
+		++_EL_totalEntry.m.EL_EntryNum;
 		if(this.m.EL_CurrentLevel)
 		{
 			_EL_totalEntry.m.EL_ActionPointAddition += this.m.EL_ActionPointAddition;

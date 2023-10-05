@@ -57,6 +57,7 @@ this.el_stamina_entry <- this.inherit("scripts/skills/el_entrys/accessory_entrys
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
+		++_EL_totalEntry.m.EL_EntryNum;
 		_EL_totalEntry.m.EL_StaminaAddition += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_StaminaAddition);
 	}
 
