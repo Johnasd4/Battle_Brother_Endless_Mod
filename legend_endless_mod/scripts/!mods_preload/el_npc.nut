@@ -1811,8 +1811,9 @@ local gt = getroottable();
                 extra_normal_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank0[0];
             }
         }
-        this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(e, extra_normal_buff_num, extra_elite_buff_num, extra_leader_buff_num);
-
+        if(!e.getFaction() == this.Const.Faction.Player && !e.getFaction() == this.Const.Faction.PlayerAnimals) {
+            this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(e, extra_normal_buff_num, extra_elite_buff_num, extra_leader_buff_num);
+        }
 
         e.EL_ballanceNPCPropertiesAfterAddingEquipment();
         return e;
@@ -1913,7 +1914,9 @@ local gt = getroottable();
                 extra_normal_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank0[0];
             }
         }
-        this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(e, extra_normal_buff_num, extra_elite_buff_num, extra_leader_buff_num);
+        if(!e.getFaction() == this.Const.Faction.Player && !e.getFaction() == this.Const.Faction.PlayerAnimals) {
+            this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(e, extra_normal_buff_num, extra_elite_buff_num, extra_leader_buff_num);
+        }
 
         e.EL_ballanceNPCPropertiesAfterAddingEquipment();
         return e;
