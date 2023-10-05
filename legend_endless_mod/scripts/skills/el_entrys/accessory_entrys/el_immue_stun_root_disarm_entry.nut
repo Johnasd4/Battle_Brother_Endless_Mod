@@ -47,6 +47,7 @@ this.el_immue_stun_root_disarm_entry <- this.inherit("scripts/skills/el_entrys/a
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
+		++_EL_totalEntry.m.EL_EntryNum;
 		if(this.m.EL_CurrentLevel)
 		{
 			_EL_totalEntry.m.EL_ImmueStunRootDisarm = true;

@@ -178,14 +178,14 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 				{
 					if(this.EL_isNegativeEffect(skills.m.Skills[i]))
 					{
-						this.logInfo("check: "+skills.m.Skills[i].getID());
+						//this.logInfo("check: "+skills.m.Skills[i].getID());
 						index_pool.push(i);
 					}
 				}
 				if(index_pool.len() != 0)
 				{
 					local r = this.Math.rand(0, index_pool.len() - 1);
-					this.logInfo("remove: "+skills.m.Skills[r].getID());
+					//this.logInfo("remove: "+skills.m.Skills[r].getID());
 					skills.remove(skills.m.Skills[r]);
 				}
 				user.setHitpoints(this.Math.min(user.getHitpointsMax(), user.getHitpoints() + this.Math.round(user.getHitpointsMax() * this.Const.EL_Accessory.EL_RarityEntry.Factor.EL_CircleofLife.HitpointsRecover)));
@@ -247,7 +247,7 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
     {
         local user = this.getContainer().getActor();
 		local fatigue_drain = this.Math.max(_targetEntity.getFatigueMax() - _targetEntity.getFatigue(), _targetEntity.getFatigueMax() * this.Const.EL_Accessory.EL_RarityEntry.Factor.EL_CircleofLife.FatigueDrainPercent[_targetEntity.EL_getRankLevel()]);
-		this.logInfo("fatigue_drain:" + fatigue_drain);
+		//this.logInfo("fatigue_drain:" + fatigue_drain);
 		this.applyFatigueDamage(_targetEntity, fatigue_drain);
 		user.setFatigue(this.Math.max(0, user.getFatigue() - fatigue_drain));
 		local hitpoints_drain = this.Math.min(_targetEntity.getHitpoints(), _targetEntity.getHitpointsMax() * this.Const.EL_Accessory.EL_RarityEntry.Factor.EL_CircleofLife.HitpointsDrainPercent[_targetEntity.EL_getRankLevel()]);
@@ -256,7 +256,7 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 		hit_info.DamageDirect = 1.0;
 		hit_info.BodyPart = this.Const.BodyPart.Body;
 		hit_info.BodyDamageMult = 1.0;
-		this.logInfo("hitpoints_drain:" + hitpoints_drain);
+		//this.logInfo("hitpoints_drain:" + hitpoints_drain);
 		_targetEntity.onDamageReceived(user, this, hit_info);
 		user.setHitpoints(this.Math.min(user.getHitpointsMax(), user.getHitpoints() + hitpoints_drain));
     }

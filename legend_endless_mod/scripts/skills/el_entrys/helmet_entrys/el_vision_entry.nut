@@ -46,6 +46,7 @@ this.el_vision_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
+		++_EL_totalEntry.m.EL_EntryNum;
 		_EL_totalEntry.m.EL_VisionAddition += this.m.EL_VisionAddition;
 	}
     

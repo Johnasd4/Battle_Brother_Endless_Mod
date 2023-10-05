@@ -77,9 +77,9 @@ gt.Const.EL_Accessory <- {
 				// {
 				// 	Scripts = "scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_bloody_knock_entry"
 				// },
-				// {
-				// 	Scripts = "scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_circle_of_life_entry"
-				// },
+				{
+					Scripts = "scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_circle_of_life_entry"
+				},
 				{
 					Scripts = "scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_eye_of_death_entry"
 				},
@@ -89,9 +89,9 @@ gt.Const.EL_Accessory <- {
 				{
 					Scripts = "scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_fight_and_win_entry"
 				},
-				// {
-				// 	Scripts = "scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_massacre_desire_entry"
-				// },
+				{
+					Scripts = "scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_massacre_desire_entry"
+				},
 				{
 					Scripts = "scripts/skills/el_entrys/accessory_entrys/rarity_entrys/el_master_feat_entry"
 				},

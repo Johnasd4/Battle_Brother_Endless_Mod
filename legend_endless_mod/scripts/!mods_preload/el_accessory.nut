@@ -1,6 +1,6 @@
 local gt = getroottable();
 
-::mods_registerMod("EL_accessory", 1, "EL_accessory");
+::mods_registerMod("el_accessory", 1, "el_accessory");
 ::mods_queue(null, "el_item", function ()
 {
     ::mods_hookExactClass("items/accessory/accessory", function ( o )

@@ -56,6 +56,7 @@ this.el_hitpoints_recovery_rate_entry <- this.inherit("scripts/skills/el_entrys/
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
+		++_EL_totalEntry.m.EL_EntryNum;
 		_EL_totalEntry.m.EL_HitpointsRecoveryRateAddition += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_HitpointsRecoveryRateAddition * 100) * 0.01;
 	}
 
