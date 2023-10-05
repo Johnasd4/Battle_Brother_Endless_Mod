@@ -35,16 +35,6 @@ local gt = getroottable();
                 }
             }
 		}
-
-		local update = o.update;
-		o.update = function( _worldState )
-		{
-            if(this.m.EL_CurrentUpdateDay < this.World.getTime().Days) 
-            {
-                this.EL_onNewDayItemEntry();
-            }
-			update(_worldState);
-		}
 	});
 
     ::mods_hookClass("skills/skill", function(o) {
