@@ -233,10 +233,6 @@ local gt = getroottable();
 				});
 				local result = [];
 				local statusEffects = this.getSkills().query(this.Const.SkillType.StatusEffect | this.Const.SkillType.TemporaryInjury, false, true);
-				local info_skill = this.getSkills().getSkillByID("el_racial.info_display");
-				if(info_skill != null) {
-					info_skill.EL_refresh();
-				}
 				foreach( i, statusEffect in statusEffects )
 				{
 					tooltip.push({
