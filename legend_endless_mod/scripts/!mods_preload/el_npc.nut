@@ -352,11 +352,9 @@ local gt = getroottable();
             // }
         }
 
-        o.onBeforeCombatStarted = function() {
-            // this.Const.World.Common.addTroop(this, {
-            //     Type = this.Const.World.Spawn.Troops.Ghost
-            // }, false);
-        }
+        // o.onBeforeCombatStarted = function() {
+
+        // }
 
 
         o.EL_tempPartyInit <- function() {

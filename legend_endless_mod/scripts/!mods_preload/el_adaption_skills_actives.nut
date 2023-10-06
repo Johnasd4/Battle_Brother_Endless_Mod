@@ -286,8 +286,30 @@ local gt = getroottable();
 
 	::mods_hookExactClass("skills/actives/throw_golem_skill", function(o){
 
+
+        o.isUsable = function()
+        {
+            local actor = this.getContainer().getActor();
+            local myTile = actor.getTile();
+            local empty = 0;
+
+            for( local j = 0; j < 6; j = ++j )
+            {
+                if (!myTile.hasNextTile(j))
+                {
+                }
+                else if (myTile.getNextTile(j).IsEmpty)
+                {
+                    empty = ++empty;
+                }
+            }
+
+            return this.skill.isUsable() && this.getContainer().getActor().getSize() > 1 && empty >= 1;
+        }
+
         o.onSpawn = function( _data )
         {
+            local target_tiles = [];
             local freeTiles = [];
             local lucky = this.Math.rand(1, 100) <= 20;
             local actor = _data.User;
@@ -309,10 +331,7 @@ local gt = getroottable();
                     {
                         local nextTile = _data.TargetTile.getNextTile(i);
 
-                        if (nextTile.Level > _data.TargetTile.Level + 1)
-                        {
-                        }
-                        else if (nextTile.IsEmpty)
+                        if (nextTile.IsEmpty)
                         {
                             local score = 1;
 
@@ -364,163 +383,104 @@ local gt = getroottable();
             {
                 freeTiles[0] = freeTiles[this.Math.rand(0, freeTiles.len() - 1)];
             }
+            if(freeTiles.len() > 0) {
+                target_tiles.push(freeTiles[0]);
+                freeTiles.remove(0);
+            }
 
-            if (freeTiles.len() != 0)
+            freeTiles = [];
+            for( local i = 0; i < 6; i = ++i )
             {
-                local rock = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SandGolem, freeTiles[0].Tile, _data.User.getFaction(), _data.User.EL_getRankLevel(), _data.User.EL_getLevel());
-
-                if (_data.User.getWorldTroop() != null && ("Party" in _data.User.getWorldTroop()) && _data.User.getWorldTroop().Party != null)
+                if (!_data.User.getTile().hasNextTile(i))
                 {
-                    local e = this.Const.World.Common.addTroop(_data.User.getWorldTroop().Party.get(), {
-                        Type = this.Const.World.Spawn.Troops.SandGolem
-                    }, false);
-                    rock.setWorldTroop(e);
-                }
-
-                rock.getSprite("body").Color = _data.User.getSprite("body").Color;
-                rock.getSprite("body").Saturation = _data.User.getSprite("body").Saturation;
-                freeTiles = [];
-
-                for( local i = 0; i < 6; i = ++i )
-                {
-                    if (!_data.User.getTile().hasNextTile(i))
-                    {
-                    }
-                    else
-                    {
-                        local nextTile = _data.User.getTile().getNextTile(i);
-
-                        if (nextTile.Level > _data.User.getTile().Level + 1)
-                        {
-                        }
-                        else if (nextTile.IsEmpty)
-                        {
-                            local score = 1;
-
-                            for( local j = 0; j < 6; j = ++j )
-                            {
-                                if (!nextTile.hasNextTile(j))
-                                {
-                                }
-                                else
-                                {
-                                    local veryNextTile = nextTile.getNextTile(j);
-
-                                    if (veryNextTile.IsOccupiedByActor && veryNextTile.getEntity().getType() == this.Const.EntityType.SandGolem && veryNextTile.getEntity().getSize() == _data.User.getSize() - 1)
-                                    {
-                                        score = score + 5;
-                                    }
-                                }
-                            }
-
-                            freeTiles.push({
-                                Tile = nextTile,
-                                Score = score
-                            });
-                        }
-                    }
-                }
-
-                freeTiles.sort(function ( _a, _b )
-                {
-                    if (_a.Score > _b.Score)
-                    {
-                        return -1;
-                    }
-                    else if (_a.Score < _b.Score)
-                    {
-                        return 1;
-                    }
-
-                    return 0;
-                });
-
-                if (freeTiles.len() != 0)
-                {
-                    _data.User.shrink();
-                    _data.User.setHitpoints(_data.User.getHitpointsMax());
-                    _data.User.getBaseProperties().Armor[0] = _data.User.getBaseProperties().ArmorMax[0];
-                    _data.User.getBaseProperties().Armor[1] = _data.User.getBaseProperties().ArmorMax[1];
-
-                    if (_data.User.getTile().IsVisibleForPlayer)
-                    {
-                        for( local i = 0; i < this.Const.Tactical.SandGolemParticles.len(); i = ++i )
-                        {
-                            this.Tactical.spawnParticleEffect(false, this.Const.Tactical.SandGolemParticles[i].Brushes, _data.User.getTile(), this.Const.Tactical.SandGolemParticles[i].Delay, this.Const.Tactical.SandGolemParticles[i].Quantity, this.Const.Tactical.SandGolemParticles[i].LifeTimeQuantity, this.Const.Tactical.SandGolemParticles[i].SpawnRate, this.Const.Tactical.SandGolemParticles[i].Stages);
-                        }
-                    }
-                }
-
-                local n = 0;
-
-                if (_data.User.getSize() == 2)
-                {
-                    n = 1;
-                }
-
-                n = --n;
-
-                if (n >= 0 && freeTiles.len() >= 1)
-                {
-                    local tile = freeTiles[0].Tile;
-                    freeTiles.remove(0);
-                    local rock = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SandGolemMEDIUM, freeTiles[0].Tile, _data.User.getFaction(), _data.User.EL_getRankLevel(), _data.User.EL_getLevel());
-
-                    if (_data.User.getWorldTroop() != null && ("Party" in _data.User.getWorldTroop()) && _data.User.getWorldTroop().Party != null)
-                    {
-                        local e = this.Const.World.Common.addTroop(_data.User.getWorldTroop().Party.get(), {
-                            Type = this.Const.World.Spawn.Troops.SandGolemMEDIUM
-                        }, false);
-                        rock.setWorldTroop(e);
-                    }
-
-                    rock.getSprite("body").Color = _data.User.getSprite("body").Color;
-                    rock.getSprite("body").Saturation = _data.User.getSprite("body").Saturation;
-
-                    if (tile.IsVisibleForPlayer)
-                    {
-                        for( local i = 0; i < this.Const.Tactical.SandGolemParticles.len(); i = ++i )
-                        {
-                            this.Tactical.spawnParticleEffect(false, this.Const.Tactical.SandGolemParticles[i].Brushes, tile, this.Const.Tactical.SandGolemParticles[i].Delay, this.Const.Tactical.SandGolemParticles[i].Quantity, this.Const.Tactical.SandGolemParticles[i].LifeTimeQuantity, this.Const.Tactical.SandGolemParticles[i].SpawnRate, this.Const.Tactical.SandGolemParticles[i].Stages);
-                        }
-                    }
-                }
-
-                if (_data.User.getSize() == 2)
-                {
-                    n = 2;
                 }
                 else
                 {
-                    n = 1;
+                    local nextTile = _data.User.getTile().getNextTile(i);
+
+                    if (nextTile.IsEmpty)
+                    {
+                        local score = 1;
+
+                        for( local j = 0; j < 6; j = ++j )
+                        {
+                            if (!nextTile.hasNextTile(j))
+                            {
+                            }
+                            else
+                            {
+                                local veryNextTile = nextTile.getNextTile(j);
+
+                                if (veryNextTile.IsOccupiedByActor && veryNextTile.getEntity().getType() == this.Const.EntityType.SandGolem && veryNextTile.getEntity().getSize() == _data.User.getSize() - 1)
+                                {
+                                    score = score + 5;
+                                }
+                            }
+                        }
+
+                        freeTiles.push({
+                            Tile = nextTile,
+                            Score = score
+                        });
+                    }
+                }
+            }
+
+            freeTiles.sort(function ( _a, _b )
+            {
+                if (_a.Score > _b.Score)
+                {
+                    return -1;
+                }
+                else if (_a.Score < _b.Score)
+                {
+                    return 1;
                 }
 
-                n = --n;
+                return 0;
+            });
 
-                if (n >= 0 && freeTiles.len() >= 1)
+            if(freeTiles.len() > 0) {
+                target_tiles.push(freeTiles[0]);
+                freeTiles.remove(0);
+            }
+
+            if(target_tiles.len() == 2) {
+                _data.User.shrink();
+                _data.User.setHitpoints(_data.User.getHitpointsMax());
+                _data.User.getBaseProperties().Armor[0] = _data.User.getBaseProperties().ArmorMax[0];
+                _data.User.getBaseProperties().Armor[1] = _data.User.getBaseProperties().ArmorMax[1];
+
+                if (_data.User.getTile().IsVisibleForPlayer)
                 {
-                    local tile = freeTiles[0].Tile;
-                    freeTiles.remove(0);
-                    local rock = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SandGolem, tile, _data.User.getFaction(), _data.User.EL_getRankLevel(), _data.User.EL_getLevel());
+                    for( local i = 0; i < this.Const.Tactical.SandGolemParticles.len(); i = ++i )
+                    {
+                        this.Tactical.spawnParticleEffect(false, this.Const.Tactical.SandGolemParticles[i].Brushes, _data.User.getTile(), this.Const.Tactical.SandGolemParticles[i].Delay, this.Const.Tactical.SandGolemParticles[i].Quantity, this.Const.Tactical.SandGolemParticles[i].LifeTimeQuantity, this.Const.Tactical.SandGolemParticles[i].SpawnRate, this.Const.Tactical.SandGolemParticles[i].Stages);
+                    }
+                }
 
+                for(local i = 0; i < target_tiles.len(); ++i) {
+                    local tile = target_tiles[i];
+                    local entity_type = _data.User.getSize() == 1 ? this.Const.World.Spawn.Troops.SandGolem : this.Const.World.Spawn.Troops.SandGolemMEDIUM;
+                    local rock = this.Const.World.Common.EL_addEntity(entity_type, tile.Tile, _data.User.getFaction(), _data.User.EL_getRankLevel(), _data.User.EL_getLevel());
                     if (_data.User.getWorldTroop() != null && ("Party" in _data.User.getWorldTroop()) && _data.User.getWorldTroop().Party != null)
                     {
                         local e = this.Const.World.Common.addTroop(_data.User.getWorldTroop().Party.get(), {
-                            Type = this.Const.World.Spawn.Troops.SandGolem
+                            Type = entity_type
                         }, false);
                         rock.setWorldTroop(e);
                     }
 
                     rock.getSprite("body").Color = _data.User.getSprite("body").Color;
                     rock.getSprite("body").Saturation = _data.User.getSprite("body").Saturation;
-
-                    if (tile.IsVisibleForPlayer)
+                    if (tile.Tile.IsVisibleForPlayer)
                     {
-                        for( local i = 0; i < this.Const.Tactical.SandGolemParticles.len(); i = ++i )
+                        for( local j = 0; j < this.Const.Tactical.SandGolemParticles.len(); j = ++j )
                         {
-                            this.Tactical.spawnParticleEffect(false, this.Const.Tactical.SandGolemParticles[i].Brushes, tile, this.Const.Tactical.SandGolemParticles[i].Delay, this.Const.Tactical.SandGolemParticles[i].Quantity, this.Const.Tactical.SandGolemParticles[i].LifeTimeQuantity, this.Const.Tactical.SandGolemParticles[i].SpawnRate, this.Const.Tactical.SandGolemParticles[i].Stages);
+                            this.Tactical.spawnParticleEffect(false, this.Const.Tactical.SandGolemParticles[j].Brushes, tile.Tile, this.Const.Tactical.SandGolemParticles[j].Delay, this.Const.Tactical.SandGolemParticles[j].Quantity, this.Const.Tactical.SandGolemParticles[j].LifeTimeQuantity, this.Const.Tactical.SandGolemParticles[j].SpawnRate, this.Const.Tactical.SandGolemParticles[j].Stages);
                         }
                     }
+
                 }
             }
         }

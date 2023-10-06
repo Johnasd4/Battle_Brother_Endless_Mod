@@ -344,10 +344,9 @@ local gt = getroottable();
             this.m.BackupFaction = this.getFaction();
             this.m.BackupWorldParty = this.m.WorldTroop != null && ("Party" in this.m.WorldTroop) && this.m.WorldTroop.Party != null && !this.m.WorldTroop.Party.isNull() ? this.m.WorldTroop.Party : null;
 
-            if (_tile != null && this.getSize() > 1)
+            if (this.getSize() > 1)
             {
                 local freeTiles = [];
-
                 for( local i = 0; i < 6; i = i )
                 {
                     if (!_tile.hasNextTile(i))
@@ -357,10 +356,7 @@ local gt = getroottable();
                     {
                         local nextTile = _tile.getNextTile(i);
 
-                        if (nextTile.Level > _tile.Level + 1)
-                        {
-                        }
-                        else if (nextTile.IsEmpty)
+                        if (nextTile.IsEmpty)
                         {
                             freeTiles.push(nextTile);
                         }
@@ -488,42 +484,7 @@ local gt = getroottable();
 
         o.onAfterDeath = function( _tile )
         {
-            if (!this.m.IsSpawningOnTile)
-            {
-                return;
-            }
-
-            if (this.getSize() == 1)
-            {
-                return;
-            }
-            local rock = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SandGolem, _tile, this.m.BackupFaction, this.EL_getRankLevel(), this.EL_getLevel());
-            if (this.m.BackupWorldParty != null)
-            {
-                local e;
-
-                if (this.getSize() == 3)
-                {
-                    e = this.Const.World.Common.addTroop(this.m.BackupWorldParty.get(), {
-                        Type = this.Const.World.Spawn.Troops.SandGolemMEDIUM
-                    }, false);
-                }
-                else
-                {
-                    e = this.Const.World.Common.addTroop(this.m.BackupWorldParty.get(), {
-                        Type = this.Const.World.Spawn.Troops.SandGolem
-                    }, false);
-                }
-
-                rock.setWorldTroop(e);
-            }
-
-            if (this.getSize() == 3)
-            {
-                rock.grow(true);
-            }
         }
-
     });
 
 	::mods_hookExactClass("entity/tactical/enemies/skeleton_lich", function(o){
