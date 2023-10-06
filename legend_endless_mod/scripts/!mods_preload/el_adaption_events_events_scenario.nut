@@ -7,7 +7,7 @@ local gt = getroottable();
 
         o.startCombat = function(_event)
         {
-            this.logInfo("ptr_swordmaster_scenario_student_local_duel_event startCombat");
+            //this.logInfo("ptr_swordmaster_scenario_student_local_duel_event startCombat");
 
             local name = _event.m.Flags.get("EnemyChampionName");
             local properties = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos());

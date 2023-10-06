@@ -7,7 +7,7 @@ local gt = getroottable();
 
         o.create = function()
         {
-            this.logInfo("legend_mummy_enter_event create");
+            //this.logInfo("legend_mummy_enter_event create");
 
             this.m.ID = "event.location.legend_mummy_enter";
             this.m.Title = "As you approach...";
@@ -346,7 +346,7 @@ local gt = getroottable();
 
         o.selectFight = function( _scale, _type, _lootingStopped )
         {
-            this.logInfo("legend_tournament_enter_event selectFight");
+            //this.logInfo("legend_tournament_enter_event selectFight");
 
             local round = this.World.Flags.get("LegendTournamentRound");
             local roundDifficulty = 0.7 + round * 0.3;
@@ -381,7 +381,7 @@ local gt = getroottable();
             p.IsAutoAssigningBases = false;
             p.Players = [];
             p.Entities = [];
-            this.logInfo("push party");
+            //this.logInfo("push party");
             local party = this.new("scripts/entity/world/party");
             party.EL_setFaction(this.Const.Faction.Enemy);
             party.EL_tempPartyInit();

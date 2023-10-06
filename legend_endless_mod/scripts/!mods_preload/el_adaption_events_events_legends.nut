@@ -8,7 +8,7 @@ local gt = getroottable();
 
         o.create = function()
         {
-            this.logInfo("legend_northmen_forest_ambush_event create");
+            //this.logInfo("legend_northmen_forest_ambush_event create");
 
             this.m.ID = "event.legend_northmen_forest_ambush";
             this.m.Title = "In the forest...";
@@ -405,7 +405,7 @@ local gt = getroottable();
 
         o.create = function()
         {
-            this.logInfo("legend_swordmaster_fav_enemy_event create");
+            //this.logInfo("legend_swordmaster_fav_enemy_event create");
 
             this.m.ID = "event.legend_swordmaster_fav_enemy";
             this.m.Title = "As you approach...";

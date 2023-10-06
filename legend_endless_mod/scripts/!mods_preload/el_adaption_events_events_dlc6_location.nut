@@ -8,7 +8,7 @@ local gt = getroottable();
 
         o.create = function()
         {
-            this.logInfo("sunken_library_enter_event create");
+            //this.logInfo("sunken_library_enter_event create");
 
             this.m.ID = "event.location.sunken_library_enter";
             this.m.Title = "As you approach...";

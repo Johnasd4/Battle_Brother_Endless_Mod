@@ -8,7 +8,7 @@ local gt = getroottable();
 
         o.create = function()
         {
-            this.logInfo("come_across_ritual_event create");
+            //this.logInfo("come_across_ritual_event create");
 
             this.m.ID = "event.come_across_ritual";
             this.m.Title = "Along the way...";
@@ -333,7 +333,7 @@ local gt = getroottable();
 
         o.create = function()
         {
-            this.logInfo("historian_mysterious_text_event create");
+            //this.logInfo("historian_mysterious_text_event create");
 
             this.m.ID = "event.historian_mysterious_text";
             this.m.Title = "Along the way...";
@@ -527,7 +527,7 @@ local gt = getroottable();
 
         o.create = function()
         {
-            this.logInfo("lawmen_after_criminal_event create");
+            //this.logInfo("lawmen_after_criminal_event create");
 
             this.m.ID = "event.lawmen_after_criminal";
             this.m.Title = "Along the road...";
@@ -820,7 +820,7 @@ local gt = getroottable();
 
         o.create = function()
         {
-            this.logInfo("man_in_forest_event create");
+            //this.logInfo("man_in_forest_event create");
 
             this.m.ID = "event.man_in_forest";
             this.m.Title = "Along the way...";
@@ -977,7 +977,7 @@ local gt = getroottable();
 
         o.create = function()
         {
-            this.logInfo("man_in_forest_event create");
+            //this.logInfo("man_in_forest_event create");
 
             this.m.ID = "event.religious_peasants";
             this.m.Title = "Along the way...";
@@ -1176,7 +1176,7 @@ local gt = getroottable();
 
         o.create = function()
         {
-            this.logInfo("wildman_causes_havoc_event create");
+            //this.logInfo("wildman_causes_havoc_event create");
 
             this.m.ID = "event.wildman_causes_havoc";
             this.m.Title = "At %townname%";
@@ -1634,7 +1634,7 @@ local gt = getroottable();
 
         o.create = function()
         {
-            this.logInfo("greenskins_caravan_ambush_event create");
+            //this.logInfo("greenskins_caravan_ambush_event create");
 
             this.m.ID = "event.crisis.greenskins_caravan_ambush";
             this.m.Title = "Along the road...";
@@ -1882,7 +1882,7 @@ local gt = getroottable();
 
         o.create = function()
         {
-            this.logInfo("greenskins_trapped_goblin_event create");
+            //this.logInfo("greenskins_trapped_goblin_event create");
 
             this.m.ID = "event.crisis.greenskins_trapped_goblin";
             this.m.Title = "Along the way...";
@@ -2124,7 +2124,7 @@ local gt = getroottable();
 
         o.create = function()
         {
-            this.logInfo("undead_necrosavant_event create");
+            //this.logInfo("undead_necrosavant_event create");
 
             this.m.ID = "event.crisis.undead_necrosavant";
             this.m.Title = "Along the road...";
@@ -2346,7 +2346,7 @@ local gt = getroottable();
 
         o.create = function()
         {
-            this.logInfo("undead_plague_or_infected_event create");
+            //this.logInfo("undead_plague_or_infected_event create");
 
             this.m.ID = "event.crisis.undead_plague_or_infected";
             this.m.Title = "Along the road...";

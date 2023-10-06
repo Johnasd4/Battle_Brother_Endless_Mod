@@ -9,7 +9,7 @@ local gt = getroottable();
         local setup = o.setup;
         o.setup = function()
         {
-            this.logInfo("arena_contract setup");
+            //this.logInfo("arena_contract setup");
             setup();
             local day = this.World.getTime().Days;
             if(this.World.Assets.m.EL_LastArenaDay == day)
@@ -26,7 +26,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("arena_contract createScreens");
+            //this.logInfo("arena_contract createScreens");
             this.m.Screens.push({
                 ID = "Task",
                 Title = "At the Arena",
@@ -316,17 +316,17 @@ local gt = getroottable();
                             p.IsArenaMode = true;
                             p.IsAutoAssigningBases = false;
                             local bros = this.Contract.getBros();
-                            this.logInfo("push bros");
+                            //this.logInfo("push bros");
                             for( local i = 0; i < bros.len() && i < 3; i = i )
                             {
                                 p.Players.push(bros[i]);
                                 i = ++i;
                             }
-                            this.logInfo("push party");
+                            //this.logInfo("push party");
                             local party = this.new("scripts/entity/world/party");
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Arena).getID());
                             party.EL_tempPartyInit();
-                            //this.logInfo(party.getFaction());
+                            ////this.logInfo(party.getFaction());
                             //Stop copying troops.
                             party.EL_setTroopsResourse(0);
                             party.EL_setHaveRandomLeader(false);
@@ -1033,7 +1033,7 @@ local gt = getroottable();
 
         o.getOpponents = function( _round, _index = -1 )
         {
-            this.logInfo("arena_tournament_contract getOpponents");
+            //this.logInfo("arena_tournament_contract getOpponents");
 
             local twists = [];
 
@@ -1683,7 +1683,7 @@ local gt = getroottable();
 
         o.startTournamentRound = function()
         {
-            this.logInfo("arena_tournament_contract startTournamentRound");
+            //this.logInfo("arena_tournament_contract startTournamentRound");
             local p = this.Const.Tactical.CombatInfo.getClone();
             p.LocationTemplate = clone this.Const.Tactical.LocationTemplate;
             p.CombatID = "Arena";
@@ -1712,7 +1712,7 @@ local gt = getroottable();
             local party = this.new("scripts/entity/world/party");
             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Arena).getID());
             party.EL_tempPartyInit();
-            //this.logInfo(party.getFaction());
+            ////this.logInfo(party.getFaction());
             //Stop copying troops.
             party.EL_setTroopsResourse(0);
             party.EL_setHaveStrongestLeader(false);
@@ -1744,7 +1744,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("confront_warlord_contract createScreens");
+            //this.logInfo("confront_warlord_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationDefault);
             this.importScreens(this.Const.Contracts.Overview);
@@ -1936,7 +1936,7 @@ local gt = getroottable();
                             party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.8);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Orcs).getID());
                             party.EL_tempPartyInit();
-                            //this.logInfo(party.getFaction());
+                            ////this.logInfo(party.getFaction());
                             p.Parties.push(party);
                             this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.BerserkersOnly, 80 * this.Contract.getDifficultyMult() * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Orcs).getID());
                             foreach(troop in party.getTroops()) {
@@ -2100,7 +2100,7 @@ local gt = getroottable();
 
         o.createStates = function()
         {
-            this.logInfo("conquer_holy_site_contract createStates");
+            //this.logInfo("conquer_holy_site_contract createStates");
 
             this.m.States.push({
                 ID = "Offer",
@@ -2537,7 +2537,7 @@ local gt = getroottable();
 
         o.createStates = function()
         {
-            this.logInfo("conquer_holy_site_southern_contract createStates");
+            //this.logInfo("conquer_holy_site_southern_contract createStates");
 
             this.m.States.push({
                 ID = "Offer",
@@ -2965,7 +2965,7 @@ local gt = getroottable();
 
         o.createStates = function()
         {
-            this.logInfo("decisive_battle_contract createStates");
+            //this.logInfo("decisive_battle_contract createStates");
 
             this.m.States.push({
                 ID = "Offer",
@@ -3650,7 +3650,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("decisive_battle_contract createScreens");
+            //this.logInfo("decisive_battle_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationDefault);
             this.importScreens(this.Const.Contracts.Overview);
@@ -4720,7 +4720,7 @@ local gt = getroottable();
 
         o.createStates = function()
         {
-            this.logInfo("defend_holy_site_contract createStates");
+            //this.logInfo("defend_holy_site_contract createStates");
 
             this.m.States.push({
                 ID = "Offer",
@@ -5121,7 +5121,7 @@ local gt = getroottable();
 
         o.createStates = function()
         {
-            this.logInfo("defend_holy_site_southern_contract createStates");
+            //this.logInfo("defend_holy_site_southern_contract createStates");
 
             this.m.States.push({
                 ID = "Offer",
@@ -5516,7 +5516,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("deliver_item_contract createScreens");
+            //this.logInfo("deliver_item_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationDefault);
             this.importScreens(this.Const.Contracts.Overview);
@@ -6032,7 +6032,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("deliver_money_contract createScreens");
+            //this.logInfo("deliver_money_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationDefault);
             this.importScreens(this.Const.Contracts.Overview);
@@ -6443,7 +6443,7 @@ local gt = getroottable();
 
         o.createStates = function()
         {
-            this.logInfo("destroy_goblin_camp_contract createStates");
+            //this.logInfo("destroy_goblin_camp_contract createStates");
 
             this.m.States.push({
                 ID = "Offer",
@@ -6616,7 +6616,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("destroy_goblin_camp_contract createScreens");
+            //this.logInfo("destroy_goblin_camp_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationDefault);
             this.importScreens(this.Const.Contracts.Overview);
@@ -6789,7 +6789,7 @@ local gt = getroottable();
 
         o.createStates = function()
         {
-            this.logInfo("destroy_orc_camp_contract createStates");
+            //this.logInfo("destroy_orc_camp_contract createStates");
 
             this.m.States.push({
                 ID = "Offer",
@@ -6987,7 +6987,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("destroy_orc_camp_contract createScreens");
+            //this.logInfo("destroy_orc_camp_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationPerHead);
             this.importScreens(this.Const.Contracts.Overview);
@@ -7228,7 +7228,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("discover_location_contract createScreens");
+            //this.logInfo("discover_location_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationDefault);
             this.importScreens(this.Const.Contracts.Overview);
@@ -7574,7 +7574,7 @@ local gt = getroottable();
 
         o.createStates = function()
         {
-            this.logInfo("drive_away_bandits_contract createStates");
+            //this.logInfo("drive_away_bandits_contract createStates");
 
             this.m.States.push({
                 ID = "Offer",
@@ -7772,7 +7772,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("drive_away_bandits_contract createScreens");
+            //this.logInfo("drive_away_bandits_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationDefault);
             this.importScreens(this.Const.Contracts.Overview);
@@ -8155,7 +8155,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("drive_away_barbarians_contract createScreens");
+            //this.logInfo("drive_away_barbarians_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationDefault);
             this.importScreens(this.Const.Contracts.Overview);
@@ -8627,7 +8627,7 @@ local gt = getroottable();
 
         o.createStates = function()
         {
-            this.logInfo("drive_away_nomads_contract createStates");
+            //this.logInfo("drive_away_nomads_contract createStates");
 
             this.m.States.push({
                 ID = "Offer",
@@ -8846,7 +8846,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("escort_caravan_contract createScreens");
+            //this.logInfo("escort_caravan_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationPerHeadAtDestination);
             this.importScreens(this.Const.Contracts.Overview);
@@ -9486,7 +9486,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("escort_envoy_contract createScreens");
+            //this.logInfo("escort_envoy_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationDefault);
             this.importScreens(this.Const.Contracts.Overview);
@@ -9768,7 +9768,7 @@ local gt = getroottable();
 
         o.createStates = function()
         {
-            this.logInfo("find_artifact_contract createStates");
+            //this.logInfo("find_artifact_contract createStates");
 
             this.m.States.push({
                 ID = "Offer",
@@ -10020,7 +10020,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("free_greenskin_prisoners_contract createScreens");
+            //this.logInfo("free_greenskin_prisoners_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationDefault);
             this.importScreens(this.Const.Contracts.Overview);
@@ -10567,7 +10567,7 @@ local gt = getroottable();
 
         o.createStates = function()
         {
-            this.logInfo("hold_chokepoint_contract createStates");
+            //this.logInfo("hold_chokepoint_contract createStates");
 
             this.m.States.push({
                 ID = "Offer",
@@ -10926,7 +10926,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("hunting_alps_contract createScreens");
+            //this.logInfo("hunting_alps_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationDefault);
             this.importScreens(this.Const.Contracts.Overview);
@@ -11126,7 +11126,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("hunting_hexen_contract createScreens");
+            //this.logInfo("hunting_hexen_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationDefault);
             this.importScreens(this.Const.Contracts.Overview);
@@ -11205,7 +11205,7 @@ local gt = getroottable();
                             party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.5);
                             party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Beasts).getID());
                             party.EL_tempPartyInit();
-                            //this.logInfo(party.getFaction());
+                            ////this.logInfo(party.getFaction());
                             p.Parties.push(party);
                             this.Const.World.Common.addTroop(party, {
                                 Type = this.Const.World.Spawn.Troops.SpiderBodyguard
@@ -11511,7 +11511,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("hunting_lindwurms_contract createScreens");
+            //this.logInfo("hunting_lindwurms_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationDefault);
             this.importScreens(this.Const.Contracts.Overview);
@@ -11898,7 +11898,7 @@ local gt = getroottable();
 
         o.createStates = function()
         {
-            this.logInfo("hunting_serpents_contract createStates");
+            //this.logInfo("hunting_serpents_contract createStates");
 
             this.m.States.push({
                 ID = "Offer",
@@ -12108,7 +12108,7 @@ local gt = getroottable();
 
         o.createStates = function()
         {
-            this.logInfo("last_stand_contract createStates");
+            //this.logInfo("last_stand_contract createStates");
 
             this.m.States.push({
                 ID = "Offer",
@@ -12300,7 +12300,7 @@ local gt = getroottable();
                         if (this.Flags.get("Wave") < 3)
                         {
                             local militia = this.Flags.get("MilitiaStart") - this.Flags.get("Militia");
-                            this.logInfo("militia losses: " + militia);
+                            //this.logInfo("militia losses: " + militia);
 
                             if (militia >= 3)
                             {
@@ -12413,7 +12413,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("legend_hunting_coven_leader_contract createScreens");
+            //this.logInfo("legend_hunting_coven_leader_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationDefault);
             this.importScreens(this.Const.Contracts.Overview);
@@ -12782,7 +12782,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("legend_hunting_demon_alps_contract createScreens");
+            //this.logInfo("legend_hunting_demon_alps_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationDefault);
             this.importScreens(this.Const.Contracts.Overview);
@@ -12979,7 +12979,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("legend_hunting_stollwurms_contract createScreens");
+            //this.logInfo("legend_hunting_stollwurms_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationDefault);
             this.importScreens(this.Const.Contracts.Overview);
@@ -13372,7 +13372,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("patrol_contract createScreens");
+            //this.logInfo("patrol_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationPerHead);
             this.importScreens(this.Const.Contracts.Overview);
@@ -13924,7 +13924,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("raid_caravan_contract createScreens");
+            //this.logInfo("raid_caravan_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationDefault);
             this.importScreens(this.Const.Contracts.Overview);
@@ -14399,7 +14399,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("raze_attached_location_contract createScreens");
+            //this.logInfo("raze_attached_location_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationDefault);
             this.importScreens(this.Const.Contracts.Overview);
@@ -14664,7 +14664,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("restore_location_contract createScreens");
+            //this.logInfo("restore_location_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationDefault);
             this.importScreens(this.Const.Contracts.Overview);
@@ -15000,7 +15000,7 @@ local gt = getroottable();
 
         o.createStates = function()
         {
-            this.logInfo("root_out_undead_contract createStates");
+            //this.logInfo("root_out_undead_contract createStates");
 
             this.m.States.push({
                 ID = "Offer",
@@ -15251,7 +15251,7 @@ local gt = getroottable();
 
         o.createStates = function()
         {
-            this.logInfo("siege_fortification_contract createStates");
+            //this.logInfo("siege_fortification_contract createStates");
 
             this.m.States.push({
                 ID = "Offer",
@@ -16029,7 +16029,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("siege_fortification_contract createScreens");
+            //this.logInfo("siege_fortification_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationDefault);
             this.importScreens(this.Const.Contracts.Overview);
@@ -16911,7 +16911,7 @@ local gt = getroottable();
 
         o.createScreens = function()
         {
-            this.logInfo("slave_uprising_contract createScreens");
+            //this.logInfo("slave_uprising_contract createScreens");
 
             this.importScreens(this.Const.Contracts.NegotiationDefault);
             this.importScreens(this.Const.Contracts.Overview);

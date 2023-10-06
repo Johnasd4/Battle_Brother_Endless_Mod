@@ -8,7 +8,7 @@ local gt = getroottable();
 
         o.create = function()
         {
-            this.logInfo("spooky_forest_event create");
+            //this.logInfo("spooky_forest_event create");
 
             this.m.ID = "event.spooky_forest";
             this.m.Title = "During camp...";
@@ -259,7 +259,7 @@ local gt = getroottable();
 
         o.create = function()
         {
-            this.logInfo("treant_vs_giants_event create");
+            //this.logInfo("treant_vs_giants_event create");
 
             this.m.ID = "event.treant_vs_giants";
             this.m.Title = "Along the way...";

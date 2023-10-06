@@ -7,7 +7,7 @@ local gt = getroottable();
 
         o.create = function()
         {
-            this.logInfo("icy_cave_destroyed_event create");
+            //this.logInfo("icy_cave_destroyed_event create");
 
             this.m.ID = "event.location.icy_cave_enter";
             this.m.Title = "As you approach...";
@@ -348,7 +348,7 @@ local gt = getroottable();
 
         o.create = function()
         {
-            this.logInfo("icy_cave_enter_event create");
+            //this.logInfo("icy_cave_enter_event create");
 
             this.m.ID = "event.location.icy_cave_enter";
             this.m.Title = "As you approach...";

@@ -8,7 +8,7 @@ local gt = getroottable();
 
         o.create = function()
         {
-            this.logInfo("wild_dog_sounds_event create");
+            //this.logInfo("wild_dog_sounds_event create");
 
             this.m.ID = "event.wild_dog_sounds";
             this.m.Title = "Along the way...";

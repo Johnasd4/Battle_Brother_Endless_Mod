@@ -88,7 +88,7 @@ local gt = getroottable();
         local create = o.create;
         o.create = function()
         {
-            this.logInfo("legend_armor_named_warlock_cloak create");
+            //this.logInfo("legend_armor_named_warlock_cloak create");
             create();
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
@@ -147,7 +147,7 @@ local gt = getroottable();
         local create = o.create;
         o.create = function()
         {
-            this.logInfo("legend_armor_of_davkul create");
+            //this.logInfo("legend_armor_of_davkul create");
             create();
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
@@ -211,7 +211,7 @@ local gt = getroottable();
         local create = o.create;
         o.create = function()
         {
-            this.logInfo("legend_emperors_armor create");
+            //this.logInfo("legend_emperors_armor create");
             create();
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
@@ -253,7 +253,7 @@ local gt = getroottable();
         local create = o.create;
         o.create = function()
         {
-            this.logInfo("legend_ijirok_armor create");
+            //this.logInfo("legend_ijirok_armor create");
             create();
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
@@ -301,7 +301,7 @@ local gt = getroottable();
         local create = o.create;
         o.create = function()
         {
-            this.logInfo("legend_skin_armor create");
+            //this.logInfo("legend_skin_armor create");
             create();
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }

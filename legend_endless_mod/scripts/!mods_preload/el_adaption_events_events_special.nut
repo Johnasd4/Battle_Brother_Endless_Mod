@@ -7,7 +7,7 @@ local gt = getroottable();
 
         o.create = function()
         {
-            this.logInfo("oathtakers_confrontation_event create");
+            //this.logInfo("oathtakers_confrontation_event create");
 
 
             this.m.ID = "event.oathtakers_confrontation";

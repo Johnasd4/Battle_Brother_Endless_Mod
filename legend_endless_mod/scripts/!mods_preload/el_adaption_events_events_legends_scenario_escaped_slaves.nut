@@ -7,7 +7,7 @@ local gt = getroottable();
 
         o.create = function()
         {
-            this.logInfo("sato_pursuer_ambush_event create");
+            //this.logInfo("sato_pursuer_ambush_event create");
 
             local ManhuntersText1 = "An unnatural quiet takes hold, and the hairs on the back of your neck prick up. It seems %nemesisviziername% has not forgotten about you or your escape. You\'re surrounded by manhunters!";
             local ManhuntersText2 = "Two men come out from behind a thicket, standing directly in your path. More materialize behind you. One of them brandishes a pair of manacles and jeers at you. Your heart sinks as you realize their true purpose: Manhunters from the %nemesiscityname%, here to capture or kill you! You have no choice but to defend yourselves!";
