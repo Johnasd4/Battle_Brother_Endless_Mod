@@ -210,7 +210,7 @@ gt.Const.EL_Weapon <- {
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_additional_accuracy_entry",
 					function EL_ifEligible(_EL_item) { 
-						if(_EL_item.m.EL_BaseWithRankAdditionalAccuracy == 0 || !_EL_item.isItemType(this.Const.Items.ItemType.RangedWeapon)) 
+						if(_EL_item.m.EL_BaseWithRankAdditionalAccuracy == 0 && !_EL_item.isItemType(this.Const.Items.ItemType.RangedWeapon)) 
 						{ 
 							return false; 
 						}
