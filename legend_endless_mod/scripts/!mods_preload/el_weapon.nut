@@ -379,7 +379,6 @@ local gt = getroottable();
 		//Initialize equipment based on level and rank after generating items
         o.EL_generateByRankAndLevel <- function( _EL_rankLevel, EL_level, EL_additionalRarityChance = 0 )
         {
-
 			local percent = 0;
 			percent = (this.m.Condition * 1.0)/ this.m.ConditionMax;
 			if(this.m.EL_Level == -1)
