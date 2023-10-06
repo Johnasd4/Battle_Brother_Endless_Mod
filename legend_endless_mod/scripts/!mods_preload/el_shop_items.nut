@@ -408,6 +408,11 @@ local gt = getroottable();
 				P = 1.0,
 				S = "accessory/ghoul_trophy_item"
 			});
+            list.push({
+				R = 0,
+				P = 1.0,
+				S = "el_misc/el_core_item"
+			});
 
             this.m.Settlement.onUpdateShopList(this.m.ID, list);
             this.fillStash(list, this.m.Stash, 1.0, true);
@@ -761,6 +766,11 @@ local gt = getroottable();
 				R = 70,
 				P = 1.0,
 				S = "accessory/ghoul_trophy_item"
+			});
+            list.push({
+				R = 0,
+				P = 1.0,
+				S = "el_misc/el_core_item"
 			});
 
             this.m.Settlement.onUpdateShopList(this.m.ID, list);
@@ -1762,6 +1772,7 @@ local gt = getroottable();
             local isTrader = this.World.Retinue.hasFollower("follower.trader");
             local EL_worldLevel = this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.EL_Shop.EL_ShopLevelMax);
             //this.logInfo("当前世界等级" + EL_worldLevel);
+            local EL_coreMaxNum = this.Const.EL_Shop.EL_Core.EL_ShopMaxNum * (1 + EL_worldLevel * this.Const.EL_Shop.EL_ItemNumberLevelFactor);
             local EL_maxNumitems = this.Const.EL_Shop.EL_ShopMaxNumitems * (1 + EL_worldLevel * this.Const.EL_Shop.EL_ItemNumberLevelFactor);
             local EL_maxNum = this.Const.EL_Shop.EL_ShopMaxNum * (1 + EL_worldLevel * this.Const.EL_Shop.EL_ItemNumberLevelFactor);
 
@@ -1844,12 +1855,13 @@ local gt = getroottable();
                         if (item == null)
                         {
                         }
+                        local EL_isCore = item.m.Name == "Core";
                         local isFood = item.isItemType(this.Const.Items.ItemType.Food);
                         local isMedicine = item.getID() == "supplies.medicine";
                         local isMineral = item.getID() == "misc.uncut_gems" || item.getID() == "misc.copper_ingots" || item.getID() == "misc.gold_ingots" || item.getID() == "misc.iron_ingots";
                         local isBuilding = item.getID() == "misc.quality_wood" || item.getID() == "misc.copper_ingots" || item.getID() == "misc.tin_ingots" || item.getID() == "misc.iron_ingots";
                         //this.logInfo(" isFood："+isFood+" p："+p+" r:"+r);
-                        while (p >= r && num < EL_maxNumitems)
+                        while (p >= r && num < EL_coreMaxNum)
                         {
                             ++num;
                             //this.logInfo("生成运算中finalNum" + num);
@@ -1859,11 +1871,16 @@ local gt = getroottable();
                                 r = r + p;
                             }
                         }
+                        if(EL_coreMaxNum)
+                        {
+                            ++num;
+                        }
                         
                         //this.logInfo("final p："+p+" r:"+r);
                         num += p / r;
                         num = this.Math.floor(num * (1 + EL_worldLevel * this.Const.EL_Shop.EL_ItemNumberLevelFactor));
-                        local EL_maxNum = (!isTrader && item.isItemType(this.Const.Items.ItemType.TradeGood)) ? EL_maxNumitems : EL_maxNum;
+                        EL_maxNum = (!isTrader && item.isItemType(this.Const.Items.ItemType.TradeGood)) ? EL_maxNumitems : EL_maxNum;
+                        EL_maxNum = EL_isCore ? EL_coreMaxNum : EL_maxNum;
                         EL_maxNum = (num > EL_maxNum) ? EL_maxNum : num;
                         
                         //this.logInfo("生成运算中EL_maxNum" + EL_maxNum);
@@ -1896,11 +1913,40 @@ local gt = getroottable();
                                     ]
                                 ]);
                             }
+                            else if (EL_isCore)
+                            {
+			                    local xp_level = EL_worldLevel;
+                                local r = this.Math.rand(1, 100000);
+                                local core_rank = 0;
+                                if(r < this.Const.EL_Shop.EL_CoreRank3Chance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * 1000)
+                                {
+                                    core_rank = 3;
+                                }
+                                else if(r < this.Const.EL_Shop.EL_CoreRank2Chance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * 1000)
+                                {
+                                    core_rank = 2;
+                                }
+                                else if(r < this.Const.EL_Shop.EL_CoreRank1Chance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * 1000)
+                                {
+                                    core_rank = 1;
+                                }
+                                else
+                                {
+                                    core_rank = 0;
+                                    xp_level = this.Math.rand(this.Math.max(1 ,EL_worldLevel - this.Const.EL_Shop.EL_ShopLevelInStoreMin), EL_worldLevel + this.Const.EL_Shop.EL_ShopLevelInStoreMax);
+                                }
+                                item = this.new("scripts/items/el_misc/el_core_rank_" + core_rank + "_item");
+                                local core_xp = this.Const.EL_Shop.EL_Core.XPOffset - this.Math.pow(this.Math.rand(this.Math.pow(this.Const.EL_Shop.EL_Core.XPMin[core_rank], 2), this.Math.pow(this.Const.EL_Shop.EL_Core.XPMax[core_rank], 2)), 0.5);
+                                //this.logInfo("core_xp:" + core_xp);
+                                core_xp *= this.Math.pow(this.Const.EL_NPC.EL_LevelUp.XPFactor, this.Math.max(1, xp_level - this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset));
+                                //this.logInfo("xp_level:" + xp_level);
+                                //this.logInfo("mult:" + this.Math.pow(this.Const.EL_NPC.EL_LevelUp.XPFactor, this.Math.max(1, xp_level - this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset)));
+                                item.EL_generateCoreXPByActorXP(core_xp);
+                            }
                             else
                             {
                                 item = this.new("scripts/items/" + i.S);
                             }
-                            
                             //this.logInfo("item ID:"+item.getID());
                             
                             if (!isFood || p * foodRarityMult >= i.R)
