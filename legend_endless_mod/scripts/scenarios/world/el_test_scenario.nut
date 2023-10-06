@@ -61,7 +61,7 @@ this.el_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario
 		this.World.Assets.getStash().add(this.new("scripts/items/legend_armor/legendary/legend_emperors_armor"));
 		this.World.Assets.getStash().add(this.new("scripts/items/legend_armor/legendary/legend_ijirok_armor"));
 		this.World.Assets.getStash().add(this.new("scripts/items/legend_armor/legendary/legend_skin_armor"));
-
+		this.World.Assets.getStash().add(this.new("scripts/items/weapons/legendary/lightbringer_sword"));
 
 
 		this.World.Assets.m.Money = 999999;

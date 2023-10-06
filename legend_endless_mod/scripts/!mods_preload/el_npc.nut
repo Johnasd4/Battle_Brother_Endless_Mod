@@ -265,6 +265,7 @@ local gt = getroottable();
         local kill = o.kill;
         o.kill = function( _killer = null, _skill = null, _fatalityType = this.Const.FatalityType.None, _silent = false )
         {
+            this.logInfo(this.getID() + " is killed.");
             if (_killer == null || _killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals)
             {
                 local rank = 0;
@@ -1312,6 +1313,7 @@ local gt = getroottable();
 		local onDropLootForPlayer = o.onDropLootForPlayer;
 		o.onDropLootForPlayer = function (_lootTable)
 		{
+            this.logInfo("onDropLootForPlayer");
             onDropLootForPlayer(_lootTable);
             this.EL_dropEquipmentEssence(_lootTable);
             this.EL_dropLootItems(_lootTable);
