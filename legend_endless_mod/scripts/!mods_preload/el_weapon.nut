@@ -798,4 +798,80 @@ local gt = getroottable();
 			}
 		}
 	});
+
+	::mods_hookNewObject("items/weapons/fencing_sword", function(o) {
+		local getTooltip = ::mods_getMember(o, "getTooltip");
+		o.getTooltip <- function()
+		{
+			local tooltip = getTooltip();
+			tooltip.insert(11, 
+				{
+					id = 9,
+					type = "text",
+					icon = "ui/icons/chance_to_hit_head.png",
+					text = "Chance to hit head [color=" + this.Const.UI.Color.NegativeValue + "]-25%[/color]"
+				}
+			);
+			tooltip.remove(tooltip.len() - 2);
+
+			return tooltip;
+		}
+	});
+
+	::mods_hookNewObject("items/weapons/named/named_fencing_sword", function(o) {
+		local getTooltip = ::mods_getMember(o, "getTooltip");
+		o.getTooltip <- function()
+		{
+			local tooltip = getTooltip();
+			tooltip.insert(11, 
+				{
+					id = 9,
+					type = "text",
+					icon = "ui/icons/chance_to_hit_head.png",
+					text = "Chance to hit head [color=" + this.Const.UI.Color.NegativeValue + "]-25%[/color]"
+				}
+			);
+			tooltip.remove(tooltip.len() - 2);
+
+			return tooltip;
+		}
+	});
+
+	::mods_hookNewObject("items/weapons/legend_estoc", function(o) {
+		local getTooltip = ::mods_getMember(o, "getTooltip");
+		o.getTooltip <- function()
+		{
+			local tooltip = getTooltip();
+			tooltip.insert(11, 
+				{
+					id = 9,
+					type = "text",
+					icon = "ui/icons/chance_to_hit_head.png",
+					text = "Chance to hit head [color=" + this.Const.UI.Color.NegativeValue + "]-25%[/color]"
+				}
+			);
+			tooltip.remove(tooltip.len() - 2);
+
+			return tooltip;
+		}
+	});
+
+	::mods_hookNewObject("items/weapons/named/legend_named_estoc", function(o) {
+		local getTooltip = ::mods_getMember(o, "getTooltip");
+		o.getTooltip <- function()
+		{
+			local tooltip = getTooltip();
+			tooltip.insert(11, 
+				{
+					id = 9,
+					type = "text",
+					icon = "ui/icons/chance_to_hit_head.png",
+					text = "Chance to hit head [color=" + this.Const.UI.Color.NegativeValue + "]-25%[/color]"
+				}
+			);
+			tooltip.remove(tooltip.len() - 2);
+
+			return tooltip;
+		}
+	});
 });

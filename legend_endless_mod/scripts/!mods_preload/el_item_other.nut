@@ -136,6 +136,7 @@ local gt = getroottable();
 						item.EL_addRankLevel();
 					}	
 				}
+				//item.m.Condition = item.m.ConditionMax;
 				//this.logInfo("item ID = "+ item.m.ID+", rank:"+item.m.EL_RankLevel+", level:"+item.m.EL_Level);
 			}
         }

@@ -29,7 +29,7 @@ this.el_bloody_cutting_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Additional damage of 50% of the target's health has been lost.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Additional damage of 20% of the target's health has been lost.[/color]"
 			},
 			{
 				id = 4,
