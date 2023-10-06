@@ -334,6 +334,22 @@ local gt = getroottable();
         o.m.EL_Faction <- 0;
         o.m.EL_LootItems <- [];
 
+        local onCombatLost = o.onCombatLost;
+        o.onCombatLost = function()
+        {
+            this.logInfo("world_entity onCombatLost() this.m.IsDestructible " + this.m.IsDestructible);
+            onCombatLost();
+            // if (this.m.IsDestructible)
+            // {
+            //     if (this.hasLabel("name"))
+            //     {
+            //         this.getLabel("name").Visible = false;
+            //     }
+
+            //     this.fadeOutAndDie();
+            // }
+        }
+
         o.onBeforeCombatStarted = function() {
             // this.Const.World.Common.addTroop(this, {
             //     Type = this.Const.World.Spawn.Troops.Ghost
@@ -1332,6 +1348,135 @@ local gt = getroottable();
 
 	::mods_hookExactClass("states/world_state", function ( o )
 	{
+        o.onCombatFinished = function()
+        {
+            this.logDebug("World::onCombatFinished");
+            this.World.FactionManager.onCombatFinished();
+            this.World.Statistics.getFlags().increment("LastCombatID", 1);
+            this.Time.setVirtualTime(this.m.CombatStartTime);
+            this.Math.seedRandom(this.Time.getRealTime());
+            this.m.CombatStartTime = 0;
+            this.m.CombatSeed = 0;
+            this.World.Statistics.getFlags().set("LastCombatSavedCaravan", false);
+
+            if (!this.World.Statistics.getFlags().get("LastCombatWasArena"))
+            {
+                local nonLocationBattle = true;
+
+                foreach( party in this.m.PartiesInCombat )
+                {
+                    if (party.isLocation() && !party.isAlliedWithPlayer())
+                    {
+                        nonLocationBattle = false;
+                    }
+
+                    if(party.isLocation() && !party.isAlliedWithPlayer()) {
+                        this.logInfo("world_state onCombatFinished() party.isAlive() " + party.isAlive());
+                        this.logInfo("world_state onCombatFinished() party.getTroops().len() " + party.getTroops().len());
+                    }
+                    if (party.isAlive() && party.getTroops().len() == 0)
+                    {
+                        party.onCombatLost();
+                    }
+                    else if (party.isAlive() && party.isAlliedWithPlayer() && party.getFlags().get("IsCaravan") && this.m.EscortedEntity == null)
+                    {
+                        this.World.Statistics.getFlags().set("LastCombatSavedCaravan", true);
+                        this.World.Statistics.getFlags().set("LastCombatSavedCaravanProduce", party.getInventory()[this.Math.rand(0, party.getInventory().len() - 1)]);
+                    }
+                }
+
+                this.m.PartiesInCombat = [];
+
+                if (nonLocationBattle)
+                {
+                    local playerTile = this.getPlayer().getTile();
+                    local battlefield;
+
+                    if (!playerTile.IsOccupied)
+                    {
+                        battlefield = this.World.spawnLocation("scripts/entity/world/locations/battlefield_location", playerTile.Coords);
+                    }
+                    else
+                    {
+                        for( local i = 0; i != 6; i = i )
+                        {
+                            if (!playerTile.hasNextTile(i))
+                            {
+                            }
+                            else
+                            {
+                                local nextTile = playerTile.getNextTile(i);
+
+                                if (!nextTile.IsOccupied)
+                                {
+                                    battlefield = this.World.spawnLocation("scripts/entity/world/locations/battlefield_location", nextTile.Coords);
+                                    break;
+                                }
+                            }
+
+                            i = ++i;
+                        }
+                    }
+
+                    if (battlefield != null)
+                    {
+                        battlefield.setSize(2);
+                    }
+                }
+            }
+
+            if (this.World.getPlayerRoster().getSize() == 0 || !this.World.Assets.getOrigin().onCombatFinished() || this.commanderDied())
+            {
+                if (this.World.Assets.isIronman())
+                {
+                    this.autosave();
+                }
+
+                this.show();
+                this.showGameFinishScreen(false);
+                return;
+            }
+
+            local playerRoster = this.World.getPlayerRoster().getAll();
+
+            foreach( bro in playerRoster )
+            {
+                bro.onCombatFinished();
+            }
+
+            this.Stash.setLocked(false);
+            this.Sound.stopAmbience();
+            this.Sound.setAmbience(0, this.getSurroundingAmbienceSounds(), this.Const.Sound.Volume.Ambience * this.Const.Sound.Volume.AmbienceTerrain, this.World.getTime().IsDaytime ? this.Const.Sound.AmbienceMinDelay : this.Const.Sound.AmbienceMinDelayAtNight);
+            this.Sound.setAmbience(1, this.getSurroundingLocationSounds(), this.Const.Sound.Volume.Ambience * this.Const.Sound.Volume.AmbienceOutsideSettlement, this.Const.Sound.AmbienceOutsideDelay);
+
+            if (this.Settings.getGameplaySettings().RestoreEquipment)
+            {
+                this.World.Assets.restoreEquipment();
+            }
+
+            this.World.Assets.consumeItems();
+            this.World.Assets.refillAmmo();
+            this.World.Assets.updateAchievements();
+            this.World.Assets.checkAmbitionItems();
+            this.updateTopbarAssets();
+            this.World.State.getPlayer().updateStrength();
+            this.World.Events.updateBattleTime();
+            this.World.Ambitions.resetTime();
+            this.stunPartiesNearPlayer();
+            this.setWorldmapMusic(true);
+
+            if (this.World.Assets.isIronman())
+            {
+                this.autosave();
+            }
+
+            this.show();
+            this.setAutoPause(false);
+            this.setPause(true);
+            this.m.IsTriggeringContractUpdatesOnce = true;
+        }
+
+
 		o.showCombatDialog = function ( _isPlayerInitiated = true, _isCombatantsVisible = true, _allowFormationPicking = true, _properties = null, _pos = null )
         {
             local entities = [];

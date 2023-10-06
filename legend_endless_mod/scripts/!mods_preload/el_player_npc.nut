@@ -1690,6 +1690,4 @@ local gt = getroottable();
 
 	});
 
-
-
 });
