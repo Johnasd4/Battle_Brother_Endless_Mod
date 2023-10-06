@@ -44,7 +44,7 @@ this.el_condition_recover_daliy_entry <- this.inherit("scripts/skills/el_entrys/
 		{
 			local condition_recover = this.Math.round(_item.getConditionMax() * this.m.EL_ConditionRecoverDaliyAddition * 0.01);
 			_item.setCondition(this.Math.min(_item.getConditionMax(), _item.getCondition() + condition_recover));
-			this.logInfo("weapon entry-daliy recover conditon:" + condition_recover);
+			//this.logInfo("weapon entry-daliy recover conditon:" + condition_recover);
 		}
 	}
 

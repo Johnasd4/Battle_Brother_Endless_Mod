@@ -52,7 +52,7 @@ local gt = getroottable();
 				{
 					if(entry.getID() == "entry.value_mult")
 					{
-						this.logInfo("SellPriceTradeMult:"+this.World.Assets.m.SellPriceTradeMult+" SellPriceNotProducedHere:"+this.Const.World.Assets.SellPriceNotProducedHere+" SellPriceNotLocalCulture:"+this.Const.World.Assets.SellPriceNotLocalCulture)
+						//this.logInfo("SellPriceTradeMult:"+this.World.Assets.m.SellPriceTradeMult+" SellPriceNotProducedHere:"+this.Const.World.Assets.SellPriceNotProducedHere+" SellPriceNotLocalCulture:"+this.Const.World.Assets.SellPriceNotLocalCulture)
 						return this.Math.floor(this.getValue() * this.getSellPriceMult() * this.World.Assets.m.SellPriceTradeMult * this.World.State.getCurrentTown().getSellPriceMult() * this.Const.World.Assets.SellPriceNotProducedHere * this.Const.World.Assets.SellPriceNotLocalCulture);
 					}
 				}

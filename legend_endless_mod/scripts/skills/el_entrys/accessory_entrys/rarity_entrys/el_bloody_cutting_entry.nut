@@ -64,7 +64,7 @@ this.el_bloody_cutting_entry <- this.inherit("scripts/skills/skill", {
 		if (item != null && item.isItemType(this.Const.Items.ItemType.OneHanded) && item.isWeaponType(this.Const.Items.WeaponType.Cleaver))
 		{
 			local bleeding_damage = (this.Const.EL_Accessory.EL_RarityEntry.Factor.EL_BloodyCutting.BleedingFactor * _damageInflictedHitpoints) / _targetEntity.getHitpointsMax() * 100;
-			this.logInfo("base bleeding_damage:" +bleeding_damage);
+			//this.logInfo("base bleeding_damage:" +bleeding_damage);
 			local actor = this.getContainer().getActor();
 			local effect = this.new("scripts/skills/effects/bleeding_effect");
 			
