@@ -38,25 +38,9 @@ this.el_additional_accuracy_entry <- this.inherit("scripts/skills/el_entrys/el_e
 		this.m.EL_AdditionalAccuracy = this.Const.EL_Weapon.EL_Entry.Factor.EL_AdditionalAccuracy.BaseAdditionalAccuracy + this.Math.rand(randomMin, randomMax);
 	}
 
-	function onAnySkillUsed( _skill, _targetEntity, _properties )
+	function EL_onItemUpdate( _item )
 	{
-		if (_skill.m.IsWeaponSkill)
-		{
-			if(_skill.m.IsRanged)
-			{
-				_properties.RangedSkill += this.m.EL_AdditionalAccuracy;
-			}
-			else
-			{
-				_properties.MeleeSkill += this.m.EL_AdditionalAccuracy;
-			}
-		}
-	}
-
-	function EL_refreshTotalEntry( _EL_totalEntry )
-	{
-		++_EL_totalEntry.m.EL_EntryNum;
-		_EL_totalEntry.m.EL_AdditionalAccuracyAddition += this.m.EL_AdditionalAccuracy;
+        _item.m.AdditionalAccuracy = _item.m.EL_BaseWithRankAdditionalAccuracy + this.m.EL_AdditionalAccuracy;
 	}
 	
     function onSerialize( _out )
