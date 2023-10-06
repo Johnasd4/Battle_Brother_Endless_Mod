@@ -91,12 +91,12 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
 		{
             local user = this.getContainer().getActor();
             local bonus = this.Math.max(0, user.getInitiative() - _targetEntity.getInitiative());
-            this.logInfo("before skill:"+_properties.MeleeSkill);
-            this.logInfo("before damage_mult:"+_properties.DamageTotalMult);
+            //this.logInfo("before skill:"+_properties.MeleeSkill);
+            //this.logInfo("before damage_mult:"+_properties.DamageTotalMult);
 			_properties.MeleeSkill += bonus * this.Const.EL_Accessory.EL_RarityEntry.Factor.EL_MasterFeat.SkillFactor;
 			_properties.DamageTotalMult *= (1.0 + bonus * this.Const.EL_Accessory.EL_RarityEntry.Factor.EL_MasterFeat.DamageFactor);
-            this.logInfo("after skill:"+_properties.MeleeSkill);
-            this.logInfo("after damage_mult:"+_properties.DamageTotalMult);
+           // this.logInfo("after skill:"+_properties.MeleeSkill);
+            //this.logInfo("after damage_mult:"+_properties.DamageTotalMult);
 		}
 	}
 
@@ -121,10 +121,10 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
         {
             local user = this.getContainer().getActor();
             local bonus = this.Math.max(0, user.getInitiative() - _attacker.getInitiative());
-            this.logInfo("before defense:"+_properties.MeleeDefense + "::"+_properties.RangedDefense);
+            //this.logInfo("before defense:"+_properties.MeleeDefense + "::"+_properties.RangedDefense);
 			_properties.MeleeDefense += bonus * this.Const.EL_Accessory.EL_RarityEntry.Factor.EL_MasterFeat.MeleeDefenseFactor;
 			_properties.RangedDefense += bonus * this.Const.EL_Accessory.EL_RarityEntry.Factor.EL_MasterFeat.RangedDefenseFactor;
-            this.logInfo("after defense:"+_properties.MeleeDefense + "::"+_properties.RangedDefense);
+            //this.logInfo("after defense:"+_properties.MeleeDefense + "::"+_properties.RangedDefense);
         }
 	}
 

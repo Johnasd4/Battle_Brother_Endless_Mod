@@ -374,7 +374,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 				text = "chance to hit + " + this.m.EL_AdditionalAccuracyAddition + "%"
 			});
 		}
-		this.logInfo("EL_RangeMaxAddition" + this.m.EL_RangeMaxAddition);
+		//this.logInfo("EL_RangeMaxAddition" + this.m.EL_RangeMaxAddition);
 		if(this.m.EL_RangeMaxAddition)
 		{
 			result.push({
@@ -383,7 +383,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 				text = "Weapon Skill range + " + this.m.EL_RangeMaxAddition
 			});
 		}
-		this.logInfo("EL_RangeMaxAndVisionAddition" + this.m.EL_RangeMaxAndVisionAddition);
+		//this.logInfo("EL_RangeMaxAndVisionAddition" + this.m.EL_RangeMaxAndVisionAddition);
 		if(this.m.EL_RangeMaxAndVisionAddition)
 		{
 			result.push({
