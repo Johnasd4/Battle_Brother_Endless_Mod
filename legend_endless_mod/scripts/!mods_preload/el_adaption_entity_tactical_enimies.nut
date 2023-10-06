@@ -336,6 +336,9 @@ local gt = getroottable();
 
         o.onDeath = function( _killer, _skill, _tile, _fatalityType )
         {
+            if(_tile == null) {
+                return this.actor.onDeath(_killer, _skill, _tile, _fatalityType);
+            }
             if (!this.Tactical.State.isScenarioMode() && _killer != null && _killer.isPlayerControlled())
             {
                 this.updateAchievement("StoneMason", 1, 1);

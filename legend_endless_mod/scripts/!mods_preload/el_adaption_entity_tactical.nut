@@ -1,6 +1,6 @@
 local gt = getroottable();
 
-::mods_registerMod("el_adaption_entity_tactical_enimies", 1, "el_adaption_entity_tactical_enimies");
+::mods_registerMod("el_adaption_entity_tactical", 1, "el_adaption_entity_tactical");
 ::mods_queue(null, "el_player_npc", function ()
 {
 
