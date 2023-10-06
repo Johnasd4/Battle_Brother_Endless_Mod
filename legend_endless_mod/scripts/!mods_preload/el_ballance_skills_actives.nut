@@ -58,8 +58,7 @@ local gt = getroottable();
             this.spawnAttackEffect(_targetTile, this.Const.Tactical.AttackEffectSlash);
             local success = this.attackEntity(_user, _targetTile.getEntity());
             local myTile = _user.getTile();
-
-            if (success && _user.isAlive() && this.Tactical.TurnSequenceBar.getActiveEntity().getID() == _user.getID())
+            if (success && _user.isAlive())
             {
                 local selectedTargets = [];
                 local potentialTargets = [];
