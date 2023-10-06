@@ -16,14 +16,14 @@ gt.Const.EL_Weapon <- {
 	EL_RankFactor = {
 		RegularDamageMult = 1.25,
 		RegularDamageMaxMult = 1.25,
-		ArmorDamageMult = 0.5,
+		ArmorDamageMult = 1.2,
 		DirectDamageAdd = 0.1,
 		FatigueOnSkillUse = 2,
 		StaminaModifierMinMult = 0.75,
 		StaminaModifierMaxMult = 1.0,
 		ConditionMult = 1.25,
 
-		ChanceToHitHead = 25,
+		ChanceToHitHead = 10,
 		ShieldDamageMult = 1.5,
 		AdditionalAccuracy = 20,
 		RangeMax = 3,
@@ -66,7 +66,7 @@ gt.Const.EL_Weapon <- {
 			},
 			changeValues = function( _weapon, _isReduceWeight = 0  )
 			{
-				_weapon.m.ArmorDamageMult = _weapon.m.ArmorDamageMult + this.Const.EL_Weapon.EL_RankFactor.ArmorDamageMult;
+				_weapon.m.ArmorDamageMult = this.Math.ceil(_weapon.m.ArmorDamageMult * this.Const.EL_Weapon.EL_RankFactor.ArmorDamageMult);
                 _weapon.m.DirectDamageAdd = _weapon.m.DirectDamageAdd + this.Const.EL_Weapon.EL_RankFactor.DirectDamageAdd;
 				_weapon.m.EL_BaseWithRankArmorDamageMult = _weapon.m.ArmorDamageMult;
 				_weapon.m.EL_BaseWithRankDirectDamageAdd = _weapon.m.DirectDamageAdd;
@@ -259,7 +259,7 @@ gt.Const.EL_Weapon <- {
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_melee_range_max_entry",
 					function EL_ifEligible(_EL_item) {
-						if(!_EL_item.isItemType(this.Const.Items.ItemType.MeleeWeapon) || _EL_item.m.EL_RankLevel <= 1) { return false; }
+						if(!_EL_item.isItemType(this.Const.Items.ItemType.MeleeWeapon) || _EL_item.m.EL_RankLevel <= 1 || _EL_item.m.RangeMax == 1) { return false; }
 						return true;
 					}
 				},
@@ -531,26 +531,26 @@ gt.Const.EL_Weapon <- {
 			},
 			EL_HitHead = {
 				ID = "weapon_entry.hit_head",
-				BaseHitHead = 12,
+				BaseHitHead = 5,
 				RandomMinHitHead = [
 					1,
 					1,
-					6,
-					11,
-					25
+					3,
+					5,
+					10
 				],
 				RandomMaxHitHead = [
+					4,
+					6,
+					8,
 					10,
-					15,
-					20,
-					25,
-					25
+					10
 				],
 				ColourRange = [
-					17,
-					22,
-					27,
-					32
+					7,
+					9,
+					11,
+					13
 				]
 			},
 			EL_MeleeDefense = {
