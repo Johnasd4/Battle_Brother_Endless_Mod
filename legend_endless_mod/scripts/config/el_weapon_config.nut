@@ -209,7 +209,13 @@ gt.Const.EL_Weapon <- {
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_additional_accuracy_entry",
-					function EL_ifEligible(_EL_item) { return true; }
+					function EL_ifEligible(_EL_item) { 
+						if(_EL_item.m.EL_BaseWithRankAdditionalAccuracy == 0 || !_EL_item.isItemType(this.Const.Items.ItemType.RangedWeapon)) 
+						{ 
+							return false; 
+						}
+						return true; 
+					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_armor_damage_mult_entry",
@@ -250,7 +256,13 @@ gt.Const.EL_Weapon <- {
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_hit_head_entry",
-					function EL_ifEligible(_EL_item) { return true; }
+					function EL_ifEligible(_EL_item) { 
+						if(_EL_item.m.ChanceToHitHead == 0) 
+						{ 
+							return false; 
+						}
+						return true; 
+					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_melee_defense_entry",
