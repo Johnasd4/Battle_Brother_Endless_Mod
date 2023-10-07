@@ -237,10 +237,20 @@ local gt = getroottable();
 				}
 			}
 
-			o.EL_disassemble <- function()
+			o.EL_disassemble <- function(_itemIndex)
 			{
+				local rarity_stone = null;
+				if(this.m.EL_RarityEntry != null)
+				{
+					rarity_stone = this.new("scripts/items/el_misc/el_rarity_entry_stone_item");
+					rarity_stone.EL_addRarityEntry(this.m.EL_RarityEntry);
+				}
 				local stash = this.World.Assets.getStash();
 				stash.remove(this);
+				if(rarity_stone != null)
+				{
+					stash.insert(rarity_stone, _itemIndex);
+				}
 			}
 
 			o.EL_recraft <- function()

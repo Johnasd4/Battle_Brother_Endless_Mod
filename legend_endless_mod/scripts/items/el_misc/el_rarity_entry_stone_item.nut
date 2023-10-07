@@ -1,4 +1,4 @@
-this.el_rarity_entry_stone_item <- this.inherit("scripts/items/trade/trading_good_item", {
+this.el_rarity_entry_stone_item <- this.inherit("scripts/items/item", {
 	m = {
 		EL_RarityEntry = null
 	},
@@ -8,7 +8,7 @@ this.el_rarity_entry_stone_item <- this.inherit("scripts/items/trade/trading_goo
 		this.m.Name = "Rarity Entry Stone";
 		this.m.Description = "A rarity stone, can be used to make your Accessory to get the rarity entry.";
 		this.m.SlotType = this.Const.ItemSlot.None;
-		this.m.ItemType = this.Const.Items.ItemType.TradeGood | this.Const.Items.ItemType.Usable | this.Const.Items.ItemType.Misc;
+		this.m.ItemType = this.Const.Items.ItemType.Usable | this.Const.Items.ItemType.Misc;
 		this.m.IsAllowedInBag = false;
 		this.m.IsUsable = true;
 		this.m.IconLarge = "";
@@ -22,19 +22,14 @@ this.el_rarity_entry_stone_item <- this.inherit("scripts/items/trade/trading_goo
 			{
 				id = 1,
 				type = "title",
-				text = this.getName()
+				text ="[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Rare] + "]" + this.getName() + "[/color]"
 			},
 			{
 				id = 2,
 				type = "description",
-				text = this.getDescription()
+				text = this.getDescription() + "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Rare] + "]" + "It keeps the rarity entry is " + this.m.EL_RarityEntry.getName() + "[/color]"
 			}
 		];
-		result.push({
-			id = 3,
-			type = "text",
-			text = "It keeps the rarity entry is " + "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Rare] + "]" + this.m.EL_RarityEntry.getName() + "[/color]"
-		});
 		result.push({
 			id = 65,
 			type = "text",
@@ -48,18 +43,21 @@ this.el_rarity_entry_stone_item <- this.inherit("scripts/items/trade/trading_goo
 		this.Sound.play("sounds/cloth_01.wav", this.Const.Sound.Volume.Inventory);
 	}
 
+	function EL_addRarityEntry( _EL_rarityEntry )
+	{
+		this.m.EL_RarityEntry = _EL_rarityEntry;
+	}
+
 	function onUse( _actor, _item = null )
 	{
-		local skill = _actor.getSkills().getSkillByID("el_items.core_skill");
-		if(skill == null) {
-			skill = this.new("scripts/skills/el_items/el_core_skill");
-			_actor.getSkills().add(skill);
+		local accessory = _actor.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
+		if(accessory != null && accessory.m.EL_RarityEntry == null)
+		{
+			accessory.EL_addRarityEntry(this.m.EL_RarityEntry);
+			this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav",  this.Const.Sound.Volume.Inventory);
+			return true;
 		}
-		for(local i = 0; i < this.Const.Attributes.COUNT; ++i) {
-			skill.EL_addPropertiesXP(this.m.EL_PropertiesXP[i], i);
-		}
-		this.Sound.play("sounds/combat/eat_01.wav", this.Const.Sound.Volume.Inventory);
-		return true;
+		return false;
 	}
 
 	function onSerialize( _out )
@@ -78,7 +76,6 @@ this.el_rarity_entry_stone_item <- this.inherit("scripts/items/trade/trading_goo
 
 	function onDeserialize( _in )
 	{
-		
 		local has_rarity_entry = _in.readU8();
 		if(has_rarity_entry)
 		{

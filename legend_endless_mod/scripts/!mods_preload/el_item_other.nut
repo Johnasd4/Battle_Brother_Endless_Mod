@@ -746,7 +746,7 @@ local gt = getroottable();
 			{
 				this.World.Assets.EL_addEquipmentEssence(rank, essence_reduce[rank]);
 			}
-			item.EL_disassemble();
+			item.EL_disassemble(_itemIndex);
 
 			local result = {
 				Result = 0,

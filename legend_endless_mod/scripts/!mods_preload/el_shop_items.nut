@@ -394,17 +394,17 @@ local gt = getroottable();
             }
             //EL_OVERRIDE
             list.push({
-				R = 70,
+				R = 80,
 				P = 1.0,
 				S = "accessory/alp_trophy_item"
 			});
             list.push({
-				R = 80,
+				R = 85,
 				P = 1.0,
 				S = "accessory/hexen_trophy_item"
 			});
             list.push({
-				R = 70,
+				R = 80,
 				P = 1.0,
 				S = "accessory/ghoul_trophy_item"
 			});
@@ -753,17 +753,17 @@ local gt = getroottable();
             
             //EL_OVERRIDE
             list.push({
-				R = 70,
+				R = 80,
 				P = 1.0,
 				S = "accessory/alp_trophy_item"
 			});
             list.push({
-				R = 80,
+				R = 85,
 				P = 1.0,
 				S = "accessory/hexen_trophy_item"
 			});
             list.push({
-				R = 70,
+				R = 80,
 				P = 1.0,
 				S = "accessory/ghoul_trophy_item"
 			});
@@ -1310,30 +1310,30 @@ local gt = getroottable();
             }
             //EL_OVERRIDE
             list.push({
-				R = 60,
+				R = 70,
 				P = 1.0,
 				S = "accessory/alp_trophy_item"
 			});
             list.push({
-				R = 70,
+				R = 80,
 				P = 1.0,
 				S = "accessory/hexen_trophy_item"
 			});
             list.push({
-				R = 60,
+				R = 70,
 				P = 1.0,
 				S = "accessory/ghoul_trophy_item"
 			});
             list.push({
-				R = 90,
+				R = 95,
 				P = 3.0,
 				S = "accessory/sergeant_badge_item"
 			});
             foreach( i in this.Const.EL_Accessory.EL_SeniorAccessoryList )
             {
                 list.push({
-                    R = 99,
-                    P = 5.0,
+                    R = 100,
+                    P = 8.0,
                     S = i
                 });
             }
@@ -1636,30 +1636,30 @@ local gt = getroottable();
             }
             //EL_OVERRIDE
             list.push({
-				R = 60,
+				R = 70,
 				P = 1.0,
 				S = "accessory/alp_trophy_item"
 			});
             list.push({
-				R = 70,
+				R = 80,
 				P = 1.0,
 				S = "accessory/hexen_trophy_item"
 			});
             list.push({
-				R = 60,
+				R = 70,
 				P = 1.0,
 				S = "accessory/ghoul_trophy_item"
 			});
             list.push({
-				R = 90,
+				R = 95,
 				P = 3.0,
 				S = "accessory/sergeant_badge_item"
 			});
             foreach( i in this.Const.EL_Accessory.EL_SeniorAccessoryList )
             {
                 list.push({
-                    R = 99,
-                    P = 5.0,
+                    R = 100,
+                    P = 8.0,
                     S = i
                 });
             }
@@ -1871,7 +1871,7 @@ local gt = getroottable();
                                 r = r + p;
                             }
                         }
-                        if(EL_coreMaxNum)
+                        if(EL_isCore)
                         {
                             ++num;
                         }

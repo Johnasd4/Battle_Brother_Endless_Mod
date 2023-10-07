@@ -198,7 +198,7 @@ local gt = getroottable();
 			}
         }
 
-		o.EL_disassemble <- function()
+		o.EL_disassemble <- function(_itemIndex)
 		{
 			local stash = this.World.Assets.getStash();
 			stash.remove(this);
@@ -531,13 +531,13 @@ local gt = getroottable();
 			}
         }
 
-		o.EL_disassemble <- function()
+		o.EL_disassemble <- function(_itemIndex)
 		{
 			foreach(upgrade in this.m.Upgrades)
 			{
 				if(upgrade != null)
 				{
-					upgrade.EL_disassemble();
+					upgrade.EL_disassemble(_itemIndex);
 				}
 			}
 			local stash = this.World.Assets.getStash();
@@ -936,7 +936,7 @@ local gt = getroottable();
 			}
         }
 
-		o.EL_disassemble <- function()
+		o.EL_disassemble <- function(_itemIndex)
 		{
 			local stash = this.World.Assets.getStash();
 			stash.remove(this);

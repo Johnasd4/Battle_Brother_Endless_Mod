@@ -406,7 +406,7 @@ local gt = getroottable();
 			}
         }
 
-		o.EL_disassemble <- function()
+		o.EL_disassemble <- function(_itemIndex)
 		{
 			local stash = this.World.Assets.getStash();
 			stash.remove(this);
