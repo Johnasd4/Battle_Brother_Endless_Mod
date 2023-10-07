@@ -555,7 +555,7 @@ local gt = getroottable();
 		o.EL_getUpgradeEssence <- function()
 		{
 			local result = [0, 0, 0, 0, 0];
-			if(this.m.EL_Level <= 100)
+			if(this.m.EL_Level < 100)
 			{
 				result[this.m.EL_RankLevel] += this.Const.EL_Weapon.EL_Essence.SlotFactor * this.Const.EL_Weapon.EL_Essence.UpgradeFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
 			}

@@ -1,20 +1,16 @@
-this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
+this.el_strong_and_heavy_vehemence_entry <- this.inherit("scripts/skills/skill", {
 	m = {
-        EL_IsRising = false,
-		EL_RiseTimesLeft = 0
 	},
 	function create()
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
-		this.m.ID = "entry.el_circle_of_life";
-		this.m.Name = "Devastate(Two-Handed Hammer)";
+		this.m.ID = "rarity_entry.el_strong_and_heavy_vehemence";
+		this.m.Name = "Strong and Heavy Vehemence(Two-Handed Mace)";
 		this.m.Description = "The constantly surging vitality endows users with strong recovery ability and also enables them to drain the power of enemies.";//不断涌动的生机，赐予使用者强大的恢复能力，也使起能够吸取敌人的力量
-		this.m.Icon = "el_entrys/el_circle_of_life_entry.png";
-		//this.m.IconMini = "el_circle_of_life_entry_mini";
-		this.m.Overlay = "el_circle_of_life_entry";
+		this.m.Icon = "el_entrys/el_strong_and_heavy_vehemence_entry.png";
+		//this.m.IconMini = "el_strong_and_heavy_vehemence_entry_mini";
+		this.m.Overlay = "el_strong_and_heavy_vehemence_entry";
 		this.m.Type = this.Const.SkillType.StatusEffect;
-        this.m.EL_IsRising = false;
-		this.m.EL_RiseTimesLeft = 0;
 	}
 
 	function getTooltip()
@@ -56,7 +52,7 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 			}
         ]
         local item = this.m.Container.getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
-		if (item != null && item.isItemType(this.Const.Items.ItemType.TwoHanded) && item.isWeaponType(this.Const.Items.WeaponType.Hammer))
+		if (item != null && item.isItemType(this.Const.Items.ItemType.TwoHanded) && item.isWeaponType(this.Const.Items.WeaponType.Mace))
 		{
 		}
         else
@@ -65,7 +61,7 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Two-Handed Hammer to take effect..[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Two-Handed Mace to take effect..[/color]"
             });
         }
 		return result;
@@ -84,7 +80,7 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 			return;
 		}
         local item = this.m.Container.getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
-		if (_targetEntity != null && item != null && item.isItemType(this.Const.Items.ItemType.TwoHanded) && item.isWeaponType(this.Const.Items.WeaponType.Hammer))
+		if (_targetEntity != null && item != null && item.isItemType(this.Const.Items.ItemType.TwoHanded) && item.isWeaponType(this.Const.Items.WeaponType.Mace))
 		{
 			_targetEntity.getSkills().add(this.new("scripts/skills/effects/stunned_effect"));
 			this.EL_drainFatigueAndHitpoints(_skill, _targetEntity);
@@ -98,7 +94,7 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 			return;
 		}
         local item = this.m.Container.getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
-		if (_targetEntity != null && item != null && item.isItemType(this.Const.Items.ItemType.TwoHanded) && item.isWeaponType(this.Const.Items.WeaponType.Hammer))
+		if (_targetEntity != null && item != null && item.isItemType(this.Const.Items.ItemType.TwoHanded) && item.isWeaponType(this.Const.Items.WeaponType.Mace))
 		{
 			this.EL_drainFatigueAndHitpoints(_skill, _targetEntity);
 		}
@@ -107,7 +103,7 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 	function onTurnStart()
 	{
         local item = this.m.Container.getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
-		if (item != null && item.isItemType(this.Const.Items.ItemType.TwoHanded) && item.isWeaponType(this.Const.Items.WeaponType.Hammer))
+		if (item != null && item.isItemType(this.Const.Items.ItemType.TwoHanded) && item.isWeaponType(this.Const.Items.WeaponType.Mace))
 		{
 			local user = this.getContainer().getActor();	
 			local skills = user.getSkills();
@@ -193,7 +189,7 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 	function onDamageReceived( _attacker, _damageHitpoints, _damageArmor )
     {
         local item = this.m.Container.getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
-		if (item != null && item.isItemType(this.Const.Items.ItemType.TwoHanded) && item.isWeaponType(this.Const.Items.WeaponType.Hammer))
+		if (item != null && item.isItemType(this.Const.Items.ItemType.TwoHanded) && item.isWeaponType(this.Const.Items.WeaponType.Mace))
 		{
 			local user = this.getContainer().getActor();
 			if ((this.m.EL_RiseTimesLeft > 0 && _damageHitpoints > user.getHitpoints()) || user.getHitpoints() <= 0)
