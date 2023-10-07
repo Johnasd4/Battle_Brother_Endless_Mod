@@ -14,7 +14,7 @@ gt.Const.EL_Armor <- {
 		25
 	]
 	EL_RankFactor = {
-		StaminaModifierMinMult = 0.75,
+		StaminaModifierMinMult = 0.9,
 		StaminaModifierMaxMult = 1.0,
 		ConditionMult = 1.25
 	},

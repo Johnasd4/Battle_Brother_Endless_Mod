@@ -19,7 +19,7 @@ gt.Const.EL_Weapon <- {
 		ArmorDamageMult = 1.2,
 		DirectDamageAdd = 0.1,
 		FatigueOnSkillUse = 2,
-		StaminaModifierMinMult = 0.75,
+		StaminaModifierMinMult = 0.9,
 		StaminaModifierMaxMult = 1.0,
 		ConditionMult = 1.25,
 

@@ -27,7 +27,12 @@ this.el_rarity_entry_stone_item <- this.inherit("scripts/items/item", {
 			{
 				id = 2,
 				type = "description",
-				text = this.getDescription() + "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Rare] + "]" + "It keeps the rarity entry is " + this.m.EL_RarityEntry.getName() + "[/color]"
+				text = this.getDescription()
+			},
+			{
+				id = 3,
+				type = "text",
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Rare] + "]" + "It keeps: " + this.m.EL_RarityEntry.getName() + "[/color]"
 			}
 		];
 		result.push({
@@ -54,6 +59,7 @@ this.el_rarity_entry_stone_item <- this.inherit("scripts/items/item", {
 		if(accessory != null && accessory.m.EL_RarityEntry == null)
 		{
 			accessory.EL_addRarityEntry(this.m.EL_RarityEntry);
+			accessory.addSkill(this.m.EL_RarityEntry);
 			this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav",  this.Const.Sound.Volume.Inventory);
 			return true;
 		}

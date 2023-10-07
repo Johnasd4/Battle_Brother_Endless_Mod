@@ -17,7 +17,7 @@ gt.Const.EL_Shield <- {
 		MeleeDefenseMult = 1.1,
 		RangedDefenseMult = 1.1,
 		FatigueOnSkillUse = 2,
-		StaminaModifierMinMult = 0.7,
+		StaminaModifierMinMult = 0.9,
 		StaminaModifierMaxMult = 1.0,
 		ConditionMult = 2
 	},
