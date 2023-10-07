@@ -123,6 +123,8 @@ local gt = getroottable();
 				item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, this.EL_getLevel());
 				if(item.EL_getRankLevel() < 2)
 				{
+					local percent = (item.getCondition() * 1.0)/ item.getConditionMax();
+					//this.logInfo("percent:" + percent);
 					if(world_level > this.Const.EL_Item_Other.EL_NPCEquipment.RankUpMinWorldLevel)
 					{
 						local r = this.Math.rand(1, 1000);
@@ -135,6 +137,8 @@ local gt = getroottable();
 					{
 						item.EL_addRankLevel();
 					}	
+					item.setCondition(this.Math.floor(this.getConditionMax() * percent));
+					//this.logInfo("Condition:" + item.m.Condition + "ConditionMax:" + item.getConditionMax());
 				}
 				//item.m.Condition = item.m.ConditionMax;
 				//this.logInfo("item ID = "+ item.m.ID+", rank:"+item.m.EL_RankLevel+", level:"+item.m.EL_Level);
