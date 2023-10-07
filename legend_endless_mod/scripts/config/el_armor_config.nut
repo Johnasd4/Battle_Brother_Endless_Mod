@@ -368,15 +368,15 @@ gt.Const.EL_Armor <- {
 			},
 			EL_StaminaModifierMult = {
 				ID = "armor_entry.stamina_modifier_mult",
-				BaseConditionMult = 15,
-				RandomMinConditionMult = [
+				BaseStaminaModifierMult = 15,
+				RandomMinStaminaModifierMult = [
 					1,
 					1,
 					601,
 					1201,
 					3000
 				],
-				RandomMaxConditionMult = [
+				RandomMaxStaminaModifierMult = [
 					1200,
 					1800,
 					2400,
