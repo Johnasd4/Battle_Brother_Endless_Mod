@@ -99,7 +99,7 @@ local gt = getroottable();
                             local party = this.new("scripts/entity/world/party");
                             party.EL_setFaction(f);
                             party.EL_tempPartyInit();
-                            EL_setIsBossParty(true);
+                            party.EL_setIsBossParty(true);
                             properties.Parties.push(party);
                             for( local i = 0; i < 4; i = ++i )
                             {
