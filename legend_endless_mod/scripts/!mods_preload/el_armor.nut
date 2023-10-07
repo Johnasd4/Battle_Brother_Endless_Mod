@@ -196,7 +196,7 @@ local gt = getroottable();
 			}
         }
 
-		o.EL_disassemble <- function()
+		o.EL_disassemble <- function(_itemIndex)
 		{
 			local stash = this.World.Assets.getStash();
 			stash.remove(this);
@@ -514,6 +514,7 @@ local gt = getroottable();
 		//Initialize equipment based on level and rank after generating items
         o.EL_generateByRankAndLevel <- function( _EL_rankLevel, EL_level, EL_additionalRarityChance = 0 )
         {
+			local percent = (this.getCondition() * 1.0)/ this.getConditionMax();
 			foreach(upgrade in this.m.Upgrades)
 			{
 				if(upgrade != null)
@@ -521,7 +522,6 @@ local gt = getroottable();
 					upgrade.EL_generateByRankAndLevel(_EL_rankLevel, EL_level, EL_additionalRarityChance);
 				}
 			}
-			local percent = (this.m.Condition * 1.0)/ this.m.ConditionMax;
 			if(this.m.EL_Level == -1)
 			{
 				this.m.EL_RankLevel = this.Math.min(this.m.EL_RankLevel + _EL_rankLevel, 4);
@@ -532,7 +532,7 @@ local gt = getroottable();
 			}
 			this.m.EL_CurrentLevel = this.m.EL_Level;
 			EL_updateLevelProperties();
-			this.m.Condition = this.Math.floor(this.m.ConditionMax * percent);
+			this.setCondition(this.Math.floor(this.getConditionMax() * percent));
         }
 
         o.EL_upgrade <- function()
@@ -552,13 +552,13 @@ local gt = getroottable();
 			}
         }
 
-		o.EL_disassemble <- function()
+		o.EL_disassemble <- function(_itemIndex)
 		{
 			foreach(upgrade in this.m.Upgrades)
 			{
 				if(upgrade != null)
 				{
-					upgrade.EL_disassemble();
+					upgrade.EL_disassemble(_itemIndex);
 				}
 			}
 			local stash = this.World.Assets.getStash();
@@ -930,7 +930,7 @@ local gt = getroottable();
 			}
         }
 
-		o.EL_disassemble <- function()
+		o.EL_disassemble <- function(_itemIndex)
 		{
 			local stash = this.World.Assets.getStash();
 			stash.remove(this);

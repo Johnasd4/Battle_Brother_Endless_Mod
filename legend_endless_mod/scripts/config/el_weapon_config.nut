@@ -19,9 +19,9 @@ gt.Const.EL_Weapon <- {
 		ArmorDamageMult = 1.2,
 		DirectDamageAdd = 0.1,
 		FatigueOnSkillUse = 2,
-		StaminaModifierMinMult = 0.75,
+		StaminaModifierMinMult = 0.9,
 		StaminaModifierMaxMult = 1.0,
-		ConditionMult = 1.25,
+		ConditionMult = 1.3,
 
 		ChanceToHitHead = 10,
 		ShieldDamageMult = 1.5,
@@ -423,26 +423,26 @@ gt.Const.EL_Weapon <- {
 			},
 			EL_ConditionMult = {
 				ID = "weapon_entry.condition_mult",
-				BaseConditionMult = 25,
+				BaseConditionMult = 15,
 				RandomMinConditionMult = [
 					1,
 					1,
+					501,
 					1001,
-					2001,
-					5000
+					1500
 				],
 				RandomMaxConditionMult = [
+					1000,
+					1500,
 					2000,
-					3000,
-					4000,
-					5000,
-					5000
+					2500,
+					2500
 				],
 				ColourRange = [
-					35,
-					45,
-					55,
-					65
+					17.5,
+					22.5,
+					27.5,
+					32.5
 				]
 			},
 			EL_ConditionRecoverDaliy = {
@@ -695,26 +695,26 @@ gt.Const.EL_Weapon <- {
 			},
 			EL_StaminaModifierMult = {
 				ID = "weapon_entry.stamina_modifier_mult",
-				BaseStaminaModifierMult = 16.66,
+				BaseStaminaModifierMult = 10,
 				RandomMinStaminaModifierMult = [
 					1,
 					1,
-					333,
-					666,
-					1667
+					401,
+					801,
+					2000
 				],
 				RandomMaxStaminaModifierMult = [
-					666,
-					1000,
-					1333,
-					1667,
-					1667
+					800,
+					1200,
+					1600,
+					2000,
+					2000
 				],
 				ColourRange = [
-					20,
-					23.33,
-					26.66,
-					30
+					14,
+					18,
+					22,
+					26
 				]
 			},
 			EL_UseSkillfatigue = {

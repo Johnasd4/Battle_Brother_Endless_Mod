@@ -219,7 +219,7 @@ local gt = getroottable();
 		{
 		}
 
-		o.EL_disassemble <- function()
+		o.EL_disassemble <- function(_itemIndex)
 		{
 		}
 
