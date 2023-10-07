@@ -137,7 +137,7 @@ local gt = getroottable();
 					{
 						item.EL_addRankLevel();
 					}	
-					item.setCondition(this.Math.floor(this.getConditionMax() * percent));
+					item.setCondition(this.Math.floor(item.getConditionMax() * percent));
 					//this.logInfo("Condition:" + item.m.Condition + "ConditionMax:" + item.getConditionMax());
 				}
 				//item.m.Condition = item.m.ConditionMax;
