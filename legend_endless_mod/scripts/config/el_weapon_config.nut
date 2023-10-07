@@ -427,22 +427,22 @@ gt.Const.EL_Weapon <- {
 				RandomMinConditionMult = [
 					1,
 					1,
-					501,
-					1001,
-					1500
+					601,
+					1201,
+					3000
 				],
 				RandomMaxConditionMult = [
-					1000,
-					1500,
-					2000,
-					2500,
-					2500
+					1200,
+					1800,
+					2400,
+					3000,
+					3000
 				],
 				ColourRange = [
-					17.5,
-					22.5,
-					27.5,
-					32.5
+					21,
+					27,
+					33,
+					39
 				]
 			},
 			EL_ConditionRecoverDaliy = {

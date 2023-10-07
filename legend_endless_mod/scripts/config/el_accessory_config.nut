@@ -657,8 +657,8 @@ gt.Const.EL_Accessory <- {
 	},
 
 	function EL_assignItemRarityEntry( _EL_item, EL_additionalRarityChance = 0 ) {
-		local r = this.Math.rand(1, 100000) + EL_additionalRarityChance;
-		this.logInfo("RarityEntryChane:" + r);
+		//local r = this.Math.rand(1, 100000) - EL_additionalRarityChance;
+		this.logInfo("RarityEntryChane:" + r + "EL_additionalRarityChance:" + EL_additionalRarityChance);
 		if(r <= this.Const.EL_Accessory.EL_RarityEntry.RarityEntryChane[_EL_item.m.EL_RankLevel])
 		{
 			this.logInfo("!!!RarityEntry!!!" + r);

@@ -16,7 +16,7 @@ gt.Const.EL_Helmet <- {
 	EL_RankFactor = {
 		StaminaModifierMinMult = 0.9,
 		StaminaModifierMaxMult = 1.0,
-		ConditionMult = 1.25
+		ConditionMult = 1.3
 	},
 	EL_LevelFactor = {
 		Condition = 0.04,
@@ -180,26 +180,26 @@ gt.Const.EL_Helmet <- {
 			},
 			EL_ConditionMult = {
 				ID = "helmet_entry.condition_mult",
-				BaseConditionMult = 12.5,
+				BaseConditionMult = 15,
 				RandomMinConditionMult = [
 					1,
 					1,
-					501,
-					1001,
-					1500
+					601,
+					1201,
+					3000
 				],
 				RandomMaxConditionMult = [
-					1000,
-					1500,
-					2000,
-					2500,
-					2500
+					1200,
+					1800,
+					2400,
+					3000,
+					3000
 				],
 				ColourRange = [
-					17.5,
-					22.5,
-					27.5,
-					32.5
+					21,
+					27,
+					33,
+					39
 				]
 			},
 			EL_ConditionRecoverDaliy = {
