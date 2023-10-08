@@ -753,7 +753,7 @@ local gt = getroottable();
 
 		o.onAnySkillUsed <- function ( _skill, _targetEntity, _properties )
 		{
-			if (_targetEntity.getHitpointsPct() <= 0.3)
+			if (_targetEntity != null && _targetEntity.isAttackable() && _targetEntity._targetEntity.getHitpointsPct() <= 0.3)
 			{
 				_properties.DamageTotalMult *= 2;
 			}

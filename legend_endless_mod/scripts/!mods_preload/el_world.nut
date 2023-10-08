@@ -546,11 +546,12 @@ local gt = getroottable();
 				foreach( party in this.m.StrategicProperties.Parties )
 				{
 					this.logInfo("win ? " + (this.World.Statistics.getFlags().get("LastCombatResult") == 1));
-					this.logInfo("tactical_state gatherLoot() party.isDroppingLoot() " + party.isDroppingLoot());
-					this.logInfo("tactical_state gatherLoot() party.isAlliedWithPlayer() " + party.isAlliedWithPlayer());
-					if(this.World.Statistics.getFlags().get("LastCombatResult") == 1) {
-						this.logInfo("tactical_state gatherLoot() party.getTroops().len() " + party.getTroops().len());
-						this.logInfo("tactical_state gatherLoot() party.isAlive() " + party.isAlive());
+					//this.logInfo("tactical_state gatherLoot() party.isDroppingLoot() " + party.isDroppingLoot());
+					//this.logInfo("tactical_state gatherLoot() party.isAlliedWithPlayer() " + party.isAlliedWithPlayer());
+					if(this.World.Statistics.getFlags().get("LastCombatResult") == 1 && !party.isAlliedWithPlayer()) {
+						//this.logInfo("tactical_state gatherLoot() party.getTroops().len() " + party.getTroops().len());
+						//this.logInfo("tactical_state gatherLoot() party.isAlive() " + party.isAlive());
+						this.logInfo("Clear troops!" + party.isAlive());
 						party.clearTroops();
 
 					}
