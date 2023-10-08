@@ -7,7 +7,7 @@ local gt = getroottable();
 	::mods_hookExactClass("skills/perks/perk_anticipation", function ( o )
 	{
 
-		o.getDescription = function()
+		o.getDescription <- function()
 		{
 			return "By watching your opponent/\'s aim, you have more time to react.\n\nWhen being attacked with ranged weapons, gain [color=" + this.Const.UI.Color.PositiveValue + "]+5 Ranged Defense[/color] as additional Ranged Defense per tile that the attacker is away, and always at least [color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] to Ranged Defense.";
 		}
@@ -37,7 +37,7 @@ local gt = getroottable();
 	::mods_hookExactClass("skills/perks/perk_colossus", function ( o )
 	{
 
-		o.getDescription = function()
+		o.getDescription <- function()
 		{
 			return "Bring it on! Hitpoints are increased by [color=" + this.Const.UI.Color.PositiveValue + "]+25[/color], which also reduces the chance to sustain debilitating injuries when being hit.";
 		}
@@ -751,7 +751,7 @@ local gt = getroottable();
 		{
 		}
 
-		o.onAnySkillUsed = function ( _skill, _targetEntity, _properties )
+		o.onAnySkillUsed <- function ( _skill, _targetEntity, _properties )
 		{
 			if (_targetEntity.getHitpointsPct() <= 0.3)
 			{

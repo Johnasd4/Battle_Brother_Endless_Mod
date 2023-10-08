@@ -5,7 +5,7 @@ local gt = getroottable();
 {
 
 
-	::mods_hookNewObject("skills/injury/broken_arm_injury", function(o){
+	::mods_hookExactClass("skills/injury/broken_arm_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -60,7 +60,7 @@ local gt = getroottable();
 	});
 
 
-	::mods_hookNewObject("skills/injury/broken_leg_injury", function(o){
+	::mods_hookExactClass("skills/injury/broken_leg_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -108,7 +108,7 @@ local gt = getroottable();
 	});
 
 
-	::mods_hookNewObject("skills/injury/broken_ribs_injury", function(o){
+	::mods_hookExactClass("skills/injury/broken_ribs_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -148,7 +148,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/bruised_leg_injury", function(o){
+	::mods_hookExactClass("skills/injury/bruised_leg_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -195,7 +195,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/burnt_face_injury", function(o){
+	::mods_hookExactClass("skills/injury/burnt_face_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -263,7 +263,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/burnt_hands_injury", function(o){
+	::mods_hookExactClass("skills/injury/burnt_hands_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -310,7 +310,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/burnt_legs_injury", function(o){
+	::mods_hookExactClass("skills/injury/burnt_legs_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -358,7 +358,7 @@ local gt = getroottable();
 	});
 
 
-	::mods_hookNewObject("skills/injury/crushed_finger_injury", function(o){
+	::mods_hookExactClass("skills/injury/crushed_finger_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -405,7 +405,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/crushed_windpipe_injury", function(o){
+	::mods_hookExactClass("skills/injury/crushed_windpipe_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -452,7 +452,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/cut_achilles_tendon_injury", function(o){
+	::mods_hookExactClass("skills/injury/cut_achilles_tendon_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -500,7 +500,7 @@ local gt = getroottable();
 	});
 
 
-	::mods_hookNewObject("skills/injury/cut_arm_injury", function(o){
+	::mods_hookExactClass("skills/injury/cut_arm_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -547,7 +547,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/cut_leg_muscles_injury", function(o){
+	::mods_hookExactClass("skills/injury/cut_leg_muscles_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -594,7 +594,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/deep_abdominal_cut_injury", function(o){
+	::mods_hookExactClass("skills/injury/deep_abdominal_cut_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -647,7 +647,7 @@ local gt = getroottable();
 
 
 
-	::mods_hookNewObject("skills/injury/deep_chest_cut_injury", function(o){
+	::mods_hookExactClass("skills/injury/deep_chest_cut_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -712,7 +712,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/deep_face_cut_injury", function(o){
+	::mods_hookExactClass("skills/injury/deep_face_cut_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -780,7 +780,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/fractured_elbow_injury", function(o){
+	::mods_hookExactClass("skills/injury/fractured_elbow_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -820,7 +820,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/fractured_hand_injury", function(o){
+	::mods_hookExactClass("skills/injury/fractured_hand_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -867,7 +867,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/fractured_ribs_injury", function(o){
+	::mods_hookExactClass("skills/injury/fractured_ribs_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -908,7 +908,7 @@ local gt = getroottable();
 	});
 
 
-	::mods_hookNewObject("skills/injury/fractured_skull_injury", function(o){
+	::mods_hookExactClass("skills/injury/fractured_skull_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -983,7 +983,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/grazed_eye_socket_injury", function(o){
+	::mods_hookExactClass("skills/injury/grazed_eye_socket_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -1031,7 +1031,7 @@ local gt = getroottable();
 	});
 
 
-	::mods_hookNewObject("skills/injury/infected_wound_injury", function(o){
+	::mods_hookExactClass("skills/injury/infected_wound_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -1076,7 +1076,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/inhaled_flames_injury", function(o){
+	::mods_hookExactClass("skills/injury/inhaled_flames_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -1124,7 +1124,7 @@ local gt = getroottable();
 	});
 
 
-	::mods_hookNewObject("skills/injury/injured_knee_cap_injury", function(o){
+	::mods_hookExactClass("skills/injury/injured_knee_cap_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -1171,7 +1171,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/pierced_arm_muscles_injury", function(o){
+	::mods_hookExactClass("skills/injury/pierced_arm_muscles_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -1219,7 +1219,7 @@ local gt = getroottable();
 	});
 
 
-	::mods_hookNewObject("skills/injury/pierced_chest_injury", function(o){
+	::mods_hookExactClass("skills/injury/pierced_chest_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -1260,7 +1260,7 @@ local gt = getroottable();
 	});
 
 
-	::mods_hookNewObject("skills/injury/pierced_chest_injury", function(o){
+	::mods_hookExactClass("skills/injury/pierced_chest_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -1309,7 +1309,7 @@ local gt = getroottable();
 
 
 
-	::mods_hookNewObject("skills/injury/pierced_leg_muscles_injury", function(o){
+	::mods_hookExactClass("skills/injury/pierced_leg_muscles_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -1356,7 +1356,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/pierced_lung_injury", function(o){
+	::mods_hookExactClass("skills/injury/pierced_lung_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -1396,7 +1396,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/pierced_side_injury", function(o){
+	::mods_hookExactClass("skills/injury/pierced_side_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -1436,7 +1436,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/ripped_ear_injury", function(o){
+	::mods_hookExactClass("skills/injury/ripped_ear_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -1476,7 +1476,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/severe_concussion_injury", function(o){
+	::mods_hookExactClass("skills/injury/severe_concussion_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -1551,7 +1551,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/sickness_injury", function(o){
+	::mods_hookExactClass("skills/injury/sickness_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -1642,7 +1642,7 @@ local gt = getroottable();
 	});
 
 
-	::mods_hookNewObject("skills/injury/smashed_hand_injury", function(o){
+	::mods_hookExactClass("skills/injury/smashed_hand_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -1689,7 +1689,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/split_hand_injury", function(o){
+	::mods_hookExactClass("skills/injury/split_hand_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -1736,7 +1736,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/sprained_ankle_injury", function(o){
+	::mods_hookExactClass("skills/injury/sprained_ankle_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -1783,7 +1783,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury/stabbed_guts_injury", function(o){
+	::mods_hookExactClass("skills/injury/stabbed_guts_injury", function(o){
 
         o.getTooltip = function()
         {

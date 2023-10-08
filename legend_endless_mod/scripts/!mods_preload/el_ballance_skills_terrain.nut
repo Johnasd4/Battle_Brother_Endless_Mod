@@ -5,7 +5,7 @@ local gt = getroottable();
 {
 
 
-	::mods_hookNewObject("skills/terrain/swamp_effect", function(o){
+	::mods_hookExactClass("skills/terrain/swamp_effect", function(o){
 
         o.getTooltip = function()
         {

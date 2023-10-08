@@ -4,7 +4,7 @@ local gt = getroottable();
 ::mods_queue(null, "el_player_npc", function ()
 {
 
-	::mods_hookNewObject("skills/actives/slash_lightning", function(o){
+	::mods_hookExactClass("skills/actives/slash_lightning", function(o){
 
         o.getTooltip = function()
         {
@@ -123,7 +123,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/actives/legend_staff_lunge_skill", function(o){
+	::mods_hookExactClass("skills/actives/legend_staff_lunge_skill", function(o){
 
         function onAnySkillUsed( _skill, _targetEntity, _properties )
         {
@@ -140,7 +140,7 @@ local gt = getroottable();
         }
 	});
 
-	::mods_hookNewObject("skills/actives/lunge_skill", function(o){
+	::mods_hookExactClass("skills/actives/lunge_skill", function(o){
 
         function onAnySkillUsed( _skill, _targetEntity, _properties )
         {

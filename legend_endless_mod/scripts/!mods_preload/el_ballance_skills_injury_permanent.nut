@@ -5,7 +5,7 @@ local gt = getroottable();
 {
 
 
-	::mods_hookNewObject("skills/injury_permanent/broken_arm_injury", function(o){
+	::mods_hookExactClass("skills/injury_permanent/broken_arm_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -52,7 +52,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury_permanent/broken_elbow_joint_injury", function(o){
+	::mods_hookExactClass("skills/injury_permanent/broken_elbow_joint_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -107,7 +107,7 @@ local gt = getroottable();
 	});
 
 
-	::mods_hookNewObject("skills/injury_permanent/broken_knee_injury", function(o){
+	::mods_hookExactClass("skills/injury_permanent/broken_knee_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -161,7 +161,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury_permanent/collapsed_lung_part_injury", function(o){
+	::mods_hookExactClass("skills/injury_permanent/collapsed_lung_part_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -201,7 +201,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury_permanent/legend_burned_injury", function(o){
+	::mods_hookExactClass("skills/injury_permanent/legend_burned_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -269,7 +269,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury_permanent/legend_scarred_injury", function(o){
+	::mods_hookExactClass("skills/injury_permanent/legend_scarred_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -316,7 +316,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury_permanent/maimed_foot_injury", function(o){
+	::mods_hookExactClass("skills/injury_permanent/maimed_foot_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -363,7 +363,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury_permanent/missing_ear_injury", function(o){
+	::mods_hookExactClass("skills/injury_permanent/missing_ear_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -396,7 +396,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury_permanent/missing_eye_injury", function(o){
+	::mods_hookExactClass("skills/injury_permanent/missing_eye_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -436,7 +436,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury_permanent/missing_finger_injury", function(o){
+	::mods_hookExactClass("skills/injury_permanent/missing_finger_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -476,7 +476,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury_permanent/missing_nose_injury", function(o){
+	::mods_hookExactClass("skills/injury_permanent/missing_nose_injury", function(o){
 
         o.getTooltip = function()
         {
@@ -509,7 +509,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/injury_permanent/traumatized_injury", function(o){
+	::mods_hookExactClass("skills/injury_permanent/traumatized_injury", function(o){
 
         o.getTooltip = function()
         {

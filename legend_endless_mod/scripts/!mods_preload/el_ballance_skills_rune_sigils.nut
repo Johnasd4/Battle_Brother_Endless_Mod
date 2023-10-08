@@ -4,7 +4,7 @@ local gt = getroottable();
 ::mods_queue(null, "el_player_npc", function ()
 {
 
-	::mods_hookNewObject("skills/rune_sigils/legend_RSA_safety", function(o){
+	::mods_hookExactClass("skills/rune_sigils/legend_RSA_safety", function(o){
 
         o.onUpdate = function( _properties )
         {
@@ -19,7 +19,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/rune_sigils/legend_RSH_bravery", function(o){
+	::mods_hookExactClass("skills/rune_sigils/legend_RSH_bravery", function(o){
 
         o.onUpdate = function( _properties )
         {
@@ -36,7 +36,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/rune_sigils/legend_RSS_defense", function(o){
+	::mods_hookExactClass("skills/rune_sigils/legend_RSS_defense", function(o){
 
         o.onUpdate = function( _properties )
         {
@@ -51,7 +51,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/rune_sigils/legend_RSS_radiance_effect", function(o){
+	::mods_hookExactClass("skills/rune_sigils/legend_RSS_radiance_effect", function(o){
 
         o.onUpdate = function( _properties )
         {
@@ -90,7 +90,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/rune_sigils/legend_RSW_accuracy", function(o){
+	::mods_hookExactClass("skills/rune_sigils/legend_RSW_accuracy", function(o){
 
         o.onUpdate = function( _properties )
         {

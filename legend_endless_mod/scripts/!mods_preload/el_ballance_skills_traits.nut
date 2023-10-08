@@ -5,7 +5,7 @@ local gt = getroottable();
 {
 
 
-	::mods_hookNewObject("skills/traits/addict_trait", function(o){
+	::mods_hookExactClass("skills/traits/addict_trait", function(o){
 
         o.getTooltip = function()
         {
@@ -108,7 +108,7 @@ local gt = getroottable();
 	});
 
 
-	::mods_hookNewObject("skills/traits/fear_beasts_trait", function(o){
+	::mods_hookExactClass("skills/traits/fear_beasts_trait", function(o){
 
         o.getTooltip = function()
         {
@@ -173,7 +173,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/traits/fear_greenskins_trait", function(o){
+	::mods_hookExactClass("skills/traits/fear_greenskins_trait", function(o){
 
         o.getTooltip = function()
         {
@@ -238,7 +238,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/traits/fear_nobles_trait", function(o){
+	::mods_hookExactClass("skills/traits/fear_nobles_trait", function(o){
 
         o.getTooltip = function()
         {
@@ -291,7 +291,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/traits/fear_undead_trait", function(o){
+	::mods_hookExactClass("skills/traits/fear_undead_trait", function(o){
 
         o.getTooltip = function()
         {
@@ -356,7 +356,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/traits/hate_beasts_trait", function(o){
+	::mods_hookExactClass("skills/traits/hate_beasts_trait", function(o){
 
         o.getTooltip = function()
         {
@@ -421,7 +421,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/traits/hate_greenskins_trait", function(o){
+	::mods_hookExactClass("skills/traits/hate_greenskins_trait", function(o){
 
         o.getTooltip = function()
         {
@@ -487,7 +487,7 @@ local gt = getroottable();
 	});
 
 
-	::mods_hookNewObject("skills/traits/hate_nobles_trait", function(o){
+	::mods_hookExactClass("skills/traits/hate_nobles_trait", function(o){
 
         o.getTooltip = function()
         {
@@ -540,7 +540,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/traits/hate_undead_trait", function(o){
+	::mods_hookExactClass("skills/traits/hate_undead_trait", function(o){
 
         o.getTooltip = function()
         {
@@ -605,7 +605,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/traits/legend_prosthetic_eye", function(o){
+	::mods_hookExactClass("skills/traits/legend_prosthetic_eye", function(o){
 
         o.getTooltip = function()
         {
@@ -650,7 +650,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/traits/legend_prosthetic_finger", function(o){
+	::mods_hookExactClass("skills/traits/legend_prosthetic_finger", function(o){
 
         o.getTooltip = function()
         {
@@ -689,7 +689,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/traits/legend_prosthetic_foot", function(o){
+	::mods_hookExactClass("skills/traits/legend_prosthetic_foot", function(o){
 
         o.getTooltip = function()
         {
@@ -728,7 +728,7 @@ local gt = getroottable();
 	});
 
 
-	::mods_hookNewObject("skills/traits/legend_prosthetic_forearm", function(o){
+	::mods_hookExactClass("skills/traits/legend_prosthetic_forearm", function(o){
 
         o.getTooltip = function()
         {
@@ -780,7 +780,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/traits/legend_prosthetic_hand", function(o){
+	::mods_hookExactClass("skills/traits/legend_prosthetic_hand", function(o){
 
         o.getTooltip = function()
         {
@@ -839,7 +839,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/traits/legend_prosthetic_leg", function(o){
+	::mods_hookExactClass("skills/traits/legend_prosthetic_leg", function(o){
 
         o.getTooltip = function()
         {
@@ -885,7 +885,7 @@ local gt = getroottable();
 	});
 
 
-	::mods_hookNewObject("skills/traits/legend_prosthetic_nose", function(o){
+	::mods_hookExactClass("skills/traits/legend_prosthetic_nose", function(o){
 
         o.getTooltip = function()
         {
@@ -917,7 +917,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/traits/night_owl_trait", function(o){
+	::mods_hookExactClass("skills/traits/night_owl_trait", function(o){
 
         o.getTooltip = function()
         {
@@ -965,7 +965,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/traits/pragmatic_trait", function(o){
+	::mods_hookExactClass("skills/traits/pragmatic_trait", function(o){
 
         o.getTooltip = function()
         {
@@ -1010,7 +1010,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/traits/teamplayer_trait", function(o){
+	::mods_hookExactClass("skills/traits/teamplayer_trait", function(o){
 
         o.getTooltip = function()
         {

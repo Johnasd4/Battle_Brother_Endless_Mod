@@ -5,7 +5,7 @@ local gt = getroottable();
 {
 
 
-	::mods_hookNewObject("skills/special/legend_rain_effect", function(o){
+	::mods_hookExactClass("skills/special/legend_rain_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -54,7 +54,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/special/morale_check", function( o )
+	::mods_hookExactClass("skills/special/morale_check", function( o )
 	{
 		o.onUpdate = function(_properties) {
 			this.m.IsHidden = this.m.Container.getActor().getMoraleState() == this.Const.MoraleState.Steady;
@@ -392,7 +392,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/special/night_effect", function(o){
+	::mods_hookExactClass("skills/special/night_effect", function(o){
 
         o.getTooltip = function()
         {

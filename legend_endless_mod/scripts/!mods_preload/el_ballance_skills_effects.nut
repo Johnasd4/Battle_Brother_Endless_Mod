@@ -4,7 +4,7 @@ local gt = getroottable();
 ::mods_queue(null, "el_player_npc", function ()
 {
 
-	::mods_hookNewObject("skills/effects/battle_standard_effect", function(o){
+	::mods_hookExactClass("skills/effects/battle_standard_effect", function(o){
 
         local onAfterUpdate = o.onAfterUpdate;
         o.onAfterUpdate = function( _properties )
@@ -105,7 +105,7 @@ local gt = getroottable();
 
 
 
-	::mods_hookNewObject("skills/effects/bleeding_effect", function(o){
+	::mods_hookExactClass("skills/effects/bleeding_effect", function(o){
 
         o.getDescription = function()
         {
@@ -136,7 +136,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/dazed_effect", function(o){
+	::mods_hookExactClass("skills/effects/dazed_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -197,7 +197,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/distracted_effect", function(o){
+	::mods_hookExactClass("skills/effects/distracted_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -243,7 +243,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/insect_swarm_effect", function(o){
+	::mods_hookExactClass("skills/effects/insect_swarm_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -302,7 +302,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/legend_apothecary_mushrooms_effect", function(o){
+	::mods_hookExactClass("skills/effects/legend_apothecary_mushrooms_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -352,7 +352,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/legend_baffled_effect", function(o){
+	::mods_hookExactClass("skills/effects/legend_baffled_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -405,7 +405,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/legend_beer_buzz_effect", function(o){
+	::mods_hookExactClass("skills/effects/legend_beer_buzz_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -472,7 +472,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/legend_dazed_effect", function(o){
+	::mods_hookExactClass("skills/effects/legend_dazed_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -526,7 +526,7 @@ local gt = getroottable();
 	});
 
 
-	::mods_hookNewObject("skills/effects/legend_demon_hound_aura_effect", function(o){
+	::mods_hookExactClass("skills/effects/legend_demon_hound_aura_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -567,7 +567,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/legend_grappled_effect", function(o){
+	::mods_hookExactClass("skills/effects/legend_grappled_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -620,7 +620,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/legend_mead_warmth_effect", function(o){
+	::mods_hookExactClass("skills/effects/legend_mead_warmth_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -687,7 +687,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/legend_motivated_effect", function(o){
+	::mods_hookExactClass("skills/effects/legend_motivated_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -741,7 +741,7 @@ local gt = getroottable();
 	});
 
 
-	::mods_hookNewObject("skills/effects/legend_transformed_bear_effect", function(o){
+	::mods_hookExactClass("skills/effects/legend_transformed_bear_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -772,7 +772,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/legend_transformed_boar_effect", function(o){
+	::mods_hookExactClass("skills/effects/legend_transformed_boar_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -817,7 +817,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/legend_transformed_rat_effect", function(o){
+	::mods_hookExactClass("skills/effects/legend_transformed_rat_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -854,7 +854,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/legend_transformed_wolf_effect", function(o){
+	::mods_hookExactClass("skills/effects/legend_transformed_wolf_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -899,7 +899,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/legend_wine_tipsy_effect", function(o){
+	::mods_hookExactClass("skills/effects/legend_wine_tipsy_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -966,7 +966,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/lone_wolf_effect", function(o){
+	::mods_hookExactClass("skills/effects/lone_wolf_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -1058,7 +1058,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/net_effect", function(o){
+	::mods_hookExactClass("skills/effects/net_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -1110,7 +1110,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/overwhelmed_effect", function(o){
+	::mods_hookExactClass("skills/effects/overwhelmed_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -1148,7 +1148,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/ptr_armor_fatigue_recovery_effect", function(o){
+	::mods_hookExactClass("skills/effects/ptr_armor_fatigue_recovery_effect", function(o){
 
         o.isHidden = function()
         {
@@ -1265,7 +1265,7 @@ local gt = getroottable();
 	});
 
 
-	::mods_hookNewObject("skills/effects/ptr_arrow_to_the_knee_debuff_effect", function(o){
+	::mods_hookExactClass("skills/effects/ptr_arrow_to_the_knee_debuff_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -1313,7 +1313,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/ptr_sweeping_strikes_debuff_effect", function(o){
+	::mods_hookExactClass("skills/effects/ptr_sweeping_strikes_debuff_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -1344,7 +1344,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/rooted_effect", function(o){
+	::mods_hookExactClass("skills/effects/rooted_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -1396,7 +1396,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/shellshocked_effect", function(o){
+	::mods_hookExactClass("skills/effects/shellshocked_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -1470,7 +1470,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/smoke_effect", function(o){
+	::mods_hookExactClass("skills/effects/smoke_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -1523,7 +1523,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/staggered_effect", function(o){
+	::mods_hookExactClass("skills/effects/staggered_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -1554,7 +1554,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/str_covering_ally_effect", function(o){
+	::mods_hookExactClass("skills/effects/str_covering_ally_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -1637,7 +1637,7 @@ local gt = getroottable();
 	});
 
 
-	::mods_hookNewObject("skills/effects/web_effect", function(o){
+	::mods_hookExactClass("skills/effects/web_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -1703,7 +1703,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/whipped_effect", function(o){
+	::mods_hookExactClass("skills/effects/whipped_effect", function(o){
 
         o.getTooltip = function()
         {
@@ -1772,7 +1772,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/effects/withered_effect", function(o){
+	::mods_hookExactClass("skills/effects/withered_effect", function(o){
 
         o.getTooltip = function()
         {
