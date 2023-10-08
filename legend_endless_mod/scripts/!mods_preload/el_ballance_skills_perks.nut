@@ -1069,4 +1069,107 @@ local gt = getroottable();
 		}
 	});
 
+	gt.Const.EL_Config.EL_modStrings();
 });
+
+gt.Const.EL_Config.EL_modStrings <- function()
+{
+	local el_new_perk_description = [
+        {
+            ID = "perk.anticipation",
+            tooltip = "By watching your opponent/\'s aim, you have more time to react.\n\nWhen being attacked with ranged weapons, gain [color=" + this.Const.UI.Color.PositiveValue + "]+5 Ranged Defense[/color] as additional Ranged Defense per tile that the attacker is away, and always at least [color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] to Ranged Defense."
+        },
+        {
+            ID = "perk.colossus",
+            tooltip = "Bring it on! Hitpoints are increased by [color=" + this.Const.UI.Color.PositiveValue + "]25%[/color], which also reduces the chance to sustain debilitating injuries when being hit."
+        },
+        {
+            ID = "perk.fortified_mind",
+            tooltip = "An iron will is not swayed from the true path easily. Resolve is increased by [color=" + this.Const.UI.Color.PositiveValue + "]+15[/color]."
+        },
+        {
+            ID = "perk.legend_horse_hippology",
+            tooltip = "Knowledge of horse physiology allows for better diet, exercise and care. Increases hitpoints by +25"
+        },
+        {
+            ID = "perk.legend_horse_impulsion",
+            tooltip = "Effective leverage of equestrian physiology relaxes the spinal column and allows the hindquarters to engage effectively. Increases Initiative by +30"
+        },
+        {
+            ID = "perk.legend_horse_leg_control",
+            tooltip = "it is not possible to hold the reins while firing a bow. Horse and rider must learn to communicate through the rider\'s legs. Increases ranged attack in battle by +25"
+        },
+        {
+            ID = "perk.legend_horse_longeing",
+            tooltip = "Time spent working on a long rope helps build trust between horse and rider. Increases resolve by +15"
+        },
+        {
+            ID = "perk.legend_horse_tempi_change",
+            tooltip = "the most challenging form of lead change, a tempi change requires shifting back and forth between lead legs. This form of training can allow the horse to change lead leg according to the situation, useful when under fire. Increases ranged defense by +25"
+        },
+        {
+            ID = "perk.legend_alert",
+            tooltip = "Pay close attention at all times, surveying the surroundings and assessing every clue for an insight. Gain [color=" + this.Const.UI.Color.PositiveValue + "]+30[/color] Initiative."
+        },
+        {
+            ID = "perk.legend_ammo_binding",
+            tooltip = "Expertise in making ammunition lets you strip it down to pack the parts for storage, it also lets you draw out arrows faster. Increases maximum ammunition storage by [color=" + this.Const.UI.Color.PositiveValue + "]10[/color] and Ranged skill by [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color]."
+        },
+        {
+            ID = "perk.legend_ammo_bundles",
+            tooltip = "Using blankets and ropes to group large bundles of ammunition together you are able to carry far more. These bundles can also be used to shield yourself from enemy fire. Increases maximum ammunition storage by [color=" + this.Const.UI.Color.PositiveValue + "]20[/color] and Ranged Defense by [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color]"
+        },
+        {
+            ID = "perk.legend_assured_conquest",
+            tooltip = "Your confidence affects your performance. Gain [color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] melee skill, ranged skill, melee defense and ranged defense when at confident morale. This bonuses reduces as your morale state decreases. [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color]at Steady, [color=" + this.Const.UI.Color.NegativeValue + "]-5[/color] when breaking and [color=" + this.Const.UI.Color.NegativeValue + "]-10[/color] when fleeing."
+        },
+        {
+            ID = "perk.legend_med_ingredients",
+            tooltip = "Learning the plants of the healing trade allows you to fashion crude healing supplies from common ingredients. Unlocks crafting bandages and medicine. Also increases maximum medicine storage by 10 and resolve by [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color]."
+        },
+        {
+            ID = "perk.legend_med_packages",
+            tooltip = "Not all of a plant is required for healing, your knowledge of the active ingredients lets you throw away excess leaves and roots.Your knowledge of medicines lets you repack them into more efficient packages. Increases maximum medicine storage by 30 and resolve by [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color]"
+        },
+        {
+            ID = "perk.legend_muscularity",
+            tooltip = "Put your full weight into every blow and gain [color=" + this.Const.UI.Color.PositiveValue + "]+10%[/color] of your current hitpoints as additional minimum and maximum damage."
+        },
+        {
+            ID = "perk.legend_pacifist",
+            tooltip = "Fighting is a brutal thuggish pastime, most folk prefer a life without frequent bouts of extreme violence.  This character does not count towards your party strength when determining game difficulty. They will gain [color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] resolve. They become content with being in reserve, and will grow unhappy if they are in more than half of the battles your company takes."
+        },
+        {
+            ID = "perk.lone_wolf",
+            tooltip = "I work best alone. With no ally within 2 tiles of distance, gain a [color=" + this.Const.UI.Color.PositiveValue + "]15[/color] bonus to Melee Skill, Ranged Skill, Melee Defense, Ranged Defense, and Resolve."
+        },
+        {
+            ID = "perk.ptr_fruits_of_labor",
+            tooltip = "You\'ve quickly realized that your years of hard labor give you an edge in mercenary work!\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• Hitpoints, Maximum Fatigue, and Initiative are increased by [color=" + this.Const.UI.Color.PositiveValue + "]+12[/color] each."
+        },
+        {
+            ID = "perk.ptr_through_the_ranks",
+            tooltip = "Ranged attacks have a [color=" + this.Const.UI.Color.PositiveValue + "]+50[/color] reduced chance to inflict friendly fire."
+        },
+		{
+            ID = "perk.brawny",
+            tooltip = "The fatigue and initiative penalty from wearing armor, helmet, weapon and shield is reduced by [color=" + this.Const.UI.Color.NegativeValue + "]30%[/color]."
+        },
+        {
+            ID = "perk.ptr_bulwark",
+            tooltip = "\'Not much to be afraid of behind a suit of plate!\'\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• Resolve is increased by [color=" + this.Const.UI.Color.PositiveValue + "]1%[/color] of the combined current durability of head and body armor.\n• This bonus is [color=" + this.Const.UI.Color.PositiveValue + "]doubled[/color] against negative morale checks except mental attacks."
+        },
+    ]
+
+    foreach( i, perk in gt.Const.Perks.PerkDefObjects )
+    {
+        foreach(adjust_perk in el_new_perk_description)
+        {
+            if (perk.ID == adjust_perk.ID)
+            {
+                perk.Tooltip = adjust_perk.tooltip;
+                break;
+            }
+        }
+    }
+}
