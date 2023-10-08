@@ -195,6 +195,7 @@ local gt = getroottable();
 			{
 				this.m.EL_Level += 1;
 				this.m.EL_CurrentLevel += 1;
+				EL_updateLevelProperties();
 			}
         }
 
@@ -528,6 +529,7 @@ local gt = getroottable();
 			{
 				this.m.EL_Level += 1;
 				this.m.EL_CurrentLevel += 1;
+				EL_updateLevelProperties();
 			}
         }
 
