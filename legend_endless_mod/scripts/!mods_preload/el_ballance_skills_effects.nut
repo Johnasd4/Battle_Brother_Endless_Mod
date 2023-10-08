@@ -689,7 +689,7 @@ local gt = getroottable();
 
 	::mods_hookExactClass("skills/effects/legend_motivated_effect", function(o){
 
-        o.getTooltip = function()
+        o.getTooltip <- function()
         {
             local ret = [
                 {
@@ -752,7 +752,7 @@ local gt = getroottable();
                     id = 11,
                     type = "text",
                     icon = "ui/icons/health.png",
-                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.Math.floor(200 * (1 + actor.EL_getCombatLevel() * 0.04)) + "[/color] hitpoints"
+                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+200%[/color] hitpoints"
                 },
                 {
                     id = 11,
@@ -766,7 +766,7 @@ local gt = getroottable();
 
         o.onUpdate = function( _properties )
         {
-            _properties.Hitpoints += this.Math.floor(200 * (1 + _properties.EL_CombatLevel * 0.04));
+            _properties.Hitpoints += this.Math.floor(2 * this.getContainer().getActor().getBaseProperties().Hitpoints);
             _properties.MeleeDefense += 50;
         }
 
@@ -783,13 +783,13 @@ local gt = getroottable();
                     id = 11,
                     type = "text",
                     icon = "ui/icons/health.png",
-                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.Math.floor(100 * (1 + actor.EL_getCombatLevel() * 0.04)) + "[/color] hitpoints"
+                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+100%[/color] hitpoints"
                 },
                 {
                     id = 12,
                     type = "text",
                     icon = "ui/icons/fatigue.png",
-                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.Math.floor(100 * (1 + actor.EL_getCombatLevel() * 0.04)) + "[/color] Maximum Fatigue"
+                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+100[/color] Maximum Fatigue"
                 },
                 {
                     id = 11,
@@ -810,8 +810,8 @@ local gt = getroottable();
         o.onUpdate = function( _properties )
         {
             _properties.FatigueRecoveryRateMult *= 2.0;
-            _properties.Stamina += 100 * (1 + _properties.EL_CombatLevel * 0.04)
-            _properties.Hitpoints += 100 * (1 + _properties.EL_CombatLevel * 0.04)
+            _properties.Stamina += 100;
+            _properties.Hitpoints += this.Math.floor(1 * this.getContainer().getActor().getBaseProperties().Hitpoints);
             _properties.Bravery += 25;
         }
 
@@ -877,7 +877,7 @@ local gt = getroottable();
                     id = 11,
                     type = "text",
                     icon = "ui/icons/health.png",
-                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.Math.floor(100 * (1 + actor.EL_getCombatLevel() * 0.04)) + "[/color] hitpoints"
+                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+100%[/color] hitpoints"
                 },
                 {
                     id = 11,
@@ -893,7 +893,7 @@ local gt = getroottable();
         {
             _properties.MovementAPCostAdditional += -1;
             _properties.MovementFatigueCostMult *= 0.5;
-            _properties.Hitpoints += 100 * (1 + _properties.EL_CombatLevel * 0.04)
+            _properties.Hitpoints += this.Math.floor(1 * this.getContainer().getActor().getBaseProperties().Hitpoints);
             _properties.MeleeDefense += 100;
         }
 

@@ -373,7 +373,7 @@ local gt = getroottable();
                     id = 13,
                     type = "text",
                     icon = "ui/icons/health.png",
-                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+5[/color] Health"
+                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+5%[/color] Hitpoints"
                 },
                 {
                     id = 13,
@@ -413,7 +413,7 @@ local gt = getroottable();
         o.onUpdate = function( _properties )
         {
             this.injury.onUpdate(_properties);
-            _properties.Hitpoints += 5;
+            _properties.Hitpoints += this.Math.floor(0.05 * this.getContainer().getActor().getBaseProperties().Hitpoints);
             _properties.Bravery += 5;
             _properties.Stamina += 3;
             _properties.MeleeSkill += 5;

@@ -39,13 +39,13 @@ local gt = getroottable();
 
 		o.getDescription <- function()
 		{
-			return "Bring it on! Hitpoints are increased by [color=" + this.Const.UI.Color.PositiveValue + "]+25[/color], which also reduces the chance to sustain debilitating injuries when being hit.";
+			return "Bring it on! Hitpoints are increased by [color=" + this.Const.UI.Color.PositiveValue + "]+25%[/color], which also reduces the chance to sustain debilitating injuries when being hit.";
 		}
 
 
 		o.onUpdate = function( _properties )
 		{
-			_properties.Hitpoints += 25;
+			_properties.Hitpoints += this.Math.floor(0.25 * this.getContainer().getActor().getBaseProperties().Hitpoints);
 		}
 
 	});
@@ -70,12 +70,12 @@ local gt = getroottable();
 
 		o.getDescription <- function()
 		{
-			return "Knowledge of horse physiology allows for better diet, exercise and care. Increases hitpoints by +25";
+			return "Knowledge of horse physiology allows for better diet, exercise and care. Increases hitpoints by +25%";
 		}
 
 		o.onUpdate = function( _properties )
 		{
-			_properties.Hitpoints += 25;
+			_properties.Hitpoints += this.Math.floor(0.25 * this.getContainer().getActor().getBaseProperties().Hitpoints);
 		}
 
 	});

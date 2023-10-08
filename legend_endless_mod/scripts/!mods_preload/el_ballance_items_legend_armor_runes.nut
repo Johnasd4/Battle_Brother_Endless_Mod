@@ -13,7 +13,7 @@ local gt = getroottable();
                 id = 7,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "This item has the power of the rune sigil of Safety:\n[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.m.RuneBonus1 + "[/color] Hitpoints.\n[color=" + this.Const.UI.Color.PositiveValue + "]-" + this.m.RuneBonus2 + "%[/color] Damage received."
+                text = "This item has the power of the rune sigil of Safety:\n[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.m.RuneBonus1 + "%[/color] Hitpoints.\n[color=" + this.Const.UI.Color.PositiveValue + "]-" + this.m.RuneBonus2 + "%[/color] Damage received."
             });
             return result;
         }
@@ -24,14 +24,14 @@ local gt = getroottable();
                 id = 7,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "This item has the power of the rune sigil of Safety:\n[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.m.RuneBonus1 + "[/color] Hitpoints.\n[color=" + this.Const.UI.Color.PositiveValue + "]-" + this.m.RuneBonus2 + "%[/color] Damage received."
+                text = "This item has the power of the rune sigil of Safety:\n[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.m.RuneBonus1 + "%[/color] Hitpoints.\n[color=" + this.Const.UI.Color.PositiveValue + "]-" + this.m.RuneBonus2 + "%[/color] Damage received."
             });
         }
 
         o.onUpdateProperties = function( _properties )
         {
             this.legend_armor_upgrade.onUpdateProperties(_properties);
-            _properties.Hitpoints += this.m.RuneBonus1;
+            _properties.Hitpoints += this.Math.floor(this.m.RuneBonus1 * 0.01 * this.getContainer().getActor().getBaseProperties().Hitpoints);
             _properties.DamageReceivedTotalMult *= 1.0 - this.m.RuneBonus2 * 1.0 / 100.0;
         }
 

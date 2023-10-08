@@ -13,7 +13,7 @@ local gt = getroottable();
                 return;
             }
 
-            _properties.Hitpoints += this.getItem().getRuneBonus1();
+            _properties.Hitpoints += this.Math.floor(this.getItem().getRuneBonus1() * 0.01 * this.getContainer().getActor().getBaseProperties().Hitpoints);
             _properties.DamageReceivedTotalMult *= 1.0 - this.getItem().getRuneBonus2() * 1.0 / 100.0;
         }
 

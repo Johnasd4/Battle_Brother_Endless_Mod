@@ -233,10 +233,10 @@ local gt = getroottable();
 				});
 
 				//basic info
-				local melee_skill = this.getCurrentProperties.getMeleeSkill();
-				local ranged_skill = this.getCurrentProperties.getRangedSkill();
-				local melee_defense = this.getCurrentProperties.getMeleeDefense();
-				local ranged_defense = this.getCurrentProperties.getRangedDefense();
+				local melee_skill = this.getCurrentProperties().getMeleeSkill();
+				local ranged_skill = this.getCurrentProperties().getRangedSkill();
+				local melee_defense = this.getCurrentProperties().getMeleeDefense();
+				local ranged_defense = this.getCurrentProperties().getRangedDefense();
 				tooltip.push({
 					id = 99,
 					type = "text",

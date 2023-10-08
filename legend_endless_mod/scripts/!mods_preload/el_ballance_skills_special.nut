@@ -122,55 +122,55 @@ local gt = getroottable();
 						id = 11,
 						type = "text",
 						icon = "ui/icons/bravery.png",
-						text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Resolve"
+						text = "[color=" + this.Const.UI.Color.PositiveValue + "]+15[/color] Resolve"
 					},
 					{
 						id = 12,
 						type = "text",
 						icon = "ui/icons/initiative.png",
-						text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Initiative"
+						text = "[color=" + this.Const.UI.Color.PositiveValue + "]+15[/color] Initiative"
 					},
 					{
 						id = 13,
 						type = "text",
 						icon = "ui/icons/melee_skill.png",
-						text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Melee Skill"
+						text = "[color=" + this.Const.UI.Color.PositiveValue + "]+15[/color] Melee Skill"
 					},
 					{
 						id = 14,
 						type = "text",
 						icon = "ui/icons/ranged_skill.png",
-						text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Ranged Skill"
+						text = "[color=" + this.Const.UI.Color.PositiveValue + "]+15[/color] Ranged Skill"
 					},
 					{
 						id = 15,
 						type = "text",
 						icon = "ui/icons/melee_defense.png",
-						text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Melee Defense"
+						text = "[color=" + this.Const.UI.Color.PositiveValue + "]+15[/color] Melee Defense"
 					},
 					{
 						id = 16,
 						type = "text",
 						icon = "ui/icons/ranged_defense.png",
-						text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Ranged Defense"
+						text = "[color=" + this.Const.UI.Color.PositiveValue + "]+15[/color] Ranged Defense"
 					},
 					{
 						id = 17,
 						type = "text",
 						icon = "ui/icons/fatigue.png",
-						text = "[color=" + this.Const.UI.Color.PositiveValue + "]-1[/color] Fatigue Cost"
+						text = "[color=" + this.Const.UI.Color.PositiveValue + "]-2[/color] Fatigue Cost"
 					},
 					{
 						id = 18,
 						type = "text",
 						icon = "ui/icons/damage_dealt.png",
-						text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10%[/color] Damage Dealt"
+						text = "[color=" + this.Const.UI.Color.PositiveValue + "]+15%[/color] Damage Dealt"
 					},
 					{
 						id = 19,
 						type = "text",
 						icon = "ui/icons/damage_received.png",
-						text = "[color=" + this.Const.UI.Color.PositiveValue + "]-10%[/color] Damage Received"
+						text = "[color=" + this.Const.UI.Color.PositiveValue + "]-15%[/color] Damage Received"
 					}
 				];
 				return ret;
@@ -191,55 +191,55 @@ local gt = getroottable();
 						id = 11,
 						type = "text",
 						icon = "ui/icons/bravery.png",
-						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-10[/color] Resolve"
+						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-15[/color] Resolve"
 					},
 					{
 						id = 12,
 						type = "text",
 						icon = "ui/icons/initiative.png",
-						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-10[/color] Initiative"
+						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-15[/color] Initiative"
 					},
 					{
 						id = 13,
 						type = "text",
 						icon = "ui/icons/melee_skill.png",
-						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-10[/color] Melee Skill"
+						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-15[/color] Melee Skill"
 					},
 					{
 						id = 14,
 						type = "text",
 						icon = "ui/icons/ranged_skill.png",
-						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-10[/color] Ranged Skill"
+						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-15[/color] Ranged Skill"
 					},
 					{
 						id = 15,
 						type = "text",
 						icon = "ui/icons/melee_defense.png",
-						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-10[/color] Melee Defense"
+						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-15[/color] Melee Defense"
 					},
 					{
 						id = 16,
 						type = "text",
 						icon = "ui/icons/ranged_defense.png",
-						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-10[/color] Ranged Defense"
+						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-15[/color] Ranged Defense"
 					},
 					{
 						id = 17,
 						type = "text",
 						icon = "ui/icons/fatigue.png",
-						text = "[color=" + this.Const.UI.Color.NegativeValue + "]+1[/color] Fatigue Cost"
+						text = "[color=" + this.Const.UI.Color.NegativeValue + "]+2[/color] Fatigue Cost"
 					},
 					{
 						id = 18,
 						type = "text",
 						icon = "ui/icons/damage_dealt.png",
-						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-10%[/color] Damage Dealt"
+						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-15%[/color] Damage Dealt"
 					},
 					{
 						id = 19,
 						type = "text",
 						icon = "ui/icons/damage_received.png",
-						text = "[color=" + this.Const.UI.Color.NegativeValue + "]+10%[/color] Damage Received"
+						text = "[color=" + this.Const.UI.Color.NegativeValue + "]+15%[/color] Damage Received"
 					}
 				];
 				return ret;
@@ -255,75 +255,6 @@ local gt = getroottable();
 						id = 2,
 						type = "description",
 						text = "We can\'t win this! This character\'s morale is breaking and he is close to fleeing the battlefield."
-					},
-					{
-						id = 11,
-						type = "text",
-						icon = "ui/icons/bravery.png",
-						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-20[/color] Resolve"
-					},
-					{
-						id = 12,
-						type = "text",
-						icon = "ui/icons/initiative.png",
-						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-20[/color] Initiative"
-					},
-					{
-						id = 13,
-						type = "text",
-						icon = "ui/icons/melee_skill.png",
-						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-20[/color] Melee Skill"
-					},
-					{
-						id = 14,
-						type = "text",
-						icon = "ui/icons/ranged_skill.png",
-						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-20[/color] Ranged Skill"
-					},
-					{
-						id = 15,
-						type = "text",
-						icon = "ui/icons/melee_defense.png",
-						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-20[/color] Melee Defense"
-					},
-					{
-						id = 16,
-						type = "text",
-						icon = "ui/icons/ranged_defense.png",
-						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-20[/color] Ranged Defense"
-					},
-					{
-						id = 17,
-						type = "text",
-						icon = "ui/icons/fatigue.png",
-						text = "[color=" + this.Const.UI.Color.NegativeValue + "]+2[/color] Fatigue Cost"
-					},
-					{
-						id = 18,
-						type = "text",
-						icon = "ui/icons/damage_dealt.png",
-						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-20%[/color] Damage Dealt"
-					},
-					{
-						id = 19,
-						type = "text",
-						icon = "ui/icons/damage_received.png",
-						text = "[color=" + this.Const.UI.Color.NegativeValue + "]+20%[/color] Damage Received"
-					}
-				];
-				return ret;
-
-			case this.Const.MoraleState.Fleeing:
-				local ret = [
-					{
-						id = 1,
-						type = "title",
-						text = this.getName()
-					},
-					{
-						id = 2,
-						type = "description",
-						text = "Run for your lives! This character has lost it and is fleeing the battlefield in panic."
 					},
 					{
 						id = 11,
@@ -365,7 +296,7 @@ local gt = getroottable();
 						id = 17,
 						type = "text",
 						icon = "ui/icons/fatigue.png",
-						text = "[color=" + this.Const.UI.Color.NegativeValue + "]+3[/color] Fatigue Cost"
+						text = "[color=" + this.Const.UI.Color.NegativeValue + "]+4[/color] Fatigue Cost"
 					},
 					{
 						id = 18,
@@ -378,6 +309,75 @@ local gt = getroottable();
 						type = "text",
 						icon = "ui/icons/damage_received.png",
 						text = "[color=" + this.Const.UI.Color.NegativeValue + "]+30%[/color] Damage Received"
+					}
+				];
+				return ret;
+
+			case this.Const.MoraleState.Fleeing:
+				local ret = [
+					{
+						id = 1,
+						type = "title",
+						text = this.getName()
+					},
+					{
+						id = 2,
+						type = "description",
+						text = "Run for your lives! This character has lost it and is fleeing the battlefield in panic."
+					},
+					{
+						id = 11,
+						type = "text",
+						icon = "ui/icons/bravery.png",
+						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-45[/color] Resolve"
+					},
+					{
+						id = 12,
+						type = "text",
+						icon = "ui/icons/initiative.png",
+						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-45[/color] Initiative"
+					},
+					{
+						id = 13,
+						type = "text",
+						icon = "ui/icons/melee_skill.png",
+						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-45[/color] Melee Skill"
+					},
+					{
+						id = 14,
+						type = "text",
+						icon = "ui/icons/ranged_skill.png",
+						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-45[/color] Ranged Skill"
+					},
+					{
+						id = 15,
+						type = "text",
+						icon = "ui/icons/melee_defense.png",
+						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-45[/color] Melee Defense"
+					},
+					{
+						id = 16,
+						type = "text",
+						icon = "ui/icons/ranged_defense.png",
+						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-45[/color] Ranged Defense"
+					},
+					{
+						id = 17,
+						type = "text",
+						icon = "ui/icons/fatigue.png",
+						text = "[color=" + this.Const.UI.Color.NegativeValue + "]+6[/color] Fatigue Cost"
+					},
+					{
+						id = 18,
+						type = "text",
+						icon = "ui/icons/damage_dealt.png",
+						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-45%[/color] Damage Dealt"
+					},
+					{
+						id = 19,
+						type = "text",
+						icon = "ui/icons/damage_received.png",
+						text = "[color=" + this.Const.UI.Color.NegativeValue + "]+45%[/color] Damage Received"
 					}
 					{
 						id = 16,
