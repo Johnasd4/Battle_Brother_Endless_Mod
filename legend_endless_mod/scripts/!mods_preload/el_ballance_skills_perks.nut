@@ -753,7 +753,7 @@ local gt = getroottable();
 
 		o.onAnySkillUsed <- function ( _skill, _targetEntity, _properties )
 		{
-			if (_targetEntity.getHitpointsPct() <= 0.3)
+			if (_targetEntity != null && _targetEntity.isAttackable() && _targetEntity._targetEntity.getHitpointsPct() <= 0.3)
 			{
 				_properties.DamageTotalMult *= 2;
 			}
@@ -798,12 +798,12 @@ local gt = getroottable();
 
 		o.getDescription <- function()
 		{
-			return "You\'ve quickly realized that your years of hard labor give you an edge in mercenary work!\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• Hitpoints, Maximum Fatigue, and Initiative are increased by [color=" + this.Const.UI.Color.PositiveValue + "]+12[/color] each.";
+			return "You\'ve quickly realized that your years of hard labor give you an edge in mercenary work!\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• Hitpoints increased by [color=" + this.Const.UI.Color.PositiveValue + "]+12%[/color], Maximum Fatigue, and Initiative are increased by [color=" + this.Const.UI.Color.PositiveValue + "]+12[/color] each.";
 		}
 
 		o.onUpdate = function( _properties )
 		{
-			_properties.Hitpoints += 12;
+			_properties.Hitpoints += this.Math.floor(0.12 * this.getContainer().getActor().getBaseProperties().Hitpoints);
 			_properties.Stamina += 12;
 			_properties.Initiative += 12;
 		}

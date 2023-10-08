@@ -825,7 +825,7 @@ local gt = getroottable();
                         }
                     }
                     local xp_level = this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1));
-                    local core_xp = this.Math.floor(0.25 * (this.Const.LevelXP[xp_level] - this.Const.LevelXP[xp_level - 1]) * this.Math.max(1, 1 + (this.World.Assets.EL_getWorldDifficultFactor() - 1) * 0.5));
+                    local core_xp = this.Math.floor(0.25 * (this.Const.LevelXP[xp_level] - this.Const.LevelXP[xp_level - 1]) * this.Math.max(1, 1 + (this.World.Assets.EL_getWorldDifficultFactor() - 1) * 0.5 * this.World.Assets.EL_getHalfWorldDifficultFactor()));
                     switch(this.World.Assets.m.EL_ArenaLevel)
                     {
                         case 0:
@@ -892,14 +892,12 @@ local gt = getroottable();
                                 this.World.Assets.getStash().makeEmptySlots(1);
                                 this.World.Assets.getStash().add(reward_item);
                             }
-                            else {
-                                for(local i = 0; i < 1; ++i)
-                                {
-                                    local reward_item = this.new("scripts/items/el_misc/el_core_rank_4_item");
-                                    reward_item.EL_generateCoreXPByActorXP(core_xp);
-                                    this.World.Assets.getStash().makeEmptySlots(1);
-                                    this.World.Assets.getStash().add(reward_item);
-                                }
+                            for(local i = 0; i < 1; ++i)
+                            {
+                                local reward_item = this.new("scripts/items/el_misc/el_core_rank_4_item");
+                                reward_item.EL_generateCoreXPByActorXP(core_xp);
+                                this.World.Assets.getStash().makeEmptySlots(1);
+                                this.World.Assets.getStash().add(reward_item);
                             }
                             break;
                         default:
@@ -911,9 +909,12 @@ local gt = getroottable();
                                 this.World.Assets.getStash().makeEmptySlots(1);
                                 this.World.Assets.getStash().add(reward_item);
                             }
+                            if(this.World.Assets.m.EL_ArenaLevel < this.World.Assets.m.EL_ArenaMaxLevel) {
+                                this.World.Assets.EL_addEquipmentEssence(4, 1);
+                            }
                             break;
                     }
-
+                    this.World.Assets.m.EL_ArenaMaxLevel = this.Math.max(this.World.Assets.m.EL_ArenaLevel, this.World.Assets.m.EL_ArenaMaxLevel);
                 }
 
             });
