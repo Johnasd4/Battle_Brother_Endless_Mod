@@ -81,7 +81,7 @@ local gt = getroottable();
                 npc_level = this.Const.EL_NPC.EL_Troop.MinLevel;
             }
 
-            _e.EL_bulidNPCPropertiesByLevel(npc_level);
+            _e.EL_buildNPCPropertiesByLevel(npc_level);
             //this.logInfo("_t.EL_ExtraCombatLevel " + _t.EL_ExtraCombatLevel);
             _e.EL_setCombatLevel(this.Math.min(this.Const.EL_NPC.EL_Troop.MaxCalculateLevel, npc_level) + _t.EL_ExtraCombatLevel);
             _e.EL_setRankLevel(_t.EL_RankLevel);
@@ -114,7 +114,7 @@ local gt = getroottable();
                     extra_elite_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank1[_t.EL_RankLevel];
                     extra_leader_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank2[_t.EL_RankLevel];
                 }
-                local chance = this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldDifficultyChangeEvent")] * 100 - 100;
+                local chance = this.World.Assets.EL_getWorldDifficultFactor() * 100 - 100;
                 while(true) {
                     local r = this.Math.rand(1, this.Const.EL_NPC.EL_Troop.ExtraBuffRollMax);
                     if(r > chance) {
@@ -199,7 +199,7 @@ local gt = getroottable();
             return true;
         }
 
-        o.EL_bulidNPCPropertiesByLevel <- function( _EL_npcLevel ) {
+        o.EL_buildNPCPropertiesByLevel <- function( _EL_npcLevel ) {
             this.m.EL_NPCLevel = this.Math.min(_EL_npcLevel, this.Const.EL_NPC.EL_LevelUp.MaxPropertiesLevel);
             local level_ups = this.m.EL_NPCLevel - this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset;
             if(level_ups < 0) {
@@ -219,7 +219,7 @@ local gt = getroottable();
             this.m.XP *= this.Const.EL_NPC.EL_Champion.XP.Mult[this.m.EL_RankLevel];
 
             this.m.XP *= this.Math.pow(this.Const.EL_NPC.EL_LevelUp.XPFactor, this.Math.min(level_ups, this.Const.EL_NPC.EL_LevelUp.MaxXPLevel));
-            this.m.XP = this.Math.floor(this.m.XP * this.Math.max(1, 1 + (this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldDifficultyChangeEvent")] - 1) * 0.5));
+            this.m.XP = this.Math.floor(this.m.XP * this.World.Assets.EL_getHalfWorldDifficultFactor());
         }
 
         o.EL_ballanceNPCPropertiesAfterAddingEquipment <- function() {
@@ -278,8 +278,8 @@ local gt = getroottable();
                 }
                 local num_1 = this.Const.EL_NPC.EL_Troop.EquipmentEssence.CurrentRankMult * this.Math.pow(1 + this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelMult * level, this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropPowFactor);
                 local num_2 = this.Const.EL_NPC.EL_Troop.EquipmentEssence.NextRankMult * this.Math.pow(1 + this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelMult * level, this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropPowFactor);
-                num_1 = this.Math.floor(num_1 * this.Math.max(1, 1 + (this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldDifficultyChangeEvent")] - 1) * 0.5));
-                num_2 = this.Math.floor(num_2 * this.Math.max(1, 1 + (this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldDifficultyChangeEvent")] - 1) * 0.5));
+                num_1 = this.Math.floor(num_1 * this.World.Assets.EL_getHalfWorldDifficultFactor());
+                num_2 = this.Math.floor(num_2 * this.World.Assets.EL_getHalfWorldDifficultFactor());
 
                 if (this.m.WorldTroop != null && ("Party" in this.m.WorldTroop) && this.m.WorldTroop.Party != null && !this.m.WorldTroop.Party.isNull())
                 {
@@ -493,7 +493,7 @@ local gt = getroottable();
 
 		o.dropMoney = function( _num, _lootTable )
         {
-            _num = this.Math.max(0, this.Math.round(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.DropIncreaseMultPurWorldLevel.Money)));
+            _num = this.Math.max(0, this.Math.round(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.DropIncreaseMultPurWorldLevel.Money) * this.World.Assets.EL_getHalfWorldDifficultFactor()));
 
             if (_num == 0)
             {
@@ -507,7 +507,7 @@ local gt = getroottable();
 
 		o.dropFood = function( _num, _items, _lootTable )
         {
-            _num = this.Math.max(0, this.Math.round(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.DropIncreaseMultPurWorldLevel.Food)));
+            _num = this.Math.max(0, this.Math.round(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.DropIncreaseMultPurWorldLevel.Food) * this.World.Assets.EL_getHalfWorldDifficultFactor()));
 
             if (_num == 0)
             {
@@ -526,7 +526,7 @@ local gt = getroottable();
 
 		o.dropTreasure = function( _num, _items, _lootTable )
         {
-            _num = this.Math.max(0, this.Math.floor(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.DropIncreaseMultPurWorldLevel.Treasure)));
+            _num = this.Math.max(0, this.Math.floor(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.DropIncreaseMultPurWorldLevel.Treasure) * this.World.Assets.EL_getHalfWorldDifficultFactor()));
 
             if (_num == 0)
             {
@@ -543,7 +543,7 @@ local gt = getroottable();
 
 		o.dropAmmo = function( _num, _lootTable )
         {
-            _num = this.Math.max(0, this.Math.round(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.DropIncreaseMultPurWorldLevel.Ammo)));
+            _num = this.Math.max(0, this.Math.round(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.DropIncreaseMultPurWorldLevel.Ammo) * this.World.Assets.EL_getHalfWorldDifficultFactor()));
 
             if (_num == 0)
             {
@@ -557,7 +557,7 @@ local gt = getroottable();
 
 		o.dropArmorParts = function( _num, _lootTable )
         {
-            _num = this.Math.max(0, this.Math.round(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.DropIncreaseMultPurWorldLevel.ArmorParts)));
+            _num = this.Math.max(0, this.Math.round(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.DropIncreaseMultPurWorldLevel.ArmorParts) * this.World.Assets.EL_getHalfWorldDifficultFactor()));
 
             if (_num == 0)
             {
@@ -571,7 +571,7 @@ local gt = getroottable();
 
 		o.dropMedicine = function( _num, _lootTable )
         {
-            _num = this.Math.max(0, this.Math.round(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.DropIncreaseMultPurWorldLevel.Medicine)));
+            _num = this.Math.max(0, this.Math.round(_num * this.m.LootScale * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.DropIncreaseMultPurWorldLevel.Medicine) * this.World.Assets.EL_getHalfWorldDifficultFactor()));
 
             if (_num == 0)
             {
@@ -594,7 +594,7 @@ local gt = getroottable();
             local elite_team_chance = this.Const.EL_NPC.EL_EliteTeam.EliteTeamChance.EL_getChance(world_level);
             local random_leader_chance = 0;
             local strongest_leader_chance = 0;
-            elite_team_chance *= this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldDifficultyChangeEvent")];
+            elite_team_chance *= this.World.Assets.EL_getWorldDifficultFactor();
             if(elite_team_chance * 10 >= this.Math.rand(1, 1000)) {
                 this.m.EL_IsEliteParty = true;
             }
@@ -606,8 +606,8 @@ local gt = getroottable();
                 random_leader_chance = this.Const.EL_NPC.EL_NormalTeam.RandomLeaderChance.EL_getChance(world_level);
                 strongest_leader_chance = this.Const.EL_NPC.EL_NormalTeam.StrongestLeaderChance.EL_getChance(world_level);
             }
-            random_leader_chance *= this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldDifficultyChangeEvent")];
-            strongest_leader_chance *= this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldDifficultyChangeEvent")];
+            random_leader_chance *= this.World.Assets.EL_getWorldDifficultFactor();
+            strongest_leader_chance *= this.World.Assets.EL_getWorldDifficultFactor();
             if(random_leader_chance * 10 >= this.Math.rand(1, 1000)) {
                 this.m.EL_HaveRandomLeader = true;
             }
@@ -1073,17 +1073,18 @@ local gt = getroottable();
 
                 //Calculate ranks, level, combat level.
                 if(this.m.EL_IsBossParty) {
-                    local leader_id = 0;
                     for(local i = 0; i < this.m.Troops.len(); ++i) {
                         //At least two leaders.
-                        if(i < this.Const.EL_NPC.EL_Troop.BossTroopMinLeaders || this.m.Troops[i].ID == leader_id) {
+                        if(troops_info[i].EL_IsBossUnit) {
                             this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevel);
-                            leader_id = this.m.Troops[i].ID;
                             this.m.Troops[i].EL_IsBossUnit = true;
                         }
-                        else if(troops_info[i].EL_IsBossUnit) {
+                        else if(i < this.Const.EL_NPC.EL_Troop.BossTroopMinLeaders) {
                             this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevel);
-                            this.m.Troops[i].EL_IsBossUnit = true;
+                            leader_id = this.m.Troops[i].ID;
+                            if(this.Const.EL_NPC.EL_Troop.BossChance >= this.Math.rand(1, 100)) {
+                                this.m.Troops[i].EL_IsBossUnit = true;
+                            }
                         }
                         else if(troops_info[i].EL_IsWeakUnit) {
                             this.m.Troops[i].EL_RankLevel = this.Math.max(0, this.m.Troops[i].EL_RankLevel);
@@ -1344,7 +1345,7 @@ local gt = getroottable();
 		o.create = function ()
 		{
             create();
-			this.m.PaymentMult *= (1 + this.Const.EL_NPC.EL_Contract.PaymentMultPurWorldLevel  * this.Math.min(this.Const.EL_NPC.EL_Contract.PaymentMultMaxWorldLevel, this.World.Assets.m.EL_WorldLevel));
+			this.m.PaymentMult *= (1 + this.Const.EL_NPC.EL_Contract.PaymentMultPurWorldLevel * this.Math.min(this.Const.EL_NPC.EL_Contract.PaymentMultMaxWorldLevel, this.World.Assets.m.EL_WorldLevel)) * this.World.Assets.EL_getHalfWorldDifficultFactor();
 		};
 	});
 
@@ -1894,7 +1895,7 @@ local gt = getroottable();
             e.makeMiniboss();
         }
 
-        e.EL_bulidNPCPropertiesByLevel(_EL_level);
+        e.EL_buildNPCPropertiesByLevel(_EL_level);
         e.EL_setCombatLevel(this.Math.min(this.Const.EL_NPC.EL_Troop.MaxCalculateLevel, _EL_level) + troop_info.EL_ExtraCombatLevel);
         e.setFaction(_EL_faction);
 
@@ -1931,7 +1932,7 @@ local gt = getroottable();
             extra_elite_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank1[_EL_rank];
             extra_leader_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank2[_EL_rank];
         }
-        local chance = this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldDifficultyChangeEvent")] * 100 - 100;
+        local chance = this.World.Assets.EL_getWorldDifficultFactor() * 100 - 100;
         while(true) {
             local r = this.Math.rand(1, this.Const.EL_NPC.EL_Troop.ExtraBuffRollMax);
             if(r > chance) {
@@ -1998,7 +1999,7 @@ local gt = getroottable();
             e.makeMiniboss();
         }
 
-        e.EL_bulidNPCPropertiesByLevel(_EL_level);
+        e.EL_buildNPCPropertiesByLevel(_EL_level);
         e.EL_setCombatLevel(this.Math.min(this.Const.EL_NPC.EL_Troop.MaxCalculateLevel, _EL_level) + _EL_extraCombatLevel);
         e.setFaction(_EL_faction);
 
@@ -2035,7 +2036,7 @@ local gt = getroottable();
             extra_elite_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank1[_EL_rank];
             extra_leader_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank2[_EL_rank];
         }
-        local chance = this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldDifficultyChangeEvent")] * 100 - 100;
+        local chance = this.World.Assets.EL_getWorldDifficultFactor() * 100 - 100;
         while(true) {
             local r = this.Math.rand(1, this.Const.EL_NPC.EL_Troop.ExtraBuffRollMax);
             if(r > chance) {

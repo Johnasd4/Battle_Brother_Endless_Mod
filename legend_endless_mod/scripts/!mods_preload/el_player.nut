@@ -18,7 +18,12 @@ local gt = getroottable();
 			this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(this.m.Level, background);
 		}
 
-		o.getDailyFood = function ()
+		o.EL_getLevel <- function()
+		{
+			return this.m.Level;
+		}
+
+		o.getDailyFood = function()
 		{
 			local food = this.Math.maxf(0.0, this.m.CurrentProperties.DailyFood);
 
@@ -76,9 +81,15 @@ local gt = getroottable();
 		{
 			while (this.m.Level > 0 && this.m.XP < this.Const.LevelXP[this.m.Level - 1])
 			{
+
 				--this.m.Level;
 				--this.m.LevelUps;
 				--this.m.BaseProperties.EL_CombatLevel;
+
+				if (this.m.Level == 11 && this.m.Skills.hasSkill("perk.student"))
+				{
+					++this.m.PerkPoints;
+				}
 
 				if(this.m.Level < this.Const.EL_Player.EL_PlayerLevel.Part1){
 					--this.m.PerkPoints;
@@ -95,6 +106,8 @@ local gt = getroottable();
 			}
 			while (this.m.Level < this.Const.LevelXP.len() && this.m.XP >= this.Const.LevelXP[this.m.Level])
 			{
+
+
 				if(this.m.Level < this.Const.EL_Player.EL_PlayerLevel.Part1){
 					++this.m.PerkPoints;
 				}

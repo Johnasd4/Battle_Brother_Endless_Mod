@@ -4,7 +4,7 @@ local gt = getroottable();
 ::mods_queue(null, "el_player_npc", function ()
 {
 
-	::mods_hookNewObject("skills/perks/perk_anticipation", function ( o )
+	::mods_hookExactClass("skills/perks/perk_anticipation", function ( o )
 	{
 
 		o.getDescription = function()
@@ -23,7 +23,7 @@ local gt = getroottable();
 		}
 	});
 
-	::mods_hookNewObject("skills/perks/perk_battle_forged", function ( o )
+	::mods_hookExactClass("skills/perks/perk_battle_forged", function ( o )
 	{
 
 		o.getReductionPercentage = function()
@@ -34,7 +34,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/perks/perk_colossus", function ( o )
+	::mods_hookExactClass("skills/perks/perk_colossus", function ( o )
 	{
 
 		o.getDescription = function()
@@ -50,7 +50,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/perks/perk_fortified_mind", function ( o )
+	::mods_hookExactClass("skills/perks/perk_fortified_mind", function ( o )
 	{
 
 		o.getDescription <- function()
@@ -65,7 +65,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/perks/perk_horse_hippology", function ( o )
+	::mods_hookExactClass("skills/perks/perk_horse_hippology", function ( o )
 	{
 
 		o.getDescription <- function()
@@ -80,7 +80,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/perks/perk_horse_impulsion", function ( o )
+	::mods_hookExactClass("skills/perks/perk_horse_impulsion", function ( o )
 	{
 
 		o.getDescription <- function()
@@ -95,7 +95,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/perks/perk_horse_leg_control", function ( o )
+	::mods_hookExactClass("skills/perks/perk_horse_leg_control", function ( o )
 	{
 
 		o.getDescription <- function()
@@ -110,7 +110,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/perks/perk_horse_longeing", function ( o )
+	::mods_hookExactClass("skills/perks/perk_horse_longeing", function ( o )
 	{
 
 		o.getDescription <- function()
@@ -125,7 +125,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/perks/perk_horse_tempi_change", function ( o )
+	::mods_hookExactClass("skills/perks/perk_horse_tempi_change", function ( o )
 	{
 
 		o.getDescription <- function()
@@ -140,7 +140,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/perks/perk_legend_alert", function ( o )
+	::mods_hookExactClass("skills/perks/perk_legend_alert", function ( o )
 	{
 
 		o.getDescription <- function()
@@ -155,7 +155,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/perks/perk_legend_ammo_binding", function ( o )
+	::mods_hookExactClass("skills/perks/perk_legend_ammo_binding", function ( o )
 	{
 
 		o.getDescription <- function()
@@ -170,7 +170,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/perks/perk_legend_ammo_bundles", function ( o )
+	::mods_hookExactClass("skills/perks/perk_legend_ammo_bundles", function ( o )
 	{
 
 		o.getDescription <- function()
@@ -185,7 +185,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/perks/perk_legend_assured_conquest", function ( o )
+	::mods_hookExactClass("skills/perks/perk_legend_assured_conquest", function ( o )
 	{
 
 		o.getDescription <- function()
@@ -230,7 +230,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/perks/perk_legend_balance", function ( o )
+	::mods_hookExactClass("skills/perks/perk_legend_balance", function ( o )
 	{
 
 		o.getBonus = function()
@@ -261,7 +261,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/perks/perk_legend_bloodbath", function ( o )
+	::mods_hookExactClass("skills/perks/perk_legend_bloodbath", function ( o )
 	{
 
 		o.getTooltip = function()
@@ -310,7 +310,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/legend_favoured_enemy_skill", function ( o )
+	::mods_hookExactClass("skills/legend_favoured_enemy_skill", function ( o )
 	{
 
 		o.getTooltip = function()
@@ -400,7 +400,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/perks/perk_legend_freedom_of_movement", function ( o )
+	::mods_hookExactClass("skills/perks/perk_legend_freedom_of_movement", function ( o )
 	{
 
 		o.getTooltip = function()
@@ -437,7 +437,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/perks/perk_legend_lithe", function ( o )
+	::mods_hookExactClass("skills/perks/perk_legend_lithe", function ( o )
 	{
 		o.isHidden <- function()
 		{
@@ -519,7 +519,7 @@ local gt = getroottable();
 	});
 
 
-	::mods_hookNewObject("skills/perks/perk_legend_med_ingredients", function ( o )
+	::mods_hookExactClass("skills/perks/perk_legend_med_ingredients", function ( o )
 	{
 
 		o.getDescription <- function()
@@ -534,7 +534,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/perks/perk_legend_med_packages", function ( o )
+	::mods_hookExactClass("skills/perks/perk_legend_med_packages", function ( o )
 	{
 
 		o.getDescription <- function()
@@ -549,7 +549,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/perks/perk_legend_muscularity", function ( o )
+	::mods_hookExactClass("skills/perks/perk_legend_muscularity", function ( o )
 	{
 
 		o.getDescription <- function()
@@ -566,7 +566,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/perks/perk_legend_pacifist", function ( o )
+	::mods_hookExactClass("skills/perks/perk_legend_pacifist", function ( o )
 	{
 
 		o.getDescription <- function()
@@ -582,7 +582,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/perks/perk_legend_perfect_fit", function ( o )
+	::mods_hookExactClass("skills/perks/perk_legend_perfect_fit", function ( o )
 	{
 
 		o.getBonus = function()
@@ -627,7 +627,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/perks/perk_legend_specialist_cult_armor", function ( o )
+	::mods_hookExactClass("skills/perks/perk_legend_specialist_cult_armor", function ( o )
 	{
 
 		o.getResolveBonus = function()
@@ -664,7 +664,7 @@ local gt = getroottable();
 		}
 	});
 
-	::mods_hookNewObject("skills/perks/perk_lone_wolf", function ( o )
+	::mods_hookExactClass("skills/perks/perk_lone_wolf", function ( o )
 	{
 
 		o.getDescription <- function()
@@ -673,7 +673,7 @@ local gt = getroottable();
 		}
 	});
 
-	::mods_hookNewObject("skills/perks/perk_nimble", function ( o )
+	::mods_hookExactClass("skills/perks/perk_nimble", function ( o )
 	{
 
 		o.getTooltip = function()
@@ -732,13 +732,37 @@ local gt = getroottable();
 		}
 	});
 
-	::mods_hookNewObject("skills/perks/perk_ptr_bulwark", function ( o )
+	::mods_hookExactClass("skills/perks/perk_ptr_bulwark", function ( o )
 	{
 		o.m.ArmorPercentageAsBonus = 1;
 
 	});
 
-	::mods_hookNewObject("skills/perks/perk_ptr_dent_armor", function ( o )
+	::mods_hookExactClass("skills/perks/perk_ptr_cull", function ( o )
+	{
+		local create = o.create;
+		o.create = function()
+		{
+			create();
+			this.m.Description = "Deals 200% damage when targets hitpoints persent is below 30%.";
+		}
+
+		o.onTargetHit = function( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
+		{
+		}
+
+		o.onAnySkillUsed = function ( _skill, _targetEntity, _properties )
+		{
+			if (_targetEntity.getHitpointsPct() <= 0.3)
+			{
+				_properties.DamageTotalMult *= 2;
+			}
+		}
+
+	});
+
+
+	::mods_hookExactClass("skills/perks/perk_ptr_dent_armor", function ( o )
 	{
 		o.onTargetHit = function( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
 		{
@@ -769,7 +793,7 @@ local gt = getroottable();
 		}
 	});
 
-	::mods_hookNewObject("skills/perks/perk_ptr_fruits_of_labor", function ( o )
+	::mods_hookExactClass("skills/perks/perk_ptr_fruits_of_labor", function ( o )
 	{
 
 		o.getDescription <- function()
@@ -786,7 +810,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/perks/perk_ptr_flail_spinner", function ( o )
+	::mods_hookExactClass("skills/perks/perk_ptr_flail_spinner", function ( o )
 	{
 
 		o.spinFlail = function(_skill, _targetTile)
@@ -869,7 +893,7 @@ local gt = getroottable();
 		}
 	});
 
-	::mods_hookNewObject("skills/perks/perk_ptr_know_their_weakness", function ( o )
+	::mods_hookExactClass("skills/perks/perk_ptr_know_their_weakness", function ( o )
 	{
 		if("getMeleeBonus" in o) {
 			o.getTooltip = function()
@@ -901,7 +925,7 @@ local gt = getroottable();
 		}
 	});
 
-	::mods_hookNewObject("skills/perks/perk_ptr_through_the_ranks", function ( o )
+	::mods_hookExactClass("skills/perks/perk_ptr_through_the_ranks", function ( o )
 	{
 
 		o.getDescription <- function()
@@ -920,7 +944,7 @@ local gt = getroottable();
 	});
 
 
-	::mods_hookNewObject("skills/perks/perk_ptr_tunnel_vision", function ( o )
+	::mods_hookExactClass("skills/perks/perk_ptr_tunnel_vision", function ( o )
 	{
 
 		o.getTooltip = function()
@@ -963,7 +987,7 @@ local gt = getroottable();
 		}
 	});
 
-	::mods_hookNewObject("skills/perks/perk_ptr_utilitarian", function ( o )
+	::mods_hookExactClass("skills/perks/perk_ptr_utilitarian", function ( o )
 	{
 
 		o.getTooltip = function()

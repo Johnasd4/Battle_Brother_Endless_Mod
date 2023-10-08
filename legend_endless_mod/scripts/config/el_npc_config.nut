@@ -32,14 +32,14 @@ gt.Const.EL_NPC <- {
         ],
         DirectDamageMult = [
             1,
-            1.2,
-            1.5
+            1.4,
+            2
         ],
         Attributes = {
             HitpointsMult = [1, 1.4, 2],
             Bravery = [0, 40, 100],
-            Fatigue = [0, 100, 250],
-            Initiative = [0, 40, 100],
+            Fatigue = [0, 60, 150],
+            Initiative = [0, 60, 150],
             MeleeSkill = [0, 40, 100],
             RangedSkill = [0, 40, 100],
             MeleeDefense = [0, 40, 100],
@@ -93,7 +93,7 @@ gt.Const.EL_NPC <- {
         MaxCalculateLevel = 100,
         MinLevelOffset = -10,
         MaxLevelOffset = 0,
-        BossTroopMinLeaders = 2,
+        BossTroopMinLeaders = 5,
         BossChance = 1,
         UnitGenerateMinCalculateResourse = 20,
         ExtraBuffRollMax = 40,

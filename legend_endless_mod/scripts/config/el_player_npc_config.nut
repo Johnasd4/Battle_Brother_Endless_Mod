@@ -11,6 +11,11 @@ gt.Const.EL_PlayerNPC <- {
         Mult = 30,
     },
 
+    EL_ShieldDamage = {
+        Base = 1,
+        MultPurCombatLevel = 0.04
+    }
+
     EL_ExtraFatigueRecovery = {
         DivFactor = 20,
         Offset = -5,
@@ -18,8 +23,8 @@ gt.Const.EL_PlayerNPC <- {
 
     EL_RankToMoraleMin = [
         0,
-        1,
-        2
+        0,
+        1
     ]
 
     EL_CombatLevel = {

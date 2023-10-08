@@ -48,6 +48,16 @@ local gt = getroottable();
             }
 		}
 
+		o.EL_getWorldDifficultFactor <- function()
+		{
+			return this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldDifficultyChangeEvent")];
+		}
+
+		o.EL_getHalfWorldDifficultFactor <- function()
+		{
+			return (1 + (this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldDifficultyChangeEvent")] - 1) * 0.5);
+		}
+
 		o.EL_addEquipmentEssence <- function( _rank, _num )
 		{
 			this.m.EL_EquipmentEssence[_rank] += _num;
@@ -90,7 +100,7 @@ local gt = getroottable();
 			}
 			//Calculate world strength.
 			local temp_world_strength = this.Const.EL_World.EL_WorldStrength.getWorldStrength(day);
-			local difficult_mult = this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.get("EL_WorldDifficultyChangeEvent")] *
+			local difficult_mult = this.World.Assets.EL_getWorldDifficultFactor() *
 								   this.Const.EL_World.EL_WorldStartMult[this.getCombatDifficulty()];
 			temp_world_strength *= difficult_mult;
 
@@ -541,6 +551,8 @@ local gt = getroottable();
 					if(this.World.Statistics.getFlags().get("LastCombatResult") == 1) {
 						this.logInfo("tactical_state gatherLoot() party.getTroops().len() " + party.getTroops().len());
 						this.logInfo("tactical_state gatherLoot() party.isAlive() " + party.isAlive());
+						party.clearTroops();
+
 					}
 					if (party.getTroops().len() == 0 && party.isAlive() && !party.isAlliedWithPlayer() && party.isDroppingLoot() && (playerKills > 0 || this.m.IsDeveloperModeEnabled))
 					{

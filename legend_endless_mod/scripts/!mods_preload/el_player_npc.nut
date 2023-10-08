@@ -233,10 +233,10 @@ local gt = getroottable();
 				});
 
 				//basic info
-				local melee_skill = this.m.CurrentProperties.getMeleeSkill();
-				local ranged_skill = this.m.CurrentProperties.getRangedSkill();
-				local melee_defense = this.m.CurrentProperties.getMeleeDefense();
-				local ranged_defense = this.m.CurrentProperties.getRangedDefense();
+				local melee_skill = this.getCurrentProperties.getMeleeSkill();
+				local ranged_skill = this.getCurrentProperties.getRangedSkill();
+				local melee_defense = this.getCurrentProperties.getMeleeDefense();
+				local ranged_defense = this.getCurrentProperties.getRangedDefense();
 				tooltip.push({
 					id = 99,
 					type = "text",
@@ -1594,6 +1594,44 @@ local gt = getroottable();
 
 				return false;
 			}
+		}
+
+		o.onShieldHit = function( _info )
+		{
+			local shield = _info.Shield;
+			local user = _info.User;
+			local targetEntity = _info.TargetEntity;
+			local damage = this.Math.max(1, this.Math.floor(this.Const.EL_PlayerNPC.EL_ShieldDamage.Base * (1 + user.EL_getCombatLevel() * this.Const.EL_PlayerNPC.EL_ShieldDamage.MultPurCombatLevel)));
+			if (_info.Skill.m.SoundOnHitShield.len() != 0)
+			{
+				this.Sound.play(_info.Skill.m.SoundOnHitShield[this.Math.rand(0, _info.Skill.m.SoundOnHitShield.len() - 1)], this.Const.Sound.Volume.Skill * this.m.SoundVolume, user.getPos());
+			}
+
+			shield.applyShieldDamage(damage, _info.Skill.m.SoundOnHitShield.len() == 0);
+
+			if (shield.getCondition() == 0)
+			{
+				if (!user.isHiddenToPlayer())
+				{
+					this.Tactical.EventLog.logEx(this.Const.UI.getColorizedEntityName(user) + " has destroyed " + this.Const.UI.getColorizedEntityName(targetEntity) + "\'s shield");
+				}
+			}
+			else
+			{
+				if (!user.isHiddenToPlayer())
+				{
+					this.Tactical.EventLog.logEx(this.Const.UI.getColorizedEntityName(user) + " has hit " + this.Const.UI.getColorizedEntityName(targetEntity) + "\'s shield for 1 damage");
+				}
+
+				if (!this.Tactical.getNavigator().isTravelling(targetEntity))
+				{
+					this.Tactical.getShaker().shake(targetEntity, user.getTile(), 2, this.Const.Combat.ShakeEffectSplitShieldColor, this.Const.Combat.ShakeEffectSplitShieldHighlight, this.Const.Combat.ShakeEffectSplitShieldFactor, 1.0, [
+						"shield_icon"
+					], 1.0);
+				}
+			}
+
+			_info.TargetEntity.getItems().onShieldHit(_info.User, this);
 		}
 
 		o.getHitchance = function( _targetEntity )

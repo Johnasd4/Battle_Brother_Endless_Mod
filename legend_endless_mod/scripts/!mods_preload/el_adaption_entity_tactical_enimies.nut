@@ -6,10 +6,36 @@ local gt = getroottable();
 
 	::mods_hookExactClass("entity/tactical/enemies/goblin_wolfrider", function(o){
 
+        o.onDeath = function( _killer, _skill, _tile, _fatalityType )
+        {
+            this.m.Info = {
+                Tile = this.getTile(),
+                Faction = this.getFaction(),
+                Body = this.getSprite("body").getBrush().Name,
+                Head = this.getSprite("head").getBrush().Name,
+                Color = this.getSprite("body").Color,
+                Saturation = this.getSprite("body").Saturation,
+                WolfColor = this.getSprite("wolf").Color,
+                WolfSaturation = this.getSprite("wolf").Saturation,
+                Morale = this.Math.max(this.Const.MoraleState.Breaking, this.getMoraleState()),
+                EL_CombatLevel = this.EL_getCombatLevel(),
+                EL_RankLevel = this.EL_getRankLevel()
+            };
+
+            if (this.m.LastBodyPartHit == this.Const.BodyPart.Body)
+            {
+                this.spawnDeadWolf(_killer, _skill, _tile, _fatalityType);
+            }
+            else
+            {
+                this.goblin.onDeath(_killer, _skill, _tile, _fatalityType);
+            }
+        }
+
         o.spawnWolf = function( _info )
         {
             this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
-            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Wolf, _info.Tile, _info.Faction, this.EL_getRankLevel(), this.EL_getLevel());
+            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Wolf, _info.Tile, _info.Faction, _info.EL_RankLevel,  _info.EL_CombatLevel);
             if (entity != null)
             {
                 entity.setVariant(this.m.Variant, _info.WolfColor, _info.WolfSaturation, 0.45);
@@ -20,7 +46,7 @@ local gt = getroottable();
         o.spawnGoblin = function( _info )
         {
             this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.Other1][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.Other1].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
-            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.GoblinSkirmisher, _info.Tile, _info.Faction, this.EL_getRankLevel(), this.EL_getLevel());
+            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.GoblinSkirmisher, _info.Tile, _info.Faction, _info.EL_RankLevel,  _info.EL_CombatLevel);
 
             if (entity != null)
             {
@@ -45,10 +71,38 @@ local gt = getroottable();
 
 	::mods_hookExactClass("entity/tactical/enemies/kobold_wolfrider", function(o){
 
+
+
+        o.onDeath = function( _killer, _skill, _tile, _fatalityType )
+        {
+            this.m.Info = {
+                Tile = this.getTile(),
+                Faction = this.getFaction(),
+                Body = this.getSprite("body").getBrush().Name,
+                Head = this.getSprite("head").getBrush().Name,
+                Color = this.getSprite("body").Color,
+                Saturation = this.getSprite("body").Saturation,
+                WolfColor = this.getSprite("wolf").Color,
+                WolfSaturation = this.getSprite("wolf").Saturation,
+                Morale = this.Math.max(this.Const.MoraleState.Breaking, this.getMoraleState()),
+                EL_CombatLevel = this.EL_getCombatLevel(),
+                EL_RankLevel = this.EL_getRankLevel()
+            };
+
+            if (this.m.LastBodyPartHit == this.Const.BodyPart.Body)
+            {
+                this.spawnDeadWolf(_killer, _skill, _tile, _fatalityType);
+            }
+            else
+            {
+                this.goblin.onDeath(_killer, _skill, _tile, _fatalityType);
+            }
+        }
+
         o.spawnWolf = function( _info )
         {
             this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
-            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Wolf, _info.Tile, _info.Faction, this.EL_getRankLevel(), this.EL_getLevel());
+            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Wolf, _info.Tile, _info.Faction, _info.EL_RankLevel,  _info.EL_CombatLevel);
             if (entity != null)
             {
                 entity.setVariant(this.m.Variant, _info.WolfColor, _info.WolfSaturation, 0.45);
@@ -59,7 +113,7 @@ local gt = getroottable();
         o.spawnGoblin = function( _info )
         {
             this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.Other1][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.Other1].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
-            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.GoblinSkirmisher, _info.Tile, _info.Faction, this.EL_getRankLevel(), this.EL_getLevel());
+            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.GoblinSkirmisher, _info.Tile, _info.Faction, _info.EL_RankLevel,  _info.EL_CombatLevel);
 
             if (entity != null)
             {
@@ -109,7 +163,7 @@ local gt = getroottable();
             }
 
             local hitInfo = clone this.Const.Tactical.HitInfo;
-            hitInfo.DamageRegular = this.Math.round(this.getHitpointsMax() * (0.01 + this.m.EL_TentacleDestroyedNum * 0.01));
+            hitInfo.DamageRegular = this.Math.round(this.getBaseProperties().Hitpoints * (0.01 + this.m.EL_TentacleDestroyedNum * 0.01));
             hitInfo.DamageDirect = 1.0;
             hitInfo.BodyPart = this.Const.BodyPart.Head;
             hitInfo.BodyDamageMult = 1.0;
@@ -144,7 +198,7 @@ local gt = getroottable();
                             Cost = 200,
                             Row = 0,
                             Script = "scripts/entity/tactical/enemies/kraken_tentacle"
-                        }, tile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
+                        }, tile, this.getFaction(), 2, this.World.Assets.m.EL_WorldLevel);
                         tentacle.setParent(this);
                         tentacle.setMode(this.m.IsEnraged ? 1 : 0);
                         tentacle.riseFromGround();
@@ -233,7 +287,7 @@ local gt = getroottable();
                             Cost = 200,
                             Row = 0,
                             Script = "scripts/entity/tactical/enemies/kraken_tentacle"
-                        }, tile, this.getFaction(), this.EL_getRankLevel(), this.World.Assets.m.EL_WorldLevel);
+                        }, tile, this.getFaction(), 2, this.World.Assets.m.EL_WorldLevel);
                         tentacle.setParent(this);
                         this.m.Tentacles.push(this.WeakTableRef(tentacle));
                         break;
@@ -250,6 +304,32 @@ local gt = getroottable();
     });
 
 	::mods_hookExactClass("entity/tactical/enemies/legend_bandit_outrider", function(o){
+
+        o.onDeath = function( _killer, _skill, _tile, _fatalityType )
+        {
+            this.m.Info = {
+                Tile = this.getTile(),
+                Faction = this.getFaction(),
+                Body = this.getSprite("body").getBrush().Name,
+                Head = this.getSprite("head").getBrush().Name,
+                Color = this.getSprite("body").Color,
+                Saturation = this.getSprite("body").Saturation,
+                WolfColor = this.getSprite("wolf").Color,
+                WolfSaturation = this.getSprite("wolf").Saturation,
+                Morale = this.Math.max(this.Const.MoraleState.Breaking, this.getMoraleState()),
+                EL_CombatLevel = this.EL_getCombatLevel(),
+                EL_RankLevel = this.EL_getRankLevel()
+            };
+
+            if (this.m.LastBodyPartHit == this.Const.BodyPart.Body)
+            {
+                this.spawnDeadWolf(_killer, _skill, _tile, _fatalityType);
+            }
+            else
+            {
+                this.goblin.onDeath(_killer, _skill, _tile, _fatalityType);
+            }
+        }
 
         o.spawnWolf = function( _info )
         {
