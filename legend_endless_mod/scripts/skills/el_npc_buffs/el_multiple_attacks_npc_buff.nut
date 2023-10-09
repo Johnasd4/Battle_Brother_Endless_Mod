@@ -32,7 +32,9 @@ this.el_multiple_attacks_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/e
             for(local i = 0; i < affect_targets.len(); ++i) {
                 if (actor.getFatigue() + _skill.getFatigueCost() < actor.getFatigueMax())
                 {
-                    _skill.useForFree(affect_targets[i].getTile());
+                    if(affect_targets[i] != null && !affect_targets[i].isDying() && affect_targets[i].isAlive()) {
+                        _skill.useForFree(affect_targets[i].getTile());
+                    }
                     actor.setFatigue(actor.getFatigue() + _skill.getFatigueCost());
                 }
             }

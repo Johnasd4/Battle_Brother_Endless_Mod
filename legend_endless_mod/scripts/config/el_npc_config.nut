@@ -101,10 +101,12 @@ gt.Const.EL_NPC <- {
         EliteUnitEliteChanceMult = 2
 
         EquipmentEssence = {
-            CurrentRankMult = 5,
-            NextRankMult = 1,
-            DropLevelMult = 0.04,
-            DropPowFactor = 2
+            BossDropLengendaryNum = 1,
+            DropBaseNum = 10,
+            DropPurExtraCombatLevelNegative = 1,
+            DropPurExtraCombatLevelPositive = 10,
+            NormalDropLevelMult = 0.04,
+            NormalDropMultPurRank = 3
         }
 
 

@@ -148,6 +148,7 @@ local gt = getroottable();
                 }
 
                 _e.EL_ballanceNPCPropertiesAfterAddingEquipment();
+                _e.EL_buildEquipmentEssenceDrop();
             }
             else {
 
@@ -178,21 +179,6 @@ local gt = getroottable();
                 this.m.EL_EquipmentEssenceDrop[i] = _in.readI32();
             }
 		}
-
-        o.EL_buildEquipmentEssenceDrop <- function() {
-            local rank_essence = 0;
-            local normal_essence = 0;
-            if(this.EL_rankLevel > 0) {
-                if(this.EL_isBossUnit()) {
-                    this.m.EL_EquipmentEssenceDrop[4] = 1;
-                }
-                rank_essence =
-            }
-
-            for(local i = 0; i < this.m.EL_EquipmentEssenceDrop.len(); ++i) {
-                this.m.EL_EquipmentEssenceDrop[i] = EL_numList[i];
-            }
-        }
 
         o.EL_isBossUnit <- function() {
             return this.m.WorldTroop != null && this.m.WorldTroop.EL_IsBossUnit == true;
@@ -290,6 +276,37 @@ local gt = getroottable();
             }
         }
 
+        o.EL_buildEquipmentEssenceDrop <- function() {
+
+            local accessory = this.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
+            local rank = 0;
+            local rank_essence = 0;
+            local normal_essence = 0;
+            if(accessory == null) {
+                rank = this.EL_getRankLevel();
+            }
+            else {
+                rank = this.Math.min(3, this.Math.max(this.EL_getRankLevel(), accessory.EL_getRankLevel()));
+            }
+            if(this.EL_isBossUnit()) {
+                this.m.EL_EquipmentEssenceDrop[4] = this.Const.EL_NPC.EL_Troop.EquipmentEssence.BossDropLengendaryNum;
+            }
+            extra_combat_level = this.getBaseProperties().EL_CombatLevel - this.EL_getLevel();
+            rank_essence = this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropBaseNum;
+            if(extra_combat_level > 0) {
+                rank_essence += this.Math.floor(extra_combat_level * this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropPurExtraCombatLevelPositive);
+            }
+            else if(extra_combat_level < 0) {
+                rank_essence += this.Math.floor(extra_combat_level * this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropPurExtraCombatLevelNegative);
+            }
+            normal_essence = rank_essence * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.NormalDropMultPurRank, rank);
+            normal_essence *= (1 + this.EL_getLevel() * this.Const.EL_NPC.EL_Troop.EquipmentEssence.NormalDropLevelMult);
+            this.m.EL_EquipmentEssenceDrop[0] = this.Math.floor(normal_essence * this.World.Assets.EL_getHalfWorldDifficultFactor());
+            if(this.EL_getRankLevel() > 0) {
+                this.m.EL_EquipmentEssenceDrop[rank] = this.Math.floor(rank_essence * this.World.Assets.EL_getHalfWorldDifficultFactor());
+            }
+        }
+
 		o.getName = function()
 		{
 			return this.m.Name + " - Lv" + this.m.EL_NPCLevel + "(" + ((this.Math.round(this.EL_getCombatLevel() * 10) * 0.1)) + ")";
@@ -301,23 +318,11 @@ local gt = getroottable();
             //this.logInfo(this.getName() + " is killed.");
             if (_killer == null || _killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals)
             {
-                local rank = 0;
-                local level = this.m.EL_NPCLevel;
-                if(this.EL_isBossUnit()) {
-                    rank = 3;
-                }
-                else {
-                    rank = this.EL_getRankLevel();
-                }
-                local num_1 = this.Const.EL_NPC.EL_Troop.EquipmentEssence.CurrentRankMult * this.Math.pow(1 + this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelMult * level, this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropPowFactor);
-                local num_2 = this.Const.EL_NPC.EL_Troop.EquipmentEssence.NextRankMult * this.Math.pow(1 + this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropLevelMult * level, this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropPowFactor);
-                num_1 = this.Math.floor(num_1 * this.World.Assets.EL_getHalfWorldDifficultFactor());
-                num_2 = this.Math.floor(num_2 * this.World.Assets.EL_getHalfWorldDifficultFactor());
-
                 if (this.m.WorldTroop != null && ("Party" in this.m.WorldTroop) && this.m.WorldTroop.Party != null && !this.m.WorldTroop.Party.isNull())
                 {
-                    this.m.WorldTroop.Party.EL_addEquipmentEssence(rank, num_1);
-                    this.m.WorldTroop.Party.EL_addEquipmentEssence(rank + 1, num_2);
+                    for(local i = 0; i < this.m.EL_EquipmentEssenceDrop.len(); ++i) {
+                        this.m.WorldTroop.Party.EL_addEquipmentEssence(i, this.m.EL_EquipmentEssenceDrop[i]);
+                    }
 
                     local accessory = this.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
                     if(accessory != null && accessory.getID() == "el_accessory.core") {
@@ -345,9 +350,9 @@ local gt = getroottable();
                         party.m.Name = "EquipmentEssenceOnly";
                         p.Parties.push(party);
                     }
-                    party.EL_addEquipmentEssence(rank, num_1);
-                    party.EL_addEquipmentEssence(rank + 1, num_2);
-
+                    for(local i = 0; i < this.m.EL_EquipmentEssenceDrop.len(); ++i) {
+                        this.m.WorldTroop.Party.EL_addEquipmentEssence(i, this.m.EL_EquipmentEssenceDrop[i]);
+                    }
                 }
             }
             kill(_killer, _skill, _fatalityType, _silent);
@@ -1977,6 +1982,7 @@ local gt = getroottable();
 
 
         e.EL_ballanceNPCPropertiesAfterAddingEquipment();
+        e.EL_buildEquipmentEssenceDrop();
         return e;
     }
 
@@ -2080,6 +2086,7 @@ local gt = getroottable();
         }
 
         e.EL_ballanceNPCPropertiesAfterAddingEquipment();
+        e.EL_buildEquipmentEssenceDrop();
         return e;
     }
 

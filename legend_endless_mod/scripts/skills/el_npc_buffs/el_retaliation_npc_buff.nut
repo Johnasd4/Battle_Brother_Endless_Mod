@@ -54,7 +54,9 @@ this.el_retaliation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
             if (skill != null && (actor.getFatigue() + skill.getFatigueCost() < actor.getFatigueMax()))
             {
 				this.m.EL_IsRetaliate = true;
-                skill.useForFree(_EL_attacker.getTile());
+				if(_EL_attacker != null && !actor.isDying() && actor.isAlive()) {
+					skill.useForFree(_EL_attacker.getTile());
+				}
 				this.m.EL_IsRetaliate = false;
 				actor.setFatigue(actor.getFatigue() + skill.getFatigueCost());
             }

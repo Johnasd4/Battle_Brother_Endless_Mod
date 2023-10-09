@@ -169,6 +169,8 @@ local gt = getroottable();
 			this.addSkill(this.new("scripts/skills/el_items/el_item_level_check_skill"));
             foreach(entry in this.m.EL_Entrylist)
 			{
+				entry.m.IsGarbage = false;
+				entry.m.IsStacking = false;
 				this.EL_addEntry(entry);
 			}
 		}

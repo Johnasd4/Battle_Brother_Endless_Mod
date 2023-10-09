@@ -3,6 +3,8 @@ this.el_entry <- this.inherit("scripts/skills/skill", {
 	function create()
 	{
 		this.m.Order = this.Const.SkillOrder.First + 1;
+		this.m.IsSerialized = false;
+		this.m.IsStacking = true;
 	}
 
 	function setItem( _i )
