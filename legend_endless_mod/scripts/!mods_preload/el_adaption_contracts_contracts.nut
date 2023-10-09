@@ -21,6 +21,7 @@ local gt = getroottable();
                 this.World.Assets.m.EL_LastArenaDay = day;
                 this.World.Assets.m.EL_ArenaLevel = 0;
             }
+            this.m.Payment.Pool = this.Math.floor(this.m.Payment.Pool * 0.7);
             this.m.Payment.Pool *= this.World.Assets.m.EL_ArenaLevel + 1;
         }
 

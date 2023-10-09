@@ -1353,12 +1353,9 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookBaseClass("contracts/contract", function ( o )
+	::mods_hookClass("contracts/contract", function ( o )
 	{
-		while (!("EmployerID" in o.m))
-		{
-			o = o[o.SuperName];
-		}
+        while(!("getID" in o)) o = o[o.SuperName];
         local create = o.create;
 		o.create = function ()
 		{
