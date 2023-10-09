@@ -1013,7 +1013,7 @@ local gt = getroottable();
                         elite_chance *= this.World.Assets.EL_getWorldDifficultFactor();
                         if(troop_info.EL_IsEliteUnit)
                         {
-                            elite_chance *= this.Const.EL_NPC.EL_Troop.EliteUnitChangeMult;
+                            elite_chance *= this.Const.EL_NPC.EL_Troop.EliteUnitEliteChanceMult;
                         }
                         _EL_troop.EL_RankLevel = this.Math.max((this.Math.rand(1, 1000) >= elite_chance * 10) ? 0 : 1, _EL_troop.EL_RankLevel);
                     }
@@ -1189,7 +1189,7 @@ local gt = getroottable();
                             elite_chance *= this.World.Assets.EL_getWorldDifficultFactor();
                             if(troops_info[i].EL_IsEliteUnit)
                             {
-                                elite_chance *= this.Const.EL_NPC.EL_Troop.EliteUnitChangeMult;
+                                elite_chance *= this.Const.EL_NPC.EL_Troop.EliteUnitEliteChanceMult;
                             }
                             this.m.Troops[i].EL_RankLevel = this.Math.max((this.Math.rand(1, 1000) >= elite_chance * 10) ? 0 : 1, this.m.Troops[i].EL_RankLevel);
                             if(this.m.Troops[i].Strength >= this.Const.EL_NPC.EL_Troop.Rank2LeastStrength) {

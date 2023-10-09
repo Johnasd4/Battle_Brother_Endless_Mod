@@ -98,7 +98,7 @@ gt.Const.EL_NPC <- {
         UnitGenerateMinCalculateResourse = 20,
         ExtraBuffRollMax = 40,
         ExtraBuffStrengthMultPurTime = 2,
-        EliteUnitChangeMult = 2.5
+        EliteUnitEliteChanceMult = 2
 
         EquipmentEssence = {
             CurrentRankMult = 5,
