@@ -978,7 +978,7 @@ local gt = getroottable();
             this.m.EL_IsEliteParty = _EL_IsEliteParty;
         }
 
-        o.EL_EmptyTroops <- function() {
+        o.EL_emptyTroops <- function() {
             this.m.Troops = [];
         }
 
