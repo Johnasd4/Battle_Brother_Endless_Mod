@@ -294,16 +294,16 @@ local gt = getroottable();
             extra_combat_level = this.getBaseProperties().EL_CombatLevel - this.EL_getLevel();
             rank_essence = this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropBaseNum;
             if(extra_combat_level > 0) {
-                rank_essence += this.Math.floor(extra_combat_level * this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropPurExtraCombatLevelPositive);
+                rank_essence += extra_combat_level * this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropPurExtraCombatLevelPositive;
             }
             else if(extra_combat_level < 0) {
-                rank_essence += this.Math.floor(extra_combat_level * this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropPurExtraCombatLevelNegative);
+                rank_essence += extra_combat_level * this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropPurExtraCombatLevelNegative;
             }
             normal_essence = rank_essence * this.Math.pow(this.Const.EL_NPC.EL_Troop.EquipmentEssence.NormalDropMultPurRank, rank);
             normal_essence *= (1 + this.EL_getLevel() * this.Const.EL_NPC.EL_Troop.EquipmentEssence.NormalDropLevelMult);
-            this.m.EL_EquipmentEssenceDrop[0] = this.Math.floor(normal_essence * this.World.Assets.EL_getHalfWorldDifficultFactor());
+            this.m.EL_EquipmentEssenceDrop[0] = this.Math.ceil(normal_essence * this.World.Assets.EL_getHalfWorldDifficultFactor());
             if(this.EL_getRankLevel() > 0) {
-                this.m.EL_EquipmentEssenceDrop[rank] = this.Math.floor(rank_essence * this.World.Assets.EL_getHalfWorldDifficultFactor());
+                this.m.EL_EquipmentEssenceDrop[rank] = this.Math.ceil(rank_essence * this.World.Assets.EL_getHalfWorldDifficultFactor());
             }
         }
 

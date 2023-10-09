@@ -63,6 +63,8 @@ this.el_charge_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff
 		}
         if(this.Math.rand(1, 100) <= this.Const.EL_NPC.EL_NPCBuff.Factor.Charge.KnockBackChance[this.m.EL_RankLevel]) {
 
+            _targetEntity.getSkills().add(this.new("scripts/skills/effects/legend_dazed_effect"));
+
             local target_tile = _targetEntity.getTile();
 
             local knock_to_tile = this.findTileToKnockBackTo(user.getTile(), target_tile);

@@ -640,9 +640,9 @@ gt.Const.EL_NPC <- {
 
             },
             Recovery = {
-                HitpointsRecoveryRate = [0.04, 0.08, 0.2],
-                FatigueRecoveryRate = [0.04, 0.08, 0.2],
-                ArmorRecoveryRate = [0.04, 0.08, 0.2],
+                HitpointsRecoveryRate = [0.05, 0.1, 0.25],
+                FatigueRecoveryRate = [0.05, 0.1, 0.25],
+                ArmorRecoveryRate = [0.05, 0.1, 0.25],
             },
             Retaliation = {
                 AttackChance = [20, 40, 100]
@@ -651,7 +651,7 @@ gt.Const.EL_NPC <- {
                 DamageMultPurStack = [0.04, 0.08, 0.2],
             },
             SelfDestruct = {
-                DamageBase = 100,
+                DamageBase = 25,
                 DamageMultPurCombatLevel = 0.04,
                 DamageRate = [0.2, 0.4, 1],
                 WeaponShieldDamageRate = [0.1, 0.2, 0.5],
