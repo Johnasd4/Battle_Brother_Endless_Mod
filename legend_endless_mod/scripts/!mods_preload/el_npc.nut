@@ -179,6 +179,32 @@ local gt = getroottable();
             }
 		}
 
+        o.EL_buildEquipmentEssenceDrop <- function() {
+            local rank_essence = 0;
+            local normal_essence = 0;
+            if(this.EL_rankLevel > 0) {
+                if(this.EL_isBossUnit()) {
+                    this.m.EL_EquipmentEssenceDrop[4] = 1;
+                }
+                rank_essence =
+            }
+
+            for(local i = 0; i < this.m.EL_EquipmentEssenceDrop.len(); ++i) {
+                this.m.EL_EquipmentEssenceDrop[i] = EL_numList[i];
+            }
+        }
+
+        o.EL_isBossUnit <- function() {
+            return this.m.WorldTroop != null && this.m.WorldTroop.EL_IsBossUnit == true;
+        }
+
+        o.EL_getStrength <- function() {
+            if(this.EL_isBossUnit()) {
+                return 1000;
+            }
+            return this.m.EL_NPCLevel;
+        }
+
         o.EL_getLevel <- function() {
             return this.m.EL_NPCLevel;
         }
@@ -277,7 +303,7 @@ local gt = getroottable();
             {
                 local rank = 0;
                 local level = this.m.EL_NPCLevel;
-                if(this.m.WorldTroop != null && this.m.WorldTroop.EL_IsBossUnit == true) {
+                if(this.EL_isBossUnit()) {
                     rank = 3;
                 }
                 else {
