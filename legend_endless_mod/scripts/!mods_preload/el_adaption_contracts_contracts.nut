@@ -825,7 +825,7 @@ local gt = getroottable();
                         }
                     }
                     local xp_level = this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1));
-                    local core_xp = this.Math.floor(0.25 * (this.Const.LevelXP[xp_level] - this.Const.LevelXP[xp_level - 1]) * this.Math.max(1, 1 + (this.World.Assets.EL_getWorldDifficultFactor() - 1) * 0.5 * this.World.Assets.EL_getHalfWorldDifficultFactor()));
+                    local core_xp = this.Math.floor(0.25 * (this.Const.LevelXP[xp_level] - this.Const.LevelXP[xp_level - 1]) * this.World.Assets.EL_getHalfWorldDifficultFactor());
                     switch(this.World.Assets.m.EL_ArenaLevel)
                     {
                         case 0:

@@ -581,7 +581,6 @@ local gt = getroottable();
             local elite_team_chance = this.Const.EL_NPC.EL_EliteTeam.EliteTeamChance.EL_getChance(world_level);
             local random_leader_chance = 0;
             local strongest_leader_chance = 0;
-            elite_team_chance *= this.World.Assets.EL_getWorldDifficultFactor();
             if(elite_team_chance * 10 >= this.Math.rand(1, 1000)) {
                 this.m.EL_IsEliteParty = true;
             }
@@ -593,8 +592,6 @@ local gt = getroottable();
                 random_leader_chance = this.Const.EL_NPC.EL_NormalTeam.RandomLeaderChance.EL_getChance(world_level);
                 strongest_leader_chance = this.Const.EL_NPC.EL_NormalTeam.StrongestLeaderChance.EL_getChance(world_level);
             }
-            random_leader_chance *= this.World.Assets.EL_getWorldDifficultFactor();
-            strongest_leader_chance *= this.World.Assets.EL_getWorldDifficultFactor();
             if(random_leader_chance * 10 >= this.Math.rand(1, 1000)) {
                 this.m.EL_HaveRandomLeader = true;
             }
@@ -981,6 +978,9 @@ local gt = getroottable();
             this.m.EL_IsEliteParty = _EL_IsEliteParty;
         }
 
+        o.EL_EmptyTroops <- function() {
+            this.m.Troops = [];
+        }
 
 
 
@@ -1009,10 +1009,11 @@ local gt = getroottable();
                         _EL_troop.EL_RankLevel = this.Math.max(1, _EL_troop.EL_RankLevel);
                     }
                     else {
-                        local elite_chance = this.Const.EL_NPC.EL_NormalTeam.EliteChance.EL_getChance(this.World.Assets.m.EL_WorldLevel);
+                        local elite_chance = this.Const.EL_NPC.EL_NormalTeam.EliteChance.EL_getChance(this.World.Assets.m.EL_WorldLevel) + _EL_troop.EL_EliteChance;
+                        elite_chance *= this.World.Assets.EL_getWorldDifficultFactor();
                         if(troop_info.EL_IsEliteUnit)
                         {
-                            elite_chance *= this.Const.EL_NPC.EL_Troop.EliteUnitChangeMult
+                            elite_chance *= this.Const.EL_NPC.EL_Troop.EliteUnitChangeMult;
                         }
                         _EL_troop.EL_RankLevel = this.Math.max((this.Math.rand(1, 1000) >= elite_chance * 10) ? 0 : 1, _EL_troop.EL_RankLevel);
                     }
@@ -1068,7 +1069,6 @@ local gt = getroottable();
                         }
                         else if(i < this.Const.EL_NPC.EL_Troop.BossTroopMinLeaders) {
                             this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevel);
-                            leader_id = this.m.Troops[i].ID;
                             if(this.Const.EL_NPC.EL_Troop.BossChance >= this.Math.rand(1, 100)) {
                                 this.m.Troops[i].EL_IsBossUnit = true;
                             }
@@ -1185,7 +1185,8 @@ local gt = getroottable();
                             this.m.Troops[i].EL_RankLevel = this.Math.max(0, this.m.Troops[i].EL_RankLevel);
                         }
                         else {
-                            local elite_chance = this.Const.EL_NPC.EL_NormalTeam.EliteChance.EL_getChance(this.World.Assets.m.EL_WorldLevel);
+                            local elite_chance = this.Const.EL_NPC.EL_NormalTeam.EliteChance.EL_getChance(this.World.Assets.m.EL_WorldLevel) + this.m.Troops[i].EL_EliteChance;
+                            elite_chance *= this.World.Assets.EL_getWorldDifficultFactor();
                             if(troops_info[i].EL_IsEliteUnit)
                             {
                                 elite_chance *= this.Const.EL_NPC.EL_Troop.EliteUnitChangeMult;

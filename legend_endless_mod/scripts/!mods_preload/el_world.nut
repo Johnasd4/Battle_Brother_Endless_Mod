@@ -554,8 +554,8 @@ local gt = getroottable();
 					if(this.World.Statistics.getFlags().get("LastCombatResult") == 1 && !party.isAlliedWithPlayer()) {
 						//this.logInfo("tactical_state gatherLoot() party.getTroops().len() " + party.getTroops().len());
 						//this.logInfo("tactical_state gatherLoot() party.isAlive() " + party.isAlive());
-						this.logInfo("Clear troops!" + party.isAlive());
-						party.clearTroops();
+						this.logInfo("Remove all troops!" + party.isAlive());
+						party.EL_emptyTroops();
 
 					}
 					if (party.getTroops().len() == 0 && party.isAlive() && !party.isAlliedWithPlayer() && party.isDroppingLoot() && (playerKills > 0 || this.m.IsDeveloperModeEnabled))
