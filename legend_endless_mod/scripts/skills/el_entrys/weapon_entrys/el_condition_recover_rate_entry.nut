@@ -1,10 +1,10 @@
-this.el_condition_recover_rate_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
+this.el_condition_recover_rate_entry <- this.inherit("scripts/skills/el_entrys/el_weapon_entry", {
 	m = {
         EL_ConditionRecoverRateAddition = 0.0
     },
 	function create()
 	{
-		this.el_entry.create();
+		this.el_weapon_entry.create();
 		this.m.ID = this.Const.EL_Weapon.EL_Entry.Factor.EL_ConditionRecoverRate.ID;
 	}
 

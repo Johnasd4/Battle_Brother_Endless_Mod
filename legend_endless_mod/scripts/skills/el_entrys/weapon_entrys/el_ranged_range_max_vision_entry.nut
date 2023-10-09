@@ -1,10 +1,10 @@
-this.el_ranged_range_max_vision_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
+this.el_ranged_range_max_vision_entry <- this.inherit("scripts/skills/el_entrys/el_weapon_entry", {
 	m = {
         EL_RangeMaxAndVisionAddition = 0
     },
 	function create()
 	{
-		this.el_entry.create();
+		this.el_weapon_entry.create();
 		this.m.ID = this.Const.EL_Weapon.EL_Entry.Factor.EL_RangedRangeMaxAndVision.ID;
         this.m.EL_RangeMaxAndVisionAddition = this.Const.EL_Weapon.EL_Entry.Factor.EL_RangedRangeMaxAndVision.RangeMaxAndVision;
 	}
@@ -27,7 +27,7 @@ this.el_ranged_range_max_vision_entry <- this.inherit("scripts/skills/el_entrys/
 
 	function onUpdate( _properties )
 	{
-		this.el_entry.onUpdate(_properties);
+		this.el_weapon_entry.onUpdate(_properties);
 		_properties.Vision += this.m.EL_RangeMaxAndVisionAddition;
 	}
 

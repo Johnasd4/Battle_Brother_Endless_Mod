@@ -1,10 +1,10 @@
-this.el_entry <- this.inherit("scripts/skills/skill", {
+this.el_weapon_entry <- this.inherit("scripts/skills/skill", {
 	m = {},
 	function create()
 	{
 		this.m.Order = this.Const.SkillOrder.First + 1;
 		this.m.IsSerialized = false;
-		this.m.IsStacking = true;
+		this.m.IsStacking = false;
 	}
 
 	function setItem( _i )

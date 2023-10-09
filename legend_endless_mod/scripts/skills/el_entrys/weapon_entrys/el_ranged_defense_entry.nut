@@ -1,10 +1,10 @@
-this.el_ranged_defense_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
+this.el_ranged_defense_entry <- this.inherit("scripts/skills/el_entrys/el_weapon_entry", {
 	m = {
         EL_RangedDefenseAddition = 0
     },
 	function create()
 	{
-		this.el_entry.create();
+		this.el_weapon_entry.create();
 		this.m.ID = this.Const.EL_Weapon.EL_Entry.Factor.EL_RangedDefense.ID;
 	}
 
@@ -40,7 +40,7 @@ this.el_ranged_defense_entry <- this.inherit("scripts/skills/el_entrys/el_entry"
 
 	function onUpdate( _properties )
 	{
-		this.el_entry.onUpdate(_properties);
+		this.el_weapon_entry.onUpdate(_properties);
 		_properties.RangedDefense += this.m.EL_RangedDefenseAddition;
 	}
 

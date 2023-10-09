@@ -1,10 +1,10 @@
-this.el_combat_level_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
+this.el_combat_level_entry <- this.inherit("scripts/skills/el_entrys/el_weapon_entry", {
 	m = {
         EL_CombatLevelAddition = 0.0
     },
 	function create()
 	{
-		this.el_entry.create();
+		this.el_weapon_entry.create();
 		this.m.ID = this.Const.EL_Weapon.EL_Entry.Factor.EL_CombatLevel.ID;
 	}
 
@@ -40,7 +40,7 @@ this.el_combat_level_entry <- this.inherit("scripts/skills/el_entrys/el_entry", 
 
 	function onUpdate( _properties )
 	{
-		this.el_entry.onUpdate(_properties);
+		this.el_weapon_entry.onUpdate(_properties);
 		_properties.EL_CombatLevel += this.m.EL_CombatLevelAddition;
 	}
 

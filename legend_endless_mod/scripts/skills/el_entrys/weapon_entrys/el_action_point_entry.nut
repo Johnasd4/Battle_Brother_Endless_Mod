@@ -1,10 +1,10 @@
-this.el_action_point_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
+this.el_action_point_entry <- this.inherit("scripts/skills/el_entrys/el_weapon_entry", {
 	m = {
         EL_ActionPointAddition = 0
     },
 	function create()
 	{
-		this.el_entry.create();
+		this.el_weapon_entry.create();
 		this.m.ID = this.Const.EL_Weapon.EL_Entry.Factor.EL_ActionPoint.ID;
         this.m.EL_ActionPointAddition = this.Const.EL_Weapon.EL_Entry.Factor.EL_ActionPoint.ActionPoint;
 	}
@@ -27,7 +27,7 @@ this.el_action_point_entry <- this.inherit("scripts/skills/el_entrys/el_entry", 
 
 	function onUpdate( _properties )
 	{
-		this.el_entry.onUpdate(_properties);
+		this.el_weapon_entry.onUpdate(_properties);
 		_properties.ActionPoints += this.m.EL_ActionPointAddition;
 	}
 

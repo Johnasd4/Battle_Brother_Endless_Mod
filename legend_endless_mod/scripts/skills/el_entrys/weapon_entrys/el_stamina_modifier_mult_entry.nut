@@ -1,10 +1,10 @@
-this.el_stamina_modifier_mult_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
+this.el_stamina_modifier_mult_entry <- this.inherit("scripts/skills/el_entrys/el_weapon_entry", {
 	m = {
         EL_StaminaModifierMultAddition = 0.0
     },
 	function create()
 	{
-		this.el_entry.create();
+		this.el_weapon_entry.create();
 		this.m.ID = this.Const.EL_Weapon.EL_Entry.Factor.EL_StaminaModifierMult.ID;
 	}
 

@@ -1,10 +1,10 @@
-this.el_hit_head_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
+this.el_hit_head_entry <- this.inherit("scripts/skills/el_entrys/el_weapon_entry", {
 	m = {
         EL_HitHeadAddition = 0
     },
 	function create()
 	{
-		this.el_entry.create();
+		this.el_weapon_entry.create();
 		this.m.ID = this.Const.EL_Weapon.EL_Entry.Factor.EL_HitHead.ID;
 	}
 
