@@ -14,7 +14,7 @@ local gt = getroottable();
                 id = 6,
                 type = "text",
                 icon = "ui/icons/health.png",
-                text = "Repairs [color=" + this.Const.UI.Color.PositiveValue + "]20%[/color] of its armor each turn"
+                text = "Repairs [color=" + this.Const.UI.Color.PositiveValue + "]10%[/color] of its armor each turn"
             });
             return result;
         }
@@ -24,7 +24,7 @@ local gt = getroottable();
             local actor = this.getContainer().getActor();
             local body = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
             local bodyMissing = body.getArmorMax() - body.getArmor();
-            local bodyAdded = this.Math.min(bodyMissing, this.Math.floor(body.getArmorMax() * 0.2));
+            local bodyAdded = this.Math.min(bodyMissing, this.Math.floor(body.getArmorMax() * 0.1));
 
             if (bodyAdded <= 0)
             {
@@ -53,7 +53,7 @@ local gt = getroottable();
                 id = 6,
                 type = "text",
                 icon = "ui/icons/health.png",
-                text = "Repairs [color=" + this.Const.UI.Color.PositiveValue + "]20%[/color] of its armor each turn"
+                text = "Repairs [color=" + this.Const.UI.Color.PositiveValue + "]10%[/color] of its armor each turn"
             });
             return result;
         }
@@ -63,7 +63,7 @@ local gt = getroottable();
             local actor = this.getContainer().getActor();
             local body = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
             local bodyMissing = body.getArmorMax() - body.getArmor();
-            local bodyAdded = this.Math.min(bodyMissing, this.Math.floor(body.getArmorMax() * 0.2));
+            local bodyAdded = this.Math.min(bodyMissing, this.Math.floor(body.getArmorMax() * 0.1));
 
             if (bodyAdded <= 0)
             {
@@ -204,14 +204,14 @@ local gt = getroottable();
                 id = 6,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "Regenerates itself by [color=" + this.Const.UI.Color.PositiveValue + "]40%[/color] points of durability each turn."
+                text = "Regenerates itself by [color=" + this.Const.UI.Color.PositiveValue + "]20%[/color] points of durability each turn."
             });
             return result;
         }
 
         o.onTurnStart = function()
         {
-            this.m.Condition = this.Math.minf(this.m.ConditionMax, this.Math.floor(this.m.Condition + this.m.ConditionMax * 0.4));
+            this.m.Condition = this.Math.minf(this.m.ConditionMax, this.Math.floor(this.m.Condition + this.m.ConditionMax * 0.2));
             this.updateAppearance();
         }
 
@@ -226,7 +226,7 @@ local gt = getroottable();
                 id = 6,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "Reflects [color=" + this.Const.UI.Color.PositiveValue + "]50%[/color] of damage taken in melee back to the attacker"
+                text = "Reflects [color=" + this.Const.UI.Color.PositiveValue + "]25%[/color] of damage taken in melee back to the attacker"
             });
             return result;
         }
@@ -238,8 +238,8 @@ local gt = getroottable();
             if (_attacker != null && _attacker.isAlive() && _attacker.getHitpoints() > 0 && _attacker.getID() != this.getContainer().getActor().getID() && _attacker.getTile().getDistanceTo(this.getContainer().getActor().getTile()) == 1 && !_attacker.getCurrentProperties().IsImmuneToDamageReflection)
             {
                 local hitInfo = clone this.Const.Tactical.HitInfo;
-                hitInfo.DamageRegular = this.Math.maxf(1.0, _damage * 0.5);
-                hitInfo.DamageArmor = this.Math.maxf(1.0, _damage * 0.5);
+                hitInfo.DamageRegular = this.Math.maxf(1.0, _damage * 0.25);
+                hitInfo.DamageArmor = this.Math.maxf(1.0, _damage * 0.25);
                 hitInfo.DamageDirect = 0.0;
                 hitInfo.BodyPart = this.Const.BodyPart.Body;
                 hitInfo.BodyDamageMult = 1.0;
@@ -268,7 +268,7 @@ local gt = getroottable();
                 id = 6,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "Reflects [color=" + this.Const.UI.Color.PositiveValue + "]50%[/color] of damage taken in melee back to the attacker"
+                text = "Reflects [color=" + this.Const.UI.Color.PositiveValue + "]25%[/color] of damage taken in melee back to the attacker"
             });
             return result;
         }
@@ -280,8 +280,8 @@ local gt = getroottable();
             if (_attacker != null && _attacker.isAlive() && _attacker.getHitpoints() > 0 && _attacker.getID() != this.getContainer().getActor().getID() && _attacker.getTile().getDistanceTo(this.getContainer().getActor().getTile()) == 1 && !_attacker.getCurrentProperties().IsImmuneToDamageReflection)
             {
                 local hitInfo = clone this.Const.Tactical.HitInfo;
-                hitInfo.DamageRegular = this.Math.maxf(1.0, _damage * 0.5);
-                hitInfo.DamageArmor = this.Math.maxf(1.0, _damage * 0.5);
+                hitInfo.DamageRegular = this.Math.maxf(1.0, _damage * 0.25);
+                hitInfo.DamageArmor = this.Math.maxf(1.0, _damage * 0.25);
                 hitInfo.DamageDirect = 0.0;
                 hitInfo.BodyPart = this.Const.BodyPart.Body;
                 hitInfo.BodyDamageMult = 1.0;
@@ -310,7 +310,7 @@ local gt = getroottable();
                 id = 6,
                 type = "text",
                 icon = "ui/icons/health.png",
-                text = "Heals [color=" + this.Const.UI.Color.PositiveValue + "]40%[/color] hitpoints of the wearer each turn"
+                text = "Heals [color=" + this.Const.UI.Color.PositiveValue + "]20%[/color] hitpoints of the wearer each turn"
             });
             return result;
         }
@@ -319,7 +319,7 @@ local gt = getroottable();
         {
             local actor = this.getContainer().getActor();
             local healthMissing = actor.getHitpointsMax() - actor.getHitpoints();
-            local healthAdded = this.Math.min(healthMissing, this.Math.floor(actor.getHitpointsMax() * 0.4));
+            local healthAdded = this.Math.min(healthMissing, this.Math.floor(actor.getHitpointsMax() * 0.2));
 
             if (healthAdded <= 0)
             {
@@ -358,7 +358,7 @@ local gt = getroottable();
                 id = 6,
                 type = "text",
                 icon = "ui/icons/health.png",
-                text = "Heals [color=" + this.Const.UI.Color.PositiveValue + "]20%[/color] of the hitpoints of the wearer each turn"
+                text = "Heals [color=" + this.Const.UI.Color.PositiveValue + "]10%[/color] of the hitpoints of the wearer each turn"
             });
             return result;
         }
@@ -367,7 +367,7 @@ local gt = getroottable();
         {
             local actor = this.getContainer().getActor();
             local healthMissing = actor.getHitpointsMax() - actor.getHitpoints();
-            local healthAdded = this.Math.min(healthMissing, actor.getHitpointsMax() * 0.2);
+            local healthAdded = this.Math.min(healthMissing, actor.getHitpointsMax() * 0.1);
 
             if (healthAdded <= 0)
             {

@@ -740,6 +740,54 @@ local gt = getroottable();
 
 	});
 
+	::mods_hookExactClass("skills/effects/legend_redback_spider_poison_effect", function(o){
+
+        o.getDescription = function()
+        {
+            local timeDamage = this.m.Damage * this.m.TurnsLeft;
+
+            if (("Assets" in this.World) && this.World.Assets != null && this.World.Assets.getCombatDifficulty() == this.Const.Difficulty.Legendary)
+            {
+                timeDamage = timeDamage * 2;
+            }
+            timeDamage = this.Math.ceil(timeDamage * this.getBaseProperties().Hitpoints * 0.01);
+            return "This character has a vicious poison running through his veins and will lose [color=" + this.Const.UI.Color.NegativeValue + "]" + timeDamage + "[/color] hitpoints each turn for [color=" + this.Const.UI.Color.NegativeValue + "]" + this.m.TurnsLeft + "[/color] more turn(s).";
+        }
+
+        o.applyDamage = function()
+        {
+            if (this.m.LastRoundApplied != this.Time.getRound())
+            {
+                this.m.LastRoundApplied = this.Time.getRound();
+                this.spawnIcon("status_effect_54", this.getContainer().getActor().getTile());
+
+                if (this.m.SoundOnUse.len() != 0)
+                {
+                    this.Sound.play(this.m.SoundOnUse[this.Math.rand(0, this.m.SoundOnUse.len() - 1)], this.Const.Sound.Volume.RacialEffect * 1.0, this.getContainer().getActor().getPos());
+                }
+
+                local timeDamage = this.m.Damage * this.m.TurnsLeft;
+                local hitInfo = clone this.Const.Tactical.HitInfo;
+                hitInfo.DamageRegular = this.Math.ceil(timeDamage * this.getComtainer().getActor().getBaseProperties().Hitpoints * 0.01);
+
+                if (("Assets" in this.World) && this.World.Assets != null && this.World.Assets.getCombatDifficulty() == this.Const.Difficulty.Legendary)
+                {
+                    local timeDamage = this.m.Damage * this.m.TurnsLeft;
+                    hitInfo.DamageRegular = 2 * timeDamage;
+                }
+
+                hitInfo.DamageDirect = 1.0;
+                hitInfo.BodyPart = this.Const.BodyPart.Body;
+                hitInfo.BodyDamageMult = 1.0;
+                hitInfo.FatalityChanceMult = 0.0;
+                this.getContainer().getActor().onDamageReceived(this.getContainer().getActor(), this, hitInfo);
+            }
+        }
+
+
+
+	});
+
 
 	::mods_hookExactClass("skills/effects/legend_transformed_bear_effect", function(o){
 
@@ -1232,51 +1280,54 @@ local gt = getroottable();
                 id = 10,
                 type = "text",
                 icon = "ui/icons/fatigue.png",
-                text = "Recieve [color=" + this.Const.UI.Color.PositiveValue + "]" + (this.Math.floor(damage_received_direct_mult * 100)) + "%[/color] hitpoints damage."
+                text = "Only take [color=" + this.Const.UI.Color.NegativeValue + "]" + (this.Math.floor(damage_received_direct_mult * 100)) + "%[/color] of any damage that ignores armor"
             });
             return tooltip;
         }
 
 
-        o.onUpdate = function( _properties )
+        o.onBeforeDamageReceived = function( _attacker, _skill, _hitInfo, _properties )
         {
-            local actor = this.getContainer().getActor();
-            local armorFat = -1 * actor.getItems().getStaminaModifier([
-				::Const.ItemSlot.Body,
-				::Const.ItemSlot.Head
-			]);
-            local extra_movement_fatigue_cost = this.Math.floor((armorFat / (1.0 + actor.getLevel() * 0.04)) * 0.05 - 1);
-            _properties.MovementFatigueCostAdditional += extra_movement_fatigue_cost;
+            if (_hitInfo.BodyPart == this.Const.BodyPart.Body && _attacker != null && _attacker.getID() != this.getArmor().getContainer().getActor().getID())
+            {
+                local actor = this.getContainer().getActor();
+                local armorFat = -1 * actor.getItems().getStaminaModifier([
+                    ::Const.ItemSlot.Body,
+                    ::Const.ItemSlot.Head
+                ]);
+                local extra_movement_fatigue_cost = this.Math.floor((armorFat / (1.0 + actor.getLevel() * 0.04)) * 0.05 - 1);
+                _properties.MovementFatigueCostAdditional += extra_movement_fatigue_cost;
 
-            local body_armor = 0;
-            local head_armor = 0;
-            local body_armor_max = 0;
-            local head_armor_max = 0;
-            local body = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
-            if(body != null) {
-                body_armor = body.getCondition();
-                body_armor_max = body.getConditionMax();
-            }
-            else {
-                body_armor = _properties.Armor[this.Const.BodyPart.Body];
-                body_armor_max = _properties.ArmorMax[this.Const.BodyPart.Body];
-            }
+                local body_armor = 0;
+                local head_armor = 0;
+                local body_armor_max = 0;
+                local head_armor_max = 0;
+                local body = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
+                if(body != null) {
+                    body_armor = body.getCondition();
+                    body_armor_max = body.getConditionMax();
+                }
+                else {
+                    body_armor = _properties.Armor[this.Const.BodyPart.Body];
+                    body_armor_max = _properties.ArmorMax[this.Const.BodyPart.Body];
+                }
 
-            local head = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
-            if(head != null) {
-                head_armor = head.getCondition();
-                head_armor_max = head.getConditionMax();
+                local head = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
+                if(head != null) {
+                    head_armor = head.getCondition();
+                    head_armor_max = head.getConditionMax();
+                }
+                else {
+                    head_armor = _properties.Armor[this.Const.BodyPart.Head];
+                    head_armor_max = _properties.ArmorMax[this.Const.BodyPart.Head];
+                }
+                local persent = 1;
+                if(head_armor + body_armor != 0) {
+                    local persent = 1.0 * (head_armor + body_armor) / (1.0 * (head_armor_max + body_armor_max));
+                }
+                local damage_received_direct_mult = this.Math.maxf(0, 1 - (armorFat / (1.0 + actor.getLevel() * 0.04)) * 0.05 * 0.10 * persent);
+                _properties.DamageReceivedDirectMult *= damage_received_direct_mult;
             }
-            else {
-                head_armor = _properties.Armor[this.Const.BodyPart.Head];
-                head_armor_max = _properties.ArmorMax[this.Const.BodyPart.Head];
-            }
-            local persent = 1;
-            if(head_armor + body_armor != 0) {
-                local persent = 1.0 * (head_armor + body_armor) / (1.0 * (head_armor_max + body_armor_max));
-            }
-            local damage_received_direct_mult = this.Math.maxf(0, 1 - (armorFat / (1.0 + actor.getLevel() * 0.04)) * 0.05 * 0.10 * persent);
-            _properties.DamageReceivedDirectMult *= damage_received_direct_mult;
         }
 
 	});
@@ -1537,6 +1588,51 @@ local gt = getroottable();
                 _properties.RangedDefense += 100;
             }
         }
+
+	});
+
+	::mods_hookExactClass("skills/effects/spider_poison_effect", function(o){
+
+        o.getDescription = function()
+        {
+            if (("Assets" in this.World) && this.World.Assets != null && this.World.Assets.getCombatDifficulty() == this.Const.Difficulty.Legendary)
+            {
+                return "This character has a vicious poison running through his veins and will lose [color=" + this.Const.UI.Color.NegativeValue + "]" + 2 * this.m.Damage + "[/color] hitpoints each turn for [color=" + this.Const.UI.Color.NegativeValue + "]" + this.m.TurnsLeft + "[/color] more turn(s).";
+            }
+
+            return "This character has a vicious poison running through his veins and will lose [color=" + this.Const.UI.Color.NegativeValue + "]" + this.m.Damage + "[/color] hitpoints each turn for [color=" + this.Const.UI.Color.NegativeValue + "]" + this.m.TurnsLeft + "[/color] more turn(s).";
+            }
+
+        o.applyDamage = function()
+        {
+            if (this.m.LastRoundApplied != this.Time.getRound())
+            {
+                this.m.LastRoundApplied = this.Time.getRound();
+                this.spawnIcon("status_effect_54", this.getContainer().getActor().getTile());
+
+                if (this.m.SoundOnUse.len() != 0)
+                {
+                    this.Sound.play(this.m.SoundOnUse[this.Math.rand(0, this.m.SoundOnUse.len() - 1)], this.Const.Sound.Volume.RacialEffect * 1.0, this.getContainer().getActor().getPos());
+                }
+
+                local hitInfo = clone this.Const.Tactical.HitInfo;
+                hitInfo.DamageRegular = this.m.Damage;
+                if (("Assets" in this.World) && this.World.Assets != null && this.World.Assets.getCombatDifficulty() == this.Const.Difficulty.Legendary)
+                {
+                    hitInfo.DamageRegular = 2 * this.m.Damage;
+                }
+                hitInfo.DamageRegular = this.Math.ceil(hitInfo.DamageRegular * this.getComtainer().getActor().getBaseProperties().Hitpoints * 0.01);
+                hitInfo.DamageDirect = 1.0;
+                hitInfo.BodyPart = this.Const.BodyPart.Body;
+                hitInfo.BodyDamageMult = 1.0;
+                hitInfo.FatalityChanceMult = 0.0;
+                this.getContainer().getActor().onDamageReceived(this.getContainer().getActor(), this, hitInfo);
+            }
+        }
+
+
+
+
 
 	});
 

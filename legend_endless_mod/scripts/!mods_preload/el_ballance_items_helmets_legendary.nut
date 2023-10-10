@@ -21,7 +21,7 @@ local gt = getroottable();
                 id = 6,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "Reflects [color=" + this.Const.UI.Color.PositiveValue + "]50%[/color] of damage taken in melee back to the attacker"
+                text = "Reflects [color=" + this.Const.UI.Color.PositiveValue + "]25%[/color] of damage taken in melee back to the attacker"
             });
             return result;
         }
@@ -62,7 +62,7 @@ local gt = getroottable();
                 id = 6,
                 type = "text",
                 icon = "ui/icons/health.png",
-                text = "Heals [color=" + this.Const.UI.Color.PositiveValue + "]40%[/color] hitpoints of the wearer each turn"
+                text = "Heals [color=" + this.Const.UI.Color.PositiveValue + "]20%[/color] hitpoints of the wearer each turn"
             });
             return result;
         }
@@ -100,7 +100,7 @@ local gt = getroottable();
                 id = 6,
                 type = "text",
                 icon = "ui/icons/health.png",
-                text = "Repairs [color=" + this.Const.UI.Color.PositiveValue + "]20%[/color] of its armor each turn"
+                text = "Repairs [color=" + this.Const.UI.Color.PositiveValue + "]10%[/color] of its armor each turn"
             });
             return result;
         }
@@ -148,14 +148,14 @@ local gt = getroottable();
                 id = 6,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "Regenerates itself by [color=" + this.Const.UI.Color.PositiveValue + "]40%[/color] points of durability each turn."
+                text = "Regenerates itself by [color=" + this.Const.UI.Color.PositiveValue + "]20%[/color] points of durability each turn."
             });
             return result;
         }
 
         o.onTurnStart = function()
         {
-            this.m.Condition = this.Math.minf(this.m.ConditionMax, this.m.Condition + 90.0);
+            this.m.Condition = this.Math.minf(this.m.ConditionMax, this.Math.floor(this.m.Condition + this.m.ConditionMax * 0.2));
             this.updateAppearance();
         }
 
