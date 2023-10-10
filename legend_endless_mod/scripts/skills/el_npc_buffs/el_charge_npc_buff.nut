@@ -64,15 +64,14 @@ this.el_charge_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff
         if(this.Math.rand(1, 100) <= this.Const.EL_NPC.EL_NPCBuff.Factor.Charge.Chance[this.m.EL_RankLevel]) {
 
             _targetEntity.getSkills().add(this.new("scripts/skills/effects/legend_dazed_effect"));
-            for(local i = 0; i < this.Const.EL_NPC.EL_NPCBuff.Factor.Charge.InjuryNum[this.m.EL_RankLevel]; ++i) {
-                this.Const.EL_Config.EL_addSlightInjurysToActor(_targetEntity, this.Const.EL_NPC.EL_NPCBuff.Factor.Charge.InjuryNum[this.m.EL_RankLevel],[
-                    this.Const.Injury.BluntBody,
-                    this.Const.Injury.BluntHead
-                ]);
-            }
-
-
-
+            local injury_num_left = this.Const.EL_Config.EL_addSlightInjurysToActor(_targetEntity, this.Const.EL_NPC.EL_NPCBuff.Factor.Charge.InjuryNum[this.m.EL_RankLevel], [
+                this.Const.Injury.BluntBody,
+                this.Const.Injury.BluntHead
+            ]);
+            this.Const.EL_Config.EL_addSeriousInjurysToActor(_targetEntity, injury_num_left, [
+                this.Const.Injury.BluntBody,
+                this.Const.Injury.BluntHead
+            ]);
 
             local target_tile = _targetEntity.getTile();
 
