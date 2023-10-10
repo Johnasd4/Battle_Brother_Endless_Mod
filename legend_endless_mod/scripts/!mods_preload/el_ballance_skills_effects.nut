@@ -1286,7 +1286,7 @@ local gt = getroottable();
         }
 
 
-        o.onBeforeDamageReceived = function( _attacker, _skill, _hitInfo, _properties )
+        o.onBeforeDamageReceived <- function( _attacker, _skill, _hitInfo, _properties )
         {
             if (_hitInfo.BodyPart == this.Const.BodyPart.Body && _attacker != null && _attacker.getID() != this.getArmor().getContainer().getActor().getID())
             {
@@ -1328,6 +1328,9 @@ local gt = getroottable();
                 local damage_received_direct_mult = this.Math.maxf(0, 1 - (armorFat / (1.0 + actor.getLevel() * 0.04)) * 0.05 * 0.10 * persent);
                 _properties.DamageReceivedDirectMult *= damage_received_direct_mult;
             }
+        }
+        o.onUpdate = function( _properties )
+        {
         }
 
 	});
