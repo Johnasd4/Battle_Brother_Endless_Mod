@@ -63,6 +63,63 @@ gt.Const.EL_NPC <- {
         ]
     },
 
+    EL_PlayerChampion = {
+        XP = {
+            Offset = [
+                0,
+                200,
+                500
+            ],
+            Mult = [
+                1,
+                2,
+                5
+            ]
+        },
+        CombatLevelOffset = [
+            0,
+            0.5,
+            1.25
+        ],
+        ActionPointsOffset = [
+            0,
+            1,
+            3
+        ],
+        DirectDamageMult = [
+            1,
+            1.1,
+            1.25
+        ],
+        Attributes = {
+            HitpointsMult = [1, 1.1, 1.25],
+            Bravery = [0, 10, 25],
+            Fatigue = [0, 15, 40],
+            Initiative = [0, 15, 40],
+            MeleeSkill = [0, 10, 25],
+            RangedSkill = [0, 10, 25],
+            MeleeDefense = [0, 10, 25],
+            RangedDefense = [0, 10, 25],
+        },
+
+        Name = [
+            "Normal",
+            "Elite",
+            "Leader"
+        ],
+        Icon = [
+            "el_skills/champion_rank_0.png",
+            "el_skills/champion_rank_1.png",
+            "el_skills/champion_rank_2.png"
+        ],
+        IconMini = [
+            "champion_rank_0_mini",
+            "champion_rank_1_mini",
+            "champion_rank_2_mini"
+        ]
+    },
+
+
     EL_LevelUp = {
         LevelUpsOffset = 10,
         LevelUpAttributes = {

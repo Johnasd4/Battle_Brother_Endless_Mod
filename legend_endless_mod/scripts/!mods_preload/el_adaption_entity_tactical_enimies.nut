@@ -4,6 +4,16 @@ local gt = getroottable();
 ::mods_queue(null, "el_player_npc", function ()
 {
 
+	::mods_hookExactClass("entity/tactical/enemies/direwolf_high", function ( o )
+	{
+		local create = o.create;
+		o.create = function ()
+		{
+			create();
+			this.m.Name = "Frenzied Direwolf";
+		};
+	});
+
 	::mods_hookExactClass("entity/tactical/enemies/goblin_wolfrider", function(o){
 
         o.onDeath = function( _killer, _skill, _tile, _fatalityType )
@@ -68,6 +78,17 @@ local gt = getroottable();
 
 
     });
+
+
+	::mods_hookExactClass("entity/tactical/enemies/hyena_high", function ( o )
+	{
+		local create = o.create;
+		o.create = function ()
+		{
+			create();
+			this.m.Name = "Frenzied Hyena";
+		};
+	});
 
 	::mods_hookExactClass("entity/tactical/enemies/kobold_wolfrider", function(o){
 
@@ -370,6 +391,18 @@ local gt = getroottable();
         }
 
     });
+
+
+	::mods_hookExactClass("entity/tactical/enemies/legend_banshee", function ( o )
+	{
+		local onInit = o.onInit;
+		o.onInit = function()
+		{
+			onInit();
+			this.m.Skills.add(this.new("scripts/skills/racial/ghost_racial"));
+		}
+
+	});
 
 	::mods_hookExactClass("entity/tactical/enemies/legend_stollwurm_tail", function(o){
 
@@ -847,6 +880,9 @@ local gt = getroottable();
             }, this.m.Info.Tile, this.m.Info.Faction, this.EL_getRankLevel(), this.EL_getLevel(), true);
         }
     });
+
+
+
 
 
 });

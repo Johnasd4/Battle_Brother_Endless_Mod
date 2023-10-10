@@ -899,6 +899,23 @@ local gt = getroottable();
 
 	});
 
+	::mods_hookExactClass("skills/effects/legend_veteran_levels_effect", function ( o )
+	{
+		o.onUpdateLevel = function ()
+		{
+			local actor = this.getContainer().getActor();
+			if (actor.getLevel() > this.Const.EL_Player.EL_PlayerLevel.Part1)
+			{
+
+				if (actor.m.Level >= this.Const.EL_Player.EL_PlayerLevel.Part1 &&
+					(this.Const.EL_Player.EL_PlayerLevel.Max - actor.m.Level - 1) % this.Const.EL_Player.EL_Champion.PerkPointFrequency[actor.EL_getRankLevel()] == 0)
+				{
+					++actor.m.PerkPoints;
+				}
+			}
+		};
+	});
+
 	::mods_hookExactClass("skills/effects/legend_wine_tipsy_effect", function(o){
 
         o.getTooltip = function()
