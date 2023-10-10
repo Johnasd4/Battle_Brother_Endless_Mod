@@ -49,19 +49,18 @@ gt.Const.EL_Config <- {
             }
             usable_injurys.remove(r);
         }
+        return _EL_num;
     }
+
     function EL_addInjurysToActor(_EL_actor, _EL_num, _EL_injuryTypeList) {
-        EL_addInjurysToActor_P(_EL_actor, _EL_num, _EL_injuryTypeList);
+        return EL_addInjurysToActor_P(_EL_actor, _EL_num, _EL_injuryTypeList);
     }
     function EL_addSlightInjurysToActor(_EL_actor, _EL_num, _EL_injuryTypeList) {
-        EL_addInjurysToActor_P(_EL_actor, _EL_num, _EL_injuryTypeList, 0, 0.4);
+        return EL_addInjurysToActor_P(_EL_actor, _EL_num, _EL_injuryTypeList, 0, 0.4);
     }
     function EL_addSeriousInjurysToActor(_EL_actor, _EL_num, _EL_injuryTypeList) {
-        EL_addInjurysToActor_P(_EL_actor, _EL_num, _EL_injuryTypeList, 0.4, 1);
+        return EL_addInjurysToActor_P(_EL_actor, _EL_num, _EL_injuryTypeList, 0.4, 1);
     }
-
-
-
 
     function EL_chanceTableCalculateAXB(_EL_info) {
         for(local range_index = 0, table_index = 0; range_index < _EL_info.Factor.Range.len(); ++range_index) {

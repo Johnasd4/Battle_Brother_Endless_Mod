@@ -64,54 +64,14 @@ this.el_charge_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff
         if(this.Math.rand(1, 100) <= this.Const.EL_NPC.EL_NPCBuff.Factor.Charge.Chance[this.m.EL_RankLevel]) {
 
             _targetEntity.getSkills().add(this.new("scripts/skills/effects/legend_dazed_effect"));
-            local potentialInjuries = [];
             for(local i = 0; i < this.Const.EL_NPC.EL_NPCBuff.Factor.Charge.InjuryNum[this.m.EL_RankLevel]; ++i) {
-				foreach( inj in _hitInfo.Injuries )
-				{
-					if (inj.Threshold * _hitInfo.InjuryThresholdMult * this.Const.Combat.InjuryThresholdMult * this.m.CurrentProperties.ThresholdToReceiveInjuryMult * bonus <= damage / (this.getHitpointsMax() * 1.0))
-					{
-						if (!this.m.Skills.hasSkill(inj.ID) && this.m.ExcludedInjuries.find(inj.ID) == null)
-						{
-							potentialInjuries.push(inj.Script);
-						}
-					}
-				}
-
-				local appliedInjury = false;
-
-				while (potentialInjuries.len() != 0)
-				{
-					local r = this.Math.rand(0, potentialInjuries.len() - 1);
-					local injury = this.new("scripts/skills/" + potentialInjuries[r]);
-
-					if (injury.isValid(this))
-					{
-						this.m.Skills.add(injury);
-
-						if (this.isPlayerControlled() && this.isKindOf(this, "player"))
-						{
-							this.worsenMood(this.Const.MoodChange.Injury, "Suffered an injury");
-
-							if (("State" in this.World) && this.World.State != null && this.World.Ambitions.hasActiveAmbition() && this.World.Ambitions.getActiveAmbition().getID() == "ambition.oath_of_sacrifice")
-							{
-								this.World.Statistics.getFlags().increment("OathtakersInjuriesSuffered");
-							}
-						}
-
-						if (this.isPlayerControlled() || !this.isHiddenToPlayer())
-						{
-							this.Tactical.EventLog.logEx(this.Const.UI.getColorizedEntityName(this) + "\'s " + this.Const.Strings.BodyPartName[_hitInfo.BodyPart] + " is hit for [b]" + this.Math.floor(damage) + "[/b] damage and suffers " + injury.getNameOnly() + "!");
-						}
-
-						appliedInjury = true;
-						break;
-					}
-					else
-					{
-						potentialInjuries.remove(r);
-					}
-				}
+                this.Const.EL_Config.EL_addSlightInjurysToActor(_targetEntity, this.Const.EL_NPC.EL_NPCBuff.Factor.Charge.InjuryNum[this.m.EL_RankLevel],[
+                    this.Const.Injury.BluntBody,
+                    this.Const.Injury.BluntHead
+                ]);
             }
+
+
 
 
             local target_tile = _targetEntity.getTile();
