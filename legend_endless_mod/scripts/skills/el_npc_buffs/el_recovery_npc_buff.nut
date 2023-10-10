@@ -24,7 +24,7 @@ this.el_recovery_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_bu
 		}
 
 		local fatigue_added = actor.getFatigue();
-        actor.setFatigue(this.Math.min(actor.getFatigueMax(), actor.getFatigue() + this.Math.round(actor.getFatigueMax() * this.Const.EL_NPC.EL_NPCBuff.Factor.Recovery.FatigueRecoveryRate[this.m.EL_RankLevel])));
+        actor.setFatigue(this.Math.max(0, actor.getFatigue() - this.Math.round(actor.getFatigueMax() * this.Const.EL_NPC.EL_NPCBuff.Factor.Recovery.FatigueRecoveryRate[this.m.EL_RankLevel])));
 		fatigue_added = actor.getFatigue() - fatigue_added;
         if (!actor.isHiddenToPlayer() && fatigue_added != 0)
 		{
