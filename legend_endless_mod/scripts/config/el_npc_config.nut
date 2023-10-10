@@ -528,6 +528,10 @@ gt.Const.EL_NPC <- {
                 function EL_ifEligible(_EL_npc) { return true; }
             },
             {
+                Scripts = "scripts/skills/el_npc_buffs/el_combo_attack_npc_buff",
+                function EL_ifEligible(_EL_npc) { return true; }
+            },
+            {
                 Scripts = "scripts/skills/el_npc_buffs/el_endurance_npc_buff",
                 function EL_ifEligible(_EL_npc) { return true; }
             },
@@ -643,11 +647,9 @@ gt.Const.EL_NPC <- {
                 Chance = [50, 100, 100],
                 InjuryNum = [1, 1, 2]
             },
-            StunningStrike = {
-                Chance = [20, 40, 100],
-                DizeTurns = [1, 1, 2],
-                InjuryNum = [1, 1, 2]
-            },
+            ComboAttack = {
+                Chance = [20, 40, 100]
+            }
             Endurance = {
             },
             EnergyDrain = {
@@ -719,6 +721,10 @@ gt.Const.EL_NPC <- {
                 WeaponShieldDamageRate = [0.1, 0.2, 0.5],
                 DamageDecayRatePurTile = 0.5,
                 MaxDistance = 2
+            },
+            StunningStrike = {
+                Chance = [50, 100, 100],
+                StunTurns = [1, 1, 2]
             },
             Tank = {
                 HitpointsMult = [1.4, 1.8, 3],
