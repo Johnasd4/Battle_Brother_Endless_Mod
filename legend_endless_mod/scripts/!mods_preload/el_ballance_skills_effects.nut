@@ -72,7 +72,7 @@ local gt = getroottable();
             {
                 foreach( t in tar )
                 {
-                    if (t != null || t.getID() == actor.getID() || t == null || t.isDying() || !t.isAlive())
+                    if (t == null || t.getID() == actor.getID() || t.isDying() || !t.isAlive())
                     {
                         continue;
                     }
