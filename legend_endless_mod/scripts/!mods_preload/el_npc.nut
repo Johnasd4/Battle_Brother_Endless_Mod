@@ -312,7 +312,7 @@ local gt = getroottable();
             if(this.EL_isBossUnit()) {
                 this.m.EL_EquipmentEssenceDrop[4] = this.Const.EL_NPC.EL_Troop.EquipmentEssence.BossDropLengendaryNum;
             }
-            extra_combat_level = this.getBaseProperties().EL_CombatLevel - this.EL_getLevel();
+            local extra_combat_level = this.getBaseProperties().EL_CombatLevel - this.EL_getLevel();
             rank_essence = this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropBaseNum;
             if(extra_combat_level > 0) {
                 rank_essence += extra_combat_level * this.Const.EL_NPC.EL_Troop.EquipmentEssence.DropPurExtraCombatLevelPositive;

@@ -1288,7 +1288,7 @@ local gt = getroottable();
 
         o.onBeforeDamageReceived <- function( _attacker, _skill, _hitInfo, _properties )
         {
-            if (_hitInfo.BodyPart == this.Const.BodyPart.Body && _attacker != null && _attacker.getID() != this.getArmor().getContainer().getActor().getID())
+            if (_hitInfo.BodyPart == this.Const.BodyPart.Body && _attacker != null && _attacker.getID() != this.getContainer().getActor().getID())
             {
                 local actor = this.getContainer().getActor();
                 local armorFat = -1 * actor.getItems().getStaminaModifier([
