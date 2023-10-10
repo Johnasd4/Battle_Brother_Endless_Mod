@@ -32,6 +32,36 @@ gt.Const.EL_Config <- {
         Count = 9
     },
 
+    function EL_addInjurysToActor_P(_EL_actor, _EL_num, _EL_injuryTypeList, _EL_injuryThresholdMin = 0, _EL_injuryThresholdMax = 1) {
+        local usable_injurys = [];
+        foreach(injury_type in _EL_injuryTypeList) {
+            foreach(injury in injury_type) {
+                if(injury.Threshold >= _EL_injuryThresholdMin &&  injury.Threshold <= _EL_injuryThresholdMax) {
+                    usable_injurys.push(injury);
+                }
+            }
+        }
+        local skills = _EL_actor.getSkills();
+        while(_EL_num > 0 && usable_injurys.len() > 0) {
+            local r = this.Math.rand(0, usable_injurys.len() - 1);
+            if(!skills.hasSkill(usable_injurys[r].ID)) {
+                skills.add(this.new("scripts/skills/" + usable_injurys[r]));
+            }
+            usable_injurys.remove(r);
+        }
+    }
+    function EL_addInjurysToActor(_EL_actor, _EL_num, _EL_injuryTypeList) {
+        EL_addInjurysToActor_P(_EL_actor, _EL_num, _EL_injuryTypeList);
+    }
+    function EL_addSlightInjurysToActor(_EL_actor, _EL_num, _EL_injuryTypeList) {
+        EL_addInjurysToActor_P(_EL_actor, _EL_num, _EL_injuryTypeList, 0, 0.4);
+    }
+    function EL_addSeriousInjurysToActor(_EL_actor, _EL_num, _EL_injuryTypeList) {
+        EL_addInjurysToActor_P(_EL_actor, _EL_num, _EL_injuryTypeList, 0.4, 1);
+    }
+
+
+
 
     function EL_chanceTableCalculateAXB(_EL_info) {
         for(local range_index = 0, table_index = 0; range_index < _EL_info.Factor.Range.len(); ++range_index) {

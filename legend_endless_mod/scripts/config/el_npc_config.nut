@@ -517,7 +517,7 @@ gt.Const.EL_NPC <- {
 
         Pool = [
             {
-                Scripts = "scripts/skills/el_npc_buffs/el_berserk_npc_buff",
+                Scripts = "scripts/skills/el_npc_buffs/el_berserker_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
                     return true;
@@ -634,14 +634,19 @@ gt.Const.EL_NPC <- {
         }
 
         Factor = {
-            Berserk = {
-                DamageDirectMult = [1.2, 1.4, 2]
+            Berserker = {
+                DamageMultPurStack = [0.04, 0.08, 0.2],
+                MeleeSkillOffsetPurStack = [4 ,8, 20],
+                RangedSkillOffsetPurStack = [4 ,8, 20]
             },
             Charge = {
-                KnockBackChance = [20, 40, 100]
+                Chance = [50, 100, 100],
+                InjuryNum = [1, 1, 2]
             },
             StunningStrike = {
-                StunChance = [20, 40, 100]
+                Chance = [20, 40, 100],
+                DizeTurns = [1, 1, 2],
+                InjuryNum = [1, 1, 2]
             },
             Endurance = {
             },
