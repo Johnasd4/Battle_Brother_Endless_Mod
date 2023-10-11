@@ -4,7 +4,7 @@ this.el_npc_buff <- this.inherit("scripts/skills/skill", {
     },
 	function create()
 	{
-		this.m.Type = this.Const.SkillType.StatusEffect;
+		this.m.Type = this.Const.SkillType.Racial;
 		this.m.Order = this.Const.SkillOrder.VeryLast;
         this.m.Icon = this.Const.EL_NPC.EL_Champion.Icon[this.m.EL_RankLevel];
         this.m.IconMini = this.Const.EL_NPC.EL_Champion.IconMini[this.m.EL_RankLevel];

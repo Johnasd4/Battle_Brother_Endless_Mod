@@ -24,14 +24,14 @@ local gt = getroottable();
                 this.m.Icon = this.Const.EL_NPC.EL_PlayerChampion.Icon[rank];
                 this.m.IconMini = this.Const.EL_NPC.EL_PlayerChampion.IconMini[rank];
 
-                _properties.HitpointsMult *= this.Const.EL_NPC.EL_PlayerChampion.Attributes.HitpointsMult[rank];
-                _properties.Bravery += this.Const.EL_NPC.EL_PlayerChampion.Attributes.Bravery[rank];
-                _properties.Stamina += this.Const.EL_NPC.EL_PlayerChampion.Attributes.Fatigue[rank];
-                _properties.Initiative += this.Const.EL_NPC.EL_PlayerChampion.Attributes.Initiative[rank];
-                _properties.MeleeSkill += this.Const.EL_NPC.EL_PlayerChampion.Attributes.MeleeSkill[rank];
-                _properties.RangedSkill += this.Const.EL_NPC.EL_PlayerChampion.Attributes.RangedSkill[rank];
-                _properties.MeleeDefense += this.Const.EL_NPC.EL_PlayerChampion.Attributes.MeleeDefense[rank];
-                _properties.RangedDefense += this.Const.EL_NPC.EL_PlayerChampion.Attributes.RangedDefense[rank];
+                _properties.HitpointsMult *= this.Const.EL_NPC.EL_PlayerChampion.Attributes.HitpointsMult[rank] + level * this.Const.EL_NPC.EL_PlayerChampion.AttributesGrowthPurLevel.HitpointsMult[rank];
+                _properties.Bravery += this.Const.EL_NPC.EL_PlayerChampion.Attributes.Bravery[rank] + level * this.Const.EL_NPC.EL_PlayerChampion.AttributesGrowthPurLevel.Bravery[rank];
+                _properties.Stamina += this.Const.EL_NPC.EL_PlayerChampion.Attributes.Fatigue[rank] + level * this.Const.EL_NPC.EL_PlayerChampion.AttributesGrowthPurLevel.Fatigue[rank];
+                _properties.Initiative += this.Const.EL_NPC.EL_PlayerChampion.Attributes.Initiative[rank] + level * this.Const.EL_NPC.EL_PlayerChampion.AttributesGrowthPurLevel.Initiative[rank];
+                _properties.MeleeSkill += this.Const.EL_NPC.EL_PlayerChampion.Attributes.MeleeSkill[rank] + level * this.Const.EL_NPC.EL_PlayerChampion.AttributesGrowthPurLevel.MeleeSkill[rank];
+                _properties.RangedSkill += this.Const.EL_NPC.EL_PlayerChampion.Attributes.RangedSkill[rank] + level * this.Const.EL_NPC.EL_PlayerChampion.AttributesGrowthPurLevel.RangedSkill[rank];
+                _properties.MeleeDefense += this.Const.EL_NPC.EL_PlayerChampion.Attributes.MeleeDefense[rank] + level * this.Const.EL_NPC.EL_PlayerChampion.AttributesGrowthPurLevel.MeleeDefense[rank];
+                _properties.RangedDefense += this.Const.EL_NPC.EL_PlayerChampion.Attributes.RangedDefense[rank] + level * this.Const.EL_NPC.EL_PlayerChampion.AttributesGrowthPurLevel.RangedDefense[rank];
 
                 _properties.DamageDirectMult *= this.Const.EL_NPC.EL_PlayerChampion.DirectDamageMult[rank];
 
@@ -43,14 +43,14 @@ local gt = getroottable();
                 this.m.Icon = this.Const.EL_NPC.EL_Champion.Icon[rank];
                 this.m.IconMini = this.Const.EL_NPC.EL_Champion.IconMini[rank];
 
-                _properties.HitpointsMult *= this.Const.EL_NPC.EL_Champion.Attributes.HitpointsMult[rank];
-                _properties.Bravery += this.Const.EL_NPC.EL_Champion.Attributes.Bravery[rank];
-                _properties.Stamina += this.Const.EL_NPC.EL_Champion.Attributes.Fatigue[rank];
-                _properties.Initiative += this.Const.EL_NPC.EL_Champion.Attributes.Initiative[rank];
-                _properties.MeleeSkill += this.Const.EL_NPC.EL_Champion.Attributes.MeleeSkill[rank];
-                _properties.RangedSkill += this.Const.EL_NPC.EL_Champion.Attributes.RangedSkill[rank];
-                _properties.MeleeDefense += this.Const.EL_NPC.EL_Champion.Attributes.MeleeDefense[rank];
-                _properties.RangedDefense += this.Const.EL_NPC.EL_Champion.Attributes.RangedDefense[rank];
+                _properties.HitpointsMult *= this.Const.EL_NPC.EL_Champion.Attributes.HitpointsMult[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.HitpointsMult[rank];
+                _properties.Bravery += this.Const.EL_NPC.EL_Champion.Attributes.Bravery[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.Bravery[rank];
+                _properties.Stamina += this.Const.EL_NPC.EL_Champion.Attributes.Fatigue[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.Fatigue[rank];
+                _properties.Initiative += this.Const.EL_NPC.EL_Champion.Attributes.Initiative[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.Initiative[rank];
+                _properties.MeleeSkill += this.Const.EL_NPC.EL_Champion.Attributes.MeleeSkill[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.MeleeSkill[rank];
+                _properties.RangedSkill += this.Const.EL_NPC.EL_Champion.Attributes.RangedSkill[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.RangedSkill[rank];
+                _properties.MeleeDefense += this.Const.EL_NPC.EL_Champion.Attributes.MeleeDefense[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.MeleeDefense[rank];
+                _properties.RangedDefense += this.Const.EL_NPC.EL_Champion.Attributes.RangedDefense[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.RangedDefense[rank];
 
                 _properties.DamageDirectMult *= this.Const.EL_NPC.EL_Champion.DirectDamageMult[rank];
 
@@ -244,6 +244,9 @@ local gt = getroottable();
             local level_ups = this.m.EL_NPCLevel - this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset;
             if(level_ups < 0) {
                 level_ups = 0;
+            }
+            if(level_ups > this.Const.EL_NPC.EL_LevelUp.MaxXPLevel) {
+                level_ups = this.Const.EL_NPC.EL_LevelUp.MaxXPLevel + (level_ups - this.Const.EL_NPC.EL_LevelUp.MaxXPLevel) * this.Const.EL_NPC.EL_LevelUp.PropertiesLevelUpMultAfterMaxXPLevel;
             }
             this.m.BaseProperties.Hitpoints += this.Math.floor(this.m.BaseProperties.Hitpoints *
                                                                this.Const.EL_NPC.EL_LevelUp.LevelUpAttributes.HitpointsMult *
@@ -1121,7 +1124,8 @@ local gt = getroottable();
                         }
                         else if(i < this.Const.EL_NPC.EL_Troop.BossTroopMinLeaders) {
                             this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevel);
-                            if(this.Const.EL_NPC.EL_Troop.BossChance >= this.Math.rand(1, 100)) {
+                            local boss_chance = this.Const.EL_NPC.EL_Troop.BossChance * this.Const.EL_NPC.EL_Troop.EL_getWorldDifficultFactor();
+                            if(boss_chance >= this.Math.rand(1, 100)) {
                                 this.m.Troops[i].EL_IsBossUnit = true;
                             }
                         }
@@ -1171,7 +1175,8 @@ local gt = getroottable();
                         unit_strength -= this.Math.max(this.Const.EL_NPC.EL_Troop.UnitGenerateMinCalculateResourse, this.m.Troops[random_leader_index].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[random_leader_index].EL_RankLevel]);
                         unit_population -= troops_info[random_leader_index].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[random_leader_index].EL_RankLevel];
                         this.m.Troops[random_leader_index].EL_RankLevel = this.Math.max(2, this.m.Troops[random_leader_index].EL_RankLevel);
-                        if(this.Const.EL_NPC.EL_Troop.BossChance >= this.Math.rand(1, 100)) {
+                        local boss_chance = this.Const.EL_NPC.EL_Troop.BossChance * this.Const.EL_NPC.EL_Troop.EL_getWorldDifficultFactor();
+                        if(boss_chance >= this.Math.rand(1, 100)) {
                             this.m.Troops[random_leader_index].EL_IsBossUnit = true;
                         }
                         unit_strength += this.Math.max(this.Const.EL_NPC.EL_Troop.UnitGenerateMinCalculateResourse, this.m.Troops[random_leader_index].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[random_leader_index].EL_RankLevel]);
@@ -1258,7 +1263,8 @@ local gt = getroottable();
                         unit_strength -= this.Math.max(this.Const.EL_NPC.EL_Troop.UnitGenerateMinCalculateResourse, this.m.Troops[random_leader_index].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[random_leader_index].EL_RankLevel]);
                         unit_population -= troops_info[random_leader_index].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[random_leader_index].EL_RankLevel];
                         this.m.Troops[random_leader_index].EL_RankLevel = this.Math.max(2, this.m.Troops[random_leader_index].EL_RankLevel);
-                        if(this.Const.EL_NPC.EL_Troop.BossChance >= this.Math.rand(1, 100)) {
+                        local boss_chance = this.Const.EL_NPC.EL_Troop.BossChance * this.Const.EL_NPC.EL_Troop.EL_getWorldDifficultFactor();
+                        if(boss_chance >= this.Math.rand(1, 100)) {
                             this.m.Troops[random_leader_index].EL_IsBossUnit = true;
                         }
                         unit_strength += this.Math.max(this.Const.EL_NPC.EL_Troop.UnitGenerateMinCalculateResourse, this.m.Troops[random_leader_index].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[random_leader_index].EL_RankLevel]);

@@ -244,7 +244,19 @@ local gt = getroottable();
 					text = "Atk: " + melee_skill + " " + ranged_skill + " Def: " + melee_defense + " " + ranged_defense
 				});
 
-				local result = [];
+				local raicial_skills = this.getSkills().query(this.Const.SkillType.Racial, false, true);
+				foreach( skill in raicial_skills )
+				{
+					if(skill.EL_isNPCBuff()) {
+						tooltip.push({
+							id = 99,
+							type = "text",
+							icon = skill.getIcon(),
+							text = skill.getName()
+						});
+					}
+				}
+
 				local statusEffects = this.getSkills().query(this.Const.SkillType.StatusEffect | this.Const.SkillType.TemporaryInjury, false, true);
 				foreach( i, statusEffect in statusEffects )
 				{
@@ -258,6 +270,48 @@ local gt = getroottable();
 			}
 
 			return tooltip;
+		}
+
+		updateOverlay = function()
+		{
+			if (!this.isAlive())
+			{
+				return;
+			}
+
+			local headArmor = 0.0;
+			local bodyArmor = 0.0;
+
+			if (this.getArmorMax(this.Const.BodyPart.Head) > 0)
+			{
+				headArmor = this.getArmor(this.Const.BodyPart.Head) / this.getArmorMax(this.Const.BodyPart.Head);
+			}
+
+			if (this.getArmorMax(this.Const.BodyPart.Body) > 0)
+			{
+				bodyArmor = this.getArmor(this.Const.BodyPart.Body) / this.getArmorMax(this.Const.BodyPart.Body);
+			}
+
+			this.setOverlayValues(headArmor, bodyArmor, this.Math.minf(1.0, this.getHitpoints() / this.getHitpointsMax()));
+			local icons = [];
+			local raicial_skills = this.getSkills().query(this.Const.SkillType.Racial);
+			foreach( skill in raicial_skills )
+			{
+				if(skill.EL_isNPCBuff()) {
+					icons.push(skill.getIconMini());
+				}
+			}
+
+			local status = this.getSkills().query(this.Const.SkillType.StatusEffect | this.Const.SkillType.Terrain);
+			foreach( s in status )
+			{
+				if (s.getIconMini().len() != 0)
+				{
+					icons.push(s.getIconMini());
+				}
+			}
+
+			this.setOverlayIcons(icons);
 		}
 
 		o.checkMorale = function(_change, _difficulty, _type = this.Const.MoraleCheckType.Default, _showIconBeforeMoraleIcon = "", _noNewLine = false, _EL_noCheck = false)
@@ -393,6 +447,8 @@ local gt = getroottable();
 			}
 			else if (_change > 0)
 			{
+				local calculate_bravery = bravery + _difficulty + head_count_bouns - threatBonus;
+				while()
 				if (this.Math.rand(1, 100) > this.Math.minf(95, bravery + _difficulty + head_count_bouns - threatBonus))
 				{
 					if (this.Math.rand(1, 100) > this.m.CurrentProperties.RerollMoraleChance || this.Math.rand(1, 100) > this.Math.minf(95, bravery + _difficulty + head_count_bouns - threatBonus))

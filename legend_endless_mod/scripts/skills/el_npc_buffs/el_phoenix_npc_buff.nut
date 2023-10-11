@@ -108,7 +108,7 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
                    !skill.isType(this.Const.SkillType.Active) &&
                    !skill.isType(this.Const.SkillType.Trait) &&
                    !skill.isType(this.Const.SkillType.Racial) &&
-                   //!skill.isType(this.Const.SkillType.StatusEffect) &&
+                   !skill.isType(this.Const.SkillType.StatusEffect) &&
                    !skill.isType(this.Const.SkillType.Special) &&
                    !skill.isType(this.Const.SkillType.Item) &&
                    !skill.isType(this.Const.SkillType.Perk) &&
@@ -116,7 +116,6 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
                    !skill.isType(this.Const.SkillType.WorldEvent) &&
                    !skill.isType(this.Const.SkillType.Background) &&
                    !skill.isType(this.Const.SkillType.Alert) &&
-                   !(skill.EL_isNPCBuff()) &&
                    skill.getID() != "effects.battle_standard" &&
                    skill.getID() != "effects.ptr_armor_fatigue_recovery"
                 )

@@ -8,6 +8,8 @@ if (!("EL_NPC" in gt.Const))
 gt.Const.EL_NPC <- {
 
     EL_Champion = {
+        MaxGrowthLevel = 100,
+
         XP = {
             Offset = [
                 0,
@@ -37,13 +39,23 @@ gt.Const.EL_NPC <- {
         ],
         Attributes = {
             HitpointsMult = [1, 1.4, 2],
-            Bravery = [0, 40, 100],
-            Fatigue = [0, 60, 150],
-            Initiative = [0, 60, 150],
-            MeleeSkill = [0, 40, 100],
-            RangedSkill = [0, 40, 100],
-            MeleeDefense = [0, 40, 100],
-            RangedDefense = [0, 40, 100],
+            Bravery = [0, 20, 50],
+            Fatigue = [0, 30, 75],
+            Initiative = [0, 30, 75],
+            MeleeSkill = [0, 20, 50],
+            RangedSkill = [0, 20, 50],
+            MeleeDefense = [0, 20, 50],
+            RangedDefense = [0, 20, 50],
+        },
+        AttributesGrowthPurLevel = {
+            HitpointsMult = [0, 0.004, 0.01],
+            Bravery = [0, 0.2, 0.5],
+            Fatigue = [0, 0.3, 0.75],
+            Initiative = [0, 0.3, 0.75],
+            MeleeSkill = [0, 0.2, 0.5],
+            RangedSkill = [0, 0.2, 0.5],
+            MeleeDefense = [0, 0.2, 0.5],
+            RangedDefense = [0, 0.2, 0.5],
         },
 
         Name = [
@@ -64,6 +76,7 @@ gt.Const.EL_NPC <- {
     },
 
     EL_PlayerChampion = {
+        MaxGrowthLevel = 100,
         XP = {
             Offset = [
                 0,
@@ -102,6 +115,17 @@ gt.Const.EL_NPC <- {
             RangedDefense = [0, 10, 25],
         },
 
+        AttributesGrowthPurLevel = {
+            HitpointsMult = [0, 0.001, 0.025],
+            Bravery = [0, 0.1, 0.25],
+            Fatigue = [0, 0.15, 0.4],
+            Initiative = [0, 0.15, 0.4],
+            MeleeSkill = [0, 0.1, 0.25],
+            RangedSkill = [0, 0.1, 0.25],
+            MeleeDefense = [0, 0.1, 0.25],
+            RangedDefense = [0, 0.1, 0.25],
+        },
+
         Name = [
             "Normal",
             "Elite",
@@ -121,21 +145,22 @@ gt.Const.EL_NPC <- {
 
 
     EL_LevelUp = {
-        LevelUpsOffset = 10,
+        LevelUpsOffset = 15,
         LevelUpAttributes = {
             HitpointsMult = 0.05,
             Bravery = 0.5,
             Fatigue = 0.5,
             Initiative = 4,
-            MeleeSkill = 2,
-            RangedSkill = 2.5,
-            MeleeDefense = 2,
-            RangedDefense = 2,
+            MeleeSkill = 3,
+            RangedSkill = 4,
+            MeleeDefense = 3,
+            RangedDefense = 3,
         },
 
         LevelUpDamageMult = 0.04,
         LevelUpArmorMult = 0.04,
         MaxXPLevel = 100,
+        PropertiesLevelUpMultAfterMaxXPLevel = 0.25,
         MaxPropertiesLevel = 200,
         XPFactor = 1.085
     },
