@@ -35,6 +35,13 @@ local gt = getroottable();
 
 	::mods_hookExactClass("items/armor/legendary/emperors_armor_fake", function(o){
 
+        local create = o.create;
+        o.create = function()
+        {
+            create();
+            this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.EL_Item.MaxLevel));
+        }
+
         o.getTooltip = function()
         {
             local result = this.armor.getTooltip();

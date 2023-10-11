@@ -441,44 +441,46 @@ local gt = getroottable();
 			}
 
 
-
+			local calculate_bravery = bravery + _difficulty + head_count_bouns - threatBonus;
 			if(_EL_noCheck == true) {
 
 			}
 			else if (_change > 0)
 			{
-				local calculate_bravery = bravery + _difficulty + head_count_bouns - threatBonus;
-				while()
-				if (this.Math.rand(1, 100) > this.Math.minf(95, bravery + _difficulty + head_count_bouns - threatBonus))
-				{
-					if (this.Math.rand(1, 100) > this.m.CurrentProperties.RerollMoraleChance || this.Math.rand(1, 100) > this.Math.minf(95, bravery + _difficulty + head_count_bouns - threatBonus))
-					{
-						return false;
+				local if_success = false;
+				while(calculate_bravery > 0 && if_success == false) {
+					if (this.Math.rand(1, 100) <= this.Math.minf(95, calculate_bravery)) {
+						if_success = true;
 					}
+					if (this.Math.rand(1, 100) <= this.m.CurrentProperties.RerollMoraleChance && this.Math.rand(1, 100) <= this.Math.minf(95, calculate_bravery)) {
+						if_success = true;
+					}
+					calculate_bravery -= 100;
 				}
 			}
 			else if (_change < 0)
 			{
-				if (this.Math.rand(1, 100) <= this.Math.minf(95, bravery + _difficulty + head_count_bouns - threatBonus))
-				{
-					return false;
+				while(calculate_bravery > 0) {
+					if (this.Math.rand(1, 100) <= this.Math.minf(95, calculate_bravery)) {
+						return false;
+					}
+					if (this.Math.rand(1, 100) <= this.m.CurrentProperties.RerollMoraleChance && this.Math.rand(1, 100) <= this.Math.minf(95, calculate_bravery)) {
+						return false;
+					}
+					calculate_bravery -= 100;
 				}
-
-				if (this.Math.rand(1, 100) <= this.m.CurrentProperties.RerollMoraleChance && this.Math.rand(1, 100) <= this.Math.minf(95, bravery + _difficulty + head_count_bouns - threatBonus))
-				{
-					return false;
-				}
-			}
-			else if (this.Math.rand(1, 100) <= this.Math.minf(95, bravery + _difficulty - head_count_bouns - threatBonus))
-			{
-				return true;
-			}
-			else if (this.Math.rand(1, 100) <= this.m.CurrentProperties.RerollMoraleChance && this.Math.rand(1, 100) <= this.Math.minf(95, bravery + _difficulty - head_count_bouns - threatBonus))
-			{
-				return true;
 			}
 			else
 			{
+				while(calculate_bravery > 0 && if_success == false) {
+					if (this.Math.rand(1, 100) <= this.Math.minf(95, calculate_bravery)) {
+						return true;
+					}
+					if (this.Math.rand(1, 100) <= this.m.CurrentProperties.RerollMoraleChance && this.Math.rand(1, 100) <= this.Math.minf(95, calculate_bravery)) {
+						return true;
+					}
+					calculate_bravery -= 100;
+				}
 				return false;
 			}
 
