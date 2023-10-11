@@ -178,7 +178,7 @@ gt.Const.EL_NPC <- {
         BossTroopMinLeaders = 5,
         BossChance = 1,
         UnitGenerateMinCalculateResourse = 20,
-        ExtraBuffRollMax = 40,
+        ExtraBuffRollMax = 100,
         ExtraBuffStrengthMultPurTime = 2,
         EliteUnitEliteChanceMult = 2
 
@@ -189,7 +189,7 @@ gt.Const.EL_NPC <- {
             DropPurExtraCombatLevelPositive = 10,
             NormalDropLevelMult = 0.04,
             NormalDropMultPurRank = 3
-        }
+        },
 
 
         ExtraCombatLevel = {
@@ -557,6 +557,10 @@ gt.Const.EL_NPC <- {
                 function EL_ifEligible(_EL_npc) { return true; }
             },
             {
+                Scripts = "scripts/skills/el_npc_buffs/el_encourage_npc_buff",
+                function EL_ifEligible(_EL_npc) { return true; }
+            },
+            {
                 Scripts = "scripts/skills/el_npc_buffs/el_endurance_npc_buff",
                 function EL_ifEligible(_EL_npc) { return true; }
             },
@@ -675,6 +679,15 @@ gt.Const.EL_NPC <- {
             ComboAttack = {
                 Chance = [20, 40, 100]
             }
+            Encourage = {
+                BraveryOffset = [10, 20, 50],
+                MoraleCheckChance = [50, 100, 100],
+                MoraleCheckTimes = [1, 1, 2],
+                BaseOffset = -50,
+                RankFactor = 0,
+                CombatLevelFactor = 1.04,
+                DistanceFactor = 3
+            },
             Endurance = {
             },
             EnergyDrain = {
