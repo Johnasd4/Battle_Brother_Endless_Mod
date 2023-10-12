@@ -153,18 +153,6 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
 		else {
 			this.m.Name = "Phoenix";
 		}
-
-        _properties.DamageDirectMult *= 1 + this.Const.EL_NPC.EL_NPCBuff.Factor.Phoenix.DamageMultPurStack * this.m.EL_Stack;
-        _properties.DamageReceivedTotalMult *= 1 / (1 + this.Const.EL_NPC.EL_NPCBuff.Factor.Phoenix.DamageReceivedMultPurStack * this.m.EL_Stack);
-
-        _properties.HitpointsMult *= 1 + this.Const.EL_NPC.EL_NPCBuff.Factor.Phoenix.HitPointsMultPurStack * this.m.EL_Stack;
-        _properties.Bravery += this.Const.EL_NPC.EL_NPCBuff.Factor.Phoenix.BraveryOffsetPurStack * this.m.EL_Stack;
-        _properties.Stamina += this.Const.EL_NPC.EL_NPCBuff.Factor.Phoenix.FatigueOffsetPurStack * this.m.EL_Stack;
-        _properties.Initiative += this.Const.EL_NPC.EL_NPCBuff.Factor.Phoenix.InitiativeOffsetPurStack * this.m.EL_Stack;
-        _properties.MeleeSkill += this.Const.EL_NPC.EL_NPCBuff.Factor.Phoenix.MeleeSkillOffsetPurStack * this.m.EL_Stack;
-        _properties.RangedSkill += this.Const.EL_NPC.EL_NPCBuff.Factor.Phoenix.RangedSkillOffsetPurStack * this.m.EL_Stack;
-        _properties.MeleeDefense += this.Const.EL_NPC.EL_NPCBuff.Factor.Phoenix.MeleeDefenseOffsetPurStack * this.m.EL_Stack;
-        _properties.RangedDefense += this.Const.EL_NPC.EL_NPCBuff.Factor.Phoenix.RangedDefenseOffsetPurStack * this.m.EL_Stack;
     }
 
 });

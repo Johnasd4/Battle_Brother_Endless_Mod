@@ -569,6 +569,10 @@ gt.Const.EL_NPC <- {
                 function EL_ifEligible(_EL_npc) { return true; }
             },
             {
+                Scripts = "scripts/skills/el_npc_buffs/el_energy_shield_npc_buff",
+                function EL_ifEligible(_EL_npc) { return true; }
+            },
+            {
                 Scripts = "scripts/skills/el_npc_buffs/el_evasion_npc_buff",
                 function EL_ifEligible(_EL_npc) { return true; }
             },
@@ -693,11 +697,15 @@ gt.Const.EL_NPC <- {
             EnergyDrain = {
                 FatiguePurActionPoint = [2, 4, 10]
             },
+            EnergyShield = {
+                MaxStack = [4, 8, 20],
+                StackRecoverPersentPurTurn = 0.2
+            }
             Evasion = {
                 MeleeState = 1,
                 RangeState = 2,
-                DefenseOffset = [10, 20, 50],
-                DefenseOffsetSelectedMult = 4,
+                DefenseOffset = [8, 16, 40],
+                DefenseOffsetSelectedMult = 5,
             },
             Growth = {
                 DamageMultPurStack = [0.02, 0.04, 0.1],
@@ -708,7 +716,7 @@ gt.Const.EL_NPC <- {
                 RangedDefenseOffsetPurStack = [0.4 ,0.8, 2],
             },
             Intimidate = {
-                BraveryOffset = [20, 40, 100],
+                BraveryOffset = [10, 20, 50],
                 MoraleCheckChance = [20, 40, 100],
                 BaseOffset = 50,
                 RankFactor = 0,
@@ -716,7 +724,7 @@ gt.Const.EL_NPC <- {
                 DistanceFactor = 3
             },
             LifeDrain = {
-                HitpointsPurActionPoint = [0.5, 1, 2.5],
+                HitpointsPurActionPoint = [2, 4, 10],
                 HitpointsMultPurCombatLevel = 0.04,
                 RecoverMult = 10,
             }
@@ -728,18 +736,7 @@ gt.Const.EL_NPC <- {
                 DamageDirectMult = [0.2, 0.4, 1]
             }
             Phoenix = {
-                RiseTimes = [1, 2, 3],
-                DamageMultPurStack = 0.1,
-                DamageReceivedMultPurStack = 0.1,
-                HitPointsMultPurStack = 0.1,
-                BraveryOffsetPurStack = 6,
-                FatigueOffsetPurStack = 10,
-                InitiativeOffsetPurStack = 12,
-                MeleeSkillOffsetPurStack = 8,
-                RangedSkillOffsetPurStack = 10,
-                MeleeDefenseOffsetPurStack = 8,
-                RangedDefenseOffsetPurStack = 8,
-
+                RiseTimes = [1, 2, 3]
             },
             Recovery = {
                 HitpointsRecoveryRate = [0.05, 0.1, 0.25],
