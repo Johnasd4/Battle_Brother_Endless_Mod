@@ -46,6 +46,7 @@ gt.Const.EL_Config <- {
             local r = this.Math.rand(0, usable_injurys.len() - 1);
             if(!skills.hasSkill(usable_injurys[r].ID)) {
                 skills.add(this.new("scripts/skills/" + usable_injurys[r].Script));
+                --_EL_num;
             }
             usable_injurys.remove(r);
         }
