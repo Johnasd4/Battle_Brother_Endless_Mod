@@ -178,7 +178,7 @@ gt.Const.EL_NPC <- {
         BossTroopMinLeaders = 5,
         BossChance = 1,
         UnitGenerateMinCalculateResourse = 20,
-        ExtraBuffRollMax = 100,
+        ExtraBuffRollMax = 50,
         ExtraBuffStrengthMultPurTime = 2,
         EliteUnitEliteChanceMult = 2
 
