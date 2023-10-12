@@ -3,6 +3,117 @@ local gt = getroottable();
 ::mods_registerMod("el_adaption_contracts_contracts", 1, "el_adaption_contracts_contracts");
 ::mods_queue(null, "el_player_npc", function ()
 {
+	::mods_hookClass("contracts/contract", function ( o )
+	{
+        while(!("spawnEnemyPartyAtBase" in o)) o = o[o.SuperName];
+        o.spawnEnemyPartyAtBase = function( _factionType, _resources )
+        {
+            local myTile = this.World.State.getPlayer().getTile();
+            local enemyBase = this.World.FactionManager.getFactionOfType(_factionType).getNearestSettlement(myTile);
+            local party;
+
+            if (_factionType == this.Const.FactionType.Bandits)
+            {
+                party = this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).spawnEntity(enemyBase.getTile(), "Brigands", false, this.Const.World.Spawn.BanditRaiders, _resources);
+                party.clearTroops();
+                this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.BanditRaiders, _resources, this.Const.FactionType.Bandits);
+                party.setDescription("A rough and tough band of brigands out to hunt for food.");
+                party.setFootprintType(this.Const.World.FootprintsType.Brigands);
+                party.getLoot().Money = this.Math.rand(50, 100);
+                party.getLoot().ArmorParts = this.Math.rand(0, 10);
+                party.getLoot().Medicine = this.Math.rand(0, 2);
+                party.getLoot().Ammo = this.Math.rand(0, 20);
+                local r = this.Math.rand(1, 6);
+
+                if (r == 1)
+                {
+                    party.addToInventory("supplies/bread_item");
+                }
+                else if (r == 2)
+                {
+                    party.addToInventory("supplies/roots_and_berries_item");
+                }
+                else if (r == 3)
+                {
+                    party.addToInventory("supplies/dried_fruits_item");
+                }
+                else if (r == 4)
+                {
+                    party.addToInventory("supplies/ground_grains_item");
+                }
+                else if (r == 5)
+                {
+                    party.addToInventory("supplies/pickled_mushrooms_item");
+                }
+            }
+            else if (_factionType == this.Const.FactionType.Goblins)
+            {
+                party = this.World.FactionManager.getFactionOfType(this.Const.FactionType.Goblins).spawnEntity(enemyBase.getTile(), "Goblin Raiders", false, this.Const.World.Spawn.GoblinRaiders, _resources);
+                party.clearTroops();
+                this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.GoblinRaiders, _resources, this.Const.FactionType.Goblins);
+                party.setDescription("A band of mischievous goblins, small but cunning and not to be underestimated.");
+                party.setFootprintType(this.Const.World.FootprintsType.Goblins);
+                party.getLoot().ArmorParts = this.Math.rand(0, 10);
+                party.getLoot().Medicine = this.Math.rand(0, 2);
+                party.getLoot().Ammo = this.Math.rand(0, 30);
+
+                if (this.Math.rand(1, 100) <= 75)
+                {
+                    local loot = [
+                        "supplies/strange_meat_item",
+                        "supplies/roots_and_berries_item",
+                        "supplies/pickled_mushrooms_item"
+                    ];
+                    party.addToInventory(loot[this.Math.rand(0, loot.len() - 1)]);
+                }
+
+                if (this.Math.rand(1, 100) <= 33)
+                {
+                    local loot = [
+                        "loot/goblin_carved_ivory_iconographs_item",
+                        "loot/goblin_minted_coins_item",
+                        "loot/goblin_rank_insignia_item"
+                    ];
+                    party.addToInventory(loot[this.Math.rand(0, loot.len() - 1)]);
+                }
+            }
+            else if (_factionType == this.Const.FactionType.Orcs)
+            {
+                party = this.World.FactionManager.getFactionOfType(this.Const.FactionType.Orcs).spawnEntity(enemyBase.getTile(), "Orc Marauders", false, this.Const.World.Spawn.OrcRaiders, _resources);
+                party.clearTroops();
+                this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.OrcRaiders, _resources, this.Const.FactionType.Orcs);
+                party.setDescription("A band of menacing orcs, greenskinned and towering any man.");
+                party.setFootprintType(this.Const.World.FootprintsType.Orcs);
+                party.getLoot().ArmorParts = this.Math.rand(0, 25);
+                party.getLoot().Ammo = this.Math.rand(0, 10);
+                party.addToInventory("supplies/strange_meat_item");
+            }
+            else if (_factionType == this.Const.FactionType.Undead)
+            {
+                party = this.World.FactionManager.getFactionOfType(this.Const.FactionType.Undead).spawnEntity(enemyBase.getTile(), "Undead", false, this.Const.World.Spawn.UndeadArmy, _resources);
+                party.clearTroops();
+                this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.UndeadArmy, _resources, this.Const.FactionType.Undead);
+                party.setDescription("A legion of walking dead, back to claim from the living what was once theirs.");
+                party.setFootprintType(this.Const.World.FootprintsType.Undead);
+                party.getLoot().ArmorParts = this.Math.rand(0, 10);
+                party.getLoot().Ammo = this.Math.rand(0, 5);
+            }
+            else if (_factionType == this.Const.FactionType.Zombies)
+            {
+                party = this.World.FactionManager.getFactionOfType(this.Const.FactionType.Zombies).spawnEntity(enemyBase.getTile(), "Undead", false, this.Const.World.Spawn.Necromancer, _resources);
+                party.clearTroops();
+                this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.Necromancer, _resources, this.Const.FactionType.Zombies);
+                party.setDescription("Something seems wrong.");
+                party.setFootprintType(this.Const.World.FootprintsType.Undead);
+                party.getLoot().ArmorParts = this.Math.rand(0, 10);
+                party.getLoot().Ammo = this.Math.rand(0, 5);
+            }
+
+            party.getSprite("banner").setBrush(enemyBase.getBanner());
+            this.m.UnitsSpawned.push(party.getID());
+            return party;
+        }
+	});
 
 	::mods_hookExactClass("contracts/contracts/arena_contract", function(o){
 
