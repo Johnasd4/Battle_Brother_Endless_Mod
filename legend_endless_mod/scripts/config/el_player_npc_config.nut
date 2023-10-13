@@ -70,7 +70,7 @@ gt.Const.EL_PlayerNPC <- {
             MeleeDefenseOffset = [-45, -30, -15, 0, 15, 0],
             RangedDefenseOffset = [-45, -30, -15, 0, 15, 0],
             FatigueOnSkillUseOffset = [6, 4, 2, 0, -2, 0],
-            DamageDirectMult = [0.55, 0.70, 0.85, 1, 1.5, 1],
+            DamageDirectMult = [0.55, 0.70, 0.85, 1, 1.15, 1],
             DamageReceivedTotalMult = [1.45, 1.3, 1.15, 1, 0.85, 1],
         }
     }
