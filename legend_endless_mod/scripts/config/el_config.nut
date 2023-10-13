@@ -32,35 +32,89 @@ gt.Const.EL_Config <- {
         Count = 9
     },
 
-    function EL_addInjurysToActor_P(_EL_actor, _EL_num, _EL_injuryTypeList, _EL_injuryThresholdMin = 0, _EL_injuryThresholdMax = 1) {
-        local usable_injurys = [];
-        foreach(injury_type in _EL_injuryTypeList) {
-            foreach(injury in injury_type) {
-                if(injury.Threshold >= _EL_injuryThresholdMin &&  injury.Threshold <= _EL_injuryThresholdMax) {
-                    usable_injurys.push(injury);
-                }
-            }
+    EL_PoisonEffectList = [
+        {
+            ID = "effects.acid",
+            Script = "effects/acid_effect"
+        },
+        {
+            ID = "effects.goblin_poison",
+            Script = "effects/goblin_poison_effect"
+        },
+        {
+            ID = "effects.legend_redback_spider_poison",
+            Script = "effects/legend_redback_spider_poison_effect"
+        },
+        {
+            ID = "effects.lindwurm_acid",
+            Script = "effects/lindwurm_acid_effect"
+        },
+        {
+            ID = "effects.legend_rat_poison",
+            Script = "effects/rat_poison_effect"
+        },
+        {
+            ID = "effects.spider_poison",
+            Script = "effects/spider_poison_effect"
+        },
+        {
+            ID = "effects.legend_zombie_poison",
+            Script = "effects/zombie_poison_effect"
         }
+    ],
+
+    function EL_addBuffsToActor(_EL_actor, _EL_num, _EL_BuffList) {
         local skills = _EL_actor.getSkills();
-        while(_EL_num > 0 && usable_injurys.len() > 0) {
-            local r = this.Math.rand(0, usable_injurys.len() - 1);
-            if(!skills.hasSkill(usable_injurys[r].ID)) {
-                skills.add(this.new("scripts/skills/" + usable_injurys[r].Script));
+        while(_EL_num > 0 && _EL_BuffList.len() > 0) {
+            local r = this.Math.rand(0, _EL_BuffList.len() - 1);
+            if(!skills.hasSkill(_EL_BuffList[r].ID)) {
+                skills.add(this.new("scripts/skills/" + _EL_BuffList[r].Script));
                 --_EL_num;
             }
-            usable_injurys.remove(r);
+            _EL_BuffList.remove(r);
         }
         return _EL_num;
     }
 
+    function EL_addBuffsToActorNoRepeatCheck(_EL_actor, _EL_num, _EL_BuffList) {
+        local skills = _EL_actor.getSkills();
+        while(_EL_num > 0 && _EL_BuffList.len() > 0) {
+            local r = this.Math.rand(0, _EL_BuffList.len() - 1);
+            skills.add(this.new("scripts/skills/" + _EL_BuffList[r].Script));
+            --_EL_num;
+            _EL_BuffList.remove(r);
+        }
+        return _EL_num;
+    }
+
+    function EL_addInjurysToActor_P(_EL_actor, _EL_num, _EL_injuryTypeList, _EL_injuryThresholdMin = 0, _EL_injuryThresholdMax = 1) {
+        local usable_injurys = [];
+        foreach(injury_type in _EL_injuryTypeList) {
+            foreach(injury in injury_type) {
+                if(injury.Threshold >= _EL_injuryThresholdMin && injury.Threshold <= _EL_injuryThresholdMax) {
+                    usable_injurys.push(injury);
+                }
+            }
+        }
+        return this.Const.EL_Config.EL_addBuffsToActor(_EL_actor, _EL_num, _EL_injuryTypeList);
+    }
+
     function EL_addInjurysToActor(_EL_actor, _EL_num, _EL_injuryTypeList) {
-        return EL_addInjurysToActor_P(_EL_actor, _EL_num, _EL_injuryTypeList);
+        return this.Const.EL_Config.EL_addInjurysToActor_P(_EL_actor, _EL_num, _EL_injuryTypeList);
     }
     function EL_addSlightInjurysToActor(_EL_actor, _EL_num, _EL_injuryTypeList) {
-        return EL_addInjurysToActor_P(_EL_actor, _EL_num, _EL_injuryTypeList, 0, 0.4);
+        return this.Const.EL_Config.EL_addInjurysToActor_P(_EL_actor, _EL_num, _EL_injuryTypeList, 0, 0.4);
     }
     function EL_addSeriousInjurysToActor(_EL_actor, _EL_num, _EL_injuryTypeList) {
-        return EL_addInjurysToActor_P(_EL_actor, _EL_num, _EL_injuryTypeList, 0.4, 1);
+        return this.Const.EL_Config.EL_addInjurysToActor_P(_EL_actor, _EL_num, _EL_injuryTypeList, 0.4, 1);
+    }
+
+    function EL_addPoisonsToActor(_EL_actor, _EL_num) {
+        return this.Const.EL_Config.EL_addBuffsToActor(_EL_actor, _EL_num, this.Const.EL_Config.EL_PoisonEffectList);
+    }
+
+    function EL_addPoisonsToActorNoRepeatCheck(_EL_actor, _EL_num) {
+        return this.Const.EL_Config.EL_addBuffsToActor(_EL_actor, _EL_num, this.Const.EL_Config.EL_PoisonEffectList);
     }
 
     function EL_chanceTableCalculateAXB(_EL_info) {

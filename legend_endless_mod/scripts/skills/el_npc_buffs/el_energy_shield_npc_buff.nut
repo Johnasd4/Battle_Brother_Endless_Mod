@@ -12,7 +12,7 @@ this.el_energy_shield_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
 
 	function onTurnStart()
 	{
-        this.m.EL_Stack = this.Math.maxf(this.m.EL_Stack + this.Const.EL_NPC.EL_NPCBuff.Factor.EnergyShield.MaxStack[this.m.EL_RankLevel] * this.Const.EL_NPC.EL_NPCBuff.Factor.EnergyShield.StackRecoverPersentPurTurn,
+        this.m.EL_Stack = this.Math.minf(this.m.EL_Stack + this.Const.EL_NPC.EL_NPCBuff.Factor.EnergyShield.MaxStack[this.m.EL_RankLevel] * this.Const.EL_NPC.EL_NPCBuff.Factor.EnergyShield.StackRecoverPersentPurTurn,
                                          this.Const.EL_NPC.EL_NPCBuff.Factor.EnergyShield.MaxStack[this.m.EL_RankLevel]);
 	}
 
