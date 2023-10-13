@@ -272,7 +272,7 @@ local gt = getroottable();
 			return tooltip;
 		}
 
-		updateOverlay = function()
+		o.updateOverlay = function()
 		{
 			if (!this.isAlive())
 			{

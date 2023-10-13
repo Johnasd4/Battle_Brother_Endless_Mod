@@ -272,7 +272,7 @@ local gt = getroottable();
 			// multiply xp if more than 12 fielded
 			local roster = World.getPlayerRoster().getAll();
 			local in_battle_num = 0;
-			foreach(brotherther in roster)
+			foreach(brother in roster)
 			{
 				in_battle_num++;
 			}
