@@ -34,11 +34,11 @@ local gt = getroottable();
 
             if (this.m.LastBodyPartHit == this.Const.BodyPart.Body)
             {
-                this.spawnDeadWolf(_killer, _skill, _tile, _fatalityType);
+                //this.spawnDeadWolf(_killer, _skill, _tile, _fatalityType);
             }
             else
             {
-                this.goblin.onDeath(_killer, _skill, _tile, _fatalityType);
+                //this.goblin.onDeath(_killer, _skill, _tile, _fatalityType);
             }
         }
 
@@ -112,11 +112,11 @@ local gt = getroottable();
 
             if (this.m.LastBodyPartHit == this.Const.BodyPart.Body)
             {
-                this.spawnDeadWolf(_killer, _skill, _tile, _fatalityType);
+                //this.spawnDeadWolf(_killer, _skill, _tile, _fatalityType);
             }
             else
             {
-                this.goblin.onDeath(_killer, _skill, _tile, _fatalityType);
+                //this.goblin.onDeath(_killer, _skill, _tile, _fatalityType);
             }
         }
 
@@ -344,11 +344,11 @@ local gt = getroottable();
 
             if (this.m.LastBodyPartHit == this.Const.BodyPart.Body)
             {
-                this.spawnDeadWolf(_killer, _skill, _tile, _fatalityType);
+                //this.spawnDeadWolf(_killer, _skill, _tile, _fatalityType);
             }
             else
             {
-                this.goblin.onDeath(_killer, _skill, _tile, _fatalityType);
+                //this.goblin.onDeath(_killer, _skill, _tile, _fatalityType);
             }
         }
 

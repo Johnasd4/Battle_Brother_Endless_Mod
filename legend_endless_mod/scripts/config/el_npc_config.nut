@@ -600,7 +600,15 @@ gt.Const.EL_NPC <- {
                 }
             },
             {
+                Scripts = "scripts/skills/el_npc_buffs/el_poisoned_npc_buff",
+                function EL_ifEligible(_EL_npc) { return true; }
+            },
+            {
                 Scripts = "scripts/skills/el_npc_buffs/el_phoenix_npc_buff",
+                function EL_ifEligible(_EL_npc) { return true; }
+            },
+            {
+                Scripts = "scripts/skills/el_npc_buffs/el_recovery_aura_npc_buff",
                 function EL_ifEligible(_EL_npc) { return true; }
             },
             {
@@ -738,19 +746,30 @@ gt.Const.EL_NPC <- {
             Phoenix = {
                 RiseTimes = [1, 2, 3]
             },
+            Poisoned = {
+                Chance = [50, 100, 100],
+                PoisonNum = [1, 1, 2]
+            },
+            RecoveryAura = {
+                HitpointsRecoveryRate = [0.01, 0.02, 0.05],
+                FatigueRecoveryRate = [1, 2, 5],
+                ArmorRecoveryRate = [0.01, 0.02, 0.05],
+                MaxDistance = 4
+            },
             Recovery = {
-                HitpointsRecoveryRate = [0.05, 0.1, 0.25],
-                FatigueRecoveryRate = [0.05, 0.1, 0.25],
-                ArmorRecoveryRate = [0.05, 0.1, 0.25],
+                HitpointsRecoveryRate = [0.04, 0.08, 0.20],
+                FatigueRecoveryRate = [4, 8, 20],
+                ArmorRecoveryRate = [0.04, 0.08, 0.20]
             },
             Retaliation = {
-                AttackChance = [20, 40, 100]
+                AttackChance = [50, 100, 100],
+                RetaliationNum = [1, 1, 2]
             },
             Revenge = {
                 DamageMultPurStack = [0.04, 0.08, 0.2],
             },
             SelfDestruct = {
-                DamageBase = 25,
+                DamageBase = 50,
                 DamageMultPurCombatLevel = 0.04,
                 DamageRate = [0.2, 0.4, 1],
                 WeaponShieldDamageRate = [0.1, 0.2, 0.5],

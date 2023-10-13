@@ -54,15 +54,18 @@ this.el_retaliation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
             if (skill != null && (actor.getFatigue() + skill.getFatigueCost() < actor.getFatigueMax()))
             {
 				this.m.EL_IsRetaliate = true;
-				if(_EL_attacker != null && !actor.isDying() && actor.isAlive()) {
-					skill.useForFree(_EL_attacker.getTile());
+				for(local i = 0; i < this.Const.EL_NPC.EL_NPCBuff.Factor.Retaliation.RetaliationNum[this.m.EL_RankLevel]; ++i) {
+					if(_EL_attacker != null && !actor.isDying() && actor.isAlive()) {
+						if(actor != null && !actor.isDying() && actor.isAlive()) {
+							skill.useForFree(_EL_attacker.getTile());
+						}
+					}
 				}
 				this.m.EL_IsRetaliate = false;
 				actor.setFatigue(actor.getFatigue() + skill.getFatigueCost());
             }
         }
 	}
-
 
 	function onDamageReceived( _attacker, _skill, _properties )
 	{

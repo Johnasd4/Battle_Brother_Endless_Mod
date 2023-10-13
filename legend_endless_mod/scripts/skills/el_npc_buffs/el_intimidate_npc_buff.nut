@@ -13,12 +13,14 @@ this.el_intimidate_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_
         local actor = this.getContainer().getActor();
         local targets = this.Tactical.Entities.getAllInstances();
         local affect_targets = [];
-        foreach( tar in targets )
-        {
-            foreach( t in tar )
+        if(this.Math.rand(1, 100) <= this.Const.EL_NPC.EL_NPCBuff.Factor.Intimidate.MoraleCheckChance[this.m.EL_RankLevel]) {
+            foreach( tar in targets )
             {
-                if(t!= null && !t.isDying() && t.isAlive() && !t.isAlliedWith(actor) && this.Math.rand(1, 100) <= this.Const.EL_NPC.EL_NPCBuff.Factor.Intimidate.MoraleCheckChance[this.m.EL_RankLevel]) {
-                    affect_targets.push(t);
+                foreach( t in tar )
+                {
+                    if(t!= null && !t.isDying() && t.isAlive() && !t.isAlliedWith(actor)) {
+                        affect_targets.push(t);
+                    }
                 }
             }
         }

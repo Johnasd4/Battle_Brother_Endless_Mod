@@ -18,18 +18,9 @@ this.el_recovery_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_bu
 		local hitpoints_added = actor.getHitpoints();
         actor.setHitpoints(this.Math.min(actor.getHitpointsMax(), actor.getHitpoints() + this.Math.round(actor.getHitpointsMax() * this.Const.EL_NPC.EL_NPCBuff.Factor.Recovery.HitpointsRecoveryRate[this.m.EL_RankLevel])));
 		hitpoints_added = actor.getHitpoints() - hitpoints_added;
-        if (!actor.isHiddenToPlayer() && hitpoints_added != 0)
-		{
-			this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " heals for " + hitpoints_added + " points");
-		}
-
 		local fatigue_added = actor.getFatigue();
-        actor.setFatigue(this.Math.max(0, actor.getFatigue() - this.Math.round(actor.getFatigueMax() * this.Const.EL_NPC.EL_NPCBuff.Factor.Recovery.FatigueRecoveryRate[this.m.EL_RankLevel])));
+        actor.setFatigue(this.Math.max(0, actor.getFatigue() - this.Math.round(this.Const.EL_NPC.EL_NPCBuff.Factor.Recovery.FatigueRecoveryRate[this.m.EL_RankLevel])));
 		fatigue_added = actor.getFatigue() - fatigue_added;
-        if (!actor.isHiddenToPlayer() && fatigue_added != 0)
-		{
-			this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " fatigue recovered " + fatigue_added + " points");
-		}
 
         local body = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
         local body_armor_added = this.Math.round(properties.Armor[this.Const.BodyPart.Body] * properties.ArmorMult[this.Const.BodyPart.Body]);
@@ -41,10 +32,6 @@ this.el_recovery_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_bu
             properties.Armor[this.Const.BodyPart.Body] = this.Math.min(properties.ArmorMax[this.Const.BodyPart.Body], properties.Armor[this.Const.BodyPart.Body] + this.Math.round(properties.ArmorMax[this.Const.BodyPart.Body] * this.Const.EL_NPC.EL_NPCBuff.Factor.Recovery.ArmorRecoveryRate[this.m.EL_RankLevel]));
         }
         body_armor_added = this.Math.round(properties.Armor[this.Const.BodyPart.Body] * properties.ArmorMult[this.Const.BodyPart.Body]) - body_armor_added;
-        if (!actor.isHiddenToPlayer() && body_armor_added != 0)
-		{
-			this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " armor recoverd " + body_armor_added + " points");
-		}
 
 		local head = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
         local head_armor_added = this.Math.round(properties.Armor[this.Const.BodyPart.Head] * properties.ArmorMult[this.Const.BodyPart.Head]);
@@ -56,10 +43,17 @@ this.el_recovery_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_bu
             properties.Armor[this.Const.BodyPart.Head] = this.Math.min(properties.ArmorMax[this.Const.BodyPart.Head], properties.Armor[this.Const.BodyPart.Head] + this.Math.round(properties.ArmorMax[this.Const.BodyPart.Head] * this.Const.EL_NPC.EL_NPCBuff.Factor.Recovery.ArmorRecoveryRate[this.m.EL_RankLevel]));
         }
         head_armor_added = this.Math.round(properties.Armor[this.Const.BodyPart.Head] * properties.ArmorMult[this.Const.BodyPart.Head]) - head_armor_added;
-        if (!actor.isHiddenToPlayer() && head_armor_added != 0)
-		{
-			this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " helmet recoverd " + head_armor_added + " points");
+
+		local main_hand = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+		if(main_hand != null) {
+			main_hand.setCondition(this.Math.min(main_hand.getConditionMax(), main_hand.getCondition() + this.Math.floor(main_hand.getConditionMax() * this.Const.EL_NPC.EL_NPCBuff.Factor.Recovery.ArmorRecoveryRate[this.m.EL_RankLevel])));
 		}
+		local off_hand = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand);
+		if(off_hand != null) {
+			off_hand.setCondition(this.Math.min(off_hand.getConditionMax(), off_hand.getCondition() + this.Math.floor(off_hand.getConditionMax() * this.Const.EL_NPC.EL_NPCBuff.Factor.Recovery.ArmorRecoveryRate[this.m.EL_RankLevel])));
+		}
+		this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " Recoverd!");
+
 	}
 
 });
