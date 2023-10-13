@@ -55,6 +55,11 @@ gt.Const.EL_Player <- {
         RangeDefenseMax = 500
     },
 
+    EL_HealInjury = {
+        LevelMult = 0.04,
+        PermanentMult = 20,
+    }
+
     EL_Hiring = {
         EL_TryoutCostMult = 7.0,
         EL_ItemCostMult = 1.0,
