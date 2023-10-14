@@ -52,7 +52,7 @@ local gt = getroottable();
             while(bravery >= limit) {
                 bravery -= limit;
                 calculate_bravery += limit * efficient;
-                efficient += 0.5;
+                efficient *= 0.5;
                 limit += 2;
             }
             calculate_bravery += bravery * efficient;

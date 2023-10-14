@@ -3,7 +3,7 @@ local gt = getroottable();
 ::mods_registerMod("el_adaption_contracts_contracts", 1, "el_adaption_contracts_contracts");
 ::mods_queue(null, "el_player_npc", function ()
 {
-	::mods_hookClass("contracts/contract", function ( o )
+	::mods_hookBaseClass("contracts/contract", function ( o )
 	{
         while(!("spawnEnemyPartyAtBase" in o)) o = o[o.SuperName];
         o.spawnEnemyPartyAtBase = function( _factionType, _resources )
