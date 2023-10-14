@@ -16,10 +16,13 @@ this.el_stunning_strike_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el
 			return;
 		}
         if(this.Math.rand(1, 100) <= this.Const.EL_NPC.EL_NPCBuff.Factor.StunningStrike.StunChance[this.m.EL_RankLevel] && !_targetEntity.getCurrentProperties().IsImmuneToStun && !_targetEntity.getSkills().hasSkill("effects.stunned")) {
-            _targetEntity.getSkills().add(this.new("scripts/skills/effects/stunned_effect"));
+			local stunned_effect = this.new("scripts/skills/effects/stunned_effect");
+			_targetEntity.getSkills().add(stunned_effect);
+			stunned_effect.setTurns(this.Const.EL_NPC.EL_NPCBuff.Factor.StunningStrike.StunTurns[this.m.EL_RankLevel]);
+
 			if (!user.isHiddenToPlayer() && _targetEntity.getTile().IsVisibleForPlayer)
 			{
-				this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(user) + " has stunned " + this.Const.UI.getColorizedEntityName(_targetEntity) + " for one turn");
+				this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(user) + " has stunned " + this.Const.UI.getColorizedEntityName(_targetEntity) + " for " +  this.Const.EL_NPC.EL_NPCBuff.Factor.StunningStrike.StunTurns[this.m.EL_RankLevel] + " turn");
 			}
         }
 	}

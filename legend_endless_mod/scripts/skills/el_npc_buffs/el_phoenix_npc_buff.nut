@@ -1,7 +1,6 @@
 this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff", {
     m = {
         EL_RiseTimesLeft = 0,
-        EL_Stack = 0,
         EL_IsRising = false,
         EL_RisingReset = false,
         EL_MoraleState = 0
@@ -31,7 +30,6 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
             this.m.EL_IsRising = false;
             this.m.EL_RisingReset = true;
             --this.m.EL_RiseTimesLeft;
-            ++this.m.EL_Stack;
             local actor = this.getContainer().getActor();
             local properties = actor.getBaseProperties();
             actor.m.IsAttackable = true;
@@ -147,8 +145,8 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
             this.m.EL_RisingReset = false;
             _properties.IsStunned = false;
         }
-		if(this.m.EL_Stack != 0) {
-			this.m.Name = "Phoenix(x" + this.m.EL_Stack + ")";
+		if(this.m.EL_RiseTimesLeft != 0) {
+			this.m.Name = "Phoenix(x" + this.m.EL_RiseTimesLeft + ")";
 		}
 		else {
 			this.m.Name = "Phoenix";

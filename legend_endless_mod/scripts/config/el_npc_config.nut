@@ -526,17 +526,14 @@ gt.Const.EL_NPC <- {
     EL_NPCBuff = {
         EligibleFunction = {
             function EL_ifGhost(_EL_npc) {
-                if(_EL_npc.getSkills().hasSkill("racial.ghost")) {
-                    return true;
-                }
-                return false;
+                return _EL_npc.getSkills().hasSkill("racial.ghost");
             }
             function EL_ifRanged(_EL_npc) {
                 local main_hand = _EL_npc.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
-                if(main_hand != null && main_hand.isItemType(this.Const.Items.ItemType.RangedWeapon)) {
-                    return true;
-                }
-                return false;
+                return main_hand != null && main_hand.isItemType(this.Const.Items.ItemType.RangedWeapon);
+            }
+            function EL_ifKraken(_EL_npc) {
+                return _EL_npc.getType() == this.Const.EntityType.Kraken;
             }
         }
 
@@ -545,28 +542,46 @@ gt.Const.EL_NPC <- {
                 Scripts = "scripts/skills/el_npc_buffs/el_berserker_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
                     return true;
                 }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_charge_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_combo_attack_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_encourage_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_endurance_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_energy_drain_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_energy_shield_npc_buff",
@@ -578,47 +593,67 @@ gt.Const.EL_NPC <- {
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_growth_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_intimidate_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_life_drain_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_lightning_speed_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_multiple_attacks_npc_buff",
                 function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
                     return true;
                 }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_poisoned_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_phoenix_npc_buff",
                 function EL_ifEligible(_EL_npc) { return true; }
             },
             {
-                Scripts = "scripts/skills/el_npc_buffs/el_recovery_aura_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
-            },
-            {
                 Scripts = "scripts/skills/el_npc_buffs/el_recovery_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_retaliation_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
                     return true;
                 }
             },
@@ -626,19 +661,24 @@ gt.Const.EL_NPC <- {
                 Scripts = "scripts/skills/el_npc_buffs/el_revenge_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
                     return true;
                 }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_self_destruct_npc_buff",
                 function EL_ifEligible(_EL_npc) {
-                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
                     return true;
                 }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_stunning_strike_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_tank_npc_buff",
@@ -652,12 +692,27 @@ gt.Const.EL_NPC <- {
                 }
             },
             {
+                Scripts = "scripts/skills/el_npc_buffs/el_thron_npc_buff",
+                function EL_ifEligible(_EL_npc) { return true; }
+            },
+            {
                 Scripts = "scripts/skills/el_npc_buffs/el_veteran_npc_buff",
                 function EL_ifEligible(_EL_npc) { return true; }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_weapon_master_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    return true;
+                }
+            },
+            {
+                Scripts = "scripts/skills/el_npc_buffs/el_wither_npc_buff",
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    return true;
+                }
             }
         ],
 
@@ -750,12 +805,6 @@ gt.Const.EL_NPC <- {
                 Chance = [50, 100, 100],
                 PoisonNum = [1, 1, 2]
             },
-            RecoveryAura = {
-                HitpointsRecoveryRate = [0.01, 0.02, 0.05],
-                FatigueRecoveryRate = [1, 2, 5],
-                ArmorRecoveryRate = [0.01, 0.02, 0.05],
-                MaxDistance = 4
-            },
             Recovery = {
                 HitpointsRecoveryRate = [0.04, 0.08, 0.20],
                 FatigueRecoveryRate = [4, 8, 20],
@@ -776,6 +825,9 @@ gt.Const.EL_NPC <- {
                 DamageDecayRatePurTile = 0.5,
                 MaxDistance = 2
             },
+            Strength = {
+                DamageDirectMult = [0.4, 0.8, 2]
+            },
             StunningStrike = {
                 Chance = [50, 100, 100],
                 StunTurns = [1, 1, 2]
@@ -788,12 +840,24 @@ gt.Const.EL_NPC <- {
             ThickSkin = {
                 DamageReceivedMult = [0.4, 0.8, 2.0]
             },
+            Thron = {
+                DamageBase = 20,
+                DamageMultPurCombatLevel = 0.04,
+                DamageRate = [0.2, 0.4, 1]
+            },
             Veteran = {
                 CombatLevelOffset = [1, 2, 5]
             },
             WeaponMaster = {
                 MeleeSkillOffset = [20, 40, 100],
                 RangedSkillOffset = [20, 40, 100]
+            },
+            Wither = {
+                DamageBase = 20,
+                DamageMultPurCombatLevel = 0.04,
+                DamageRate = [0.2, 0.4, 1],
+                DamageDecayRatePurTile = 0.5,
+                MaxDistance = 2
             }
         }
 
