@@ -1389,7 +1389,8 @@ local gt = getroottable();
                 return false;
             }
             local delay = 1.0 * this.World.getTime().SecondsPerDay * this.Const.EL_NPC.EL_Contract.DelayTime.Settlement[this.getSettlements()[0].getSize() - 1] / this.World.Assets.EL_getWorldDifficultFactor();
-            return this.m.Contracts.len() < this.Const.EL_NPC.EL_Contract.MaxNum.Settlement[this.getSettlements()[0].getSize() - 1] && (this.m.LastContractTime == 0 || this.World.getTime().Days <= 1 || this.Time.getVirtualTimeF() > this.m.LastContractTime + this.Math.floor(delay));
+            local max_contract_num = this.Const.EL_NPC.EL_Contract.MaxNum.Settlement[this.getSettlements()[0].getSize() - 1];
+            return this.m.Contracts.len() < max_contract_num && (this.m.LastContractTime == 0 || this.World.getTime().Days <= 1 || this.Time.getVirtualTimeF() > this.m.LastContractTime + this.Math.floor(delay));
         }
 	});
 
@@ -1398,7 +1399,8 @@ local gt = getroottable();
         o.isReadyForContract = function()
         {
             local delay = 1.0 * this.World.getTime().SecondsPerDay * this.Const.EL_NPC.EL_Contract.DelayTime.City / this.World.Assets.EL_getWorldDifficultFactor();
-            return this.m.Contracts.len() <= this.Const.EL_NPC.EL_Contract.MaxNum.City && (this.m.LastContractTime == 0 || this.Time.getVirtualTimeF() > this.m.LastContractTime + this.Math.floor(delay));
+            local max_contract_num = this.Const.EL_NPC.EL_Contract.MaxNum.City;
+            return this.m.Contracts.len() <= max_contract_num && (this.m.LastContractTime == 0 || this.Time.getVirtualTimeF() > this.m.LastContractTime + this.Math.floor(delay));
         }
 	});
 
@@ -1407,7 +1409,8 @@ local gt = getroottable();
         o.isReadyForContract = function()
         {
             local delay = 1.0 * this.World.getTime().SecondsPerDay * this.Const.EL_NPC.EL_Contract.DelayTime.Noble / this.World.Assets.EL_getWorldDifficultFactor();
-            return (this.m.Contracts.len() < this.Const.EL_NPC.EL_Contract.MaxNum.Noble) && (this.m.LastContractTime == 0 || this.Time.getVirtualTimeF() > this.m.LastContractTime + this.Math.floor(delay));
+            local max_contract_num = this.Const.EL_NPC.EL_Contract.MaxNum.Noble;
+            return (this.m.Contracts.len() < max_contract_num) && (this.m.LastContractTime == 0 || this.Time.getVirtualTimeF() > this.m.LastContractTime + this.Math.floor(delay));
         }
 	});
 
