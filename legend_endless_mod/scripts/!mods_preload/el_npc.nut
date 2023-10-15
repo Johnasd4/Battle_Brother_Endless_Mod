@@ -1125,7 +1125,10 @@ local gt = getroottable();
                         else if(i < this.Const.EL_NPC.EL_Troop.BossTroopMinLeaders) {
                             this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevel);
                             local boss_chance = this.Const.EL_NPC.EL_Troop.BossChance * this.World.Assets.EL_getWorldDifficultFactor();
-                            if(boss_chance >= this.Math.rand(1, 100)) {
+                            if(i == 0) {
+                                this.m.Troops[i].EL_IsBossUnit = true;
+                            }
+                            else if(boss_chance >= this.Math.rand(1, 100)) {
                                 this.m.Troops[i].EL_IsBossUnit = true;
                             }
                         }
