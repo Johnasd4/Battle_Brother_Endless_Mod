@@ -1506,7 +1506,7 @@ local gt = getroottable();
             local extra_elite_chance = 0;
             switch(this.getDifficulty()) {
                 case 0:
-                    extra_elite_chance = -99;
+                    extra_elite_chance = -33;
                     break;
                 case 1:
                     extra_elite_chance = 0;
