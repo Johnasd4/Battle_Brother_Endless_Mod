@@ -989,6 +989,16 @@ gt.Const.EL_NPC <- {
             function EL_getChance(_EL_Index) {
                 return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_NPC.EL_Contract.RollMax);
             }
+        },
+        MaxNum = {
+            Settlement = [2, 3, 4],
+            City = 4,
+            Noble = 2,
+        }
+        DelayTime = {
+            Settlement = [6.0, 4.5, 3.0],
+            City = 3.0,
+            Noble = 6.0,
         }
         PaymentDifficultyPowFactor = 0.2,
         PaymentMultPurWorldLevel = 0.04,

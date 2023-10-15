@@ -1380,6 +1380,37 @@ local gt = getroottable();
 
 	});
 
+	::mods_hookExactClass("factions/settlement_faction", function ( o )
+	{
+        o.isReadyForContract = function()
+        {
+            if (this.m.Settlements.len() == 0)
+            {
+                return false;
+            }
+            local delay = 1.0 * this.World.getTime().SecondsPerDay * this.Const.EL_NPC.EL_Contract.DelayTime.Settlement[this.getSettlements()[0].getSize() - 1] / this.World.Assets.EL_getWorldDifficultFactor();
+            return this.m.Contracts.len() < this.Const.EL_NPC.EL_Contract.MaxNum.Settlement[this.getSettlements()[0].getSize() - 1] && (this.m.LastContractTime == 0 || this.World.getTime().Days <= 1 || this.Time.getVirtualTimeF() > this.m.LastContractTime + this.Math.floor(delay));
+        }
+	});
+
+	::mods_hookExactClass("factions/noble_faction", function ( o )
+	{
+        o.isReadyForContract = function()
+        {
+            local delay = 1.0 * this.World.getTime().SecondsPerDay * this.Const.EL_NPC.EL_Contract.DelayTime.City / this.World.Assets.EL_getWorldDifficultFactor();
+            return this.m.Contracts.len() <= this.Const.EL_NPC.EL_Contract.MaxNum.City && (this.m.LastContractTime == 0 || this.Time.getVirtualTimeF() > this.m.LastContractTime + this.Math.floor(delay));
+        }
+	});
+
+	::mods_hookExactClass("factions/city_state_faction", function ( o )
+	{
+        o.isReadyForContract = function()
+        {
+            local delay = 1.0 * this.World.getTime().SecondsPerDay * this.Const.EL_NPC.EL_Contract.DelayTime.Noble / this.World.Assets.EL_getWorldDifficultFactor();
+            return (this.m.Contracts.len() < this.Const.EL_NPC.EL_Contract.MaxNum.Noble) && (this.m.LastContractTime == 0 || this.Time.getVirtualTimeF() > this.m.LastContractTime + this.Math.floor(delay));
+        }
+	});
+
 	::mods_hookBaseClass("contracts/contract", function ( o )
 	{
         while(!("getID" in o)) o = o[o.SuperName];
@@ -1400,6 +1431,11 @@ local gt = getroottable();
             this.m.TempFlags = this.new("scripts/tools/tag_collection");
             this.createStates();
             this.createScreens();
+        }
+
+        o.isTimedOut = function()
+        {
+            return !this.m.IsActive && this.m.TimeOut != 0 && this.m.TimeOut <= this.Time.getVirtualTimeF();
         }
 
         o.EL_getMaxContractLevel <- function()
