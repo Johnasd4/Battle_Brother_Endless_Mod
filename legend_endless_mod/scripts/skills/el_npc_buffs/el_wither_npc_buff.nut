@@ -28,18 +28,18 @@ this.el_wither_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff
         }
 
         for(local i = 0; i < affect_targets.len(); ++i) {
-            if(affect_targets[i]== null || affect_targets[i].isDying() || !affect_targets[i].isAlive()) {
+            if(affect_targets[i] == null || affect_targets[i].isDying() || !affect_targets[i].isAlive()) {
                 continue;
             }
             local distance = actor.getTile().getDistanceTo(affect_targets[i].getTile());
-            local damage_persent = 1 - this.Math.pow(this.Const.EL_NPC.EL_NPCBuff.Factor.Wither.DamageDecayRatePurTile, (distance - 1));
+            local damage_persent = this.Math.pow(this.Const.EL_NPC.EL_NPCBuff.Factor.Wither.DamageDecayRatePurTile, (distance - 1));
 			local hit_info = clone this.Const.Tactical.HitInfo;
-			hitInfo.DamageRegular = this.Math.round(damage_persent * damage);
+			hit_info.DamageRegular = this.Math.round(damage_persent * damage);
 			hit_info.DamageDirect = 1;
 			hit_info.BodyPart = this.Const.BodyPart.Body;
 			hit_info.BodyDamageMult = 1.0;
 			hit_info.FatalityChanceMult = 0.0;
-			_attacker.onDamageReceived(actor, this, hit_info);
+			affect_targets[i].onDamageReceived(actor, this, hit_info);
 
         }
 

@@ -23,7 +23,7 @@ this.el_test_background <- this.inherit("scripts/skills/backgrounds/character_ba
 		this.m.HairColors = this.Const.HairColors.All;
 		this.m.Beards = this.Const.Beards.WildExtended;
 		this.m.Bodies = this.Const.Bodies.Muscular;
-		this.m.Level = 100;
+		this.m.Level = 1;
 		this.m.BackgroundType = this.Const.BackgroundType.Combat;
 		this.m.AlignmentMin = this.Const.LegendMod.Alignment.Dreaded;
 		this.m.AlignmentMax = this.Const.LegendMod.Alignment.Notorious;

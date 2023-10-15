@@ -1124,7 +1124,7 @@ local gt = getroottable();
                         }
                         else if(i < this.Const.EL_NPC.EL_Troop.BossTroopMinLeaders) {
                             this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevel);
-                            local boss_chance = this.Const.EL_NPC.EL_Troop.BossChance * this.Const.EL_NPC.EL_Troop.EL_getWorldDifficultFactor();
+                            local boss_chance = this.Const.EL_NPC.EL_Troop.BossChance * this.World.Assets.EL_getWorldDifficultFactor();
                             if(boss_chance >= this.Math.rand(1, 100)) {
                                 this.m.Troops[i].EL_IsBossUnit = true;
                             }
@@ -1175,7 +1175,7 @@ local gt = getroottable();
                         unit_strength -= this.Math.max(this.Const.EL_NPC.EL_Troop.UnitGenerateMinCalculateResourse, this.m.Troops[random_leader_index].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[random_leader_index].EL_RankLevel]);
                         unit_population -= troops_info[random_leader_index].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[random_leader_index].EL_RankLevel];
                         this.m.Troops[random_leader_index].EL_RankLevel = this.Math.max(2, this.m.Troops[random_leader_index].EL_RankLevel);
-                        local boss_chance = this.Const.EL_NPC.EL_Troop.BossChance * this.Const.EL_NPC.EL_Troop.EL_getWorldDifficultFactor();
+                        local boss_chance = this.Const.EL_NPC.EL_Troop.BossChance * this.World.Assets.EL_getWorldDifficultFactor();
                         if(boss_chance >= this.Math.rand(1, 100)) {
                             this.m.Troops[random_leader_index].EL_IsBossUnit = true;
                         }
@@ -1263,7 +1263,7 @@ local gt = getroottable();
                         unit_strength -= this.Math.max(this.Const.EL_NPC.EL_Troop.UnitGenerateMinCalculateResourse, this.m.Troops[random_leader_index].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[random_leader_index].EL_RankLevel]);
                         unit_population -= troops_info[random_leader_index].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[random_leader_index].EL_RankLevel];
                         this.m.Troops[random_leader_index].EL_RankLevel = this.Math.max(2, this.m.Troops[random_leader_index].EL_RankLevel);
-                        local boss_chance = this.Const.EL_NPC.EL_Troop.BossChance * this.Const.EL_NPC.EL_Troop.EL_getWorldDifficultFactor();
+                        local boss_chance = this.Const.EL_NPC.EL_Troop.BossChance * this.World.Assets.EL_getWorldDifficultFactor();
                         if(boss_chance >= this.Math.rand(1, 100)) {
                             this.m.Troops[random_leader_index].EL_IsBossUnit = true;
                         }
@@ -1380,147 +1380,194 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookClass("contracts/contract", function ( o )
+	::mods_hookBaseClass("contracts/contract", function ( o )
 	{
         while(!("getID" in o)) o = o[o.SuperName];
-        local create = o.create;
 		o.create = function ()
 		{
-            create();
-			this.m.PaymentMult *= (1 + this.Const.EL_NPC.EL_Contract.PaymentMultPurWorldLevel * this.Math.min(this.Const.EL_NPC.EL_Contract.PaymentMultMaxWorldLevel, this.World.Assets.m.EL_WorldLevel)) * this.World.Assets.EL_getHalfWorldDifficultFactor();
+            local roll_max = this.Const.EL_NPC.EL_Contract.RollMax.EL_getChance(this.World.Assets.m.EL_WorldLevel);
+            local level = this.EL_getMaxContractLevel();
+            while(level > 0) {
+                if(100 - this.Const.EL_NPC.EL_Contract.DifficultyLevel[level].Chance * this.World.Assets.EL_getWorldDifficultFactor() < this.Math.rand(1, roll_max * 10) * 0.1) {
+                    break;
+                }
+                --level;
+            }
+            this.m.DifficultyMult = this.Math.rand(this.Const.EL_NPC.EL_Contract.DifficultyLevel[level].Min, this.Const.EL_NPC.EL_Contract.DifficultyLevel[level].Max) * 0.01;
+            this.m.PaymentMult = this.Math.rand(90, 110) * 0.01;
+            this.m.PaymentMult *= (1 + this.Const.EL_NPC.EL_Contract.PaymentMultPurWorldLevel * this.Math.min(this.Const.EL_NPC.EL_Contract.PaymentMultMaxWorldLevel, this.World.Assets.m.EL_WorldLevel)) * this.World.Assets.EL_getHalfWorldDifficultFactor();
+            this.m.Flags = this.new("scripts/tools/tag_collection");
+            this.m.TempFlags = this.new("scripts/tools/tag_collection");
+            this.createStates();
+            this.createScreens();
+        }
+
+        o.EL_getMaxContractLevel <- function()
+        {
+            return 3;
+        }
+
+        o.getPaymentMult = function ()
+		{
+			local repDiffMult = this.Math.pow(this.m.DifficultyMult * this.getScaledDifficultyMult(), this.Const.EL_NPC.EL_Contract.PaymentDifficultyPowFactor);
+			local broMult = this.World.State.getPlayer().getBarterMult();
+			return this.m.PaymentMult * (1 + broMult) * repDiffMult * this.World.Assets.m.ContractPaymentMult;
 		};
+
+		o.getUIMiddleOverlay = function ()
+		{
+			if (("ShowDifficulty" in this.m.ActiveScreen) && this.m.ActiveScreen.ShowDifficulty)
+			{
+                return {
+                    Image = "ui/el_contract/level_" + this.getDifficulty() + ".png",
+                    IsProcedural = false
+                };
+			}
+			else
+			{
+				return null;
+			}
+		};
+		o.getUIDifficultySmall = function ()
+		{
+            return "ui/el_contract/small_level_" + this.getDifficulty();
+		};
+		o.getDifficulty <- function ()
+		{
+            local level = 0;
+            while(this.m.DifficultyMult * 100 > this.Const.EL_NPC.EL_Contract.DifficultyLevel[level].Max) {
+                ++level;
+            }
+			return level;
+		};
+        o.addUnitsToEntity = function( _entity, _partyList, _resources )
+		{
+			local p;
+
+			if (typeof _partyList == "table")
+			{
+				p = this.Const.World.Common.buildDynamicTroopList(_partyList, _resources);
+			}
+			else
+			{
+				local total_weight = 0;
+				local potential = [];
+
+				foreach( party in _partyList )
+				{
+					if (party.Cost < _resources * 0.7)
+					{
+						continue;
+					}
+
+					if (party.Cost > _resources)
+					{
+						break;
+					}
+
+					potential.push(party);
+					total_weight = total_weight + party.Cost;
+				}
+
+				if (potential.len() == 0)
+				{
+					local best;
+					local bestCost = 9000;
+
+					foreach( party in _partyList )
+					{
+						if (this.Math.abs(_resources - party.Cost) <= bestCost)
+						{
+							best = party;
+							bestCost = this.Math.abs(_resources - party.Cost);
+						}
+					}
+
+					p = best;
+				}
+				else
+				{
+					local pick = this.Math.rand(1, total_weight);
+
+					foreach( party in potential )
+					{
+						if (pick <= party.Cost)
+						{
+							p = party;
+							break;
+						}
+
+						pick = pick - party.Cost;
+					}
+				}
+			}
+
+			local troopMbMap = {};
+            local extra_elite_chance = 0;
+            switch(this.getDifficulty()) {
+                case 0:
+                    extra_elite_chance = -99;
+                    break;
+                case 1:
+                    extra_elite_chance = 0;
+                    break;
+                case 2:
+                    extra_elite_chance = 10;
+                    break;
+                case 3:
+                    extra_elite_chance = 30;
+                    break;
+                case 4:
+                    _entity.EL_setIsEliteParty(true);
+                    break;
+                case 5:
+                    _entity.EL_setIsEliteParty(true);
+                    _entity.EL_setHaveRandomLeader(true);
+                    break;
+                case 6:
+                    _entity.EL_setIsEliteParty(true);
+                    _entity.EL_setHaveStrongestLeader(true);
+                    break;
+                case 7:
+                    _entity.EL_setIsEliteParty(true);
+                    _entity.EL_setHaveRandomLeader(true);
+                    _entity.EL_setHaveStrongestLeader(true);
+                    break;
+                case 8:
+                    _entity.EL_setIsBossParty(true);
+                    break;
+            }
+
+			foreach( t in p.Troops )
+			{
+				local key = "Enemy" + t.Type.ID;
+
+				if (!(key in troopMbMap))
+				{
+					troopMbMap[key] <- this.Const.LegendMod.GetFavEnemyBossChance(t.Type.ID);
+				}
+
+				local mb = troopMbMap[key] + extra_elite_chance;
+
+				for( local i = 0; i != t.Num; i = i )
+				{
+					this.Const.World.Common.addTroop(_entity, t, false, mb);
+					i = ++i;
+				}
+			}
+
+			if (_entity.isLocation())
+			{
+				_entity.resetDefenderSpawnDay();
+			}
+
+			_entity.updateStrength();
+		};
+
 	});
 
 	::mods_hookExactClass("states/world_state", function ( o )
 	{
-        // o.onCombatFinished = function()
-        // {
-        //     this.logDebug("World::onCombatFinished");
-        //     this.World.FactionManager.onCombatFinished();
-        //     this.World.Statistics.getFlags().increment("LastCombatID", 1);
-        //     this.Time.setVirtualTime(this.m.CombatStartTime);
-        //     this.Math.seedRandom(this.Time.getRealTime());
-        //     this.m.CombatStartTime = 0;
-        //     this.m.CombatSeed = 0;
-        //     this.World.Statistics.getFlags().set("LastCombatSavedCaravan", false);
-
-        //     if (!this.World.Statistics.getFlags().get("LastCombatWasArena"))
-        //     {
-        //         local nonLocationBattle = true;
-
-        //         foreach( party in this.m.PartiesInCombat )
-        //         {
-        //             if (party.isLocation() && !party.isAlliedWithPlayer())
-        //             {
-        //                 nonLocationBattle = false;
-        //             }
-
-        //             if(party.isLocation() && !party.isAlliedWithPlayer()) {
-        //                 this.logInfo("world_state onCombatFinished() party.isAlive() " + party.isAlive());
-        //                 this.logInfo("world_state onCombatFinished() party.getTroops().len() " + party.getTroops().len());
-        //             }
-        //             if (party.isAlive() && party.getTroops().len() == 0)
-        //             {
-        //                 party.onCombatLost();
-        //             }
-        //             else if (party.isAlive() && party.isAlliedWithPlayer() && party.getFlags().get("IsCaravan") && this.m.EscortedEntity == null)
-        //             {
-        //                 this.World.Statistics.getFlags().set("LastCombatSavedCaravan", true);
-        //                 this.World.Statistics.getFlags().set("LastCombatSavedCaravanProduce", party.getInventory()[this.Math.rand(0, party.getInventory().len() - 1)]);
-        //             }
-        //         }
-
-        //         this.m.PartiesInCombat = [];
-
-        //         if (nonLocationBattle)
-        //         {
-        //             local playerTile = this.getPlayer().getTile();
-        //             local battlefield;
-
-        //             if (!playerTile.IsOccupied)
-        //             {
-        //                 battlefield = this.World.spawnLocation("scripts/entity/world/locations/battlefield_location", playerTile.Coords);
-        //             }
-        //             else
-        //             {
-        //                 for( local i = 0; i != 6; i = i )
-        //                 {
-        //                     if (!playerTile.hasNextTile(i))
-        //                     {
-        //                     }
-        //                     else
-        //                     {
-        //                         local nextTile = playerTile.getNextTile(i);
-
-        //                         if (!nextTile.IsOccupied)
-        //                         {
-        //                             battlefield = this.World.spawnLocation("scripts/entity/world/locations/battlefield_location", nextTile.Coords);
-        //                             break;
-        //                         }
-        //                     }
-
-        //                     i = ++i;
-        //                 }
-        //             }
-
-        //             if (battlefield != null)
-        //             {
-        //                 battlefield.setSize(2);
-        //             }
-        //         }
-        //     }
-
-        //     if (this.World.getPlayerRoster().getSize() == 0 || !this.World.Assets.getOrigin().onCombatFinished() || this.commanderDied())
-        //     {
-        //         if (this.World.Assets.isIronman())
-        //         {
-        //             this.autosave();
-        //         }
-
-        //         this.show();
-        //         this.showGameFinishScreen(false);
-        //         return;
-        //     }
-
-        //     local playerRoster = this.World.getPlayerRoster().getAll();
-
-        //     foreach( bro in playerRoster )
-        //     {
-        //         bro.onCombatFinished();
-        //     }
-
-        //     this.Stash.setLocked(false);
-        //     this.Sound.stopAmbience();
-        //     this.Sound.setAmbience(0, this.getSurroundingAmbienceSounds(), this.Const.Sound.Volume.Ambience * this.Const.Sound.Volume.AmbienceTerrain, this.World.getTime().IsDaytime ? this.Const.Sound.AmbienceMinDelay : this.Const.Sound.AmbienceMinDelayAtNight);
-        //     this.Sound.setAmbience(1, this.getSurroundingLocationSounds(), this.Const.Sound.Volume.Ambience * this.Const.Sound.Volume.AmbienceOutsideSettlement, this.Const.Sound.AmbienceOutsideDelay);
-
-        //     if (this.Settings.getGameplaySettings().RestoreEquipment)
-        //     {
-        //         this.World.Assets.restoreEquipment();
-        //     }
-
-        //     this.World.Assets.consumeItems();
-        //     this.World.Assets.refillAmmo();
-        //     this.World.Assets.updateAchievements();
-        //     this.World.Assets.checkAmbitionItems();
-        //     this.updateTopbarAssets();
-        //     this.World.State.getPlayer().updateStrength();
-        //     this.World.Events.updateBattleTime();
-        //     this.World.Ambitions.resetTime();
-        //     this.stunPartiesNearPlayer();
-        //     this.setWorldmapMusic(true);
-
-        //     if (this.World.Assets.isIronman())
-        //     {
-        //         this.autosave();
-        //     }
-
-        //     this.show();
-        //     this.setAutoPause(false);
-        //     this.setPause(true);
-        //     this.m.IsTriggeringContractUpdatesOnce = true;
-        // }
-
 
 		o.showCombatDialog = function ( _isPlayerInitiated = true, _isCombatantsVisible = true, _allowFormationPicking = true, _properties = null, _pos = null )
         {

@@ -28,4 +28,15 @@ local gt = getroottable();
 		});
 	}
 
+	for(local i = 0; i < this.Const.EL_NPCOther.EL_ContractsWithAddUnitsToEntity.len(); ++i) {
+
+		::mods_hookExactClass(this.Const.EL_NPCOther.EL_ContractsWithAddUnitsToEntity[i], function ( o )
+		{
+			o.EL_getMaxContractLevel <- function()
+			{
+				return 8;
+			}
+		});
+	}
+
 });

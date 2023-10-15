@@ -913,8 +913,84 @@ gt.Const.EL_NPC <- {
         }
     }
 
-
     EL_Contract = {
+        DifficultyLevel = [
+            {
+                Min = 50,
+                Max = 60,
+                Chance = 10000,
+                Image = "ui/el_contract/level_0.png",
+                ImageSmall = ""
+            },
+            {
+                Min = 70,
+                Max = 80,
+                Chance = 80
+            },
+            {
+                Min = 90,
+                Max = 110,
+                Chance = 50
+            },
+            {
+                Min = 120,
+                Max = 140,
+                Chance = 35
+            },
+            {
+                Min = 150,
+                Max = 200,
+                Chance = 15
+            },
+            {
+                Min = 300,
+                Max = 400,
+                Chance = 10
+            },
+            {
+                Min = 500,
+                Max = 600,
+                Chance = 6
+            },
+            {
+                Min = 700,
+                Max = 800,
+                Chance = 3
+            },
+            {
+                Min = 900,
+                Max = 1000,
+                Chance = 1
+            }
+        ],
+
+        RollMaxOffset = 50,
+        RollMax = {
+            Factor = {
+                Offset = [
+                    50,
+                    65,
+                    77.5,
+                    100
+                ],
+                Mult = [
+                    2,
+                    1,
+                    0.5,
+                    0
+                ],
+                Range = [
+                    15,
+                    25,
+                    45
+                ]
+            }
+            Table = []
+            function EL_getChance(_EL_Index) {
+                return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_NPC.EL_Contract.RollMax);
+            }
+        }
+        PaymentDifficultyPowFactor = 0.2,
         PaymentMultPurWorldLevel = 0.04,
         PaymentMultMaxWorldLevel = 200
     }
@@ -926,4 +1002,5 @@ this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_NPC.EL_NormalTeam.
 this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_NPC.EL_EliteTeam.EliteTeamChance);
 this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_NPC.EL_EliteTeam.RandomLeaderChance);
 this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_NPC.EL_EliteTeam.StrongestLeaderChance);
+this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_NPC.EL_Contract.RollMax);
 

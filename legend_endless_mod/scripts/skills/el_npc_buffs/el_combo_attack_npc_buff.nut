@@ -1,5 +1,7 @@
 this.el_combo_attack_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff", {
-	m = {},
+	m = {
+		EL_IsComboAttack = false
+	},
 	function create()
 	{
 		this.el_npc_buff.create();
@@ -8,24 +10,27 @@ this.el_combo_attack_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_np
 		this.m.Description = "";
 	}
 
-	function onTargetHit( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
+	function EL_comboAttack(_skill, _targetEntity)
 	{
-        if (_targetEntity == null || _targetEntity.isAlliedWith(user) || _targetEntity.isDying() || !_targetEntity.isAlive()) {
+		local user = this.getContainer().getActor();
+        if (_targetEntity == null || _targetEntity.isAlliedWith(user) || _targetEntity.isDying() || !_targetEntity.isAlive() || this.m.EL_IsComboAttack) {
 			return;
 		}
         if(this.Math.rand(1, 100) <= this.Const.EL_NPC.EL_NPCBuff.Factor.ComboAttack.Chance[this.m.EL_RankLevel]) {
+			this.m.EL_IsComboAttack = true;
             _skill.useForFree(_targetEntity.getTile());
+			this.m.EL_IsComboAttack = true;
         }
+	}
+
+	function onTargetHit( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
+	{
+		EL_comboAttack(_skill, _targetEntity);
 	}
 
 	function onTargetMissed( _skill, _targetEntity )
 	{
-        if (_targetEntity == null || _targetEntity.isAlliedWith(user) || _targetEntity.isDying() || !_targetEntity.isAlive()) {
-			return;
-		}
-        if(this.Math.rand(1, 100) <= this.Const.EL_NPC.EL_NPCBuff.Factor.ComboAttack.Chance[this.m.EL_RankLevel]) {
-            _skill.useForFree(_targetEntity.getTile());
-        }
+		EL_comboAttack(_skill, _targetEntity);
 	}
 
 });
