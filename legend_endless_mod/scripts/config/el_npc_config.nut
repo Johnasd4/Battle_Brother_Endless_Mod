@@ -598,6 +598,14 @@ gt.Const.EL_NPC <- {
                 }
             },
             {
+                Scripts = "scripts/skills/el_npc_buffs/el_hawk_eye_npc_buff",
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
+                    if(!this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
+                    return true;
+                }
+            },
+            {
                 Scripts = "scripts/skills/el_npc_buffs/el_intimidate_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
@@ -777,6 +785,11 @@ gt.Const.EL_NPC <- {
                 MeleeDefenseOffsetPurStack = [0.4 ,0.8, 2],
                 RangedDefenseOffsetPurStack = [0.4 ,0.8, 2],
             },
+            HawkEye = {
+                MaxRangeMult = [1.2, 1.4, 2],
+                VisionMult = [1.4, 1.8, 3.0],
+                HeadHitChanceOffset = [10, 20, 50]
+            },
             Intimidate = {
                 BraveryOffset = [10, 20, 50],
                 MoraleCheckChance = [20, 40, 100],
@@ -817,7 +830,7 @@ gt.Const.EL_NPC <- {
                 DamageMultPurStack = [0.04, 0.08, 0.2],
             },
             SelfDestruct = {
-                DamageBase = 50,
+                DamageBase = 200,
                 DamageMultPurCombatLevel = 0.04,
                 DamageRate = [0.2, 0.4, 1],
                 WeaponShieldDamageRate = [0.1, 0.2, 0.5],
