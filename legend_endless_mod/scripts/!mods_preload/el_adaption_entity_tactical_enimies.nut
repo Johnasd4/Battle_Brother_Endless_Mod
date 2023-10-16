@@ -699,6 +699,12 @@ local gt = getroottable();
 
 	::mods_hookExactClass("entity/tactical/enemies/spider_eggs", function(o){
 
+        registerSpawnEvent = function()
+        {
+            this.Time.scheduleEvent(this.TimeUnit.Rounds, 1, this.onSpawn.bindenv(this), this.getTile());
+        }
+
+
         o.onSpawn = function( _tile )
         {
             if (_tile.IsEmpty)
@@ -742,9 +748,9 @@ local gt = getroottable();
 
             if (tile != null)
             {
-                local spawn = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Spider, tile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
+                local spider_level = this.EL_getLevel() + this.Math.floor(this.m.Count / 4);
+                local spawn = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Spider, tile, this.getFaction(), this.EL_getRankLevel(), spider_level);
                 spawn.setSize(this.Math.rand(60, 75) * 0.01);
-                spawn.m.XP = spawn.m.XP / 2;
                 local allies = this.Tactical.Entities.getInstancesOfFaction(this.getFaction());
 
                 foreach( a in allies )
@@ -758,15 +764,7 @@ local gt = getroottable();
 
                 ++this.m.Count;
             }
-
-            if (this.m.Count < 4)
-            {
-                this.registerSpawnEvent();
-            }
-            else
-            {
-                this.killSilently();
-            }
+            this.registerSpawnEvent();
         }
     });
 
