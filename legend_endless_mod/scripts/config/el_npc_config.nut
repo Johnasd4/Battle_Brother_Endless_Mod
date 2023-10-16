@@ -830,7 +830,7 @@ gt.Const.EL_NPC <- {
                 DamageMultPurStack = [0.04, 0.08, 0.2],
             },
             SelfDestruct = {
-                DamageBase = 200,
+                DamageBase = 100,
                 DamageMultPurCombatLevel = 0.04,
                 DamageRate = [0.2, 0.4, 1],
                 WeaponShieldDamageRate = [0.1, 0.2, 0.5],
