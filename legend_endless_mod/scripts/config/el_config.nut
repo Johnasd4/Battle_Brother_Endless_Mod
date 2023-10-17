@@ -96,7 +96,7 @@ gt.Const.EL_Config <- {
                 }
             }
         }
-        return this.Const.EL_Config.EL_addBuffsToActor(_EL_actor, _EL_num, _EL_injuryTypeList);
+        return this.Const.EL_Config.EL_addBuffsToActor(_EL_actor, _EL_num, usable_injurys);
     }
 
     function EL_addInjurysToActor(_EL_actor, _EL_num, _EL_injuryTypeList) {
@@ -114,7 +114,7 @@ gt.Const.EL_Config <- {
     }
 
     function EL_addPoisonsToActorNoRepeatCheck(_EL_actor, _EL_num) {
-        return this.Const.EL_Config.EL_addBuffsToActor(_EL_actor, _EL_num, this.Const.EL_Config.EL_PoisonEffectList);
+        return this.Const.EL_Config.EL_addBuffsToActorNoRepeatCheck(_EL_actor, _EL_num, this.Const.EL_Config.EL_PoisonEffectList);
     }
 
     function EL_chanceTableCalculateAXB(_EL_info) {
