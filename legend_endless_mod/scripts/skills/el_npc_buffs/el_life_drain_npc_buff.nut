@@ -11,8 +11,7 @@ this.el_life_drain_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_
 	function onTargetHit( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
 	{
 		local user = this.getContainer().getActor();
-		if (_targetEntity == null || _targetEntity.isAlliedWith(user) || _targetEntity.isDying() || !_targetEntity.isAlive() || skill.isAttack());
-		{
+		if (_targetEntity == null || _targetEntity.isAlliedWith(user) || _targetEntity.isDying() || !_targetEntity.isAlive() || skill.isAttack()) {
 			return;
 		}
         local hitpoints = _targetEntity.getHitpoints();
