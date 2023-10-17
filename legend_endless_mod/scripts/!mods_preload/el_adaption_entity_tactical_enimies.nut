@@ -699,7 +699,7 @@ local gt = getroottable();
 
 	::mods_hookExactClass("entity/tactical/enemies/spider_eggs", function(o){
 
-        registerSpawnEvent = function()
+        o.registerSpawnEvent = function()
         {
             this.Time.scheduleEvent(this.TimeUnit.Rounds, 1, this.onSpawn.bindenv(this), this.getTile());
         }
