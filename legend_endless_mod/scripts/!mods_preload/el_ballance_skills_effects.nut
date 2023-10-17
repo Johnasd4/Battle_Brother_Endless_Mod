@@ -750,7 +750,7 @@ local gt = getroottable();
             {
                 timeDamage = timeDamage * 2;
             }
-            timeDamage = this.Math.ceil(timeDamage * this.getBaseProperties().Hitpoints * 0.01);
+            timeDamage = this.Math.ceil(timeDamage * this.getContainer().getActor().getBaseProperties().Hitpoints * 0.01);
             return "This character has a vicious poison running through his veins and will lose [color=" + this.Const.UI.Color.NegativeValue + "]" + timeDamage + "[/color] hitpoints each turn for [color=" + this.Const.UI.Color.NegativeValue + "]" + this.m.TurnsLeft + "[/color] more turn(s).";
         }
 
@@ -768,7 +768,7 @@ local gt = getroottable();
 
                 local timeDamage = this.m.Damage * this.m.TurnsLeft;
                 local hitInfo = clone this.Const.Tactical.HitInfo;
-                hitInfo.DamageRegular = this.Math.ceil(timeDamage * this.getComtainer().getActor().getBaseProperties().Hitpoints * 0.01);
+                hitInfo.DamageRegular = this.Math.ceil(timeDamage * this.getContainer().getActor().getBaseProperties().Hitpoints * 0.01);
 
                 if (("Assets" in this.World) && this.World.Assets != null && this.World.Assets.getCombatDifficulty() == this.Const.Difficulty.Legendary)
                 {
@@ -1624,7 +1624,7 @@ local gt = getroottable();
                 {
                     hitInfo.DamageRegular = 2 * this.m.Damage;
                 }
-                hitInfo.DamageRegular = this.Math.ceil(hitInfo.DamageRegular * this.getComtainer().getActor().getBaseProperties().Hitpoints * 0.01);
+                hitInfo.DamageRegular = this.Math.ceil(hitInfo.DamageRegular * this.getContainer().getActor().getBaseProperties().Hitpoints * 0.01);
                 hitInfo.DamageDirect = 1.0;
                 hitInfo.BodyPart = this.Const.BodyPart.Body;
                 hitInfo.BodyDamageMult = 1.0;
