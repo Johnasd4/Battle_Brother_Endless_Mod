@@ -756,7 +756,8 @@ gt.Const.EL_NPC <- {
                 ]
             },
             ComboAttack = {
-                Chance = [20, 40, 100]
+                Chance = [50, 100, 100],
+                AttackTimes = [1, 1, 2]
             }
             Encourage = {
                 BraveryOffset = [10, 20, 50],
@@ -863,7 +864,7 @@ gt.Const.EL_NPC <- {
                 DamageRate = [0.2, 0.4, 1]
             },
             Veteran = {
-                CombatLevelOffset = [1, 2, 5]
+                CombatLevelOffset = [2, 4, 10]
             },
             WeaponMaster = {
                 MeleeSkillOffset = [20, 40, 100],
