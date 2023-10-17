@@ -375,7 +375,7 @@ local gt = getroottable();
                         p.Parties.push(party);
                     }
                     for(local i = 0; i < this.m.EL_EquipmentEssenceDrop.len(); ++i) {
-                        this.m.WorldTroop.Party.EL_addEquipmentEssence(i, this.m.EL_EquipmentEssenceDrop[i]);
+                        party.EL_addEquipmentEssence(i, this.m.EL_EquipmentEssenceDrop[i]);
                     }
                 }
             }
