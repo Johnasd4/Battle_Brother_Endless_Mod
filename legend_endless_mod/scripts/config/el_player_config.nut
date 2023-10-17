@@ -120,6 +120,17 @@ gt.Const.EL_Player <- {
             20,
             50
         ],
+        ExtraLevelUpPoints = [0, 2 ,5],
+        ExtraLevelUpPointsWeight = [
+            200,
+            210,
+            310,
+            410,
+            440,
+            440,
+            470,
+            500
+        ]
     }
 
     EL_LevelUpAttributes = [

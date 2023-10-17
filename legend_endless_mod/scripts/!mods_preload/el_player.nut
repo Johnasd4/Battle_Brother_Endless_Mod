@@ -106,8 +106,6 @@ local gt = getroottable();
 			}
 			while (this.m.Level < this.Const.LevelXP.len() && this.m.XP >= this.Const.LevelXP[this.m.Level])
 			{
-
-
 				if(this.m.Level < this.Const.EL_Player.EL_PlayerLevel.Part1){
 					++this.m.PerkPoints;
 				}
@@ -119,12 +117,45 @@ local gt = getroottable();
 				++this.m.LevelUps;
 				++this.m.BaseProperties.EL_CombatLevel;
 
+				this.EL_addRandomPoints();
+
 				local background = this.getBackground();
 				this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(this.m.Level, background);
 				this.m.Skills.onUpdateLevel();
-
 			}
 		};
+
+		o.EL_addRandomPoints <- function() {
+			for(local i = 0; i < this.Const.EL_Player.EL_Champion.ExtraLevelUpPoints[this.m.EL_RankLevel]; ++i) {
+				local r = this.Math.rand(1, this.Const.EL_Player.EL_Champion.ExtraLevelUpPointsWeight[this.Const.EL_Player.EL_Champion.ExtraLevelUpPointsWeight.len() - 1]);
+				if(r < this.Const.EL_Player.EL_Champion.ExtraLevelUpPointsWeight[this.Const.EL_Config.EL_Attributes.Hitpoints]) {
+					++this.m.BaseProperties.Hitpoints;
+				}
+				else if(r < this.Const.EL_Player.EL_Champion.ExtraLevelUpPointsWeight[this.Const.EL_Config.EL_Attributes.Bravery]) {
+					++this.m.BaseProperties.Bravery;
+				}
+				else if(r < this.Const.EL_Player.EL_Champion.ExtraLevelUpPointsWeight[this.Const.EL_Config.EL_Attributes.Fatigue]) {
+					++this.m.BaseProperties.Stamina;
+				}
+				else if(r < this.Const.EL_Player.EL_Champion.ExtraLevelUpPointsWeight[this.Const.EL_Config.EL_Attributes.Initiative]) {
+					++this.m.BaseProperties.Initiative;
+				}
+				else if(r < this.Const.EL_Player.EL_Champion.ExtraLevelUpPointsWeight[this.Const.EL_Config.EL_Attributes.MeleeSkill]) {
+					if(this.m.BaseProperties.MeleeSkill > this.m.BaseProperties.RangedSkill) {
+						++this.m.BaseProperties.MeleeSkill;
+					}
+					else {
+						++this.m.BaseProperties.RangedSkill;
+					}
+				}
+				else if(r < this.Const.EL_Player.EL_Champion.ExtraLevelUpPointsWeight[this.Const.EL_Config.EL_Attributes.MeleeDefense]) {
+					++this.m.BaseProperties.MeleeDefense;
+				}
+				else if(r < this.Const.EL_Player.EL_Champion.ExtraLevelUpPointsWeight[this.Const.EL_Config.EL_Attributes.RangedDefense]) {
+					++this.m.BaseProperties.RangedDefense;
+				}
+			}
+		}
 
 		o.fillAttributeLevelUpValues = function ( _amount, _maxOnly = false, _minOnly = false)
 		{
