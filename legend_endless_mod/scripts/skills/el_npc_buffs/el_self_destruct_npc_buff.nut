@@ -12,7 +12,7 @@ this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
 	{
         local actor = this.getContainer().getActor();
         local targets = this.Tactical.Entities.getAllInstances();
-        local damage = this.Math.round((this.Const.EL_NPC.EL_NPCBuff.Factor.SelfDestruct.DamageBase * (1 + actor.EL_getCombatLevel() * this.Const.EL_NPC.EL_NPCBuff.Factor.SelfDestruct.DamageMultPurCombatLevel)) * this.Const.EL_NPC.EL_NPCBuff.Factor.SelfDestruct.DamageRate[this.m.EL_RankLevel]);
+        local damage = this.Math.floor((this.Const.EL_NPC.EL_NPCBuff.Factor.SelfDestruct.DamageBase * (1 + actor.EL_getCombatLevel() * this.Const.EL_NPC.EL_NPCBuff.Factor.SelfDestruct.DamageMultPurCombatLevel)) * this.Const.EL_NPC.EL_NPCBuff.Factor.SelfDestruct.DamageRate[this.m.EL_RankLevel]);
         local affect_targets = [];
         foreach( tar in targets )
         {
@@ -41,7 +41,7 @@ this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
             local distance = actor.getTile().getDistanceTo(affect_targets[i].getTile());
             //this.logInfo("distance " + i + " " + distance);
             local damage_persent = this.Math.pow(this.Const.EL_NPC.EL_NPCBuff.Factor.SelfDestruct.DamageDecayRatePurTile, (distance - 1));
-            local final_damage = this.Math.round(damage_persent * damage);
+            local final_damage = this.Math.ceil(damage_persent * damage);
 
             local main_hand = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
             if(main_hand != null) {

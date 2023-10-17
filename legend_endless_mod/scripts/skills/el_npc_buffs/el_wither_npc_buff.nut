@@ -12,7 +12,7 @@ this.el_wither_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff
 	{
         local actor = this.getContainer().getActor();
         local targets = this.Tactical.Entities.getAllInstances();
-        local damage = this.Math.round((this.Const.EL_NPC.EL_NPCBuff.Factor.Wither.DamageBase * (1 + actor.EL_getCombatLevel() * this.Const.EL_NPC.EL_NPCBuff.Factor.Wither.DamageMultPurCombatLevel)) * this.Const.EL_NPC.EL_NPCBuff.Factor.Wither.DamageRate[this.m.EL_RankLevel]);
+        local damage = this.Math.floor((this.Const.EL_NPC.EL_NPCBuff.Factor.Wither.DamageBase * (1 + actor.EL_getCombatLevel() * this.Const.EL_NPC.EL_NPCBuff.Factor.Wither.DamageMultPurCombatLevel)) * this.Const.EL_NPC.EL_NPCBuff.Factor.Wither.DamageRate[this.m.EL_RankLevel]);
         local affect_targets = [];
         foreach( tar in targets )
         {
@@ -34,7 +34,7 @@ this.el_wither_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff
             local distance = actor.getTile().getDistanceTo(affect_targets[i].getTile());
             local damage_persent = this.Math.pow(this.Const.EL_NPC.EL_NPCBuff.Factor.Wither.DamageDecayRatePurTile, (distance - 1));
 			local hit_info = clone this.Const.Tactical.HitInfo;
-			hit_info.DamageRegular = this.Math.round(damage_persent * damage);
+			hit_info.DamageRegular = this.Math.ceil(damage_persent * damage);
 			hit_info.DamageDirect = 1;
 			hit_info.BodyPart = this.Const.BodyPart.Body;
 			hit_info.BodyDamageMult = 1.0;
