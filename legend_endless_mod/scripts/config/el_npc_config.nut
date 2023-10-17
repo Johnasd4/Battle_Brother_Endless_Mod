@@ -748,7 +748,12 @@ gt.Const.EL_NPC <- {
             },
             Charge = {
                 Chance = [50, 100, 100],
-                InjuryNum = [1, 1, 2]
+                InjuryNum = [1, 1, 2],
+                DazeEffect = [
+                    "scripts/skills/effects/dazed_effect",
+                    "scripts/skills/effects/dazed_effect",
+                    "scripts/skills/effects/legend_dazed_effect"
+                ]
             },
             ComboAttack = {
                 Chance = [20, 40, 100]
