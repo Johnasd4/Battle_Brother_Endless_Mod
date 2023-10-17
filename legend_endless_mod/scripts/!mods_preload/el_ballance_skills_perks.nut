@@ -457,42 +457,6 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookExactClass("skills/perks/perk_legend_full_force", function ( o )
-	{
-		o.onUpdate = function( _properties )
-		{
-			local fat = 0;
-			local body = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Body);
-			local head = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Head);
-			local mainhand = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
-			local offhand = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Offhand);
-
-			if (body != null)
-			{
-				fat = fat + body.getStaminaModifier();
-			}
-
-			if (head != null)
-			{
-				fat = fat + head.getStaminaModifier();
-			}
-
-			if (mainhand != null)
-			{
-				fat = fat + mainhand.getStaminaModifier();
-			}
-
-			if (offhand != null)
-			{
-				fat = fat + offhand.getStaminaModifier();
-			}
-
-			local bonus = this.Math.floor(fat * 0.01 / (1 + 0.04 * this.getContainer().getActor().EL_getLevel()));
-			_properties.MeleeDefense += this.Math.floor(bonus);
-		}
-
-	});
-
 	::mods_hookExactClass("skills/perks/perk_legend_lithe", function ( o )
 	{
 		o.isHidden <- function()
@@ -1183,10 +1147,6 @@ gt.Const.EL_Config.EL_modStrings <- function()
 		{
             ID = "perk.legend_barter_greed",
             tooltip = "This character is keen to guard the horde of gold the company has accumulated — and intends to protect it with their life. \n\n[color=#4f1800][u]Passive:[/u][/color]\n• Gains [color=" + this.Const.UI.Color.PositiveValue + "]5[/color] Melee Skill, Ranged Skill, Melee Defence, Ranged Defence and \n [color=" + this.Const.UI.Color.PositiveValue + "]3[/color] Resolve for the fisrt 10000 crowns.\n• The needs of crowns to increace the properties is doubled when reaching the limit."
-        },
-        {
-            ID = "perk.legend_full_force",
-            tooltip = "Knowing what blows you can ignore allows you to focus on the deadly ones.\n\nGain [color=" + this.Const.UI.Color.PositiveValue + "]+10%[/color] of the combined base fatigue modifier from body, head, main hand and off hand as Melee Defense. Wearing equipments level below you will decrease the affect."
         },
         {
             ID = "perk.legend_med_ingredients",
