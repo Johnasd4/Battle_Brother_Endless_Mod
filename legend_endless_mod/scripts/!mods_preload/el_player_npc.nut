@@ -71,6 +71,11 @@ local gt = getroottable();
             return this.m.XP;
         }
 
+		o.getActionPointsMax = function()
+		{
+			return this.Math.ceil(this.m.CurrentProperties.ActionPoints * this.m.CurrentProperties.ActionPointsMult);
+		}
+
 		o.getDefense = function( _attackingEntity, _skill, _properties )
 		{
 			local malus = 0;

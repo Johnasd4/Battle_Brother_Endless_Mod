@@ -811,7 +811,7 @@ gt.Const.EL_NPC <- {
             }
             LightningSpeed = {
                 InitiativeOffset = [40, 80, 200],
-                ActionPointsOffset = [1, 2, 5]
+                ActionPointsMult = [1.2, 1.4, 2]
             },
             MultipleAttacks = {
                 DamageDirectMult = [0.2, 0.4, 1]
