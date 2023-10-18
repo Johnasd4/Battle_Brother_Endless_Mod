@@ -171,7 +171,9 @@ gt.Const.EL_NPC <- {
         Rank2LeastStrength = 20,
         MinLevel = 0,
         MaxLevel = 200,
-        MaxTroopNum = 70,
+        BaseMaxTroopNum = 20,
+        MaxTroopNumAddPurWorldLevel = 1,
+        MaxTroopNum = 50,
         MaxCalculateLevel = 100,
         MinLevelOffset = -10,
         MaxLevelOffset = 0,
@@ -535,6 +537,11 @@ gt.Const.EL_NPC <- {
             function EL_ifKraken(_EL_npc) {
                 return _EL_npc.getType() == this.Const.EntityType.Kraken;
             }
+            function EL_ifMoraleStateIgnore(_EL_npc) {
+                return _EL_npc.getMoraleState() == this.Const.MoraleState.Ignore;
+            }
+
+
         }
 
         Pool = [
@@ -565,6 +572,7 @@ gt.Const.EL_NPC <- {
                 Scripts = "scripts/skills/el_npc_buffs/el_encourage_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifMoraleStateIgnore(_EL_npc)) { return false; }
                     return true;
                 }
             },
