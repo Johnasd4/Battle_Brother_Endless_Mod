@@ -179,8 +179,8 @@ local gt = getroottable();
 	});
 
 
-    ::mods_hookBaseClass("skills/skill_container", function(o) {
-        while(!("add" in o)) o = o[o.SuperName];
+    ::mods_hookNewObject("skills/skill_container", function(o) {
+        //while(!("add" in o)) o = o[o.SuperName];
         o.EL_reset <- function() {
             foreach( skill in this.m.Skills )
             {
