@@ -569,6 +569,14 @@ gt.Const.EL_NPC <- {
                 }
             },
             {
+                Scripts = "scripts/skills/el_npc_buffs/el_concentrate_npc_buff",
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    return true;
+                }
+            },
+            {
                 Scripts = "scripts/skills/el_npc_buffs/el_encourage_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
@@ -766,7 +774,11 @@ gt.Const.EL_NPC <- {
             ComboAttack = {
                 Chance = [50, 100, 100],
                 AttackTimes = [1, 1, 2]
-            }
+            },
+            Concentrate = {
+                MeleeSkillOffsetPurStack = [4 ,8, 20],
+                RangedSkillOffsetPurStack = [4 ,8, 20]
+            },
             Encourage = {
                 BraveryOffset = [10, 20, 50],
                 MoraleCheckChance = [50, 100, 100],
