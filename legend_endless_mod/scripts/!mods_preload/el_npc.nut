@@ -178,6 +178,17 @@ local gt = getroottable();
 
 	});
 
+
+    ::mods_hookBaseClass("skills/skill_container", function(o) {
+        while(!("add" in o)) o = o[o.SuperName];
+        o.EL_reset <- function() {
+            foreach( skill in this.m.Skills )
+            {
+                skill.EL_reset();
+            }
+        }
+    });
+
 	::mods_hookExactClass("entity/tactical/actor", function(o){
 		o.m.EL_NPCLevel <- 0;
         o.m.EL_EquipmentEssenceDrop <- [0, 0, 0, 0, 0];
@@ -220,7 +231,29 @@ local gt = getroottable();
             return this.m.EL_NPCLevel;
         }
 
-        o.EL_resetOtherStates <- function() {}
+        o.EL_resetOtherStates <- function() {
+            this.getSkills().add(this.new("scripts/skills/effects/msu_injuries_handler_effect"));
+            this.getSkills().add(this.new("scripts/skills/effects/ptr_formidable_approach_debuff_effect"));
+			this.getSkills().add(this.new("scripts/skills/effects/ptr_follow_up_proccer_effect"));
+			this.getSkills().add(this.new("scripts/skills/effects/ptr_bolstered_effect"));
+			this.getSkills().add(this.new("scripts/skills/effects/ptr_polearm_hitchance_effect"));
+			this.getSkills().add(this.new("scripts/skills/effects/ptr_immersive_damage_effect"));
+			this.getSkills().add(this.new("scripts/skills/effects/ptr_inspired_by_champion_effect"));
+			this.getSkills().add(this.new("scripts/skills/effects/ptr_inspiring_presence_buff_effect"));
+			this.getSkills().add(this.new("scripts/skills/effects/ptr_armor_fatigue_recovery_effect"));
+			this.getSkills().add(this.new("scripts/skills/effects/ptr_direct_damage_limiter_effect"));
+            this.getSkills().add(this.new("scripts/skills/effects/battle_standard_effect"));
+			local flags = this.getFlags();
+			if (flags.has("undead") && !flags.has("ghost") && !flags.has("ghoul") && !flags.has("vampire"))
+			{
+				this.getSkills().add(this.new("scripts/skills/effects/ptr_undead_injury_receiver_effect"));
+			}
+            if (this.m.MoraleState != this.Const.MoraleState.Ignore)
+			{
+				this.m.Skills.add(this.new("scripts/skills/special/morale_check"));
+			}
+            this.m.Skills.EL_reset();
+        }
 
 		local onInit = o.onInit;
 		o.onInit = function() {

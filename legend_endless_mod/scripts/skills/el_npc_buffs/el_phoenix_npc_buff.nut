@@ -36,7 +36,7 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
             if(this.m.EL_RiseTimesLeft == 0) {
                 actor.setIsAbleToDie(true);
             }
-
+            actor.EL_resetOtherStates();
             actor.setHitpoints(actor.getHitpointsMax());
             actor.setActionPoints(actor.getActionPointsMax());
             actor.setFatigue(0);
@@ -78,7 +78,6 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
             this.m.EL_IsRising = true;
             local actor = this.getContainer().getActor();
             local properties = actor.getCurrentProperties();
-            actor.EL_resetOtherStates();
             actor.m.IsAttackable = false;
             actor.setActionPoints(0);
             actor.setFatigue(actor.getFatigueMax());
@@ -113,9 +112,7 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
                    !skill.isType(this.Const.SkillType.Terrain) &&
                    !skill.isType(this.Const.SkillType.WorldEvent) &&
                    !skill.isType(this.Const.SkillType.Background) &&
-                   !skill.isType(this.Const.SkillType.Alert) &&
-                   skill.getID() != "effects.battle_standard" &&
-                   skill.getID() != "effects.ptr_armor_fatigue_recovery"
+                   !skill.isType(this.Const.SkillType.Alert)
                 )
                 {
                     skills.remove(skill);
@@ -126,7 +123,6 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
             // {
             //     skills.remove(stunned_effect);
             // }
-
             if (!actor.isHiddenToPlayer())
             {
                 this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " is rising!");
