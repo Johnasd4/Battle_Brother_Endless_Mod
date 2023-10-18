@@ -145,7 +145,7 @@ gt.Const.EL_NPC <- {
 
 
     EL_LevelUp = {
-        LevelUpsOffset = 15,
+        LevelUpsOffset = 10,
         LevelUpAttributes = {
             HitpointsMult = 0.05,
             Bravery = 0.5,
