@@ -251,9 +251,9 @@ local gt = getroottable();
 			}
             if (this.m.MoraleState != this.Const.MoraleState.Ignore)
 			{
-				this.m.Skills.add(this.new("scripts/skills/special/morale_check"));
+				this.getSkills().add(this.new("scripts/skills/special/morale_check"));
 			}
-            this.m.Skills.EL_reset();
+            this.getSkills().EL_reset();
         }
 
 		local onInit = o.onInit;
