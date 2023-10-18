@@ -38,16 +38,7 @@ this.el_exploding_ammo_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_
             local distance = _targetEntity.getTile().getDistanceTo(affect_targets[i].getTile());
             local damage_persent = this.Math.pow(this.Const.EL_NPC.EL_NPCBuff.Factor.ExplodingAmmo.DamageDecayRatePurTile, (distance - 1));
             local final_damage = this.Math.ceil(damage_persent * damage);
-            this.logInfo("distance " + i + " " + distance + " final_damage " + final_damage + " damage_persent " + damage_persent);
-
-            local main_hand = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
-            if(main_hand != null) {
-                main_hand.setCondition(this.Math.max(0, main_hand.getCondition() - this.Math.floor(main_hand.getConditionMax() * this.Const.EL_NPC.EL_NPCBuff.Factor.ExplodingAmmo.WeaponShieldDamageRate[this.m.EL_RankLevel] * damage_persent)));
-            }
-            local off_hand = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand);
-            if(off_hand != null) {
-                off_hand.setCondition(this.Math.max(0, off_hand.getCondition() - this.Math.floor(off_hand.getConditionMax() * this.Const.EL_NPC.EL_NPCBuff.Factor.ExplodingAmmo.WeaponShieldDamageRate[this.m.EL_RankLevel] * damage_persent)));
-            }
+            //this.logInfo("distance " + i + " " + distance + " final_damage " + final_damage + " damage_persent " + damage_persent);
 
             if(affect_targets[i] != null && !affect_targets[i].isDying() && affect_targets[i].isAlive()) {
                 local body_hit_info = clone this.Const.Tactical.HitInfo;

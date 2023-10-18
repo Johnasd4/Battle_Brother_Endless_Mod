@@ -813,7 +813,6 @@ gt.Const.EL_NPC <- {
                 DamageBase = 20,
                 DamageMultPurCombatLevel = 0.04,
                 DamageRate = [0.2, 0.4, 1],
-                WeaponShieldDamageRate = [0.02, 0.04, 0.1],
                 DamageDecayRatePurTile = 0.5,
                 MaxDistance = 2
             },
@@ -873,7 +872,6 @@ gt.Const.EL_NPC <- {
                 DamageBase = 100,
                 DamageMultPurCombatLevel = 0.04,
                 DamageRate = [0.2, 0.4, 1],
-                WeaponShieldDamageRate = [0.1, 0.2, 0.5],
                 DamageDecayRatePurTile = 0.5,
                 MaxDistance = 4
             },

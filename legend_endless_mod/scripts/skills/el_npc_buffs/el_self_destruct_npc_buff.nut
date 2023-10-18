@@ -36,15 +36,6 @@ this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
             local damage_persent = this.Math.pow(this.Const.EL_NPC.EL_NPCBuff.Factor.SelfDestruct.DamageDecayRatePurTile, (distance - 1));
             local final_damage = this.Math.ceil(damage_persent * damage);
 
-            local main_hand = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
-            if(main_hand != null) {
-                main_hand.setCondition(this.Math.max(0, main_hand.getCondition() - this.Math.floor(main_hand.getConditionMax() * this.Const.EL_NPC.EL_NPCBuff.Factor.SelfDestruct.WeaponShieldDamageRate[this.m.EL_RankLevel] * damage_persent)));
-            }
-            local off_hand = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand);
-            if(off_hand != null) {
-                off_hand.setCondition(this.Math.max(0, off_hand.getCondition() - this.Math.floor(off_hand.getConditionMax() * this.Const.EL_NPC.EL_NPCBuff.Factor.SelfDestruct.WeaponShieldDamageRate[this.m.EL_RankLevel] * damage_persent)));
-            }
-
             if(affect_targets[i]!= null && !affect_targets[i].isDying() && affect_targets[i].isAlive()) {
                 local body_hit_info = clone this.Const.Tactical.HitInfo;
                 body_hit_info.DamageRegular = final_damage;
