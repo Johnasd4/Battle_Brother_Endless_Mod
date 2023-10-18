@@ -1314,10 +1314,10 @@ local gt = getroottable();
                 }
                 local max_troop_num = 0;
                 if(this.m.EL_IsBossParty) {
-                    local max_troop_num = this.Const.EL_NPC.EL_Troop.MaxTroopNum;
+                    max_troop_num = this.Const.EL_NPC.EL_Troop.MaxTroopNum;
                 }
                 else {
-                    local max_troop_num = this.Math.min(this.Const.EL_NPC.EL_Troop.MaxTroopNum, this.Const.EL_NPC.EL_Troop.BaseMaxTroopNum + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.MaxTroopNumAddPurWorldLevel);
+                    max_troop_num = this.Math.min(this.Const.EL_NPC.EL_Troop.MaxTroopNum, this.Const.EL_NPC.EL_Troop.BaseMaxTroopNum + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.MaxTroopNumAddPurWorldLevel);
                 }
                 while(this.m.Troops.len() > max_troop_num) {
                     this.m.Troops.remove(max_troop_num);

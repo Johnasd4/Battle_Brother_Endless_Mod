@@ -607,6 +607,13 @@ gt.Const.EL_NPC <- {
                 function EL_ifEligible(_EL_npc) { return true; }
             },
             {
+                Scripts = "scripts/skills/el_npc_buffs/el_exploding_ammo_npc_buff",
+                function EL_ifEligible(_EL_npc) {
+                    if(!this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
+                    return true;
+                }
+            },
+            {
                 Scripts = "scripts/skills/el_npc_buffs/el_growth_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
@@ -616,7 +623,6 @@ gt.Const.EL_NPC <- {
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_hawk_eye_npc_buff",
                 function EL_ifEligible(_EL_npc) {
-                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
                     if(!this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
                     return true;
                 }
@@ -802,6 +808,14 @@ gt.Const.EL_NPC <- {
                 RangeState = 2,
                 DefenseOffset = [8, 16, 40],
                 DefenseOffsetSelectedMult = 5,
+            },
+            ExplodingAmmo = {
+                DamageBase = 20,
+                DamageMultPurCombatLevel = 0.04,
+                DamageRate = [0.2, 0.4, 1],
+                WeaponShieldDamageRate = [0.02, 0.04, 0.1],
+                DamageDecayRatePurTile = 0.5,
+                MaxDistance = 2
             },
             Growth = {
                 DamageMultPurStack = [0.02, 0.04, 0.1],
