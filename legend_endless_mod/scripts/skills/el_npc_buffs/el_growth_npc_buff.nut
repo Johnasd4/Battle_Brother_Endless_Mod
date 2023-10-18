@@ -34,5 +34,9 @@ this.el_growth_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff
         _properties.RangedDefense += this.Math.round(this.Const.EL_NPC.EL_NPCBuff.Factor.Growth.RangedDefenseOffsetPurStack[this.m.EL_RankLevel] * this.m.EL_Stack);
     }
 
+	function EL_reset() {
+		this.m.EL_Stack = 0;
+	}
+
 });
 

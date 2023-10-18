@@ -34,6 +34,8 @@ this.el_energy_shield_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
 		}
     }
 
-
+	function EL_reset() {
+		this.m.EL_Stack = 0;
+	}
 });
 
