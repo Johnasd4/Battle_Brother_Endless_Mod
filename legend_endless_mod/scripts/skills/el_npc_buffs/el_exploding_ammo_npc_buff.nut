@@ -35,8 +35,7 @@ this.el_exploding_ammo_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_
             if(affect_targets[i] == null || affect_targets[i].isDying() || !affect_targets[i].isAlive()) {
                 continue;
             }
-            local distance = actor.getTile().getDistanceTo(affect_targets[i].getTile());
-            this.logInfo("distance " + i + " " + distance);
+            local distance = _targetEntity.getTile().getDistanceTo(affect_targets[i].getTile());
             local damage_persent = this.Math.pow(this.Const.EL_NPC.EL_NPCBuff.Factor.ExplodingAmmo.DamageDecayRatePurTile, (distance - 1));
             local final_damage = this.Math.ceil(damage_persent * damage);
 
