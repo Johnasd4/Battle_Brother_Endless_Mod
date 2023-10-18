@@ -11,7 +11,7 @@ this.el_exploding_ammo_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_
 
 	function onTargetHit( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
 	{
-        if(!skill.isRanged()) {
+        if(!_skill.isRanged()) {
             return;
         }
         local actor = this.getContainer().getActor();
