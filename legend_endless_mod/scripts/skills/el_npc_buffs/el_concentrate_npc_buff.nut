@@ -14,7 +14,7 @@ this.el_concentrate_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
 	function onTargetHit( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
 	{
 		if(this.m.EL_LastAttackTarget != _targetEntity) {
-			this.m.EL_LastAttackTarget = this.WeakTableRef(_targetEntity);
+			this.m.EL_LastAttackTarget = _targetEntity;
 			this.m.EL_Stack = 0;
 		}
 		++this.m.EL_Stack;
@@ -23,7 +23,7 @@ this.el_concentrate_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
 	function onTargetMissed( _skill, _targetEntity )
 	{
 		if(this.m.EL_LastAttackTarget != _targetEntity) {
-			this.m.EL_LastAttackTarget = this.WeakTableRef(_targetEntity);
+			this.m.EL_LastAttackTarget = _targetEntity;
 			this.m.EL_Stack = 0;
 		}
 		++this.m.EL_Stack;
