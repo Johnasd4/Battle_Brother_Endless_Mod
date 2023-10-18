@@ -1,6 +1,5 @@
 this.el_exploding_ammo_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff", {
 	m = {
-        EL_DefenseState = this.Const.EL_NPC.EL_NPCBuff.Factor.Evasion.RangeState
     },
 	function create()
 	{
@@ -33,11 +32,11 @@ this.el_exploding_ammo_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_
         }
 
         for(local i = 0; i < affect_targets.len(); ++i) {
-            if(affect_targets[i]== null || affect_targets[i].isDying() || !affect_targets[i].isAlive()) {
+            if(affect_targets[i] == null || affect_targets[i].isDying() || !affect_targets[i].isAlive()) {
                 continue;
             }
             local distance = actor.getTile().getDistanceTo(affect_targets[i].getTile());
-            //this.logInfo("distance " + i + " " + distance);
+            this.logInfo("distance " + i + " " + distance);
             local damage_persent = this.Math.pow(this.Const.EL_NPC.EL_NPCBuff.Factor.ExplodingAmmo.DamageDecayRatePurTile, (distance - 1));
             local final_damage = this.Math.ceil(damage_persent * damage);
 
@@ -50,7 +49,7 @@ this.el_exploding_ammo_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_
                 off_hand.setCondition(this.Math.max(0, off_hand.getCondition() - this.Math.floor(off_hand.getConditionMax() * this.Const.EL_NPC.EL_NPCBuff.Factor.ExplodingAmmo.WeaponShieldDamageRate[this.m.EL_RankLevel] * damage_persent)));
             }
 
-            if(affect_targets[i]!= null && !affect_targets[i].isDying() && affect_targets[i].isAlive()) {
+            if(affect_targets[i] != null && !affect_targets[i].isDying() && affect_targets[i].isAlive()) {
                 local body_hit_info = clone this.Const.Tactical.HitInfo;
                 body_hit_info.DamageRegular = final_damage;
                 body_hit_info.DamageArmor = final_damage;
@@ -62,7 +61,7 @@ this.el_exploding_ammo_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_
                 affect_targets[i].onDamageReceived(this.getContainer().getActor(), this, body_hit_info);
             }
 
-            if(affect_targets[i]!= null && !affect_targets[i].isDying() && affect_targets[i].isAlive()) {
+            if(affect_targets[i] != null && !affect_targets[i].isDying() && affect_targets[i].isAlive()) {
                 local head_hit_info = clone this.Const.Tactical.HitInfo;
                 head_hit_info.DamageRegular = final_damage;
                 head_hit_info.DamageArmor = final_damage;

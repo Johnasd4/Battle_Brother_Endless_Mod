@@ -243,6 +243,7 @@ local gt = getroottable();
 			this.getSkills().add(this.new("scripts/skills/effects/ptr_armor_fatigue_recovery_effect"));
 			this.getSkills().add(this.new("scripts/skills/effects/ptr_direct_damage_limiter_effect"));
             this.getSkills().add(this.new("scripts/skills/effects/battle_standard_effect"));
+            this.getSkills().add(this.new("scripts/skills/effects/wms_mastery_effect"));
 			local flags = this.getFlags();
 			if (flags.has("undead") && !flags.has("ghost") && !flags.has("ghoul") && !flags.has("vampire"))
 			{
