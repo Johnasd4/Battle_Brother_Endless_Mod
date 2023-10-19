@@ -775,6 +775,14 @@ local gt = getroottable();
 			this.m.EL_NextTurnActionPointsOffset = this.Math.max(0, this.m.EL_NextTurnActionPointsOffset - 9);
 		}
 
+
+		o.onCombatFinished <- function()
+		{
+			this.m.EL_NextTurnActionPointsOffset = 0;
+			this.m.EL_NextTurnActionPointsOffset = 0;
+			this.skill.onCombatFinished();
+		}
+
 		o.onUpdate <- function( _properties )
 		{
 			_properties.ActionPoints += this.Math.min(9, this.m.EL_CurrentTurnActionPointsOffset);
