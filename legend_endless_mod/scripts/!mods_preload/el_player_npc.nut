@@ -1114,6 +1114,8 @@ local gt = getroottable();
 			return this.m.EL_IsNPCBuff;
 		}
 
+		o.EL_reset <- function() {}
+
 		o.attackEntity = function( _user, _targetEntity, _allowDiversion = true )
 		{
 			if (_targetEntity.isRock())

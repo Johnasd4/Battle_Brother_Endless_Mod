@@ -145,7 +145,7 @@ gt.Const.EL_NPC <- {
 
 
     EL_LevelUp = {
-        LevelUpsOffset = 15,
+        LevelUpsOffset = 10,
         LevelUpAttributes = {
             HitpointsMult = 0.05,
             Bravery = 0.5,
@@ -569,6 +569,14 @@ gt.Const.EL_NPC <- {
                 }
             },
             {
+                Scripts = "scripts/skills/el_npc_buffs/el_concentrate_npc_buff",
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    return true;
+                }
+            },
+            {
                 Scripts = "scripts/skills/el_npc_buffs/el_encourage_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
@@ -599,6 +607,13 @@ gt.Const.EL_NPC <- {
                 function EL_ifEligible(_EL_npc) { return true; }
             },
             {
+                Scripts = "scripts/skills/el_npc_buffs/el_exploding_ammo_npc_buff",
+                function EL_ifEligible(_EL_npc) {
+                    if(!this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
+                    return true;
+                }
+            },
+            {
                 Scripts = "scripts/skills/el_npc_buffs/el_growth_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
@@ -608,7 +623,6 @@ gt.Const.EL_NPC <- {
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_hawk_eye_npc_buff",
                 function EL_ifEligible(_EL_npc) {
-                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
                     if(!this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
                     return true;
                 }
@@ -766,7 +780,11 @@ gt.Const.EL_NPC <- {
             ComboAttack = {
                 Chance = [50, 100, 100],
                 AttackTimes = [1, 1, 2]
-            }
+            },
+            Concentrate = {
+                MeleeSkillOffsetPurStack = [4 ,8, 20],
+                RangedSkillOffsetPurStack = [4 ,8, 20]
+            },
             Encourage = {
                 BraveryOffset = [10, 20, 50],
                 MoraleCheckChance = [50, 100, 100],
@@ -790,6 +808,13 @@ gt.Const.EL_NPC <- {
                 RangeState = 2,
                 DefenseOffset = [8, 16, 40],
                 DefenseOffsetSelectedMult = 5,
+            },
+            ExplodingAmmo = {
+                DamageBase = 20,
+                DamageMultPurCombatLevel = 0.04,
+                DamageRate = [0.2, 0.4, 1],
+                DamageDecayRatePurTile = 0.5,
+                MaxDistance = 2
             },
             Growth = {
                 DamageMultPurStack = [0.02, 0.04, 0.1],
@@ -847,7 +872,6 @@ gt.Const.EL_NPC <- {
                 DamageBase = 100,
                 DamageMultPurCombatLevel = 0.04,
                 DamageRate = [0.2, 0.4, 1],
-                WeaponShieldDamageRate = [0.1, 0.2, 0.5],
                 DamageDecayRatePurTile = 0.5,
                 MaxDistance = 4
             },

@@ -1397,10 +1397,10 @@ local gt = getroottable();
 		}
 
 		local convertEntityHireInformationToUIData = o.convertEntityHireInformationToUIData;
-		function convertEntityHireInformationToUIData( _entity )
+		o.convertEntityHireInformationToUIData = function( _entity )
 		{
-			local background = _entity.getBackground();
 			local result = convertEntityHireInformationToUIData(_entity);
+			local background = _entity.getBackground();
 			result.Name = _entity.getNameOnly();
 			return result;
 		}

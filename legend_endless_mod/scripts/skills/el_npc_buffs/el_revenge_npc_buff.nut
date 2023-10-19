@@ -34,5 +34,9 @@ this.el_revenge_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
 
     }
 
+	function EL_reset() {
+		this.m.EL_Stack = 0;
+	}
+
 });
 

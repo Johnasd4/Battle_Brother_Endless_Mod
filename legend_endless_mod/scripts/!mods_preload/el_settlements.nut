@@ -11,6 +11,18 @@ local gt = getroottable();
         }
     });
 
+    ::mods_hookNewObject("entity/world/settlements/buildings/port_building", function(o)
+    {
+		o.getCostTo = function( _to )
+		{
+			local myTile = this.getSettlement().getTile();
+			local dist = _to.getTile().getDistanceTo(myTile);
+			local cost = dist * this.World.getPlayerRoster().getSize() * (1 + 0.04 * this.World.Assets.m.EL_WorldLevel);
+			cost = this.Math.round(cost);
+			return cost;
+		}
+    });
+
 	::mods_hookExactClass("ui/screens/world/modules/world_town_screen/town_temple_dialog_module", function(o) {
 
 		o.queryRosterInformation = function()

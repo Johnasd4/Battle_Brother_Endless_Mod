@@ -19,7 +19,7 @@ this.el_hawk_eye_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_bu
         local skills = this.getContainer().getActor().getSkills().m.Skills;
 		foreach( skill in skills )
 		{
-			if (skill.m.IsWeaponSkill)
+			if (skill.m.IsWeaponSkill && skill.isRanged())
 			{
 				skill.m.MaxRange = this.Math.ceil(skill.m.MaxRange * this.Const.EL_NPC.EL_NPCBuff.Factor.HawkEye.MaxRangeMult[this.m.EL_RankLevel]);
 			}
