@@ -1384,6 +1384,16 @@ local gt = getroottable();
 
 	});
 
+	::mods_hookExactClass("skills/effects/ptr_formidable_approach_debuff_effect", function(o){
+
+        o.getCurrentMalus = function()
+        {
+            this.pruneEnemies();
+            return this.m.CurrentEnemies.len() * (this.getContainer().getActor().isArmedWithTwoHandedWeapon() ? 5 : 10);
+        }
+	});
+
+
 	::mods_hookExactClass("skills/effects/ptr_sweeping_strikes_debuff_effect", function(o){
 
         o.getTooltip = function()

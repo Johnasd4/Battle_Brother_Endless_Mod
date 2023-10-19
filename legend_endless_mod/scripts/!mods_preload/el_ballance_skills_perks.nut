@@ -752,10 +752,39 @@ local gt = getroottable();
 		}
 	});
 
+	::mods_hookExactClass("skills/perks/perk_ptr_bloodbath", function ( o )
+	{
+		o.m.EL_CurrentTurnActionPointsOffset <- 0;
+		o.m.EL_NextTurnActionPointsOffset <- 0;
+
+		local create = o.create;
+		o.create = function()
+		{
+			create();
+			this.m.ID = "perk.el_ptr_bloodbath";
+		}
+
+		o.onTargetKilled <- function( _targetEntity, _skill )
+		{
+			this.m.EL_NextTurnActionPointsOffset += 3;
+		}
+
+		o.onTurnEnd <- function()
+		{
+			this.m.EL_CurrentTurnActionPointsOffset = this.m.EL_NextTurnActionPointsOffset;
+			this.m.EL_NextTurnActionPointsOffset = this.Math.max(0, this.m.EL_NextTurnActionPointsOffset - 9);
+		}
+
+		o.onUpdate <- function( _properties )
+		{
+			_properties.ActionPoints += this.Math.min(9, this.m.EL_CurrentTurnActionPointsOffset);
+		}
+
+	});
+
 	::mods_hookExactClass("skills/perks/perk_ptr_bulwark", function ( o )
 	{
 		o.m.ArmorPercentageAsBonus = 1;
-
 	});
 
 	::mods_hookExactClass("skills/perks/perk_ptr_cull", function ( o )
@@ -1168,9 +1197,17 @@ gt.Const.EL_Config.EL_modStrings <- function()
             ID = "perk.lone_wolf",
             tooltip = "I work best alone. With no ally within 2 tiles of distance, gain a [color=" + this.Const.UI.Color.PositiveValue + "]15[/color] bonus to Melee Skill, Ranged Skill, Melee Defense, Ranged Defense, and Resolve."
         },
+		{
+            ID = "perk.ptr_bloodbath",
+            tooltip = "There\'s something about removing someone\'s head that just makes you want to do it again!\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• Fatalities instantly adds [color=" + this.Const.UI.Color.PositiveValue + "]3[/color] Action Points next turn.\n• The stack decrease 3 pur turn, the max Action Points addition is 9."
+        },
         {
             ID = "perk.ptr_fruits_of_labor",
             tooltip = "You\'ve quickly realized that your years of hard labor give you an edge in mercenary work!\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• Hitpoints, Maximum Fatigue, and Initiative are increased by [color=" + this.Const.UI.Color.PositiveValue + "]+12[/color] each."
+        },
+		{
+            ID = "perk.ptr_formidable_approach",
+            tooltip = "[color=" + this.Const.UI.Color.NegativeValue + "][u]Requires:[/u] Two-Handed Melee Weapon[/color]\nMake them think twice about getting close!\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• When wielding a Two-Handed weapon, reduce the Melee Skill and Melee Defense of any enemy who enters your zone of control by [color=" + this.Const.UI.Color.NegativeValue + "]10[/color] Melee Skill.\n• The debuff lasts until the enemy exits your zone of control or successfully hits you.\n• Only has half the effect against enemies with Two-Handed weapons, and does not work if the enemy also has this perk."
         },
         {
             ID = "perk.ptr_through_the_ranks",
