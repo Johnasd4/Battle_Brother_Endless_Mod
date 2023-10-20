@@ -57,12 +57,15 @@ local gt = getroottable();
 					text = "Level: " + this.m.EL_Level
 				});
 			}
-			result.insert(9, {
-				id = 24,
-				type = "text",
-                icon = "ui/icons/sturdiness.png",
-				text = "Shield fixation reduces damage: " + this.m.EL_DamageShieldReduction
-			});
+			if(this.m.EL_DamageShieldReduction)
+			{
+				result.insert(9, {
+					id = 24,
+					type = "text",
+					icon = "ui/icons/sturdiness.png",
+					text = "Shield fixation reduces damage: " + this.m.EL_DamageShieldReduction
+				});
+			}
 			if (this.m.EL_EntryList.len() != 0)
 			{
 				result.push({

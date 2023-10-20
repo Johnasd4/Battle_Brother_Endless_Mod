@@ -68,21 +68,17 @@ this.el_rarity_entry_stone_item <- this.inherit("scripts/items/item", {
 
 	function onSerialize( _out )
 	{
+		_out.writeBool(this.m.EL_RarityEntry != null);
 		if(this.m.EL_RarityEntry != null)
 		{
-			_out.writeU8(1);
 			_out.writeI32(this.m.EL_RarityEntry.ClassNameHash);
 			this.m.EL_RarityEntry.onSerialize(_out);
-		}
-		else
-		{
-			_out.writeU8(0);
 		}
 	}
 
 	function onDeserialize( _in )
 	{
-		local has_rarity_entry = _in.readU8();
+		local has_rarity_entry = _in.readBool();
 		if(has_rarity_entry)
 		{
 			this.m.EL_RarityEntry = this.new(this.IO.scriptFilenameByHash(_in.readI32()));

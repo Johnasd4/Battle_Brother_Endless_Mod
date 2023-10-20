@@ -40,7 +40,7 @@ this.el_shield_reduce_damage_received_mult_entry <- this.inherit("scripts/skills
 
 	function EL_strengthen()
 	{
-		this.m.EL_ShieldDamageReceivedMult = this.Math.pow(this.Const.EL_Shield.EL_Entry.Factor.EL_ShieldDamageReceivedMult.ColourRange[this.Const.EL_Item.Type.Legendary] * 0.01, this.Const.EL_Shield.EL_Entry.EntryStrengthenMult) * 100;
+		this.m.EL_ShieldDamageReceivedMult = 1.0 - this.Math.pow(this.Const.EL_Shield.EL_Entry.Factor.EL_ShieldDamageReceivedMult.ColourRange[this.Const.EL_Item.Type.Legendary] * 0.01, this.Const.EL_Shield.EL_Entry.EntryStrengthenMult) * 100;
 	}
 
 	function EL_onUpgradeRank()
