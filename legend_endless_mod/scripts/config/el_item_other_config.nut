@@ -173,9 +173,10 @@ gt.Const.EL_Item_Other <- {
             local body = _actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
             local head = _actor.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
 			local accessory = _actor.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
-
+			this.logInfo("_actor.ID:"+_actor.getName());
 			if(_isNpc && accessory == null)
 			{
+				
 				if(main_hand == null && off_hand == null)
 				{
 					_actor.m.Items.equip(this.new("scripts/items/el_accessory/el_core_item"));
@@ -187,6 +188,7 @@ gt.Const.EL_Item_Other <- {
 					_actor.m.Items.equip(this.new("scripts/items/" + this.Const.EL_Accessory.EL_NormalAccessoryList[r]));
 					accessory = _actor.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
 				}
+				this.logInfo("generate accessory:" + accessory.getID());
 			}
 
 			local items = [];

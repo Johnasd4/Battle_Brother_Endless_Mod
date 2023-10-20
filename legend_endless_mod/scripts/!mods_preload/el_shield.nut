@@ -133,15 +133,6 @@ local gt = getroottable();
 		o.onSerialize = function ( _out )
 		{
 			onSerialize(_out);
-			_out.writeU8(this.m.EL_EntryList.len());
-			if(this.m.EL_EntryList.len() != 0)
-			{
-				foreach(entry in this.m.EL_EntryList)
-				{
-					_out.writeI32(entry.ClassNameHash);
-					entry.onSerialize(_out);
-				}
-			}
 			_out.writeI32(this.m.FatigueOnSkillUse);
 			_out.writeI32(this.m.EL_BaseNoRankFatigueOnSkillUse);
 			_out.writeI32(this.m.EL_BaseWithRankFatigueOnSkillUse);
@@ -161,15 +152,6 @@ local gt = getroottable();
 		o.onDeserialize = function ( _in )
 		{
 			onDeserialize(_in);
-
-			local EL_EntryListLen = _in.readU8();
-			for( local i = 0; i != EL_EntryListLen; ++i )
-			{
-				local entry = this.new(this.IO.scriptFilenameByHash(_in.readI32()));
-				entry.onDeserialize(_in);
-				this.m.EL_EntryList.push(entry);
-			}
-
 			this.m.FatigueOnSkillUse = _in.readI32();
 			this.m.EL_BaseNoRankFatigueOnSkillUse = _in.readI32();
 			this.m.EL_BaseWithRankFatigueOnSkillUse = _in.readI32();
