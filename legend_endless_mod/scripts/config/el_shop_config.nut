@@ -9,7 +9,7 @@ gt.Const.EL_Shop <- {
     EL_ShopLevelMax = 100,
     EL_ShopLevelInStoreMax = 0,
     EL_ShopLevelInStoreMin = 10,
-	EL_EssenceLevelFactor = 1.1,
+	//EL_EquipmentEssenceLevelFactor = 1.1,
 	EL_ShopMaxNumitems = 2,
 	EL_ShopMaxNum = 3,
 	EL_ItemNumberLevelFactor = 0.01,
@@ -17,34 +17,19 @@ gt.Const.EL_Shop <- {
 		Factor = {
 			Offset = [
 				0,
-				-30,
-				-70,
-				-120,
-				-180,
-				-250,
-				-330,
-				-420,
-				280
+				-6000,
+				-15000,
+				30000
 			],
 			Mult = [
 				0,
-				1,
-				2,
-				3,
-				4,
-				5,
-				6,
-				7,
+				300,
+				450,
 				0
 			],
 			Range = [
-				30,
-				40,
-				50,
+				20,
 				60,
-				70,
-				80,
-				90,
 				100
 			]
 		}
@@ -56,26 +41,20 @@ gt.Const.EL_Shop <- {
 	EL_ItemRankUpTwiceChance = {
 		Factor = {
 			Offset = [
-				1000,
-				1060,
-				1130,
-				1210,
-				1300,
-				900
+				0,
+				-2000,
+				-5000,
+				10000
 			],
 			Mult = [
 				0,
-				-1,
-				-2,
-				-3,
-				-4,
+				100,
+				150,
 				0
 			],
 			Range = [
+				20,
 				60,
-				70,
-				80,
-				90,
 				100
 			]
 		}
@@ -100,17 +79,17 @@ gt.Const.EL_Shop <- {
 			0
 		]
 	},
-	EL_CoreRank1Chance = {
+	EL_PremiumCoreChance = {
         Factor = {
             Mult = [
                 0,
-                0.5,
+                500,
                 0
             ],
             Offset = [
                 0,
                 0,
-                50
+                50000
             ],
             Range = [
                 0,
@@ -120,59 +99,186 @@ gt.Const.EL_Shop <- {
         Table = []
 
         function EL_getChance(_EL_Index) {
-            return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_Shop.EL_CoreRank1Chance);
+            return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_Shop.EL_PremiumCoreChance);
         }
     },
-    EL_CoreRank2Chance = {
+    EL_FineCoreChance = {
         Factor = {
             Mult = [
                 0,
-                0.05,
-                0
+                100,
+                150,
+				0
             ],
             Offset = [
                 0,
-                -1,
-                4,
+                -2000,
+                -5000,
+				10000
             ],
             Range = [
                 20,
+				60,
                 100,
             ]
         },
         Table = []
 
         function EL_getChance(_EL_Index) {
-            return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_Shop.EL_CoreRank2Chance);
+            return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_Shop.EL_FineCoreChance);
         }
     },
-    EL_CoreRank3Chance = {
+    EL_EpicCoreChance = {
         Factor = {
             Mult = [
                 0,
-                0.025,
+                20,
+                30,
+				0
+            ],
+            Offset = [
+                0,
+                -400,
+                -1000,
+				2000
+            ],
+            Range = [
+                20,
+				60,
+                100,
+            ]
+        },
+        Table = []
+
+        function EL_getChance(_EL_Index) {
+            return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_Shop.EL_EpicCoreChance);
+        }
+    },
+	EL_EquipmentEssence = {
+		NumEachGroup = [
+			200,
+			10,
+			10,
+			10,
+			1
+		],
+		PriceEachOne = [
+			1,
+			200,
+			500,
+			1200,
+			500000
+		]
+	},
+	EL_PremiumEquipmentEssenceChance = {
+        Factor = {
+            Mult = [
+                0,
+                500,
                 0
             ],
             Offset = [
                 0,
-                -1.5,
-                1,
+                0,
+                50000
             ],
             Range = [
-                60,
+                0,
+                100,
+            ],
+        },
+        Table = []
+
+        function EL_getChance(_EL_Index) {
+            return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_Shop.EL_PremiumCoreChance);
+        }
+    },
+    EL_FineEquipmentEssenceChance = {
+        Factor = {
+            Mult = [
+                0,
+                100,
+                150,
+				0
+            ],
+            Offset = [
+                0,
+                -2000,
+                -5000,
+				10000
+            ],
+            Range = [
+                20,
+				60,
                 100,
             ]
         },
         Table = []
 
         function EL_getChance(_EL_Index) {
-            return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_Shop.EL_CoreRank3Chance);
+            return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_Shop.EL_FineCoreChance);
+        }
+    },
+    EL_EpicEquipmentEssenceChance = {
+        Factor = {
+            Mult = [
+                0,
+                20,
+                30,
+				0
+            ],
+            Offset = [
+                0,
+                -400,
+                -1000,
+				2000
+            ],
+            Range = [
+                20,
+				60,
+                100,
+            ]
+        },
+        Table = []
+
+        function EL_getChance(_EL_Index) {
+            return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_Shop.EL_EpicCoreChance);
+        }
+    },
+    EL_LegendaryEquipmentEssenceChance = {
+        Factor = {
+            Mult = [
+                0,
+                4,
+                6,
+				0
+            ],
+            Offset = [
+                0,
+                -80,
+                -200,
+				400
+            ],
+            Range = [
+                20,
+				60,
+                100,
+            ]
+        },
+        Table = []
+
+        function EL_getChance(_EL_Index) {
+            return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_Shop.EL_EpicCoreChance);
         }
     }
 };
 
 this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_Shop.EL_ItemRankUpOnceChance);
 this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_Shop.EL_ItemRankUpTwiceChance);
-this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_Shop.EL_CoreRank1Chance);
-this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_Shop.EL_CoreRank2Chance);
-this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_Shop.EL_CoreRank3Chance);
+this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_Shop.EL_PremiumCoreChance);
+this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_Shop.EL_FineCoreChance);
+this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_Shop.EL_EpicCoreChance);
+this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_Shop.EL_PremiumEquipmentEssenceChance);
+this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_Shop.EL_FineEquipmentEssenceChance);
+this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_Shop.EL_EpicEquipmentEssenceChance);
+this.Const.EL_Config.EL_chanceTableCalculateAXB(this.Const.EL_Shop.EL_LegendaryEquipmentEssenceChance);

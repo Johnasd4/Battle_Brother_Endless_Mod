@@ -12,7 +12,7 @@ local gt = getroottable();
                 if (item != null)
                 {
                     //this.logInfo("item:" + item.getName());
-                    foreach(entry in item.m.EL_Entrylist)
+                    foreach(entry in item.m.EL_EntryList)
                     {
                         entry.EL_onNewDay(item);
                     }
@@ -27,7 +27,7 @@ local gt = getroottable();
                 {
                     if (item != null)
                     {
-                        foreach(entry in item.m.EL_Entrylist)
+                        foreach(entry in item.m.EL_EntryList)
                         {
                             entry.EL_onNewDay(item);
                         }
@@ -43,39 +43,5 @@ local gt = getroottable();
 		o.EL_isEntryEffect <- function() {
 			return false;
 		}
-
-        // o.onAfterUpdate <- function( _properties )
-        // {
-        //     onAfterUpdate(_properties);
-		//     this.m.AdditionalAccuracy = this.m.Item.getAdditionalAccuracy();
-        // }
 	});
-
-    // ::mods_hookClass("skills/skill_container", function(o) {
-	// 	while(!("add" in o)) o = o[o.SuperName];
-    //     o.onSerialize = function( _out )
-    //     {
-    //         local numSkills = 0;
-
-    //         foreach( skill in this.m.Skills )
-    //         {
-    //             if (skill.isSerialized() && !skill.EL_isEntryEffect())
-    //             {
-    //                 numSkills = ++numSkills;
-    //                 numSkills = numSkills;
-    //             }
-    //         }
-
-    //         _out.writeU16(numSkills);
-
-    //         foreach( skill in this.m.Skills )
-    //         {
-    //             if (skill.isSerialized() && !skill.EL_isEntryEffect())
-    //             {
-    //                 _out.writeI32(skill.ClassNameHash);
-    //                 skill.onSerialize(_out);
-    //             }
-    //         }
-    //     }
-	// });
 });

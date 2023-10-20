@@ -1,6 +1,6 @@
-this.el_hitpoints_entry <- this.inherit("scripts/skills/el_entrys/accessory_entrys/el_accessory_entry", {
+this.el_hitpoints_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_entry", {
 	m = {
-        EL_HitpointsAddition = 0
+        EL_Hitpoints = 0
     },
 	function create()
 	{
@@ -16,7 +16,7 @@ this.el_hitpoints_entry <- this.inherit("scripts/skills/el_entrys/accessory_entr
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Hitpoints + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_HitpointsAddition) + " (" + this.m.EL_HitpointsAddition + ")[/color]"
+				text = "[color=" + colour + "]Hitpoints + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_Hitpoints) + "% (" + this.m.EL_Hitpoints + "%)[/color]"
 			};
 		}
 		else
@@ -24,51 +24,61 @@ this.el_hitpoints_entry <- this.inherit("scripts/skills/el_entrys/accessory_entr
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Hitpoints + " + this.m.EL_HitpointsAddition + "[/color]"
+				text = "[color=" + colour + "]Hitpoints + " + this.m.EL_Hitpoints + "%[/color]"
 			};
 		}
 	}
 
 	function EL_getEntryColour()
 	{
-        for (local index = 0; index < this.Const.EL_Item.Type.Legendary; ++index)
+        for (local index = 0; index <= this.Const.EL_Item.Type.Legendary; ++index)
         {
-            if (this.m.EL_HitpointsAddition <= this.Const.EL_Accessory.EL_Entry.Factor.EL_Hitpoints.ColourRange[index])
+            if (this.m.EL_Hitpoints <= this.Const.EL_Accessory.EL_Entry.Factor.EL_Hitpoints.ColourRange[index])
             {
                 return this.Const.EL_Item.Colour[index];
             }
         }
-		return this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Legendary];
+		return this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Rare];
 	}
 
 	function EL_createAddition()
 	{
 		local randomMin = this.Const.EL_Accessory.EL_Entry.Factor.EL_Hitpoints.RandomMinHitpoints[this.getItem().m.EL_RankLevel];
 		local randomMax = this.Const.EL_Accessory.EL_Entry.Factor.EL_Hitpoints.RandomMaxHitpoints[this.getItem().m.EL_RankLevel];
-		this.m.EL_HitpointsAddition = this.Const.EL_Accessory.EL_Entry.Factor.EL_Hitpoints.BaseHitpoints + this.Math.rand(randomMin, randomMax);
+		this.m.EL_Hitpoints = this.Const.EL_Accessory.EL_Entry.Factor.EL_Hitpoints.BaseHitpoints + this.Math.rand(randomMin, randomMax) * 0.01;
+	}
+
+	function EL_strengthen()
+	{
+		this.m.EL_Hitpoints = this.Const.EL_Accessory.EL_Entry.EntryStrengthenMult * this.Const.EL_Accessory.EL_Entry.Factor.EL_Hitpoints.ColourRange[this.Const.EL_Item.Type.Legendary];
+	}
+
+	function EL_onUpgradeRank()
+	{
+		if(EL_getEntryColour() != this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Legendary])
+		{
+			this.m.EL_Hitpoints += this.Const.EL_Accessory.EL_Entry.Factor.EL_Hitpoints.RandomMaxHitpoints[this.Const.EL_Item.Type.Normal] / 2 * 0.01;
+		}
 	}
 
 	function onUpdate( _properties )
-	{
-		this.el_entry.onUpdate(_properties);
-		_properties.Hitpoints += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_HitpointsAddition);
+	{		
+		_properties.Hitpoints += this.Math.floor(0.01 * this.m.EL_CurrentLevel * this.m.EL_Hitpoints * this.getContainer().getActor().getBaseProperties().Hitpoints);
 	}
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
 		++_EL_totalEntry.m.EL_EntryNum;
-		_EL_totalEntry.m.EL_HitpointsAddition += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_HitpointsAddition);
+		_EL_totalEntry.m.EL_Hitpoints += this.m.EL_CurrentLevel * this.m.EL_Hitpoints;
 	}
 
     function onSerialize( _out )
 	{
-		_out.writeI32(this.m.EL_HitpointsAddition);
-		this.el_accessory_entry.onSerialize(_out);
+		_out.writeI32(this.m.EL_Hitpoints);
 	}
 
 	function onDeserialize( _in )
 	{
-		this.m.EL_HitpointsAddition = _in.readI32();
-		this.el_accessory_entry.onDeserialize(_in);
+		this.m.EL_Hitpoints = _in.readI32();
 	}
 });

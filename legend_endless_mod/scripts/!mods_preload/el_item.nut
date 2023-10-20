@@ -5,10 +5,12 @@ local gt = getroottable();
 {
     ::mods_hookClass("items/item", function(o) {
 		while(!("onEquip" in o)) o = o[o.SuperName];
-		o.m.EL_Entrylist <- [];
+		o.m.EL_EntryList <- [];
+		o.m.EL_StrengthenEntryNum <- 0;
 		o.m.EL_Level <- -1;
 		o.m.EL_CurrentLevel <- -1;
 		o.m.EL_RankLevel <- 0;
+		o.m.EL_RankPropertiesImproveIndex <- [];
 		o.m.EL_BaseNoRankConditionMax <- 0;
 		o.m.EL_BaseWithRankConditionMax <- 0;
 		o.m.EL_BaseNoRankValue <- 0;
@@ -18,6 +20,21 @@ local gt = getroottable();
 		o.onSerialize = function( _out )
 		{
 			onSerialize(_out);
+			_out.writeU8(this.m.EL_EntryList.len());
+			if(this.m.EL_EntryList.len() != 0)
+			{
+				foreach(entry in this.m.EL_EntryList)
+				{
+					_out.writeI32(entry.ClassNameHash);
+					entry.onSerialize(_out);
+				}
+			}
+			_out.writeU8(this.m.EL_RankPropertiesImproveIndex.len());
+			for(local i = 0; i < this.m.EL_RankPropertiesImproveIndex.len(); ++i)
+			{
+				_out.writeU16(this.m.EL_RankPropertiesImproveIndex[i]);
+			}
+			_out.writeI32(this.m.EL_StrengthenEntryNum);
 			_out.writeI32(this.m.EL_Level);
 			_out.writeI32(this.m.EL_CurrentLevel);
 			_out.writeI32(this.m.EL_RankLevel);
@@ -31,6 +48,22 @@ local gt = getroottable();
 		o.onDeserialize = function( _in )
 		{
 			onDeserialize(_in);
+			this.m.EL_EntryList.clear();
+			local entry_list_len = _in.readU8();
+			for( local i = 0; i != entry_list_len; ++i )
+			{
+				local script = this.IO.scriptFilenameByHash(_in.readI32());
+				local entry = this.new(script);
+				entry.onDeserialize(_in);
+				this.m.EL_EntryList.push(entry);
+			}
+			local rank_properties_improve_index_len = _in.readU8();
+			for(local i = 0; i < rank_properties_improve_index_len; ++i)
+			{
+				local index = _in.readU16();
+				this.m.EL_RankPropertiesImproveIndex.push(index);
+			}
+			this.m.EL_StrengthenEntryNum = _in.readI32();
 			this.m.EL_Level = _in.readI32();
 			this.m.EL_CurrentLevel = _in.readI32();
 			this.m.EL_RankLevel = _in.readI32();
@@ -48,15 +81,18 @@ local gt = getroottable();
 			}
 			if (("State" in this.World) && this.World.State != null && this.World.State.getCurrentTown() != null)
 			{
-				foreach(entry in this.m.EL_Entrylist)
+				foreach(entry in this.m.EL_EntryList)
 				{
-					if(entry.getID() == "entry.value_mult")
+					if(entry.getID() == "el_weapon_entry.value_mult" || entry.getID() == "el_shield_entry.value_mult" || entry.getID() == "el_armor_entry.value_mult" ||
+					   entry.getID() == "el_helmet_entry.value_mult" || entry.getID() == "el_accessory_entry.value_mult")
 					{
 						//this.logInfo("SellPriceTradeMult:"+this.World.Assets.m.SellPriceTradeMult+" SellPriceNotProducedHere:"+this.Const.World.Assets.SellPriceNotProducedHere+" SellPriceNotLocalCulture:"+this.Const.World.Assets.SellPriceNotLocalCulture)
-						return this.Math.floor(this.getValue() * this.getSellPriceMult() * this.World.Assets.m.SellPriceTradeMult * this.World.State.getCurrentTown().getSellPriceMult() * this.Const.World.Assets.SellPriceNotProducedHere * this.Const.World.Assets.SellPriceNotLocalCulture);
+						return this.Math.floor(this.getValue() * this.getSellPriceMult() * this.World.Assets.m.SellPriceTradeMult * this.World.State.getCurrentTown().getSellPriceMult() 
+															   * this.Const.World.Assets.SellPriceNotProducedHere * this.Const.World.Assets.SellPriceNotLocalCulture);
 					}
 				}
-				return this.Math.floor(this.getValue() * this.getSellPriceMult() * this.Const.World.Assets.BaseSellPrice * this.World.State.getCurrentTown().getSellPriceMult() * this.Const.Difficulty.SellPriceMult[this.World.Assets.getEconomicDifficulty()]);
+				return this.Math.floor(this.getValue() * this.getSellPriceMult() * this.Const.World.Assets.BaseSellPrice * this.World.State.getCurrentTown().getSellPriceMult() 
+													   * this.Const.Difficulty.SellPriceMult[this.World.Assets.getEconomicDifficulty()]);
 			}
 			else
 			{
@@ -64,27 +100,9 @@ local gt = getroottable();
 			}
 		}
 
-		// o.onNewDay <- function()
-		// {
-		// 	foreach(entry in this.m.EL_Entrylist)
-		// 	{
-		// 		if(entry.getID() == this.Const.EL_Weapon.EL_Entry.Factor.EL_ConditionRecoverDaliy.ID || entry.getID() == this.Const.EL_Shield.EL_Entry.Factor.EL_ConditionRecoverDaliy.ID || entry.getID() == this.Const.EL_Armor.EL_Entry.Factor.EL_ConditionRecoverDaliy.ID || entry.getID() == this.Const.EL_Helmet.EL_Entry.Factor.EL_ConditionRecoverDaliy.ID)
-		// 		{
-		// 			//this.logInfo("111111111111111111111:");
-		// 			local item = entry.getItem();
-		// 			if(item != null)
-		// 			{
-		// 				local condition_recover = this.Math.round(item.getConditionMax() * entry.m.EL_ConditionRecoverDaliyAddition * 0.01);
-		// 				item.setCondition(this.Math.min(item.getConditionMax(), item.getCondition() + condition_recover));
-		// 				//this.logInfo("item entry-daliy recover conditon:" + condition_recover);
-		// 			}
-		// 		}
-		// 	}
-		// }
-
 		o.EL_hasEntry <- function( _id )
 		{
-			foreach(entry in this.m.EL_Entrylist)
+			foreach(entry in this.m.EL_EntryList)
 			{
 				if(_id == entry.getID())
 				{
@@ -94,16 +112,26 @@ local gt = getroottable();
 			return false;
 		}
 
-		o.EL_addEntryList <- function( _entry )
+		o.EL_addEntryToList <- function( _entry )
 		{
 			_entry.setItem(this);
-			this.m.EL_Entrylist.push(_entry);
+			this.m.EL_EntryList.push(_entry);
 		}
 
 		o.EL_addEntry <- function( _entry )
 		{
 			this.m.SkillPtrs.push(_entry);
 			this.getContainer().getActor().getSkills().add(_entry);
+		}
+
+		o.EL_getStrengthenEntryNum <- function()
+		{
+			return this.m.EL_StrengthenEntryNum;
+		}
+
+		o.EL_setStrengthenEntryNum <- function( _EL_StrengthenEntryNum )
+		{
+			this.m.EL_StrengthenEntryNum = _EL_StrengthenEntryNum;
 		}
 
 		o.EL_getBaseNoRankConditionMax <- function()
@@ -188,13 +216,23 @@ local gt = getroottable();
 			++this.m.EL_RankLevel;
 			EL_recraft();
 		}
+		
+		o.EL_getArmorType <- function()
+		{
+			return this.Const.EL_Item.ArmorType.UnlayeredArmor;
+		}
 
-		o.EL_getLevelString <- function()
+		o.EL_getRankLevelMax <- function()
+		{
+			return 0;
+		}
+
+		o.getAmountString <- function()
 		{
 			return "";
 		}
 
-		o.EL_getLevelStringColour <- function()
+		o.getAmountColor <- function()
 		{
 			return "#ffffff";
 		}
@@ -215,7 +253,15 @@ local gt = getroottable();
 		{
 		}
 
-		o.EL_upgrade <- function()
+		o.EL_recordBaseNoRankProperties <- function()
+		{
+		}
+
+		o.EL_upgradeLevel <- function()
+		{
+		}
+
+		o.EL_upgradeRank <- function()
 		{
 		}
 
@@ -227,25 +273,30 @@ local gt = getroottable();
 		{
 		}
 
-		o.EL_getUpgradeEssence <- function()
+		o.EL_getUpgradeLevelEquipmentEssenceNum <- function()
 		{
 			return [0, 0, 0, 0, 0];
 		}
 
-		o.EL_getDisassembleEssence <- function()
+		o.EL_getUpgradeRankEquipmentEssenceNum <- function()
 		{
 			return [0, 0, 0, 0, 0];
 		}
 
-		o.EL_getRecraftEssence <- function()
+		o.EL_getDisassembleEquipmentEssenceNum <- function()
+		{
+			return [0, 0, 0, 0, 0];
+		}
+
+		o.EL_getRecraftEquipmentEssenceNum <- function()
 		{
 			return [0, 0, 0, 0, 0];
 		}
 	});
 
 
-	for(local i = 0; i < this.Const.EL_Item_Other.EL_InValidItem.len(); ++i) {
-		::mods_hookExactClass("items/" + this.Const.EL_Item_Other.EL_InValidItem[i], function ( o )
+	for(local i = 0; i < this.Const.EL_Item_Other.EL_InvalidItem.len(); ++i) {
+		::mods_hookExactClass("items/" + this.Const.EL_Item_Other.EL_InvalidItem[i], function ( o )
 		{
 			o.EL_generateByRankAndLevel <- function( _EL_rankLevel, EL_level, EL_additionalRarityChance = 0 )
 			{

@@ -38,6 +38,7 @@ local gt = getroottable();
 		local getTooltip = o.getTooltip;
 		o.getTooltip = function ()
 		{
+			EL_updateLevelProperties();
 			local result = getTooltip();
 
 			if(this.m.EL_RankLevel == 0)
@@ -56,18 +57,23 @@ local gt = getroottable();
 					text = "[color=" + this.Const.EL_Item.Colour[this.m.EL_RankLevel] +"]" + this.getName() + "[/color]"
 				};
 			}
+			result.insert(4, {
+				id = 22,
+				type = "text",
+				text = "Rank Level: " + this.m.EL_RankLevel + "/" + this.EL_getRankLevelMax()
+			});
 			if(this.m.EL_CurrentLevel < this.m.EL_Level)
 			{
-				result.insert(4, {
-					id = 22,
+				result.insert(5, {
+					id = 23,
 					type = "text",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]Level: " + this.m.EL_CurrentLevel + "[/color](" + this.m.EL_Level + ")"
+					text = "[color=" + this.Const.UI.Color.NegativeValue + "]Level: " + this.m.EL_CurrentLevel + "/" + this.m.EL_Level + "[/color]"
 				});
 			}
 			else
 			{
-				result.insert(4, {
-					id = 22,
+				result.insert(5, {
+					id = 23,
 					type = "text",
 					text = "Level: " + this.m.EL_Level
 				});
@@ -75,7 +81,7 @@ local gt = getroottable();
 			if (this.m.EL_Vision != 0)
 			{
 				result.push({
-					id = 23,
+					id = 25,
 					type = "text",
 					icon = "ui/icons/vision.png",
 					text = "Vision: [color=" + this.Const.UI.Color.PositiveValue + "]" + this.m.EL_Vision + "[/color]"
@@ -84,43 +90,29 @@ local gt = getroottable();
 			if (this.m.EL_AdditionalExplosionRange != 0)
 			{
 				result.push({
-					id = 23,
+					id = 26,
 					type = "text",
 					text = "Additional explosion range: [color=" + this.Const.UI.Color.PositiveValue + "]" + this.m.EL_AdditionalExplosionRange + "[/color]"
 				});
 			}
-			if (this.m.EL_Entrylist.len() != 0)
+			if (this.m.EL_EntryList.len() != 0)
 			{
 				result.push({
 					id = 60,
 					type = "text",
 					text = "——————————————"
 				});
-				// for(local index = this.m.SkillPtrs.len()-1; index > 0; --index)
-				// {
-				// 	this.logInfo("33333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333");
-				// 	if(this.m.SkillPtrs[index].isType(this.Const.SkillType.EL_Entry))
-				// 	{
-				// 		this.logInfo("11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
-				// 		result.push(this.m.SkillPtrs[index].getToolTip(41));
-				// 	}
-				// }
-				//this.logInfo("11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
-				local _id = 61;
-				foreach(entry in this.m.EL_Entrylist)
+				local tool_tip_id = 61;
+				foreach(entry in this.m.EL_EntryList)
 				{
-					result.push(entry.getTooltip(_id));
-					++_id;
+					local tool_tip = entry.getTooltip(tool_tip_id);
+					if(tool_tip != null)
+					{
+						result.push(tool_tip);
+						++tool_tip_id;
+					}
 				}
 			}
-			// if(this.m.EL_RarityEntry != -1)
-			// {
-			// 	result.push({
-			// 		id = 71,
-			// 		type = "text",
-			// 		text = "[color=" + this.Const.EL_UI.Color.LegendColour + "]" + this.Const.EL_Entry.EL_RarityEntryToolTip[entry.ID] +"[/color]"
-			// 	});
-			// }
 			if(this.m.EL_CurrentLevel < this.m.EL_Level)
 			{
 				result.push({
@@ -135,39 +127,22 @@ local gt = getroottable();
 		local onUpdateProperties = o.onUpdateProperties;
 		o.onUpdateProperties = function ( _properties )
 		{
-			local staminaMult = this.getContainer().getActor().getSkills().hasSkill("perk.brawny") ? 0.7 : 1.0;
-			_properties.Stamina += this.Math.floor(this.m.StaminaModifier * staminaMult);
+			local stamina_mult = this.getContainer().getActor().getSkills().hasSkill("perk.brawny") ? 0.7 : 1.0;
+			_properties.Stamina += this.Math.floor(this.m.StaminaModifier * stamina_mult);
 			_properties.DamageRegularMin += this.m.RegularDamage;
 			_properties.DamageRegularMax += this.m.RegularDamageMax;
 			_properties.DamageArmorMult *= this.m.ArmorDamageMult;
 			_properties.DamageDirectAdd += this.m.DirectDamageAdd;
 			_properties.HitChance[this.Const.BodyPart.Head] += this.m.ChanceToHitHead;
 			_properties.Vision += this.m.EL_Vision;
-			//local currentProperties = getContainer().getActor().getCurrentProperties();
-			//_properties.Hitpoints += _properties.Hitpoints * 0.2;
-			//_properties.Bravery += 20;
-			// for(local index = this.m.SkillPtrs.len()-1; index > 0; --index)
-			// {
-			// 	this.m.SkillPtrs[index].onUpdateProperties(_properties);
-			// }
 		}
 
 		local onEquip = o.onEquip;
 		o.onEquip = function ()
 		{
-			// local combatLevel = this.getContainer().getActor().EL_getCombatLevel();
-
-			// if( EL_CombatLevel < this.m.EL_Level )
-			// {
-			// 	this.m.EL_CurrentLevel = combatLevel;
-			// 	EL_updateLevelProperties(combatLevel);
-			// 	this.m.Condition = this.m.ConditionMax;
-			// 	getTooltip();
-			// }
-
 			onEquip();
 			this.addSkill(this.new("scripts/skills/el_items/el_item_level_check_skill"));
-            foreach(entry in this.m.EL_Entrylist)
+            foreach(entry in this.m.EL_EntryList)
 			{
 				entry.m.IsGarbage = false;
 				entry.m.IsStacking = false;
@@ -179,12 +154,8 @@ local gt = getroottable();
 		o.onUnequip = function ()
 		{
 			onUnequip();
-			//this.addSkill(this.new("scripts/skills/el_entrys/el_total_entry"));
-			if( this.m.EL_CurrentLevel < this.m.EL_Level )
-			{
-				this.m.EL_CurrentLevel = this.m.EL_Level;
-				EL_updateLevelProperties();
-			}
+			this.m.EL_CurrentLevel = this.m.EL_Level;
+			EL_updateLevelProperties();
 		}
 
         local onSerialize = o.onSerialize;
@@ -192,18 +163,8 @@ local gt = getroottable();
 		{
 			onSerialize(_out);
 
-			_out.writeU8(this.m.EL_Entrylist.len());
-			if(this.m.EL_Entrylist.len() != 0)
-			{
-				foreach(entry in this.m.EL_Entrylist)
-				{
-					_out.writeI32(entry.ClassNameHash);
-					entry.onSerialize(_out);
-				}
-			}
-
 			_out.writeF32(this.m.ArmorDamageMult);
-			_out.writeU8(this.m.ChanceToHitHead);
+			_out.writeU16(this.m.ChanceToHitHead);
 			_out.writeI16(this.m.AdditionalAccuracy);
 			_out.writeF32(this.m.DirectDamageAdd);
 			_out.writeI16(this.m.FatigueOnSkillUse);
@@ -244,17 +205,9 @@ local gt = getroottable();
 		o.onDeserialize = function ( _in )
 		{
 			onDeserialize(_in);
-			this.m.EL_Entrylist.clear();
-			local EL_EntrylistLen = _in.readU8();
-			for( local i = 0; i != EL_EntrylistLen; ++i )
-			{
-				local entry = this.new(this.IO.scriptFilenameByHash(_in.readI32()));
-				entry.onDeserialize(_in);
-				this.m.EL_Entrylist.push(entry);
-			}
 
 			this.m.ArmorDamageMult = _in.readF32();
-			this.m.ChanceToHitHead = _in.readU8();
+			this.m.ChanceToHitHead = _in.readU16();
 			this.m.AdditionalAccuracy = _in.readI16();
 			this.m.DirectDamageAdd = _in.readF32();
 			this.m.FatigueOnSkillUse = _in.readI16();
@@ -266,6 +219,7 @@ local gt = getroottable();
 			this.m.EL_BaseNoRankRegularDamage = _in.readI32();
 			this.m.EL_BaseNoRankRegularDamageMax = _in.readI32();
             this.m.EL_BaseNoRankStaminaModifier = _in.readI32();
+
 			this.m.EL_BaseWithRankShieldDamage = _in.readI32();
 			this.m.EL_BaseWithRankRegularDamage = _in.readI32();
 			this.m.EL_BaseWithRankRegularDamageMax = _in.readI32();
@@ -291,6 +245,45 @@ local gt = getroottable();
 			this.m.Condition = _in.readF32();
 		}
 
+		local consumeAmmo = o.consumeAmmo;
+		o.consumeAmmo = function()
+		{
+			local item = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+			local skills = this.getContainer().getActor().getSkills();
+			if(item != null)
+			{
+				foreach(entry in this.m.EL_EntryList)
+				{
+					if(entry.getID() == "el_weapon_entry.save_ammo" && this.Math.rand(1, 10000) < entry.m.EL_SaveAmmoChance * 100)
+					{
+						return;
+					}
+				}
+				foreach( skill in skills.m.Skills ) {
+					local skill_id = skill.getID()
+					if(skill_id == "el_rarity_entry.infinite_penetration" && skill.EL_isUsable())
+					{
+						return;
+					}
+				}
+				consumeAmmo();
+			}
+		}
+
+		o.getShieldDamage = function()
+		{
+			if (this.getContainer() == null || this.getContainer().getActor() == null)
+			{
+				return this.m.ShieldDamage;
+			}
+			local skill = this.getContainer().getActor().getSkills().getSkillByID("el_rarity_entry.devastate");
+			local shield_damage = (skill != null && skill.EL_isUsable()) ? this.Math.floor(this.m.ShieldDamage * this.Const.EL_Rarity_Entry.Factor.EL_Devastate.ShieldDamageMult) : this.m.ShieldDamage;
+			skill = this.getContainer().getActor().getSkills().getSkillByID("el_rarity_entry.vehemence_of_the_sky");
+			shield_damage = (skill != null && skill.EL_isUsable()) ? this.Math.floor(this.m.RegularDamageMax * this.Const.EL_Rarity_Entry.Factor.EL_VehemenceOfTheSky.ShieldDamageMult) : shield_damage;
+			skill = this.getContainer().getActor().getSkills().getSkillByID("perk.legend_smashing_shields");
+			return skill == null ? shield_damage : this.Math.round(shield_damage * skill.getModifier());
+		}
+
 		o.isAmountShown = function()
 		{
 			return true;
@@ -298,6 +291,11 @@ local gt = getroottable();
 
 		o.getAmountString = function()
 		{
+			if(this.m.EL_Level == -1)
+			{
+				return "lv0";
+				this.Const.EL_Item_Other.EL_OtherItemInit(_item);
+			}
 			if(this.m.Condition < this.m.ConditionMax)
 			{
 				return "lv" + this.m.EL_Level + ":" + this.Math.floor(this.m.Condition / (this.m.ConditionMax * 1.0) * 100) + "%";
@@ -374,10 +372,135 @@ local gt = getroottable();
         {
 			this.m.EL_BaseWithRankStaminaModifier = _EL_baseWithRankStaminaModifier;
         }
+		o.EL_getBaseWithRankVision <- function()
+        {
+			return this.m.EL_BaseWithRankVision;
+        }
+		o.EL_setBaseWithRankVision <- function( _EL_baseWithRankVision )
+        {
+			this.m.EL_BaseWithRankVision = _EL_baseWithRankVision;
+        }
+		o.EL_getBaseNoRankAmmoMax <- function()
+        {
+			return this.m.EL_BaseNoRankAmmoMax;
+        }
+		o.EL_setBaseNoRankAmmoMax <- function( _EL_baseNoRankAmmoMax )
+        {
+			this.m.EL_BaseNoRankAmmoMax = _EL_baseNoRankAmmoMax;
+        }
+		o.EL_getBaseWithRankAmmoMax <- function()
+        {
+			return this.m.EL_BaseWithRankAmmoMax;
+        }
+		o.EL_setBaseWithRankAmmoMax <- function( _EL_baseWithRankAmmoMax )
+        {
+			this.m.EL_BaseWithRankAmmoMax = _EL_baseWithRankAmmoMax;
+        }
+		o.EL_getBaseNoRankArmorDamageMult <- function()
+        {
+			return this.m.EL_BaseNoRankArmorDamageMult;
+        }
+		o.EL_setBaseNoRankArmorDamageMult <- function( _EL_baseNoRankArmorDamageMult )
+        {
+			this.m.EL_BaseNoRankArmorDamageMult = _EL_baseNoRankArmorDamageMult;
+        }
+		o.EL_getBaseWithRankArmorDamageMult <- function()
+        {
+			return this.m.EL_BaseWithRankArmorDamageMult;
+        }
+		o.EL_setBaseWithRankArmorDamageMult <- function( _EL_baseWithRankArmorDamageMult )
+        {
+			this.m.EL_BaseWithRankArmorDamageMult = _EL_baseWithRankArmorDamageMult;
+        }
+		o.EL_getBaseNoRankDirectDamageAdd <- function()
+        {
+			return this.m.EL_BaseNoRankDirectDamageAdd;
+        }
+		o.EL_setBaseNoRankDirectDamageAdd <- function( _EL_baseNoRankDirectDamageAdd )
+        {
+			this.m.EL_BaseNoRankDirectDamageAdd = _EL_baseNoRankDirectDamageAdd;
+        }
+		o.EL_getBaseWithRankDirectDamageAdd <- function()
+        {
+			return this.m.EL_BaseWithRankDirectDamageAdd;
+        }
+		o.EL_setBaseWithRankDirectDamageAdd <- function( _EL_baseWithRankDirectDamageAdd )
+        {
+			this.m.EL_BaseWithRankDirectDamageAdd = _EL_baseWithRankDirectDamageAdd;
+        }
+		o.EL_getBaseNoRankChanceToHitHead <- function()
+        {
+			return this.m.EL_BaseNoRankChanceToHitHead;
+        }
+		o.EL_setBaseNoRankChanceToHitHead <- function( _EL_baseNoRankChanceToHitHead )
+        {
+			this.m.EL_BaseNoRankChanceToHitHead = _EL_baseNoRankChanceToHitHead;
+        }
+		o.EL_getBaseWithRankChanceToHitHead <- function()
+        {
+			return this.m.EL_BaseWithRankChanceToHitHead;
+        }
+		o.EL_setBaseWithRankChanceToHitHead <- function( _EL_baseWithRankChanceToHitHead )
+        {
+			this.m.EL_BaseWithRankChanceToHitHead = _EL_baseWithRankChanceToHitHead;
+        }
+		o.EL_getBaseNoRankAdditionalAccuracy <- function()
+        {
+			return this.m.EL_BaseNoRankAdditionalAccuracy;
+        }
+		o.EL_setBaseNoRankAdditionalAccuracy <- function( _EL_baseNoRankAdditionalAccuracy )
+        {
+			this.m.EL_BaseNoRankAdditionalAccuracy = _EL_baseNoRankAdditionalAccuracy;
+        }
+		o.EL_getBaseWithRankAdditionalAccuracy <- function()
+        {
+			return this.m.EL_BaseWithRankAdditionalAccuracy;
+        }
+		o.EL_setBaseWithRankAdditionalAccuracy <- function( _EL_baseWithRankAdditionalAccuracy )
+        {
+			this.m.EL_BaseWithRankAdditionalAccuracy = _EL_baseWithRankAdditionalAccuracy;
+        }
+		o.EL_getBaseNoRankFatigueOnSkillUse <- function()
+        {
+			return this.m.EL_BaseNoRankFatigueOnSkillUse;
+        }
+		o.EL_setBaseNoRankFatigueOnSkillUse <- function( _EL_baseNoRankFatigueOnSkillUse )
+        {
+			this.m.EL_BaseNoRankFatigueOnSkillUse = _EL_baseNoRankFatigueOnSkillUse;
+        }
+		o.EL_getBaseWithRankFatigueOnSkillUse <- function()
+        {
+			return this.m.EL_BaseWithRankFatigueOnSkillUse;
+        }
+		o.EL_setBaseWithRankFatigueOnSkillUse <- function( _EL_baseWithRankFatigueOnSkillUse )
+        {
+			this.m.EL_BaseWithRankFatigueOnSkillUse = _EL_baseWithRankFatigueOnSkillUse;
+        }
+		o.EL_getBaseNoRankRangeMax <- function()
+        {
+			return this.m.EL_BaseNoRankRangeMax;
+        }
+		o.EL_setBaseNoRankRangeMax <- function( _EL_baseNoRankRangeMax )
+        {
+			this.m.EL_BaseNoRankRangeMax = _EL_baseNoRankRangeMax;
+        }
+		o.EL_getBaseWithRankRangeMax <- function()
+        {
+			return this.m.EL_BaseWithRankRangeMax;
+        }
+		o.EL_setBaseWithRankRangeMax <- function( _EL_baseWithRankRangeMax )
+        {
+			this.m.EL_BaseWithRankRangeMax = _EL_baseWithRankRangeMax;
+        }
 		o.EL_getLevelAddtionStaminaModifier <- function()
 		{
 			return this.m.StaminaModifier - this.m.EL_BaseWithRankStaminaModifier;
 		}
+		o.EL_getRankLevelMax <- function()
+		{
+			return this.Const.EL_Item.MaxRankLevel.Normal;
+		}
+		
 		//Initialize equipment based on level and rank after generating items
         o.EL_generateByRankAndLevel <- function( _EL_rankLevel, EL_level, EL_additionalRarityChance = 0 )
         {
@@ -385,31 +508,54 @@ local gt = getroottable();
 			percent = (this.m.Condition * 1.0)/ this.m.ConditionMax;
 			if(this.m.EL_Level == -1)
 			{
-				this.m.EL_RankLevel = this.Math.min(this.m.EL_RankLevel + _EL_rankLevel, 4);
+				this.m.EL_RankLevel = this.Math.min(this.m.EL_RankLevel + _EL_rankLevel, this.EL_getRankLevelMax());
 				this.m.EL_Level = this.Math.min(this.Const.EL_Item.MaxLevel, EL_level);
-				local entryCount = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_Entry.EntryNum.OneHanded[this.m.EL_RankLevel] : this.Const.EL_Weapon.EL_Entry.EntryNum.TwoHanded[this.m.EL_RankLevel];
-        		EL_init();
-				EL_updateRankLevelProperties();
-				this.Const.EL_Weapon.EL_assignItemEntrys(this, entryCount);
+				EL_recordBaseNoRankProperties();
+				this.Const.EL_Weapon.EL_updateRankLevelProperties(this);
+				local entry_num = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_Entry.EntryNum.OneHanded[this.m.EL_RankLevel] : this.Const.EL_Weapon.EL_Entry.EntryNum.TwoHanded[this.m.EL_RankLevel];
+        		this.Const.EL_Weapon.EL_assignItemEntrys(this, entry_num);
 			}
 			this.m.EL_CurrentLevel = this.m.EL_Level;
-
 			EL_updateLevelProperties();
 			this.m.Condition = this.m.ConditionMax * percent;
 		}
 
-        o.EL_upgrade <- function()
+        o.EL_upgradeLevel <- function()
         {
 			if(this.m.EL_Level < this.Const.EL_Item.MaxLevel)
 			{
+				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
 				this.m.EL_Level += 1;
-				this.m.EL_CurrentLevel += 1;
+				this.m.EL_CurrentLevel = this.m.EL_Level;
 				EL_updateLevelProperties();
 			}
         }
 
+        o.EL_upgradeRank <- function()
+        {
+			if(EL_getRankLevel() < EL_getRankLevelMax())
+			{
+				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+				++this.m.EL_RankLevel;
+				foreach(entry in this.m.EL_EntryList)
+				{
+					entry.EL_onUpgradeRank();
+				}
+				this.Const.EL_Weapon.EL_updateRankLevelProperties(this);
+				local entry_num = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_Entry.EntryNum.OneHanded[this.m.EL_RankLevel] : this.Const.EL_Weapon.EL_Entry.EntryNum.TwoHanded[this.m.EL_RankLevel];
+        		this.Const.EL_Weapon.EL_assignItemEntrys(this, entry_num);
+			}
+			else if(this.m.EL_StrengthenEntryNum < this.m.EL_EntryList.len())
+			{
+				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+				++this.m.EL_StrengthenEntryNum;
+			}
+			EL_updateLevelProperties();
+        }
+
 		o.EL_disassemble <- function(_itemIndex)
 		{
+			this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
 			local stash = this.World.Assets.getStash();
 			stash.remove(this);
 		}
@@ -418,25 +564,13 @@ local gt = getroottable();
         {
 			if(this.m.EL_RankLevel && this.m.EL_Level != -1)
 			{
-				this.m.EL_Vision = 0;
-				this.m.EL_AdditionalExplosionRange = 0;
-				this.m.ArmorDamageMult = this.m.EL_BaseNoRankArmorDamageMult;
-				this.m.DirectDamageAdd = this.m.EL_BaseNoRankDirectDamageAdd;
-				this.m.ChanceToHitHead = this.m.EL_BaseNoRankChanceToHitHead;
-				this.m.AmmoMax = this.m.EL_BaseNoRankAmmoMax;
-				this.m.AdditionalAccuracy = this.m.EL_BaseNoRankAdditionalAccuracy;
-				this.m.FatigueOnSkillUse = this.m.EL_BaseNoRankFatigueOnSkillUse;
-				this.m.RangeMax = this.m.EL_BaseNoRankRangeMax;
-				this.m.EL_BaseWithRankConditionMax = this.m.EL_BaseNoRankConditionMax;
-				this.m.EL_BaseWithRankValue = this.m.EL_BaseNoRankValue;
-				this.m.EL_BaseWithRankRegularDamage = this.m.EL_BaseNoRankRegularDamage;
-			    this.m.EL_BaseWithRankRegularDamageMax = this.m.EL_BaseNoRankRegularDamageMax;
-		  	    this.m.EL_BaseWithRankStaminaModifier = this.m.EL_BaseNoRankStaminaModifier;
-				this.m.EL_BaseWithRankShieldDamage = this.m.EL_BaseNoRankShieldDamage;
-				this.m.EL_Entrylist.clear();
-				local entryCount = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_Entry.EntryNum.OneHanded[this.m.EL_RankLevel] : this.Const.EL_Weapon.EL_Entry.EntryNum.TwoHanded[this.m.EL_RankLevel];
-        		this.Const.EL_Weapon.EL_assignItemEntrys(this, entryCount);
-        	    EL_updateRankLevelProperties();
+				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+				EL_init();
+				this.m.EL_EntryList.clear();
+				this.m.EL_RankPropertiesImproveIndex.clear();
+        	    this.Const.EL_Weapon.EL_updateRankLevelProperties(this);
+				local entry_num = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_Entry.EntryNum.OneHanded[this.m.EL_RankLevel] : this.Const.EL_Weapon.EL_Entry.EntryNum.TwoHanded[this.m.EL_RankLevel];
+        		this.Const.EL_Weapon.EL_assignItemEntrys(this, entry_num);
 				EL_updateLevelProperties();
 			}
         }
@@ -445,9 +579,6 @@ local gt = getroottable();
         {
 			if(this.m.ConditionMax != 1)
 			{
-				if(this.m.EL_BaseWithRankConditionMax == 0) {
-					this.m.EL_BaseWithRankConditionMax = this.m.ConditionMax;
-				}
 				this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Weapon.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
 			}
 			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Weapon.EL_LevelFactor.Value * this.m.EL_Level));
@@ -455,74 +586,40 @@ local gt = getroottable();
 			this.m.RegularDamageMax = this.Math.ceil(this.m.EL_BaseWithRankRegularDamageMax * (1 + this.Const.EL_Weapon.EL_LevelFactor.RegularDamageMax * this.m.EL_CurrentLevel));
 			this.m.StaminaModifier = this.Math.floor(this.m.EL_BaseWithRankStaminaModifier * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
 			this.m.ShieldDamage = this.Math.ceil(this.m.EL_BaseWithRankShieldDamage * (1 + this.Const.EL_Weapon.EL_LevelFactor.ShieldDamage * this.m.EL_CurrentLevel));
-			if(this.m.EL_Entrylist.len() != 0)
+			if(this.m.EL_EntryList.len() != 0)
 			{
-				foreach(entry in this.m.EL_Entrylist)
+				for( local index = 0; index < this.m.EL_StrengthenEntryNum && index < this.m.EL_EntryList.len(); ++index )
+				{
+					this.m.EL_EntryList[index].EL_strengthen();
+				}
+				foreach(entry in this.m.EL_EntryList)
 				{
 					entry.EL_onItemUpdate(this);
 				}
 			}
 		}
 
-		o.EL_updateRankLevelProperties <- function()
-        {
-			this.m.EL_BaseWithRankValue = this.m.EL_BaseNoRankValue * gt.Const.EL_Weapon.EL_RankValue[this.m.EL_RankLevel];
-			local isReduceWeight = this.Math.rand(0, 1);
-			if(this.m.EL_RankLevel >= 1 && this.m.EL_RankLevel != 4)
-			{
-				local available = [];
-				local weightList = [];
-				local weightSum = 0;
-				foreach	(func in gt.Const.EL_Weapon.EL_RankPropertiesInitFunctions)
-				{
-					if(func.ifUsable(this))
-					{
-						available.push(func.changeValues);
-						weightList.push(func.weight);
-						weightSum += func.weight;
-					}
-				}
-				for( local count = 2; count != 0 && available.len() != 0; --count )
-				{
-					local roll = this.Math.rand(0, weightSum - weightList[0]);
-					local number = 0;
-					for( local index = 0; index < weightList.len(); ++index )
-					{
-						if(roll > weightList[index])
-						{
-							++number;
-							roll -= weightList[index];
-						}
-						else
-						{
-							break;
-						}
-					}
-					weightSum -= weightList[number];
-					weightList.remove(number);
-					available[number](this, isReduceWeight);
-					available.remove(number);
-				}
-			}
-			for(local index = 1; index < this.m.EL_RankLevel; ++index)
-			{
-				local available = [];
-				foreach	(func in gt.Const.EL_Weapon.EL_RankPropertiesInitFunctions)
-				{
-					if(func.ifUsable(this))
-					{
-						available.push(func.changeValues);
-					}
-				}
-				for( local index = 0; index < available.len(); ++index )
-				{
-					available[index](this, isReduceWeight);
-				}
-			}
-        }
-
         o.EL_init <- function()
 	    {
+			this.m.EL_Vision = 0;
+			this.m.EL_AdditionalExplosionRange = 0;
+			this.m.ArmorDamageMult = this.m.EL_BaseNoRankArmorDamageMult;
+			this.m.DirectDamageAdd = this.m.EL_BaseNoRankDirectDamageAdd;
+			this.m.ChanceToHitHead = this.m.EL_BaseNoRankChanceToHitHead;
+			this.m.AmmoMax = this.m.EL_BaseNoRankAmmoMax;
+			this.m.AdditionalAccuracy = this.m.EL_BaseNoRankAdditionalAccuracy;
+			this.m.FatigueOnSkillUse = this.m.EL_BaseNoRankFatigueOnSkillUse;
+			this.m.RangeMax = this.m.EL_BaseNoRankRangeMax;
+			this.m.EL_BaseWithRankConditionMax = this.m.EL_BaseNoRankConditionMax;
+			this.m.EL_BaseWithRankValue = this.m.EL_BaseNoRankValue;
+			this.m.EL_BaseWithRankRegularDamage = this.m.EL_BaseNoRankRegularDamage;
+			this.m.EL_BaseWithRankRegularDamageMax = this.m.EL_BaseNoRankRegularDamageMax;
+			this.m.EL_BaseWithRankStaminaModifier = this.m.EL_BaseNoRankStaminaModifier;
+			this.m.EL_BaseWithRankShieldDamage = this.m.EL_BaseNoRankShieldDamage;
+        }
+
+		o.EL_recordBaseNoRankProperties <- function()
+		{
 			this.m.EL_BaseNoRankConditionMax = this.m.ConditionMax;
 		    this.m.EL_BaseNoRankValue = this.m.Value;
 		    this.m.EL_BaseNoRankRegularDamage = this.m.RegularDamage;
@@ -552,38 +649,127 @@ local gt = getroottable();
 			this.m.EL_BaseWithRankFatigueOnSkillUse = this.m.FatigueOnSkillUse;
 			this.m.EL_BaseWithRankRangeMax = this.m.RangeMax;
 			this.m.EL_BaseWithRankAmmoMax = this.m.AmmoMax;
-        }
+		}
 
-		o.EL_getUpgradeEssence <- function()
+		o.EL_getUpgradeLevelEquipmentEssenceNum <- function()
 		{
 			local result = [0, 0, 0, 0, 0];
 			if(this.m.EL_Level < 100)
 			{
-				result[this.m.EL_RankLevel] += this.Const.EL_Weapon.EL_Essence.SlotFactor * this.Const.EL_Weapon.EL_Essence.UpgradeFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
+				local min_calculate_weight = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_EquipmentEssence.OneHandedMinCalculateWeight : this.Const.EL_Weapon.EL_EquipmentEssence.TwoHandedMinCalculateWeight;
+				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Weapon.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel) * this.Const.EL_Weapon.EL_EquipmentEssence.UpgradeLevelFactor 
+														* this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
 			}
 			return result;
 		}
 
-		o.EL_getDisassembleEssence <- function()
+		o.EL_getUpgradeRankEquipmentEssenceNum <- function()
 		{
 			local result = [0, 0, 0, 0, 0];
-			result[this.m.EL_RankLevel] += this.Const.EL_Weapon.EL_Essence.SlotFactor * this.Const.EL_Weapon.EL_Essence.DisassembleFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
+			if(EL_getRankLevel() < EL_getRankLevelMax())
+			{
+				local rank_level = EL_getRankLevel() + 1;
+				local min_calculate_weight = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_EquipmentEssence.OneHandedMinCalculateWeight : this.Const.EL_Weapon.EL_EquipmentEssence.TwoHandedMinCalculateWeight;
+				if(rank_level == this.Const.EL_Item.Type.Legendary)
+				{
+					++result[this.Const.EL_Item.Type.Legendary];
+				}
+				else
+				{
+					result[rank_level] += this.Math.floor(this.Const.EL_Weapon.EL_EquipmentEssence.UpgradeRankFactor * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) 
+										* (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
+				}
+				
+				for(local index = 0; index < this.m.EL_Level; ++index)
+				{
+					result[this.Const.EL_Item.Type.Normal] += this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * index);
+				}
+				result[this.Const.EL_Item.Type.Normal] = this.Math.floor(this.Math.abs(result[this.Const.EL_Item.Type.Normal]) * this.Const.EL_Weapon.EL_EquipmentEssence.UpgradeLevelFactor 
+													  * (this.Math.pow(this.Const.EL_Weapon.EL_EquipmentEssence.RankFactor, rank_level) - this.Math.pow(this.Const.EL_Weapon.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel)));
+			}
+			else if(this.m.EL_StrengthenEntryNum < this.m.EL_EntryList.len())
+			{
+				result[this.Const.EL_Item.Type.Legendary] += this.Const.EL_Weapon.EL_EquipmentEssence.StrengthenEntryNum;
+			}
 			return result;
 		}
 
-		o.EL_getRecraftEssence <- function()
+		o.EL_getDisassembleEquipmentEssenceNum <- function()
+		{
+			local result = [0, 0, 0, 0, 0];
+			local min_calculate_weight = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_EquipmentEssence.OneHandedMinCalculateWeight : this.Const.EL_Weapon.EL_EquipmentEssence.TwoHandedMinCalculateWeight;
+			result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Weapon.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel) * this.Const.EL_Weapon.EL_EquipmentEssence.DisassembleFactor
+													* this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
+			if(this.m.EL_RankLevel == this.Const.EL_Item.Type.Legendary)
+			{
+				++result[this.Const.EL_Item.Type.Legendary];
+			}
+			else
+			{
+				result[this.m.EL_RankLevel] += this.Math.floor(this.Const.EL_Weapon.EL_EquipmentEssence.DisassembleFactor
+											 * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
+				
+			}
+			
+			return result;
+		}
+
+		o.EL_getRecraftEquipmentEssenceNum <- function()
 		{
 			local result = [0, 0, 0, 0, 0];
 			if(this.m.EL_RankLevel)
 			{
-				result[this.m.EL_RankLevel] += this.Const.EL_Weapon.EL_Essence.SlotFactor * this.Const.EL_Weapon.EL_Essence.RecraftFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel));
+				local rank_level = this.Math.min(this.m.EL_RankLevel, this.Const.EL_Item.Type.Epic);
+				local min_calculate_weight = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_EquipmentEssence.OneHandedMinCalculateWeight : this.Const.EL_Weapon.EL_EquipmentEssence.TwoHandedMinCalculateWeight;
+				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Weapon.EL_EquipmentEssence.RankFactor, rank_level) * this.Const.EL_Weapon.EL_EquipmentEssence.RecraftFactor 
+														* this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)));
+				result[rank_level] += this.Math.floor(this.Const.EL_Weapon.EL_EquipmentEssence.SeniorEquipmentEssenceMult * this.Const.EL_Weapon.EL_EquipmentEssence.RecraftFactor 
+											 * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)))
 			}
 			return result;
 		}
 	});
 
+    ::mods_hookExactClass("items/ammo/ammo", function ( o )
+	{
+		local consumeAmmo = o.consumeAmmo;
+		o.consumeAmmo = function()
+		{
+			local item = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+			local skills = this.getContainer().getActor().getSkills();
+			if(item != null)
+			{
+				foreach(entry in this.m.EL_EntryList)
+				{
+					if(entry.getID() == "el_weapon_entry.save_ammo" && this.Math.rand(1, 10000) < entry.m.EL_SaveAmmoChance * 100)
+					{
+						return;
+					}
+				}
+				foreach( skill in skills.m.Skills ) {
+					local skill_id = skill.getID()
+					if(skill_id == "el_rarity_entry.pursuit_of_wind"  && skill.EL_isUsable())
+					{
+						return;
+					}
+				}
+				consumeAmmo();
+			}
+		}
+	});
+
+	for(local i = 0; i < this.Const.EL_Weapon.EL_ThrowingWeaponList.len(); ++i) {
+		::mods_hookExactClass("items/" + this.Const.EL_Weapon.EL_ThrowingWeaponList[i], function ( o )
+		{
+			//this.logInfo("this.Const.EL_Weapon.EL_ThrowingWeaponList[i]" + this.Const.EL_Weapon.EL_ThrowingWeaponList[i]);
+			o.getAmountString <- function()
+			{
+				return "lv" + this.m.EL_Level + " " + this.m.Ammo + "/" + this.m.AmmoMax;
+			}
+		});
+	}
+
 	::mods_hookExactClass("skills/actives/fire_handgonne_skill", function(o) {
-        //local getAffectedTiles = o.getAffectedTiles;
 		o.getAffectedTiles = function( _targetTile )
 		{
 			local ret = [
@@ -593,7 +779,14 @@ local gt = getroottable();
 			local dir = ownTile.getDirectionTo(_targetTile);
 			local dist = ownTile.getDistanceTo(_targetTile);
 			local isTakingAim = this.getContainer().hasSkill("effects.ptr_take_aim");
-
+			local additional_vertical_explosion_range = this.getItem().m.EL_AdditionalExplosionRange;
+			local horizontal_explosion_range = 1;
+			local has_rarity_entry = this.getContainer().hasSkill("el_rarity_entry.gunfire_licks_the_heavens") && this.getContainer().getSkillByID("el_rarity_entry.gunfire_licks_the_heavens").EL_isUsable();
+			if(has_rarity_entry)
+			{
+				additional_vertical_explosion_range += 2 * (this.Const.EL_Rarity_Entry.Factor.EL_GunfireLicksTheHeavens.ExplosionRangeMult - 1);
+				horizontal_explosion_range += this.Const.EL_Rarity_Entry.Factor.EL_GunfireLicksTheHeavens.ExplosionRangeMult - 1;
+			}
 			if (_targetTile.hasNextTile(dir))
 			{
 				local forwardTile = _targetTile.getNextTile(dir);
@@ -615,9 +808,10 @@ local gt = getroottable();
 						}
 					}
 				}
-                for( local count = 0; count < this.getItem().m.EL_AdditionalExplosionRange; ++count )
-                {
-                    if (forwardTile.hasNextTile(dir))
+
+				for(local count = 0; count < additional_vertical_explosion_range; ++count)
+				{
+					if (forwardTile.hasNextTile(dir))
 					{
 						forwardTile = forwardTile.getNextTile(dir);
 
@@ -626,79 +820,23 @@ local gt = getroottable();
 							ret.push(forwardTile);
 						}
 					}
-                }
+				}
 			}
-
 			local left = dir - 1 < 0 ? 5 : dir - 1;
-
-			if (_targetTile.hasNextTile(left))
-			{
-				local forwardTile = _targetTile.getNextTile(left);
-
-				if (this.Math.abs(forwardTile.Level - ownTile.Level) <= this.m.MaxLevelDifference)
-				{
-					ret.push(forwardTile);
-				}
-
-				if (forwardTile.hasNextTile(dir))
-				{
-					forwardTile = forwardTile.getNextTile(dir);
-
-					if (this.Math.abs(forwardTile.Level - ownTile.Level) <= this.m.MaxLevelDifference)
-					{
-						ret.push(forwardTile);
-					}
-				}
-
-				if (dist < 3 && isTakingAim)
-				{
-					if (forwardTile.hasNextTile(dir))
-					{
-						forwardTile = forwardTile.getNextTile(dir);
-
-						if (this.Math.abs(forwardTile.Level - ownTile.Level) <= this.m.MaxLevelDifference)
-						{
-							ret.push(forwardTile);
-						}
-					}
-				}
-                for( local count = 0; count < this.getItem().m.EL_AdditionalExplosionRange; ++count )
-                {
-                    if (forwardTile.hasNextTile(dir))
-					{
-						forwardTile = forwardTile.getNextTile(dir);
-
-						if (this.Math.abs(forwardTile.Level - ownTile.Level) <= this.m.MaxLevelDifference)
-						{
-							ret.push(forwardTile);
-						}
-					}
-                }
-			}
-
+			local left_tile = _targetTile;
 			local right = dir + 1 > 5 ? 0 : dir + 1;
-
-			if (_targetTile.hasNextTile(right))
+			local right_tile = _targetTile;
+			for(local index = 0; index < horizontal_explosion_range; ++index)
 			{
-				local forwardTile = _targetTile.getNextTile(right);
-
-				if (this.Math.abs(forwardTile.Level - ownTile.Level) <= this.m.MaxLevelDifference)
+				if (left_tile.hasNextTile(left))
 				{
-					ret.push(forwardTile);
-				}
-
-				if (forwardTile.hasNextTile(dir))
-				{
-					forwardTile = forwardTile.getNextTile(dir);
-
+					local forwardTile = left_tile.getNextTile(left);
+					left_tile = forwardTile;
 					if (this.Math.abs(forwardTile.Level - ownTile.Level) <= this.m.MaxLevelDifference)
 					{
 						ret.push(forwardTile);
 					}
-				}
 
-				if (dist < 3 && isTakingAim)
-				{
 					if (forwardTile.hasNextTile(dir))
 					{
 						forwardTile = forwardTile.getNextTile(dir);
@@ -708,10 +846,43 @@ local gt = getroottable();
 							ret.push(forwardTile);
 						}
 					}
+
+					if (dist < 3 && isTakingAim)
+					{
+						if (forwardTile.hasNextTile(dir))
+						{
+							forwardTile = forwardTile.getNextTile(dir);
+
+							if (this.Math.abs(forwardTile.Level - ownTile.Level) <= this.m.MaxLevelDifference)
+							{
+								ret.push(forwardTile);
+							}
+						}
+					}
+
+					for(local count = 0; count < additional_vertical_explosion_range; ++count)
+					{
+						if (forwardTile.hasNextTile(dir))
+						{
+							forwardTile = forwardTile.getNextTile(dir);
+
+							if (this.Math.abs(forwardTile.Level - ownTile.Level) <= this.m.MaxLevelDifference)
+							{
+								ret.push(forwardTile);
+							}
+						}
+					}
 				}
-                for( local count = 0; count < this.getItem().m.EL_AdditionalExplosionRange; ++count )
-                {
-                    if (forwardTile.hasNextTile(dir))
+				if (right_tile.hasNextTile(right))
+				{
+					local forwardTile = right_tile.getNextTile(right);
+					right_tile = forwardTile;
+					if (this.Math.abs(forwardTile.Level - ownTile.Level) <= this.m.MaxLevelDifference)
+					{
+						ret.push(forwardTile);
+					}
+
+					if (forwardTile.hasNextTile(dir))
 					{
 						forwardTile = forwardTile.getNextTile(dir);
 
@@ -720,20 +891,61 @@ local gt = getroottable();
 							ret.push(forwardTile);
 						}
 					}
-                }
+
+					if (dist < 3 && isTakingAim)
+					{
+						if (forwardTile.hasNextTile(dir))
+						{
+							forwardTile = forwardTile.getNextTile(dir);
+
+							if (this.Math.abs(forwardTile.Level - ownTile.Level) <= this.m.MaxLevelDifference)
+							{
+								ret.push(forwardTile);
+							}
+						}
+					}
+
+					for(local count = 0; count < additional_vertical_explosion_range; ++count)
+					{
+						if (forwardTile.hasNextTile(dir))
+						{
+							forwardTile = forwardTile.getNextTile(dir);
+
+							if (this.Math.abs(forwardTile.Level - ownTile.Level) <= this.m.MaxLevelDifference)
+							{
+								ret.push(forwardTile);
+							}
+						}
+					}
+				}
 			}
 
 			return ret;
 		}
+
         o.getTooltip = function()
 	    {
-	    	local ret = this.getRangedTooltip(this.getDefaultTooltip());
-	    	ret.push({
-    			id = 10,
-    			type = "text",
-    			icon = "ui/icons/items.png",
-    			text = "Can hit up to " + (3 * (2 + this.getItem().m.EL_AdditionalExplosionRange)) + " targets"
-    		});
+			local has_rarity_entry = this.getContainer().hasSkill("el_rarity_entry.gunfire_licks_the_heavens") && this.getContainer().getSkillByID("el_rarity_entry.gunfire_licks_the_heavens").EL_isUsable();
+			local ret = this.getRangedTooltip(this.getDefaultTooltip());
+			if(has_rarity_entry)
+			{
+					ret.push({
+					id = 10,
+					type = "text",
+					icon = "ui/icons/items.png",
+					text = "Can hit up to " + ((this.Const.EL_Rarity_Entry.Factor.EL_GunfireLicksTheHeavens.ExplosionRangeMult + 1) * (2 * this.Const.EL_Rarity_Entry.Factor.EL_GunfireLicksTheHeavens.ExplosionRangeMult + this.getItem().m.EL_AdditionalExplosionRange)) + " targets"
+				});
+			}
+			else
+			{
+				ret.push({
+					id = 10,
+					type = "text",
+					icon = "ui/icons/items.png",
+					text = "Can hit up to " + (3 * (2 + this.getItem().m.EL_AdditionalExplosionRange)) + " targets"
+				});
+			}
+	    	
     		local ammo = this.getAmmo();
 	    	if (ammo > 0)
 	    	{
@@ -774,31 +986,6 @@ local gt = getroottable();
 	    	}
 	    	return ret;
     	}
-	});
-
-    ::mods_hookExactClass("items/ammo/ammo", function ( o )
-	{
-		local consumeAmmo = o.consumeAmmo;
-		o.consumeAmmo = function()
-		{
-			local item = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
-			local skills = this.getContainer().getActor().getSkills();
-			if(item != null)
-			{
-				foreach(entry in this.m.EL_Entrylist)
-				{
-					if(entry.getID() == "weapon_entry.el_save_ammo" && this.Math.rand(1, 1000) < entry.m.EL_SaveAmmoChance * 10)
-					{
-						return;
-					}
-				}
-				if (skills.hasSkill("entry.el_pursuit_of_wind") || skills.hasSkill("entry.el_eye_of_death") || skills.hasSkill("entry.el_gunfire_licks_the_heavens") || skills.hasSkill("entry.el_infinite_penetration"))
-				{
-					return;
-				}
-				consumeAmmo();
-			}
-		}
 	});
 
 	::mods_hookNewObject("items/weapons/fencing_sword", function(o) {

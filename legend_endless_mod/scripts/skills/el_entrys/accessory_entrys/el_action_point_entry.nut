@@ -1,12 +1,12 @@
-this.el_action_point_entry <- this.inherit("scripts/skills/el_entrys/accessory_entrys/el_accessory_entry", {
+this.el_action_point_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_entry", {
 	m = {
-        EL_ActionPointAddition = 0
+        EL_ActionPoint = 0
     },
 	function create()
 	{
 		this.el_entry.create();
 		this.m.ID = this.Const.EL_Accessory.EL_Entry.Factor.EL_ActionPoint.ID;
-		this.m.EL_ActionPointAddition = this.Const.EL_Accessory.EL_Entry.Factor.EL_ActionPoint.ActionPoint;
+		this.m.EL_ActionPoint = this.Const.EL_Accessory.EL_Entry.Factor.EL_ActionPoint.ActionPoint;
 	}
 
 	function getTooltip( _id )
@@ -15,7 +15,7 @@ this.el_action_point_entry <- this.inherit("scripts/skills/el_entrys/accessory_e
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Action Points + " + this.m.EL_ActionPointAddition + "[/color]"
+			text = "[color=" + colour + "]Action Points + " + this.m.EL_ActionPoint + "[/color]"
 		};
 		return result;
 	}
@@ -37,31 +37,28 @@ this.el_action_point_entry <- this.inherit("scripts/skills/el_entrys/accessory_e
 
 	function onUpdate( _properties )
 	{
-		this.el_entry.onUpdate(_properties);
 		if(this.m.EL_CurrentLevel)
 		{
-			_properties.ActionPoints += this.m.EL_ActionPointAddition;
+			_properties.ActionPoints += this.m.EL_ActionPoint;
 		}
 	}
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
-		++_EL_totalEntry.m.EL_EntryNum;
 		if(this.m.EL_CurrentLevel)
 		{
-			_EL_totalEntry.m.EL_ActionPointAddition += this.m.EL_ActionPointAddition;
+			++_EL_totalEntry.m.EL_EntryNum;
+			_EL_totalEntry.m.EL_ActionPoint += this.m.EL_ActionPoint;
 		}
 	}
 
     function onSerialize( _out )
 	{
-		_out.writeI32(this.m.EL_ActionPointAddition);
-		this.el_accessory_entry.onSerialize(_out);
+		_out.writeI32(this.m.EL_ActionPoint);
 	}
 
 	function onDeserialize( _in )
 	{
-		this.m.EL_ActionPointAddition = _in.readI32();
-		this.el_accessory_entry.onDeserialize(_in);
+		this.m.EL_ActionPoint = _in.readI32();
 	}
 });

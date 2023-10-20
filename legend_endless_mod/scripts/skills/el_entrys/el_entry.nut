@@ -47,6 +47,14 @@ this.el_entry <- this.inherit("scripts/skills/skill", {
 		}
 	}
 
+	function EL_strengthen()
+	{
+	}
+
+	function EL_onUpgradeRank()
+	{
+	}
+
 	function EL_onNewDay( _item )
 	{
 	}
@@ -55,7 +63,7 @@ this.el_entry <- this.inherit("scripts/skills/skill", {
 	{
 	}
 
-	function EL_refreshTotalEntry( __EL_totalEntry )
+	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
 	}
 

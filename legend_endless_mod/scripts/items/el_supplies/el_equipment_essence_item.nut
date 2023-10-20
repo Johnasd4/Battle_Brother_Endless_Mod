@@ -104,10 +104,16 @@ this.el_equipment_essence_item <- this.inherit("scripts/items/item", {
 		this.m.EL_Amount += this.Math.floor(_EL_Amount);
 	}
 
+	function onSerialize( _out )
+	{
+		_out.writeI32(this.m.Value);
+		_out.writeI32(this.m.EL_Amount);
+	}
 
-
-
-
-
+	function onDeserialize( _in )
+	{
+		this.m.Value = _in.readI32();
+		this.m.EL_Amount = _in.readI32();
+	}
 });
 

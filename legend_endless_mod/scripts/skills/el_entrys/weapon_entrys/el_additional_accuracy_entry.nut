@@ -14,21 +14,21 @@ this.el_additional_accuracy_entry <- this.inherit("scripts/skills/el_entrys/el_e
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]chance to hit + " + this.m.EL_AdditionalAccuracy + "%[/color]"
+			text = "[color=" + colour + "]Equipment chance to hit + " + this.m.EL_AdditionalAccuracy + "%[/color]"
 		};
 		return result;
 	}
 
 	function EL_getEntryColour()
 	{
-        for (local index = 0; index < this.Const.EL_Item.Type.Legendary; ++index)
+        for (local index = 0; index <= this.Const.EL_Item.Type.Legendary; ++index)
         {
             if (this.m.EL_AdditionalAccuracy <= this.Const.EL_Weapon.EL_Entry.Factor.EL_AdditionalAccuracy.ColourRange[index])
             {
                 return this.Const.EL_Item.Colour[index];
             }
         }
-		return this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Legendary];
+		return this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Rare];
 	}
 
 	function EL_createAddition()
@@ -36,6 +36,19 @@ this.el_additional_accuracy_entry <- this.inherit("scripts/skills/el_entrys/el_e
 		local randomMin = this.Const.EL_Weapon.EL_Entry.Factor.EL_AdditionalAccuracy.RandomMinAdditionalAccuracy[this.getItem().m.EL_RankLevel];
 		local randomMax = this.Const.EL_Weapon.EL_Entry.Factor.EL_AdditionalAccuracy.RandomMaxAdditionalAccuracy[this.getItem().m.EL_RankLevel];
 		this.m.EL_AdditionalAccuracy = this.Const.EL_Weapon.EL_Entry.Factor.EL_AdditionalAccuracy.BaseAdditionalAccuracy + this.Math.rand(randomMin, randomMax);
+	}
+
+	function EL_strengthen()
+	{
+		this.m.EL_AdditionalAccuracy = this.Const.EL_Weapon.EL_Entry.EntryStrengthenMult * this.Const.EL_Weapon.EL_Entry.Factor.EL_AdditionalAccuracy.ColourRange[this.Const.EL_Item.Type.Legendary];
+	}
+
+	function EL_onUpgradeRank()
+	{
+		if(EL_getEntryColour() != this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Legendary])
+		{
+			this.m.EL_AdditionalAccuracy += this.Const.EL_Weapon.EL_Entry.Factor.EL_AdditionalAccuracy.RandomMaxAdditionalAccuracy[this.Const.EL_Item.Type.Normal] / 2;
+		}
 	}
 
 	function EL_onItemUpdate( _item )

@@ -1,4 +1,4 @@
-this.el_immue_stun_root_disarm_entry <- this.inherit("scripts/skills/el_entrys/accessory_entrys/el_accessory_entry", {
+this.el_immue_stun_root_disarm_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_entry", {
 	m = {},
 	function create()
 	{
@@ -36,7 +36,6 @@ this.el_immue_stun_root_disarm_entry <- this.inherit("scripts/skills/el_entrys/a
 
 	function onUpdate( _properties )
 	{
-		this.el_entry.onUpdate(_properties);
 		if(this.m.EL_CurrentLevel)
 		{
             _properties.IsImmuneToStun = true;
@@ -47,9 +46,9 @@ this.el_immue_stun_root_disarm_entry <- this.inherit("scripts/skills/el_entrys/a
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
-		++_EL_totalEntry.m.EL_EntryNum;
 		if(this.m.EL_CurrentLevel)
 		{
+			++_EL_totalEntry.m.EL_EntryNum;
 			_EL_totalEntry.m.EL_ImmueStunRootDisarm = true;
 		}
 	}

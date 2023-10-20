@@ -1,12 +1,12 @@
 this.el_action_point_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
 	m = {
-        EL_ActionPointAddition = 0
+        EL_ActionPoint = 0
     },
 	function create()
 	{
 		this.el_entry.create();
 		this.m.ID = this.Const.EL_Weapon.EL_Entry.Factor.EL_ActionPoint.ID;
-        this.m.EL_ActionPointAddition = this.Const.EL_Weapon.EL_Entry.Factor.EL_ActionPoint.ActionPoint;
+        this.m.EL_ActionPoint = this.Const.EL_Weapon.EL_Entry.Factor.EL_ActionPoint.ActionPoint;
 	}
 
 	function getTooltip( _id )
@@ -15,35 +15,34 @@ this.el_action_point_entry <- this.inherit("scripts/skills/el_entrys/el_entry", 
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Action Points + " + this.m.EL_ActionPointAddition + "[/color]"
+			text = "[color=" + colour + "]Action Points + " + this.m.EL_ActionPoint + "[/color]"
 		};
 		return result;
 	}
 
 	function EL_getEntryColour()
 	{
-		return this.Const.EL_Item.Colour[6];
+		return this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special];
 	}
 
 	function onUpdate( _properties )
 	{
-		this.el_entry.onUpdate(_properties);
-		_properties.ActionPoints += this.m.EL_ActionPointAddition;
+		_properties.ActionPoints += this.m.EL_ActionPoint;
 	}
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
 		++_EL_totalEntry.m.EL_EntryNum;
-		_EL_totalEntry.m.EL_ActionPointAddition += this.m.EL_ActionPointAddition;
+		_EL_totalEntry.m.EL_ActionPoint += this.m.EL_ActionPoint;
 	}
     
     function onSerialize( _out )
 	{
-		_out.writeI32(this.m.EL_ActionPointAddition);
+		_out.writeI32(this.m.EL_ActionPoint);
 	}
 
 	function onDeserialize( _in )
 	{
-		this.m.EL_ActionPointAddition = _in.readI32();
+		this.m.EL_ActionPoint = _in.readI32();
 	}
 });

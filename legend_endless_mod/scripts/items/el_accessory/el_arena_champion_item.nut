@@ -10,10 +10,11 @@ this.el_arena_champion_item <- this.inherit("scripts/items/accessory/accessory",
 		this.m.IsDroppedAsLoot = true;
 		this.m.ShowOnCharacter = true;
 		this.m.IconLarge = "";
-		this.m.Icon = "accessory/gladiator_necklace.png";
+		//OVERRIDE
+		this.m.Icon = "accessory/el_arena_champion.png";
 		this.m.Sprite = "gladiator_necklace_01";
 		this.m.Value = 2000;
-		this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Epic, 0, -100000);
+		this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0, -100000);
 	}
 
 	function getTooltip()

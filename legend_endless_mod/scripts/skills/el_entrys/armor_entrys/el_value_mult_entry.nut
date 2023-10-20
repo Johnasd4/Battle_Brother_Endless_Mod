@@ -1,11 +1,11 @@
-this.el_value_mult_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
+this.el_value_mult_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_entry", {
 	m = {
-        EL_ValueMultAddition = 0
+        EL_ValueMult = 0
     },
 	function create()
 	{
 		this.el_entry.create();
-		this.m.ID = this.Const.EL_Armor.EL_Entry.Factor.EL_ValueMult.ID;
+		this.m.ID = this.Const.EL_Helmet.EL_Entry.Factor.EL_ValueMult.ID;
 	}
 
 	function getTooltip( _id )
@@ -26,11 +26,11 @@ this.el_value_mult_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
     
     function onSerialize( _out )
 	{
-		_out.writeI32(this.m.EL_ValueMultAddition);
+		_out.writeI32(this.m.EL_ValueMult);
 	}
 
 	function onDeserialize( _in )
 	{
-		this.m.EL_ValueMultAddition = _in.readI32();
+		this.m.EL_ValueMult = _in.readI32();
 	}
 });
