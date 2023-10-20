@@ -56,7 +56,7 @@ this.el_rarity_entry_stone_item <- this.inherit("scripts/items/item", {
 	function onUse( _actor, _item = null )
 	{
 		local accessory = _actor.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
-		if(accessory != null && accessory.m.EL_RarityEntry == null)
+		if(accessory != null && accessory.EL_isValid() && accessory.m.EL_RarityEntry == null)
 		{
 			accessory.EL_addRarityEntry(this.m.EL_RarityEntry);
 			accessory.addSkill(this.m.EL_RarityEntry);

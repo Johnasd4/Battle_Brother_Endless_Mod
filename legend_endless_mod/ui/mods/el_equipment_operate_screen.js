@@ -87,12 +87,12 @@ WorldTownScreenShopDialogModule.prototype.createItemSlot = function (_owner, _in
 		var itemIdx = (data !== null && 'index' in data) ? data.index : null;
 		var destroyItem = false;
 		var repairItem = KeyModiferConstants.AltKey in _event && _event[KeyModiferConstants.AltKey] === true;
-		var EL_upgradeItem = KeyModiferConstants.CtrlKey in _event && _event[KeyModiferConstants.CtrlKey] === true;
 		var EL_recraftItem = KeyModiferConstants.ShiftKey in _event && _event[KeyModiferConstants.ShiftKey] === true;
-		var EL_disassembleItem = EL_upgradeItem && EL_recraftItem;
+		var EL_upgradeLevelItem = KeyModiferConstants.CtrlKey in _event && _event[KeyModiferConstants.CtrlKey] === true;
+		var EL_upgradeRankItem = EL_upgradeLevelItem && repairItem;
+		var EL_disassembleItem = EL_upgradeLevelItem && EL_recraftItem;
 		if(/*doSomething &&*/ isEmpty === false && owner !== null /*&& itemId !== null*/ && itemIdx !== null)
 		{
-			// buy, sell or destroy
 			switch(owner)
 			{
 				case WorldTownScreenShop.ItemOwner.Stash:
@@ -101,18 +101,22 @@ WorldTownScreenShopDialogModule.prototype.createItemSlot = function (_owner, _in
 					{
 						self.EL_disassembleItem(itemIdx);
 					}
-					else if (repairItem === true)
+					else if (EL_upgradeRankItem === true)
 					{
-						console.info('destroy');
-						self.repairItem(itemIdx);
+						self.EL_upgradeRankItem(itemIdx);
 					}
-					else if(EL_upgradeItem === true)
+					else if(EL_upgradeLevelItem === true)
 					{
-						self.EL_upgradeItem(itemIdx);
+						self.EL_upgradeLevelItem(itemIdx);
 					}
 					else if(EL_recraftItem === true)
 					{
 						self.EL_recraftItem(itemIdx);
+					}
+					else if (repairItem === true)
+					{
+						console.info('destroy');
+						self.repairItem(itemIdx);
 					}
 					else
 					{
@@ -149,10 +153,24 @@ WorldTownScreenShopDialogModule.prototype.EL_disassembleItem = function(_itemIdx
     });
 }
 
-WorldTownScreenShopDialogModule.prototype.EL_upgradeItem = function(_itemIdx)
+WorldTownScreenShopDialogModule.prototype.EL_upgradeRankItem = function(_itemIdx)
 {
 	var self = this;
-	this.EL_notifyBackendUpgradeItem(_itemIdx, function(_result)
+	this.EL_notifyBackendUpgradeRankItem(_itemIdx, function(_result)
+	{
+		if(_result.Item != undefined)
+		{
+			self.updateSlotItem(WorldTownScreenShop.ItemOwner.Stash, self.mStashSlots, _result.Item, _itemIdx, WorldTownScreenShop.ItemFlag.Updated);
+		}
+
+		self.mParent.loadAssetData(_result.Assets);
+	});
+}
+
+WorldTownScreenShopDialogModule.prototype.EL_upgradeLevelItem = function(_itemIdx)
+{
+	var self = this;
+	this.EL_notifyBackendUpgradeLevelItem(_itemIdx, function(_result)
 	{
 		if(_result.Item != undefined)
 		{
@@ -181,9 +199,13 @@ WorldTownScreenShopDialogModule.prototype.EL_notifyBackendDisassembleItem = func
 {
 	SQ.call(this.mSQHandle, 'EL_onDisassembleItem', _itemIdx, _callback);
 };
-WorldTownScreenShopDialogModule.prototype.EL_notifyBackendUpgradeItem = function (_itemIdx, _callback)
+WorldTownScreenShopDialogModule.prototype.EL_notifyBackendUpgradeRankItem = function (_itemIdx, _callback)
 {
-	SQ.call(this.mSQHandle, 'EL_onUpgradeItem', _itemIdx, _callback);
+	SQ.call(this.mSQHandle, 'EL_onUpgradeRankItem', _itemIdx, _callback);
+};
+WorldTownScreenShopDialogModule.prototype.EL_notifyBackendUpgradeLevelItem = function (_itemIdx, _callback)
+{
+	SQ.call(this.mSQHandle, 'EL_onUpgradeLevelItem', _itemIdx, _callback);
 };
 WorldTownScreenShopDialogModule.prototype.EL_notifyBackendRecraftItem = function (_itemIdx, _callback)
 {

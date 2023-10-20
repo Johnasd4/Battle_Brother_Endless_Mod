@@ -13,6 +13,8 @@ local gt = getroottable();
 		o.m.EL_BaseWithRankStaminaModifier <- 0;
 		o.m.EL_BaseNoRankFatigueOnSkillUse <- 0;
 		o.m.EL_BaseWithRankFatigueOnSkillUse <- 0;
+		o.m.EL_DamageShieldReduction <- 0;
+		o.m.EL_BaseWithRankDamageShieldReduction <- 0;
 
 		local getTooltip = o.getTooltip;
 		o.getTooltip = function ()
@@ -34,34 +36,49 @@ local gt = getroottable();
 					text = "[color=" + this.Const.EL_Item.Colour[this.m.EL_RankLevel] +"]" + this.getName() + "[/color]"
 				};
 			}
+			result.insert(4, {
+				id = 22,
+				type = "text",
+				text = "Rank Level: " + this.m.EL_RankLevel + "/" + this.EL_getRankLevelMax()
+			});
 			if(this.m.EL_CurrentLevel < this.m.EL_Level)
 			{
-				result.insert(4, {
-					id = 22,
+				result.insert(5, {
+					id = 23,
 					type = "text",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]Level: " + this.m.EL_CurrentLevel + "[/color](" + this.m.EL_Level + ")"
+					text = "[color=" + this.Const.UI.Color.NegativeValue + "]Level: " + this.m.EL_CurrentLevel + "/" + this.m.EL_Level + "[/color]"
 				});
 			}
 			else
 			{
-				result.insert(4, {
-					id = 22,
+				result.insert(5, {
+					id = 23,
 					type = "text",
 					text = "Level: " + this.m.EL_Level
 				});
 			}
-			if (this.m.EL_Entrylist.len() != 0)
+			result.insert(9, {
+				id = 24,
+				type = "text",
+                icon = "ui/icons/sturdiness.png",
+				text = "Shield fixation reduces damage: " + this.m.EL_DamageShieldReduction
+			});
+			if (this.m.EL_EntryList.len() != 0)
 			{
 				result.push({
 					id = 60,
 					type = "text",
 					text = "——————————————"
 				});
-				local _id = 61;
-				foreach(entry in this.m.EL_Entrylist)
+				local tool_tip_id = 61;
+				foreach(entry in this.m.EL_EntryList)
 				{
-					result.push(entry.getTooltip(_id));
-					++_id;
+					local tool_tip = entry.getTooltip(tool_tip_id);
+					if(tool_tip != null)
+					{
+						result.push(tool_tip);
+						++tool_tip_id;
+					}
 				}
 			}
 			if(this.m.EL_CurrentLevel < this.m.EL_Level)
@@ -98,7 +115,7 @@ local gt = getroottable();
 		{
 			onEquip();
 			this.addSkill(this.new("scripts/skills/el_items/el_item_level_check_skill"));
-            foreach(entry in this.m.EL_Entrylist)
+            foreach(entry in this.m.EL_EntryList)
 			{
 				this.EL_addEntry(entry);
 			}
@@ -108,22 +125,18 @@ local gt = getroottable();
 		o.onUnequip = function ()
 		{
 			onUnequip();
-			//this.addSkill(this.new("scripts/skills/el_entrys/el_total_entry"));
-			if( this.m.EL_CurrentLevel < this.m.EL_Level )
-			{
-				this.m.EL_CurrentLevel = this.m.EL_Level;
-				EL_updateLevelProperties();
-			}
+			this.m.EL_CurrentLevel = this.m.EL_Level;
+			EL_updateLevelProperties();
 		}
 
         local onSerialize = o.onSerialize;
 		o.onSerialize = function ( _out )
 		{
 			onSerialize(_out);
-			_out.writeU8(this.m.EL_Entrylist.len());
-			if(this.m.EL_Entrylist.len() != 0)
+			_out.writeU8(this.m.EL_EntryList.len());
+			if(this.m.EL_EntryList.len() != 0)
 			{
-				foreach(entry in this.m.EL_Entrylist)
+				foreach(entry in this.m.EL_EntryList)
 				{
 					_out.writeI32(entry.ClassNameHash);
 					entry.onSerialize(_out);
@@ -139,6 +152,8 @@ local gt = getroottable();
 			_out.writeI32(this.m.EL_BaseWithRankMeleeDefense);
 			_out.writeI32(this.m.EL_BaseWithRankRangedDefense);
 			_out.writeI32(this.m.EL_BaseWithRankStaminaModifier);
+			_out.writeI32(this.m.EL_DamageShieldReduction);
+			_out.writeI32(this.m.EL_BaseWithRankDamageShieldReduction);
 			_out.writeF32(this.m.Condition);
 		}
 
@@ -146,14 +161,13 @@ local gt = getroottable();
 		o.onDeserialize = function ( _in )
 		{
 			onDeserialize(_in);
-			this.m.EL_Entrylist.clear();
 
-			local EL_EntrylistLen = _in.readU8();
-			for( local i = 0; i != EL_EntrylistLen; ++i )
+			local EL_EntryListLen = _in.readU8();
+			for( local i = 0; i != EL_EntryListLen; ++i )
 			{
 				local entry = this.new(this.IO.scriptFilenameByHash(_in.readI32()));
 				entry.onDeserialize(_in);
-				this.m.EL_Entrylist.push(entry);
+				this.m.EL_EntryList.push(entry);
 			}
 
 			this.m.FatigueOnSkillUse = _in.readI32();
@@ -166,8 +180,21 @@ local gt = getroottable();
             this.m.EL_BaseWithRankMeleeDefense = _in.readI32();
 			this.m.EL_BaseWithRankRangedDefense = _in.readI32();
 			this.m.EL_BaseWithRankStaminaModifier = _in.readI32();
+			this.m.EL_DamageShieldReduction = _in.readI32();
+			this.m.EL_BaseWithRankDamageShieldReduction = _in.readI32();
 			EL_updateLevelProperties();
 			this.m.Condition = _in.readF32();
+		}
+
+		local applyShieldDamage = o.applyShieldDamage;
+		o.applyShieldDamage = function ( _damage, _playHitSound = true )
+		{
+			local skill = this.getContainer().getActor().getSkills().getSkillByID("el_rarity_entry.faith_of_the_rock");
+			if(skill != null && skill.EL_isUsable())
+			{
+				return;
+			}
+			applyShieldDamage(_damage, _playHitSound);
 		}
 
 		o.isAmountShown = function()
@@ -177,6 +204,11 @@ local gt = getroottable();
 
 		o.getAmountString = function()
 		{
+			if(this.m.EL_Level == -1)
+			{
+				return "lv0";
+				this.Const.EL_Item_Other.EL_OtherItemInit(_item);
+			}
 			if(this.m.Condition < this.m.ConditionMax)
 			{
 				return "lv" + this.m.EL_Level + ":" + this.Math.floor(this.m.Condition / (this.m.ConditionMax * 1.0) * 100) + "%";
@@ -205,36 +237,41 @@ local gt = getroottable();
         {
 			this.m.EL_BaseWithRankStaminaModifier = _EL_baseWithRankStaminaModifier;
         }
+		o.EL_getDamageShieldReduction <- function()
+        {
+			return this.m.EL_DamageShieldReduction;
+        }
+		o.EL_setDamageShieldReduction <- function( _EL_damageShieldReduction )
+        {
+			this.m.EL_DamageShieldReduction = _EL_damageShieldReduction;
+        }
+		o.EL_getBaseWithRankDamageShieldReduction <- function()
+        {
+			return this.m.EL_BaseWithRankDamageShieldReduction;
+        }
+		o.EL_setBaseWithRankDamageShieldReduction <- function( _EL_baseWithRankDamageShieldReduction )
+        {
+			this.m.EL_BaseWithRankDamageShieldReduction = _EL_baseWithRankDamageShieldReduction;
+        }
 		o.EL_getLevelAddtionStaminaModifier <- function()
 		{
 			return this.m.StaminaModifier - this.m.EL_BaseWithRankStaminaModifier;
 		}
-		o.EL_getLevelString <- function()
+		o.EL_getRankLevelMax <- function()
 		{
-			if (this.m.EL_Level > -1)
-			{
-				return "LV[b]" + this.m.EL_Level + "[/b]";
-			}
-			return "";
+			return this.Const.EL_Item.MaxRankLevel.Normal;
 		}
 
-		o.EL_getLevelStringColour <- function()
-		{
-			if (this.m.EL_Level > -1)
-			{
-				return this.Const.EL_Item.Colour[this.m.EL_RankLevel];
-			}
-			return "#ffffff";
-		}
+
         o.EL_generateByRankAndLevel <- function( _EL_rankLevel, EL_level, EL_additionalRarityChance = 0 )
         {
 			local percent = (this.m.Condition * 1.0)/ this.m.ConditionMax;
 			if(this.m.EL_Level == -1)
 			{
-				this.m.EL_RankLevel = this.Math.min(this.m.EL_RankLevel + _EL_rankLevel, 4);
+				this.m.EL_RankLevel = this.Math.min(this.m.EL_RankLevel + _EL_rankLevel, this.EL_getRankLevelMax());
 				this.m.EL_Level = this.Math.min(this.Const.EL_Item.MaxLevel, EL_level);
-				EL_init();
-				EL_updateRankLevelProperties();
+				EL_recordBaseNoRankProperties();
+				this.Const.EL_Shield.EL_updateRankLevelProperties(this);
 				this.Const.EL_Shield.EL_assignItemEntrys(this, this.Const.EL_Shield.EL_Entry.EntryNum.NormalShield[this.m.EL_RankLevel]);
 			}
 			this.m.EL_CurrentLevel = this.m.EL_Level;
@@ -242,18 +279,41 @@ local gt = getroottable();
 			this.m.Condition = this.m.ConditionMax * percent;
         }
 
-        o.EL_upgrade <- function()
+        o.EL_upgradeLevel <- function()
         {
 			if(this.m.EL_Level < this.Const.EL_Item.MaxLevel)
 			{
+				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
 				this.m.EL_Level += 1;
-				this.m.EL_CurrentLevel += 1;
+				this.m.EL_CurrentLevel = this.m.EL_Level;
 				EL_updateLevelProperties();
 			}
         }
 
+        o.EL_upgradeRank <- function()
+        {
+			if(EL_getRankLevel() < EL_getRankLevelMax())
+			{
+				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+				++this.m.EL_RankLevel;
+				foreach(entry in this.m.EL_EntryList)
+				{
+					entry.EL_onUpgradeRank();
+				}
+				this.Const.EL_Shield.EL_updateRankLevelProperties(this);
+				this.Const.EL_Shield.EL_assignItemEntrys(this, this.Const.EL_Shield.EL_Entry.EntryNum.NormalShield[this.m.EL_RankLevel]);
+			}
+			else if(this.m.EL_StrengthenEntryNum < this.m.EL_EntryList.len())
+			{
+				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+				++this.m.EL_StrengthenEntryNum;
+			}
+			EL_updateLevelProperties();
+        }
+
 		o.EL_disassemble <- function(_itemIndex)
 		{
+			this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
 			local stash = this.World.Assets.getStash();
 			stash.remove(this);
 		}
@@ -262,13 +322,12 @@ local gt = getroottable();
         {
 			if(this.m.EL_RankLevel && this.m.EL_Level != -1)
 			{
-				this.m.FatigueOnSkillUse = this.m.EL_BaseNoRankFatigueOnSkillUse;
-				this.m.EL_BaseWithRankMeleeDefense = this.m.EL_BaseNoRankMeleeDefense;
-				this.m.EL_BaseWithRankRangedDefense = this.m.EL_BaseNoRankRangedDefense;
-		  	    this.m.EL_BaseWithRankStaminaModifier = this.m.EL_BaseNoRankStaminaModifier;
-				this.m.EL_Entrylist.clear();
-				this.Const.EL_Shield.EL_assignItemEntrys(this, this.Const.EL_Shield.EL_Entry.EntryNum.NormalShield[this.m.EL_RankLevel]);
-        	    EL_updateRankLevelProperties();
+				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+				EL_init();
+				this.m.EL_EntryList.clear();
+				this.m.EL_RankPropertiesImproveIndex.clear();
+				this.Const.EL_Shield.EL_updateRankLevelProperties(this);
+				this.Const.EL_Shield.EL_assignItemEntrys(this, this.Const.EL_Shield.EL_Entry.EntryNum.NormalShield[this.m.EL_RankLevel]);				
 				EL_updateLevelProperties();
 			}
         }
@@ -279,121 +338,37 @@ local gt = getroottable();
 				this.m.EL_BaseWithRankConditionMax = this.m.ConditionMax;
 			}
 			this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Shield.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
-			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Shield.EL_LevelFactor.Value * this.m.EL_Level));
 			this.m.MeleeDefense = this.Math.ceil(this.m.EL_BaseWithRankMeleeDefense * (1 + this.Const.EL_Shield.EL_LevelFactor.MeleeDefense * this.m.EL_CurrentLevel));
 			this.m.RangedDefense = this.Math.ceil(this.m.EL_BaseWithRankRangedDefense * (1 + this.Const.EL_Shield.EL_LevelFactor.RangedDefense * this.m.EL_CurrentLevel));
+			this.m.EL_DamageShieldReduction = this.Math.ceil(this.m.EL_BaseWithRankDamageShieldReduction * (1 + this.Const.EL_Shield.EL_LevelFactor.DamageShieldReduction * this.m.EL_CurrentLevel));
+			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Shield.EL_LevelFactor.Value * this.m.EL_Level));
 			this.m.StaminaModifier = this.Math.floor(this.m.EL_BaseWithRankStaminaModifier * (1 + this.Const.EL_Shield.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
-			if(this.m.EL_Entrylist.len() != 0)
+			if(this.m.EL_EntryList.len() != 0)
 			{
-				foreach(entry in this.m.EL_Entrylist)
+				for( local index = 0; index < this.m.EL_StrengthenEntryNum && index < this.m.EL_EntryList.len(); ++index )
+				{
+					this.m.EL_EntryList[index].EL_strengthen();
+				}
+				foreach(entry in this.m.EL_EntryList)
 				{
 					entry.EL_onItemUpdate(this);
 				}
 			}
 		}
 
-		o.EL_updateRankLevelProperties <- function()
-        {
-			this.m.EL_BaseWithRankValue = this.m.EL_BaseNoRankValue * gt.Const.EL_Shield.EL_RankValue[this.m.EL_RankLevel];
-			local isReduceWeight = this.Math.rand(0, 1);
-			if(this.m.EL_RankLevel >= 1 && this.m.EL_RankLevel != 4)
-			{
-				local available = [];
-				local weightList = [];
-				local weightSum = 0;
-				foreach	(func in gt.Const.EL_Shield.EL_RankPropertiesInitFunctions)
-				{
-					if(func.ifUsable(this))
-					{
-						available.push(func.changeValues);
-						weightList.push(func.weight);
-						weightSum += func.weight;
-					}
-				}
-				for( local count = 2; count != 0 && available.len() != 0; --count )
-				{
-					local roll = this.Math.rand(0, weightSum - weightList[0]);
-					local number = 0;
-					for( local index = 0; index < weightList.len(); ++index )
-					{
-						if(roll > weightList[index])
-						{
-							++number;
-							roll -= weightList[index];
-						}
-						else
-						{
-							break;
-						}
-					}
-					weightSum -= weightList[number];
-					weightList.remove(number);
-					available[number](this, isReduceWeight);
-					available.remove(number);
-				}
-			}
-			for(local index = 1; index < this.m.EL_RankLevel; ++index)
-			{
-				local available = [];
-				foreach	(func in gt.Const.EL_Shield.EL_RankPropertiesInitFunctions)
-				{
-					if(func.ifUsable(this))
-					{
-						available.push(func.changeValues);
-					}
-				}
-				for( local index = 0; index < available.len(); ++index )
-				{
-					available[index](this, isReduceWeight);
-				}
-			}
-        }
-
-		// o.EL_entryGenerate <- function( EL_additionalRarityChance = 0 )
-		// {
-		// 	local entryCount = this.Const.EL_Shield.EL_EntryCount[this.m.EL_RankLevel];
-		// 	local isAdded = [];
-		// 	for(local index = 0; index < this.Const.EL_Shield.EL_EntryID.COUNT; ++index)
-		// 	{
-		// 		isAdded.push(1);
-		// 	}
-		// 	local weightList = [];
-		// 	local weightSum = 0;
-		// 	for(local index = 0; index < 9/*this.Const.EL_Shield.EL_EntryID.COUNT*/; ++index)
-		// 	{
-		// 		weightList.push(this.Const.EL_Shield.EL_EntryWeight[index]);
-		// 		weightSum += this.Const.EL_Shield.EL_EntryWeight[index];
-		// 	}
-		// 	local count = 0;
-		// 	while(count < entryCount)
-		// 	{
-		// 		local roll = this.Math.rand(0, weightSum - weightList[0]);
-		// 		local number = 0;
-		// 		for(local index = 0; index < weightList.len(); ++index)
-		// 		{
-		// 			if(roll >= weightList[index])
-		// 			{
-		// 				++number;
-		// 				roll -= weightList[index];
-		// 			}
-		// 			else
-		// 			{
-		// 				break;
-		// 			}
-		// 		}
-		// 		if(isAdded[number])
-		// 		{
-		// 			isAdded[number] = 0;
-		// 			++count;
-		// 			local entry = this.new(this.Const.EL_Shield.EL_EntryRoute[number]);
-		// 			entry.setItem(this);
-		// 			this.m.EL_Entrylist.push(entry);
-		// 		}
-		// 	}
-		// }
-
         o.EL_init <- function()
 	    {
+			this.m.FatigueOnSkillUse = this.m.EL_BaseNoRankFatigueOnSkillUse;
+			this.m.EL_BaseWithRankMeleeDefense = this.m.EL_BaseNoRankMeleeDefense;
+			this.m.EL_BaseWithRankRangedDefense = this.m.EL_BaseNoRankRangedDefense;
+			this.m.EL_BaseWithRankStaminaModifier = this.m.EL_BaseNoRankStaminaModifier;
+			this.m.EL_BaseWithRankConditionMax = this.m.EL_BaseNoRankConditionMax;
+			this.m.EL_BaseWithRankValue = this.m.EL_BaseNoRankValue;
+			this.m.EL_BaseWithRankDamageShieldReduction = 0;
+        }
+
+		o.EL_recordBaseNoRankProperties <- function()
+		{
 			this.m.EL_BaseNoRankFatigueOnSkillUse = this.m.FatigueOnSkillUse;
 			this.m.EL_BaseWithRankFatigueOnSkillUse = this.m.FatigueOnSkillUse;
 			this.m.EL_BaseNoRankConditionMax = this.m.ConditionMax;
@@ -406,33 +381,160 @@ local gt = getroottable();
 			this.m.EL_BaseWithRankMeleeDefense = this.m.MeleeDefense;
 			this.m.EL_BaseWithRankRangedDefense = this.m.RangedDefense;
 		    this.m.EL_BaseWithRankStaminaModifier = this.m.StaminaModifier;
-        }
+		}
 
-		o.EL_getUpgradeEssence <- function()
+		o.EL_getUpgradeLevelEquipmentEssenceNum <- function()
 		{
 			local result = [0, 0, 0, 0, 0];
 			if(this.m.EL_Level < 100)
 			{
-				result[this.m.EL_RankLevel] +=  this.Const.EL_Shield.EL_Essence.SlotFactor * this.Const.EL_Shield.EL_Essence.UpgradeFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Shield.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
+				local min_calculate_weight = this.Const.EL_Shield.EL_EquipmentEssence.MinCalculateWeight;
+				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Shield.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel) * this.Const.EL_Shield.EL_EquipmentEssence.UpgradeLevelFactor 
+														* this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Shield.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
 			}
 			return result;
 		}
 
-		o.EL_getDisassembleEssence <- function()
+		o.EL_getUpgradeRankEquipmentEssenceNum <- function()
 		{
 			local result = [0, 0, 0, 0, 0];
-			result[this.m.EL_RankLevel] += this.Const.EL_Shield.EL_Essence.SlotFactor * this.Const.EL_Shield.EL_Essence.DisassembleFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Shield.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
+			if(EL_getRankLevel() < EL_getRankLevelMax())
+			{
+				local rank_level = EL_getRankLevel() + 1;
+				local min_calculate_weight = this.Const.EL_Shield.EL_EquipmentEssence.MinCalculateWeight;
+				if(rank_level == this.Const.EL_Item.Type.Legendary)
+				{
+					++result[this.Const.EL_Item.Type.Legendary];
+				}
+				else
+				{
+					result[rank_level] += this.Math.floor(this.Const.EL_Shield.EL_EquipmentEssence.UpgradeRankFactor * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) 
+										* (1 + this.Const.EL_Shield.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
+				}
+				for(local index = 0; index < this.m.EL_Level; ++index)
+				{
+					result[this.Const.EL_Item.Type.Normal] += this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Shield.EL_LevelFactor.StaminaModifier * index);
+				}
+				result[this.Const.EL_Item.Type.Normal] = this.Math.floor(this.Math.abs(result[this.Const.EL_Item.Type.Normal]) * this.Const.EL_Shield.EL_EquipmentEssence.UpgradeLevelFactor 
+													  * (this.Math.pow(this.Const.EL_Shield.EL_EquipmentEssence.RankFactor, rank_level) - this.Math.pow(this.Const.EL_Shield.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel)));
+			}
+			else if(this.m.EL_StrengthenEntryNum < this.m.EL_EntryList.len())
+			{
+				result[this.Const.EL_Item.Type.Legendary] += this.Const.EL_Shield.EL_EquipmentEssence.StrengthenEntryNum;
+			}
 			return result;
 		}
 
-		o.EL_getRecraftEssence <- function()
+		o.EL_getDisassembleEquipmentEssenceNum <- function()
+		{
+			local result = [0, 0, 0, 0, 0];
+			local min_calculate_weight = this.Const.EL_Shield.EL_EquipmentEssence.MinCalculateWeight;
+			result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Shield.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel) * this.Const.EL_Shield.EL_EquipmentEssence.DisassembleFactor
+													* this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Shield.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
+			if(this.m.EL_RankLevel == this.Const.EL_Item.Type.Legendary)
+			{
+				++result[this.Const.EL_Item.Type.Legendary];
+			}
+			else
+			{
+				result[this.m.EL_RankLevel] += this.Math.floor(this.Const.EL_Shield.EL_EquipmentEssence.DisassembleFactor
+											 * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Shield.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
+
+			}
+			
+			return result;
+		}
+
+		o.EL_getRecraftEquipmentEssenceNum <- function()
 		{
 			local result = [0, 0, 0, 0, 0];
 			if(this.m.EL_RankLevel)
 			{
-				result[this.m.EL_RankLevel] += this.Const.EL_Shield.EL_Essence.SlotFactor * this.Const.EL_Shield.EL_Essence.RecraftFactor * this.Math.floor(-1 * this.Math.min(-1, this.m.EL_BaseWithRankStaminaModifier) * (1 + this.Const.EL_Shield.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel));
+				local rank_level = this.Math.min(this.m.EL_RankLevel, this.Const.EL_Item.Type.Epic);
+				local min_calculate_weight = this.Const.EL_Shield.EL_EquipmentEssence.MinCalculateWeight;
+				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Shield.EL_EquipmentEssence.RankFactor, rank_level) * this.Const.EL_Shield.EL_EquipmentEssence.RecraftFactor 
+														* this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Shield.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)));
+				result[rank_level] += this.Math.floor(this.Const.EL_Shield.EL_EquipmentEssence.SeniorEquipmentEssenceMult * this.Const.EL_Shield.EL_EquipmentEssence.RecraftFactor 
+											 * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Shield.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)))
 			}
 			return result;
 		}
+	});
+
+	::mods_hookExactClass("skills/actives/split_shield", function(o){
+        o.onUse = function( _user, _targetTile )
+        {
+            local target = _targetTile.getEntity();
+			local shield = target.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand);
+
+			if (shield != null)
+			{
+				this.spawnAttackEffect(_targetTile, this.Const.Tactical.AttackEffectSplitShield);
+				local damage = _user.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand).getShieldDamage();
+
+				//EL_OVERRIDE
+				damage -= shield.m.EL_DamageShieldReduction;
+				local skill = target.getSkills().getSkillByID("el_shield_entry.shield_reduce_damage_received_mult");
+				if(skill != null)
+				{
+					damage *= 1.0 - skill.m.EL_ShieldDamageReceivedMult * 0.01;
+				}
+
+
+				if (this.m.ApplyAxeMastery && _user.getCurrentProperties().IsSpecializedInAxes)
+				{
+					damage = damage + this.Math.max(1, damage / 2);
+				}
+
+				if (shield.getID() == "weapon.legend_parrying_dagger")
+				{
+					damage = damage * 0.1;
+				}
+				else if (shield.getID() == "shield.legend_named_parrying_dagger")
+				{
+					damage = damage * 0.2;
+				}
+				damage = this.Math.min(damage, this.Const.EL_Shield.MinDamageReceived);
+
+				local conditionBefore = shield.getCondition();
+				shield.applyShieldDamage(damage);
+
+				if (shield.getCondition() == 0)
+				{
+					if (!_user.isHiddenToPlayer() && _targetTile.IsVisibleForPlayer)
+					{
+						this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(_user) + " uses Split Shield and destroys " + this.Const.UI.getColorizedEntityName(target) + "\'s shield");
+					}
+				}
+				else
+				{
+					if (this.m.SoundOnHit.len() != 0)
+					{
+						this.Sound.play(this.m.SoundOnHit[this.Math.rand(0, this.m.SoundOnHit.len() - 1)], this.Const.Sound.Volume.Skill, target.getPos());
+					}
+
+					if (!_user.isHiddenToPlayer() && _targetTile.IsVisibleForPlayer)
+					{
+						this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(_user) + " uses Split Shield and hits " + this.Const.UI.getColorizedEntityName(target) + "\'s shield for [b]" + (conditionBefore - shield.getCondition()) + "[/b] damage");
+					}
+				}
+
+				if (!this.Tactical.getNavigator().isTravelling(target))
+				{
+					this.Tactical.getShaker().shake(target, _user.getTile(), 2, this.Const.Combat.ShakeEffectSplitShieldColor, this.Const.Combat.ShakeEffectSplitShieldHighlight, this.Const.Combat.ShakeEffectSplitShieldFactor, 1.0, [
+						"shield_icon"
+					], 1.0);
+				}
+
+				local overwhelm = this.getContainer().getSkillByID("perk.overwhelm");
+
+				if (overwhelm != null)
+				{
+					overwhelm.onTargetHit(this, _targetTile.getEntity(), this.Const.BodyPart.Body, 0, 0);
+				}
+			}
+
+			return true;
+        }
 	});
 });

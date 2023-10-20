@@ -30,6 +30,11 @@ local gt = getroottable();
 	    		this.updateRuneSigil();
 	    	}
 		}
+
+		o.EL_getRankLevelMax <- function()
+		{
+			return this.Const.EL_Item.MaxRankLevel.Named;
+		}
 	});	
 
 	::mods_hookExactClass("items/shields/named/named_shield", function ( o )
@@ -56,6 +61,11 @@ local gt = getroottable();
 				this.updateRuneSigil();
 			}
 		}
+
+		o.EL_getRankLevelMax <- function()
+		{
+			return this.Const.EL_Item.MaxRankLevel.Named;
+		}
 	});
 
 	::mods_hookExactClass("items/armor/named/named_armor", function ( o )
@@ -82,31 +92,10 @@ local gt = getroottable();
 				this.updateRuneSigil();
 			}
 		}
-	});
 
-	::mods_hookExactClass("items/armor/named/named_armor", function ( o )
-	{
-		o.m.EL_RankLevel <- 1;
-		
-		o.randomizeValues = function ()
+		o.EL_getRankLevelMax <- function()
 		{
-		}
-
-		o.onSerialize = function ( _out )
-		{
-			this.armor.onSerialize(_out);
-			_out.writeString(this.m.Name);
-		}
-
-		o.onDeserialize = function ( _in )
-		{
-			this.armor.onDeserialize(_in);
-			this.m.Name = _in.readString();
-
-			if (this.isRuned())
-			{
-				this.updateRuneSigil();
-			}
+			return this.Const.EL_Item.MaxRankLevel.Named;
 		}
 	});
 
@@ -133,6 +122,11 @@ local gt = getroottable();
 			{
 				this.updateRuneSigil();
 			}
+		}
+
+		o.EL_getRankLevelMax <- function()
+		{
+			return this.Const.EL_Item.MaxRankLevel.Named;
 		}
 	});
 
@@ -161,6 +155,11 @@ local gt = getroottable();
 				this.updateRuneSigil();
 			}
 		}
+
+		o.EL_getRankLevelMax <- function()
+		{
+			return this.Const.EL_Item.MaxRankLevel.Named;
+		}
 	});
 
 	::mods_hookExactClass("items/legend_armor/legend_named_armor_upgrade", function ( o )
@@ -181,6 +180,11 @@ local gt = getroottable();
 		{
 			this.m.Name = _in.readString();
 			this.legend_armor_upgrade.onDeserialize(_in);
+		}
+
+		o.EL_getRankLevelMax <- function()
+		{
+			return this.Const.EL_Item.MaxRankLevel.Named;
 		}
 	});
 	
@@ -208,6 +212,11 @@ local gt = getroottable();
 				this.updateRuneSigil();
 			}
 		}
+
+		o.EL_getRankLevelMax <- function()
+		{
+			return this.Const.EL_Item.MaxRankLevel.Named;
+		}
 	});
 	
 	::mods_hookExactClass("items/legend_helmets/legend_named_helmet_upgrade", function ( o )
@@ -221,13 +230,18 @@ local gt = getroottable();
 		o.onSerialize = function ( _out )
 		{
 			_out.writeString(this.m.Name);
-		this.legend_helmet_upgrade.onSerialize(_out);
+			this.legend_helmet_upgrade.onSerialize(_out);
 		}
 
 		o.onDeserialize = function ( _in )
 		{
 			this.m.Name = _in.readString();
-		this.legend_helmet_upgrade.onDeserialize(_in);
+			this.legend_helmet_upgrade.onDeserialize(_in);
+		}
+
+		o.EL_getRankLevelMax <- function()
+		{
+			return this.Const.EL_Item.MaxRankLevel.Named;
 		}
 	})
 
@@ -236,6 +250,18 @@ local gt = getroottable();
 		{
 			o.randomizeValues = function ()
 			{
+			}
+		});
+	}
+
+	
+
+	for(local i = 0; i < this.Const.EL_Item_Other.EL_OnlyItemList.len(); ++i) {	
+		::mods_hookExactClass("items/" + this.Const.EL_Item_Other.EL_OnlyItemList[i], function ( o )
+		{
+			o.EL_getRankLevelMax <- function()
+			{
+				return this.Const.EL_Item.MaxRankLevel.Only;
 			}
 		});
 	}

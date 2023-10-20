@@ -1,0 +1,235 @@
+this.el_breaking_through_a_thousand_armies_entry <- this.inherit("scripts/skills/skill", {
+	m = {
+        EL_Stack = 0,
+        EL_AdditionalRoundSwingTimes = 0,
+        EL_IsFirstRoundSwing = true,
+		EL_replacedSkills = []
+	},
+	function create()
+	{
+		this.m.Order = this.Const.SkillOrder.Last;
+		this.m.ID = "el_rarity_entry.breaking_through_a_thousand_armies";
+		this.m.Name = "Breaking Through a Thousand Armies(Greataxe)";
+		this.m.Description = "The more you fight, the braver you become. Break through the formation.";//越战越勇，先登破阵
+		this.m.Icon = "el_entrys/el_breaking_through_a_thousand_armies_entry.png";
+		//this.m.IconMini = "el_breaking_through_a_thousand_armies_entry_mini";
+		this.m.Overlay = "el_breaking_through_a_thousand_armies_entry";
+		this.m.Type = this.Const.SkillType.StatusEffect;
+	}
+
+	function getTooltip()
+	{
+        local result = [
+            {
+				id = 1,
+				type = "title",
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Rare] + "]" + this.getName() + "[/color]"
+			},
+			{
+				id = 2,
+				type = "description",
+				text = this.getDescription()
+			},
+			{
+				id = 3,
+                type = "text",
+                icon = "ui/icons/special.png",
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Your split man skill can deal 100% damage to both the head and body simultaneously.[/color]"
+			},
+			{
+				id = 4,
+                type = "text",
+                icon = "ui/icons/special.png",
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Obtain additional bonuses based on health loss.[/color]"
+			},
+			{
+				id = 5,
+                type = "text",
+                icon = "ui/icons/special.png",
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Release a free split shield during the attack.[/color]"
+			}
+        ]
+		if (!EL_isUsable())
+		{
+            result.push({
+                id = 8,
+                type = "text",
+                icon = "ui/tooltips/warning.png",
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Greataxe to take effect.[/color]"
+            });
+        }
+        else if(this.m.EL_Stack)
+        {
+            result.push({
+                id = 11,
+                type = "text",
+                icon = "ui/icons/bravery.png",
+                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+"+ this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.BraveryOffset + "[/color] Resolve"
+            });
+            result.push({
+                id = 12,
+                type = "text",
+				icon = "ui/icons/initiative.png",
+                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+"+ this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.InitiativeOffset + "[/color] Initiative"
+            });
+            result.push({
+                id = 13,
+                type = "text",
+                icon = "ui/icons/melee_skill.png",
+                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+"+ this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.MeleeSkillOffset + "[/color] Melee Skill"
+            });
+            result.push({
+                id = 14,
+                type = "text",
+                icon = "ui/icons/ranged_skill.png",
+                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+"+ this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.RangedSkillOffset + "[/color] Ranged Skill"
+            });
+            result.push({
+                id = 15,
+                type = "text",
+                icon = "ui/icons/melee_defense.png",
+                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+"+ this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.MeleeDefenseOffset + "[/color] Melee Defense"
+            });
+            result.push({
+                id = 16,
+                type = "text",
+                icon = "ui/icons/ranged_defense.png",
+                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+"+ this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.RangedDefenseOffset + "[/color] Ranged Defense"
+            });
+            result.push({
+                id = 17,
+                type = "text",
+                icon = "ui/icons/fatigue.png",
+                text = "[color=" + this.Const.UI.Color.PositiveValue + "]"+ this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.FatigueOnSkillUseOffset + "[/color] Fatigue Cost"
+            });
+            result.push({
+                id = 18,
+                type = "text",
+                icon = "ui/icons/damage_dealt.png",
+                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+"+ this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.DamageDirectMult * 100 + "%[/color] Damage Dealt"
+            });
+            result.push({
+                id = 19,
+                type = "text",
+                icon = "ui/icons/damage_received.png",
+                text = "[color=" + this.Const.UI.Color.PositiveValue + "]-"+ this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.DamageReceivedTotalMult * 100 + "%[/color] Damage Received"
+            });
+            result.push({
+                id = 20,
+                type = "text",
+                icon = "ui/icons/damage_received.png",
+                text = "The first Round Swing in each round releases an additional " + this.m.EL_Stack + " times."
+            });
+        }
+		return result;
+	}
+
+	function onBeforeTargetHit( _skill, _targetEntity, _hitInfo )
+	{
+		if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
+		{
+			return;
+		}
+		if (EL_isUsable())
+		{
+			this.Const.EL_Rarity_Entry.EL_useFreeSplitShield(this.getContainer().getActor(), _targetEntity);
+		}
+	}
+    
+	function onTargetHit( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
+	{
+		if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
+		{
+			return;
+		}
+		if (EL_isUsable() && _skill.getID() == "actives.round_swing")
+		{
+			if(this.m.EL_IsFirstRoundSwing)
+            {
+                this.m.EL_IsFirstRoundSwing = false;
+                while (this.m.EL_AdditionalRoundSwingTimes) {
+                    --this.m.EL_AdditionalRoundSwingTimes;
+                    _skill.useForFree(_targetEntity.getTile());
+                }
+            }
+		}
+	}
+
+	function onTargetMissed( _skill, _targetEntity )
+	{
+		if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
+		{
+			return;
+		}
+		if (EL_isUsable() && _skill.getID() == "actives.round_swing")
+		{
+			this.Const.EL_Rarity_Entry.EL_useFreeSplitShield(this.getContainer().getActor(), _targetEntity);
+            if(this.m.EL_IsFirstRoundSwing)
+            {
+                this.m.EL_IsFirstRoundSwing = false;
+                while (this.m.EL_AdditionalRoundSwingTimes) {
+                    --this.m.EL_AdditionalRoundSwingTimes;
+                    _skill.useForFree(_targetEntity.getTile());
+                }
+            }
+		}
+	}
+
+	function onAfterUpdate( _properties )
+	{
+		if (EL_isUsable())
+		{
+			this.Const.EL_Rarity_Entry.EL_ReplaceSkill(this.getContainer().getActor(), this.m.EL_replacedSkills, this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.ReplaceSkillList);
+			this.getContainer().add(this.new("scripts/skills/el_actives/el_strengthen_split_man_skill"));
+		}
+		else
+		{
+			this.m.EL_replacedSkills.clear();
+			this.getContainer().removeByID("el_rarity_actives.strengthen_split_man_skill");
+		}
+	}
+
+	function onRemoved()
+	{
+		this.Const.EL_Rarity_Entry.EL_ReturnSkill(this.getContainer().getActor(), this.m.EL_replacedSkills);
+		this.getContainer().removeByID("el_rarity_actives.strengthen_split_man_skill");
+	}
+
+	function onTurnStart()
+	{
+        this.m.EL_IsFirstRoundSwing = true;
+	}
+
+	function onUpdate( _properties )
+	{
+		if (EL_isUsable())
+		{
+            this.m.EL_Stack = this.Math.floor(( 1 - this.getContainer().getActor().getHitpointsPct()) / this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.StackPercent);
+
+            _properties.Bravery += this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.BraveryOffset;
+			_properties.Initiative += this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.InitiativeOffset;
+			_properties.MeleeSkill += this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.MeleeSkillOffset;
+			_properties.RangedSkill += this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.RangedSkillOffset;
+			_properties.MeleeDefense += this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.MeleeDefenseOffset;
+			_properties.RangedDefense += this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.RangedDefenseOffset;
+			_properties.FatigueOnSkillUse += this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.FatigueOnSkillUseOffset;
+
+			_properties.DamageDirectMult *= 1.0 + this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.DamageDirectMult;
+			_properties.DamageReceivedTotalMult *= 1.0 - this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.DamageReceivedTotalMult;
+			if(this.m.EL_IsFirstRoundSwing)
+            {
+            	this.m.EL_AdditionalRoundSwingTimes = this.m.EL_Stack;
+			}
+		}
+	}
+
+	function EL_isUsable()
+	{
+		local item = this.m.Container.getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+		if (item != null && item.isItemType(this.Const.Items.ItemType.TwoHanded) && item.isWeaponType(this.Const.Items.WeaponType.Axe) && item.getRangeMax() == 1)
+		{
+			return true;
+		}
+		return false;
+	}
+});

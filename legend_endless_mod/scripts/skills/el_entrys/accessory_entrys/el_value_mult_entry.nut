@@ -1,6 +1,6 @@
-this.el_value_mult_entry <- this.inherit("scripts/skills/el_entrys/accessory_entrys/el_accessory_entry", {
+this.el_value_mult_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_entry", {
 	m = {
-        EL_ValueMultAddition = 0
+        EL_ValueMult = 0
     },
 	function create()
 	{
@@ -38,13 +38,11 @@ this.el_value_mult_entry <- this.inherit("scripts/skills/el_entrys/accessory_ent
 
     function onSerialize( _out )
 	{
-		_out.writeI32(this.m.EL_ValueMultAddition);
-		this.el_accessory_entry.onSerialize(_out);
+		_out.writeI32(this.m.EL_ValueMult);
 	}
 
 	function onDeserialize( _in )
 	{
-		this.m.EL_ValueMultAddition = _in.readI32();
-		this.el_accessory_entry.onDeserialize(_in);
+		this.m.EL_ValueMult = _in.readI32();
 	}
 });

@@ -58,14 +58,32 @@ local gt = getroottable();
             calculate_bravery += bravery * efficient;
             return calculate_bravery;
         }
-
+        //EL_OVERRIDE
         o.EL_getAllyBonus <- function()
         {
+            local skill = null;
+            if(this.getContainer() != null && this.getContainer().getActor() != null)
+            {
+                skill = this.getContainer().getActor().getSkills().getSkillByID("el_rarity_entry.proof_of_kingly_way");
+            }
+            if(skill != null && skill.EL_isUsable())
+            {
+                return this.Math.floor(this.EL_getCalculateBravery() * this.Const.EL_Rarity_Entry.Factor.EL_ProofOfKinglyWay.BraveryMult);
+            }
             return this.Math.floor(this.EL_getCalculateBravery() * (0.1 + 0.05 * this.m.EL_RankLevel));
         }
 
         o.EL_getEnemyBonus <- function()
         {
+            local skill = null;
+            if(this.getContainer() != null && this.getContainer().getActor() != null)
+            {
+                skill = this.getContainer().getActor().getSkills().getSkillByID("el_rarity_entry.proof_of_kingly_way");
+            }
+            if(skill != null && skill.EL_isUsable())
+            {
+                return this.Math.floor(this.EL_getCalculateBravery() * this.Const.EL_Rarity_Entry.Factor.EL_ProofOfKinglyWay.BraveryMult);
+            }
             local mult = 0.05 * this.m.EL_RankLevel;
             switch(this.m.EL_RankLevel) {
                 case 0:
@@ -89,7 +107,7 @@ local gt = getroottable();
 
         o.EL_getResolveBonus <- function()
         {
-            return this.m.EL_Level * this.m.EL_RankLevel * 0.25;
+            return this.m.EL_CurrentLevel * this.m.EL_RankLevel * 0.25;
         }
 
         o.onUpdateProperties <- function( _properties )

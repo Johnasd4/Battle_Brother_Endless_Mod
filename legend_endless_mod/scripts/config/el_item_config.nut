@@ -7,17 +7,20 @@ if (!("EL_Item" in gt.Const))
 
 gt.Const.EL_Item <- {
 	MaxLevel = 100,
-	
+	MaxRankLevel = {
+		Normal = 2,
+		Named = 3,
+		Only = 4
+	},
 	Colour = [
 		"#646464",//gray
 		"#006400",//green
 		"#0000cc",//blue
 		"#6400cc",//purple
 		"#be5f00",//orange
-		"#960000",//red
+		"#640000",//red
 		"#aa00ff"//pink
 	],
-
 	Type = {
 		Normal = 0,
 		Premium = 1,
@@ -26,5 +29,13 @@ gt.Const.EL_Item <- {
 		Legendary = 4,
 		Rare = 5,
 		Special = 6
+	},
+	ArmorType = {
+		UnlayeredArmor = -1,
+		BaseArmor = 0,
+		ArmorUpgrade = 1
 	}
 };
+
+gt.Const.CharacterProperties.EL_DamageBodyArmorReduction <- 0;
+gt.Const.CharacterProperties.EL_DamageHeadArmorReduction <- 0;

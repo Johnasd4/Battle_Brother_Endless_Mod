@@ -1,0 +1,80 @@
+this.el_pursuit_effect <- this.inherit("scripts/skills/skill", {
+	m = {
+		EL_SourceActor = null,
+        EL_PursuitSkill = null,
+        EL_IsExtraAttack = false,
+		IsHidden = true
+	},
+
+	function create()
+	{
+		this.m.ID = "el_rarity_effects.pursuit";
+		this.m.Type = this.Const.SkillType.StatusEffect;
+		this.m.IsActive = false;
+		this.m.IsStacking = true;
+		this.m.IsRemovedAfterBattle = true;
+	}
+
+    function onTargetHit( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
+	{
+		EL_useFreeSkill(_targetEntity);
+	}
+
+	function onTargetMissed( _skill, _targetEntity )
+	{
+		EL_useFreeSkill(_targetEntity);
+	}
+	
+	function EL_useFreeSkill( _targetEntity )
+	{
+        if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
+		{
+			return;
+		}
+		if (this.m.EL_PursuitSkill == null || this.m.EL_SourceActor == null || !this.m.EL_SourceActor.isAlive() || this.m.EL_SourceActor.isDying())
+		{
+			this.removeSelf();
+		}
+        if (!this.m.EL_IsExtraAttack)
+		{
+			this.m.EL_IsExtraAttack = true;
+            local distance = _targetEntity.getTile().getDistanceTo(this.m.EL_SourceActor.getTile());
+            if(distance <= this.m.EL_PursuitSkill.getMaxRange() && EL_isUsable())
+            {
+                this.m.EL_PursuitSkill.useForFree(_targetEntity.getTile());
+            }
+		}
+		this.m.EL_IsExtraAttack = false;
+	}
+
+    function EL_setSourceActorAndAttackSkill( _EL_sourceActor, _EL_pursuitSkill )
+	{
+		this.m.EL_SourceActor = _EL_sourceActor;
+		this.m.EL_PursuitSkill = _EL_pursuitSkill;
+	}
+
+    function EL_getSourceActor()
+	{
+		return this.m.EL_SourceActor;
+	}
+
+    function EL_getPursuitSkill()
+	{
+		return this.m.EL_PursuitSkill;
+	}
+
+    function EL_isUsable()
+	{
+		local skills = this.m.EL_SourceActor.getSkills();
+		foreach(skill in skills.m.Skills)
+		{
+			if( skill.getID() == "el_rarity_entry.brutal_cashing" || skill.getID() == "el_rarity_entry.cold_lie_cashing" || 
+				skill.getID() == "el_rarity_entry.landslide_cashing" || skill.getID() == "el_rarity_entry.stun_cashing" )
+			{
+				return skill.EL_isUsable();
+			}
+		}
+		return false;
+	}
+});
+

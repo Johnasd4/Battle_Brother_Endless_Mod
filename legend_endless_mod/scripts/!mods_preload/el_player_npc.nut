@@ -340,7 +340,11 @@ local gt = getroottable();
 					{
 						return false;
 					}
-
+					//OVERRIDE
+					if(this.getSkills().hasSkill("rarity_entry.el_vehemence_of_the_sky") && this.getSkills().getSkillByID("rarity_entry.el_vehemence_of_the_sky").EL_isUsable())
+					{
+						return false;
+					}
 					if (_type == this.Const.MoraleCheckType.MentalAttack)
 					{
 						local tsSkill = this.m.Skills.getSkillByID("perk.ptr_trauma_survivor");
@@ -646,6 +650,8 @@ local gt = getroottable();
 
 			_hitInfo.DamageRegular -= p.DamageRegularReduction;
 			_hitInfo.DamageArmor -= p.DamageArmorReduction;
+			//OVERRIDE
+			_hitInfo.DamageArmor -= _hitInfo.BodyPart == this.Const.BodyPart.Head ? p.EL_DamageHeadArmorReduction : p.EL_DamageBodyArmorReduction;
 			_hitInfo.DamageRegular *= p.DamageReceivedRegularMult * dmgMult;
 			_hitInfo.DamageArmor *= p.DamageReceivedArmorMult * dmgMult;
 			local armor = 0;
@@ -1326,8 +1332,14 @@ local gt = getroottable();
 			local properties = this.m.Container.buildPropertiesForUse(this, _targetEntity);
 			local userTile = _user.getTile();
 			local astray = false;
+			//OVERRIDE
+			local EL_isDefiniteHit = false;
+			if(_user.getSkills().hasSkill("el_rarity_entry.el_pursuit_of_wind") && _user.getSkills().getSkillByID("el_rarity_entry.el_pursuit_of_wind").EL_isUsable())
+			{
+				EL_isDefiniteHit = true;
+			}
 
-			if (_allowDiversion && this.m.IsRanged && userTile.getDistanceTo(_targetEntity.getTile()) > 1)
+			if (_allowDiversion && this.m.IsRanged && userTile.getDistanceTo(_targetEntity.getTile()) > 1 && !EL_isDefiniteHit)
 			{
 				local blockedTiles = this.Const.Tactical.Common.getBlockedTiles(userTile, _targetEntity.getTile(), _user.getFaction());
 
@@ -1456,7 +1468,8 @@ local gt = getroottable();
 				}
 			}
 
-			local isHit = r <= toHit;
+			//OVERRIDE
+			local isHit = EL_isDefiniteHit ? true : r <= toHit;
 
 			if (!_user.isHiddenToPlayer() && !_targetEntity.isHiddenToPlayer())
 			{
@@ -1467,7 +1480,11 @@ local gt = getroottable();
 				{
 					if (this.isUsingHitchance())
 					{
-						if (isHit)
+						if (EL_isDefiniteHit)
+						{
+							this.Tactical.EventLog.logEx(this.Const.UI.getColorizedEntityName(_user) + " uses " + this.getName() + " and hits " + this.Const.UI.getColorizedEntityName(_targetEntity));
+						}
+						else if (isHit)
 						{
 							this.Tactical.EventLog.logEx(this.Const.UI.getColorizedEntityName(_user) + " uses " + this.getName() + " and the shot goes astray and hits " + this.Const.UI.getColorizedEntityName(_targetEntity) + " (Chance: " + this.Math.min(95, this.Math.max(5, toHit)) + ", Rolled: " + rolled + ")");
 						}
@@ -1498,7 +1515,7 @@ local gt = getroottable();
 				}
 			}
 
-			if (isHit && this.Math.rand(1, 100) <= _targetEntity.getCurrentProperties().RerollDefenseChance)
+			if (isHit && this.Math.rand(1, 100) <= _targetEntity.getCurrentProperties().RerollDefenseChance && !EL_isDefiniteHit)
 			{
 				r = this.Math.rand(1, 100);
 				isHit = r <= toHit;

@@ -14,21 +14,25 @@ gt.Const.EL_Weapon <- {
 		25
 	]
 	EL_RankFactor = {
-		RegularDamageMult = 1.25,
-		RegularDamageMaxMult = 1.25,
-		ArmorDamageMult = 1.2,
-		DirectDamageAdd = 0.1,
+		RegularDamageMult = 1.3,
+		RegularDamageMultHalf = 1.14017,
+		ArmorDamageMult = 1.1,
+		ArmorDamageMultHalf = 1.0488,
+		DirectDamageAddMult = 1.1,
+		DirectDamageAddMultHalf = 1.0488,
 		FatigueOnSkillUse = 2,
-		StaminaModifierMinMult = 0.9,
-		StaminaModifierMaxMult = 1.0,
+		StaminaModifierMult = 0.85,
+		StaminaModifierMultHalf = 0.92195,
 		ConditionMult = 1.3,
+		ConditionMultHalf = 1.14017,
 
 		ChanceToHitHead = 10,
 		ShieldDamageMult = 1.5,
-		AdditionalAccuracy = 20,
-		RangeMax = 3,
-		Vision = 3,
-		AmmoMax = 2,
+		ShieldDamageMultHalf = 1.224744,
+		AdditionalAccuracy = 30,
+		RangeMax = 2,
+		AmmoMaxMult = 2,
+		AmmoMaxMultHalf = 1.41421,
 		AdditionalExplosionRange = 1
 	},
 	EL_LevelFactor = {
@@ -39,225 +43,325 @@ gt.Const.EL_Weapon <- {
 		StaminaModifier = 0.04,
 		ShieldDamage = 0.04,
 	},
-	EL_Essence = {
+	EL_EquipmentEssence = {
 		LevelFactor = 0.04,
-		SlotFactor = 5,
-		UpgradeFactor = 1,
-		DisassembleFactor = 0.2,
-		RecraftFactor = 1
+		RankFactor = 3,
+		UpgradeLevelFactor = 3,
+		UpgradeRankFactor = 3,
+		DisassembleFactor = 1,
+		RecraftFactor = 3,
+		SeniorEquipmentEssenceMult = 0.1,
+		StrengthenEntryNum = 3,
+		OneHandedMinCalculateWeight = -10,
+		TwoHandedMinCalculateWeight = -20
 	},
 	EL_RankPropertiesInitFunctions = [
 		{
-			ifUsable = function( _weapon )
+			ifUsable = function( _item ) { return true; },
+			changeValues = function( _item, _isHalfEffect = false )
 			{
+				local bonus = _isHalfEffect ? this.Const.EL_Weapon.EL_RankFactor.RegularDamageMultHalf : this.Const.EL_Weapon.EL_RankFactor.RegularDamageMult;
+				_item.m.EL_BaseWithRankRegularDamage = this.Math.floor(_item.m.EL_BaseWithRankRegularDamage * bonus);
+				_item.m.EL_BaseWithRankRegularDamageMax = this.Math.floor(_item.m.EL_BaseWithRankRegularDamageMax * bonus);
+			},
+			weight = 1
+		},
+		{
+			ifUsable = function( _item ) { return true; },
+			changeValues = function( _item, _isHalfEffect = false )
+			{
+				local bonus = _isHalfEffect ? this.Const.EL_Weapon.EL_RankFactor.DirectDamageAddMultHalf : this.Const.EL_Weapon.EL_RankFactor.DirectDamageAddMult;
+                _item.m.DirectDamageAdd = this.Math.ceil(100 * _item.m.DirectDamageAdd * bonus) * 0.01;
+				_item.m.EL_BaseWithRankDirectDamageAdd = _item.m.DirectDamageAdd;
+			},
+			weight = 1
+		},
+		{
+			ifUsable = function( _item ) { return true; },
+			changeValues = function( _item, _isHalfEffect = false )
+			{
+				local bonus = _isHalfEffect ? this.Const.EL_Weapon.EL_RankFactor.ArmorDamageMultHalf : this.Const.EL_Weapon.EL_RankFactor.ArmorDamageMult;
+				_item.m.ArmorDamageMult = this.Math.ceil(100 * _item.m.ArmorDamageMult * bonus) * 0.01;
+				_item.m.EL_BaseWithRankArmorDamageMult = _item.m.ArmorDamageMult;
+			},
+			weight = 1
+		},
+		{
+			ifUsable = function( _item ) { return true; },
+			changeValues = function( _item, _isHalfEffect = false )
+			{
+				local bonus = _isHalfEffect ? this.Const.EL_Weapon.EL_RankFactor.FatigueOnSkillUse / 2 : this.Const.EL_Weapon.EL_RankFactor.FatigueOnSkillUse;
+				_item.m.FatigueOnSkillUse -= bonus;
+				_item.m.EL_BaseWithRankFatigueOnSkillUse = _item.m.FatigueOnSkillUse;
+			},
+			weight = 1
+		},
+		{
+			ifUsable = function( _item ) { return true; },
+			changeValues = function( _item, _isHalfEffect = false )
+			{
+				local bonus = _isHalfEffect ? this.Const.EL_Weapon.EL_RankFactor.ConditionMultHalf : this.Const.EL_Weapon.EL_RankFactor.ConditionMult;
+				_item.m.EL_BaseWithRankConditionMax = this.Math.round(_item.m.EL_BaseWithRankConditionMax * bonus);
+			},
+			weight = 1
+		},
+		{
+			ifUsable = function( _item ) { return true; },
+			changeValues = function( _item, _isHalfEffect = false )
+			{
+				local bonus = _isHalfEffect ? this.Const.EL_Weapon.EL_RankFactor.StaminaModifierMultHalf : this.Const.EL_Weapon.EL_RankFactor.StaminaModifierMult;
+				_item.m.EL_BaseWithRankStaminaModifier = this.Math.floor(_item.m.EL_BaseWithRankStaminaModifier * bonus);
+			},
+			weight = 1
+		},
+		{
+			ifUsable = function( _item )
+			{
+                if (_item.m.ChanceToHitHead == 0) { return false; }
                 return true;
 			},
-			changeValues = function( _weapon, _isReduceWeight = 0  )
+			changeValues = function( _item, _isHalfEffect = false )
 			{
-				_weapon.m.EL_BaseWithRankRegularDamage = this.Math.floor(_weapon.m.EL_BaseWithRankRegularDamage * this.Const.EL_Weapon.EL_RankFactor.RegularDamageMult);
-				_weapon.m.EL_BaseWithRankRegularDamageMax = this.Math.floor(_weapon.m.EL_BaseWithRankRegularDamageMax * this.Const.EL_Weapon.EL_RankFactor.RegularDamageMaxMult);
+				local bonus = _isHalfEffect ? this.Const.EL_Weapon.EL_RankFactor.ChanceToHitHead / 2 : this.Const.EL_Weapon.EL_RankFactor.ChanceToHitHead;
+				_item.m.ChanceToHitHead += bonus;
+				_item.m.EL_BaseWithRankChanceToHitHead = _item.m.ChanceToHitHead;
 			},
 			weight = 1
 		},
 		{
-			ifUsable = function( _weapon )
+			ifUsable = function( _item )
 			{
+                if (_item.m.EL_BaseWithRankShieldDamage == 0) { return false; }
                 return true;
 			},
-			changeValues = function( _weapon, _isReduceWeight = 0  )
+			changeValues = function( _item, _isHalfEffect = false )
 			{
-				_weapon.m.ArmorDamageMult = this.Math.ceil(_weapon.m.ArmorDamageMult * this.Const.EL_Weapon.EL_RankFactor.ArmorDamageMult);
-                _weapon.m.DirectDamageAdd = _weapon.m.DirectDamageAdd + this.Const.EL_Weapon.EL_RankFactor.DirectDamageAdd;
-				_weapon.m.EL_BaseWithRankArmorDamageMult = _weapon.m.ArmorDamageMult;
-				_weapon.m.EL_BaseWithRankDirectDamageAdd = _weapon.m.DirectDamageAdd;
+				local bonus = _isHalfEffect ? this.Const.EL_Weapon.EL_RankFactor.ShieldDamageMultHalf : this.Const.EL_Weapon.EL_RankFactor.ShieldDamageMult;
+				_item.m.EL_BaseWithRankShieldDamage = this.Math.round(_item.m.EL_BaseWithRankShieldDamage * bonus);
 			},
 			weight = 1
 		},
 		{
-			ifUsable = function( _weapon )
+			ifUsable = function( _item )
 			{
-                if (_weapon.m.ChanceToHitHead > 0)
-		        {
-                    return true;
-                }
-                return false;
-			},
-			changeValues = function( _weapon, _isReduceWeight = 0  )
-			{
-				_weapon.m.ChanceToHitHead = _weapon.m.ChanceToHitHead + this.Const.EL_Weapon.EL_RankFactor.ChanceToHitHead;
-				_weapon.m.EL_BaseWithRankChanceToHitHead = _weapon.m.ChanceToHitHead;
-			},
-			weight = 1
-		},
-		{
-			ifUsable = function( _weapon )
-			{
+                if (_item.m.EL_BaseWithRankAdditionalAccuracy == 0 && !_item.isItemType(this.Const.Items.ItemType.RangedWeapon)) { return false; }
                 return true;
 			},
-			changeValues = function( _weapon, _isReduceWeight = 0  )
+			changeValues = function( _item, _isHalfEffect = false )
 			{
-				_weapon.m.FatigueOnSkillUse = _weapon.m.FatigueOnSkillUse - this.Const.EL_Weapon.EL_RankFactor.FatigueOnSkillUse;
-				_weapon.m.EL_BaseWithRankFatigueOnSkillUse = _weapon.m.FatigueOnSkillUse;
+				local bonus = _isHalfEffect ? this.Const.EL_Weapon.EL_RankFactor.AdditionalAccuracy / 2 : this.Const.EL_Weapon.EL_RankFactor.AdditionalAccuracy;
+				_item.m.AdditionalAccuracy += bonus;
+				_item.m.EL_BaseWithRankAdditionalAccuracy = _item.m.AdditionalAccuracy;
 			},
 			weight = 1
 		},
 		{
-			ifUsable = function( _weapon )
+			ifUsable = function( _item )
 			{
-			    return true;
+                if (!_item.isWeaponType(this.Const.Items.WeaponType.Bow) && !_item.isWeaponType(this.Const.Items.WeaponType.Crossbow)) { return false; }
+                return true;
 			},
-			changeValues = function( _weapon, _isReduceWeight = 0  )
+			changeValues = function( _item, _isHalfEffect = false )
 			{
-				local StaminaModifierMinMult = (_isReduceWeight) ? this.Const.EL_Weapon.EL_RankFactor.StaminaModifierMinMult : this.Const.EL_Weapon.EL_RankFactor.StaminaModifierMaxMult;
-				_weapon.m.EL_BaseWithRankStaminaModifier = this.Math.floor(_weapon.m.EL_BaseWithRankStaminaModifier * this.Const.EL_Weapon.EL_RankFactor.StaminaModifierMinMult);
-				_weapon.m.EL_BaseWithRankConditionMax = _weapon.m.EL_BaseWithRankConditionMax * this.Const.EL_Weapon.EL_RankFactor.ConditionMult;
-	            _weapon.m.Condition = _weapon.m.EL_BaseWithRankConditionMax;
-			},
-			weight = 1
-		},
-		{
-			ifUsable = function( _weapon, _isReduceWeight = 0  )
-			{
-                if (_weapon.m.EL_BaseWithRankShieldDamage >= 16)
-		        {
-                    return true;
-		        }
-                return false;
-			},
-			changeValues = function( _weapon, _isReduceWeight = 0  )
-			{
-				_weapon.m.EL_BaseWithRankShieldDamage = this.Math.ceil(_weapon.m.EL_BaseWithRankShieldDamage * this.Const.EL_Weapon.EL_RankFactor.ShieldDamageMult);
+				local bonus = _isHalfEffect ? this.Const.EL_Weapon.EL_RankFactor.RangeMax / 2 : this.Const.EL_Weapon.EL_RankFactor.RangeMax;
+				_item.m.RangeMax += bonus;
+				_item.m.EL_BaseWithRankRangeMax = _item.m.RangeMax;
 			},
 			weight = 1
 		},
 		{
-			ifUsable = function( _weapon )
+			ifUsable = function( _item )
 			{
-                if (_weapon.m.EL_BaseWithRankAdditionalAccuracy != 0 || _weapon.isItemType(this.Const.Items.ItemType.RangedWeapon))
-		        {
-                    return true;
-		        }
-                return false;
+                if (!_item.isWeaponType(this.Const.Items.WeaponType.Throwing)) { return false; }
+                return true;
 			},
-			changeValues = function( _weapon, _isReduceWeight = 0  )
+			changeValues = function( _item, _isHalfEffect = false )
 			{
-				_weapon.m.AdditionalAccuracy = _weapon.m.AdditionalAccuracy + this.Const.EL_Weapon.EL_RankFactor.AdditionalAccuracy;
-				_weapon.m.EL_BaseWithRankAdditionalAccuracy = _weapon.m.AdditionalAccuracy;
-			},
-			weight = 1
-		},
-		{
-			ifUsable = function( _weapon )
-			{
-                if (_weapon.isWeaponType(this.Const.Items.WeaponType.Bow) || _weapon.isWeaponType(this.Const.Items.WeaponType.Crossbow))
-		        {
-                    return true;
-		        }
-                return false;
-			},
-			changeValues = function( _weapon, _isReduceWeight = 0  )
-			{
-				_weapon.m.RangeMax = _weapon.m.RangeMax + this.Const.EL_Weapon.EL_RankFactor.RangeMax;
-                _weapon.m.EL_Vision = _weapon.m.EL_Vision + this.Const.EL_Weapon.EL_RankFactor.Vision;
-				_weapon.m.EL_BaseWithRankRangeMax = _weapon.m.RangeMax;
-				_weapon.m.EL_BaseWithRankVision = _weapon.m.EL_Vision;
+				local bonus = _isHalfEffect ? this.Const.EL_Weapon.EL_RankFactor.AmmoMaxMultHalf : this.Const.EL_Weapon.EL_RankFactor.AmmoMaxMult;
+				_item.m.AmmoMax = this.Math.ceil(_item.m.AmmoMax * bonus);
+                _item.m.Ammo = _item.m.AmmoMax;
+				_item.m.EL_BaseWithRankAmmoMax = _item.m.AmmoMax;
 			},
 			weight = 1
 		},
 		{
-			ifUsable = function( _weapon )
+			ifUsable = function( _item )
 			{
-                if (_weapon.isWeaponType(this.Const.Items.WeaponType.Throwing))
-		        {
-                    return true;
-		        }
-                return false;
+                if (!_item.isWeaponType(this.Const.Items.WeaponType.Firearm)) { return false; }
+				if (!_item.EL_getRankLevel() == this.Const.EL_Item.Type.Premium) { return false; }
+				return true;
 			},
-			changeValues = function( _weapon, _isReduceWeight = 0  )
+			changeValues = function( _item, _isHalfEffect = false )
 			{
-				_weapon.m.AmmoMax = _weapon.m.AmmoMax * this.Const.EL_Weapon.EL_RankFactor.AmmoMax;
-                _weapon.m.Ammo = _weapon.m.AmmoMax;
-				_weapon.m.EL_BaseWithRankAmmoMax = _weapon.m.AmmoMax;
-			},
-			weight = 1
-		},
-		{
-			ifUsable = function( _weapon )
-			{
-                if (_weapon.isWeaponType(this.Const.Items.WeaponType.Firearm))
-		        {
-                    return true;
-		        }
-                return false;
-			},
-			changeValues = function( _weapon, _isReduceWeight = 0  )
-			{
-				_weapon.m.EL_AdditionalExplosionRange = _weapon.m.EL_AdditionalExplosionRange + this.Const.EL_Weapon.EL_RankFactor.AdditionalExplosionRange;
+				_item.m.EL_AdditionalExplosionRange = _item.m.EL_AdditionalExplosionRange + this.Const.EL_Weapon.EL_RankFactor.AdditionalExplosionRange;
 			},
 			weight = 1
 		}
+	],
+	function EL_updateRankLevelProperties( _item ) {
+		_item.m.EL_BaseWithRankValue = _item.m.EL_BaseNoRankValue * gt.Const.EL_Weapon.EL_RankValue[_item.m.EL_RankLevel];
+		if(_item.m.EL_RankLevel == this.Const.EL_Item.Type.Fine)
+		{
+			foreach	(func in gt.Const.EL_Weapon.EL_RankPropertiesInitFunctions)
+			{
+				if(func.ifUsable(_item))
+				{
+					func.changeValues(_item, true);
+				}
+			}
+		}
+		for(local index = this.Const.EL_Item.Type.Fine; index < _item.m.EL_RankLevel; ++index)
+		{
+			foreach	(func in gt.Const.EL_Weapon.EL_RankPropertiesInitFunctions)
+			{
+				if(func.ifUsable(_item))
+				{
+					func.changeValues(_item);
+				}
+			}
+		}
+		if(_item.m.EL_RankLevel >= this.Const.EL_Item.Type.Premium && _item.m.EL_RankLevel != this.Const.EL_Item.Type.Legendary)
+		{
+			local available = [];
+			local weightList = [];
+			local weightSum = 0;
+			foreach	(func in gt.Const.EL_Weapon.EL_RankPropertiesInitFunctions)
+			{
+				if(func.ifUsable(_item))
+				{
+					available.push(func.changeValues);
+					weightList.push(func.weight);
+					weightSum += func.weight;
+				}
+			}
+			if(_item.m.EL_RankPropertiesImproveIndex.len())
+			{
+				foreach(index in _item.m.EL_RankPropertiesImproveIndex)
+				{
+					available[index](_item);
+					available.remove(index);
+				}
+			}
+			else
+			{
+				for( local count = 2; count != 0 && available.len() != 0; --count )
+				{
+					local roll = this.Math.rand(0, weightSum - weightList[0]);
+					local number = 0;
+					for( local index = 0; index < weightList.len(); ++index )
+					{
+						if(roll > weightList[index])
+						{
+							++number;
+							roll -= weightList[index];
+						}
+						else
+						{
+							break;
+						}
+					}
+					weightSum -= weightList[number];
+					weightList.remove(number);
+					available[number](_item);
+					available.remove(number);
+					_item.m.EL_RankPropertiesImproveIndex.push(number);
+				}
+			}
+		}
+	},
+	EL_ThrowingWeaponList = [
+		"weapons/javelin",
+		"weapons/throwing_axe",
+		"weapons/barbarians/heavy_javelin",
+		"weapons/barbarians/heavy_throwing_axe",
+		"weapons/greenskins/goblin_spiked_balls",
+		"weapons/greenskins/orc_javelin",
+		"weapons/named/named_javelin",
+		"weapons/named/named_throwing_axe"
 	],
 	EL_Entry = {
 		Pool = {
 			Entrys = [
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_action_point_entry",
-					function EL_ifEligible(_EL_item) {
-						if(_EL_item.m.EL_RankLevel <= 1) { return false; }
+					function EL_ifEligible(_item) {
+						if(_item.m.EL_RankLevel <= 1) { return false; }
 						return true;
 					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_additional_accuracy_entry",
-					function EL_ifEligible(_EL_item) { 
-						if(_EL_item.m.EL_BaseWithRankAdditionalAccuracy == 0 && !_EL_item.isItemType(this.Const.Items.ItemType.RangedWeapon)) 
+					function EL_ifEligible(_item) { 
+						if(_item.m.EL_BaseWithRankAdditionalAccuracy == 0 && !_item.isItemType(this.Const.Items.ItemType.RangedWeapon)) 
 						{ 
 							return false; 
 						}
+						return true; 
+					}
+				},
+				{
+					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_ammo_max_mult_entry",
+					function EL_ifEligible(_item) { 
+						if(!_item.isWeaponType(this.Const.Items.WeaponType.Throwing)) { return false; }
 						return true; 
 					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_armor_damage_mult_entry",
-					function EL_ifEligible(_EL_item) { return true; }
+					function EL_ifEligible(_item) { return true; }
+				},
+				{
+					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_bravery_entry",
+					function EL_ifEligible(_item) { return true; }
+				},
+				{
+					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_check_morale_entry",
+					function EL_ifEligible(_item) {
+						if(_item.m.EL_RankLevel <= 1) { return false; }
+						return true;
+					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_combat_level_entry",
-					function EL_ifEligible(_EL_item) { return true; }
+					function EL_ifEligible(_item) { return true; }
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_condition_mult_entry",
-					function EL_ifEligible(_EL_item) {
-						if(_EL_item.getConditionMax() == 1) { return false; }
+					function EL_ifEligible(_item) {
+						if(_item.getConditionMax() == 1) { return false; }
 						return true;
 					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_condition_recover_daliy_entry",
-					function EL_ifEligible(_EL_item) {
-						if(_EL_item.getConditionMax() == 1) { return false; }
+					function EL_ifEligible(_item) {
+						if(_item.getConditionMax() == 1) { return false; }
 						return true;
 					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_condition_recover_rate_entry",
-					function EL_ifEligible(_EL_item) {
-						if(_EL_item.getConditionMax() == 1) { return false; }
+					function EL_ifEligible(_item) {
+						if(_item.getConditionMax() == 1) { return false; }
 						return true;
 					}
 				},
 				{
+					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_curse_entry",
+					function EL_ifEligible(_item) { return true; }
+				},
+				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_damage_mult_entry",
-					function EL_ifEligible(_EL_item) { return true; }
+					function EL_ifEligible(_item) { return true; }
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_direct_damage_add_entry",
-					function EL_ifEligible(_EL_item) { return true; }
+					function EL_ifEligible(_item) { return true; }
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_hit_head_entry",
-					function EL_ifEligible(_EL_item) { 
-						if(_EL_item.m.ChanceToHitHead == 0) 
+					function EL_ifEligible(_item) { 
+						if(_item.m.ChanceToHitHead == 0) 
 						{ 
 							return false; 
 						}
@@ -265,125 +369,130 @@ gt.Const.EL_Weapon <- {
 					}
 				},
 				{
-					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_melee_defense_entry",
-					function EL_ifEligible(_EL_item) { return true; }
+					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_initiative_entry",
+					function EL_ifEligible(_item) { return true; }
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_melee_range_max_entry",
-					function EL_ifEligible(_EL_item) {
-						if(!_EL_item.isItemType(this.Const.Items.ItemType.MeleeWeapon) || _EL_item.m.EL_RankLevel <= 1 || _EL_item.m.RangeMax == 1) { return false; }
+					function EL_ifEligible(_item) {
+						if(!_item.isItemType(this.Const.Items.ItemType.MeleeWeapon) || _item.m.EL_RankLevel <= 1 || _item.m.RangeMax == 1) { return false; }
 						return true;
 					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_melee_skill_entry",
-					function EL_ifEligible(_EL_item) {
-						if(!_EL_item.isItemType(this.Const.Items.ItemType.MeleeWeapon)) { return false; }
+					function EL_ifEligible(_item) {
+						if(!_item.isItemType(this.Const.Items.ItemType.MeleeWeapon)) { return false; }
 						return true;
 					}
 				},
 				{
-					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_ranged_defense_entry",
-					function EL_ifEligible(_EL_item) { return true; }
-				},
-				{
-					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_ranged_range_max_vision_entry",
-					function EL_ifEligible(_EL_item) {
-						if(!_EL_item.isItemType(this.Const.Items.ItemType.RangedWeapon) || _EL_item.m.EL_RankLevel <= 1) { return false; }
+					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_ranged_range_max_entry",
+					function EL_ifEligible(_item) {
+						if(!_item.isItemType(this.Const.Items.ItemType.RangedWeapon) || _item.m.EL_RankLevel <= 1) { return false; }
 						return true;
 					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_ranged_skill_entry",
-					function EL_ifEligible(_EL_item) {
-						if(!_EL_item.isItemType(this.Const.Items.ItemType.RangedWeapon)) { return false; }
+					function EL_ifEligible(_item) {
+						if(!_item.isItemType(this.Const.Items.ItemType.RangedWeapon)) { return false; }
+						return true;
+					}
+				},
+				{
+					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_save_ammo_entry",
+					function EL_ifEligible(_item) {
+						if(!_item.isItemType(this.Const.Items.ItemType.RangedWeapon)) { return false; }
 						return true;
 					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_shield_damage_mult_entry",
-					function EL_ifEligible(_EL_item) {
-						if(_EL_item.m.EL_BaseWithRankShieldDamage < 16) { return false; }
+					function EL_ifEligible(_item) {
+						if(_item.m.EL_BaseWithRankShieldDamage < 16) { return false; }
 						return true;
 					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_stamina_modifier_mult_entry",
-					function EL_ifEligible(_EL_item) { return true; }
+					function EL_ifEligible(_item) { return true; }
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_use_skill_fatigue_entry",
-					function EL_ifEligible(_EL_item) { return true; }
+					function EL_ifEligible(_item) { return true; }
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_value_mult_entry",
-					function EL_ifEligible(_EL_item) {
-						if(_EL_item.m.EL_RankLevel <= 1) { return false; }
+					function EL_ifEligible(_item) {
+						if(_item.m.EL_RankLevel <= 1) { return false; }
 						return true;
 					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_vampire_entry",
-					function EL_ifEligible(_EL_item) { return true; }
+					function EL_ifEligible(_item) { return true; }
 				}
 			],
 		},
 		EntryNum = {
 			OneHanded = [
 				0,
+				1,
 				2,
-				4,
-				6,
-				6
+				3,
+				4
 			],
 			TwoHanded = [
 				0,
+				2,
 				4,
-				8,
-				12,
-				12
+				6,
+				8
 			]
 		},
+		EntryStrengthenMult = 2.0,
 		Factor = {
 			EL_ActionPoint = {
-				ID = "weapon_entry.action_point",
+				ID = "el_weapon_entry.action_point",
 				ActionPoint = 1
 			},
 			EL_AdditionalAccuracy = {
-				ID = "weapon_entry.additional_accuracy",
-				BaseAdditionalAccuracy = 10,
+				ID = "el_weapon_entry.additional_accuracy",
+				BaseAdditionalAccuracy = 15,
 				RandomMinAdditionalAccuracy = [
 					1,
 					1,
-					5,
-					9,
-					20
+					4,
+					7,
+					15
 				],
 				RandomMaxAdditionalAccuracy = [
-					8,
+					6,
+					9,
 					12,
-					16,
-					20,
-					20
+					15,
+					15
 				],
 				ColourRange = [
-					14,
 					18,
-					22,
-					26
+					21,
+					24,
+					27,
+					30
 				]
 			},
-			EL_ArmorDamageMult = {
-				ID = "weapon_entry.armor_damage_mult",
-				BaseArmorDamageMult = 25,
-				RandomMinArmorDamageMult = [
+			EL_AmmoMaxMult = {
+				ID = "el_weapon_entry.ammo_max_mult",
+				BaseAmmoMaxMult = 50,
+				RandomMinAmmoMaxMult = [
 					1,
 					1,
 					11,
 					21,
 					50
 				],
-				RandomMaxArmorDamageMult = [
+				RandomMaxAmmoMaxMult = [
 					20,
 					30,
 					40,
@@ -391,47 +500,128 @@ gt.Const.EL_Weapon <- {
 					50
 				],
 				ColourRange = [
-					35,
-					45,
-					55,
-					65
+					60,
+					70,
+					80,
+					90,
+					100
 				]
 			},
+			EL_ArmorDamageMult = {
+				ID = "el_weapon_entry.armor_damage_mult",
+				BaseArmorDamageMult = 25,
+				RandomMinArmorDamageMult = [
+					1,
+					1,
+					6,
+					11,
+					25
+				],
+				RandomMaxArmorDamageMult = [
+					10,
+					15,
+					20,
+					25,
+					25
+				],
+				ColourRange = [
+					30,
+					35,
+					40,
+					45,
+					50
+				]
+			},
+            EL_Bravery = {
+				ID = "el_weapon_entry.bravery",
+				BaseBravery = 15,
+				RandomMinBravery = [
+					1,
+					1,
+					4,
+					7,
+					15
+				],
+				RandomMaxBravery = [
+					6,
+					9,
+					12,
+					15,
+					15
+				],
+				ColourRange = [
+					18,
+					21,
+					24,
+					27,
+					30
+				]
+			},
+			EL_CheckMorale = {
+				ID = "el_weapon_entry.check_morle",
+				BaseOffset = 50
+			},
 			EL_CombatLevel = {
-				ID = "weapon_entry.combat_level",
-				BaseCombatLevel = 1,
+				ID = "el_weapon_entry.combat_level",
+				BaseCombatLevel = 1.5,
 				RandomMinCombatLevel = [
 					1,
 					1,
-					41,
-					81,
-					200
+					61,
+					91,
+					150
 				],
 				RandomMaxCombatLevel = [
-					80,
+					60,
+					90,
 					120,
-					160,
-					200,
-					200
+					150,
+					150
 				],
 				ColourRange = [
-					1.4,
 					1.8,
-					2.2,
-					2.6
+					2.1,
+					2.4,
+					2.7,
+					3.0
 				]
 			},
 			EL_ConditionMult = {
-				ID = "weapon_entry.condition_mult",
-				BaseConditionMult = 15,
+				ID = "el_weapon_entry.condition_mult",
+				BaseConditionMult = 25,
 				RandomMinConditionMult = [
 					1,
 					1,
-					601,
-					1201,
-					3000
+					501,
+					1001,
+					2500
 				],
 				RandomMaxConditionMult = [
+					1000,
+					1500,
+					2000,
+					2500,
+					2500
+				],
+				ColourRange = [
+					30,
+					35,
+					40,
+					45,
+					50
+				]
+			},
+			EL_ConditionRecoverDaliy = {
+				ID = "el_weapon_entry.condition_recover_daliy",
+				BaseConditionRecoverDaliy = 30,
+				RandomMinConditionRecoverDaliy = [
+					1,
+					1,
+					1201,
+					1801,
+					3000
+				],
+				RandomMaxConditionRecoverDaliy = [
 					1200,
 					1800,
 					2400,
@@ -439,111 +629,116 @@ gt.Const.EL_Weapon <- {
 					3000
 				],
 				ColourRange = [
-					21,
-					27,
-					33,
-					39
-				]
-			},
-			EL_ConditionRecoverDaliy = {
-				ID = "weapon_entry.condition_recover_daliy",
-				BaseConditionRecoverDaliy = 25,
-				RandomMinConditionRecoverDaliy = [
-					1,
-					1,
-					1001,
-					2001,
-					5000
-				],
-				RandomMaxConditionRecoverDaliy = [
-					2000,
-					3000,
-					4000,
-					5000,
-					5000
-				],
-				ColourRange = [
-					35,
-					45,
-					55,
-					65
+					36,
+					42,
+					48,
+					54,
+					60
 				]
 			},
 			EL_ConditionRecoverRate = {
-				ID = "weapon_entry.condition_recover_rate",
-				BaseConditionRecoverRate = 5,
+				ID = "el_weapon_entry.condition_recover_rate",
+				BaseConditionRecoverRate = 3,
 				RandomMinConditionRecoverRate = [
 					1,
 					1,
-					201,
-					401,
-					1000
+					61,
+					121,
+					300
 				],
 				RandomMaxConditionRecoverRate = [
-					400,
-					600,
-					800,
-					1000,
-					1000
+					120,
+					180,
+					240,
+					300,
+					300
 				],
 				ColourRange = [
+					3.6,
+					4.2,
+					4.8,
+					5.4,
+					6
+				]
+			},
+			EL_Curse = {
+				ID = "el_weapon_entry.curse",
+				BaseCurse = 5,
+				RandomMinCurse = [
+					1,
+					1,
+					101,
+					201,
+					500
+				],
+				RandomMaxCurse = [
+					200,
+					300,
+					400,
+					500,
+					500
+				],
+				ColourRange = [
+					6,
 					7,
+					8,
 					9,
-					11,
-					13
+					10
 				]
 			},
 			EL_DamageMult = {
-				ID = "weapon_entry.damage_mult",
-				BaseDamageMult = 16.66,
+				ID = "el_weapon_entry.damage_mult",
+				BaseDamageMult = 15,
 				RandomMinDamageMult = [
 					1,
 					1,
-					334,
-					667,
-					1667
+					301,
+					601,
+					1500
 				],
 				RandomMaxDamageMult = [
-					666,
-					1000,
-					1333,
-					1667,
-					1667
+					600,
+					900,
+					1200,
+					1500,
+					1500
 				],
 				ColourRange = [
-					20,
-					23.33,
-					26.66,
+					18,
+					21,
+					24,
+					27,
 					30
 				]
 			},
 			EL_DirectDamageAdd = {
-				ID = "weapon_entry.direct_damage_add",
+				ID = "el_weapon_entry.direct_damage_add",
 				BaseDirectDamageAdd = 5,
 				RandomMinDirectDamageAdd = [
 					1,
 					1,
+					2,
 					3,
-					5,
-					10
+					5
 				],
 				RandomMaxDirectDamageAdd = [
+					2,
+					3,
 					4,
-					6,
-					8,
-					10,
-					10
+					5,
+					5
 				],
 				ColourRange = [
+					6,
 					7,
+					8,
 					9,
-					11,
-					13
+					10
 				]
 			},
 			EL_HitHead = {
-				ID = "weapon_entry.hit_head",
-				BaseHitHead = 5,
+				ID = "el_weapon_entry.hit_head",
+				BaseHitHead = 10,
 				RandomMinHitHead = [
 					1,
 					1,
@@ -559,42 +754,44 @@ gt.Const.EL_Weapon <- {
 					10
 				],
 				ColourRange = [
-					7,
-					9,
-					11,
-					13
+					12,
+					14,
+					16,
+					18,
+					20
 				]
 			},
-			EL_MeleeDefense = {
-				ID = "weapon_entry.melee_defense",
-				BaseMeleeDefense = 10,
-				RandomMinMeleeDefense = [
+			EL_Initiative = {
+				ID = "el_weapon_entry.initiative",
+				BaseInitiative = 30,
+				RandomMinInitiative = [
 					1,
 					1,
-					5,
-					9,
-					20
+					7,
+					13,
+					30
 				],
-				RandomMaxMeleeDefense = [
-					8,
+				RandomMaxInitiative = [
 					12,
-					16,
-					20,
-					20
+					18,
+					24,
+					30,
+					30
 				],
 				ColourRange = [
-					14,
-					18,
-					22,
-					26
+					36,
+					42,
+					48,
+					54,
+					60
 				]
 			},
 			EL_MeleeRangeMax = {
-				ID = "weapon_entry.melee_range_max",
+				ID = "el_weapon_entry.melee_range_max",
 				RangeMax = 1
 			},
 			EL_MeleeSkill = {
-				ID = "weapon_entry.melee_skill",
+				ID = "el_weapon_entry.melee_skill",
 				BaseMeleeSkill = 10,
 				RandomMinMeleeSkill = [
 					1,
@@ -614,174 +811,206 @@ gt.Const.EL_Weapon <- {
 					14,
 					18,
 					22,
-					26
+					26,
+					30
 				]
 			},
-			EL_RangedDefense = {
-				ID = "weapon_entry.ranged_defense",
-				BaseRangedDefense = 10,
-				RandomMinRangedDefense = [
+			EL_RangedRangeMax = {
+				ID = "el_weapon_entry.ranged_range_max",
+				BaseRangeMax = 2,
+				RandomMinRangeMax = [
+					0,
+					0,
 					1,
 					1,
-					5,
-					9,
-					20
+					2
 				],
-				RandomMaxRangedDefense = [
-					8,
-					12,
-					16,
-					20,
-					20
-				],
-				ColourRange = [
-					14,
-					18,
-					22,
-					26
-				]
-			},
-			EL_RangedRangeMaxAndVision = {
-				ID = "weapon_entry.ranged_range_max_and_vision",
-				RangeMaxAndVision = 4
-			},
-			EL_RangedSkill = {
-				ID = "weapon_entry.ranged_skill",
-				BaseRangedSkill = 12,
-				RandomMinRangedSkill = [
-					1,
-					1,
-					6,
-					11,
-					25
-				],
-				RandomMaxRangedSkill = [
-					10,
-					15,
-					20,
-					25,
-					25
-				],
-				ColourRange = [
-					17,
-					22,
-					27,
-					32
-				]
-			},
-			EL_ShieldDamageMult = {
-				ID = "weapon_entry.shield_damage_mult",
-				BaseShieldDamageMult = 25,
-				RandomMinShieldDamageMult = [
-					1,
-					1,
-					11,
-					21,
-					50
-				],
-				RandomMaxShieldDamageMult = [
-					20,
-					30,
-					40,
-					50,
-					50
-				],
-				ColourRange = [
-					35,
-					45,
-					55,
-					65
-				]
-			},
-			EL_StaminaModifierMult = {
-				ID = "weapon_entry.stamina_modifier_mult",
-				BaseStaminaModifierMult = 10,
-				RandomMinStaminaModifierMult = [
-					1,
-					1,
-					401,
-					801,
-					2000
-				],
-				RandomMaxStaminaModifierMult = [
-					800,
-					1200,
-					1600,
-					2000,
-					2000
-				],
-				ColourRange = [
-					14,
-					18,
-					22,
-					26
-				]
-			},
-			EL_UseSkillfatigue = {
-				ID = "weapon_entry.use_skill_fatigue",
-				BaseUseSkillfatigue = 0,
-				RandomMinUseSkillfatigue = [
-					1,
-					1,
-					2,
-					2,
-					3
-				],
-				RandomMaxUseSkillfatigue = [
-					1,
-					1,
-					2,
-					3,
-					3
-				],
-				ColourRange = [
+				RandomMaxRangeMax = [
+					0,
 					1,
 					1,
 					2,
 					2
+				],
+				ColourRange = [
+					2,
+					2,
+					3,
+					3,
+					4
+				]
+			},
+			EL_RangedSkill = {
+				ID = "el_weapon_entry.ranged_skill",
+				BaseRangedSkill = 15,
+				RandomMinRangedSkill = [
+					1,
+					1,
+					4,
+					7,
+					15
+				],
+				RandomMaxRangedSkill = [
+					6,
+					9,
+					12,
+					15,
+					15
+				],
+				ColourRange = [
+					18,
+					21,
+					24,
+					27,
+					30
+				]
+			},
+			EL_SaveAmmo = {
+				ID = "el_weapon_entry.save_ammo",
+				BaseSaveAmmoChance = 25,
+				RandomMinSaveAmmoChance = [
+					1,
+					1,
+					501,
+					1001,
+					2500
+				],
+				RandomMaxSaveAmmoChance = [
+					1000,
+					1500,
+					2000,
+					2500,
+					2500
+				],
+				ColourRange = [
+					30,
+					35,
+					40,
+					45,
+					50
+				]
+			},
+			EL_ShieldDamageMult = {
+				ID = "el_weapon_entry.shield_damage_mult",
+				BaseShieldDamageMult = 50,
+				RandomMinShieldDamageMult = [
+					1,
+					1,
+					1001,
+					2001,
+					5000
+				],
+				RandomMaxShieldDamageMult = [
+					2000,
+					3000,
+					4000,
+					5000,
+					5000
+				],
+				ColourRange = [
+					60,
+					70,
+					80,
+					90,
+					100
+				]
+			},
+			EL_StaminaModifierMult = {
+				ID = "el_weapon_entry.stamina_modifier_mult",
+				BaseStaminaModifierMult = 15,
+				RandomMinStaminaModifierMult = [
+					1,
+					1,
+					301,
+					601,
+					1500
+				],
+				RandomMaxStaminaModifierMult = [
+					600,
+					900,
+					1200,
+					1500,
+					1500
+				],
+				ColourRange = [
+					18,
+					21,
+					24,
+					27,
+					30
+				]
+			},
+			EL_UseSkillfatigue = {
+				ID = "el_weapon_entry.use_skill_fatigue",
+				BaseUseSkillfatigue = 2,
+				RandomMinUseSkillfatigue = [
+					0,
+					0,
+					1,
+					1,
+					2
+				],
+				RandomMaxUseSkillfatigue = [
+					0,
+					1,
+					1,
+					2,
+					2
+				],
+				ColourRange = [
+					2,
+					2,
+					3,
+					3,
+					4
 				]
 			},
 			EL_ValueMult = {
-				ID = "entry.value_mult"
+				ID = "el_weapon_entry.value_mult"
 			},
 			EL_Vampire = {
-				ID = "weapon_entry.vampire",
-				BaseVampire = 10,
+				ID = "el_weapon_entry.vampire",
+				BaseVampire = 15,
 				RandomMinVampire = [
 					1,
 					1,
-					401,
-					801,
-					2000
+					301,
+					601,
+					1500
 				],
 				RandomMaxVampire = [
-					800,
+					600,
+					900,
 					1200,
-					1600,
-					2000,
-					2000
+					1500,
+					1500
 				],
 				ColourRange = [
-					14,
 					18,
-					22,
-					26
+					21,
+					24,
+					27,
+					30
 				]
 			}
 		}
 	},
-	function EL_assignItemEntrys( _EL_item, _entryNum ) {
+	function EL_assignItemEntrys( _item, _entryNum ) {
 		local index_pool = [];
 		for(local i = 0; i < this.Const.EL_Weapon.EL_Entry.Pool.Entrys.len(); ++i) {
-				if(this.Const.EL_Weapon.EL_Entry.Pool.Entrys[i].EL_ifEligible(_EL_item)) {
+				if(this.Const.EL_Weapon.EL_Entry.Pool.Entrys[i].EL_ifEligible(_item)) {
 				index_pool.push(i);
 			}
 		}
-		for(local i = 0; i < _entryNum && index_pool.len() != 0; ++i) {
+		while(_item.m.EL_EntryList.len() < _entryNum && index_pool.len() != 0)
+		{
 			local r = this.Math.rand(0, index_pool.len() - 1);
-			//this.logInfo("weapon"+this.Const.EL_Weapon.EL_Entry.Pool.Entrys[index_pool[r]].Scripts);
-			_EL_item.EL_addEntryList(this.new(this.Const.EL_Weapon.EL_Entry.Pool.Entrys[index_pool[r]].Scripts));
+			local entry = this.new(this.Const.EL_Weapon.EL_Entry.Pool.Entrys[index_pool[r]].Scripts);
 			index_pool.remove(r);
+			if(!_item.EL_hasEntry(entry.getID()))
+			{
+				_item.EL_addEntryToList(entry);
+			}
 		}
 	}
 };

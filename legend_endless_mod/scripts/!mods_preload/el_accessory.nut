@@ -5,14 +5,14 @@ local gt = getroottable();
 {
     ::mods_hookExactClass("items/accessory/accessory", function ( o )
 	{
-		o.m.EL_RarityEntry <- null;//this.new(this.Const.EL_Accessory.EL_RarityEntry.Pool.Entrys[1].Scripts);//
+		o.m.EL_RarityEntry <- null;//this.new(this.Const.EL_Rarity_Entry.Pool.Entrys[1].Scripts);//
 
 		local onEquip = o.onEquip;
 		o.onEquip = function ()
 		{
 			onEquip();
 			this.addSkill(this.new("scripts/skills/el_items/el_item_level_check_skill"));
-			foreach(entry in this.m.EL_Entrylist)
+			foreach(entry in this.m.EL_EntryList)
 			{
 				this.EL_addEntry(entry);
 			}
@@ -27,28 +27,14 @@ local gt = getroottable();
 		o.onUnequip = function ()
 		{
 			onUnequip();
-			//this.addSkill(this.new("scripts/skills/el_entrys/el_total_entry"));
-			if( this.m.EL_CurrentLevel < this.m.EL_Level )
-			{
-				this.m.EL_CurrentLevel = this.m.EL_Level;
-				EL_updateLevelProperties();
-			}
+			this.m.EL_CurrentLevel = this.m.EL_Level;
+			EL_updateLevelProperties();
 		}
-
+			
 		local onSerialize = o.onSerialize;
 		o.onSerialize = function ( _out )
 		{
 			onSerialize(_out);
-
-			_out.writeU8(this.m.EL_Entrylist.len());
-			if(this.m.EL_Entrylist.len() != 0)
-			{
-				foreach(entry in this.m.EL_Entrylist)
-				{
-					_out.writeI32(entry.ClassNameHash);
-					entry.onSerialize(_out);
-				}
-			}
 			if(this.m.EL_RarityEntry != null)
 			{
 				_out.writeU8(1);
@@ -65,17 +51,7 @@ local gt = getroottable();
 		o.onDeserialize = function ( _in )
 		{
 			onDeserialize(_in);
-
-			this.m.EL_Entrylist.clear();
-			local EL_EntrylistLen = _in.readU8();
-			for( local i = 0; i != EL_EntrylistLen; ++i )
-			{
-				local entry = this.new(this.IO.scriptFilenameByHash(_in.readI32()));
-				entry.onDeserialize(_in);
-				this.m.EL_Entrylist.push(entry);
-			}
 			local has_rarity_entry = _in.readU8();
-			//this.logInfo(has_rarity_entry);
 			if(has_rarity_entry)
 			{
 				this.m.EL_RarityEntry = this.new(this.IO.scriptFilenameByHash(_in.readI32()));
@@ -92,6 +68,11 @@ local gt = getroottable();
 		{
 			return 0;
 		}
+
+		o.EL_isValid <- function ()
+		{
+			return false;
+		}
 	});
 
 	for(local i = 0; i < this.Const.EL_Accessory.EL_ValidAccessory.len(); ++i) {
@@ -101,15 +82,7 @@ local gt = getroottable();
 			o.getTooltip = function ()
 			{
 				local result = getTooltip();
-				if(this.m.EL_RarityEntry != null)
-				{
-					result[0] = {
-						id = 1,
-						type = "title",
-						text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Legendary] +"]" + this.getName() + "[/color]"
-					};
-				}
-				else if(this.m.EL_RankLevel == 0)
+				if(this.m.EL_RankLevel == 0)
 				{
 					result[0] = {
 						id = 1,
@@ -125,18 +98,23 @@ local gt = getroottable();
 						text = "[color=" + this.Const.EL_Item.Colour[this.m.EL_RankLevel] +"]" + this.getName() + "[/color]"
 					};
 				}
+				result.insert(4, {
+					id = 22,
+					type = "text",
+					text = "Rank Level: " + this.m.EL_RankLevel + "/" + this.EL_getRankLevelMax()
+				});
 				if(this.m.EL_CurrentLevel < this.m.EL_Level)
 				{
-					result.insert(4, {
-						id = 22,
+					result.insert(5, {
+						id = 23,
 						type = "text",
-						text = "[color=" + this.Const.UI.Color.NegativeValue + "]Level: " + this.m.EL_CurrentLevel + "[/color](" + this.m.EL_Level + ")"
+						text = "[color=" + this.Const.UI.Color.NegativeValue + "]Level: " + this.m.EL_CurrentLevel + "/" + this.m.EL_Level + "[/color]"
 					});
 				}
 				else
 				{
-					result.insert(4, {
-						id = 22,
+					result.insert(5, {
+						id = 23,
 						type = "text",
 						text = "Level: " + this.m.EL_Level
 					});
@@ -156,13 +134,14 @@ local gt = getroottable();
 							text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Rare] + "]" + this.m.EL_RarityEntry.getName() + "[/color]"
 						});
 					}
-					local _id = 62;
-					foreach(entry in this.m.EL_Entrylist)
+					local tool_tip_id = 62;
+					foreach(entry in this.m.EL_EntryList)
 					{
-						if(entry.m.EL_CurrentLevel != 0)
+						local tool_tip = entry.getTooltip(tool_tip_id);
+						if(tool_tip != null && entry.m.EL_CurrentLevel != 0)
 						{
-							result.push(entry.getTooltip(_id));
-							++_id;
+							result.push(tool_tip);
+							++tool_tip_id;
 						}
 					}
 				}
@@ -184,6 +163,11 @@ local gt = getroottable();
 
 			o.getAmountString <- function()
 			{
+				if(this.m.EL_Level == -1)
+				{
+					return "lv0";
+					this.Const.EL_Item_Other.EL_OtherItemInit(_item);
+				}
 				return "lv" + this.m.EL_Level;
 			}
 
@@ -195,50 +179,83 @@ local gt = getroottable();
 				}
 				else
 				{
-					return this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Legendary];
+					return this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Rare];
 				}
 			}
+
+			o.EL_getRankLevel <- function()
+			{
+				return this.m.EL_RankLevel;
+			}
+
+			o.EL_getRankLevelMax <- function()
+			{
+				return this.Const.EL_Item.MaxRankLevel.Normal;
+			}
+			
 			//EL_additionalRarityChance
 			o.EL_generateByRankAndLevel <- function( _EL_rankLevel, EL_level, EL_additionalRarityChance = 0 )
 			{
 				if(this.m.EL_Level == -1)
 				{
-					EL_init();
-					this.m.EL_RankLevel = this.Math.min(this.m.EL_RankLevel + _EL_rankLevel, 3);
+					this.m.EL_RankLevel = this.Math.min(this.m.EL_RankLevel + _EL_rankLevel, this.EL_getRankLevelMax());
 					this.m.EL_Level = this.Math.min(this.Const.EL_Item.MaxLevel, EL_level);
-					this.m.EL_CurrentLevel = this.m.EL_Level;
-					EL_updateRankLevelProperties();
+					EL_recordBaseNoRankProperties();
+					this.Const.EL_Accessory.EL_updateRankLevelProperties(this);
 					this.Const.EL_Accessory.EL_assignItemRarityEntry(this, EL_additionalRarityChance);
-					this.Const.EL_Accessory.EL_assignItemEntrys(this, this.Const.EL_Accessory.EL_Entry.EntryNumFactor.NormalAccessory[this.m.EL_RankLevel] * this.m.EL_Level);
-					EL_updateLevelProperties();
+					this.Const.EL_Accessory.EL_assignItemEntrys(this, this.Const.EL_Accessory.EL_Entry.EntryNum.NormalAccessory[this.m.EL_RankLevel] * this.m.EL_Level);
 				}
 				this.m.EL_CurrentLevel = this.m.EL_Level;
+				EL_updateLevelProperties();
 			}
 
-			o.EL_upgrade <- function()
+			o.EL_upgradeLevel <- function()
 			{
 				if(this.m.EL_Level < this.Const.EL_Item.MaxLevel)
 				{
+					this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
 					this.m.EL_Level += 1;
-					this.m.EL_CurrentLevel += 1;
-					if(this.m.EL_Level == 1)
-					{
-						this.Const.EL_Accessory.EL_addItemEntry(this);
-					}
-					else if(this.m.EL_Entrylist[this.m.EL_Entrylist.len() - 1].m.EL_CurrentLevel != 1.0)
-					{
-						this.m.EL_Entrylist[this.m.EL_Entrylist.len() - 1].EL_upgrade(this.Const.EL_Accessory.EL_Entry.EntryNumFactor.NormalAccessory[this.m.EL_RankLevel]);
-					}
-					else
-					{
-						this.Const.EL_Accessory.EL_addItemEntry(this);
-					}
+					this.m.EL_CurrentLevel = this.m.EL_Level;
+					this.Const.EL_Accessory.EL_assignItemEntrys(this, this.Const.EL_Accessory.EL_Entry.EntryNum.NormalAccessory[this.m.EL_RankLevel] * this.m.EL_Level);
 					EL_updateLevelProperties();
 				}
+			}
+
+			o.EL_upgradeRank <- function()
+			{
+				if(EL_getRankLevel() < EL_getRankLevelMax())
+				{
+					this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+					++this.m.EL_RankLevel;
+					foreach(entry in this.m.EL_EntryList)
+					{
+						entry.EL_onUpgradeRank();
+					}
+					this.Const.EL_Accessory.EL_updateRankLevelProperties(this);
+					this.Const.EL_Accessory.EL_assignItemEntrys(this, this.Const.EL_Accessory.EL_Entry.EntryNum.NormalAccessory[this.m.EL_RankLevel] * this.m.EL_Level);
+					if(this.m.EL_RarityEntry == null)
+					{
+						this.Const.EL_Accessory.EL_assignItemRarityEntry(this);
+					}
+				}
+				else if(this.m.EL_RarityEntry == null)
+				{
+					this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+					local r = this.Math.rand(0, this.Const.EL_Rarity_Entry.Pool.Entrys.len() - 1);
+					this.EL_addRarityEntry(this.new(this.Const.EL_Rarity_Entry.Pool.Entrys[r].Scripts));
+					
+				}
+				else if(this.m.EL_StrengthenEntryNum < this.m.EL_EntryList.len())
+				{
+					this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+					++this.m.EL_StrengthenEntryNum;
+				}
+				EL_updateLevelProperties();
 			}
 
 			o.EL_disassemble <- function(_itemIndex)
 			{
+				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
 				local rarity_stone = null;
 				if(this.m.EL_RarityEntry != null)
 				{
@@ -255,46 +272,44 @@ local gt = getroottable();
 
 			o.EL_recraft <- function()
 			{
+				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+				EL_init();
 				if(this.m.EL_RarityEntry == null)
 				{
 					this.Const.EL_Accessory.EL_assignItemRarityEntry(this);
 				}
-				this.m.EL_Entrylist.clear();
-				this.Const.EL_Accessory.EL_assignItemEntrys(this, this.Const.EL_Accessory.EL_Entry.EntryNumFactor.NormalAccessory[this.m.EL_RankLevel] * this.m.EL_Level);
-				EL_updateRankLevelProperties();
+				this.m.EL_EntryList.clear();
+				this.Const.EL_Accessory.EL_assignItemEntrys(this, this.Const.EL_Accessory.EL_Entry.EntryNum.NormalAccessory[this.m.EL_RankLevel] * this.m.EL_Level);
 				EL_updateLevelProperties();
 			}
 
 			o.EL_updateLevelProperties <- function()
 			{
 				this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Accessory.EL_LevelFactor.Value * this.m.EL_Level));
-				local entryNum = this.Const.EL_Accessory.EL_Entry.EntryNumFactor.NormalAccessory[this.m.EL_RankLevel] * this.m.EL_CurrentLevel;
-				for(local num = 0.0; num < this.m.EL_Entrylist.len(); ++num)
+				local entryNum = this.Const.EL_Accessory.EL_Entry.EntryNum.NormalAccessory[this.m.EL_RankLevel] * this.m.EL_CurrentLevel;
+				for(local num = 0.0; num < this.m.EL_EntryList.len(); ++num)
 				{
-					this.m.EL_Entrylist[num].EL_setCurrentLevel(entryNum - num);
+					this.m.EL_EntryList[num].EL_setCurrentLevel(entryNum - num);
 				}
-				if(this.m.EL_Entrylist.len() != 0)
+				if(this.m.EL_EntryList.len() != 0)
 				{
-					foreach(entry in this.m.EL_Entrylist)
+					for( local index = 0; index < this.m.EL_StrengthenEntryNum && index < this.m.EL_EntryList.len(); ++index )
+					{
+						this.m.EL_EntryList[index].EL_strengthen();
+					}
+					foreach(entry in this.m.EL_EntryList)
 					{
 						entry.EL_onItemUpdate(this);
 					}
 				}
 			}
 
-			o.EL_updateRankLevelProperties <- function()
+			o.EL_init <- function()
 			{
-				if(this.m.EL_RarityEntry != null)
-				{
-					this.m.EL_BaseWithRankValue = this.m.EL_BaseNoRankValue * this.Const.EL_Accessory.EL_RankValue[this.Const.EL_Item.Type.Legendary];
-				}
-				else
-				{
-					this.m.EL_BaseWithRankValue = this.m.EL_BaseNoRankValue * this.Const.EL_Accessory.EL_RankValue[this.m.EL_RankLevel];
-				}
+				this.m.EL_BaseWithRankValue = this.m.EL_BaseNoRankValue;
 			}
 
-			o.EL_init <- function()
+			o.EL_recordBaseNoRankProperties <- function()
 			{
 				this.m.EL_BaseNoRankValue = this.m.Value;
 				this.m.EL_BaseWithRankValue = this.m.Value;
@@ -310,7 +325,6 @@ local gt = getroottable();
 				{
 					return true;
 				}
-
 				return false;
 			}
 
@@ -319,32 +333,90 @@ local gt = getroottable();
 				this.m.EL_RarityEntry = _EL_rarityEntry;
 			}
 
-			o.EL_getRankLevel <- function()
+			o.EL_isValid <- function ()
 			{
-				return (this.m.EL_RarityEntry == null) ? this.m.EL_RankLevel : this.Const.EL_Item.Type.Legendary;
+				return false;
 			}
 
-			o.EL_getUpgradeEssence <- function()
+			o.EL_getUpgradeLevelEquipmentEssenceNum <- function()
 			{
 				local result = [0, 0, 0, 0, 0];
 				if(this.m.EL_Level < 100)
 				{
-					result[this.m.EL_RankLevel] += this.Math.round(this.Const.EL_Accessory.EL_Essence.SlotFactor * this.Const.EL_Accessory.EL_Essence.UpgradeFactor * this.Math.pow((1 + this.Const.EL_Accessory.EL_Essence.LevelFactor * this.m.EL_Level), this.Const.EL_Accessory.EL_Essence.PowFactor));
+					local min_calculate_weight = this.Const.EL_Accessory.EL_EquipmentEssence.MinCalculateWeight;
+					result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Accessory.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel) * this.Const.EL_Accessory.EL_EquipmentEssence.UpgradeLevelFactor 
+															* this.Math.abs(min_calculate_weight * (1 + this.Const.EL_Accessory.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
 				}
 				return result;
 			}
 
-			o.EL_getDisassembleEssence <- function()
+			o.EL_getUpgradeRankEquipmentEssenceNum <- function()
 			{
 				local result = [0, 0, 0, 0, 0];
-				result[this.m.EL_RankLevel] += this.Math.round(this.Const.EL_Accessory.EL_Essence.SlotFactor * this.Const.EL_Accessory.EL_Essence.DisassembleFactor * this.Math.pow((1 + this.Const.EL_Accessory.EL_Essence.LevelFactor * this.m.EL_Level), this.Const.EL_Accessory.EL_Essence.PowFactor));
+				if(EL_getRankLevel() < EL_getRankLevelMax())
+				{
+					local rank_level = EL_getRankLevel() + 1;
+					local min_calculate_weight = this.Const.EL_Accessory.EL_EquipmentEssence.MinCalculateWeight;
+					if(rank_level == this.Const.EL_Item.Type.Legendary)
+					{
+						++result[this.Const.EL_Item.Type.Legendary];
+					}
+					else
+					{
+						result[rank_level] += this.Math.floor(this.Const.EL_Accessory.EL_EquipmentEssence.UpgradeRankFactor * this.Math.abs(min_calculate_weight 
+											* (1 + this.Const.EL_Accessory.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
+					}
+					for(local index = 1; index < this.m.EL_Level; ++index)
+					{
+						result[this.Const.EL_Item.Type.Normal] += min_calculate_weight * (1 + this.Const.EL_Accessory.EL_LevelFactor.StaminaModifier * index);
+						
+					}
+					result[this.Const.EL_Item.Type.Normal] = this.Math.floor(this.Math.abs(result[this.Const.EL_Item.Type.Normal]) * this.Const.EL_Accessory.EL_EquipmentEssence.UpgradeLevelFactor 
+														* (this.Math.pow(this.Const.EL_Accessory.EL_EquipmentEssence.RankFactor, rank_level) - this.Math.pow(this.Const.EL_Accessory.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel)));
+				}
+				else if(this.m.EL_RarityEntry == null)
+				{
+					++result[this.Const.EL_Item.Type.Legendary];
+				}
+				else if(this.m.EL_StrengthenEntryNum < this.m.EL_EntryList.len())
+				{
+					result[this.Const.EL_Item.Type.Legendary] += this.Const.EL_Accessory.EL_EquipmentEssence.StrengthenEntryNum;
+				}
 				return result;
 			}
 
-			o.EL_getRecraftEssence <- function()
+			o.EL_getDisassembleEquipmentEssenceNum <- function()
 			{
 				local result = [0, 0, 0, 0, 0];
-				result[this.m.EL_RankLevel] += this.Math.round(this.Const.EL_Accessory.EL_Essence.SlotFactor * this.Const.EL_Accessory.EL_Essence.RecraftFactor * this.Math.pow((1 + this.Const.EL_Accessory.EL_Essence.LevelFactor * this.World.Assets.m.EL_WorldLevel), this.Const.EL_Accessory.EL_Essence.PowFactor));
+				local min_calculate_weight = this.Const.EL_Accessory.EL_EquipmentEssence.MinCalculateWeight;
+				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Accessory.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel) * this.Const.EL_Accessory.EL_EquipmentEssence.DisassembleFactor
+														* this.Math.abs(min_calculate_weight * (1 + this.Const.EL_Accessory.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
+				if(this.m.EL_RankLevel == this.Const.EL_Item.Type.Legendary)
+				{
+					++result[this.Const.EL_Item.Type.Legendary];
+				}
+				else
+				{
+					result[this.m.EL_RankLevel] += this.Math.floor(this.Const.EL_Accessory.EL_EquipmentEssence.DisassembleFactor
+												* this.Math.abs(min_calculate_weight * (1 + this.Const.EL_Accessory.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
+					
+				}
+				
+				return result;
+			}
+
+			o.EL_getRecraftEquipmentEssenceNum <- function()
+			{
+				local result = [0, 0, 0, 0, 0];
+				if(this.m.EL_RankLevel)
+				{
+					local rank_level = this.Math.min(this.m.EL_RankLevel, this.Const.EL_Item.Type.Epic);
+					local min_calculate_weight = this.Const.EL_Accessory.EL_EquipmentEssence.MinCalculateWeight;
+					result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Accessory.EL_EquipmentEssence.RankFactor, rank_level) * this.Const.EL_Accessory.EL_EquipmentEssence.RecraftFactor 
+															* this.Math.abs(min_calculate_weight * (1 + this.Const.EL_Accessory.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)));
+					result[rank_level] += this.Math.floor(this.Const.EL_Accessory.EL_EquipmentEssence.SeniorEquipmentEssenceMult * this.Const.EL_Accessory.EL_EquipmentEssence.RecraftFactor 
+												* this.Math.abs(min_calculate_weight * (1 + this.Const.EL_Accessory.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)))
+				}
 				return result;
 			}
 		});
@@ -356,26 +428,6 @@ local gt = getroottable();
 			o.m.EL_RankLevel <- 1;
 		});
 	}
-
-	::mods_hookExactClass("items/accessory/oathtaker_skull_01_item", function ( o )
-	{
-		local create = o.create;
-        o.create = function()
-        {
-            create();
-            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Fine, 0);
-        }
-	});
-
-	::mods_hookExactClass("items/accessory/oathtaker_skull_02_item", function ( o )
-	{
-		local create = o.create;
-        o.create = function()
-        {
-            create();
-            EL_generateByRankAndLevel(this.Const.EL_Item.Type.Epic, 0);
-        }
-	});
 
 	::mods_hookExactClass("items/accessory/sergeant_badge_item", function ( o )
 	{
