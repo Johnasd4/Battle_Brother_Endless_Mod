@@ -24,7 +24,7 @@ this.el_life_drain_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_
         hit_info.BodyPart = this.Const.BodyPart.Body;
         hit_info.BodyDamageMult = 1.0;
         hit_info.FatalityChanceMult = 0.0;
-        t.onDamageReceived(user, this, hit_info);
+		_targetEntity.onDamageReceived(user, this, hit_info);
         local current_hitpoints = this.Math.max(0, _targetEntity.getHitpoints());
         if(current_hitpoints < hitpoints) {
             local hitpoints_drain = hitpoints - current_hitpoints;
