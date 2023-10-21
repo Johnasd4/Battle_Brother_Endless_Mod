@@ -85,11 +85,3 @@ this.el_reduce_direct_damage_received_mult_entry <- this.inherit("scripts/skills
 		this.m.EL_ReduceDirectDamageReceivedMult = _in.readF32();
 	}
 });
-
-	function onBeforeDamageReceived( _attacker, _skill, _hitInfo, _properties )
-	{
-		if (_hitInfo.BodyPart == this.Const.BodyPart.Body && _attacker != null && _attacker.getID() != this.getArmor().getContainer().getActor().getID())
-		{
-			_properties.DamageReceivedDirectMult *= 0.66;
-		}
-	}
