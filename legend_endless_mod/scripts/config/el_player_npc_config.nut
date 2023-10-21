@@ -63,15 +63,15 @@ gt.Const.EL_PlayerNPC <- {
         },
 
         Effect = {
-            BraveryOffset = [-45, -30, -15, 0, 15, 0],
-            InitiativeOffset = [-45, -30, -15, 0, 15, 0],
-            MeleeSkillOffset = [-45, -30, -15, 0, 15, 0],
-            RangedSkillOffset = [-45, -30, -15, 0, 15, 0],
-            MeleeDefenseOffset = [-45, -30, -15, 0, 15, 0],
-            RangedDefenseOffset = [-45, -30, -15, 0, 15, 0],
-            FatigueOnSkillUseOffset = [6, 4, 2, 0, -2, 0],
-            DamageDirectMult = [0.55, 0.70, 0.85, 1, 1.15, 1],
-            DamageReceivedTotalMult = [1.45, 1.3, 1.15, 1, 0.85, 1],
+            BraveryOffset = [-30, -20, -10, 0, 10, 0],
+            InitiativeOffset = [-30, -20, -10, 0, 10, 0],
+            MeleeSkillOffset = [-30, -20, -10, 0, 10, 0],
+            RangedSkillOffset = [-30, -20, -10, 0, 10, 0],
+            MeleeDefenseOffset = [-30, -20, -10, 0, 10, 0],
+            RangedDefenseOffset = [-30, -20, -10, 0, 10, 0],
+            FatigueOnSkillUseOffset = [3, 2, 1, 0, -1, 0],
+            DamageDirectMult = [0.7, 0.8, 0.9, 1, 1.1, 1],
+            DamageReceivedTotalMult = [1.3, 1.2, 1.1, 1, 0.9, 1],
         }
     }
 };
