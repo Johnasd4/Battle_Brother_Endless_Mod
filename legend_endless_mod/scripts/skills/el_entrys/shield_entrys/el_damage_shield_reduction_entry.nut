@@ -54,7 +54,7 @@ this.el_damage_shield_reduction_entry <- this.inherit("scripts/skills/el_entrys/
 
 	function EL_onItemUpdate( _item )
 	{
-		this.m.EL_Level = _item.m.EL_Level;
+		this.m.EL_Level = _item.m.EL_CurrentLevel;
         _item.m.EL_DamageShieldReduction += this.Math.ceil(this.m.EL_DamageShieldReduction * (1.0 + this.m.EL_Level * this.Const.EL_Shield.EL_LevelFactor.DamageShieldReduction));
 	}
     

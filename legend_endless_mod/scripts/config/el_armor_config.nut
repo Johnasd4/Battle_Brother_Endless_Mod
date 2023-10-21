@@ -20,7 +20,7 @@ gt.Const.EL_Armor <- {
 		ConditionMultHalf = 1.14017,
 		Vision = 2,
 		DamageRegularReduction = 2,
-		DamageBodyArmorReduction = 5
+		DamageBodyArmorReduction = 4
 	},
 	EL_LevelFactor = {
 		Condition = 0.04,
