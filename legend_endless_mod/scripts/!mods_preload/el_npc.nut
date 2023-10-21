@@ -373,7 +373,10 @@ local gt = getroottable();
         local kill = o.kill;
         o.kill = function( _killer = null, _skill = null, _fatalityType = this.Const.FatalityType.None, _silent = false )
         {
-            //this.logInfo(this.getName() + " is killed.");
+            this.logInfo("_killer = " + (_killer == null ? "null" : _killer.getName()));
+            this.logInfo("_killer.getFaction() = " + _killer.getFaction());
+            this.logInfo("this.Const.Faction.PlayerAnimals = " + this.Const.Faction.PlayerAnimals);
+            this.logInfo("this.Const.Faction.Player = " + this.Const.Faction.Player);
             if (_killer == null || _killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals)
             {
                 if (this.m.WorldTroop != null && ("Party" in this.m.WorldTroop) && this.m.WorldTroop.Party != null && !this.m.WorldTroop.Party.isNull())
