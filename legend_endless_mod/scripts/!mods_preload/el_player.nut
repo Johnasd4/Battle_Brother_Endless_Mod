@@ -86,11 +86,6 @@ local gt = getroottable();
 				--this.m.LevelUps;
 				--this.m.BaseProperties.EL_CombatLevel;
 
-				if (this.m.Level == 11 && this.m.Skills.hasSkill("perk.student"))
-				{
-					++this.m.PerkPoints;
-				}
-
 				if(this.m.Level < this.Const.EL_Player.EL_PlayerLevel.Part1){
 					--this.m.PerkPoints;
 				}
@@ -108,6 +103,11 @@ local gt = getroottable();
 			}
 			while (this.m.Level < this.Const.LevelXP.len() && this.m.XP >= this.Const.LevelXP[this.m.Level])
 			{
+				if (this.m.Level == 11 && this.m.Skills.hasSkill("perk.student"))
+				{
+					++this.m.PerkPoints;
+				}
+
 				if(this.m.Level < this.Const.EL_Player.EL_PlayerLevel.Part1){
 					++this.m.PerkPoints;
 				}
