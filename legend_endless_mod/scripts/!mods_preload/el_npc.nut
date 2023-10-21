@@ -844,17 +844,8 @@ local gt = getroottable();
                 troop.Row = _in.readI8();
                 troop.Party = this.WeakTableRef(this);
                 troop.Faction = this.getFaction();
+                troop.Name = _in.readString();
 
-
-
-                if (_in.getMetaData().getVersion() >= 48)
-                {
-                    troop.Name = _in.readString();
-                }
-                else if (_in.getMetaData().getVersion() < 40)
-                {
-                    troop.ID = this.Const.EntityType.convertOldToNew(troop.ID);
-                }
 
 
                 troop.EL_EliteChance = _in.readF32();
@@ -865,38 +856,34 @@ local gt = getroottable();
                 troop.EL_ExtraBuffNum[1] = _in.readI32();
                 troop.EL_ExtraBuffNum[2] = _in.readI32();
 
-                if (_in.getMetaData().getVersion() >= 71)
+                local hasOutfits = _in.readBool();
+
+                if (hasOutfits)
                 {
-                    local hasOutfits = _in.readBool();
+                    local outfits = [];
+                    local outfitLength = _in.readU8();
 
-                    if (hasOutfits)
+                    for( local i = 0; i < outfitLength; i++ )
                     {
-                        local outfits = [];
-                        local outfitLength = _in.readU8();
-
-                        for( local i = 0; i < outfitLength; i++ )
+                        if (_in.readU8() == 2)
                         {
-                            if (_in.readU8() == 2)
-                            {
-                                outfits.push([
-                                    _in.readU8(),
-                                    _in.readString()
-                                ]);
-                            }
-                            else
-                            {
-                                outfits.push([
-                                    _in.readU8(),
-                                    _in.readString(),
-                                    _in.readU8()
-                                ]);
-                            }
+                            outfits.push([
+                                _in.readU8(),
+                                _in.readString()
+                            ]);
                         }
-
-                        troop.Outfits <- clone outfits;
+                        else
+                        {
+                            outfits.push([
+                                _in.readU8(),
+                                _in.readString(),
+                                _in.readString()
+                            ]);
+                        }
                     }
-                }
 
+                    troop.Outfits <- clone outfits;
+                }
                 local hash = _in.readI32();
 
                 if (hash != 0)
@@ -961,15 +948,7 @@ local gt = getroottable();
                 troop.Row = _in.readI8();
                 troop.Party = this.WeakTableRef(this);
                 troop.Faction = (("getFaction" in this) ? this.getFaction() : this.EL_getFaction());
-
-                if (_in.getMetaData().getVersion() >= 48)
-                {
-                    troop.Name = _in.readString();
-                }
-                else if (_in.getMetaData().getVersion() < 40)
-                {
-                    troop.ID = this.Const.EntityType.convertOldToNew(troop.ID);
-                }
+                troop.Name = _in.readString();
 
 
                 troop.EL_EliteChance = _in.readF32();
@@ -980,38 +959,34 @@ local gt = getroottable();
                 troop.EL_ExtraBuffNum[1] = _in.readI32();
                 troop.EL_ExtraBuffNum[2] = _in.readI32();
 
-                if (_in.getMetaData().getVersion() >= 71)
+                local hasOutfits = _in.readBool();
+
+                if (hasOutfits)
                 {
-                    local hasOutfits = _in.readBool();
+                    local outfits = [];
+                    local outfitLength = _in.readU8();
 
-                    if (hasOutfits)
+                    for( local i = 0; i < outfitLength; i++ )
                     {
-                        local outfits = [];
-                        local outfitLength = _in.readU8();
-
-                        for( local i = 0; i < outfitLength; i++ )
+                        if (_in.readU8() == 2)
                         {
-                            if (_in.readU8() == 2)
-                            {
-                                outfits.push([
-                                    _in.readU8(),
-                                    _in.readString()
-                                ]);
-                            }
-                            else
-                            {
-                                outfits.push([
-                                    _in.readU8(),
-                                    _in.readString(),
-                                    _in.readU8()
-                                ]);
-                            }
+                            outfits.push([
+                                _in.readU8(),
+                                _in.readString()
+                            ]);
                         }
-
-                        troop.Outfits <- clone outfits;
+                        else
+                        {
+                            outfits.push([
+                                _in.readU8(),
+                                _in.readString(),
+                                _in.readString()
+                            ]);
+                        }
                     }
-                }
 
+                    troop.Outfits <- clone outfits;
+                }
                 local hash = _in.readI32();
 
                 if (hash != 0)

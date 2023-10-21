@@ -481,6 +481,7 @@ local gt = getroottable();
 			}
 			else
 			{
+				local if_success = false;
 				while(calculate_bravery > 0 && if_success == false) {
 					if (this.Math.rand(1, 100) <= this.Math.minf(95, calculate_bravery)) {
 						return true;
