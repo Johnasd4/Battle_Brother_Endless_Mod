@@ -368,6 +368,10 @@ local gt = getroottable();
 				playerKills = playerKills + bro.getCombatStats().Kills;
 			}
 
+			if(!this.World.Statistics.getFlags().has("EL_IfPlayerPartyKilled")) {
+				this.World.Statistics.getFlags().set("EL_IfPlayerPartyKilled", false);
+			}
+
 			if (!this.isScenarioMode())
 			{
 				this.World.Statistics.getFlags().set("LastCombatKills", playerKills);
@@ -558,7 +562,7 @@ local gt = getroottable();
 						party.EL_emptyTroops();
 
 					}
-					if (party.getTroops().len() == 0 && party.isAlive() && !party.isAlliedWithPlayer() && party.isDroppingLoot() && (playerKills > 0 || this.m.IsDeveloperModeEnabled))
+					if (party.getTroops().len() == 0 && party.isAlive() && !party.isAlliedWithPlayer() && party.isDroppingLoot() && (this.World.Statistics.getFlags().get("EL_IfPlayerPartyKilled") == true || this.m.IsDeveloperModeEnabled))
 					{
 						party.onDropLootForPlayer(loot);
 					}
@@ -602,6 +606,8 @@ local gt = getroottable();
 			loot.extend(this.m.CombatResultLoot.getItems());
 			this.m.CombatResultLoot.assign(loot);
 			this.m.CombatResultLoot.sort();
+
+			this.World.Statistics.getFlags().set("EL_IfPlayerPartyKilled", false);
 		};
 	});
 

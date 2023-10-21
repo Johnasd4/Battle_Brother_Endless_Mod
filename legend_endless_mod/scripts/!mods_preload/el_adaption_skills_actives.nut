@@ -247,7 +247,7 @@ local gt = getroottable();
 
         o.onUse = function( _user, _targetTile )
         {
-            local entity = this.Const.World.Common.EL_addEntityByScript(this.m.Item.getScript(), _targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel()0, _user.EL_getCombatLevel());
+            local entity = this.Const.World.Common.EL_addEntityByScript(this.m.Item.getScript(), _targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getCombatLevel());
             entity.setItem(this.m.Item);
             entity.setName(this.m.Item.getName());
             this.m.Item.setEntity(entity);

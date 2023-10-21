@@ -373,10 +373,13 @@ local gt = getroottable();
         local kill = o.kill;
         o.kill = function( _killer = null, _skill = null, _fatalityType = this.Const.FatalityType.None, _silent = false )
         {
-            this.logInfo("_killer = " + (_killer == null ? "null" : _killer.getName()));
-            this.logInfo("_killer.getFaction() = " + _killer.getFaction());
-            this.logInfo("this.Const.Faction.PlayerAnimals = " + this.Const.Faction.PlayerAnimals);
-            this.logInfo("this.Const.Faction.Player = " + this.Const.Faction.Player);
+            // this.logInfo("_killer = " + (_killer == null ? "null" : _killer.getName()));
+            // this.logInfo("_killer.getFaction() = " + _killer.getFaction());
+            // this.logInfo("this.Const.Faction.PlayerAnimals = " + this.Const.Faction.PlayerAnimals);
+            // this.logInfo("this.Const.Faction.Player = " + this.Const.Faction.Player);
+            if(_killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals) {
+				this.World.Statistics.getFlags().set("EL_IfPlayerPartyKilled", true);
+            }
             if (_killer == null || _killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals)
             {
                 if (this.m.WorldTroop != null && ("Party" in this.m.WorldTroop) && this.m.WorldTroop.Party != null && !this.m.WorldTroop.Party.isNull())
@@ -413,6 +416,12 @@ local gt = getroottable();
                     }
                     for(local i = 0; i < this.m.EL_EquipmentEssenceDrop.len(); ++i) {
                         party.EL_addEquipmentEssence(i, this.m.EL_EquipmentEssenceDrop[i]);
+                    }
+                    local accessory = this.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
+                    if(accessory != null && accessory.getID() == "el_accessory.core") {
+                        local core = this.new("scripts/items/el_misc/el_core_rank_" + accessory.EL_getRankLevel() + "_item");
+                        core.EL_generateCoreXPByActorXP(this.Math.floor(this.getXP()));
+                        party.EL_addLootItem(core);
                     }
                 }
             }
