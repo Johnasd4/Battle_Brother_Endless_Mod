@@ -227,16 +227,6 @@ local gt = getroottable();
 			return 0;
 		}
 
-		o.getAmountString <- function()
-		{
-			return "";
-		}
-
-		o.getAmountColor <- function()
-		{
-			return "#ffffff";
-		}
-
 		o.EL_generateByRankAndLevel <- function( _EL_rankLevel, EL_level, EL_additionalRarityChance = 0 )
 		{
 		}

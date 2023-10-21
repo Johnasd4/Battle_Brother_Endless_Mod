@@ -78,13 +78,13 @@ local gt = getroottable();
 
 		o.onSerialize = function ( _out )
 		{
-			this.shield.onSerialize(_out);
+			this.armor.onSerialize(_out);
 			_out.writeString(this.m.Name);
 		}
 
 		o.onDeserialize = function ( _in )
 		{
-			this.shield.onDeserialize(_in);
+			this.armor.onDeserialize(_in);
 			this.m.Name = _in.readString();
 
 			if (this.isRuned())

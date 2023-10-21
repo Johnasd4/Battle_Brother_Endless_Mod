@@ -192,7 +192,7 @@ local gt = getroottable();
 			if(this.m.EL_Level == -1)
 			{
 				return "lv0";
-				this.Const.EL_Item_Other.EL_OtherItemInit(_item);
+				this.Const.EL_Item_Other.EL_OtherItemInit(this);
 			}
 			if(this.m.Condition < this.m.ConditionMax)
 			{
@@ -323,6 +323,7 @@ local gt = getroottable();
 				this.m.EL_BaseWithRankConditionMax = this.m.ConditionMax;
 			}
 			this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Shield.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
+			this.m.Condition = this.m.Condition > this.m.ConditionMax ? this.m.ConditionMax : this.m.Condition;
 			this.m.MeleeDefense = this.Math.ceil(this.m.EL_BaseWithRankMeleeDefense * (1 + this.Const.EL_Shield.EL_LevelFactor.MeleeDefense * this.m.EL_CurrentLevel));
 			this.m.RangedDefense = this.Math.ceil(this.m.EL_BaseWithRankRangedDefense * (1 + this.Const.EL_Shield.EL_LevelFactor.RangedDefense * this.m.EL_CurrentLevel));
 			this.m.EL_DamageShieldReduction = this.Math.ceil(this.m.EL_BaseWithRankDamageShieldReduction * (1 + this.Const.EL_Shield.EL_LevelFactor.DamageShieldReduction * this.m.EL_CurrentLevel));
@@ -479,7 +480,7 @@ local gt = getroottable();
 				{
 					damage = damage * 0.2;
 				}
-				damage = this.Math.min(damage, this.Const.EL_Shield.MinDamageReceived);
+				damage = this.Math.max(damage, this.Const.EL_Shield.MinDamageReceived);
 
 				local conditionBefore = shield.getCondition();
 				shield.applyShieldDamage(damage);

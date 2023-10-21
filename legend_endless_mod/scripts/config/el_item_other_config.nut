@@ -173,7 +173,7 @@ gt.Const.EL_Item_Other <- {
             local body = _actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
             local head = _actor.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
 			local accessory = _actor.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
-			this.logInfo("_actor.ID:"+_actor.getName());
+			//this.logInfo("_actor.ID:"+_actor.getName());
 			if(_isNpc && accessory == null)
 			{
 				
@@ -188,7 +188,7 @@ gt.Const.EL_Item_Other <- {
 					_actor.m.Items.equip(this.new("scripts/items/" + this.Const.EL_Accessory.EL_NormalAccessoryList[r]));
 					accessory = _actor.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
 				}
-				this.logInfo("generate accessory:" + accessory.getID());
+				//this.logInfo("generate accessory:" + accessory.getID());
 			}
 
 			local items = [];

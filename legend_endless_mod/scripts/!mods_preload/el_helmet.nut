@@ -170,7 +170,7 @@ local gt = getroottable();
 			if(this.m.EL_Level == -1)
 			{
 				return "lv0";
-				this.Const.EL_Item_Other.EL_OtherItemInit(_item);
+				this.Const.EL_Item_Other.EL_OtherItemInit(this);
 			}
 			if(this.m.Condition < this.m.ConditionMax)
 			{
@@ -349,6 +349,7 @@ local gt = getroottable();
 		o.EL_updateLevelProperties <- function() 
         {
 			this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Helmet.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
+			this.m.Condition = this.m.Condition > this.m.ConditionMax ? this.m.ConditionMax : this.m.Condition;
 			this.m.EL_DamageRegularReduction = this.Math.ceil(this.m.EL_BaseWithRankDamageRegularReduction * (1 + this.Const.EL_Helmet.EL_LevelFactor.DamageRegularReduction * this.m.EL_CurrentLevel));
 			this.m.EL_DamageHeadArmorReduction = this.Math.ceil(this.m.EL_BaseWithRankDamageHeadArmorReduction * (1 + this.Const.EL_Helmet.EL_LevelFactor.DamageHeadArmorReduction * this.m.EL_CurrentLevel));
 			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Helmet.EL_LevelFactor.Value * this.m.EL_Level));
@@ -788,6 +789,7 @@ local gt = getroottable();
 				}
 			}
 			this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Helmet.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
+			this.m.Condition = this.m.Condition > this.m.ConditionMax ? this.m.ConditionMax : this.m.Condition;
 			this.m.EL_DamageRegularReduction = this.Math.ceil(this.m.EL_BaseWithRankDamageRegularReduction * (1 + this.Const.EL_Helmet.EL_LevelFactor.DamageRegularReduction * this.m.EL_CurrentLevel));
 			this.m.EL_DamageHeadArmorReduction = this.Math.ceil(this.m.EL_BaseWithRankDamageHeadArmorReduction * (1 + this.Const.EL_Helmet.EL_LevelFactor.DamageHeadArmorReduction * this.m.EL_CurrentLevel));
 			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Helmet.EL_LevelFactor.Value * this.m.EL_Level));
@@ -839,7 +841,7 @@ local gt = getroottable();
 			if(this.m.EL_Level == -1)
 			{
 				return "lv0";
-				this.Const.EL_Item_Other.EL_OtherItemInit(_item);
+				this.Const.EL_Item_Other.EL_OtherItemInit(this);
 			}
 			if(this.getCondition() < this.getConditionMax())
 			{
@@ -1197,7 +1199,7 @@ local gt = getroottable();
 			if(this.m.EL_Level == -1)
 			{
 				return "lv0";
-				this.Const.EL_Item_Other.EL_OtherItemInit(_item);
+				this.Const.EL_Item_Other.EL_OtherItemInit(this);
 			}
 			if(this.m.Condition < this.m.ConditionMax)
 			{
