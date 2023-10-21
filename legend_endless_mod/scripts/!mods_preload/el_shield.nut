@@ -479,7 +479,7 @@ local gt = getroottable();
 				{
 					damage = damage * 0.2;
 				}
-				damage = this.Math.min(damage, this.Const.EL_Shield.MinDamageReceived);
+				damage = this.Math.max(damage, this.Const.EL_Shield.MinDamageReceived);
 
 				local conditionBefore = shield.getCondition();
 				shield.applyShieldDamage(damage);
