@@ -1126,6 +1126,28 @@ local gt = getroottable();
 		}
 	});
 
+	::mods_hookExactClass("skills/perks/perk_student", function ( o )
+	{
+		o.onUpdate = function( _properties )
+		{
+			if (this.getContainer().getActor().getLevel() < 11)
+			{
+				_properties.XPGainMult *= 1.2;
+			}
+		}
+
+		o.onUpdateLevel <- function ()
+		{
+			local actor = this.getContainer().getActor();
+			if (actor.getLevel() == 11)
+			{
+				++actor.m.PerkPoints;
+			}
+		};
+
+	});
+
+
 	gt.Const.EL_Config.EL_modStrings();
 
 });
@@ -1229,7 +1251,12 @@ gt.Const.EL_Config.EL_modStrings <- function()
             ID = "perk.ptr_bulwark",
             tooltip = "\'Not much to be afraid of behind a suit of plate!\'\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• Resolve is increased by [color=" + this.Const.UI.Color.PositiveValue + "]1%[/color] of the combined current durability of head and body armor.\n• This bonus is [color=" + this.Const.UI.Color.PositiveValue + "]doubled[/color] against negative morale checks except mental attacks."
         },
-    ]
+        {
+            ID = "perk.student",
+            tooltip = "Everything can be learned if you put your mind to it. Gain additional [color=" + this.Const.UI.Color.PositiveValue + "]20%[/color] experience from battle. At the eleventh character level, you gain an additional perk point. The bonus experience stays until level 11. \n\nWhen playing the \'Manhunters\' origin, your indebted get the perk point refunded at the seventh character level."
+        },
+
+		    ]
 
     foreach( i, perk in gt.Const.Perks.PerkDefObjects )
     {

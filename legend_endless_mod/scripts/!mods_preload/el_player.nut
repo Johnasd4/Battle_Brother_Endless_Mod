@@ -98,7 +98,7 @@ local gt = getroottable();
 
 				local background = this.getBackground();
 				this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(this.m.Level, background);
-				this.m.Skills.onUpdateLevel();
+				//this.m.Skills.onUpdateLevel();
 
 			}
 			while (this.m.Level < this.Const.LevelXP.len() && this.m.XP >= this.Const.LevelXP[this.m.Level])
@@ -120,10 +120,10 @@ local gt = getroottable();
 				this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(this.m.Level, background);
 				this.m.Skills.onUpdateLevel();
 
-				if (this.m.Level == 11 && this.m.Skills.hasSkill("perk.student"))
-				{
-					++this.m.PerkPoints;
-				}
+				// if (this.m.Level == 11 && this.m.Skills.hasSkill("perk.student"))
+				// {
+				// 	++this.m.PerkPoints;
+				// }
 
 			}
 			this.getSkills().update();
