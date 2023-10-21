@@ -166,7 +166,7 @@ local gt = getroottable();
 			if(this.m.EL_Level == -1)
 			{
 				return "lv0";
-				this.Const.EL_Item_Other.EL_OtherItemInit(_item);
+				this.Const.EL_Item_Other.EL_OtherItemInit(this);
 			}
 			if(this.m.Condition < this.m.ConditionMax)
 			{
@@ -825,7 +825,7 @@ local gt = getroottable();
 			if(this.m.EL_Level == -1)
 			{
 				return "lv0";
-				this.Const.EL_Item_Other.EL_OtherItemInit(_item);
+				this.Const.EL_Item_Other.EL_OtherItemInit(this);
 			}
 			if(this.getCondition() < this.getConditionMax())
 			{
@@ -1171,7 +1171,7 @@ local gt = getroottable();
 			if(this.m.EL_Level == -1)
 			{
 				return "lv0";
-				this.Const.EL_Item_Other.EL_OtherItemInit(_item);
+				this.Const.EL_Item_Other.EL_OtherItemInit(this);
 			}
 			if(this.m.Condition < this.m.ConditionMax)
 			{
