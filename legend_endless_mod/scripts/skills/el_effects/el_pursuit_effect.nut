@@ -31,7 +31,8 @@ this.el_pursuit_effect <- this.inherit("scripts/skills/skill", {
 		{
 			return;
 		}
-		if (this.m.EL_PursuitSkill == null || this.m.EL_SourceActor == null || !this.m.EL_SourceActor.isAlive() || this.m.EL_SourceActor.isDying())
+		if (this.m.EL_PursuitSkill == null || this.m.EL_SourceActor == null || !this.m.EL_SourceActor.isAlive() || this.m.EL_SourceActor.isDying()
+										   || this.m.EL_SourceActor.getSkills().hasSkill("effects.stunned") || this.m.EL_SourceActor.getCurrentProperties().IsStunned)
 		{
 			this.removeSelf();
 		}

@@ -92,6 +92,10 @@ this.el_the_power_of_unity_entry <- this.inherit("scripts/skills/skill", {
 				{
 					continue;
 				}
+				if(actor.getSkills().hasSkill("effects.stunned") || actor.getCurrentProperties().IsStunned)
+				{
+					return;
+				}
 				if (actor.getFaction() == user.getFaction())
 				{   
 					if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())

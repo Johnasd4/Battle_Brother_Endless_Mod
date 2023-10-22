@@ -50,14 +50,14 @@ this.el_reduce_damage_received_mult_entry <- this.inherit("scripts/skills/el_ent
 
 	function EL_strengthen()
 	{
-		this.m.EL_ReduceDamageReceivedMult = this.Math.pow(this.Const.EL_Accessory.EL_Entry.Factor.EL_ReduceDamageReceivedMult.ColourRange[this.Const.EL_Item.Type.Legendary] * 0.01, this.Const.EL_Accessory.EL_Entry.EntryStrengthenMult) * 100;
+		this.m.EL_ReduceDamageReceivedMult = this.Math.pow(1.0 - this.Const.EL_Accessory.EL_Entry.Factor.EL_ReduceDamageReceivedMult.ColourRange[this.Const.EL_Item.Type.Legendary] * 0.01, this.Const.EL_Accessory.EL_Entry.EntryStrengthenMult) * 100;
 	}
 
 	function EL_onUpgradeRank()
 	{
 		if(EL_getEntryColour() != this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Legendary])
 		{
-			this.m.EL_ReduceDamageReceivedMult += this.Const.EL_Accessory.EL_Entry.Factor.EL_ReduceDamageReceivedMult.RandomMaxReduceDamageReceivedMult[this.Const.EL_Item.Type.Normal] / 2;
+			this.m.EL_ReduceDamageReceivedMult += this.Const.EL_Accessory.EL_Entry.Factor.EL_ReduceDamageReceivedMult.RandomMaxReduceDamageReceivedMult[this.Const.EL_Item.Type.Normal] / 2 * 0.01;
 		}
 	}
 

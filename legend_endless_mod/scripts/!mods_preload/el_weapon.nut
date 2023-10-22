@@ -248,26 +248,23 @@ local gt = getroottable();
 		local consumeAmmo = o.consumeAmmo;
 		o.consumeAmmo = function()
 		{
-			local item = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
 			local skills = this.getContainer().getActor().getSkills();
-			if(item != null)
+			if(skills.getSkillByID("el_weapon_entry.save_ammo") != null && this.Math.rand(1, 100) < skills.getSkillByID("el_weapon_entry.save_ammo").m.EL_SaveAmmoChance)
 			{
-				foreach(entry in this.m.EL_EntryList)
-				{
-					if(entry.getID() == "el_weapon_entry.save_ammo" && this.Math.rand(1, 10000) < entry.m.EL_SaveAmmoChance * 100)
-					{
-						return;
-					}
-				}
-				foreach( skill in skills.m.Skills ) {
-					local skill_id = skill.getID()
-					if(skill_id == "el_rarity_entry.infinite_penetration" && skill.EL_isUsable())
-					{
-						return;
-					}
-				}
-				consumeAmmo();
+				return;
 			}
+			if(skills.getSkillByID("el_rarity_entry.infinite_penetration") != null && skills.getSkillByID("el_rarity_entry.infinite_penetration").EL_isUsable())
+			{
+				return;
+			}
+			// foreach( skill in skills.m.Skills ) {
+			// 	local skill_id = skill.getID()
+			// 	if(skill_id == "el_rarity_entry.infinite_penetration" && skill.EL_isUsable())
+			// 	{
+			// 		return;
+			// 	}
+			// }
+			consumeAmmo();
 		}
 
 		o.getShieldDamage = function()
@@ -735,27 +732,24 @@ local gt = getroottable();
 	{
 		local consumeAmmo = o.consumeAmmo;
 		o.consumeAmmo = function()
-		{
-			local item = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+		{;
 			local skills = this.getContainer().getActor().getSkills();
-			if(item != null)
+			if(skills.getSkillByID("el_weapon_entry.save_ammo") != null && this.Math.rand(1, 100) < skills.getSkillByID("el_weapon_entry.save_ammo").m.EL_SaveAmmoChance)
 			{
-				foreach(entry in this.m.EL_EntryList)
-				{
-					if(entry.getID() == "el_weapon_entry.save_ammo" && this.Math.rand(1, 10000) < entry.m.EL_SaveAmmoChance * 100)
-					{
-						return;
-					}
-				}
-				foreach( skill in skills.m.Skills ) {
-					local skill_id = skill.getID()
-					if(skill_id == "el_rarity_entry.pursuit_of_wind"  && skill.EL_isUsable())
-					{
-						return;
-					}
-				}
-				consumeAmmo();
+				return;
 			}
+			if(skills.getSkillByID("el_rarity_entry.pursuit_of_wind") != null && skills.getSkillByID("el_rarity_entry.pursuit_of_wind").EL_isUsable())
+			{
+				return;
+			}
+			// foreach( skill in skills.m.Skills ) {
+			// 	local skill_id = skill.getID()
+			// 	if(skill_id == "el_rarity_entry.pursuit_of_wind"  && skill.EL_isUsable())
+			// 	{
+			// 		return;
+			// 	}
+			// }
+			consumeAmmo();
 		}
 	});
 
