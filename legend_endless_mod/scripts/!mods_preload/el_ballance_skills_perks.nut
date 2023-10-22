@@ -761,7 +761,7 @@ local gt = getroottable();
 		o.create = function()
 		{
 			create();
-			this.m.ID = "perk.el_ptr_bloodbath";
+			this.m.RestoredActionPoints = 0;
 		}
 
 		o.onTargetKilled <- function( _targetEntity, _skill )
