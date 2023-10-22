@@ -466,6 +466,7 @@ local gt = getroottable();
         {
             if(!this.m.EL_FinishGenerate) {
                 this.m.EL_FinishGenerate = true;
+                this.m.EL_TempTroops = [];
             }
             return removeTroop(_t);
 		}
@@ -488,6 +489,7 @@ local gt = getroottable();
         {
             if(!this.m.EL_FinishGenerate) {
                 this.m.EL_FinishGenerate = true;
+                this.m.EL_TempTroops = [];
             }
             local entities = [];
             local champions = [];
@@ -1065,6 +1067,13 @@ local gt = getroottable();
             if(this.m.EL_IsPlayer) {
                 return;
             }
+            local max_troop_num = 0;
+            if(this.m.EL_IsBossParty) {
+                max_troop_num = this.Const.EL_NPC.EL_Troop.MaxTroopNum;
+            }
+            else {
+                max_troop_num = this.Math.min(this.Const.EL_NPC.EL_Troop.MaxTroopNum, this.Const.EL_NPC.EL_Troop.BaseMaxTroopNum + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.MaxTroopNumAddPurWorldLevel);
+            }
             if(_EL_troop.Strength == 0) {
                 _EL_troop.Strength = this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.CrticalPoint;
             }
@@ -1126,7 +1135,9 @@ local gt = getroottable();
                 if(i == this.m.EL_TempTroops.len()) {
                     this.m.EL_TempTroops.push(_EL_troop);
                 }
-
+                while(this.m.EL_TempTroops.len() > max_troop_num) {
+                    this.m.EL_TempTroops.remove(max_troop_num);
+                }
                 //Calculate current troop info.
                 this.m.Troops = [];
                 local troops_info = [];
@@ -1333,16 +1344,6 @@ local gt = getroottable();
 
                     }
                 }
-                local max_troop_num = 0;
-                if(this.m.EL_IsBossParty) {
-                    max_troop_num = this.Const.EL_NPC.EL_Troop.MaxTroopNum;
-                }
-                else {
-                    max_troop_num = this.Math.min(this.Const.EL_NPC.EL_Troop.MaxTroopNum, this.Const.EL_NPC.EL_Troop.BaseMaxTroopNum + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.MaxTroopNumAddPurWorldLevel);
-                }
-                while(this.m.Troops.len() > max_troop_num) {
-                    this.m.Troops.remove(max_troop_num);
-                }
                 // //Build names
                 for(local i = 0; i < this.m.Troops.len(); ++i) {
                     if(this.m.Troops[i].EL_RankLevel == 2) {
@@ -1351,6 +1352,9 @@ local gt = getroottable();
                         this.m.Troops[i].Name += this.Const.EL_NPC.EL_Troop.NameSuffix[this.m.Troops[i].EL_RankLevel];
                     }
                 }
+            }
+            while(this.m.Troops.len() > max_troop_num) {
+                this.m.Troops.remove(max_troop_num);
             }
             return;
         }
