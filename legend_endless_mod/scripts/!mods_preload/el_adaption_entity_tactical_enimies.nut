@@ -427,6 +427,19 @@ local gt = getroottable();
 		{
 			return this.m.Body.getSkills();
 		}
+        o.onAttacked <- function(_attacker)
+        {
+            this.m.Body.onAttacked(_attacker);
+        }
+        o.onMissed <- function( _attacker, _skill, _dontShake = false )
+        {
+            this.m.Body.onAttacked(_attacker, _skill, _dontShake);
+        }
+        o.onDamageReceived <- function( _attacker, _damageHitpoints, _damageArmor )
+        {
+            this.m.Body.onDamageReceived(_attacker, _damageHitpoints, _damageArmor);
+        }
+
     });
 
 	::mods_hookExactClass("entity/tactical/enemies/lindwurm_tail", function(o){
@@ -451,6 +464,18 @@ local gt = getroottable();
 		{
 			return this.m.Body.getSkills();
 		}
+        o.onAttacked <- function(_attacker)
+        {
+            this.m.Body.onAttacked(_attacker);
+        }
+        o.onMissed <- function( _attacker, _skill, _dontShake = false )
+        {
+            this.m.Body.onAttacked(_attacker, _skill, _dontShake);
+        }
+        o.onDamageReceived <- function( _attacker, _damageHitpoints, _damageArmor )
+        {
+            this.m.Body.onDamageReceived(_attacker, _damageHitpoints, _damageArmor);
+        }
     });
 
 	::mods_hookExactClass("entity/tactical/enemies/sand_golem", function(o){
