@@ -423,7 +423,10 @@ local gt = getroottable();
 		{
 			return this.m.Body.m.XP;
 		}
-
+        o.getSkills <- function()
+		{
+			return this.m.Body.getSkills();
+		}
     });
 
 	::mods_hookExactClass("entity/tactical/enemies/lindwurm_tail", function(o){
@@ -443,6 +446,10 @@ local gt = getroottable();
         o.getXP <- function()
 		{
 			return this.m.Body.m.XP;
+		}
+        o.getSkills <- function()
+		{
+			return this.m.Body.getSkills();
 		}
     });
 
