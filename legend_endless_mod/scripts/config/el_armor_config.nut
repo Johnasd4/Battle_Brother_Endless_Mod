@@ -216,7 +216,10 @@ gt.Const.EL_Armor <- {
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/armor_entrys/el_fatigue_recover_entry",
-					function EL_ifEligible(_item) { return true; }
+					function EL_ifEligible(_item) {
+						if(_item.m.EL_RankLevel <= 1) { return false; }
+						return true;
+					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/armor_entrys/el_hitpoints_recovery_rate_entry",
