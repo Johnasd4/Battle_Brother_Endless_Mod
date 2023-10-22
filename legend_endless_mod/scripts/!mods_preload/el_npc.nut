@@ -1067,15 +1067,15 @@ local gt = getroottable();
             if(this.m.EL_IsPlayer) {
                 return;
             }
+            if(_EL_troop.Strength == 0) {
+                _EL_troop.Strength = this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.CrticalPoint;
+            }
             local max_troop_num = 0;
             if(this.m.EL_IsBossParty) {
                 max_troop_num = this.Const.EL_NPC.EL_Troop.MaxTroopNum;
             }
             else {
                 max_troop_num = this.Math.min(this.Const.EL_NPC.EL_Troop.MaxTroopNum, this.Const.EL_NPC.EL_Troop.BaseMaxTroopNum + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.MaxTroopNumAddPurWorldLevel);
-            }
-            if(_EL_troop.Strength == 0) {
-                _EL_troop.Strength = this.Const.EL_NPC.EL_Troop.ExtraCombatLevel.CrticalPoint;
             }
             if(this.m.EL_FinishGenerate) {
                 local troop_info = this.Const.EL_NPC.EL_Troop.EL_getTroopInfo(_EL_troop);
@@ -1120,6 +1120,14 @@ local gt = getroottable();
                 }
                 if(i == this.m.Troops.len()) {
                     this.m.Troops.push(_EL_troop);
+                }
+                while(this.m.Troops.len() > max_troop_num) {
+                    for(local i = this.m.Troops.len() - 1; i >= 0; --i) {
+                        if(this.m.Troops[i].EL_RankLevel != 2) {
+                            this.m.Troops.remove(i);
+                            break;
+                        }
+                    }
                 }
                 this.updateStrength();
             }
@@ -1352,9 +1360,6 @@ local gt = getroottable();
                         this.m.Troops[i].Name += this.Const.EL_NPC.EL_Troop.NameSuffix[this.m.Troops[i].EL_RankLevel];
                     }
                 }
-            }
-            while(this.m.Troops.len() > max_troop_num) {
-                this.m.Troops.remove(max_troop_num);
             }
             return;
         }
