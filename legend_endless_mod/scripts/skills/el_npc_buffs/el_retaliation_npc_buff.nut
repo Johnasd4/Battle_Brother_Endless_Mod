@@ -47,7 +47,7 @@ this.el_retaliation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
 			return;
 		}
         if(this.Math.rand(1, 100) <= this.Const.EL_NPC.EL_NPCBuff.Factor.Retaliation.AttackChance[this.m.EL_RankLevel]) {
-            if(actor == null || actor.isDying() || !actor.isAlive()) {
+            if(actor == null || actor.isDying() || !actor.isAlive() || actor.getSkills().hasSkill("effects.stunned") || actor.getCurrentProperties().IsStunned) {
                 return;
             }
             local skill = this.EL_getAttackSkill(actor.getTile().getDistanceTo(_EL_attacker.getTile()));
