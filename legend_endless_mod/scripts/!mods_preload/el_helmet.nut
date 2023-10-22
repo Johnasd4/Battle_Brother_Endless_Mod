@@ -169,8 +169,8 @@ local gt = getroottable();
 		{
 			if(this.m.EL_Level == -1)
 			{
-				return "lv0";
 				this.Const.EL_Item_Other.EL_OtherItemInit(this);
+				return "lv0";
 			}
 			if(this.m.Condition < this.m.ConditionMax)
 			{
@@ -507,41 +507,43 @@ local gt = getroottable();
 					text = "Level: " + this.m.EL_Level
 				});
 			}
-			if(this.m.EL_DamageHeadArmorReduction)
+			local position = 8;
+			foreach(upgrade in this.m.Upgrades)
 			{
-				result.insert(8, {
-					id = 24,
-					type = "text",
-					icon = "ui/icons/melee_defense.png",
-					text = "Helmet condition fixation reduces damage: " + this.m.EL_DamageHeadArmorReduction
-				});
-			}
-			if(this.m.EL_DamageRegularReduction)
-			{
-				result.insert(8, {
-					id = 24,
-					type = "text",
-					icon = "ui/icons/regular_damage.png",
-					text = "Hitpoints fixation reduces damage: " + this.m.EL_DamageRegularReduction
-				});
+				if(upgrade != null)
+				{
+					++position;
+				}
 			}
 			if (this.m.EL_EntryList.len() != 0)
 			{
-				result.push({
-					id = 60,
-					type = "text",
-					text = "——————————————"
-				});
-				local tool_tip_id = 61;
-				foreach(entry in this.m.EL_EntryList)
+				for(local i = this.m.EL_EntryList.len() - 1; i >= 0; --i, ++tool_tip_id)
 				{
-					local tool_tip = entry.getTooltip(tool_tip_id);
+					local tool_tip = this.m.EL_EntryList[i].getTooltip(tool_tip_id);
 					if(tool_tip != null)
 					{
-						result.push(tool_tip);
-						++tool_tip_id;
+						//result.push(tool_tip);
+						result.insert(position, tool_tip);
 					}
 				}
+			}
+			if(this.EL_getDamageHeadArmorReduction())
+			{
+				result.insert(position, {
+					id = 24,
+					type = "text",
+					icon = "ui/icons/melee_defense.png",
+					text = "Armor condition fixation reduces damage: " + this.EL_getDamageHeadArmorReduction()
+				});
+			}
+			if(this.EL_getDamageRegularReduction())
+			{
+				result.insert(position, {
+					id = 24,
+					type = "text",
+					icon = "ui/icons/regular_damage.png",
+					text = "Hitpoints fixation reduces damage: " + this.EL_getDamageRegularReduction()
+				});
 			}
 			if(this.m.EL_CurrentLevel < this.m.EL_Level)
 			{
@@ -840,8 +842,8 @@ local gt = getroottable();
 		{
 			if(this.m.EL_Level == -1)
 			{
-				return "lv0";
 				this.Const.EL_Item_Other.EL_OtherItemInit(this);
+				return "lv0";
 			}
 			if(this.getCondition() < this.getConditionMax())
 			{
@@ -1119,11 +1121,18 @@ local gt = getroottable();
 					text = "Vision " + ::Legends.S.colorize("" + ::Legends.S.getSign(this.getVision()) + this.Math.abs(this.getVision()), this.getVision())
 				});
 			}
-			local _id = 64;
-			foreach(entry in this.m.EL_EntryList)
+			if(this.m.EL_EntryList.len() != 0)
 			{
-				_result.push(entry.getTooltip(_id));
-				++_id;
+				local tool_tip_id = 66;
+				foreach(entry in this.m.EL_EntryList)
+				{
+					local tool_tip = entry.getTooltip(tool_tip_id);
+					if(tool_tip != null && entry.m.EL_CurrentLevel != 0)
+					{
+						_result.push(tool_tip);
+						++tool_tip_id;
+					}
+				}
 			}
 	    	this.onArmorTooltip(_result);
 	    }
@@ -1198,8 +1207,8 @@ local gt = getroottable();
 		{
 			if(this.m.EL_Level == -1)
 			{
-				return "lv0";
 				this.Const.EL_Item_Other.EL_OtherItemInit(this);
+				return "lv0";
 			}
 			if(this.m.Condition < this.m.ConditionMax)
 			{
