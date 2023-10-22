@@ -78,6 +78,50 @@ local gt = getroottable();
 	});
 
 
+	::mods_hookExactClass("skills/actives/legend_raise_undead", function(o){
+
+        o.spawnUndead = function( _user, _tile )
+        {
+            local p = _tile.Properties.get("Corpse");
+            p.Faction = _user.getFaction();
+
+            if (p.Faction == this.Const.Faction.Player)
+            {
+                p.Faction = this.Const.Faction.PlayerAnimals;
+            }
+
+            local e = this.Tactical.Entities.onResurrect(p, true, _user);
+
+            if (e != null)
+            {
+                e.getSprite("socket").setBrush(_user.getSprite("socket").getBrush().Name);
+            }
+        }
+
+	});
+
+	::mods_hookExactClass("skills/actives/legend_raise_undead", function(o){
+
+        o.spawnUndead = function( _user, _tile )
+        {
+            local p = _tile.Properties.get("Corpse");
+            p.Faction = _user.getFaction();
+
+            if (p.Faction == this.Const.Faction.Player)
+            {
+                p.Faction = this.Const.Faction.PlayerAnimals;
+            }
+
+            local e = this.Tactical.Entities.onResurrect(p, true, _user);
+
+            if (e != null)
+            {
+                e.getSprite("socket").setBrush(_user.getSprite("socket").getBrush().Name);
+            }
+        }
+
+	});
+
 	::mods_hookExactClass("skills/actives/legend_spawn_skill", function(o){
 
         o.onUse = function( _user, _targetTile )
@@ -280,6 +324,48 @@ local gt = getroottable();
 
             this.addAnimalSkills(entity);
             return true;
+        }
+
+	});
+
+
+	::mods_hookExactClass("skills/actives/raise_all_undead_skill", function(o){
+
+        o.spawnUndead = function( _user, _tile )
+        {
+            local p = _tile.Properties.get("Corpse");
+            p.Faction = _user.getFaction();
+            local e = this.Tactical.Entities.onResurrect(p, true, _user);
+
+            if (e != null)
+            {
+                e.getSprite("socket").setBrush(_user.getSprite("socket").getBrush().Name);
+            }
+
+            return e;
+        }
+
+	});
+
+
+	::mods_hookExactClass("skills/actives/raise_undead", function(o){
+
+        o.spawnUndead = function( _user, _tile )
+        {
+            local p = _tile.Properties.get("Corpse");
+            p.Faction = _user.getFaction();
+
+            if (p.Faction == this.Const.Faction.Player)
+            {
+                p.Faction = this.Const.Faction.PlayerAnimals;
+            }
+
+            local e = this.Tactical.Entities.onResurrect(p, true, _user);
+
+            if (e != null)
+            {
+                e.getSprite("socket").setBrush(_user.getSprite("socket").getBrush().Name);
+            }
         }
 
 	});

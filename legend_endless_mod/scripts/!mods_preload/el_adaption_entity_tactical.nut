@@ -123,6 +123,125 @@ local gt = getroottable();
             }
         }
 
+        o.onResurrect = function( _info, _force = false, _user = null)
+        {
+            if (this.Tactical.State.m.TacticalDialogScreen.isVisible() || this.Tactical.State.m.TacticalDialogScreen.isAnimating())
+            {
+                this.Time.scheduleEvent(this.TimeUnit.Rounds, 1, this.Tactical.Entities.resurrect, _info);
+                return null;
+            }
+
+            if (this.Tactical.Entities.isCombatFinished() || !_force && this.Tactical.Entities.isEnemyRetreating())
+            {
+                return null;
+            }
+
+            local targetTile = _info.Tile;
+
+            if (!targetTile.IsEmpty)
+            {
+                local knockToTile;
+
+                for( local i = 0; i < this.Const.Direction.COUNT; i = ++i )
+                {
+                    if (!targetTile.hasNextTile(i))
+                    {
+                    }
+                    else
+                    {
+                        local newTile = targetTile.getNextTile(i);
+
+                        if (!newTile.IsEmpty || newTile.IsCorpseSpawned)
+                        {
+                        }
+                        else if (newTile.Level > targetTile.Level + 1)
+                        {
+                        }
+                        else
+                        {
+                            knockToTile = newTile;
+                            break;
+                        }
+                    }
+                }
+
+                if (knockToTile == null)
+                {
+                    this.Time.scheduleEvent(this.TimeUnit.Rounds, 1, this.Tactical.Entities.resurrect, _info);
+                    return null;
+                }
+
+                this.Tactical.getNavigator().teleport(targetTile.getEntity(), knockToTile, null, null, true);
+
+                if (_info.Tile.IsVisibleForPlayer)
+                {
+                    this.Tactical.CameraDirector.pushMoveToTileEvent(0, _info.Tile, -1, this.onResurrect.bindenv(this), _info, 200, this.Const.Tactical.Settings.CameraNextEventDelay);
+                    this.Tactical.CameraDirector.addDelay(0.2);
+                }
+                else if (knockToTile.IsVisibleForPlayer)
+                {
+                    this.Tactical.CameraDirector.pushMoveToTileEvent(0, knockToTile, -1, this.onResurrect.bindenv(this), _info, 200, this.Const.Tactical.Settings.CameraNextEventDelay);
+                    this.Tactical.CameraDirector.addDelay(0.2);
+                }
+                else
+                {
+                    this.Tactical.CameraDirector.pushIdleEvent(0, this.onResurrect.bindenv(this), _info, 200, this.Const.Tactical.Settings.CameraNextEventDelay);
+                    this.Tactical.CameraDirector.addDelay(0.2);
+                }
+
+                return null;
+            }
+
+            this.Tactical.Entities.removeCorpse(targetTile);
+            targetTile.clear(this.Const.Tactical.DetailFlag.Corpse);
+            targetTile.Properties.remove("Corpse");
+            targetTile.Properties.remove("IsSpawningFlies");
+            this.Const.Movement.AnnounceDiscoveredEntities = false;
+            local entity = null;
+
+            if(_user == null) {
+                local rank_level = 0;
+                local elite_chance = this.Const.EL_NPC.EL_NormalTeam.EliteChance.EL_getChance(this.World.Assets.m.EL_WorldLevel);
+                elite_chance *= this.World.Assets.EL_getWorldDifficultFactor();
+                rank_level = (this.Math.rand(1, 1000) >= elite_chance * 10) ? 0 : 1;
+                local npc_level = 0;
+                if(rank_level) {
+                    npc_level = this.World.Assets.m.EL_WorldLevel;
+                }
+                else {
+                    npc_level = this.Math.rand(this.World.Assets.m.EL_WorldLevel + this.Const.EL_NPC.EL_Troop.MinLevelOffset, this.World.Assets.m.EL_WorldLevel + this.Const.EL_NPC.EL_Troop.MaxLevelOffset)
+                }
+                if(npc_level > this.Const.EL_NPC.EL_Troop.MaxLevel) {
+                    npc_level = this.Const.EL_NPC.EL_Troop.MaxLevel;
+                }
+                else if(npc_level < this.Const.EL_NPC.EL_Troop.MinLevel) {
+                    npc_level = this.Const.EL_NPC.EL_Troop.MinLevel;
+                }
+                entity = this.Tactical.EL_addEntity(_info.Type, targetTile, this.Const.Faction.Enemy, rank_level, npc_level);
+            }
+            else {
+                local faction = _user.getFaction();
+                if (faction == this.Const.Faction.Player || faction == this.Const.Faction.PlayerAnimals) {
+                    entity = this.Tactical.EL_addEntity(_info.Type, targetTile, this.Const.Faction.PlayerAnimals, 0, _user.EL_getCombatLevel());
+                }
+                else {
+                    entity = this.Tactical.EL_addEntity(_info.Type, targetTile, faction, _user.EL_getRankLevel(), _user.EL_getCombatLevel());
+                }
+            }
+            _info
+
+            this.Const.Movement.AnnounceDiscoveredEntities = true;
+            entity.onResurrected(_info);
+            entity.riseFromGround();
+
+            if (!entity.isHiddenToPlayer())
+            {
+                this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(entity) + " has risen from the dead");
+            }
+
+            return entity;
+        }
+
     });
 
 });

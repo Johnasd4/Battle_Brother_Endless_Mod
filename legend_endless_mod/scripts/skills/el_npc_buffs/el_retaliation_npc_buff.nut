@@ -39,7 +39,7 @@ this.el_retaliation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
 
 	function EL_attackBack(_EL_attacker) {
 		local actor = this.getContainer().getActor();
-		if(_EL_attacker == null && _EL_attacker.isAlive() && !_EL_attacker.isAlliedWith(actor)) {
+		if(_EL_attacker == null || _EL_attacker.isDying() || !_EL_attacker.isAlive() || _EL_attacker.isAlliedWith(actor)) {
 			return;
 		}
 		local attacker_retaliation_skill = _EL_attacker.getSkills().getSkillByID("el_npc_buffs.retaliation");
@@ -55,7 +55,7 @@ this.el_retaliation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
             {
 				this.m.EL_IsRetaliate = true;
 				for(local i = 0; i < this.Const.EL_NPC.EL_NPCBuff.Factor.Retaliation.RetaliationNum[this.m.EL_RankLevel]; ++i) {
-					if(_EL_attacker != null && !actor.isDying() && actor.isAlive()) {
+					if(_EL_attacker != null && !_EL_attacker.isDying() && _EL_attacker.isAlive()) {
 						if(actor != null && !actor.isDying() && actor.isAlive()) {
 							skill.useForFree(_EL_attacker.getTile());
 						}

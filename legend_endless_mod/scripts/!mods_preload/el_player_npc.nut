@@ -319,6 +319,28 @@ local gt = getroottable();
 			this.setOverlayIcons(icons);
 		}
 
+		o.onResurrected = function( _info )
+		{
+			this.setFaction(_info.Faction);
+			this.getItems().clear();
+			_info.Items.transferTo(this.getItems());
+
+			if (_info.Name.len() != 0) {
+				local names = this.split(_info.Name, " -");
+				this.m.Name = names[0];
+			}
+
+			if (_info.Description.len() != 0)
+			{
+				this.m.Description = _info.Description;
+			}
+
+			this.m.Hitpoints = this.getHitpointsMax() * _info.Hitpoints;
+			this.m.XP = this.Math.floor(this.m.XP * _info.Hitpoints);
+			this.m.BaseProperties.Armor = _info.Armor;
+			this.onUpdateInjuryLayer();
+		}
+
 		o.checkMorale = function(_change, _difficulty, _type = this.Const.MoraleCheckType.Default, _showIconBeforeMoraleIcon = "", _noNewLine = false, _EL_noCheck = false)
 		{
 
