@@ -810,7 +810,7 @@ gt.Const.EL_NPC <- {
                 DefenseOffsetSelectedMult = 5,
             },
             ExplodingAmmo = {
-                DamageBase = 20,
+                DamageBase = 40,
                 DamageMultPurCombatLevel = 0.04,
                 DamageRate = [0.2, 0.4, 1],
                 DamageDecayRatePurTile = 0.5,
@@ -869,7 +869,7 @@ gt.Const.EL_NPC <- {
                 DamageMultPurStack = [0.04, 0.08, 0.2],
             },
             SelfDestruct = {
-                DamageBase = 100,
+                DamageBase = 200,
                 DamageMultPurCombatLevel = 0.04,
                 DamageRate = [0.2, 0.4, 1],
                 DamageDecayRatePurTile = 0.5,
@@ -891,7 +891,7 @@ gt.Const.EL_NPC <- {
                 DamageReceivedMult = [0.4, 0.8, 2.0]
             },
             Thron = {
-                DamageBase = 20,
+                DamageBase = 40,
                 DamageMultPurCombatLevel = 0.04,
                 DamageRate = [0.2, 0.4, 1]
             },
@@ -903,7 +903,7 @@ gt.Const.EL_NPC <- {
                 RangedSkillOffset = [20, 40, 100]
             },
             Wither = {
-                DamageBase = 20,
+                DamageBase = 40,
                 DamageMultPurCombatLevel = 0.04,
                 DamageRate = [0.2, 0.4, 1],
                 DamageDecayRatePurTile = 0.5,
