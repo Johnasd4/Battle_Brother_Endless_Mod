@@ -124,6 +124,10 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
 
 	function EL_attackBack( _attacker ) {
 		local actor = this.getContainer().getActor();
+		if(actor.getSkills().hasSkill("effects.stunned") || actor.getCurrentProperties().IsStunned)
+		{
+			return;
+		}
         local skill = this.Const.EL_Rarity_Entry.EL_getAttackSkill(actor);
         skill.useForFree(_attacker.getTile());
 	}

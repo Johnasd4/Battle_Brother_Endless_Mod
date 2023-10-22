@@ -44,4 +44,3 @@ this.el_curse_effect <- this.inherit("scripts/skills/skill", {
 		this.m.Bonus += _bonus;
 	}
 });
-

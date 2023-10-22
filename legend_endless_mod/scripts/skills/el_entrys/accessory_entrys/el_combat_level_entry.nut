@@ -57,7 +57,7 @@ this.el_combat_level_entry <- this.inherit("scripts/skills/el_entrys/el_accessor
 	{
 		if(EL_getEntryColour() != this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Legendary])
 		{
-			this.m.EL_CombatLevel += this.Const.EL_Accessory.EL_Entry.Factor.EL_CombatLevel.RandomMaxCombatLevel[this.Const.EL_Item.Type.Normal] / 2;
+			this.m.EL_CombatLevel += this.Const.EL_Accessory.EL_Entry.Factor.EL_CombatLevel.RandomMaxCombatLevel[this.Const.EL_Item.Type.Normal] / 2 * 0.01;
 		}
 	}
 

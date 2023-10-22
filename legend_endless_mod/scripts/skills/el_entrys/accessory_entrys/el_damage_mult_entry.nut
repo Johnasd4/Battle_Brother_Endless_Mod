@@ -57,7 +57,7 @@ this.el_damage_mult_entry <- this.inherit("scripts/skills/el_entrys/el_accessory
 	{
 		if(EL_getEntryColour() != this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Legendary])
 		{
-			this.m.EL_DamageMult += this.Const.EL_Accessory.EL_Entry.Factor.EL_DamageMult.RandomMaxDamageMult[this.Const.EL_Item.Type.Normal] / 2;
+			this.m.EL_DamageMult += this.Const.EL_Accessory.EL_Entry.Factor.EL_DamageMult.RandomMaxDamageMult[this.Const.EL_Item.Type.Normal] / 2 * 0.01;
 		}
 	}
 

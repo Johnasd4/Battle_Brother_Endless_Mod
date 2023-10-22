@@ -7,9 +7,6 @@ this.el_engrgy_shield_entry <- this.inherit("scripts/skills/el_entrys/el_accesso
 	{
 		this.el_entry.create();
 		this.m.ID = this.Const.EL_Accessory.EL_Entry.Factor.EL_EngrgyShield.ID;
-		this.m.Icon = "ui/perks/omens_circle.png";
-		this.m.IconMini = "mini_omens_circle";
-		this.m.Overlay = "omens_circle";
 	}
 
 	function getTooltip( _id )
@@ -20,7 +17,7 @@ this.el_engrgy_shield_entry <- this.inherit("scripts/skills/el_entrys/el_accesso
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Engrgy Shield: " + this.m.EL_Stack + "/" + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_StackMax) + "(" + this.m.EL_StackMax + ")[/color]"
+				text = "[color=" + colour + "]Engrgy Shield: " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_StackMax) + "(" + this.m.EL_StackMax + ")[/color]"
 			};
 		}
 		else
@@ -28,7 +25,7 @@ this.el_engrgy_shield_entry <- this.inherit("scripts/skills/el_entrys/el_accesso
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Engrgy Shield: " + this.m.EL_Stack + "/" + this.m.EL_StackMax + "[/color]"
+				text = "[color=" + colour + "]Engrgy Shield: " + this.m.EL_StackMax + "[/color]"
 			};
 		}
 	}
@@ -65,28 +62,30 @@ this.el_engrgy_shield_entry <- this.inherit("scripts/skills/el_entrys/el_accesso
 		}
 	}
 
-    function onBeforeDamageReceived( _attacker, _skill, _hitInfo, _properties )
-    {
-        if(this.m.EL_Stack != 0) 
-		{
-            _properties.DamageReceivedTotalMult = 0;
-            --this.m.EL_Stack;
-        }
-    }
-
 	function onTurnStart()
 	{
-        this.m.EL_Stack += this.Math.max(1, this.Math.round(this.Math.round(this.m.EL_CurrentLevel * this.m.EL_StackMax) * this.Const.EL_Accessory.EL_Entry.Factor.EL_EngrgyShield.StackRecoverPersentPurTurn));
+		local actor = this.getContainer().getActor();
+		local skill = actor.getSkills().getSkillByID("el_effects.engrgy_shield");
+        if(skill == null && this.Math.round(this.m.EL_CurrentLevel * this.m.EL_StackMax) != 0)
+        {
+            skill = this.new("scripts/skills/el_effects/el_engrgy_shield_effect");
+            actor.getSkills().add(skill);
+        	skill.EL_setStackMax(this.Math.round(this.m.EL_CurrentLevel * this.m.EL_StackMax));
+			skill.onTurnStart();
+        }
 	}
 
-	function onCombatStarted()
+	function onTurnEnd()
 	{
-        this.m.EL_Stack = 0;
-	}
-
-	function onCombatFinished()
-	{
-        this.m.EL_Stack = 0;
+		local actor = this.getContainer().getActor();
+		local skill = actor.getSkills().getSkillByID("el_effects.engrgy_shield");
+        if(skill == null && this.Math.round(this.m.EL_CurrentLevel * this.m.EL_StackMax) != 0)
+        {
+            skill = this.new("scripts/skills/el_effects/el_engrgy_shield_effect");
+            actor.getSkills().add(skill);
+        	skill.EL_setStackMax(this.Math.round(this.m.EL_CurrentLevel * this.m.EL_StackMax));
+			skill.onTurnStart();
+        }
 	}
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
@@ -105,4 +104,3 @@ this.el_engrgy_shield_entry <- this.inherit("scripts/skills/el_entrys/el_accesso
 		this.m.EL_StackMax = _in.readI32();
 	}
 });
-

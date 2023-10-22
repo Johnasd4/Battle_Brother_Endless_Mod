@@ -266,14 +266,14 @@ local gt = getroottable();
 			local percent = (this.m.Condition * 1.0)/ this.m.ConditionMax;
 			if(this.m.EL_Level == -1)
 			{
-				this.logInfo("固定减伤" + this.m.EL_DamageRegularReduction+this.m.EL_DamageBodyArmorReduction);
+				//this.logInfo("固定减伤" + this.m.EL_DamageRegularReduction+this.m.EL_DamageBodyArmorReduction);
 				this.m.EL_RankLevel = this.Math.min(this.m.EL_RankLevel + _EL_rankLevel, this.EL_getRankLevelMax());
 				this.m.EL_Level = this.Math.min(this.Const.EL_Item.MaxLevel, EL_level);
 				EL_recordBaseNoRankProperties();
 				this.Const.EL_Armor.EL_updateRankLevelProperties(this);
-				this.logInfo("计算等阶后固定减伤" + this.m.EL_DamageRegularReduction+this.m.EL_DamageBodyArmorReduction);
+				//this.logInfo("计算等阶后固定减伤" + this.m.EL_DamageRegularReduction+this.m.EL_DamageBodyArmorReduction);
 				this.Const.EL_Armor.EL_assignItemEntrys(this, this.Const.EL_Armor.EL_Entry.EntryNum.NormalArmor[this.m.EL_RankLevel]);
-				this.logInfo("计算词条后固定减伤" + this.m.EL_DamageRegularReduction+this.m.EL_DamageBodyArmorReduction);
+				//this.logInfo("计算词条后固定减伤" + this.m.EL_DamageRegularReduction+this.m.EL_DamageBodyArmorReduction);
 				EL_entryListSort();
 			}
 			this.m.EL_CurrentLevel = this.m.EL_Level;
