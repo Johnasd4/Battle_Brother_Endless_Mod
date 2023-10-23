@@ -432,7 +432,6 @@ local gt = getroottable();
 
 	::mods_hookClass("entity/world/world_entity", function(o) {
 		while(!("getTroops" in o)) o = o[o.SuperName];
-		o.m.EL_TempTroops <- [];
         o.m.EL_FinishGenerate <- false;
         o.m.EL_IsTempParty <- false;
 		o.m.EL_IsBossParty <- false;
@@ -466,7 +465,6 @@ local gt = getroottable();
         {
             if(!this.m.EL_FinishGenerate) {
                 this.m.EL_FinishGenerate = true;
-                this.m.EL_TempTroops = [];
             }
             return removeTroop(_t);
 		}
@@ -475,7 +473,6 @@ local gt = getroottable();
 		o.clearTroops = function()
         {
             clearTroops();
-            this.m.EL_TempTroops = [];
             this.m.EL_LootEquipmentEssence = [0, 0, 0, 0, 0];
             this.m.EL_LootItems = [];
             this.m.EL_FinishGenerate = false;
@@ -489,7 +486,6 @@ local gt = getroottable();
         {
             if(!this.m.EL_FinishGenerate) {
                 this.m.EL_FinishGenerate = true;
-                this.m.EL_TempTroops = [];
             }
             local entities = [];
             local champions = [];
@@ -724,6 +720,7 @@ local gt = getroottable();
                 _out.writeF32(t.EL_EliteChance);
                 _out.writeI32(t.EL_ExtraCombatLevel);
                 _out.writeI32(t.EL_RankLevel);
+                _out.writeI32(t.EL_RankLevelMin);
                 _out.writeBool(t.EL_IsBossUnit);
                 _out.writeI32(t.EL_ExtraBuffNum[0]);
                 _out.writeI32(t.EL_ExtraBuffNum[1]);
@@ -777,48 +774,6 @@ local gt = getroottable();
             _out.writeU16(this.m.Resources);
             this.m.Flags.onSerialize(_out);
 
-             _out.writeU8(this.Math.min(255, this.m.EL_TempTroops.len()));
-            foreach( t in this.m.EL_TempTroops )
-            {
-                _out.writeU16(t.ID);
-                _out.writeU8(t.Variant);
-                _out.writeF32(t.Strength);
-                _out.writeI8(t.Row);
-                _out.writeString(t.Name);
-
-                _out.writeF32(t.EL_EliteChance);
-                _out.writeI32(t.EL_ExtraCombatLevel);
-                _out.writeI32(t.EL_RankLevel);
-                _out.writeBool(t.EL_IsBossUnit);
-                _out.writeI32(t.EL_ExtraBuffNum[0]);
-                _out.writeI32(t.EL_ExtraBuffNum[1]);
-                _out.writeI32(t.EL_ExtraBuffNum[2]);
-
-                if ("Outfits" in t)
-                {
-                    _out.writeBool(true);
-                    _out.writeU8(t.Outfits.len());
-
-                    foreach( o in t.Outfits )
-                    {
-                        _out.writeU8(o.len());
-                        _out.writeU8(o[0]);
-                        _out.writeString(o[1]);
-
-                        if (o.len() == 3)
-                        {
-                            _out.writeString(o[2]);
-                        }
-                    }
-                }
-                else
-                {
-                    _out.writeBool(false);
-                }
-
-                _out.writeI32(this.IO.scriptHashByFilename(t.Script));
-            }
-
             _out.writeBool(this.m.EL_IsTempParty);
             _out.writeBool(this.m.EL_FinishGenerate);
             _out.writeBool(this.m.EL_IsBossParty);
@@ -865,6 +820,7 @@ local gt = getroottable();
                 troop.EL_EliteChance = _in.readF32();
                 troop.EL_ExtraCombatLevel = _in.readI32();
                 troop.EL_RankLevel = _in.readI32();
+                troop.EL_RankLevelMin = _in.readI32();
                 troop.EL_IsBossUnit = _in.readBool()
                 troop.EL_ExtraBuffNum[0] = _in.readI32();
                 troop.EL_ExtraBuffNum[1] = _in.readI32();
@@ -950,75 +906,6 @@ local gt = getroottable();
 
             this.m.Flags.onDeserialize(_in);
 
-            this.m.EL_TempTroops = [];
-            numTroops = _in.readU8();
-
-            for( local i = 0; i < numTroops; i = i )
-            {
-                local troop = clone this.Const.World.Spawn.Unit;
-                troop.ID = _in.readU16();
-                troop.Variant = _in.readU8();
-                troop.Strength = _in.readF32();
-                troop.Row = _in.readI8();
-                troop.Party = this.WeakTableRef(this);
-                troop.Faction = (("getFaction" in this) ? this.getFaction() : this.EL_getFaction());
-                troop.Name = _in.readString();
-
-
-                troop.EL_EliteChance = _in.readF32();
-                troop.EL_ExtraCombatLevel = _in.readI32();
-                troop.EL_RankLevel = _in.readI32();
-                troop.EL_IsBossUnit = _in.readBool();
-                troop.EL_ExtraBuffNum[0] = _in.readI32();
-                troop.EL_ExtraBuffNum[1] = _in.readI32();
-                troop.EL_ExtraBuffNum[2] = _in.readI32();
-
-                local hasOutfits = _in.readBool();
-
-                if (hasOutfits)
-                {
-                    local outfits = [];
-                    local outfitLength = _in.readU8();
-
-                    for( local i = 0; i < outfitLength; i++ )
-                    {
-                        if (_in.readU8() == 2)
-                        {
-                            outfits.push([
-                                _in.readU8(),
-                                _in.readString()
-                            ]);
-                        }
-                        else
-                        {
-                            outfits.push([
-                                _in.readU8(),
-                                _in.readString(),
-                                _in.readString()
-                            ]);
-                        }
-                    }
-
-                    troop.Outfits <- clone outfits;
-                }
-                local hash = _in.readI32();
-
-                if (hash != 0)
-                {
-                    troop.Script = this.IO.scriptFilenameByHash(hash);
-                }
-
-                if (troop.Script == "scripts/entity/tactical/enemies/alp_illusion")
-                {
-                }
-                else
-                {
-                    this.m.EL_TempTroops.push(troop);
-                }
-
-                i = ++i;
-            }
-
             this.m.EL_IsTempParty = _in.readBool();
             this.m.EL_FinishGenerate = _in.readBool();
             this.m.EL_IsBossParty = _in.readBool();
@@ -1083,15 +970,15 @@ local gt = getroottable();
                 if(_EL_troop.EL_RankLevel != 0) {
                 }
                 else if(troop_info.EL_IsBossUnit) {
-                    _EL_troop.EL_RankLevel = this.Math.max(2, _EL_troop.EL_RankLevel);
+                    _EL_troop.EL_RankLevel = this.Math.max(2, _EL_troop.EL_RankLevelMin);
                     _EL_troop.EL_IsBossUnit = true;
                 }
                 else if(troop_info.EL_IsWeakUnit) {
-                    _EL_troop.EL_RankLevel = this.Math.max(0, _EL_troop.EL_RankLevel);
+                    _EL_troop.EL_RankLevel = this.Math.max(0, _EL_troop.EL_RankLevelMin);
                 }
                 else {
                     if(this.m.EL_IsBossParty || this.m.EL_IsEliteParty) {
-                        _EL_troop.EL_RankLevel = this.Math.max(1, _EL_troop.EL_RankLevel);
+                        _EL_troop.EL_RankLevel = this.Math.max(1, _EL_troop.EL_RankLevelMin);
                     }
                     else {
                         local elite_chance = this.Const.EL_NPC.EL_NormalTeam.EliteChance.EL_getChance(this.World.Assets.m.EL_WorldLevel) + _EL_troop.EL_EliteChance;
@@ -1100,7 +987,7 @@ local gt = getroottable();
                         {
                             elite_chance *= this.Const.EL_NPC.EL_Troop.EliteUnitEliteChanceMult;
                         }
-                        _EL_troop.EL_RankLevel = this.Math.max((this.Math.rand(1, 1000) >= elite_chance * 10) ? 0 : 1, _EL_troop.EL_RankLevel);
+                        _EL_troop.EL_RankLevel = this.Math.max((this.Math.rand(1, 1000) >= elite_chance * 10) ? 0 : 1, _EL_troop.EL_RankLevelMin);
                     }
                 }
 
@@ -1134,24 +1021,22 @@ local gt = getroottable();
             else {
                 //Puts the troop in the temp troops.
                 local i = 0;
-                for(; i < this.m.EL_TempTroops.len(); ++i) {
-                    if(_EL_troop.Strength > this.m.EL_TempTroops[i].Strength) {
-                        this.m.EL_TempTroops.insert(i, _EL_troop);
+                for(; i < this.m.Troops.len(); ++i) {
+                    if(_EL_troop.Strength > this.m.Troops[i].Strength) {
+                        this.m.Troops.insert(i, _EL_troop);
                         break;
                     }
                 }
-                if(i == this.m.EL_TempTroops.len()) {
-                    this.m.EL_TempTroops.push(_EL_troop);
+                if(i == this.m.Troops.len()) {
+                    this.m.Troops.push(_EL_troop);
                 }
-                while(this.m.EL_TempTroops.len() > max_troop_num) {
-                    this.m.EL_TempTroops.remove(max_troop_num);
+                while(this.m.Troops.len() > max_troop_num) {
+                    this.m.Troops.remove(max_troop_num);
                 }
                 //Calculate current troop info.
-                this.m.Troops = [];
                 local troops_info = [];
-                for(local i = 0; i < this.m.EL_TempTroops.len(); ++i) {
-                    troops_info.push(this.Const.EL_NPC.EL_Troop.EL_getTroopInfo(this.m.EL_TempTroops[i]));
-                    this.m.Troops.push(clone this.m.EL_TempTroops[i]);
+                for(local i = 0; i < this.m.Troops.len(); ++i) {
+                    troops_info.push(this.Const.EL_NPC.EL_Troop.EL_getTroopInfo(this.m.Troops[i]));
                 }
 
                 //Calculate ranks, level, combat level.
@@ -1159,11 +1044,11 @@ local gt = getroottable();
                     for(local i = 0; i < this.m.Troops.len(); ++i) {
                         //At least two leaders.
                         if(troops_info[i].EL_IsBossUnit) {
-                            this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevel);
+                            this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevelMin);
                             this.m.Troops[i].EL_IsBossUnit = true;
                         }
                         else if(i < this.Const.EL_NPC.EL_Troop.BossTroopMinLeaders) {
-                            this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevel);
+                            this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevelMin);
                             local boss_chance = this.Const.EL_NPC.EL_Troop.BossChance * this.World.Assets.EL_getWorldDifficultFactor();
                             if(i == 0) {
                                 this.m.Troops[i].EL_IsBossUnit = true;
@@ -1173,10 +1058,10 @@ local gt = getroottable();
                             }
                         }
                         else if(troops_info[i].EL_IsWeakUnit) {
-                            this.m.Troops[i].EL_RankLevel = this.Math.max(0, this.m.Troops[i].EL_RankLevel);
+                            this.m.Troops[i].EL_RankLevel = this.Math.max(0, this.m.Troops[i].EL_RankLevelMin);
                         }
                         else {
-                            this.m.Troops[i].EL_RankLevel = this.Math.max(1, this.m.Troops[i].EL_RankLevel);
+                            this.m.Troops[i].EL_RankLevel = this.Math.max(1, this.m.Troops[i].EL_RankLevelMin);
                         }
                         this.m.Troops[i].EL_ExtraCombatLevel = troops_info[i].EL_ExtraCombatLevel;
                     }
@@ -1189,21 +1074,21 @@ local gt = getroottable();
                     local used_resourse = 0;
                     local random_leader_avilable_index = [];
                     if(this.m.EL_HaveStrongestLeader && !troops_info[i].EL_IsWeakUnit && this.m.Troops[i].Strength >= this.Const.EL_NPC.EL_Troop.Rank2LeastStrength) {
-                        this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevel);
+                        this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevelMin);
                         unit_strength += this.Math.max(this.Const.EL_NPC.EL_Troop.UnitGenerateMinCalculateResourse, this.m.Troops[i].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[i].EL_RankLevel]);
                         unit_population += troops_info[i].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[i].EL_RankLevel];
                         ++i;
                     }
                     for(; i < troops_info.len(); ++i) {
                         if(troops_info[i].EL_IsBossUnit) {
-                            this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevel);
+                            this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevelMin);
                             this.m.Troops[i].EL_IsBossUnit = true;
                         }
                         else if(troops_info[i].EL_IsWeakUnit) {
-                            this.m.Troops[i].EL_RankLevel = this.Math.max(0, this.m.Troops[i].EL_RankLevel);
+                            this.m.Troops[i].EL_RankLevel = this.Math.max(0, this.m.Troops[i].EL_RankLevelMin);
                         }
                         else {
-                            this.m.Troops[i].EL_RankLevel = this.Math.max(1, this.m.Troops[i].EL_RankLevel);
+                            this.m.Troops[i].EL_RankLevel = this.Math.max(1, this.m.Troops[i].EL_RankLevelMin);
                             if(this.m.Troops[i].Strength >= this.Const.EL_NPC.EL_Troop.Rank2LeastStrength) {
                                 random_leader_avilable_index.push(i);
                             }
@@ -1217,7 +1102,7 @@ local gt = getroottable();
                         local random_leader_index = random_leader_avilable_index[this.Math.rand(0, random_leader_avilable_index.len() - 1)];
                         unit_strength -= this.Math.max(this.Const.EL_NPC.EL_Troop.UnitGenerateMinCalculateResourse, this.m.Troops[random_leader_index].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[random_leader_index].EL_RankLevel]);
                         unit_population -= troops_info[random_leader_index].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[random_leader_index].EL_RankLevel];
-                        this.m.Troops[random_leader_index].EL_RankLevel = this.Math.max(2, this.m.Troops[random_leader_index].EL_RankLevel);
+                        this.m.Troops[random_leader_index].EL_RankLevel = this.Math.max(2, this.m.Troops[random_leader_index].EL_RankLevelMin);
                         local boss_chance = this.Const.EL_NPC.EL_Troop.BossChance * this.World.Assets.EL_getWorldDifficultFactor();
                         if(boss_chance >= this.Math.rand(1, 100)) {
                             this.m.Troops[random_leader_index].EL_IsBossUnit = true;
@@ -1227,41 +1112,7 @@ local gt = getroottable();
                     }
                     used_resourse = unit_strength * (1 + this.Math.pow(unit_population / this.Const.EL_NPC.EL_Troop.TotalResourse.Factor1, this.Const.EL_NPC.EL_Troop.TotalResourse.Factor2));
                     if(used_resourse < this.m.EL_TroopsResourse) {
-                        //TODO
-                        //Add buffs.
-                        // local loop_time = this.Const.EL_NPC.EL_NPCBuff.Pool.len();
-                        // while(loop_time > 0)
-                        // {
-                        //     loop_time -= 1;
-                        //     for(local j = 0; ; ++j) {
-                        //         if(this.m.Troops[j].EL_RankLevel == 2)
-                        //         {
-                        //             this.m.Troops[j].EL_ExtraBuffNum[2] += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank2[2];
-                        //             this.m.Troops[j].EL_ExtraBuffNum[1] += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank1[2];
-                        //             this.m.Troops[j].EL_ExtraBuffNum[0] += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank0[2];
-                        //         }
-                        //         else if(this.m.Troops[j].EL_RankLevel == 1)
-                        //         {
-                        //             this.m.Troops[j].EL_ExtraBuffNum[2] += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank2[1];
-                        //             this.m.Troops[j].EL_ExtraBuffNum[1] += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank1[1];
-                        //             this.m.Troops[j].EL_ExtraBuffNum[0] += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank0[1];
-                        //         }
-                        //         else
-                        //         {
-                        //             this.m.Troops[j].EL_ExtraBuffNum[2] += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank2[0];
-                        //             this.m.Troops[j].EL_ExtraBuffNum[1] += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank1[0];
-                        //             this.m.Troops[j].EL_ExtraBuffNum[0] += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank0[0];
-                        //         }
-                        //         unit_strength -= this.Math.max(this.Const.EL_NPC.EL_Troop.UnitGenerateMinCalculateResourse, this.m.Troops[j].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[j].EL_RankLevel]);
-                        //         this.m.Troops[j].Strength *= this.Const.EL_NPC.EL_Troop.ExtraBuffStrengthMultPurTime;
-                        //         unit_strength += this.Math.max(this.Const.EL_NPC.EL_Troop.UnitGenerateMinCalculateResourse, this.m.Troops[j].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[j].EL_RankLevel]);
-                        //         used_resourse = unit_strength * (1 + this.Math.pow(unit_population / this.Const.EL_NPC.EL_Troop.TotalResourse.Factor1, this.Const.EL_NPC.EL_Troop.TotalResourse.Factor2));
-                        //         if(used_resourse > this.m.EL_TroopsResourse) {
-                        //             loop_time = 0;
-                        //             break;
-                        //         }
-                        //     }
-                        // }
+
                     }
                 }
                 else {
@@ -1271,18 +1122,18 @@ local gt = getroottable();
                     local used_resourse = 0;
                     local random_leader_avilable_index = [];
                     if(this.m.EL_HaveStrongestLeader && !troops_info[i].EL_IsWeakUnit) {
-                        this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevel);
+                        this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevelMin);
                         unit_strength += this.Math.min(this.Const.EL_NPC.EL_Troop.UnitGenerateMinCalculateResourse, this.m.Troops[i].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[i].EL_RankLevel]);
                         unit_population += troops_info[i].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[i].EL_RankLevel];
                         ++i;
                     }
                     for(; i < troops_info.len(); ++i) {
                         if(troops_info[i].EL_IsBossUnit) {
-                            this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevel);
+                            this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevelMin);
                             this.m.Troops[i].EL_IsBossUnit = true;
                         }
                         else if(troops_info[i].EL_IsWeakUnit) {
-                            this.m.Troops[i].EL_RankLevel = this.Math.max(0, this.m.Troops[i].EL_RankLevel);
+                            this.m.Troops[i].EL_RankLevel = this.Math.max(0, this.m.Troops[i].EL_RankLevelMin);
                         }
                         else {
                             local elite_chance = this.Const.EL_NPC.EL_NormalTeam.EliteChance.EL_getChance(this.World.Assets.m.EL_WorldLevel) + this.m.Troops[i].EL_EliteChance;
@@ -1291,7 +1142,7 @@ local gt = getroottable();
                             {
                                 elite_chance *= this.Const.EL_NPC.EL_Troop.EliteUnitEliteChanceMult;
                             }
-                            this.m.Troops[i].EL_RankLevel = this.Math.max((this.Math.rand(1, 1000) >= elite_chance * 10) ? 0 : 1, this.m.Troops[i].EL_RankLevel);
+                            this.m.Troops[i].EL_RankLevel = this.Math.max((this.Math.rand(1, 1000) >= elite_chance * 10) ? 0 : 1, this.m.Troops[i].EL_RankLevelMin);
                             if(this.m.Troops[i].Strength >= this.Const.EL_NPC.EL_Troop.Rank2LeastStrength) {
                                 random_leader_avilable_index.push(i);
                             }
@@ -1305,7 +1156,7 @@ local gt = getroottable();
                         local random_leader_index = random_leader_avilable_index[this.Math.rand(0, random_leader_avilable_index.len() - 1)];
                         unit_strength -= this.Math.max(this.Const.EL_NPC.EL_Troop.UnitGenerateMinCalculateResourse, this.m.Troops[random_leader_index].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[random_leader_index].EL_RankLevel]);
                         unit_population -= troops_info[random_leader_index].EL_BasePopulation * this.Const.EL_NPC.EL_Troop.RankPopulationMult[this.m.Troops[random_leader_index].EL_RankLevel];
-                        this.m.Troops[random_leader_index].EL_RankLevel = this.Math.max(2, this.m.Troops[random_leader_index].EL_RankLevel);
+                        this.m.Troops[random_leader_index].EL_RankLevel = this.Math.max(2, this.m.Troops[random_leader_index].EL_RankLevelMin);
                         local boss_chance = this.Const.EL_NPC.EL_Troop.BossChance * this.World.Assets.EL_getWorldDifficultFactor();
                         if(boss_chance >= this.Math.rand(1, 100)) {
                             this.m.Troops[random_leader_index].EL_IsBossUnit = true;
@@ -1315,40 +1166,6 @@ local gt = getroottable();
                     }
                     used_resourse = unit_strength * (1 + this.Math.pow(unit_population / this.Const.EL_NPC.EL_Troop.TotalResourse.Factor1, this.Const.EL_NPC.EL_Troop.TotalResourse.Factor2));
                     if(used_resourse < this.m.EL_TroopsResourse && this.m.Troops.len() > 0) {
-                        //TODO
-                        //Add buffs.
-                        // local loop_time = this.Const.EL_NPC.EL_NPCBuff.Pool.len();
-                        // while(loop_time-- > 0)
-                        // {
-                        //     for(local j = 0; j < this.m.Troops.len(); ++j) {
-                        //         if(this.m.Troops[j].EL_RankLevel == 2)
-                        //         {
-                        //             this.m.Troops[j].EL_ExtraBuffNum[2] += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank2[2];
-                        //             this.m.Troops[j].EL_ExtraBuffNum[1] += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank1[2];
-                        //             this.m.Troops[j].EL_ExtraBuffNum[0] += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank0[2];
-                        //         }
-                        //         else if(this.m.Troops[j].EL_RankLevel == 1)
-                        //         {
-                        //             this.m.Troops[j].EL_ExtraBuffNum[2] += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank2[1];
-                        //             this.m.Troops[j].EL_ExtraBuffNum[1] += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank1[1];
-                        //             this.m.Troops[j].EL_ExtraBuffNum[0] += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank0[1];
-                        //         }
-                        //         else
-                        //         {
-                        //             this.m.Troops[j].EL_ExtraBuffNum[2] += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank2[0];
-                        //             this.m.Troops[j].EL_ExtraBuffNum[1] += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank1[0];
-                        //             this.m.Troops[j].EL_ExtraBuffNum[0] += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank0[0];
-                        //         }
-                        //         unit_strength -= this.Math.max(this.Const.EL_NPC.EL_Troop.UnitGenerateMinCalculateResourse, this.m.Troops[j].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[j].EL_RankLevel]);
-                        //         this.m.Troops[j].Strength *= this.Const.EL_NPC.EL_Troop.ExtraBuffStrengthMultPurTime;
-                        //         unit_strength += this.Math.max(this.Const.EL_NPC.EL_Troop.UnitGenerateMinCalculateResourse, this.m.Troops[j].Strength * this.Const.EL_NPC.EL_Troop.RankResouseMult[this.m.Troops[j].EL_RankLevel]);
-                        //         used_resourse = unit_strength * (1 + this.Math.pow(unit_population / this.Const.EL_NPC.EL_Troop.TotalResourse.Factor1, this.Const.EL_NPC.EL_Troop.TotalResourse.Factor2));
-                        //         if(used_resourse > this.m.EL_TroopsResourse) {
-                        //             loop_time = 0;
-                        //             break;
-                        //         }
-                        //     }
-                        // }
 
                     }
                 }
@@ -1358,6 +1175,9 @@ local gt = getroottable();
                         this.m.Troops[i].Name = this.Const.EL_NPC.EL_Troop.NamePrefix[this.m.Troops[i].EL_RankLevel];
                         this.m.Troops[i].Name += this.Const.EL_NPC.EL_Troop.Name[this.Math.rand(0, this.Const.EL_NPC.EL_Troop.Name.len() - 1)];
                         this.m.Troops[i].Name += this.Const.EL_NPC.EL_Troop.NameSuffix[this.m.Troops[i].EL_RankLevel];
+                    }
+                    else {
+                        this.m.Troops[i].Name = "";
                     }
                 }
             }
@@ -1923,11 +1743,12 @@ local gt = getroottable();
     gt.Const.World.Spawn.Unit.EL_EliteChance <- 0;
     gt.Const.World.Spawn.Unit.EL_ExtraCombatLevel <- 0;
     gt.Const.World.Spawn.Unit.EL_RankLevel <- 0;
+    gt.Const.World.Spawn.Unit.EL_RankLevelMin <- 0;
     gt.Const.World.Spawn.Unit.EL_ExtraBuffNum <- [0, 0, 0];
     gt.Const.World.Spawn.Unit.EL_IsBossUnit <- false;
     gt.Const.World.Spawn.Unit.EL_UnitInfo <- null;
 
-    gt.Const.World.Common.addTroop = function ( _party, _troop, _updateStrength = true, _minibossify = 0, _EL_RankLevel = 0 )
+    gt.Const.World.Common.addTroop = function ( _party, _troop, _updateStrength = true, _minibossify = 0, _EL_rankLevelMin = 0 )
     {
         local troop = clone _troop.Type;
         troop.Party <- this.WeakTableRef(_party);
@@ -1935,7 +1756,8 @@ local gt = getroottable();
         troop.Name <- "";
         troop.EL_EliteChance <- _minibossify + this.World.Assets.m.ChampionChanceAdditional + troop.Variant;
         troop.EL_ExtraCombatLevel <- 0;
-        troop.EL_RankLevel <- _EL_RankLevel;
+        troop.EL_RankLevel <- 0;
+        troop.EL_RankLevelMin <- _EL_rankLevelMin;
         troop.EL_ExtraBuffNum <- [0, 0, 0];
         troop.EL_IsBossUnit <- false;
         troop.EL_UnitInfo <- null;
