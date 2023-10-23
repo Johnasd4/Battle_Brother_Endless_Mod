@@ -10,13 +10,14 @@ this.el_taunt_mult_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_
 
 	function getTooltip( _id )
 	{
+		this.logInfo("getTooltip");
 		local colour = this.EL_getEntryColour();
 		if(this.m.EL_CurrentLevel != 1)
 		{
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Character\' threat * " + this.Math.round(this.m.EL_CurrentLevel * 100.0 / this.m.EL_TauntMult) + "% (" + 100.0 / this.m.EL_TauntMult + "%)[/color]"
+				text = "[color=" + colour + "]Character\' threat - " + this.Math.round(100 * this.m.EL_CurrentLevel * (100.0 - 10000.0 / this.m.EL_TauntMult)) * 0.01 + "% (" + this.Math.round(100 * (100.0 - 10000.0 / this.m.EL_TauntMult)) * 0.01 + "%)[/color]"
 			};
 		}
 		else
@@ -24,7 +25,7 @@ this.el_taunt_mult_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Character\' threat * " + 100.0 / this.m.EL_TauntMult + "%[/color]"
+				text = "[color=" + colour + "]Character\' threat - " + this.Math.round(100 * (100.0 - 10000.0 / this.m.EL_TauntMult)) * 0.01 + "%[/color]"
 			};
 		}
 	}
@@ -65,7 +66,7 @@ this.el_taunt_mult_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_
 	{
 		if(this.m.EL_CurrentLevel != 0.0)
 		{
-			_properties.TargetAttractionMult /= this.Math.round(this.m.EL_CurrentLevel * this.m.EL_TauntMult * 0.01);
+			_properties.TargetAttractionMult -= this.Math.round(this.m.EL_CurrentLevel * (1.0 - 1.0 / this.m.EL_TauntMult * 0.01) * _properties.TargetAttractionMult * 100) * 0.01;
 		}
 	}
 
@@ -74,7 +75,7 @@ this.el_taunt_mult_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_
 		if(this.m.EL_CurrentLevel != 0.0)
 		{
 			++_EL_totalEntry.m.EL_EntryNum;
-			_EL_totalEntry.m.EL_TargetAttractionMult /= this.Math.round(this.m.EL_CurrentLevel * this.m.EL_TauntMult);
+			_EL_totalEntry.m.EL_TargetAttractionMult *= this.Math.round(this.m.EL_CurrentLevel * (1.0 - 1.0 / this.m.EL_TauntMult * 0.01) * _EL_totalEntry.m.EL_TargetAttractionMult * 100) * 0.01;
 		}
 	}
     

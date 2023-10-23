@@ -349,7 +349,6 @@ local gt = getroottable();
 		o.EL_updateLevelProperties <- function() 
         {
 			this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Helmet.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
-			this.m.Condition = this.m.Condition > this.m.ConditionMax ? this.m.ConditionMax : this.m.Condition;
 			this.m.EL_DamageRegularReduction = this.Math.ceil(this.m.EL_BaseWithRankDamageRegularReduction * (1 + this.Const.EL_Helmet.EL_LevelFactor.DamageRegularReduction * this.m.EL_CurrentLevel));
 			this.m.EL_DamageHeadArmorReduction = this.Math.ceil(this.m.EL_BaseWithRankDamageHeadArmorReduction * (1 + this.Const.EL_Helmet.EL_LevelFactor.DamageHeadArmorReduction * this.m.EL_CurrentLevel));
 			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Helmet.EL_LevelFactor.Value * this.m.EL_Level));
@@ -365,6 +364,7 @@ local gt = getroottable();
 					entry.EL_onItemUpdate(this);
 				}
 			}
+			this.m.Condition = this.m.Condition > this.m.ConditionMax ? this.m.ConditionMax : this.m.Condition;
 		}
 
         o.EL_init <- function()
@@ -413,7 +413,7 @@ local gt = getroottable();
 				}
 				else
 				{
-					result[rank_level] += this.Math.floor(this.Const.EL_Helmet.EL_EquipmentEssence.UpgradeRankFactor * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) 
+					result[rank_level] += this.Math.ceil(this.Const.EL_Helmet.EL_EquipmentEssence.UpgradeRankFactor * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) 
 										* (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
 				}
 				for(local index = 0; index < this.m.EL_Level; ++index)
@@ -457,7 +457,7 @@ local gt = getroottable();
 				local min_calculate_weight = this.Const.EL_Helmet.EL_EquipmentEssence.MinCalculateWeight;
 				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Helmet.EL_EquipmentEssence.RankFactor, rank_level) * this.Const.EL_Helmet.EL_EquipmentEssence.RecraftFactor 
 														* this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)));
-				result[rank_level] += this.Math.floor(this.Const.EL_Helmet.EL_EquipmentEssence.SeniorEquipmentEssenceMult * this.Const.EL_Helmet.EL_EquipmentEssence.RecraftFactor 
+				result[rank_level] += this.Math.ceil(this.Const.EL_Helmet.EL_EquipmentEssence.SeniorEquipmentEssenceMult * this.Const.EL_Helmet.EL_EquipmentEssence.RecraftFactor 
 									* this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)))
 			}
 			return result;
@@ -517,6 +517,7 @@ local gt = getroottable();
 			}
 			if (this.m.EL_EntryList.len() != 0)
 			{
+				local tool_tip_id = 61;
 				for(local i = this.m.EL_EntryList.len() - 1; i >= 0; --i, ++tool_tip_id)
 				{
 					local tool_tip = this.m.EL_EntryList[i].getTooltip(tool_tip_id);
@@ -791,7 +792,6 @@ local gt = getroottable();
 				}
 			}
 			this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Helmet.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
-			this.m.Condition = this.m.Condition > this.m.ConditionMax ? this.m.ConditionMax : this.m.Condition;
 			this.m.EL_DamageRegularReduction = this.Math.ceil(this.m.EL_BaseWithRankDamageRegularReduction * (1 + this.Const.EL_Helmet.EL_LevelFactor.DamageRegularReduction * this.m.EL_CurrentLevel));
 			this.m.EL_DamageHeadArmorReduction = this.Math.ceil(this.m.EL_BaseWithRankDamageHeadArmorReduction * (1 + this.Const.EL_Helmet.EL_LevelFactor.DamageHeadArmorReduction * this.m.EL_CurrentLevel));
 			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Helmet.EL_LevelFactor.Value * this.m.EL_Level));
@@ -821,6 +821,7 @@ local gt = getroottable();
 					entry.EL_onItemUpdate(this);
 				}
 			}
+			this.m.Condition = this.m.Condition > this.m.ConditionMax ? this.m.ConditionMax : this.m.Condition;
 		}
 
 		o.getCondition <- function()
@@ -896,7 +897,7 @@ local gt = getroottable();
 				}
 				else
 				{
-					result[rank_level] += this.Math.floor(this.Const.EL_Helmet.EL_EquipmentEssence.UpgradeRankFactor * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) 
+					result[rank_level] += this.Math.ceil(this.Const.EL_Helmet.EL_EquipmentEssence.UpgradeRankFactor * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) 
 										* (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
 				}
 				for(local index = 0; index < this.m.EL_Level; ++index)
@@ -958,7 +959,7 @@ local gt = getroottable();
 				local min_calculate_weight = this.Const.EL_Helmet.EL_EquipmentEssence.MinCalculateWeight;
 				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Helmet.EL_EquipmentEssence.RankFactor, rank_level) * this.Const.EL_Helmet.EL_EquipmentEssence.RecraftFactor 
 														* this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)));
-				result[rank_level] += this.Math.floor(this.Const.EL_Helmet.EL_EquipmentEssence.SeniorEquipmentEssenceMult * this.Const.EL_Helmet.EL_EquipmentEssence.RecraftFactor 
+				result[rank_level] += this.Math.ceil(this.Const.EL_Helmet.EL_EquipmentEssence.SeniorEquipmentEssenceMult * this.Const.EL_Helmet.EL_EquipmentEssence.RecraftFactor 
 									* this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)))
 			}
 			return result;
@@ -1386,6 +1387,7 @@ local gt = getroottable();
 					entry.EL_onItemUpdate(this);
 				}
 			}
+			this.m.Condition = this.m.Condition > this.m.ConditionMax ? this.m.ConditionMax : this.m.Condition;
 		}
 
         o.EL_init <- function()
@@ -1434,7 +1436,7 @@ local gt = getroottable();
 				}
 				else
 				{
-					result[rank_level] += this.Math.floor(this.Const.EL_Helmet.EL_EquipmentEssence.UpgradeRankFactor * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) 
+					result[rank_level] += this.Math.ceil(this.Const.EL_Helmet.EL_EquipmentEssence.UpgradeRankFactor * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) 
 										* (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
 				}
 				for(local index = 0; index < this.m.EL_Level; ++index)
@@ -1478,7 +1480,7 @@ local gt = getroottable();
 				local min_calculate_weight = this.Const.EL_Helmet.EL_EquipmentEssence.MinCalculateWeight;
 				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Helmet.EL_EquipmentEssence.RankFactor, rank_level) * this.Const.EL_Helmet.EL_EquipmentEssence.RecraftFactor 
 														* this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)));
-				result[rank_level] += this.Math.floor(this.Const.EL_Helmet.EL_EquipmentEssence.SeniorEquipmentEssenceMult * this.Const.EL_Helmet.EL_EquipmentEssence.RecraftFactor 
+				result[rank_level] += this.Math.ceil(this.Const.EL_Helmet.EL_EquipmentEssence.SeniorEquipmentEssenceMult * this.Const.EL_Helmet.EL_EquipmentEssence.RecraftFactor 
 									* this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)))
 			}
 			return result;

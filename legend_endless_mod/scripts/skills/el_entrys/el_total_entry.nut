@@ -309,12 +309,20 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 				text = "Target hit increases damage taken by " + this.m.EL_Curse + "%"
 			});
 		}
-		if(this.m.EL_TargetAttractionMult != 1)
+		if(this.m.EL_TargetAttractionMult > 1)
 		{
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Character\' threat * " + this.m.EL_TargetAttractionMult + "%"
+				text = "Character\' threat + " + (this.m.EL_TargetAttractionMult - 1) * 100 + "%"
+			});
+		}
+		else if(this.m.EL_TargetAttractionMult < 1)
+		{
+			result.push({
+				id = 10,
+				type = "text",
+				text = "Character\' threat - " + (1.0 - this.m.EL_TargetAttractionMult) * 100 + "%"
 			});
 		}
 		if(this.m.EL_AdditionalAccuracy)

@@ -14,7 +14,7 @@ this.el_hit_head_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Equipment  chance to hit the head + " + this.m.EL_HitHead + "%[/color]"
+			text = "[color=" + colour + "]Equipment chance to hit the head + " + this.m.EL_HitHead + "%[/color]"
 		};
 		return result;
 	}
