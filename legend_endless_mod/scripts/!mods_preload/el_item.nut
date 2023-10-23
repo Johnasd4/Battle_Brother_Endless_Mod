@@ -227,6 +227,11 @@ local gt = getroottable();
 			return 0;
 		}
 
+		o.EL_isNeedRarityEntry <- function()
+		{
+			return false;
+		}
+
 		o.EL_generateByRankAndLevel <- function( _EL_rankLevel, EL_level, EL_additionalRarityChance = 0 )
 		{
 		}
