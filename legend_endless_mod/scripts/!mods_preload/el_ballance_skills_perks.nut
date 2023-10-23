@@ -996,8 +996,6 @@ local gt = getroottable();
 			{
 				return;
 			}
-
-			local actor = this.getContainer().getActor();
 			this.m.IsSet = true;
 		}
 
@@ -1019,37 +1017,25 @@ local gt = getroottable();
 		o.onUpdateLevel = function()
 		{
 			local actor = this.getContainer().getActor();
-			if(this.m.WillSucceed && this.Math.rand(1, 1000) <= 5) {
-				if (!this.m.IsSpent)
-				{
-					this.m.IsSpent = true;
+			if(!this.m.IsSpent && this.Math.rand(1, 1000) <= 5) {
+				this.m.IsSpent = true;
+				local bg = actor.getBackground();
+				bg.m.Description += " Once a dreg of society, with your help, " + actor.getNameOnly() + " has grown into a full-fledged mercenary.";
+				bg.m.RawDescription += " Once a dreg of society, with your help, %name% has grown into a full-fledged mercenary.";
 
-					if (this.m.WillSucceed)
-					{
-						local bg = actor.getBackground();
-						bg.m.Description += " Once a dreg of society, with your help, " + actor.getNameOnly() + " has grown into a full-fledged mercenary.";
-						bg.m.RawDescription += " Once a dreg of society, with your help, %name% has grown into a full-fledged mercenary.";
+				actor.m.PerkPoints += 5;
+				actor.m.LevelUps += 10;
 
-						actor.m.PerkPoints += 5;
-						actor.m.LevelUps += 10;
-
-						for(local i = 0 ;i < this.Const.Attributes.len(); ++i) {
-							actor.m.Talents[i] = this.Math.min(3, actor.m.Talents[i] + 1);
-						}
-						this.Const.EL_Player.EL_PerkTree.EL_AddRandomPerkTreeToPlayer(actor, 50);
-						actor.resetPerks();
-						actor.improveMood(1.0, "Realized potential");
-					}
-					else
-					{
-						this.updatePerkVisuals();
-					}
+				for(local i = 0 ;i < this.Const.Attributes.len(); ++i) {
+					actor.m.Talents[i] = this.Math.min(3, actor.m.Talents[i] + 1);
 				}
+				this.Const.EL_Player.EL_PerkTree.EL_AddRandomPerkTreeToPlayer(actor, 50);
+				actor.resetPerks();
+				actor.improveMood(1.0, "Realized potential");
 				this.updatePerkVisuals();
-				this.m.WillSucceed = false;
 			}
 		}
-
+		o.onUpdate = function(_properties) {}
 
 	});
 
