@@ -50,7 +50,7 @@ this.el_reduce_damage_received_mult_entry <- this.inherit("scripts/skills/el_ent
 
 	function EL_strengthen()
 	{
-		this.m.EL_ReduceDamageReceivedMult = this.Math.pow(1.0 - this.Const.EL_Accessory.EL_Entry.Factor.EL_ReduceDamageReceivedMult.ColourRange[this.Const.EL_Item.Type.Legendary] * 0.01, this.Const.EL_Accessory.EL_Entry.EntryStrengthenMult) * 100;
+		this.m.EL_ReduceDamageReceivedMult = (1.0 - this.Math.pow(1.0 - this.Const.EL_Accessory.EL_Entry.Factor.EL_ReduceDamageReceivedMult.ColourRange[this.Const.EL_Item.Type.Legendary] * 0.01, this.Const.EL_Accessory.EL_Entry.EntryStrengthenMult)) * 100;
 	}
 
 	function EL_onUpgradeRank()

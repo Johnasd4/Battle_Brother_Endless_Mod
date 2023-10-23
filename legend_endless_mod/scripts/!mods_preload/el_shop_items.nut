@@ -330,12 +330,12 @@ local gt = getroottable();
                                     xp_level = this.Math.rand(this.Math.max(1 ,EL_worldLevel - this.Const.EL_Item_Other.MinLevelInEventAndCraft), EL_worldLevel - this.Const.EL_Item_Other.MaxLevelInEventAndCraft);
                                 }
                                 item = this.new("scripts/items/el_misc/el_core_rank_" + core_rank + "_item");
-                                local core_xp = this.Const.EL_Shop.EL_Core.XPOffset - this.Math.pow(this.Math.rand(this.Math.pow(this.Const.EL_Shop.EL_Core.XPMin[core_rank], 2), this.Math.pow(this.Const.EL_Shop.EL_Core.XPMax[core_rank], 2)), 0.5);
-                                //this.logInfo("core_xp:" + core_xp);
+                                local core_xp = this.Const.EL_Shop.EL_Core.XPOffset - this.Math.pow(this.Math.rand(this.Math.pow(this.Const.EL_Shop.EL_Core.XPMin[core_rank], 4), this.Math.pow(this.Const.EL_Shop.EL_Core.XPMax[core_rank], 4)), 0.25);
+                                this.logInfo("core_xp:" + core_xp);
                                 core_xp *= this.Math.pow(this.Const.EL_NPC.EL_LevelUp.XPFactor, this.Math.max(0, xp_level - this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset));
                                 //this.logInfo("xp_level:" + xp_level);
                                 //this.logInfo("mult:" + this.Math.pow(this.Const.EL_NPC.EL_LevelUp.XPFactor, this.Math.max(1, xp_level - this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset)));
-                                item.EL_generateCoreXPByActorXP(core_xp);
+                                item.EL_generateCoreXPByActorXP(10 * core_xp);
                             }
                             else if(EL_isEssence)
                             {
