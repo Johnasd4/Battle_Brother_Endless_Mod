@@ -45,7 +45,7 @@ this.el_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario
 		bros[0].m.BaseProperties.RangedSkill = 1000;
 		bros[0].m.BaseProperties.MeleeDefense = 1000;
 		bros[0].m.BaseProperties.RangedDefense = 1000;
-		this.Const.EL_Player.EL_PerkTree.EL_AddRandomPerkTreeToPlayer(bros[0], 9999);
+		this.Const.EL_Player.EL_PerkTree.EL_AddRandomPerkTreeToPlayer(bros[0], 999);
 		this.World.Assets.addBusinessReputation(this.m.StartingBusinessReputation);
 		this.World.Flags.set("HasLegendCampTraining", true);
 		this.World.Assets.getStash().add(this.new("scripts/items/supplies/smoked_ham_item"));

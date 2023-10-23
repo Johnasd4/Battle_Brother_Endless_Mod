@@ -197,8 +197,8 @@ local gt = getroottable();
 					this.m.EL_RankLevel = this.Math.min(this.m.EL_RankLevel + _EL_rankLevel, this.EL_getRankLevelMax());
 					this.m.EL_Level = this.Math.min(this.Const.EL_Item.MaxLevel, EL_level);
 					EL_recordBaseNoRankProperties();
-					this.Const.EL_Accessory.EL_updateRankLevelProperties(this);
 					this.Const.EL_Accessory.EL_assignItemRarityEntry(this, EL_additionalRarityChance);
+					this.Const.EL_Accessory.EL_updateRankLevelProperties(this);
 					this.Const.EL_Accessory.EL_assignItemEntrys(this, this.Const.EL_Accessory.EL_Entry.EntryNum.NormalAccessory[this.m.EL_RankLevel] * this.m.EL_Level);
 				}
 				this.m.EL_CurrentLevel = this.m.EL_Level;
@@ -278,6 +278,7 @@ local gt = getroottable();
 					this.Const.EL_Accessory.EL_assignItemRarityEntry(this);
 				}
 				this.m.EL_EntryList.clear();
+				this.Const.EL_Accessory.EL_updateRankLevelProperties(this);
 				this.Const.EL_Accessory.EL_assignItemEntrys(this, this.Const.EL_Accessory.EL_Entry.EntryNum.NormalAccessory[this.m.EL_RankLevel] * this.m.EL_Level);
 				EL_updateLevelProperties();
 			}
