@@ -1008,36 +1008,42 @@ local gt = getroottable();
                 i = ++i;
                 i = i;
             }
-
+            local r = this.Math.rand(0, 2);
             local bros = roster.getAll();
             bros[0].setStartValuesEx([
                 "legend_preserver_background"
-            ], true, -1, true, 2);
+            ], true, -1, true, r == 0 ? 2 : 0);
             bros[0].setPlaceInFormation(3);
             bros[0].getSprite("miniboss").setBrush("bust_miniboss_undead");
-            bros[0].getFlags().set("IsPlayerCharacter", true);
-            bros[0].getSkills().add(this.new("scripts/skills/traits/player_character_trait"));
+            if(r == 0) {
+                bros[0].getFlags().set("IsPlayerCharacter", true);
+                bros[0].getSkills().add(this.new("scripts/skills/traits/player_character_trait"));
+            }
             bros[0].getSkills().add(this.new("scripts/skills/perks/perk_bags_and_belts"));
             bros[1].setStartValuesEx([
                 "legend_warlock_summoner_background"
-            ], true, -1, true, 2);
+            ], true, -1, true, r == 1 ? 2 : 0);
             bros[1].setPlaceInFormation(4);
             bros[1].getSprite("miniboss").setBrush("bust_miniboss_undead");
             bros[1].getSkills().add(this.new("scripts/skills/traits/ailing_trait"));
-            bros[1].getFlags().set("IsPlayerCharacter", true);
-            bros[1].getSkills().add(this.new("scripts/skills/traits/player_character_trait"));
+            if(r == 1) {
+                bros[1].getFlags().set("IsPlayerCharacter", true);
+                bros[1].getSkills().add(this.new("scripts/skills/traits/player_character_trait"));
+            }
             bros[1].getSkills().add(this.new("scripts/skills/perks/perk_nine_lives"));
             bros[2].setStartValuesEx([
                 "legend_puppet_master_background"
-            ], true, -1, true, 2);
+            ], true, -1, true, r == 2 ? 2 : 0);
             bros[2].setPlaceInFormation(5);
             bros[2].getSprite("miniboss").setBrush("bust_miniboss_undead");
-            bros[2].getFlags().set("IsPlayerCharacter", true);
-            bros[2].getSkills().add(this.new("scripts/skills/traits/player_character_trait"));
+            if(r == 2) {
+                bros[2].getFlags().set("IsPlayerCharacter", true);
+                bros[2].getSkills().add(this.new("scripts/skills/traits/player_character_trait"));
+            }
             bros[2].getSkills().add(this.new("scripts/skills/perks/perk_legend_possession"));
             bros[3].setStartValuesEx([
                 "legend_puppet_background"
-            ], true, -1, true, 2);
+            ], true, -1, true, 0);
             bros[3].getBackground().m.RawDescription = "Once a proud necromancer, %name% took three pupils under their wing to train the next generation of great necromancers. What %name% did not seeing coming is a heart attack - one that left them like a corpse like they used to command. With this macabre irony in mind, they now serve their students in unlife as little more than fodder.";
             bros[3].setPlaceInFormation(12);
             this.World.Assets.m.Money = this.World.Assets.m.Money / 1;
