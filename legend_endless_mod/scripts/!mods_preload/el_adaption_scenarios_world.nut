@@ -1008,10 +1008,11 @@ local gt = getroottable();
                 i = ++i;
                 i = i;
             }
+            local r = this.Math.rand(0, 2);
             local bros = roster.getAll();
             bros[0].setStartValuesEx([
                 "legend_preserver_background"
-            ], true, -1, true, 2);
+            ], true, -1, true, r == 0 ? 2 : 1);
             bros[0].setPlaceInFormation(3);
             bros[0].getSprite("miniboss").setBrush("bust_miniboss_undead");
             bros[0].getFlags().set("IsPlayerCharacter", true);
@@ -1019,7 +1020,7 @@ local gt = getroottable();
             bros[0].getSkills().add(this.new("scripts/skills/perks/perk_bags_and_belts"));
             bros[1].setStartValuesEx([
                 "legend_warlock_summoner_background"
-            ], true, -1, true, 2);
+            ], true, -1, true, r == 1 ? 2 : 1);
             bros[1].setPlaceInFormation(4);
             bros[1].getSprite("miniboss").setBrush("bust_miniboss_undead");
             bros[1].getSkills().add(this.new("scripts/skills/traits/ailing_trait"));
@@ -1028,7 +1029,7 @@ local gt = getroottable();
             bros[1].getSkills().add(this.new("scripts/skills/perks/perk_nine_lives"));
             bros[2].setStartValuesEx([
                 "legend_puppet_master_background"
-            ], true, -1, true, 2);
+            ], true, -1, true, r == 2 ? 2 : 1);
             bros[2].setPlaceInFormation(5);
             bros[2].getSprite("miniboss").setBrush("bust_miniboss_undead");
             bros[2].getFlags().set("IsPlayerCharacter", true);
