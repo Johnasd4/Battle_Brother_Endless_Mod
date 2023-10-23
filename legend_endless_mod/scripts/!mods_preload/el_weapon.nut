@@ -241,6 +241,7 @@ local gt = getroottable();
 			this.m.EL_BaseWithRankAdditionalAccuracy = _in.readI32();
 			this.m.EL_BaseWithRankFatigueOnSkillUse = _in.readI32();
 			this.m.EL_BaseWithRankRangeMax = _in.readI32();
+			this.m.RangeMax = this.m.EL_BaseWithRankRangeMax;
 			EL_updateLevelProperties();
 			this.m.Condition = _in.readF32();
 		}
@@ -249,7 +250,7 @@ local gt = getroottable();
 		o.consumeAmmo = function()
 		{
 			local skills = this.getContainer().getActor().getSkills();
-			if(skills.getSkillByID("el_weapon_entry.save_ammo") != null && this.Math.rand(1, 100) < skills.getSkillByID("el_weapon_entry.save_ammo").m.EL_SaveAmmoChance)
+			if(skills.getSkillByID("el_weapon_entry.save_ammo") != null && this.Math.rand(1, 100) <= skills.getSkillByID("el_weapon_entry.save_ammo").m.EL_SaveAmmoChance)
 			{
 				return;
 			}
@@ -536,6 +537,7 @@ local gt = getroottable();
 				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
 				this.m.IsBought = false;
 				++this.m.EL_RankLevel;
+				EL_init();
 				foreach(entry in this.m.EL_EntryList)
 				{
 					entry.EL_onUpgradeRank();
@@ -735,7 +737,7 @@ local gt = getroottable();
 		o.consumeAmmo = function()
 		{;
 			local skills = this.getContainer().getActor().getSkills();
-			if(skills.getSkillByID("el_weapon_entry.save_ammo") != null && this.Math.rand(1, 100) < skills.getSkillByID("el_weapon_entry.save_ammo").m.EL_SaveAmmoChance)
+			if(skills.getSkillByID("el_weapon_entry.save_ammo") != null && this.Math.rand(1, 100) <= skills.getSkillByID("el_weapon_entry.save_ammo").m.EL_SaveAmmoChance)
 			{
 				return;
 			}

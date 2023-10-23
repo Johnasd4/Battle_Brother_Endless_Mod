@@ -163,9 +163,11 @@ gt.Const.EL_Weapon <- {
 			},
 			changeValues = function( _item, _isHalfEffect = false )
 			{
+				//this.logInfo("before _item.m.RangeMax" + _item.m.RangeMax);
 				local bonus = _isHalfEffect ? this.Const.EL_Weapon.EL_RankFactor.RangeMax / 2 : this.Const.EL_Weapon.EL_RankFactor.RangeMax;
 				_item.m.RangeMax += bonus;
 				_item.m.EL_BaseWithRankRangeMax = _item.m.RangeMax;
+				//this.logInfo("after _item.m.RangeMax" + _item.m.RangeMax);
 			},
 			weight = 1
 		},

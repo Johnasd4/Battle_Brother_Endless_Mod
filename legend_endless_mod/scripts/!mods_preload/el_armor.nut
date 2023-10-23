@@ -301,6 +301,7 @@ local gt = getroottable();
 				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
 				this.m.IsBought = false;
 				++this.m.EL_RankLevel;
+				EL_init();
 				foreach(entry in this.m.EL_EntryList)
 				{
 					entry.EL_onUpgradeRank();
@@ -1317,6 +1318,7 @@ local gt = getroottable();
 				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
 				this.m.IsBought = false;
 				++this.m.EL_RankLevel;
+				EL_init();
 				foreach(entry in this.m.EL_EntryList)
 				{
 					entry.EL_onUpgradeRank();
