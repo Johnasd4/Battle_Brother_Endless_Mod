@@ -982,6 +982,71 @@ local gt = getroottable();
 		}
 	});
 
+	::mods_hookExactClass("skills/perks/perk_ptr_promised_potential", function ( o )
+	{
+		o.onAdded = function()
+		{
+			if (this.m.IsSet || !this.getContainer().getActor().isPlayerControlled())
+			{
+				return;
+			}
+
+			local actor = this.getContainer().getActor();
+			this.m.IsSet = true;
+		}
+
+		o.updatePerkVisuals = function ()
+		{
+			foreach (perk in this.getContainer().getActor().getBackground().m.PerkTree[0])
+			{
+				if (perk.ID == "perk.ptr_promised_potential")
+				{
+					perk.Name = "Realized Potential";
+					perk.Icon = "ui/perks/ptr_realized_potential.png";
+					perk.Tooltip = "From rags to riches! This character has truly come a long way. Who was once a dreg of society is now a full-fledged mercenary.";
+					break;
+				}
+			}
+			this.m.IsVisualsUpdated = true;
+		}
+
+		o.onUpdateLevel = function()
+		{
+			local actor = this.getContainer().getActor();
+			if(this.m.WillSucceed && this.Math.rand(1, 1000) <= 1) {
+				if (!this.m.IsSpent)
+				{
+					this.m.IsSpent = true;
+
+					if (this.m.WillSucceed)
+					{
+						local bg = actor.getBackground();
+						bg.m.Description += " Once a dreg of society, with your help, " + actor.getNameOnly() + " has grown into a full-fledged mercenary.";
+						bg.m.RawDescription += " Once a dreg of society, with your help, %name% has grown into a full-fledged mercenary.";
+
+						actor.m.PerkPoints += 5;
+						actor.m.LevelUps += 10;
+
+						for(local i = 0 ;i < this.Const.Attributes.len(); ++i) {
+							actor.m.Talents[i] = this.Math.min(3, actor.m.Talents[i] + 1);
+						}
+						this.Const.EL_Player.EL_PerkTree.EL_AddRandomPerkTreeToPlayer(actor, 50);
+						actor.resetPerks();
+						actor.improveMood(1.0, "Realized potential");
+					}
+					else
+					{
+						this.updatePerkVisuals();
+					}
+				}
+				this.updatePerkVisuals();
+				this.m.WillSucceed = false;
+			}
+		}
+
+
+	});
+
 	::mods_hookExactClass("skills/perks/perk_ptr_through_the_ranks", function ( o )
 	{
 
@@ -1238,6 +1303,10 @@ gt.Const.EL_Config.EL_modStrings <- function()
 		{
             ID = "perk.ptr_formidable_approach",
             tooltip = "[color=" + this.Const.UI.Color.NegativeValue + "][u]Requires:[/u] Two-Handed Melee Weapon[/color]\nMake them think twice about getting close!\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• When wielding a Two-Handed weapon, reduce the Melee Skill and Melee Defense of any enemy who enters your zone of control by [color=" + this.Const.UI.Color.NegativeValue + "]10[/color] Melee Skill.\n• The debuff lasts until the enemy exits your zone of control or successfully hits you.\n• Only has half the effect against enemies with Two-Handed weapons, and does not work if the enemy also has this perk."
+        },
+		{
+            ID = "perk.ptr_promised_potential",
+            tooltip = "The Captain said he\'d take a gamble on you, but you\'d better not disappoint!\n\n[color=" + this.Const.UI.Color.OneTimeEffect + "][u]One-Time Effect:[/u][/color]\n• Every time level ups, it has a [color=" + this.Const.UI.Color.PositiveValue + "]0.5%[/color] chance of being replaced with \'Realized Potential\' which will increase all talents by [color=" + this.Const.UI.Color.PositiveValue + "]+1[/color], get [color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] level ups, get [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color] perk points, unlock about [color=" + this.Const.UI.Color.PositiveValue + "]+50[/color] perks, and refund all perk points, including the one spent on this perk."
         },
         {
             ID = "perk.ptr_through_the_ranks",
