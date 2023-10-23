@@ -510,7 +510,15 @@ local gt = getroottable();
 					text = "Level: " + this.m.EL_Level
 				});
 			}
-			local position = 8;
+			local position = 7;
+			if (this.getStaminaModifier() < 0)
+			{
+				++position;
+			}
+			if (this.getVision() != 0)
+			{
+				++position;
+			}
 			foreach(upgrade in this.m.Upgrades)
 			{
 				if(upgrade != null)
@@ -530,6 +538,11 @@ local gt = getroottable();
 						result.insert(position, tool_tip);
 					}
 				}
+				result.insert(position{
+					id = 60,
+					type = "text",
+					text = "——————————————"
+				});
 			}
 			if(this.EL_getDamageHeadArmorReduction())
 			{
@@ -1017,9 +1030,18 @@ local gt = getroottable();
 					text = "Level: " + this.m.EL_Level
 				});
 			}
+			local position = 7;
+			if (this.getStaminaModifier() < 0)
+			{
+				++position;
+			}
+			if (this.getVision() != 0)
+			{
+				++position;
+			}
 			if(this.m.EL_DamageHeadArmorReduction)
 			{
-				result.insert(7, {
+				result.insert(position, {
 					id = 24,
 					type = "text",
 					icon = "ui/icons/melee_defense.png",
@@ -1028,7 +1050,7 @@ local gt = getroottable();
 			}
 			if(this.m.EL_DamageRegularReduction)
 			{
-				result.insert(7, {
+				result.insert(position, {
 					id = 24,
 					type = "text",
 					icon = "ui/icons/regular_damage.png",
