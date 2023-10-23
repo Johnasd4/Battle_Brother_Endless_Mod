@@ -34,8 +34,8 @@ this.el_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario
 		bros[0].setName("Test Name 0");
 		bros[0].setPlaceInFormation(4);
 		bros[0].getFlags().set("IsPlayerCharacter", true);
-//		bros[0].getSprite("miniboss").setBrush("bust_miniboss_lone_wolf");
-//		bros[0].setVeteranPerks(2);
+		//		bros[0].getSprite("miniboss").setBrush("bust_miniboss_lone_wolf");
+		//		bros[0].setVeteranPerks(2);
 		bros[0].m.BaseProperties.ActionPoints = 1000;
 		bros[0].m.BaseProperties.Hitpoints = 1000;
 		bros[0].m.BaseProperties.Bravery = 1000;
@@ -45,6 +45,7 @@ this.el_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario
 		bros[0].m.BaseProperties.RangedSkill = 1000;
 		bros[0].m.BaseProperties.MeleeDefense = 50;
 		bros[0].m.BaseProperties.RangedDefense = 50;
+		this.Const.EL_Player.EL_PerkTree.EL_AddRandomPerkTreeToPlayer(bros[0], 9999);
 		this.World.Assets.addBusinessReputation(this.m.StartingBusinessReputation);
 		this.World.Flags.set("HasLegendCampTraining", true);
 		this.World.Assets.getStash().add(this.new("scripts/items/supplies/smoked_ham_item"));
@@ -74,7 +75,6 @@ this.el_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario
 		this.World.Assets.EL_addEquipmentEssence(2, 999999);
 		this.World.Assets.EL_addEquipmentEssence(3, 999999);
 		this.World.Assets.EL_addEquipmentEssence(4, 999999);
-		EL_AddRandomPerkTreeToPlayer(bros[0], 9999);
 		this.World.Assets.m.Money = 999999;
 		this.World.Assets.m.ArmorParts = 99;
 		this.World.Assets.m.Medicine = 99;
