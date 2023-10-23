@@ -377,7 +377,7 @@ local gt = getroottable();
             // this.logInfo("_killer.getFaction() = " + _killer.getFaction());
             // this.logInfo("this.Const.Faction.PlayerAnimals = " + this.Const.Faction.PlayerAnimals);
             // this.logInfo("this.Const.Faction.Player = " + this.Const.Faction.Player);
-            if(_killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals) {
+            if(_killer != null && (_killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals)) {
 				this.World.Statistics.getFlags().set("EL_IfPlayerPartyKilled", true);
             }
             if (_killer == null || _killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals)

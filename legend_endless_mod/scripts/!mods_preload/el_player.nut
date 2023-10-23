@@ -391,7 +391,7 @@ local gt = getroottable();
 		{
 			this.m.Talents.resize(this.Const.Attributes.COUNT, 0);
 
-			if (this.getBackground() != null && this.getBackground().isBackgroundType(this.Const.BackgroundType.Untalented) && !_force)
+			if (this.getBackground() != null && !_force)
 			{
 				return;
 			}
