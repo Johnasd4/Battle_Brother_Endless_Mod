@@ -10,7 +10,6 @@ this.el_taunt_mult_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_
 
 	function getTooltip( _id )
 	{
-		this.logInfo("getTooltip");
 		local colour = this.EL_getEntryColour();
 		if(this.m.EL_CurrentLevel != 1)
 		{

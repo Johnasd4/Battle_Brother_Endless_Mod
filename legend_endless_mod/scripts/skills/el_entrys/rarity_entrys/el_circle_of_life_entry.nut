@@ -231,7 +231,7 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
     {
         local user = this.getContainer().getActor();
 		local fatigue_drain = this.Math.min(_targetEntity.getFatigueMax() - _targetEntity.getFatigue(), _targetEntity.getFatigueMax() * this.Const.EL_Rarity_Entry.Factor.EL_CircleofLife.FatigueDrainPercent);
-		this.logInfo("fatigue_drain:" + fatigue_drain);
+		//this.logInfo("fatigue_drain:" + fatigue_drain);
 		this.applyFatigueDamage(_targetEntity, fatigue_drain);
 		user.setFatigue(this.Math.max(0, user.getFatigue() - fatigue_drain));
 		local hitpoints_drain = this.Math.min(_targetEntity.getHitpoints(), _targetEntity.getHitpointsMax() * this.Const.EL_Rarity_Entry.Factor.EL_CircleofLife.HitpointsDrainPercent);

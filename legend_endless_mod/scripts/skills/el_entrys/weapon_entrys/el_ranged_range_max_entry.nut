@@ -14,7 +14,7 @@ this.el_ranged_range_max_entry <- this.inherit("scripts/skills/el_entrys/el_entr
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Weapon Skill range + " + this.Math.floor(this.m.EL_RangeMax) + "[/color]"
+			text = "[color=" + colour + "]Equipment range max + " + this.Math.floor(this.m.EL_RangeMax) + "[/color]"
 		};
 		return result;
 	}
@@ -38,35 +38,22 @@ this.el_ranged_range_max_entry <- this.inherit("scripts/skills/el_entrys/el_entr
 		this.m.EL_RangeMax = this.Const.EL_Weapon.EL_Entry.Factor.EL_RangedRangeMax.BaseRangeMax + this.Math.rand(randomMin, randomMax);
 	}
 
-	function onAfterUpdate( _properties )
-	{
-        local skills = this.getContainer().getActor().getSkills().m.Skills;
-		foreach( skill in skills )
-		{
-			if (skill.m.IsWeaponSkill)
-			{
-				skill.m.MaxRange += this.Math.floor(this.m.EL_RangeMax);
-			}
-		}
-	}
-
 	function EL_strengthen()
 	{
-		this.m.EL_RangeMax = this.Const.EL_Weapon.EL_Entry.EntryStrengthenMult * this.Const.EL_Weapon.EL_Entry.Factor.EL_RangeMax.ColourRange[this.Const.EL_Item.Type.Legendary];
+		this.m.EL_RangeMax = this.Const.EL_Weapon.EL_Entry.EntryStrengthenMult * this.Const.EL_Weapon.EL_Entry.Factor.EL_RangedRangeMax.ColourRange[this.Const.EL_Item.Type.Legendary];
 	}
 
 	function EL_onUpgradeRank()
 	{
 		if(EL_getEntryColour() != this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Legendary])
 		{
-			this.m.EL_RangeMax += this.Const.EL_Weapon.EL_Entry.Factor.EL_RangeMax.RandomMaxRangeMax[this.Const.EL_Item.Type.Normal] / 2;
+			this.m.EL_RangeMax += this.Const.EL_Weapon.EL_Entry.Factor.EL_RangedRangeMax.RandomMaxRangeMax[this.Const.EL_Item.Type.Normal] / 2;
 		}
 	}
 
-	function EL_refreshTotalEntry( _EL_totalEntry )
+	function EL_onItemUpdate( _item )
 	{
-		++_EL_totalEntry.m.EL_EntryNum;
-		_EL_totalEntry.m.EL_RangedRangeMax += this.Math.floor(this.m.EL_RangeMax);
+        _item.m.RangeMax = _item.m.EL_BaseWithRankRangeMax + this.m.EL_RangeMax;
 	}
     
     function onSerialize( _out )
