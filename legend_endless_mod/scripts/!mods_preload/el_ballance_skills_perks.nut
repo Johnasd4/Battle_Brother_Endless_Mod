@@ -1017,7 +1017,7 @@ local gt = getroottable();
 		o.onUpdateLevel = function()
 		{
 			local actor = this.getContainer().getActor();
-			if(!this.m.IsSpent && this.Math.rand(1, 1000) <= 5) {
+			if(!this.m.IsSpent && this.Math.rand(1, 1000) <= 1000) {
 				this.m.IsSpent = true;
 				local bg = actor.getBackground();
 				bg.m.Description += " Once a dreg of society, with your help, " + actor.getNameOnly() + " has grown into a full-fledged mercenary.";
@@ -1026,8 +1026,8 @@ local gt = getroottable();
 				actor.m.PerkPoints += 5;
 				actor.m.LevelUps += 10;
 
-				for(local i = 0 ;i < this.Const.Attributes.len(); ++i) {
-					actor.m.Talents[i] = this.Math.min(3, actor.m.Talents[i] + 1);
+				for(local i = 0 ;i < this.Const.Attributes.COUNT; ++i) {
+					actor.m.Talents[i] = this.Math.min(4, actor.m.Talents[i] + 1);
 				}
 				this.Const.EL_Player.EL_PerkTree.EL_AddRandomPerkTreeToPlayer(actor, 50);
 				actor.resetPerks();
@@ -1330,7 +1330,7 @@ gt.Const.EL_Config.EL_modStrings <- function()
         },
 		{
             ID = "perk.ptr_promised_potential",
-            tooltip = "The Captain said he\'d take a gamble on you, but you\'d better not disappoint!\n\n[color=" + this.Const.UI.Color.OneTimeEffect + "][u]One-Time Effect:[/u][/color]\n• Every time level ups, it has a [color=" + this.Const.UI.Color.PositiveValue + "]0.5%[/color] chance of being replaced with \'Realized Potential\' which will increase all talents by [color=" + this.Const.UI.Color.PositiveValue + "]+1[/color], get [color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] level ups, get [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color] perk points, unlock about [color=" + this.Const.UI.Color.PositiveValue + "]+50[/color] perks, and refund all perk points, including the one spent on this perk."
+            tooltip = "The Captain said he\'d take a gamble on you, but you\'d better not disappoint!\n\n[color=" + this.Const.UI.Color.OneTimeEffect + "][u]One-Time Effect:[/u][/color]\n• Every time level ups, it has a [color=" + this.Const.UI.Color.PositiveValue + "]1%[/color] chance of being replaced with \'Realized Potential\' which will increase all talents by [color=" + this.Const.UI.Color.PositiveValue + "]+1[/color], get [color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] level ups, get [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color] perk points, unlock about [color=" + this.Const.UI.Color.PositiveValue + "]+50[/color] perks, and refund all perk points, including the one spent on this perk."
         },
         {
             ID = "perk.ptr_through_the_ranks",

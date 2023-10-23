@@ -135,36 +135,36 @@ gt.Const.EL_Player <- {
 
     EL_LevelUpAttributes = [
         {//Hitpoints
-            Min = [2, 3, 4, 4],
-            Max = [4, 4, 4, 5]
+            Min = [2, 3, 4, 4, 5],
+            Max = [4, 4, 4, 5, 5]
         },
         {//Bravery
-            Min = [1, 1, 2, 2],
-            Max = [1, 2, 2, 3]
+            Min = [1, 1, 2, 2, 3],
+            Max = [1, 2, 2, 3, 3]
         },
         {//Fatigue
-            Min = [2, 3, 4, 4],
-            Max = [4, 4, 4, 5]
+            Min = [2, 3, 4, 4, 5],
+            Max = [4, 4, 4, 5, 5]
         },
         {//Initiative
-            Min = [3, 4, 5, 5],
-            Max = [5, 5, 5, 6]
+            Min = [3, 4, 5, 5, 6],
+            Max = [5, 5, 5, 6, 6]
         },
         {//MeleeSkill
-            Min = [1, 2, 3, 3],
-            Max = [3, 3, 3, 4]
+            Min = [1, 2, 3, 3, 4],
+            Max = [3, 3, 3, 4, 4]
         },
         {//RangedSkill
-            Min = [2, 3, 4, 4],
-            Max = [4, 4, 4, 5]
+            Min = [2, 3, 4, 4, 5],
+            Max = [4, 4, 4, 5, 5]
         },
         {//MeleeDefense
-            Min = [1, 2, 3, 3],
-            Max = [3, 3, 3, 4]
+            Min = [1, 2, 3, 3, 4],
+            Max = [3, 3, 3, 4, 4]
         },
         {//RangedDefense
-            Min = [1, 2, 3, 3],
-            Max = [3, 3, 3, 4]
+            Min = [1, 2, 3, 3, 4],
+            Max = [3, 3, 3, 4, 4]
         }
     ],
 
@@ -360,6 +360,12 @@ gt.Const.EL_Player <- {
 
                         }
                     }
+                    else {
+                        break;
+                    }
+                }
+                else {
+                    break;
                 }
             }
         }

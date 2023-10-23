@@ -213,28 +213,28 @@ local gt = getroottable();
 				}
 			}
 
-			for( local i = 0; i != this.Const.Attributes.COUNT; i = ++i )
-			{
-				for( local j = 0; j < _amount; j = ++j )
-				{
-					if (_minOnly)
-					{
-						this.m.Attributes[i].insert(0, this.Const.EL_Player.EL_LevelUpAttributes[i].Min[this.m.Talents[i]]);
-					}
-					else if (_maxOnly)
-					{
-						this.m.Attributes[i].insert(0, this.Const.EL_Player.EL_LevelUpAttributes[i].Max[this.m.Talents[i]]);
-					}
-					else
-					{
-						this.m.Attributes[i].insert(0, this.Math.rand(this.Const.EL_Player.EL_LevelUpAttributes[i].Min[this.m.Talents[i]],
-																	  this.Const.EL_Player.EL_LevelUpAttributes[i].Max[this.m.Talents[i]]));
-					}
-					// this.logInfo("this.m.Attributes[" + i + "][0] = " + this.m.Attributes[i][0]);
-					// this.logInfo("this.m.Attributes[" + i + "][0] min = " + this.Const.EL_Player.EL_LevelUpAttributes[i].Min[this.m.Talents[i]]);
-					// this.logInfo("this.m.Attributes[" + i + "][0] max = " + this.Const.EL_Player.EL_LevelUpAttributes[i].Max[this.m.Talents[i]]);
-				}
-			}
+			// for( local i = 0; i != this.Const.Attributes.COUNT; i = ++i )
+			// {
+			// 	for( local j = 0; j < _amount; j = ++j )
+			// 	{
+			// 		if (_minOnly)
+			// 		{
+			// 			this.m.Attributes[i].insert(0, this.Const.EL_Player.EL_LevelUpAttributes[i].Min[this.m.Talents[i]]);
+			// 		}
+			// 		else if (_maxOnly)
+			// 		{
+			// 			this.m.Attributes[i].insert(0, this.Const.EL_Player.EL_LevelUpAttributes[i].Max[this.m.Talents[i]]);
+			// 		}
+			// 		else
+			// 		{
+			// 			this.m.Attributes[i].insert(0, this.Math.rand(this.Const.EL_Player.EL_LevelUpAttributes[i].Min[this.m.Talents[i]],
+			// 														  this.Const.EL_Player.EL_LevelUpAttributes[i].Max[this.m.Talents[i]]));
+			// 		}
+			// 		// this.logInfo("this.m.Attributes[" + i + "][0] = " + this.m.Attributes[i][0]);
+			// 		// this.logInfo("this.m.Attributes[" + i + "][0] min = " + this.Const.EL_Player.EL_LevelUpAttributes[i].Min[this.m.Talents[i]]);
+			// 		// this.logInfo("this.m.Attributes[" + i + "][0] max = " + this.Const.EL_Player.EL_LevelUpAttributes[i].Max[this.m.Talents[i]]);
+			// 	}
+			// }
 		};
 
 		o.getAttributeLevelUpValues = function ()
