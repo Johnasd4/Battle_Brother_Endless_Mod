@@ -76,6 +76,17 @@ local gt = getroottable();
 			}
 		}
 
+		local isReallyKilled = o.isReallyKilled;
+		o.isReallyKilled = function( _fatalityType ) {
+			local result = isReallyKilled(_fatalityType);
+			if(result == false) {
+				if (this.m.Hitpoints < 0) {
+					this.m.Hitpoints = 1;
+				}
+			}
+			return false;
+		}
+
 
 		o.updateLevel = function ()
 		{
