@@ -15,7 +15,7 @@ local gt = getroottable();
 		o.onDeserialize = function ( _in )
 		{
 			onDeserialize( _in );
-			this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(this.m.Level, background);
+			this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(this.m.Level, this.m.Background);
 		}
 
 		o.EL_getLevel <- function()
@@ -107,8 +107,7 @@ local gt = getroottable();
 
 				this.EL_removeRandomPoints();
 
-				local background = this.getBackground();
-				this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(this.m.Level, background);
+				this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(this.m.Level, this.m.Background);
 				//this.m.Skills.onUpdateLevel();
 
 			}
@@ -127,8 +126,7 @@ local gt = getroottable();
 
 				this.EL_addRandomPoints();
 
-				local background = this.getBackground();
-				this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(this.m.Level, background);
+				this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(this.m.Level, this.m.Background);
 				this.m.Skills.onUpdateLevel();
 
 				// if (this.m.Level == 11 && this.m.Skills.hasSkill("perk.student"))

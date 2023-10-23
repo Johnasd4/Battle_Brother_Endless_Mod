@@ -1115,6 +1115,38 @@ local gt = getroottable();
 		}
 	});
 
+	::mods_hookExactClass("skills/perks/perk_ptr_unstoppable", function ( o )
+	{
+
+		o.onTargetHit = function( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
+		{
+			local actor = this.getContainer().getActor();
+            if(actor == null || actor.isDying() || !actor.isAlive()) {
+                return;
+            }
+			if (!_skill.isAttack() || _targetEntity.isAlliedWith(actor) || this.Tactical.TurnSequenceBar.getActiveEntity() == null || this.Tactical.TurnSequenceBar.getActiveEntity().getID() != actor.getID())
+			{
+				return;
+			}
+
+			this.m.Stacks = this.Math.minf(this.m.MaxStacks, this.m.Stacks + (this.m.Distance > 1 ? 0.5 : 1));
+			actor.setActionPoints(actor.getActionPoints() + this.getAPBonus() - this.m.APBonusBefore);
+		}
+
+		o.onTargetMissed = function( _skill, _targetEntity )
+		{
+			local actor = this.getContainer().getActor();
+            if(actor == null || actor.isDying() || !actor.isAlive()) {
+                return;
+            }
+			if (_skill.isAttack() && !_targetEntity.isAlliedWith(actor))
+			{
+				this.m.Stacks = this.Math.floor(this.m.Stacks / 2);
+			}
+		}
+	});
+
+
 	::mods_hookExactClass("skills/perks/perk_ptr_utilitarian", function ( o )
 	{
 
