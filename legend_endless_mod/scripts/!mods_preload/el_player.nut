@@ -1401,6 +1401,7 @@ local gt = getroottable();
 			_target.rangeSkillMax <- this.Const.EL_Player.EL_PlayerStatesBoard.RangeSkillMax;
 			_target.meleeDefenseMax <- this.Const.EL_Player.EL_PlayerStatesBoard.MeleeDefenseMax;
 			_target.rangeDefenseMax <- this.Const.EL_Player.EL_PlayerStatesBoard.RangeDefenseMax;
+			_target.actionPoints <- _entity.getActionPoints() >= 0 ? _entity.getActionPoints() : 0;
 			_target.regularDamage <- properties.getRegularDamageAverage();
 			_target.regularDamageMax <- this.Const.EL_Player.EL_PlayerStatesBoard.RegularDamageMax;
 			_target.crushingDamageMax <- this.Const.EL_Player.EL_PlayerStatesBoard.CrushingDamageMax;
