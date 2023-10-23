@@ -578,7 +578,6 @@ local gt = getroottable();
 			{
 				this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Weapon.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
 			}
-			this.m.Condition = this.m.Condition > this.m.ConditionMax ? this.m.ConditionMax : this.m.Condition;
 			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Weapon.EL_LevelFactor.Value * this.m.EL_Level));
 			this.m.RegularDamage = this.Math.ceil(this.m.EL_BaseWithRankRegularDamage * (1 + this.Const.EL_Weapon.EL_LevelFactor.RegularDamage * this.m.EL_CurrentLevel));
 			this.m.RegularDamageMax = this.Math.ceil(this.m.EL_BaseWithRankRegularDamageMax * (1 + this.Const.EL_Weapon.EL_LevelFactor.RegularDamageMax * this.m.EL_CurrentLevel));
@@ -595,6 +594,7 @@ local gt = getroottable();
 					entry.EL_onItemUpdate(this);
 				}
 			}
+			this.m.Condition = this.m.Condition > this.m.ConditionMax ? this.m.ConditionMax : this.m.Condition;
 		}
 
         o.EL_init <- function()
@@ -674,7 +674,7 @@ local gt = getroottable();
 				}
 				else
 				{
-					result[rank_level] += this.Math.floor(this.Const.EL_Weapon.EL_EquipmentEssence.UpgradeRankFactor * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) 
+					result[rank_level] += this.Math.ceil(this.Const.EL_Weapon.EL_EquipmentEssence.UpgradeRankFactor * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) 
 										* (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
 				}
 				
@@ -721,7 +721,7 @@ local gt = getroottable();
 				local min_calculate_weight = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_EquipmentEssence.OneHandedMinCalculateWeight : this.Const.EL_Weapon.EL_EquipmentEssence.TwoHandedMinCalculateWeight;
 				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Weapon.EL_EquipmentEssence.RankFactor, rank_level) * this.Const.EL_Weapon.EL_EquipmentEssence.RecraftFactor 
 														* this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)));
-				result[rank_level] += this.Math.floor(this.Const.EL_Weapon.EL_EquipmentEssence.SeniorEquipmentEssenceMult * this.Const.EL_Weapon.EL_EquipmentEssence.RecraftFactor 
+				result[rank_level] += this.Math.ceil(this.Const.EL_Weapon.EL_EquipmentEssence.SeniorEquipmentEssenceMult * this.Const.EL_Weapon.EL_EquipmentEssence.RecraftFactor 
 											 * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)))
 			}
 			return result;

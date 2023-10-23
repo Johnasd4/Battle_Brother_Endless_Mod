@@ -57,7 +57,7 @@ this.el_xp_gain_mult_entry <- this.inherit("scripts/skills/el_entrys/el_accessor
 	{
 		if(EL_getEntryColour() != this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Legendary])
 		{
-			this.m.EL_XPGainMult += this.Const.EL_Accessory.EL_Entry.Factor.EL_XPGainMult.RandomMaxXPGainMult[this.Const.EL_Item.Type.Normal] / 2;
+			this.m.EL_XPGainMult += this.Const.EL_Accessory.EL_Entry.Factor.EL_XPGainMult.RandomMaxXPGainMult[this.Const.EL_Item.Type.Normal] / 2 * 0.01;
 		}
 	}
 
