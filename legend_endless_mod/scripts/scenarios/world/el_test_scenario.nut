@@ -27,7 +27,7 @@ this.el_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario
 		local bros = roster.getAll();
 		bros[0].setStartValuesEx([
 			"el_test_background"
-		]);
+		], true, -1, true, 2);
 		bros[0].m.HireTime = this.Time.getVirtualTimeF();
 		bros[0].getBackground().buildDescription(true);
 		bros[0].setTitle("测试");
@@ -43,8 +43,8 @@ this.el_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario
 		bros[0].m.BaseProperties.Initiative = 1000;
 		bros[0].m.BaseProperties.MeleeSkill = 1000;
 		bros[0].m.BaseProperties.RangedSkill = 1000;
-		bros[0].m.BaseProperties.MeleeDefense = 50;
-		bros[0].m.BaseProperties.RangedDefense = 50;
+		bros[0].m.BaseProperties.MeleeDefense = 1000;
+		bros[0].m.BaseProperties.RangedDefense = 1000;
 		this.Const.EL_Player.EL_PerkTree.EL_AddRandomPerkTreeToPlayer(bros[0], 9999);
 		this.World.Assets.addBusinessReputation(this.m.StartingBusinessReputation);
 		this.World.Flags.set("HasLegendCampTraining", true);
