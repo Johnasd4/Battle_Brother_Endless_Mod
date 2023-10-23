@@ -771,21 +771,27 @@ local gt = getroottable();
 
 		o.onTurnEnd <- function()
 		{
-			this.m.EL_CurrentTurnActionPointsOffset = this.m.EL_NextTurnActionPointsOffset;
+			this.m.EL_CurrentTurnActionPointsOffset = this.Math.min(9, this.m.EL_NextTurnActionPointsOffset);
 			this.m.EL_NextTurnActionPointsOffset = this.Math.max(0, this.m.EL_NextTurnActionPointsOffset - 9);
 		}
 
+		o.onCombatStarted <- function()
+		{
+			this.m.EL_CurrentTurnActionPointsOffset = 0;
+			this.m.EL_NextTurnActionPointsOffset = 0;
+			this.skill.onCombatStarted();
+		}
 
 		o.onCombatFinished <- function()
 		{
-			this.m.EL_NextTurnActionPointsOffset = 0;
+			this.m.EL_CurrentTurnActionPointsOffset = 0;
 			this.m.EL_NextTurnActionPointsOffset = 0;
 			this.skill.onCombatFinished();
 		}
 
 		o.onUpdate <- function( _properties )
 		{
-			_properties.ActionPoints += this.Math.min(9, this.m.EL_CurrentTurnActionPointsOffset);
+			_properties.ActionPoints += this.m.EL_CurrentTurnActionPointsOffset;
 		}
 
 	});
@@ -1013,7 +1019,7 @@ local gt = getroottable();
 		o.onUpdateLevel = function()
 		{
 			local actor = this.getContainer().getActor();
-			if(this.m.WillSucceed && this.Math.rand(1, 1000) <= 1) {
+			if(this.m.WillSucceed && this.Math.rand(1, 1000) <= 5) {
 				if (!this.m.IsSpent)
 				{
 					this.m.IsSpent = true;

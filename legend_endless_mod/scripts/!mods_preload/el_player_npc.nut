@@ -341,6 +341,22 @@ local gt = getroottable();
 			this.onUpdateInjuryLayer();
 		}
 
+		local onDeath = o.onDeath;
+		o.onDeath = function( _killer, _skill, _tile, _fatalityType )
+		{
+			onDeath(_killer, _skill, _tile, _fatalityType);
+			if (_fatalityType != this.Const.FatalityType.None && _killer != null && this.Tactical.TurnSequenceBar.getActiveEntity() != null && this.Tactical.TurnSequenceBar.getActiveEntity().getID() == _killer.getID())
+			{
+				if (_skill != null && _skill.isAttack() && !_skill.isRanged())
+				{
+					if (_killer.getSkills().hasSkill("perk.ptr_bloodbath"))
+					{
+						_killer.setActionPoints(this.Math.min(_killer.getActionPointsMax(), _killer.getActionPoints() - 3));
+					}
+				}
+			}
+		}
+
 		o.checkMorale = function(_change, _difficulty, _type = this.Const.MoraleCheckType.Default, _showIconBeforeMoraleIcon = "", _noNewLine = false, _EL_noCheck = false)
 		{
 
