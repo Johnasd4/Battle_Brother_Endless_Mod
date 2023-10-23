@@ -331,7 +331,7 @@ local gt = getroottable();
                                 }
                                 item = this.new("scripts/items/el_misc/el_core_rank_" + core_rank + "_item");
                                 local core_xp = this.Const.EL_Shop.EL_Core.XPOffset - this.Math.pow(this.Math.rand(this.Math.pow(this.Const.EL_Shop.EL_Core.XPMin[core_rank], 4), this.Math.pow(this.Const.EL_Shop.EL_Core.XPMax[core_rank], 4)), 0.25);
-                                this.logInfo("core_xp:" + core_xp);
+                                //this.logInfo("core_xp:" + core_xp);
                                 core_xp *= this.Math.pow(this.Const.EL_NPC.EL_LevelUp.XPFactor, this.Math.max(0, xp_level - this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset));
                                 //this.logInfo("xp_level:" + xp_level);
                                 //this.logInfo("mult:" + this.Math.pow(this.Const.EL_NPC.EL_LevelUp.XPFactor, this.Math.max(1, xp_level - this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset)));
