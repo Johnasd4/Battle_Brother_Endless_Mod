@@ -149,11 +149,11 @@ gt.Const.EL_Item_Other <- {
 
 			if(random <= this.Const.EL_Shop.EL_ItemRankUpTwiceChance.EL_getChance(EL_worldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor())
 			{
-				_item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Premium, level);
+				_item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.PremiumFine, level);
 			}
 			else if(random <= (this.Const.EL_Shop.EL_ItemRankUpTwiceChance.EL_getChance(EL_worldLevel) + this.Const.EL_Shop.EL_ItemRankUpOnceChance.EL_getChance(EL_worldLevel)) * this.World.Assets.EL_getHalfWorldDifficultFactor())
 			{
-				_item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Fine, level);
+				_item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Premium, level);
 			}
 			else
 			{

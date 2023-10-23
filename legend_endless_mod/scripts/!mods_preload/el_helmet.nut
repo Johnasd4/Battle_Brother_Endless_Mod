@@ -296,6 +296,7 @@ local gt = getroottable();
 			if(this.m.EL_Level < this.Const.EL_Item.MaxLevel)
 			{
 				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+				this.m.IsBought = false;
 				this.m.EL_Level += 1;
 				this.m.EL_CurrentLevel = this.m.EL_Level;
 				EL_updateLevelProperties();
@@ -307,6 +308,7 @@ local gt = getroottable();
 			if(EL_getRankLevel() < EL_getRankLevelMax())
 			{
 				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+				this.m.IsBought = false;
 				++this.m.EL_RankLevel;
 				foreach(entry in this.m.EL_EntryList)
 				{
@@ -336,6 +338,7 @@ local gt = getroottable();
 			if(this.m.EL_RankLevel && this.m.EL_Level != -1)
 			{
 				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+				this.m.IsBought = false;
 				EL_init();
 				this.m.EL_EntryList.clear();
 				this.m.EL_RankPropertiesImproveIndex.clear();
@@ -440,9 +443,9 @@ local gt = getroottable();
 			{
 				++result[this.Const.EL_Item.Type.Legendary];
 			}
-			else
+			else if(this.m.EL_RankLevel != this.Const.EL_Item.Type.Normal)
 			{
-				result[this.m.EL_RankLevel] += this.Math.floor(this.Const.EL_Helmet.EL_EquipmentEssence.DisassembleFactor
+				result[this.m.EL_RankLevel] += this.Math.ceil(this.Const.EL_Helmet.EL_EquipmentEssence.DisassembleFactor
 											 * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
 			}
 			return result;
@@ -897,8 +900,7 @@ local gt = getroottable();
 				}
 				else
 				{
-					result[rank_level] += this.Math.ceil(this.Const.EL_Helmet.EL_EquipmentEssence.UpgradeRankFactor * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) 
-										* (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
+					result[rank_level] += this.Math.ceil(this.Const.EL_Helmet.EL_EquipmentEssence.UpgradeRankFactor * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier)));
 				}
 				for(local index = 0; index < this.m.EL_Level; ++index)
 				{
@@ -924,10 +926,9 @@ local gt = getroottable();
 			{
 				++result[this.Const.EL_Item.Type.Legendary];
 			}
-			else
+			else if(this.m.EL_RankLevel != this.Const.EL_Item.Type.Normal)
 			{
-				result[this.m.EL_RankLevel] += this.Math.floor(this.Const.EL_Helmet.EL_EquipmentEssence.DisassembleFactor
-											 * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
+				result[this.m.EL_RankLevel] += this.Math.ceil(this.Const.EL_Helmet.EL_EquipmentEssence.DisassembleFactor * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier)));
 			}
 			foreach(upgrade in this.m.Upgrades)
             {
@@ -960,7 +961,7 @@ local gt = getroottable();
 				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Helmet.EL_EquipmentEssence.RankFactor, rank_level) * this.Const.EL_Helmet.EL_EquipmentEssence.RecraftFactor 
 														* this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)));
 				result[rank_level] += this.Math.ceil(this.Const.EL_Helmet.EL_EquipmentEssence.SeniorEquipmentEssenceMult * this.Const.EL_Helmet.EL_EquipmentEssence.RecraftFactor 
-									* this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)))
+									* this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier)));
 			}
 			return result;
 		}
@@ -1309,6 +1310,7 @@ local gt = getroottable();
 			if(this.m.EL_Level < this.Const.EL_Item.MaxLevel)
 			{
 				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+				this.m.IsBought = false;
 				this.m.EL_Level += 1;
 				this.m.EL_CurrentLevel = this.m.EL_Level;
 				EL_updateLevelProperties();
@@ -1320,6 +1322,7 @@ local gt = getroottable();
 			if(EL_getRankLevel() < EL_getRankLevelMax())
 			{
 				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+				this.m.IsBought = false;
 				++this.m.EL_RankLevel;
 				foreach(entry in this.m.EL_EntryList)
 				{
@@ -1348,6 +1351,7 @@ local gt = getroottable();
 			if(this.m.EL_RankLevel && this.m.EL_Level != -1)
 			{
 				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
+				this.m.IsBought = false;
 				EL_init();
 				this.m.EL_EntryList.clear();
 				this.m.EL_RankPropertiesImproveIndex.clear();
@@ -1436,8 +1440,7 @@ local gt = getroottable();
 				}
 				else
 				{
-					result[rank_level] += this.Math.ceil(this.Const.EL_Helmet.EL_EquipmentEssence.UpgradeRankFactor * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) 
-										* (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
+					result[rank_level] += this.Math.ceil(this.Const.EL_Helmet.EL_EquipmentEssence.UpgradeRankFactor * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier)));
 				}
 				for(local index = 0; index < this.m.EL_Level; ++index)
 				{
@@ -1463,10 +1466,9 @@ local gt = getroottable();
 			{
 				++result[this.Const.EL_Item.Type.Legendary];
 			}
-			else
+			else if(this.m.EL_RankLevel != this.Const.EL_Item.Type.Normal)
 			{
-				result[this.m.EL_RankLevel] += this.Math.floor(this.Const.EL_Helmet.EL_EquipmentEssence.DisassembleFactor
-											 * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
+				result[this.m.EL_RankLevel] += this.Math.ceil(this.Const.EL_Helmet.EL_EquipmentEssence.DisassembleFactor * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier)));
 			}
 			return result;
 		}
@@ -1481,7 +1483,7 @@ local gt = getroottable();
 				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Helmet.EL_EquipmentEssence.RankFactor, rank_level) * this.Const.EL_Helmet.EL_EquipmentEssence.RecraftFactor 
 														* this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)));
 				result[rank_level] += this.Math.ceil(this.Const.EL_Helmet.EL_EquipmentEssence.SeniorEquipmentEssenceMult * this.Const.EL_Helmet.EL_EquipmentEssence.RecraftFactor 
-									* this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Helmet.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)))
+									* this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier)));
 			}
 			return result;
 		}

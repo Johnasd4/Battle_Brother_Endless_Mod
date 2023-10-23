@@ -98,6 +98,46 @@ local gt = getroottable();
                     }
 				]);
 			}
+            if ( _id == "building.armorsmith_oriental")
+            {
+				_list.extend([
+					{
+                        R = 10,
+                        P = 1.0,
+                        S = "el_supplies/el_equipment_essence_rank_0_item"
+                    },
+                    {
+                        R = 50,
+                        P = 1.0,
+                        S = "el_supplies/el_equipment_essence_rank_0_item"
+                    },
+                    {
+                        R = 50,
+                        P = 1.0,
+                        S = "el_supplies/el_equipment_essence_rank_0_item"
+                    }
+				]);
+			}
+            if ( _id == "building.weaponsmith_oriental")
+            {
+				_list.extend([
+					{
+                        R = 10,
+                        P = 1.0,
+                        S = "el_supplies/el_equipment_essence_rank_0_item"
+                    },
+                    {
+                        R = 50,
+                        P = 1.0,
+                        S = "el_supplies/el_equipment_essence_rank_0_item"
+                    },
+                    {
+                        R = 50,
+                        P = 1.0,
+                        S = "el_supplies/el_equipment_essence_rank_0_item"
+                    }
+				]);
+			}
 			foreach( loc in this.m.AttachedLocations )
 			{
 				if (loc.isActive())

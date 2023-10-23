@@ -57,7 +57,7 @@ this.el_hitpoints_recovery_rate_entry <- this.inherit("scripts/skills/el_entrys/
 	{
 		if(EL_getEntryColour() != this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Legendary])
 		{
-			this.m.EL_HitpointsRecoveryRate += this.Const.EL_Accessory.EL_Entry.Factor.EL_HitpointsRecoveryRate.RandomMaxHitpointsRecoveryRate[this.Const.EL_Item.Type.Normal] / 2;
+			this.m.EL_HitpointsRecoveryRate += this.Const.EL_Accessory.EL_Entry.Factor.EL_HitpointsRecoveryRate.RandomMaxHitpointsRecoveryRate[this.Const.EL_Item.Type.Normal] / 2 * 0.01;
 		}
 	}
 

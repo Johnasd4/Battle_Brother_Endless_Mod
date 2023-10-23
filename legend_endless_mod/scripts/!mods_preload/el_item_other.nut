@@ -169,6 +169,11 @@ local gt = getroottable();
 						}
 					}
 					local is_layered_armor = _item.EL_getArmorType() == this.Const.EL_Item.ArmorType.BaseArmor;
+					local upgrade_rank_string = _item.EL_getRankLevel() == _item.EL_getRankLevelMax() ? " to have it strengthen entry" : " to have it upgrade rank";
+					if(_item.EL_isNeedRarityEntry())
+					{
+						upgrade_rank_string = " to get rarity entry";
+					}
 					local can_opearte = true;
 					if(is_layered_armor)
 					{
@@ -247,7 +252,7 @@ local gt = getroottable();
 								id = 4,
 								type = "hint",
 								icon = "ui/icons/mouse_right_button_ctrl_and_alt.png",
-								text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + " to have it upgrade rank"
+								text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + upgrade_rank_string
 							});
 							break;
 						case 2:
@@ -256,7 +261,7 @@ local gt = getroottable();
 								type = "hint",
 								icon = "ui/icons/mouse_right_button_ctrl_and_alt.png",
 								text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + " to have it upgrade rank"
+								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + upgrade_rank_string
 							});
 							break;
 						case 3:
@@ -266,7 +271,7 @@ local gt = getroottable();
 								icon = "ui/icons/mouse_right_button_ctrl_and_alt.png",
 								text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[2]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + " to have it upgrade rank"
+								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + upgrade_rank_string
 							});
 							break;
 						case 4:
@@ -277,7 +282,7 @@ local gt = getroottable();
 								text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[3] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[3]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[2]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + " to have it upgrade rank"
+								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + upgrade_rank_string
 							});
 							break;
 						case 5:
@@ -289,7 +294,7 @@ local gt = getroottable();
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[3] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[3]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[2]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + " to have it upgrade rank"
+								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + upgrade_rank_string
 							});
 							break;
 						}
