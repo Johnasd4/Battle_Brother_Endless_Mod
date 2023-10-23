@@ -387,7 +387,7 @@ local gt = getroottable();
                 bro = roster.create("scripts/entity/tactical/player");
                 bro.setStartValuesEx([
                     "gladiator_origin_background"
-                ], true, -1, true, i == player_unit ? 2 : 0);
+                ], true, -1, true, i == player_unit ? 2 : 1);
                 bro.getSkills().removeByID("trait.survivor");
                 bro.getSkills().removeByID("trait.greedy");
                 bro.getSkills().removeByID("trait.loyal");
