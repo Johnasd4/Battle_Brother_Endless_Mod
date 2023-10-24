@@ -41,9 +41,9 @@ this.el_entry <- this.inherit("scripts/skills/skill", {
 
 	function onAdded()
 	{
-		if(this.getContainer() != null && this.getContainer().getActor().getFaction() == this.Const.Faction.Player)
+		if(this.getContainer() != null)
 		{
-			this.m.Container.add(this.new("scripts/skills/el_entrys/el_total_entry"));
+			this.getContainer().add(this.new("scripts/skills/el_entrys/el_total_entry"));
 		}
 	}
 
