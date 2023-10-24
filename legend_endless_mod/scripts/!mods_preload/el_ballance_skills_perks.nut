@@ -861,10 +861,16 @@ local gt = getroottable();
 		o.onAdded = function()
 		{
 			local actor = this.getContainer().getActor();
+			if (this.m.IsApplied || !this.getContainer().getActor().isPlayerControlled() || actor.m.Talents.len() < this.Const.Attributes.COUNT)
+			{
+				return;
+			}
+			this.m.IsApplied = true;
 			actor.m.LevelUps += 1;
 			for(local i = 0 ;i < this.Const.Attributes.COUNT; ++i) {
 				actor.m.Talents[i] = this.Math.min(4, actor.m.Talents[i] + 1);
 			}
+
 		}
 	});
 
@@ -1004,11 +1010,6 @@ local gt = getroottable();
 	{
 		o.onAdded = function()
 		{
-			if (this.m.IsSet || !this.getContainer().getActor().isPlayerControlled())
-			{
-				return;
-			}
-			this.m.IsSet = true;
 		}
 
 		o.updatePerkVisuals = function ()

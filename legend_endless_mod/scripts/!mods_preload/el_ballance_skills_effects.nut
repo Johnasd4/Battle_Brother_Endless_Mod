@@ -947,6 +947,37 @@ local gt = getroottable();
 
 	});
 
+	::mods_hookExactClass("skills/effects/legend_vala_chant_fury_effect", function ( o )
+	{
+        o.onDamageReceived = function( _attacker, _damageHitpoints, _damageArmor )
+        {
+            if (_attacker == null || this.Tactical.TurnSequenceBar.getActiveEntity() == null || _attacker.isAlliedWith(this.getContainer().getActor()) || this.Tactical.TurnSequenceBar.getActiveEntity().getID() != _attacker.getID() || !this.isInRange() || this.getContainer().getActor().getTile().getDistanceTo(_attacker.getTile()) != 1)
+            {
+                return;
+            }
+
+            local chance = this.getPayBackChance();
+
+            if (this.Math.rand(1, 100) <= chance)
+            {
+                local payback = this.getContainer().getActor().getSkills().getAttackOfOpportunity();
+
+                if (payback != null)
+                {
+                    this.getContainer().setBusy(true);
+                    local attackinfo = {
+                        User = this.getContainer().getActor(),
+                        Skill = payback,
+                        TargetTile = _attacker.getTile(),
+                        Container = this.getContainer()
+                    };
+                    this.Time.scheduleEvent(this.TimeUnit.Virtual, this.Const.Combat.RiposteDelay, this.onPerformPaypack, attackinfo);
+                }
+            }
+        }
+	});
+
+
 	::mods_hookExactClass("skills/effects/legend_veteran_levels_effect", function ( o )
 	{
 		o.onUpdateLevel = function ()
