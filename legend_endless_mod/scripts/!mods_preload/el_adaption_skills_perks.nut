@@ -104,8 +104,20 @@ local gt = getroottable();
         }
 	});
 
+    local onApplyFire = gt.Const.Tactical.Common.onApplyFire;
+    gt.Const.Tactical.Common.onApplyFire = function( _tile, _entity ) {
+        if(_entity == null || _entity.isDying() || !_entity.isAlive()) {
+            return;
+        }
+        onApplyFire(_tile, _entity);
+    }
 
-
-
+    local onApplyFirefield = gt.Const.Tactical.Common.onApplyFirefield;
+    gt.Const.Tactical.Common.onApplyFirefield = function( _tile, _entity ) {
+        if(_entity == null || _entity.isDying() || !_entity.isAlive()) {
+            return;
+        }
+        onApplyFirefield(_tile, _entity);
+    }
 
 });

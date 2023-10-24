@@ -99,7 +99,8 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
         {
             local user = this.getContainer().getActor();
 			local distance = _attacker.getTile().getDistanceTo(user.getTile());
-            if(distance > item.getRangeMax())
+			local item = this.m.Container.getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+			if(distance > item.getRangeMax())
             {
                 _properties.DamageReceivedTotalMult = 0;
             }

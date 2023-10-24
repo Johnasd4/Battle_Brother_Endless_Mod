@@ -1382,7 +1382,18 @@ local gt = getroottable();
             return this.m.CurrentEnemies.len() * (this.getContainer().getActor().isArmedWithTwoHandedWeapon() ? 5 : 10);
         }
 	});
+	::mods_hookExactClass("skills/effects/ptr_immersive_damage_effect", function(o){
 
+        local onAnySkillUsed = o.onAnySkillUsed;
+        o.onAnySkillUsed = function( _skill, _targetEntity, _properties )
+        {
+            if (_skill == null || _targetEntity == null || _targetEntity.isDying() || _targetEntity.isAlive())
+            {
+                return;
+            }
+            onAnySkillUsed(_skill, _targetEntity, _properties);
+        }
+	});
 
 	::mods_hookExactClass("skills/effects/ptr_sweeping_strikes_debuff_effect", function(o){
 
