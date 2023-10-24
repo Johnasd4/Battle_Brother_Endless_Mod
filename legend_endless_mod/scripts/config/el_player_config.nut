@@ -261,7 +261,7 @@ gt.Const.EL_Player <- {
             local type_tree_len = [];
             local type_tree_offset = [];
             local excluded_list = [
-                this.Const.Perks.SwordmasterProfessionTree
+                //this.Const.Perks.SwordmasterProfessionTree
             ];
             local total_weight = 0;
             local rank = _player.EL_getRankLevel();

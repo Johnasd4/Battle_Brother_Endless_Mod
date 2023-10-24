@@ -26,8 +26,9 @@ this.el_life_drain_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_
         hit_info.FatalityChanceMult = 0.0;
 		_targetEntity.onDamageReceived(user, this, hit_info);
         local current_hitpoints = this.Math.max(0, _targetEntity.getHitpoints());
+		local hitpoints_drain = 0;
         if(current_hitpoints < hitpoints) {
-            local hitpoints_drain = hitpoints - current_hitpoints;
+            hitpoints_drain = hitpoints - current_hitpoints;
         }
 		user.setHitpoints(this.Math.max(user.getHitpointsMax(), user.getHitpoints() + hitpoints_drain * this.Const.EL_NPC.EL_NPCBuff.Factor.LifeDrain.RecoverMult));
 	}
