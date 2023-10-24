@@ -45,7 +45,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 		EL_ArmorDamageReceivedMult = 0.0,
 		EL_ArmorDamageDirectReceivedMult = 0.0,
 		EL_ArmorReflectPercent = 0.0,
-		
+
 		EL_CheckMorale = false,
 		EL_ImmueBleedingPoisonedFireMiasma = false,
 		EL_ImmueGrabKnockTwirl = false,
@@ -59,8 +59,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 		this.m.Name = "Entry Cumulative Effect";
 		this.m.Order = this.Const.SkillOrder.Perk;
 		this.m.Icon = "el_entrys/el_total_entry.png";
-		this.m.Type = this.Const.SkillType.StatusEffect;
-		this.m.Order = this.Const.SkillOrder.Perk;
+		this.m.Type = this.Const.SkillType.Trait;
 		this.m.IsActive = false;
 		this.m.IsStacking = false;
 		this.m.IsHidden = false;
@@ -123,7 +122,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 		this.m.EL_ArmorDamageReceivedMult = 0.0;
 		this.m.EL_ArmorDamageDirectReceivedMult = 0.0;
 		this.m.EL_ArmorReflectPercent = 0.0;
-		
+
 		this.m.EL_CheckMorale = false;
 		this.m.EL_ImmueBleedingPoisonedFireMiasma = false;
 		this.m.EL_ImmueGrabKnockTwirl = false;
@@ -499,10 +498,10 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 		}
 
 
-		
+
 		if(this.m.EL_CheckMorale)
 		{
-			result.push({		
+			result.push({
 				id = 10,
 				type = "text",
 				text = "Triggers a negative morale check to enemies on hit"

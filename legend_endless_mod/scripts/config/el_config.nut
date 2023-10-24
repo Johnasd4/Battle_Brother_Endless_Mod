@@ -64,6 +64,9 @@ gt.Const.EL_Config <- {
     ],
 
     function EL_addBuffsToActor(_EL_actor, _EL_num, _EL_BuffList) {
+        if(_EL_actor == null || _EL_actor.isDying() || !_EL_actor.isAlive) {
+            return 0;
+        }
         local skills = _EL_actor.getSkills();
         while(_EL_num > 0 && _EL_BuffList.len() > 0) {
             local r = this.Math.rand(0, _EL_BuffList.len() - 1);
@@ -77,6 +80,9 @@ gt.Const.EL_Config <- {
     }
 
     function EL_addBuffsToActorNoRepeatCheck(_EL_actor, _EL_num, _EL_BuffList) {
+        if(_EL_actor == null || _EL_actor.isDying() || !_EL_actor.isAlive) {
+            return 0;
+        }
         local skills = _EL_actor.getSkills();
         while(_EL_num > 0 && _EL_BuffList.len() > 0) {
             local r = this.Math.rand(0, _EL_BuffList.len() - 1);

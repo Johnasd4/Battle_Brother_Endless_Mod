@@ -65,15 +65,15 @@ gt.Const.EL_Shop <- {
 	},
 	EL_Core = {
 		EL_ShopMaxNum = 5,
-		XPOffset = 2000,
+		XPOffset = 200,
 		XPMax = [
-			1900,
-			1500,
-			1000,
-			1000
+			190,
+			150,
+			100,
+			100
 		],
 		XPMin = [
-			100,
+			10,
 			0,
 			0,
 			0

@@ -965,41 +965,7 @@ local gt = getroottable();
                             this.World.Assets.getStash().add(reward_item);
                             break;
                         case 4:
-                            local has_accessory = false;
-                            local items = this.World.Assets.getStash().getItems();
-                            foreach( item in items )
-                            {
-                                if (item != null)
-                                {
-                                    if (item.getID() == "el_accessory.arena_champion")
-                                    {
-                                        has_accessory = true;
-                                    }
-                                }
-                            }
-
-                            local roster = this.World.getPlayerRoster().getAll();
-
-                            foreach( bro in roster )
-                            {
-                                local item = bro.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
-
-                                if (item != null && item.getID() == "el_accessory.arena_champion")
-                                {
-                                    has_accessory = true;
-                                }
-
-                                for( local i = 0; i < bro.getItems().getUnlockedBagSlots(); i = i )
-                                {
-                                    item = bro.getItems().getItemAtBagSlot(i);
-                                    if (item != null && item.getID() == "el_accessory.arena_champion")
-                                    {
-                                        has_accessory = true;
-                                    }
-                                    i = ++i;
-                                }
-                            }
-                            if(!has_accessory) {
+                            if(this.World.Assets.m.EL_ArenaLevel < this.World.Assets.m.EL_ArenaMaxLevel) {
                                 local reward_item = this.new("scripts/items/el_accessory/el_arena_champion_item");
                                 this.World.Assets.getStash().makeEmptySlots(1);
                                 this.World.Assets.getStash().add(reward_item);

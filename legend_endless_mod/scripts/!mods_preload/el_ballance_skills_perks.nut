@@ -856,6 +856,18 @@ local gt = getroottable();
 		}
 	});
 
+	::mods_hookExactClass("skills/perks/perk_ptr_discovered_talent", function ( o )
+	{
+		o.onAdded = function()
+		{
+			local actor = this.getContainer().getActor();
+			actor.m.LevelUps += 1;
+			for(local i = 0 ;i < this.Const.Attributes.COUNT; ++i) {
+				actor.m.Talents[i] = this.Math.min(4, actor.m.Talents[i] + 1);
+			}
+		}
+	});
+
 	::mods_hookExactClass("skills/perks/perk_ptr_fruits_of_labor", function ( o )
 	{
 
@@ -1104,6 +1116,20 @@ local gt = getroottable();
 	::mods_hookExactClass("skills/perks/perk_ptr_unstoppable", function ( o )
 	{
 
+		o.onBeforeTargetHit = function( _skill, _targetEntity, _hitInfo )
+		{
+			this.m.Distance = 0;
+			this.m.APBonusBefore = this.getAPBonus();
+			local actor = this.getContainer().getActor();
+            if(actor == null || actor.isDying() || !actor.isAlive()) {
+                return;
+            }
+			if (_skill.isAttack() && !_targetEntity.isAlliedWith(actor))
+			{
+				this.m.Distance = _targetEntity.getTile().getDistanceTo(actor.getTile());
+			}
+		}
+
 		o.onTargetHit = function( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
 		{
 			local actor = this.getContainer().getActor();
@@ -1320,6 +1346,11 @@ gt.Const.EL_Config.EL_modStrings <- function()
             ID = "perk.ptr_bloodbath",
             tooltip = "There\'s something about removing someone\'s head that just makes you want to do it again!\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• Fatalities instantly adds [color=" + this.Const.UI.Color.PositiveValue + "]3[/color] Action Points next turn.\n• The stack decrease 3 pur turn, the max Action Points addition is 9."
         },
+		{
+            ID = "perk.ptr_discovered_talent",
+            tooltip = "You don\'t know where it came from, but you\'ve suddenly started excelling at everything you do!\n\n[color=" + this.Const.UI.Color.OneTimeEffect + "][u]One-Time Effect:[/u][/color]\n• Gain [color=" + this.Const.UI.Color.PositiveValue + "]1[/color] Star to the talents in all attributes.\n• Then instantly gain a levelup to increase this character's attributes using normal rolls with talents.\n• Cannot increase the talent in an attribute beyond [color=" + this.Const.UI.Color.NegativeValue + "]4[/color] stars."
+        },
+
         {
             ID = "perk.ptr_fruits_of_labor",
             tooltip = "You\'ve quickly realized that your years of hard labor give you an edge in mercenary work!\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• Hitpoints, Maximum Fatigue, and Initiative are increased by [color=" + this.Const.UI.Color.PositiveValue + "]+12[/color] each."
