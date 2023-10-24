@@ -1104,6 +1104,20 @@ local gt = getroottable();
 	::mods_hookExactClass("skills/perks/perk_ptr_unstoppable", function ( o )
 	{
 
+		o.onBeforeTargetHit = function( _skill, _targetEntity, _hitInfo )
+		{
+			this.m.Distance = 0;
+			this.m.APBonusBefore = this.getAPBonus();
+			local actor = this.getContainer().getActor();
+            if(actor == null || actor.isDying() || !actor.isAlive()) {
+                return;
+            }
+			if (_skill.isAttack() && !_targetEntity.isAlliedWith(actor))
+			{
+				this.m.Distance = _targetEntity.getTile().getDistanceTo(actor.getTile());
+			}
+		}
+
 		o.onTargetHit = function( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
 		{
 			local actor = this.getContainer().getActor();

@@ -260,7 +260,9 @@ gt.Const.EL_Player <- {
         function EL_AddRandomPerkTreeToPlayer(_player, _perk_num) {
             local type_tree_len = [];
             local type_tree_offset = [];
-            local excluded_list = [];
+            local excluded_list = [
+                this.Const.Perks.SwordmasterProfessionTree
+            ];
             local total_weight = 0;
             local rank = _player.EL_getRankLevel();
             local background = _player.getBackground();
