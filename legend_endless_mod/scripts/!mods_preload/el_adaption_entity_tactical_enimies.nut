@@ -409,12 +409,20 @@ local gt = getroottable();
 
 		o.EL_getRankLevel <- function ()
 		{
-			return this.m.Body.m.EL_RankLevel;
+			return this.m.Body.EL_getRankLevel();
 		}
 		o.EL_getCombatLevel <- function ()
 		{
-			return this.m.Body.m.CurrentProperties.EL_CombatLevel;
+			return this.m.Body.EL_getCombatLevel();
 		}
+        o.isAttackable <- function()
+        {
+			return this.m.Body.isAttackable();
+        }
+        o.isAbleToDie <- function()
+        {
+			return this.m.Body.isAbleToDie();
+        }
         o.getName <- function()
 		{
 			return this.m.Name + " - Lv" + this.m.Body.m.EL_NPCLevel + "(" + ((this.Math.round(this.EL_getCombatLevel() * 10) * 0.1)) + ")";
@@ -422,10 +430,6 @@ local gt = getroottable();
         o.getXP <- function()
 		{
 			return this.m.Body.m.XP;
-		}
-        o.getSkills <- function()
-		{
-			return this.m.Body.getSkills();
 		}
         o.onAttacked <- function(_attacker)
         {
@@ -446,12 +450,20 @@ local gt = getroottable();
 
 		o.EL_getRankLevel <- function ()
 		{
-			return this.m.Body.m.EL_RankLevel;
+			return this.m.Body.EL_getRankLevel();
 		}
 		o.EL_getCombatLevel <- function ()
 		{
-			return this.m.Body.m.CurrentProperties.EL_CombatLevel;
+			return this.m.Body.EL_getCombatLevel();
 		}
+        o.isAttackable <- function()
+        {
+			return this.m.Body.isAttackable();
+        }
+        o.isAbleToDie <- function()
+        {
+			return this.m.Body.isAbleToDie();
+        }
         o.getName <- function()
 		{
 			return this.m.Name + " - Lv" + this.m.Body.m.EL_NPCLevel + "(" + ((this.Math.round(this.EL_getCombatLevel() * 10) * 0.1)) + ")";
@@ -460,21 +472,17 @@ local gt = getroottable();
 		{
 			return this.m.Body.m.XP;
 		}
-        o.getSkills <- function()
-		{
-			return this.m.Body.getSkills();
-		}
         o.onAttacked <- function(_attacker)
         {
-            this.m.Body.onAttacked(_attacker);
+            return this.m.Body.onAttacked(_attacker);
         }
         o.onMissed <- function( _attacker, _skill, _dontShake = false )
         {
-            this.m.Body.onAttacked(_attacker, _skill, _dontShake);
+            return this.m.Body.onAttacked(_attacker, _skill, _dontShake);
         }
         o.onDamageReceived = function( _attacker, _damageHitpoints, _damageArmor )
         {
-            this.m.Body.onDamageReceived(_attacker, _damageHitpoints, _damageArmor);
+            return this.m.Body.onDamageReceived(_attacker, _damageHitpoints, _damageArmor);
         }
     });
 
