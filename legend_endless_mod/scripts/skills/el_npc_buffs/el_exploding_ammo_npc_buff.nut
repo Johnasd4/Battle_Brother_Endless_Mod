@@ -22,7 +22,7 @@ this.el_exploding_ammo_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_
         {
             foreach( t in tar )
             {
-                if(t != null && !t.isDying() && t.isAlive() && t != _targetEntity) {
+                if(t != null && !t.isAlliedWith(actor) && !t.isDying() && t.isAlive() && t != _targetEntity) {
                     local distance = _targetEntity.getTile().getDistanceTo(t.getTile());
                     if(distance <= this.Const.EL_NPC.EL_NPCBuff.Factor.ExplodingAmmo.MaxDistance) {
                         affect_targets.push(t);
