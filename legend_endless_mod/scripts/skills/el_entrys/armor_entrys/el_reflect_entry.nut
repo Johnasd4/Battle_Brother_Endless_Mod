@@ -63,7 +63,7 @@ this.el_reflect_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_ent
 
 	function onBeforeDamageReceived( _attacker, _skill, _hitInfo, _properties )
 	{
-		if (_attacker != null && _attacker.isAlive() && _attacker.getHitpoints() > 0 && _attacker.getID() != this.getContainer().getActor().getID() && _hitInfo.BodyPart == this.Const.BodyPart.Body)
+		if (_attacker != null && _attacker.isAlive() && _attacker.getHitpoints() > 0 && _attacker.getID() != this.getContainer().getActor().getID() && _hitInfo.BodyPart == this.Const.BodyPart.Body && _skill.isAttack()) 
 		{
 			local hitInfo = clone this.Const.Tactical.HitInfo;
 			hitInfo.DamageRegular = _hitInfo.DamageArmor * this.m.EL_ReflectPercent * 0.01;

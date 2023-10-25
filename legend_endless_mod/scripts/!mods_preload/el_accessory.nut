@@ -161,7 +161,6 @@ local gt = getroottable();
 				if(this.m.EL_Level == -1)
 				{
 					this.Const.EL_Item_Other.EL_OtherItemInit(this);
-					return "lv0";
 				}
 				return "lv" + this.m.EL_Level;
 			}
