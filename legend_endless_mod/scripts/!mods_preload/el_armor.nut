@@ -152,7 +152,10 @@ local gt = getroottable();
 			this.m.EL_BaseWithRankDamageBodyArmorReduction = _in.readI32();
 			this.m.EL_DamageRegularReduction = _in.readI32();
 			this.m.EL_BaseWithRankDamageRegularReduction = _in.readI32();
-			EL_updateLevelProperties();
+			if(this.m.EL_Level != -1)
+			{
+				this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Armor.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
+			}
             this.m.Condition = _in.readF32();
 		}
 
@@ -1189,7 +1192,10 @@ local gt = getroottable();
 			this.m.EL_BaseWithRankDamageBodyArmorReduction = _in.readI32();
 			this.m.EL_DamageRegularReduction = _in.readI32();
 			this.m.EL_BaseWithRankDamageRegularReduction = _in.readI32();
-			EL_updateLevelProperties();
+			if(this.m.EL_Level != -1)
+			{
+				this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Armor.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
+			}
             this.m.Condition = _in.readF32();
 		}
 

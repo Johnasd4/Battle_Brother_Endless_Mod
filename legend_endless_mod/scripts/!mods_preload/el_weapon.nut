@@ -241,9 +241,12 @@ local gt = getroottable();
 			this.m.EL_BaseWithRankAdditionalAccuracy = _in.readI32();
 			this.m.EL_BaseWithRankFatigueOnSkillUse = _in.readI32();
 			this.m.EL_BaseWithRankRangeMax = _in.readI32();
+			if(this.m.EL_Level != -1)
+			{
+				this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Armor.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
+			}
+            this.m.Condition = _in.readF32();
 			this.m.RangeMax = this.m.EL_BaseWithRankRangeMax;
-			EL_updateLevelProperties();
-			this.m.Condition = _in.readF32();
 		}
 
 		local consumeAmmo = o.consumeAmmo;
@@ -1061,4 +1064,38 @@ local gt = getroottable();
 			return tooltip;
 		}
 	});
+
+	local goblinWeapons = [
+		"items/weapons/greenskins/goblin_falchion",
+		"items/weapons/greenskins/goblin_notched_blade",
+		"items/weapons/greenskins/goblin_pike",
+		"items/weapons/greenskins/goblin_spear",
+		"items/weapons/greenskins/goblin_staff",
+		"items/weapons/named/named_goblin_falchion",
+		"items/weapons/named/named_goblin_pike",
+		"items/weapons/named/named_goblin_spear",
+	];
+
+	foreach (weapon in goblinWeapons)
+	{
+		::mods_hookNewObject(weapon, function(o) {
+			o.m.FatigueOnSkillUse -= 2;
+
+			local getTooltip = ::mods_getMember(o, "getTooltip");
+			o.getTooltip <- function()
+			{
+				local tooltip = getTooltip();
+				tooltip.insert(12, 
+					{
+						id = 10,
+						type = "text",
+						icon = "ui/icons/action_points.png",
+						text = "Melee attacks cost [color=" + this.Const.UI.Color.PositiveValue + "]-1[/color] Action Point"
+					}
+				);
+				tooltip.remove(tooltip.len() - 2);
+				return tooltip;
+			}
+		});
+	}
 });
