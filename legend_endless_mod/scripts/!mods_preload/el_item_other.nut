@@ -105,29 +105,29 @@ local gt = getroottable();
 		}
 	});
 
-    ::mods_hookClass("items/stash_container", function(o) {
-		//while(!("add" in o)) o = o[o.SuperName];
-        local add = o.add;
-        o.add = function( _item )
-        {
-			this.Const.EL_Item_Other.EL_OtherItemInit(_item);
-			return add(_item);
-        }
-	});
+    // ::mods_hookClass("items/stash_container", function(o) {
+	// 	//while(!("add" in o)) o = o[o.SuperName];
+    //     local add = o.add;
+    //     o.add = function( _item )
+    //     {
+	// 		this.Const.EL_Item_Other.EL_OtherItemInit(_item);
+	// 		return add(_item);
+    //     }
+	// });
 
-	::mods_hookClass("entity/world/world_entity", function(o) {
-		while(!("getTroops" in o)) o = o[o.SuperName];
+	// ::mods_hookClass("entity/world/world_entity", function(o) {
+	// 	while(!("getTroops" in o)) o = o[o.SuperName];
 
-		local onDropLootForPlayer = o.onDropLootForPlayer;
-		o.onDropLootForPlayer = function (_lootTable)
-		{
-            onDropLootForPlayer(_lootTable);
-			foreach(item in _lootTable)
-			{
-				this.Const.EL_Item_Other.EL_OtherItemInit(item);
-			}
-		}
-	});
+	// 	local onDropLootForPlayer = o.onDropLootForPlayer;
+	// 	o.onDropLootForPlayer = function (_lootTable)
+	// 	{
+    //         onDropLootForPlayer(_lootTable);
+	// 		foreach(item in _lootTable)
+	// 		{
+	// 			this.Const.EL_Item_Other.EL_OtherItemInit(item);
+	// 		}
+	// 	}
+	// });
 
     ::mods_hookNewObject("ui/screens/tooltip/tooltip_events", function(o) {
 		local tactical_helper_addHintsToTooltip = o.tactical_helper_addHintsToTooltip;

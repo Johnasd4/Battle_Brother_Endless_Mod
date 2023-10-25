@@ -19,7 +19,6 @@ local gt = getroottable();
 		local onSerialize = o.onSerialize;
 		o.onSerialize = function( _out )
 		{
-			this.Const.EL_Item_Other.EL_OtherItemInit(this);
 			onSerialize(_out);
 			_out.writeU8(this.m.EL_EntryList.len());
 			if(this.m.EL_EntryList.len() != 0)

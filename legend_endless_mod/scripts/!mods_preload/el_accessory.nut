@@ -53,7 +53,6 @@ local gt = getroottable();
 				this.m.EL_RarityEntry = this.new(this.IO.scriptFilenameByHash(_in.readI32()));
 				this.m.EL_RarityEntry.onDeserialize(_in);
 			}
-			EL_updateLevelProperties();
 		}
 
 		o.EL_addRarityEntry <- function ( _EL_rarityEntry )
