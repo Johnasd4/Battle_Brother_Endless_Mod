@@ -192,6 +192,8 @@ local gt = getroottable();
 	::mods_hookExactClass("entity/tactical/actor", function(o){
 		o.m.EL_NPCLevel <- 0;
         o.m.EL_EquipmentEssenceDrop <- [0, 0, 0, 0, 0];
+        o.m.EL_IsNonHumanoid <- false;
+
 
 		local onSerialize = o.onSerialize;
 		o.onSerialize = function ( _out )
@@ -201,6 +203,7 @@ local gt = getroottable();
             for(local i = 0; i < this.m.EL_EquipmentEssenceDrop.len(); ++i) {
                 _out.writeI32(this.m.EL_EquipmentEssenceDrop[i]);
             }
+            _out.writeBool(this.m.EL_IsNonHumanoid);
 		}
 		local onDeserialize = o.onDeserialize;
 		o.onDeserialize = function ( _in )
@@ -210,7 +213,12 @@ local gt = getroottable();
             for(local i = 0; i < this.m.EL_EquipmentEssenceDrop.len(); ++i) {
                 this.m.EL_EquipmentEssenceDrop[i] = _in.readI32();
             }
+            this.m.EL_IsNonHumanoid = _in.readBool();
 		}
+
+        o.EL_isNonHumanoid <- function() {
+            return this.m.EL_IsNonHumanoid;
+        }
 
         o.EL_isBossUnit <- function() {
             return this.m.WorldTroop != null && this.m.WorldTroop.EL_IsBossUnit == true;
@@ -275,13 +283,14 @@ local gt = getroottable();
 
         o.EL_buildNPCPropertiesByLevel <- function( _EL_npcLevel ) {
             this.m.EL_NPCLevel = this.Math.min(_EL_npcLevel, this.Const.EL_NPC.EL_LevelUp.MaxPropertiesLevel);
-            local level_ups = this.m.EL_NPCLevel - this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset;
+            local level_ups = this.m.EL_NPCLevel;
             if(level_ups < 0) {
                 level_ups = 0;
             }
             if(level_ups > this.Const.EL_NPC.EL_LevelUp.MaxXPLevel) {
                 level_ups = this.Const.EL_NPC.EL_LevelUp.MaxXPLevel + (level_ups - this.Const.EL_NPC.EL_LevelUp.MaxXPLevel) * this.Const.EL_NPC.EL_LevelUp.PropertiesLevelUpMultAfterMaxXPLevel;
             }
+            level_ups -= this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset;
             this.m.BaseProperties.Hitpoints += this.Math.floor(this.m.BaseProperties.Hitpoints *
                                                                this.Const.EL_NPC.EL_LevelUp.LevelUpAttributes.HitpointsMult *
                                                                level_ups);
@@ -300,17 +309,22 @@ local gt = getroottable();
         }
 
         o.EL_ballanceNPCPropertiesAfterAddingEquipment <- function() {
-            local level_ups = this.m.EL_NPCLevel - this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset;
+            local level_ups = this.m.EL_NPCLevel;
             if(level_ups < 0) {
                 level_ups = 0;
             }
+            if(level_ups > this.Const.EL_NPC.EL_LevelUp.MaxXPLevel) {
+                level_ups = this.Const.EL_NPC.EL_LevelUp.MaxXPLevel + (level_ups - this.Const.EL_NPC.EL_LevelUp.MaxXPLevel) * this.Const.EL_NPC.EL_LevelUp.PropertiesLevelUpMultAfterMaxXPLevel;
+            }
+            level_ups -= this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset;
             local main_hand = this.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
             local off_hand = this.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand);
             local body = this.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
             local head = this.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
 
             if(main_hand == null && off_hand == null) {
-                this.m.BaseProperties.DamageRegularMult *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpDamageMult * level_ups;
+                this.m.EL_IsNonHumanoid = true;
+                this.m.BaseProperties.DamageTotalMult *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpDamageMult * level_ups;
             }
             if(body == null) {
                 this.m.BaseProperties.Armor[this.Const.BodyPart.Body] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
