@@ -15,13 +15,13 @@ this.el_wither_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff
         local damage = this.Math.floor((this.Const.EL_NPC.EL_NPCBuff.Factor.Wither.DamageBase * (1 + actor.EL_getCombatLevel() * this.Const.EL_NPC.EL_NPCBuff.Factor.Wither.DamageMultPurCombatLevel)) * this.Const.EL_NPC.EL_NPCBuff.Factor.Wither.DamageRate[this.m.EL_RankLevel]);
         if(actor.EL_isNonHumanoid()) {
             local level_ups = actor.EL_getLevel();
-            if(level_ups < 0) {
-                level_ups = 0;
-            }
             if(level_ups > this.Const.EL_NPC.EL_LevelUp.MaxXPLevel) {
                 level_ups = this.Const.EL_NPC.EL_LevelUp.MaxXPLevel + (level_ups - this.Const.EL_NPC.EL_LevelUp.MaxXPLevel) * this.Const.EL_NPC.EL_LevelUp.PropertiesLevelUpMultAfterMaxXPLevel;
             }
             level_ups -= this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset;
+            if(level_ups < 0) {
+                level_ups = 0;
+            }
             damage = this.Math.floor(damage / (1.0 + this.Const.EL_NPC.EL_LevelUp.LevelUpDamageMult * level_ups));
         }
         local affect_targets = [];

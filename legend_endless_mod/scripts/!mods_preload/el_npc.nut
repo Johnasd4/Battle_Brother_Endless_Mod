@@ -284,13 +284,13 @@ local gt = getroottable();
         o.EL_buildNPCPropertiesByLevel <- function( _EL_npcLevel ) {
             this.m.EL_NPCLevel = this.Math.min(_EL_npcLevel, this.Const.EL_NPC.EL_LevelUp.MaxPropertiesLevel);
             local level_ups = this.m.EL_NPCLevel;
-            if(level_ups < 0) {
-                level_ups = 0;
-            }
             if(level_ups > this.Const.EL_NPC.EL_LevelUp.MaxXPLevel) {
                 level_ups = this.Const.EL_NPC.EL_LevelUp.MaxXPLevel + (level_ups - this.Const.EL_NPC.EL_LevelUp.MaxXPLevel) * this.Const.EL_NPC.EL_LevelUp.PropertiesLevelUpMultAfterMaxXPLevel;
             }
             level_ups -= this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset;
+            if(level_ups < 0) {
+                level_ups = 0;
+            }
             this.m.BaseProperties.Hitpoints += this.Math.floor(this.m.BaseProperties.Hitpoints *
                                                                this.Const.EL_NPC.EL_LevelUp.LevelUpAttributes.HitpointsMult *
                                                                level_ups);
@@ -310,13 +310,13 @@ local gt = getroottable();
 
         o.EL_ballanceNPCPropertiesAfterAddingEquipment <- function() {
             local level_ups = this.m.EL_NPCLevel;
-            if(level_ups < 0) {
-                level_ups = 0;
-            }
             if(level_ups > this.Const.EL_NPC.EL_LevelUp.MaxXPLevel) {
                 level_ups = this.Const.EL_NPC.EL_LevelUp.MaxXPLevel + (level_ups - this.Const.EL_NPC.EL_LevelUp.MaxXPLevel) * this.Const.EL_NPC.EL_LevelUp.PropertiesLevelUpMultAfterMaxXPLevel;
             }
             level_ups -= this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset;
+            if(level_ups < 0) {
+                level_ups = 0;
+            }
             local main_hand = this.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
             local off_hand = this.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand);
             local body = this.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
