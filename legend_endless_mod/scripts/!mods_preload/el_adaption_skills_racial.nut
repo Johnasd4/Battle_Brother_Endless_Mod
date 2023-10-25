@@ -138,4 +138,15 @@ local gt = getroottable();
         }
 	});
 
+	::mods_hookExactClass("skills/racial/mummy_racial", function(o){
+
+        o.onDeathWithInfo = function( _killer, _skill, _deathTile, _corpseTile, _fatalityType )
+        {
+            if (_killer != null && !_killer.isDying() && _killer.isAlive())
+            {
+                _killer.getSkills().add(this.new("scripts/skills/effects/mummy_curse_effect"));
+            }
+        }
+	});
+
 });
