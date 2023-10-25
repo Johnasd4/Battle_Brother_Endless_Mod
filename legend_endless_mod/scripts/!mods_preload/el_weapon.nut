@@ -765,6 +765,11 @@ local gt = getroottable();
 			//this.logInfo("this.Const.EL_Weapon.EL_ThrowingWeaponList[i]" + this.Const.EL_Weapon.EL_ThrowingWeaponList[i]);
 			o.getAmountString <- function()
 			{
+				if(this.m.EL_Level == -1)
+				{
+					this.Const.EL_Item_Other.EL_OtherItemInit(this);
+					return "lv0" + " " + this.m.Ammo + "/" + this.m.AmmoMax;
+				}
 				return "lv" + this.m.EL_Level + " " + this.m.Ammo + "/" + this.m.AmmoMax;
 			}
 		});
