@@ -1373,7 +1373,7 @@ local gt = getroottable();
 			local astray = false;
 			//OVERRIDE
 			local EL_isDefiniteHit = false;
-			if(_user.getSkills().hasSkill("el_rarity_entry.el_pursuit_of_wind") && _user.getSkills().getSkillByID("el_rarity_entry.el_pursuit_of_wind").EL_isUsable())
+			if(_user.getSkills().hasSkill("el_rarity_entry.pursuit_of_wind") && _user.getSkills().getSkillByID("el_rarity_entry.pursuit_of_wind").EL_isUsable())
 			{
 				EL_isDefiniteHit = true;
 			}
@@ -1519,11 +1519,7 @@ local gt = getroottable();
 				{
 					if (this.isUsingHitchance())
 					{
-						if (EL_isDefiniteHit)
-						{
-							this.Tactical.EventLog.logEx(this.Const.UI.getColorizedEntityName(_user) + " uses " + this.getName() + " and hits " + this.Const.UI.getColorizedEntityName(_targetEntity));
-						}
-						else if (isHit)
+						if (isHit)
 						{
 							this.Tactical.EventLog.logEx(this.Const.UI.getColorizedEntityName(_user) + " uses " + this.getName() + " and the shot goes astray and hits " + this.Const.UI.getColorizedEntityName(_targetEntity) + " (Chance: " + this.Math.min(95, this.Math.max(5, toHit)) + ", Rolled: " + rolled + ")");
 						}
@@ -1539,7 +1535,11 @@ local gt = getroottable();
 				}
 				else if (this.isUsingHitchance())
 				{
-					if (isHit)
+					if (EL_isDefiniteHit)
+					{
+						this.Tactical.EventLog.logEx(this.Const.UI.getColorizedEntityName(_user) + " uses " + this.getName() + " and hits " + this.Const.UI.getColorizedEntityName(_targetEntity));
+					}
+					else if (isHit)
 					{
 						this.Tactical.EventLog.logEx(this.Const.UI.getColorizedEntityName(_user) + " uses " + this.getName() + " and hits " + this.Const.UI.getColorizedEntityName(_targetEntity) + " (Chance: " + this.Math.min(95, this.Math.max(5, toHit)) + ", Rolled: " + rolled + ")");
 					}

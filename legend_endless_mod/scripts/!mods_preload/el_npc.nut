@@ -1334,7 +1334,7 @@ local gt = getroottable();
 		o.getDifficulty <- function ()
 		{
             local level = 0;
-            while(this.m.DifficultyMult * 100 > this.Const.EL_NPC.EL_Contract.DifficultyLevel[level].Max) {
+            while(level <= 8 && this.m.DifficultyMult * 100 > this.Const.EL_NPC.EL_Contract.DifficultyLevel[level].Max) {
                 ++level;
             }
 			return level;
