@@ -1405,6 +1405,57 @@ local gt = getroottable();
 
 	});
 
+
+
+	::mods_hookExactClass("skills/effects/ptr_follow_up_proccer_effect", function(o){
+        o.onTargetHit = function( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
+        {
+            if (!_skill.isAttack() || _skill.isRanged())
+            {
+                return;
+            }
+
+            local actor = this.getContainer().getActor();
+
+            if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying() || _targetEntity.isAlliedWith(actor))
+            {
+                return;
+            }
+
+            if (this.Tactical.TurnSequenceBar.getActiveEntity() == null || this.Tactical.TurnSequenceBar.getActiveEntity().getID() != actor.getID())
+            {
+                return;
+            }
+
+            if (this.m.SkillCount == this.Const.SkillCounter)
+            {
+                return;
+            }
+
+            this.m.SkillCount = this.Const.SkillCounter;
+
+            local allies = ::Tactical.Entities.getHostileActors(_targetEntity.getFaction(), _targetEntity.getTile());
+            foreach (ally in allies)
+            {
+                if (ally.getID() == actor.getID() || !ally.isAlliedWith(actor))
+                {
+                    continue;
+                }
+
+                local allySkill = ally.getSkills().getSkillByID("effects.ptr_follow_up");
+                if (allySkill != null)
+                {
+                    local attack_skill = this.Const.EL_Rarity_Entry.EL_getAttackSkill(ally);
+                    if(attack_skill == null || _targetEntity.getTile().getDistanceTo(ally.getTile()) > attack_skill.getMaxRange())
+                    {
+                        return;
+                    }
+                    allySkill.proc(_targetEntity);
+                }
+            }
+        }
+	});
+
 	::mods_hookExactClass("skills/effects/ptr_formidable_approach_debuff_effect", function(o){
 
         o.getCurrentMalus = function()
