@@ -17,17 +17,17 @@ this.el_pursuit_effect <- this.inherit("scripts/skills/skill", {
 
     function onTargetHit( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
 	{
-		EL_useFreeSkill(_targetEntity);
+		EL_useFreeSkill(_skill, _targetEntity);
 	}
 
 	function onTargetMissed( _skill, _targetEntity )
 	{
-		EL_useFreeSkill(_targetEntity);
+		EL_useFreeSkill(_skill, _targetEntity);
 	}
 	
-	function EL_useFreeSkill( _targetEntity )
+	function EL_useFreeSkill( _skill, _targetEntity )
 	{
-        if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
+        if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying() || !_skill.isAttack())
 		{
 			return;
 		}
