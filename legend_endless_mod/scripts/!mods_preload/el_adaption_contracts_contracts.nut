@@ -4019,7 +4019,7 @@ local gt = getroottable();
                             ];
 
                             local party = this.new("scripts/entity/world/party");
-                            enemy_party.EL_setTroopsResourse(enemy_party.EL_getTroopsResourse() * (enemyStrength + 60) * 0.01);
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * (enemyStrength + 60) * 0.01);
                             party.EL_setFaction(this.Const.Faction.Enemy);
                             party.EL_tempPartyInit();
                             p.Parties.push(party);
