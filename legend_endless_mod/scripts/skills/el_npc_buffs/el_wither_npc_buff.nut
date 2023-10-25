@@ -8,7 +8,7 @@ this.el_wither_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff
 		this.m.Description = "";
 	}
 
-	function onTurnEnd()
+	function onTurnStart()
 	{
         local actor = this.getContainer().getActor();
         local targets = this.Tactical.Entities.getAllInstances();
