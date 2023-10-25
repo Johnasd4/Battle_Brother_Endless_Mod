@@ -68,6 +68,7 @@ this.el_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario
 		this.World.Assets.getStash().add(this.new("scripts/items/armor/named/named_bronze_armor"));
 		this.World.Assets.getStash().add(this.new("scripts/items/armor_upgrades/leather_shoulderguards_upgrade"));
 		this.World.Assets.getStash().add(this.new("scripts/items/legend_armor/armor_upgrades/legend_leather_shoulderguards_upgrade"));
+		this.World.Assets.getStash().add(this.new("scripts/items/weapons/named/named_goblin_spear"));
 		local item = this.new("scripts/items/accessory/orc_trophy_item");
 		item.EL_generateByRankAndLevel(2,100);
 		this.World.Assets.getStash().add(item);

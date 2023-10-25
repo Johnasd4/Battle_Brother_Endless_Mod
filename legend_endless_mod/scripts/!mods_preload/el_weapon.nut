@@ -1061,4 +1061,38 @@ local gt = getroottable();
 			return tooltip;
 		}
 	});
+
+	local goblinWeapons = [
+		"items/weapons/greenskins/goblin_falchion",
+		"items/weapons/greenskins/goblin_notched_blade",
+		"items/weapons/greenskins/goblin_pike",
+		"items/weapons/greenskins/goblin_spear",
+		"items/weapons/greenskins/goblin_staff",
+		"items/weapons/named/named_goblin_falchion",
+		"items/weapons/named/named_goblin_pike",
+		"items/weapons/named/named_goblin_spear",
+	];
+
+	foreach (weapon in goblinWeapons)
+	{
+		::mods_hookNewObject(weapon, function(o) {
+			o.m.FatigueOnSkillUse -= 2;
+
+			local getTooltip = ::mods_getMember(o, "getTooltip");
+			o.getTooltip <- function()
+			{
+				local tooltip = getTooltip();
+				tooltip.insert(12, 
+					{
+						id = 10,
+						type = "text",
+						icon = "ui/icons/action_points.png",
+						text = "Melee attacks cost [color=" + this.Const.UI.Color.PositiveValue + "]-1[/color] Action Point"
+					}
+				);
+				tooltip.remove(tooltip.len() - 2);
+				return tooltip;
+			}
+		});
+	}
 });
