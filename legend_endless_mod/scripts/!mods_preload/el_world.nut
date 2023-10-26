@@ -143,6 +143,226 @@ local gt = getroottable();
 		};
 	});
 
+	::mods_hookExactClass("states/world_state", function ( o )
+	{
+
+		o.onUpdate = function()
+		{
+			if (!this.m.IsGameOver && (this.World.getPlayerRoster().getSize() == 0 || !this.World.Assets.getOrigin().onCombatFinished()))
+			{
+				this.showGameFinishScreen(false);
+				return;
+			}
+
+			this.Root.setBackgroundTaskCallback(this.onProcessInThread.bindenv(this));
+
+			if (this.Time.getFrame() == this.m.AutoUnpauseFrame)
+			{
+				this.m.AutoUnpauseFrame = 0;
+				this.setAutoPause(false);
+
+				if (this.Settings.getGameplaySettings().AutoPauseAfterCity)
+				{
+					this.setPause(true);
+				}
+			}
+
+			if (this.World.Camp.isCamping())
+			{
+				//this.m.LastWorldSpeedMult = this.Const.World.SpeedSettings.CampMult;
+
+				if (!this.isPaused())
+				{
+					this.World.setSpeedMult(this.m.LastWorldSpeedMult);
+					this.m.Camp.update(this);
+				}
+			}
+
+			if (!this.isPaused())
+			{
+				this.m.IsRunningUpdatesWhilePaused = false;
+				this.World.Contracts.update();
+				this.m.Assets.update(this);
+			}
+			else if (this.m.IsTriggeringContractUpdatesOnce && !this.m.MenuStack.hasBacksteps() && !(this.LoadingScreen.isAnimating() || this.LoadingScreen.isVisible()))
+			{
+				this.m.IsTriggeringContractUpdatesOnce = false;
+				this.World.Contracts.update(true);
+				this.m.Events.update();
+			}
+
+			if (this.m.MenuStack.hasBacksteps())
+			{
+				this.resetCameraState();
+			}
+			else
+			{
+				this.updateCameraScrolling();
+				this.updateCursorAndTooltip();
+
+				if (this.Settings.getTempGameplaySettings().CameraLocked)
+				{
+					this.World.getCamera().setPos(this.World.State.getPlayer().getPos());
+				}
+			}
+
+			this.World.getCamera().update();
+			this.World.update();
+			this.updateScene();
+			this.updateDayTime();
+
+			if (this.m.AIEngageCallback != null)
+			{
+				this.m.AIEngageCallback();
+				this.m.AIEngageCallback = null;
+			}
+			else if (this.m.AutoEnterLocation != null && !this.m.AutoEnterLocation.isNull())
+			{
+				if (this.m.Player.getTile().isSameTileAs(this.m.AutoEnterLocation.getTile()) && this.m.Player.getDistanceTo(this.m.AutoEnterLocation.get()) <= this.Const.World.CombatSettings.CombatPlayerDistance)
+				{
+					this.enterLocation(this.m.AutoEnterLocation.get());
+				}
+			}
+			else if (this.m.AutoAttack != null && !this.m.AutoAttack.isNull() && this.m.AutoAttack.isAlive() && !this.m.AutoAttack.isHiddenToPlayer())
+			{
+				if (this.m.Player.getDistanceTo(this.m.AutoAttack.get()) <= this.Const.World.CombatSettings.CombatPlayerDistance)
+				{
+					if (this.m.AutoAttack.isAlliedWithPlayer() && this.World.Contracts.getActiveContract() == null)
+					{
+						local f = this.World.FactionManager.getFaction(this.m.AutoAttack.getFaction());
+						f.addPlayerRelation(-f.getPlayerRelation(), "Attacked them");
+						this.m.AutoAttack.updatePlayerRelation();
+						this.World.Assets.addMoralReputation(-2);
+					}
+
+					if (this.m.AutoAttack.onEnteringCombatWithPlayer())
+					{
+						this.showCombatDialog();
+					}
+
+					this.m.AutoAttack = null;
+					this.m.Player.setPath(null);
+					this.m.Player.setDestination(null);
+				}
+				else if (this.getVecDistance(this.m.AutoAttack.getPos(), this.m.Player.getPos()) <= this.Const.World.MovementSettings.PlayerDirectMoveRadius)
+				{
+					this.m.Player.setPath(null);
+					this.m.Player.setDestination(this.m.AutoAttack.getPos());
+				}
+				else if (!this.m.Player.hasPath() || this.Time.getVirtualTimeF() - this.m.LastAutoAttackPath >= 0.1)
+				{
+					local navSettings = this.World.getNavigator().createSettings();
+					navSettings.ActionPointCosts = this.Const.World.TerrainTypeNavCost;
+					navSettings.RoadMult = 1.0 / this.Const.World.MovementSettings.RoadMult;
+					local path = this.World.getNavigator().findPath(this.m.Player.getTile(), this.m.AutoAttack.getTile(), navSettings, 0);
+
+					if (!path.isEmpty())
+					{
+						this.m.Player.setPath(path);
+					}
+					else
+					{
+						this.m.Player.setPath(null);
+					}
+
+					this.m.LastAutoAttackPath = this.Time.getVirtualTimeF();
+				}
+			}
+			else if (!this.m.IsGamePaused && !this.m.IsGameAutoPaused)
+			{
+				this.m.Events.update();
+				this.m.Ambitions.update();
+
+				if (this.Time.getRealTimeF() - this.m.LastMusicUpdate > 60.0)
+				{
+					this.setWorldmapMusic(true);
+				}
+			}
+
+			if (this.m.LastEnteredTown == null && (this.m.LastPlayerTile == null || this.m.LastIsDaytime != this.World.getTime().IsDaytime || this.m.LastPlayerTile.ID != this.m.Player.getTile().ID))
+			{
+				this.m.LastPlayerTile = this.m.Player.getTile();
+				this.m.LastIsDaytime = this.World.getTime().IsDaytime;
+				this.Sound.setAmbience(0, this.getSurroundingAmbienceSounds(), this.Const.Sound.Volume.Ambience * this.Const.Sound.Volume.AmbienceTerrain, this.World.getTime().IsDaytime ? this.Const.Sound.AmbienceMinDelay : this.Const.Sound.AmbienceMinDelayAtNight);
+				this.Sound.setAmbience(1, this.getSurroundingLocationSounds(), this.Const.Sound.Volume.Ambience * this.Const.Sound.Volume.AmbienceOutsideSettlement, this.Const.Sound.AmbienceOutsideDelay);
+			}
+
+			local zoom_banner = this.m.Player.getSprite("zoom_banner");
+
+			if (zoom_banner.IsFadingDone)
+			{
+				if (this.World.getCamera().Zoom >= 4.0)
+				{
+					if (zoom_banner.Alpha == 0)
+					{
+						zoom_banner.fadeIn(300);
+					}
+				}
+				else if (this.World.getCamera().Zoom < 4.0)
+				{
+					if (zoom_banner.Alpha != 0)
+					{
+						zoom_banner.fadeOut(300);
+					}
+				}
+			}
+
+			this.m.IsUpdatedOnce = true;
+		}
+
+		o.onCamp = function()
+		{
+			if (!this.isCampingAllowed())
+			{
+				return;
+			}
+
+			this.World.Camp.onCamp();
+
+			if (this.World.Camp.isCamping())
+			{
+				this.m.Player.setDestination(null);
+				this.m.Player.setPath(null);
+				this.m.AutoEnterLocation = null;
+				this.m.AutoAttack = null;
+			}
+
+			if (this.World.Camp.isCamping())
+			{
+				//this.m.LastWorldSpeedMult = this.Const.World.SpeedSettings.CampMult;
+				this.World.TopbarDayTimeModule.enableNormalTimeButton(true);
+
+				if (!this.isPaused())
+				{
+					this.World.setSpeedMult(this.m.LastWorldSpeedMult);
+					//this.World.TopbarDayTimeModule.updateTimeButtons(2);
+				}
+				else
+				{
+					//this.World.TopbarDayTimeModule.updateTimeButtons(0);
+				}
+
+				this.setPause(false);
+			}
+			else
+			{
+				// this.m.LastWorldSpeedMult = 1.0;
+				this.World.TopbarDayTimeModule.enableNormalTimeButton(true);
+
+				if (!this.isPaused())
+				{
+					this.World.setSpeedMult(this.m.LastWorldSpeedMult);
+					//this.World.TopbarDayTimeModule.updateTimeButtons(1);
+				}
+				else
+				{
+					//this.World.TopbarDayTimeModule.updateTimeButtons(0);
+				}
+
+				this.setPause(true);
+			}
+		}
+	});
 
 
 	::mods_hookExactClass("states/tactical_state", function ( o )
