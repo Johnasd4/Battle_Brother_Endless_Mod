@@ -1434,7 +1434,7 @@ local gt = getroottable();
 
             this.m.SkillCount = this.Const.SkillCounter;
 
-            local allies = ::Tactical.Entities.getHostileActors(_targetEntity.getFaction(), _targetEntity.getTile());
+            local allies = ::Tactical.Entities.getHostileActors(_targetEntity.getFaction());
             foreach (ally in allies)
             {
                 if (ally.getID() == actor.getID() || !ally.isAlliedWith(actor))
@@ -1445,7 +1445,7 @@ local gt = getroottable();
                 local allySkill = ally.getSkills().getSkillByID("effects.ptr_follow_up");
                 if (allySkill != null)
                 {
-                    local attack_skill = this.Const.EL_Rarity_Entry.EL_getAttackSkill(ally);
+                    local attack_skill = ally.getSkills().getAttackOfOpportunity();
                     if(attack_skill == null || _targetEntity.getTile().getDistanceTo(ally.getTile()) > attack_skill.getMaxRange())
                     {
                         return;
