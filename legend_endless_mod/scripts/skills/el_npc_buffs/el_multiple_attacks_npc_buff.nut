@@ -6,7 +6,7 @@ this.el_multiple_attacks_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/e
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.multiple_attacks";
-		this.m.Name = "Multiple Attacks";
+		this.m.Name = "多重攻击";
 		this.m.Description = "";
 	}
 

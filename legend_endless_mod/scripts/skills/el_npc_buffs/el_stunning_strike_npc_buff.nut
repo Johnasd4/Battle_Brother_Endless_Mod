@@ -4,7 +4,7 @@ this.el_stunning_strike_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.stunning_strike";
-		this.m.Name = "Stunning Strike";
+		this.m.Name = "重击";
 		this.m.Description = "";
 	}
 
@@ -21,7 +21,7 @@ this.el_stunning_strike_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el
 
 			if (!user.isHiddenToPlayer() && _targetEntity.getTile().IsVisibleForPlayer)
 			{
-				this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(user) + " has stunned " + this.Const.UI.getColorizedEntityName(_targetEntity) + " for " +  this.Const.EL_NPC.EL_NPCBuff.Factor.StunningStrike.StunTurns[this.m.EL_RankLevel] + " turn");
+				this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(user) + " 击晕了 " + this.Const.UI.getColorizedEntityName(_targetEntity) + " " +  this.Const.EL_NPC.EL_NPCBuff.Factor.StunningStrike.StunTurns[this.m.EL_RankLevel] + " 回合");
 			}
         }
 	}

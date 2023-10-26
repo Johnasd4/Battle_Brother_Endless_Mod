@@ -5,7 +5,7 @@ this.el_exploding_ammo_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.exploding_ammo";
-		this.m.Name = "Exploding Ammo";
+		this.m.Name = "爆炸弹药";
 		this.m.Description = "";
 	}
 
@@ -69,7 +69,7 @@ this.el_exploding_ammo_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_
 
         if (!actor.isHiddenToPlayer())
         {
-            this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " ammo explodes and hit everyone near!");
+            this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " 的弹药爆炸了!");
         }
 	}
 

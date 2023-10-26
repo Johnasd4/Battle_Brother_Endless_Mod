@@ -4,7 +4,7 @@ this.el_lightning_speed_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.lightning_speed";
-		this.m.Name = "Lightning Speed";
+		this.m.Name = "迅捷";
 		this.m.Description = "";
 	}
 

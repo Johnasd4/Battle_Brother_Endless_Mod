@@ -4,7 +4,7 @@ this.el_charge_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.charge";
-		this.m.Name = "Charge";
+		this.m.Name = "冲撞";
 		this.m.Description = "";
         this.m.SoundOnHit = [
 			"sounds/combat/knockback_hit_01.wav",
@@ -98,7 +98,7 @@ this.el_charge_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff
 
             if (!user.isHiddenToPlayer() && (target_tile.IsVisibleForPlayer || knock_to_tile.IsVisibleForPlayer))
             {
-                this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(user) + " has knocked back " + this.Const.UI.getColorizedEntityName(_targetEntity));
+                this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(user) + " 击退了 " + this.Const.UI.getColorizedEntityName(_targetEntity));
             }
 
             local skills = _targetEntity.getSkills();

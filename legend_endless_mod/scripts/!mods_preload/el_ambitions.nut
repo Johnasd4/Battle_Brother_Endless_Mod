@@ -69,10 +69,6 @@ local gt = getroottable();
                 if (supposedToHaveStandard && !hasStandard)
                 {
                     this.World.Ambitions.getAmbition("ambition.battle_standard").setDone(false);
-                    this.World.Ambitions.getAmbition("ambition.el_battle_standard_ambition_rank_1").setDone(false);
-                    this.World.Ambitions.getAmbition("ambition.el_battle_standard_ambition_rank_2").setDone(false);
-                    this.World.Ambitions.getAmbition("ambition.el_battle_standard_ambition_rank_3").setDone(false);
-                    this.World.Ambitions.getAmbition("ambition.el_battle_standard_ambition_rank_4").setDone(false);
 
                     foreach( bro in roster )
                     {

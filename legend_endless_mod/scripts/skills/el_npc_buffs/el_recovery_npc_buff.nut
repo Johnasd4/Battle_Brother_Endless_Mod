@@ -6,7 +6,7 @@ this.el_recovery_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_bu
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.recovery";
-		this.m.Name = "Recovery";
+		this.m.Name = "恢复";
 		this.m.Description = "";
 	}
 
@@ -52,7 +52,7 @@ this.el_recovery_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_bu
 		if(off_hand != null) {
 			off_hand.setCondition(this.Math.min(off_hand.getConditionMax(), off_hand.getCondition() + this.Math.floor(off_hand.getConditionMax() * this.Const.EL_NPC.EL_NPCBuff.Factor.Recovery.ArmorRecoveryRate[this.m.EL_RankLevel])));
 		}
-		this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " Recoverd!");
+		this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " 恢复了!");
 
 	}
 

@@ -6,7 +6,7 @@ this.el_growth_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.growth";
-		this.m.Name = "Growth";
+		this.m.Name = "成长";
 		this.m.Description = "";
 	}
 
@@ -20,10 +20,10 @@ this.el_growth_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff
 	function onUpdate( _properties )
 	{
 		if(this.m.EL_Stack != 0) {
-			this.m.Name = "Growth(x" + this.m.EL_Stack + ")";
+			this.m.Name = "成长(x" + this.m.EL_Stack + ")";
 		}
 		else {
-			this.m.Name = "Growth";
+			this.m.Name = "成长";
 		}
         _properties.DamageDirectMult *= 1 + this.Const.EL_NPC.EL_NPCBuff.Factor.Growth.DamageMultPurStack[this.m.EL_RankLevel] * this.m.EL_Stack;
         _properties.DamageReceivedTotalMult *= 1 / (1 + this.Const.EL_NPC.EL_NPCBuff.Factor.Growth.DamageReceivedMultPurStack[this.m.EL_RankLevel] * this.m.EL_Stack);

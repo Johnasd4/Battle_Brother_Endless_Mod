@@ -9,7 +9,7 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
     {
         this.el_npc_buff.create();
         this.m.ID = "el_npc_buffs.phoenix";
-        this.m.Name = "Phoenix";
+        this.m.Name = "不死鸟";
         this.m.Description = "";
     }
 
@@ -63,7 +63,7 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
 
             if (!actor.isHiddenToPlayer())
             {
-                this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " rised!");
+                this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " 复活了!");
             }
             actor.getSkills().update();
         }
@@ -125,7 +125,7 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
             // }
             if (!actor.isHiddenToPlayer())
             {
-                this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " is rising!");
+                this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " 正在复活!");
             }
             actor.getSkills().update();
 
@@ -142,10 +142,10 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
             _properties.IsStunned = false;
         }
 		if(this.m.EL_RiseTimesLeft != 0) {
-			this.m.Name = "Phoenix(x" + this.m.EL_RiseTimesLeft + ")";
+			this.m.Name = "不死鸟(x" + this.m.EL_RiseTimesLeft + ")";
 		}
 		else {
-			this.m.Name = "Phoenix";
+			this.m.Name = "不死鸟";
 		}
     }
 

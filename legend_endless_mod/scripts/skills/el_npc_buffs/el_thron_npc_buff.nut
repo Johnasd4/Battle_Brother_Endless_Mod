@@ -6,7 +6,7 @@ this.el_thron_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff"
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.thron";
-		this.m.Name = "Thron";
+		this.m.Name = "荆棘";
 		this.m.Description = "";
 	}
 
@@ -40,7 +40,7 @@ this.el_thron_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff"
         this.m.EL_IsThron = false;
         if (!_attacker.isHiddenToPlayer())
         {
-            this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(_attacker) + " has been rebounded!");
+            this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(_attacker) + " 被反弹了!");
         }
 	}
 

@@ -4,7 +4,7 @@ this.el_intimidate_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.intimidate";
-		this.m.Name = "Intimidate";
+		this.m.Name = "威慑";
 		this.m.Description = "";
 	}
 

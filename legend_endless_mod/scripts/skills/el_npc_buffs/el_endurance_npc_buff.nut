@@ -4,7 +4,7 @@ this.el_endurance_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_b
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.endurance";
-		this.m.Name = "Endurance";
+		this.m.Name = "坚韧";
 		this.m.Description = "";
 	}
 

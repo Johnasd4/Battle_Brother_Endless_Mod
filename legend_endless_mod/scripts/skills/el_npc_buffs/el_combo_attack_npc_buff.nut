@@ -6,7 +6,7 @@ this.el_combo_attack_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_np
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.combo_attack";
-		this.m.Name = "Combo Attack";
+		this.m.Name = "连击";
 		this.m.Description = "";
 	}
 

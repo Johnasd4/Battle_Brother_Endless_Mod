@@ -4,7 +4,7 @@ this.el_encourage_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_b
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.encourage";
-		this.m.Name = "Encourage";
+		this.m.Name = "激励";
 		this.m.Description = "";
 	}
 

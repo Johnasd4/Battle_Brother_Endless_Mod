@@ -4,7 +4,7 @@ this.el_veteran_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.veteran";
-		this.m.Name = "Veteran";
+		this.m.Name = "老兵";
 		this.m.Description = "";
 	}
 

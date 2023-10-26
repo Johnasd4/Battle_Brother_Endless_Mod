@@ -4,7 +4,7 @@ this.el_weapon_master_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.weapon_master";
-		this.m.Name = "Weapon Master";
+		this.m.Name = "武器大师";
 		this.m.Description = "";
 	}
 

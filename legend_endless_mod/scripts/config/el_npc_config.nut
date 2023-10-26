@@ -59,9 +59,9 @@ gt.Const.EL_NPC <- {
         },
 
         Name = [
-            "Normal",
-            "Elite",
-            "Leader"
+            "普通",
+            "精英",
+            "首领"
         ],
         Icon = [
             "el_skills/champion_rank_0.png",
@@ -127,9 +127,9 @@ gt.Const.EL_NPC <- {
         },
 
         Name = [
-            "Normal",
-            "Elite",
-            "Leader"
+            "普通",
+            "精英",
+            "首领"
         ],
         Icon = [
             "el_skills/champion_rank_0.png",

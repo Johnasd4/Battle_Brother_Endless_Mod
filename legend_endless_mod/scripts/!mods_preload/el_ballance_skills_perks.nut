@@ -869,6 +869,7 @@ local gt = getroottable();
 			actor.m.LevelUps += 1;
 			for(local i = 0 ;i < this.Const.Attributes.COUNT; ++i) {
 				actor.m.Talents[i] = this.Math.min(4, actor.m.Talents[i] + 1);
+				actor.m.Attributes[i] = [];
 			}
 
 		}
@@ -1041,6 +1042,7 @@ local gt = getroottable();
 
 				for(local i = 0 ;i < this.Const.Attributes.COUNT; ++i) {
 					actor.m.Talents[i] = this.Math.min(4, actor.m.Talents[i] + 1);
+					actor.m.Attributes[i] = [];
 				}
 				this.Const.EL_Player.EL_PerkTree.EL_AddRandomPerkTreeToPlayer(actor, 50);
 				actor.resetPerks();

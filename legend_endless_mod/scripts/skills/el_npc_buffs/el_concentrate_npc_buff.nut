@@ -7,7 +7,7 @@ this.el_concentrate_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.concentrate";
-		this.m.Name = "Concentrate";
+		this.m.Name = "专注";
 		this.m.Description = "";
 	}
 
@@ -37,10 +37,10 @@ this.el_concentrate_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
 	function onUpdate( _properties )
 	{
 		if(this.m.EL_Stack != 0) {
-			this.m.Name = "Concentrate(x" + this.m.EL_Stack + ")";
+			this.m.Name = "专注(x" + this.m.EL_Stack + ")";
 		}
 		else {
-			this.m.Name = "Concentrate";
+			this.m.Name = "专注";
 		}
         _properties.MeleeSkill += this.Const.EL_NPC.EL_NPCBuff.Factor.Concentrate.MeleeSkillOffsetPurStack[this.m.EL_RankLevel] * this.m.EL_Stack;
         _properties.RangedSkill += this.Const.EL_NPC.EL_NPCBuff.Factor.Concentrate.RangedSkillOffsetPurStack[this.m.EL_RankLevel] * this.m.EL_Stack;

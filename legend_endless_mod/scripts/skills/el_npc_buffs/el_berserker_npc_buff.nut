@@ -4,7 +4,7 @@ this.el_berserker_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_b
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.berserker";
-		this.m.Name = "Berserker";
+		this.m.Name = "狂战士";
 		this.m.Description = "";
 	}
 
@@ -13,10 +13,10 @@ this.el_berserker_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_b
 		local actor = this.getContainer().getActor();
 		local stack = this.Math.floor(10 - (actor.getHitpointsPct() * 10));
 		if(stack != 0) {
-			this.m.Name = "Berserker(x" + stack + ")";
+			this.m.Name = "狂战士(x" + stack + ")";
 		}
 		else {
-			this.m.Name = "Berserker";
+			this.m.Name = "狂战士";
 		}
 		_properties.DamageDirectMult *= this.Const.EL_NPC.EL_NPCBuff.Factor.Berserker.DamageMultPurStack[this.m.EL_RankLevel] * stack;
 		_properties.MeleeSkill += this.Const.EL_NPC.EL_NPCBuff.Factor.Berserker.MeleeSkillOffsetPurStack[this.m.EL_RankLevel] * stack;

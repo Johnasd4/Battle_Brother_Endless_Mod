@@ -4,7 +4,7 @@ this.el_tank_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff",
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.tank";
-		this.m.Name = "Tank";
+		this.m.Name = "重装";
 		this.m.Description = "";
 	}
 

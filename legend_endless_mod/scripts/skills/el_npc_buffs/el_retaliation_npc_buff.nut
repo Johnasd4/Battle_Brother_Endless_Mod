@@ -6,7 +6,7 @@ this.el_retaliation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.retaliation";
-		this.m.Name = "Retaliation";
+		this.m.Name = "反击";
 		this.m.Description = "";
 	}
 

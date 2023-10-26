@@ -6,7 +6,7 @@ this.el_evasion_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.evasion";
-		this.m.Name = "Evasion";
+		this.m.Name = "闪避";
 		this.m.Description = "";
 	}
 
@@ -27,12 +27,12 @@ this.el_evasion_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
         if(this.m.EL_DefenseState == this.Const.EL_NPC.EL_NPCBuff.Factor.Evasion.MeleeState) {
             _properties.MeleeDefense += this.Const.EL_NPC.EL_NPCBuff.Factor.Evasion.DefenseOffset[this.m.EL_RankLevel] * this.Const.EL_NPC.EL_NPCBuff.Factor.Evasion.DefenseOffsetSelectedMult;
             _properties.RangedDefense += this.Const.EL_NPC.EL_NPCBuff.Factor.Evasion.DefenseOffset[this.m.EL_RankLevel];
-            this.m.Name = "Evasion(Melee)";
+            this.m.Name = "闪避(近战)";
         }
         else {
             _properties.MeleeDefense += this.Const.EL_NPC.EL_NPCBuff.Factor.Evasion.DefenseOffset[this.m.EL_RankLevel];
             _properties.RangedDefense += this.Const.EL_NPC.EL_NPCBuff.Factor.Evasion.DefenseOffset[this.m.EL_RankLevel] * this.Const.EL_NPC.EL_NPCBuff.Factor.Evasion.DefenseOffsetSelectedMult;
-            this.m.Name = "Evasion(Ranged)";
+            this.m.Name = "闪避(远程)";
         }
     }
 

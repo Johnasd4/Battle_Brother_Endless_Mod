@@ -4,7 +4,7 @@ this.el_wither_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.wither";
-		this.m.Name = "Wither";
+		this.m.Name = "凋零";
 		this.m.Description = "";
 	}
 
@@ -56,7 +56,7 @@ this.el_wither_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff
 
         if (!actor.isHiddenToPlayer())
         {
-            this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " explodes and dealt huge damage to everyone near!");
+            this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " 周围凋零了!");
         }
 	}
 });

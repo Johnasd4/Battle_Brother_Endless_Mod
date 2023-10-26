@@ -3,13 +3,13 @@ this.el_world_difficulty_change_event <- this.inherit("scripts/events/event", {
 	function create()
 	{
 		this.m.ID = "event.el_world_difficulty_change";
-		this.m.Title = "World Difficulty Customization";
+		this.m.Title = "世界难度选择";
 		this.m.Cooldown = this.Const.EL_World.EL_WorldChangeEvent.DifficultyCooldown * this.World.getTime().SecondsPerDay;
 		local select_screen_num = this.Math.ceil(this.Const.EL_World.EL_WorldChangeEvent.OptionNum / this.Const.EL_World.EL_WorldChangeEvent.OptionNumPurPage);
 		for(local page = 0; page < select_screen_num; ++page) {
 			local screen = {
 				ID = "el_world_difficulty_change_event_select_page_" + page,
-				Text = "Nothing in particular but a periodical event for you to optimize the strength difficulty after played a fair long time, aiming to help you have a better experience.\n\n",
+				Text = "没有什么事情发生，请选择世界难度以获得更好的游戏体验。\n\n",
 				Image = "",
 				List = [],
 				Characters = [],
@@ -26,7 +26,7 @@ this.el_world_difficulty_change_event <- this.inherit("scripts/events/event", {
 				local option_index = page * this.Const.EL_World.EL_WorldChangeEvent.OptionNumPurPage + option_num;
 				local mult_persent = this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[option_index] * 100;
 				local option = {
-					Text = "World Difficulty " + mult_persent + "%",
+					Text = "世界难度 " + mult_persent + "%",
 					Index = option_index,
 					function getResult( _event )
 					{
@@ -39,7 +39,7 @@ this.el_world_difficulty_change_event <- this.inherit("scripts/events/event", {
 			}
 			if(select_screen_num > 1) {
 				local next_page_option = {
-					Text = "Next Page.",
+					Text = "下一页。",
 					Index = (page + 1) % select_screen_num,
 					function getResult( _event )
 					{
@@ -47,7 +47,7 @@ this.el_world_difficulty_change_event <- this.inherit("scripts/events/event", {
 					}
 				}
 				local previous_page_option = {
-					Text = "Previous Page.",
+					Text = "上一页。",
 					Index = (page + select_screen_num - 1) % select_screen_num,
 					function getResult( _event )
 					{
@@ -63,13 +63,13 @@ this.el_world_difficulty_change_event <- this.inherit("scripts/events/event", {
 			local screen = {
 				ID = "el_world_difficulty_change_event_result_page_" + page,
 				Index = page,
-				Text = "Have a nice game.\n",
+				Text = "旅途愉快。\n",
 				Image = "",
 				List = [],
 				Characters = [],
 				Options = [
 					{
-						Text = "Let us continue on with our journey。",
+						Text = "让我们继续我们旅程。",
 						function getResult( _event )
 						{
 							return 0;
@@ -129,39 +129,39 @@ this.el_world_difficulty_change_event <- this.inherit("scripts/events/event", {
 						brother.getBaseProperties().RangedSkill += ranged_skill;
 						brother.getBaseProperties().MeleeSkill += melee_skill;
 						brother.getSkills().update();
-						local info = brother.getName() + " gains:[color=" + this.Const.UI.Color.PositiveEventValue + "]";
+						local info = brother.getName() + " 获得:[color=" + this.Const.UI.Color.PositiveEventValue + "]";
 						local if_add = false;
 						if(hitpoints > 0){
 							if_add = true;
-							info += " Hitp+" + hitpoints;
+							info += " 血量+" + hitpoints;
 						}
 						if(bravery > 0){
 							if_add = true;
-							info += " Brav+" + bravery;
+							info += " 决心+" + bravery;
 						}
 						if(stamina > 0){
 							if_add = true;
-							info += " Stan+" + stamina;
+							info += " 疲劳+" + stamina;
 						}
 						if(initiative > 0){
 							if_add = true;
-							info += " Init+" + initiative;
+							info += " 主动+" + initiative;
 						}
 						if(melee_skill > 0){
 							if_add = true;
-							info += " MeSk+" + melee_skill;
+							info += " 近攻+" + melee_skill;
 						}
 						if(ranged_skill > 0){
 							if_add = true;
-							info += " RgSk+" + ranged_skill;
+							info += " 远攻+" + ranged_skill;
 						}
 						if(melee_defense > 0){
 							if_add = true;
-							info += " MeDf+" + melee_defense;
+							info += " 近防+" + melee_defense;
 						}
 						if(ranged_defense > 0){
 							if_add = true;
-							info += " RgDf+" + ranged_defense;
+							info += " 远防+" + ranged_defense;
 						}
 						info += "[/color]";
 						if(if_add == true){

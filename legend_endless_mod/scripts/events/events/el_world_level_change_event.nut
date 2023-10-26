@@ -3,13 +3,13 @@ this.el_world_level_change_event <- this.inherit("scripts/events/event", {
 	function create()
 	{
 		this.m.ID = "event.el_world_level_change";
-		this.m.Title = "World Level Customization";
+		this.m.Title = "世界等级选择";
 		this.m.Cooldown = this.Const.EL_World.EL_WorldChangeEvent.LevelCooldown * this.World.getTime().SecondsPerDay;
 		local select_screen_num = this.Math.ceil(this.Const.EL_World.EL_WorldChangeEvent.OptionNum / this.Const.EL_World.EL_WorldChangeEvent.OptionNumPurPage);
 		for(local page = 0; page < select_screen_num; ++page) {
 			local screen = {
 				ID = "el_world_level_change_event_select_page_" + page,
-				Text = "Nothing in particular but a periodical event for you to optimize the world level after played a fair long time, aiming to help you have a better experience.\n\n",
+				Text = "没有什么事情发生，请选择世界等级以获得更好的游戏体验。\n\n",
 				Image = "",
 				List = [],
 				Characters = [],
@@ -26,7 +26,7 @@ this.el_world_level_change_event <- this.inherit("scripts/events/event", {
 				local option_index = page * this.Const.EL_World.EL_WorldChangeEvent.OptionNumPurPage + option_num;
 				local world_level_offset = this.Const.EL_World.EL_WorldChangeEvent.WorldLevelOffset[option_index];
 				local option = {
-					Text = "World Level " + world_level_offset,
+					Text = "世界等级 " + world_level_offset,
 					Index = option_index,
 					function getResult( _event )
 					{
@@ -39,7 +39,7 @@ this.el_world_level_change_event <- this.inherit("scripts/events/event", {
 			}
 			if(select_screen_num > 1) {
 				local next_page_option = {
-					Text = "Next Page.",
+					Text = "下一页。",
 					Index = (page + 1) % select_screen_num,
 					function getResult( _event )
 					{
@@ -47,7 +47,7 @@ this.el_world_level_change_event <- this.inherit("scripts/events/event", {
 					}
 				}
 				local previous_page_option = {
-					Text = "Previous Page.",
+					Text = "上一页。",
 					Index = (page + select_screen_num - 1) % select_screen_num,
 					function getResult( _event )
 					{
@@ -63,13 +63,13 @@ this.el_world_level_change_event <- this.inherit("scripts/events/event", {
 			local screen = {
 				ID = "el_world_level_change_event_result_page_" + page,
 				Index = page,
-				Text = "Have a nice game.\n",
+				Text = "旅途愉快。\n",
 				Image = "",
 				List = [],
 				Characters = [],
 				Options = [
 					{
-						Text = "Let us continue on with our journey。",
+						Text = "让我们继续我们旅程。",
 						function getResult( _event )
 						{
 							return 0;
@@ -86,7 +86,7 @@ this.el_world_level_change_event <- this.inherit("scripts/events/event", {
 						brother.addXP(xp);
 						brother.updateLevel();
 					}
-					local info = "All brothers gains: XP+[color=" + this.Const.UI.Color.PositiveEventValue + "]" + xp + "[/color]";
+					local info = "所有兄弟获得: 经验+[color=" + this.Const.UI.Color.PositiveEventValue + "]" + xp + "[/color]";
 					if(xp != 0){
 						this.List.push({
 							id = 16,

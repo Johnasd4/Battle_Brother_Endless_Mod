@@ -4,7 +4,7 @@ this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.self_destruct";
-		this.m.Name = "Self Destruct";
+		this.m.Name = "自爆";
 		this.m.Description = "";
 	}
 
@@ -75,7 +75,7 @@ this.el_self_destruct_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
 
         if (!actor.isHiddenToPlayer())
         {
-            this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " explodes and dealt huge damage to everyone near!");
+            this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " 自爆了!");
         }
 	}
 

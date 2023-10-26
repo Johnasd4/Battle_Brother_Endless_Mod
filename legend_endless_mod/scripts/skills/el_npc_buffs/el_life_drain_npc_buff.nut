@@ -4,7 +4,7 @@ this.el_life_drain_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.life_drain";
-		this.m.Name = "Life Drain";
+		this.m.Name = "生命窃取";
 		this.m.Description = "";
 	}
 

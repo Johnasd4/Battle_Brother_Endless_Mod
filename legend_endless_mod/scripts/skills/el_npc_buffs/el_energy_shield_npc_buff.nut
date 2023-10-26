@@ -6,7 +6,7 @@ this.el_energy_shield_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.energy_shield";
-		this.m.Name = "Energy Shield";
+		this.m.Name = "能量护盾";
 		this.m.Description = "";
 	}
 
@@ -27,10 +27,10 @@ this.el_energy_shield_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_n
     function onUpdate( _properties )
     {
 		if(this.m.EL_Stack != 0) {
-			this.m.Name = "Energy Shield(x" + this.Math.floor(this.m.EL_Stack) + ")";
+			this.m.Name = "能量护盾(x" + this.Math.floor(this.m.EL_Stack) + ")";
 		}
 		else {
-			this.m.Name = "Energy Shield";
+			this.m.Name = "能量护盾";
 		}
     }
 

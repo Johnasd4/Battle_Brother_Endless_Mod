@@ -4,7 +4,7 @@ this.el_hawk_eye_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_bu
 	{
 		this.el_npc_buff.create();
 		this.m.ID = "el_npc_buffs.hawk_eye";
-		this.m.Name = "Hawk Eye";
+		this.m.Name = "鹰眼";
 		this.m.Description = "";
 	}
 
