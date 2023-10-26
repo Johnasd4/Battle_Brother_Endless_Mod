@@ -38,6 +38,9 @@ local gt = getroottable();
 
 		o.onActorKilled = function( _actor, _tile, _skill ) {
 			this.actor.onActorKilled(_actor, _tile, _skill);
+			if(_actor.isAlliedWith(this)) {
+				return;
+			}
 			local XPkiller = this.Math.floor(_actor.getXP() * this.Const.XP.XPForKillerPct);
 			local XPgroup = _actor.getXP() * (1.0 - this.Const.XP.XPForKillerPct);
 			this.addXP(XPkiller);
