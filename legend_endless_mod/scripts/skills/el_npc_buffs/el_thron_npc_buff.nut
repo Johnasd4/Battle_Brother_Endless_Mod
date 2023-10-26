@@ -16,6 +16,9 @@ this.el_thron_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff"
         if(_attacker == null || _attacker.isDying() || !_attacker.isAlive() || _attacker == actor || this.m.EL_IsThron) {
             return;
         }
+        if(actor == null || actor.isDying() || !actor.isAlive()) {
+            return;
+        }
         local damage = this.Math.round(this.Const.EL_NPC.EL_NPCBuff.Factor.Thron.DamageBase * (1 + actor.EL_getCombatLevel() * this.Const.EL_NPC.EL_NPCBuff.Factor.Thron.DamageMultPurCombatLevel) * this.Const.EL_NPC.EL_NPCBuff.Factor.Thron.DamageRate[this.m.EL_RankLevel]);
         if(actor.EL_isNonHumanoid()) {
             local level_ups = actor.EL_getLevel();
