@@ -84,7 +84,7 @@ local gt = getroottable();
 					this.m.Hitpoints = 1;
 				}
 			}
-			return false;
+			return result;
 		}
 
 
