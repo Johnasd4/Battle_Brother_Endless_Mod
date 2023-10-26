@@ -684,6 +684,33 @@ local gt = getroottable();
 		}
 	});
 
+	::mods_hookExactClass("skills/perks/perk_legend_tumble", function ( o )
+	{
+
+		o.onAfterUpdate = function( _properties )
+		{
+			local skills = this.getContainer().getAllSkillsOfType(this.Const.SkillType.Active);
+
+			foreach( skill in skills )
+			{
+				if (this.m.Skills.find(skill.getID()) != null)
+				{
+					skill.m.FatigueCostMult *= 0.5;
+
+					if (skill.getID() == "actives.legend_leap")
+					{
+						skill.m.ActionPointCost /= 2;
+					}
+					else
+					{
+						skill.m.ActionPointCost -= 1;
+					}
+				}
+			}
+		}
+	});
+
+
 	::mods_hookExactClass("skills/perks/perk_lone_wolf", function ( o )
 	{
 
@@ -1284,6 +1311,10 @@ gt.Const.EL_Config.EL_modStrings <- function()
         {
             ID = "perk.fortified_mind",
             tooltip = "An iron will is not swayed from the true path easily. Resolve is increased by [color=" + this.Const.UI.Color.PositiveValue + "]+15[/color]."
+        },
+		{
+            ID = "perk.footwork",
+            tooltip = "Work those feet!\n\n[color=" + this.Const.UI.Color.Passive + "][u]Active:[/u][/color]\n• Costs 3 AP and builds 20 Fatigue."
         },
         {
             ID = "perk.legend_horse_hippology",
