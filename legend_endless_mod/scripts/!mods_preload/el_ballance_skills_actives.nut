@@ -161,6 +161,59 @@ local gt = getroottable();
 
 	});
 
+	::mods_hookExactClass("skills/actives/legend_cascade_skill", function(o)
+    {
+		o.onUse = function( _user, _targetTile )
+		{
+            local user = this.getContainer().getActor();
+            local has_rarity_entry = false;
+            if(user.getSkills().hasSkill("el_rarity_entry.pursuit_of_wind") && user.getSkills().getSkillByID("el_rarity_entry.pursuit_of_wind").EL_isUsable())
+			{
+				has_rarity_entry = true;
+			}
+            this.consumeAmmo();
+            local target = _targetTile.getEntity();
+            this.attackEntity(_user, target);
+            this.m.IsDoingAttackMove = false;
+            this.getContainer().setBusy(true);
+            this.Time.scheduleEvent(this.TimeUnit.Virtual, 100, function ( _skill )
+            {
+                if (target.isAlive())
+                {
+                    _skill.attackEntity(_user, target);
+                }
+            }.bindenv(this), this);
+            this.Time.scheduleEvent(this.TimeUnit.Virtual, 200, function ( _skill )
+            {
+                if (target.isAlive())
+                {
+                    _skill.attackEntity(_user, target);
+                }
+
+                _skill.m.IsDoingAttackMove = true;
+                _skill.getContainer().setBusy(false);
+            }.bindenv(this), this);
+            if(has_rarity_entry)
+            {
+                this.m.IsDoingAttackMove = false;
+                this.getContainer().setBusy(true);
+                for(local i = 0;i < 6; ++i)
+                {
+                    this.Time.scheduleEvent(this.TimeUnit.Virtual, 100, function ( _skill )
+                    {
+                        if (target.isAlive())
+                        {
+                            _skill.attackEntity(_user, target);
+                        }
+                    }.bindenv(this), this);
+                }
+                _skill.m.IsDoingAttackMove = true;
+                _skill.getContainer().setBusy(false);
+            }
+            return true;
+		}
+	});
+
 	::mods_hookExactClass("skills/actives/legend_staff_lunge_skill", function(o){
 
         function onAnySkillUsed( _skill, _targetEntity, _properties )
