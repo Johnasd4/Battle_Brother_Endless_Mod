@@ -216,7 +216,10 @@ gt.Const.EL_Rarity_Entry <- {
 			DamageMultFactor = 0.01,
 			MeleeSkillFactor = 1,
 			MeleeDefenseFactor = 1,
-			RangedDefenseFactor = 1
+			RangedDefenseFactor = 1,
+			ReplaceSkillList = [
+				"actives.riposte"
+			]
 		},
 		EL_NaturalDismember = {
 			SlightInjuryPercent = 0.05,

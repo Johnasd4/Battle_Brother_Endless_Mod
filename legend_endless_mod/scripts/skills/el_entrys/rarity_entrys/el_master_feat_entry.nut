@@ -1,5 +1,8 @@
 this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
-	m = {},
+	m = {
+		EL_IsRetaliate = false,
+		EL_replacedSkills = []
+	},
 	function create()
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
@@ -78,6 +81,23 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
         }
 	}
 
+	function onAfterUpdate( _properties )
+	{
+		if (EL_isUsable())
+		{
+			this.Const.EL_Rarity_Entry.EL_ReplaceSkill(this.getContainer().getActor(), this.m.EL_replacedSkills, this.Const.EL_Rarity_Entry.Factor.EL_MasterFeat.ReplaceSkillList);
+		}
+		else
+		{
+			this.m.EL_replacedSkills.clear();
+		}
+	}
+
+	function onRemoved()
+	{
+		this.Const.EL_Rarity_Entry.EL_ReturnSkill(this.getContainer().getActor(), this.m.EL_replacedSkills);
+	}
+
 	function onAnySkillUsed( _skill, _targetEntity, _properties )
 	{
 		if (_targetEntity != null && _skill.m.IsWeaponSkill && EL_isUsable())
@@ -123,14 +143,28 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
         }
 	}
 
-	function EL_attackBack( _attacker ) {
+	function EL_attackBack( _attacker ) 
+	{
+		if(this.m.EL_IsRetaliate)
+		{
+			return;
+		}
+		if(_attacker == null && _attacker.isAlive() && !_attacker.isAlliedWith(actor)) {
+			return;
+		}
 		local actor = this.getContainer().getActor();
 		if(actor.getSkills().hasSkill("effects.stunned") || actor.getCurrentProperties().IsStunned)
 		{
 			return;
 		}
         local skill = this.Const.EL_Rarity_Entry.EL_getAttackSkill(actor);
+		if(skill.getRangeMax() < _attacker.getTile().getDistanceTo(actor.getTile()))
+		{
+			return;
+		}
+		this.m.EL_IsRetaliate = true;
         skill.useForFree(_attacker.getTile());
+		this.m.EL_IsRetaliate = false;
 	}
 
 	function EL_isUsable()

@@ -60,11 +60,6 @@ this.el_bloody_knock_entry <- this.inherit("scripts/skills/skill", {
 		{
             _targetEntity.getSkills().add(this.new("scripts/skills/effects/stunned_effect"));
             _targetEntity.getSkills().add(this.new("scripts/skills/effects/dazed_effect"));
-            local helmet = _targetEntity.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
-            if(helmet != null && helmet.getCondition() > 0)
-            {
-                _targetEntity.getSkills().add(this.new("scripts/skills/injury/severe_concussion_injury"));
-            }
 		}
 	}
 	
@@ -84,6 +79,10 @@ this.el_bloody_knock_entry <- this.inherit("scripts/skills/skill", {
                 _hitInfo.DamageArmor *= this.Const.EL_Rarity_Entry.Factor.EL_BloodyKnock.DamageMult;
 				_hitInfo.DamageRegular *= this.Const.EL_Rarity_Entry.Factor.EL_BloodyKnock.DamageMult;
             }
+			else
+			{
+                _targetEntity.getSkills().add(this.new("scripts/skills/injury/severe_concussion_injury"));
+			}
 		}
 	}
 

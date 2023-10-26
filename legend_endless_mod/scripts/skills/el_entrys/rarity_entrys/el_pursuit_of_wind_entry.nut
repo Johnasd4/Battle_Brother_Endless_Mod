@@ -83,7 +83,7 @@ this.el_pursuit_of_wind_entry <- this.inherit("scripts/skills/skill", {
 			local skills = this.getContainer().getActor().getSkills().m.Skills;
             foreach( skill in skills )
             {
-                if (skill.m.IsWeaponSkill)
+                if (skill.m.IsWeaponSkill || skill.getID() == "actives.legend_cascade")
                 {
                     skill.m.MaxRange += 9993;
                 }
