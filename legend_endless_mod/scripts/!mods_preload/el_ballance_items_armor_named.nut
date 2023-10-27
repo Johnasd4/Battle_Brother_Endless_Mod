@@ -19,55 +19,55 @@ local gt = getroottable();
                 id = 11,
                 type = "text",
                 icon = "ui/icons/bravery.png",
-                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+15[/color] Resolve when confident."
+                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Resolve when confident."
             });
             result.push({
                 id = 12,
                 type = "text",
                 icon = "ui/icons/initiative.png",
-                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+15[/color] Initiative when confident."
+                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Initiative when confident."
             });
             result.push({
                 id = 13,
                 type = "text",
                 icon = "ui/icons/melee_skill.png",
-                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+15[/color] Melee Skill when confident."
+                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Melee Skill when confident."
             });
             result.push({
                 id = 14,
                 type = "text",
                 icon = "ui/icons/ranged_skill.png",
-                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+15[/color] Ranged Skill when confident."
+                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Ranged Skill when confident."
             });
             result.push({
                 id = 15,
                 type = "text",
                 icon = "ui/icons/melee_defense.png",
-                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+15[/color] Melee Defense when confident."
+                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Melee Defense when confident."
             });
             result.push({
                 id = 16,
                 type = "text",
                 icon = "ui/icons/ranged_defense.png",
-                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+15[/color] Ranged Defense when confident."
+                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Ranged Defense when confident."
             });
             result.push({
                 id = 17,
                 type = "text",
                 icon = "ui/icons/fatigue.png",
-                text = "[color=" + this.Const.UI.Color.PositiveValue + "]-2[/color] Fatigue Cost when confident."
+                text = "[color=" + this.Const.UI.Color.PositiveValue + "]-1[/color] Fatigue Cost when confident."
             });
             result.push({
                 id = 18,
                 type = "text",
                 icon = "ui/icons/damage_dealt.png",
-                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+15%[/color] Damage Dealt when confident."
+                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10%[/color] Damage Dealt when confident."
             });
             result.push({
                 id = 19,
                 type = "text",
                 icon = "ui/icons/damage_received.png",
-                text = "[color=" + this.Const.UI.Color.PositiveValue + "]-15%[/color] Damage Received when confident."
+                text = "[color=" + this.Const.UI.Color.PositiveValue + "]-10%[/color] Damage Received when confident."
             });
             return result;
         }

@@ -42,6 +42,37 @@ local gt = getroottable();
 		}
 	});
 
+	::mods_hookExactClass("skills/actives/legend_miasma_skill", function ( o )
+	{
+        o.getTooltip = function()
+        {
+            return [
+                {
+                    id = 1,
+                    type = "title",
+                    text = this.getName()
+                },
+                {
+                    id = 2,
+                    type = "description",
+                    text = this.getDescription()
+                },
+                {
+                    id = 3,
+                    type = "text",
+                    text = this.getCostString()
+                },
+                {
+                    id = 10,
+                    type = "text",
+                    icon = "ui/icons/damage_received.png",
+                    text = "造成目标5%到10%基础生命值的伤害，持续4回合。"
+                }
+            ];
+        }
+	});
+
+
 	::mods_hookExactClass("skills/actives/slash_lightning", function(o){
 
         o.getTooltip = function()

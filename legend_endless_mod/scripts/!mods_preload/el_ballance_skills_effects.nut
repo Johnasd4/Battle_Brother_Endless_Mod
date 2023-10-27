@@ -2041,4 +2041,50 @@ local gt = getroottable();
 
 	});
 
+
+    gt.Const.Tactical.Common.onApplyMiasma = function( _tile, _entity )	{
+		if (_entity.getFlags().has("undead"))
+		{
+			return;
+		}
+
+		if (_entity.getCurrentProperties().IsImmuneToPoison)
+		{
+			return;
+		}
+
+		local damageMult = _entity.getCurrentProperties().IsResistantToMiasma ? 0.5 : 1.0;
+		this.Tactical.spawnIconEffect("status_effect_00", _tile, this.Const.Tactical.Settings.SkillIconOffsetX, this.Const.Tactical.Settings.SkillIconOffsetY, this.Const.Tactical.Settings.SkillIconScale, this.Const.Tactical.Settings.SkillIconFadeInDuration, this.Const.Tactical.Settings.SkillIconStayDuration, this.Const.Tactical.Settings.SkillIconFadeOutDuration, this.Const.Tactical.Settings.SkillIconMovement);
+		local sounds = [];
+
+		if (_entity.getFlags().has("human"))
+		{
+			sounds = [
+				"sounds/humans/human_coughing_01.wav",
+				"sounds/humans/human_coughing_02.wav",
+				"sounds/humans/human_coughing_03.wav",
+				"sounds/humans/human_coughing_04.wav"
+			];
+		}
+		else
+		{
+			sounds = [
+				"sounds/enemies/miasma_appears_01.wav",
+				"sounds/enemies/miasma_appears_02.wav",
+				"sounds/enemies/miasma_appears_03.wav"
+			];
+		}
+
+		this.Sound.play(sounds[this.Math.rand(0, sounds.len() - 1)], this.Const.Sound.Volume.Actor, _entity.getPos());
+		local hitInfo = clone this.Const.Tactical.HitInfo;
+		hitInfo.DamageRegular = this.Math.ceil(this.Math.rand(5, 10) * damageMult * _tile.getEntity().getBaseProperties().Hitpoints * 0.01);
+		hitInfo.DamageDirect = 1.0;
+		hitInfo.BodyPart = this.Const.BodyPart.Body;
+		hitInfo.BodyDamageMult = 1.0;
+		hitInfo.FatalityChanceMult = 0.0;
+		_tile.getEntity().onDamageReceived(_entity, null, hitInfo);
+	}
+
+
+
 });
