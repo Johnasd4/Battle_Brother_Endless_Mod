@@ -1397,6 +1397,11 @@ gt.Const.EL_Config.EL_modStrings <- function()
             ID = "perk.ptr_promised_potential",
             tooltip = "The Captain said he\'d take a gamble on you, but you\'d better not disappoint!\n\n[color=" + this.Const.UI.Color.OneTimeEffect + "][u]One-Time Effect:[/u][/color]\n• Every time level ups, it has a [color=" + this.Const.UI.Color.PositiveValue + "]1%[/color] chance of being replaced with \'Realized Potential\' which will increase all talents by [color=" + this.Const.UI.Color.PositiveValue + "]+1[/color], get [color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] level ups, get [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color] perk points, unlock about [color=" + this.Const.UI.Color.PositiveValue + "]+50[/color] perks, and refund all perk points, including the one spent on this perk."
         },
+		{
+            ID = "perk.ptr_target_practice",
+            tooltip = "训练时间让你能够想出一种有效的方法来分配弹药, 同时提高你的准确性!\n\n[color=" + this.Const.UI.Color.Passive + "][u]被动:[/u][/color]\n• 切换箭袋不会消耗行动点.\n• 瞄准射击获得 [color=" + this.Const.UI.Color.PositiveValue + "]+10%[/color] 命中率."
+        },
+
         {
             ID = "perk.ptr_through_the_ranks",
             tooltip = "Ranged attacks have a [color=" + this.Const.UI.Color.PositiveValue + "]+50[/color] reduced chance to inflict friendly fire."
@@ -1411,7 +1416,7 @@ gt.Const.EL_Config.EL_modStrings <- function()
         },
         {
             ID = "perk.student",
-            tooltip = "Everything can be learned if you put your mind to it. Gain additional [color=" + this.Const.UI.Color.PositiveValue + "]20%[/color] experience from battle. At the eleventh character level, you gain an additional perk point. The bonus experience stays until level 11. \n\nWhen playing the \'Manhunters\' origin, your indebted get the perk point refunded at the seventh character level."
+            tooltip = "如果你全神贯注，你一切都可以学到. 额外获得 [color=" + this.Const.UI.Color.PositiveValue + "]20%[/color] 的经验。达到11级时, 不再获得加成，并额外获得1个特技点。"
         },
 
 		    ]

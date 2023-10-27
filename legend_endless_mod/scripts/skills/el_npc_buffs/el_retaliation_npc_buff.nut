@@ -17,7 +17,7 @@ this.el_retaliation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
         local skills = this.getContainer().getActor().getSkills().m.Skills;
 		foreach( skill in skills )
 		{
-			if (!skill.isActive() || !skill.isAttack() || !skill.isTargeted() || skill.isIgnoredAsAOO() || skill.isDisabled() || !skill.isUsable())
+			if (!skill.isActive() || !skill.isAttack() || !skill.isTargeted() || skill.isIgnoredAsAOO() || skill.isDisabled() || !skill.isUsable() || skill.isRanged())
 			{
 				continue;
 			}

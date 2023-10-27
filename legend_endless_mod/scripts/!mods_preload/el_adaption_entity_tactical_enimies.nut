@@ -443,6 +443,11 @@ local gt = getroottable();
         {
             this.m.Body.onDamageReceived(_attacker, _damageHitpoints, _damageArmor);
         }
+        o.getArmorMax = function( _bodyPart )
+        {
+            return this.m.Body.getArmorMax(_bodyPart);
+        }
+
 
     });
 
@@ -483,6 +488,10 @@ local gt = getroottable();
         o.onDamageReceived = function( _attacker, _damageHitpoints, _damageArmor )
         {
             return this.m.Body.onDamageReceived(_attacker, _damageHitpoints, _damageArmor);
+        }
+        o.getArmorMax = function( _bodyPart )
+        {
+            return this.m.Body.getArmorMax(_bodyPart);
         }
     });
 
