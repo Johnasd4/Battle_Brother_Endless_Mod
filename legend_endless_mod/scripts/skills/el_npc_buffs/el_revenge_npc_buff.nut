@@ -18,6 +18,9 @@ this.el_revenge_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
 
 	function onTargetHit( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
 	{
+		if(_damageInflictedHitpoints + _damageInflictedArmor == 0) {
+			return;
+		}
         this.m.EL_Stack = 0;
         this.getContainer().getActor().getSkills().update();
 	}

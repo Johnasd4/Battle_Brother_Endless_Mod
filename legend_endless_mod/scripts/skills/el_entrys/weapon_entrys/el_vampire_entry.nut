@@ -74,7 +74,7 @@ this.el_vampire_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
 		++_EL_totalEntry.m.EL_EntryNum;
 		_EL_totalEntry.m.EL_Vampire += this.m.EL_Vampire;
 	}
-    
+
     function onSerialize( _out )
 	{
 		_out.writeF32(this.m.EL_Vampire);

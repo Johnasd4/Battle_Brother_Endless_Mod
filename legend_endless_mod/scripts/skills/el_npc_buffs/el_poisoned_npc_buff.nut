@@ -11,7 +11,7 @@ this.el_poisoned_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_bu
 	function onTargetHit( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
 	{
         local user = this.getContainer().getActor();
-		if (_targetEntity == null || _targetEntity.isAlliedWith(user) || _targetEntity.isDying() || !_targetEntity.isAlive()) {
+		if (_targetEntity == null || _targetEntity.isAlliedWith(user) || _targetEntity.isDying() || !_targetEntity.isAlive() || _damageInflictedHitpoints + _damageInflictedArmor == 0) {
 			return;
 		}
         if(this.Math.rand(1, 100) <= this.Const.EL_NPC.EL_NPCBuff.Factor.Poisoned.Chance[this.m.EL_RankLevel]) {
