@@ -108,11 +108,11 @@ local gt = getroottable();
                 local body = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
                 local body_armor_added = this.Math.round(properties.Armor[this.Const.BodyPart.Body] * properties.ArmorMult[this.Const.BodyPart.Body]);
                 if(body != null) {
-                    body.setArmor(this.Math.min(body.getArmorMax(), body.getArmor() + this.Math.round(body.getArmorMax() * this.Const.EL_NPC.EL_NPCBuff.Factor.Recovery.ArmorRecoveryRate[this.m.EL_RankLevel])));
+                    body.setArmor(this.Math.min(body.getArmorMax(), body.getArmor() + this.Math.round(body.getArmorMax() * this.Const.EL_NPC.EL_NPCBuff.Factor.Recovery.ArmorRecoveryRate[actor.EL_getRankLevel()])));
                     body.updateAppearance();
                 }
                 else {
-                    properties.Armor[this.Const.BodyPart.Body] = this.Math.min(properties.ArmorMax[this.Const.BodyPart.Body], properties.Armor[this.Const.BodyPart.Body] + this.Math.round(properties.ArmorMax[this.Const.BodyPart.Body] * this.Const.EL_NPC.EL_NPCBuff.Factor.Recovery.ArmorRecoveryRate[this.m.EL_RankLevel]));
+                    properties.Armor[this.Const.BodyPart.Body] = this.Math.min(properties.ArmorMax[this.Const.BodyPart.Body], properties.Armor[this.Const.BodyPart.Body] + this.Math.round(properties.ArmorMax[this.Const.BodyPart.Body] * this.Const.EL_NPC.EL_NPCBuff.Factor.Recovery.ArmorRecoveryRate[actor.EL_getRankLevel()]));
                 }
                 body_armor_added = this.Math.round(properties.Armor[this.Const.BodyPart.Body] * properties.ArmorMult[this.Const.BodyPart.Body]) - body_armor_added;
                 if (!actor.isHiddenToPlayer() && body_armor_added != 0)
@@ -123,11 +123,11 @@ local gt = getroottable();
                 local head = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
                 local head_armor_added = this.Math.round(properties.Armor[this.Const.BodyPart.Head] * properties.ArmorMult[this.Const.BodyPart.Head]);
                 if(head != null) {
-                    head.setArmor(this.Math.min(head.getArmorMax(), head.getArmor() + this.Math.round(head.getArmorMax() * this.Const.EL_NPC.EL_NPCBuff.Factor.Recovery.ArmorRecoveryRate[this.m.EL_RankLevel])));
+                    head.setArmor(this.Math.min(head.getArmorMax(), head.getArmor() + this.Math.round(head.getArmorMax() * this.Const.EL_NPC.EL_NPCBuff.Factor.Recovery.ArmorRecoveryRate[actor.EL_getRankLevel()])));
                     head.updateAppearance();
                 }
                 else {
-                    properties.Armor[this.Const.BodyPart.Head] = this.Math.min(properties.ArmorMax[this.Const.BodyPart.Head], properties.Armor[this.Const.BodyPart.Head] + this.Math.round(properties.ArmorMax[this.Const.BodyPart.Head] * this.Const.EL_NPC.EL_NPCBuff.Factor.Recovery.ArmorRecoveryRate[this.m.EL_RankLevel]));
+                    properties.Armor[this.Const.BodyPart.Head] = this.Math.min(properties.ArmorMax[this.Const.BodyPart.Head], properties.Armor[this.Const.BodyPart.Head] + this.Math.round(properties.ArmorMax[this.Const.BodyPart.Head] * this.Const.EL_NPC.EL_NPCBuff.Factor.Recovery.ArmorRecoveryRate[actor.EL_getRankLevel()]));
                 }
                 head_armor_added = this.Math.round(properties.Armor[this.Const.BodyPart.Head] * properties.ArmorMult[this.Const.BodyPart.Head]) - head_armor_added;
                 if (!actor.isHiddenToPlayer() && head_armor_added != 0)
