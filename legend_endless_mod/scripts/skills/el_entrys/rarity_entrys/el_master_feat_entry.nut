@@ -158,7 +158,7 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
 			return;
 		}
         local skill = this.Const.EL_Rarity_Entry.EL_getAttackSkill(actor);
-		if(skill.getRangeMax() < _attacker.getTile().getDistanceTo(actor.getTile()))
+		if(skill.getMaxRange() < _attacker.getTile().getDistanceTo(actor.getTile()))
 		{
 			return;
 		}
