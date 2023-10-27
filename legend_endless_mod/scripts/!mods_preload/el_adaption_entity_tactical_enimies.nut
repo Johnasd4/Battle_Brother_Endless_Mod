@@ -437,7 +437,7 @@ local gt = getroottable();
         }
         o.onMissed <- function( _attacker, _skill, _dontShake = false )
         {
-            this.m.Body.onAttacked(_attacker, _skill, _dontShake);
+            this.m.Body.onMissed(_attacker, _skill, _dontShake);
         }
         o.onDamageReceived = function( _attacker, _damageHitpoints, _damageArmor )
         {
@@ -483,7 +483,7 @@ local gt = getroottable();
         }
         o.onMissed <- function( _attacker, _skill, _dontShake = false )
         {
-            return this.m.Body.onAttacked(_attacker, _skill, _dontShake);
+            return this.m.Body.onMissed(_attacker, _skill, _dontShake);
         }
         o.onDamageReceived = function( _attacker, _damageHitpoints, _damageArmor )
         {
