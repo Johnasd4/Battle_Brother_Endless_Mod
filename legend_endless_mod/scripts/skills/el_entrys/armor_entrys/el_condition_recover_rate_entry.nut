@@ -63,11 +63,11 @@ this.el_condition_recover_rate_entry <- this.inherit("scripts/skills/el_entrys/e
 
     function onTurnStart()
 	{
-        local helmet = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Head);		
-		if(helmet != null)
+        local body = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Body);		
+		if(body != null)
 		{
-			local condition_recover = this.Math.round(helmet.getConditionMax() * this.m.EL_CurrentLevel * this.m.EL_ConditionRecoverRate * 0.01);
-			helmet.setCondition(this.Math.min(helmet.getConditionMax(), helmet.getCondition() + condition_recover));
+			local condition_recover = this.Math.round(body.getConditionMax() * this.m.EL_CurrentLevel * this.m.EL_ConditionRecoverRate * 0.01);
+			body.setCondition(this.Math.min(body.getConditionMax(), body.getCondition() + condition_recover));
 		}
 	}
 
