@@ -158,7 +158,7 @@ local gt = getroottable();
 						id = 17,
 						type = "text",
 						icon = "ui/icons/fatigue.png",
-						text = "[color=" + this.Const.UI.Color.PositiveValue + "]-21[/color] Fatigue Cost"
+						text = "[color=" + this.Const.UI.Color.PositiveValue + "]-1[/color] Fatigue Cost"
 					},
 					{
 						id = 18,
