@@ -226,8 +226,6 @@ local gt = getroottable();
             }.bindenv(this), this);
             if(has_rarity_entry)
             {
-                this.m.IsDoingAttackMove = false;
-                this.getContainer().setBusy(true);
                 for(local i = 0;i < 6; ++i)
                 {
                     this.Time.scheduleEvent(this.TimeUnit.Virtual, 100, function ( _skill )
@@ -238,8 +236,6 @@ local gt = getroottable();
                         }
                     }.bindenv(this), this);
                 }
-                _skill.m.IsDoingAttackMove = true;
-                _skill.getContainer().setBusy(false);
             }
             return true;
 		}
