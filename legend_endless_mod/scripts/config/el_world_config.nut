@@ -13,6 +13,7 @@ gt.Const.EL_World <- {
 
     EL_WorldLevel = {
         Min = 0,
+        Max = 200,
         BaseStableLevel = 100,
         BaseStableMult = 27,
         LevelUpBaseDay = 7,
@@ -65,27 +66,23 @@ gt.Const.EL_World <- {
     EL_WorldChangeEvent = {
         DifficultyCooldown = 50,
         LevelCooldown = 30,
-        OptionNum = 16,
+        OptionNum = 12,
         OptionNumPurPage = 4,
         RewardTimesPurLevel = 1,
-        DefaultOption = 7,
+        DefaultOption = 3,
         //DefaultOption = 15,
         DifficultyMult = [
-            0.1,
-            0.2,
-            0.3,
-            0.4,
-            0.55,
-            0.70,
+            0.5,
+            0.6,
             0.85,
             1.0,
-            1.25,
+            1.15,
+            1.3,
             1.5,
             1.75,
             2,
             2.25,
             2.5,
-            2.75,
             3
         ],
         WorldLevelOffset = [
@@ -100,11 +97,7 @@ gt.Const.EL_World <- {
             7,
             8,
             9,
-            10,
-            11,
-            12,
-            13,
-            14
+            10
         ]
     }
 

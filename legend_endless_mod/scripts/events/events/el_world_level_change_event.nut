@@ -81,17 +81,106 @@ this.el_world_level_change_event <- this.inherit("scripts/events/event", {
 					local brothers = this.World.getPlayerRoster().getAll();
 					local xp_level = this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1));
 					local xp = this.Math.floor((this.Const.LevelXP[xp_level] - this.Const.LevelXP[xp_level - 1]) * 0.2 * this.Index);
-					foreach( brother in brothers )
-					{
-						brother.addXP(xp);
-						brother.updateLevel();
-					}
-					local info = "所有兄弟获得: 经验+[color=" + this.Const.UI.Color.PositiveEventValue + "]" + xp + "[/color]";
+					local xp_info = "所有兄弟获得: 经验+[color=" + this.Const.UI.Color.PositiveEventValue + "]" + xp + "[/color]";
 					if(xp != 0){
 						this.List.push({
 							id = 16,
-							text = info
+							text = xp_info
 						});
+					}
+					foreach( brother in brothers )
+					{
+						local hitpoints = 0;
+						local bravery = 0;
+						local stamina = 0;
+						local initiative = 0;
+						local melee_skill = 0;
+						local ranged_skill = 0;
+						local melee_defense = 0;
+						local ranged_defense = 0;
+						local total_reward_times = this.Const.EL_World.EL_WorldChangeEvent.RewardTimesPurLevel * this.Index;
+						for(local reward_times = 0; reward_times < total_reward_times; ++reward_times) {
+							local attribute_type = this.Math.rand(0, this.Const.Attributes.COUNT - 1);
+							switch (attribute_type)
+							{
+								case this.Const.Attributes.Hitpoints:
+									hitpoints += 1;
+									break;
+								case this.Const.Attributes.Bravery:
+									bravery += 1;
+									break;
+								case this.Const.Attributes.Fatigue:
+									stamina += 1;
+									break;
+								case this.Const.Attributes.Initiative:
+									initiative += 1;
+									break;
+								case this.Const.Attributes.MeleeSkill:
+									melee_skill += 1;
+									break;
+								case this.Const.Attributes.RangedSkill:
+									ranged_skill += 1;
+									break;
+								case this.Const.Attributes.MeleeDefense:
+									melee_defense += 1;
+									break;
+								case this.Const.Attributes.RangedDefense:
+									ranged_defense += 1;
+									break;
+							}
+						}
+						brother.getBaseProperties().Initiative += initiative;
+						brother.getBaseProperties().Bravery += bravery;
+						brother.getBaseProperties().Stamina += stamina;
+						brother.getBaseProperties().Hitpoints += hitpoints;
+						brother.getBaseProperties().RangedDefense += ranged_defense;
+						brother.getBaseProperties().MeleeDefense += melee_defense;
+						brother.getBaseProperties().RangedSkill += ranged_skill;
+						brother.getBaseProperties().MeleeSkill += melee_skill;
+						brother.getSkills().update();
+						local info = brother.getName() + " 获得:[color=" + this.Const.UI.Color.PositiveEventValue + "]";
+						local if_add = false;
+						if(hitpoints > 0){
+							if_add = true;
+							info += " 血量+" + hitpoints;
+						}
+						if(bravery > 0){
+							if_add = true;
+							info += " 决心+" + bravery;
+						}
+						if(stamina > 0){
+							if_add = true;
+							info += " 疲劳+" + stamina;
+						}
+						if(initiative > 0){
+							if_add = true;
+							info += " 主动+" + initiative;
+						}
+						if(melee_skill > 0){
+							if_add = true;
+							info += " 近攻+" + melee_skill;
+						}
+						if(ranged_skill > 0){
+							if_add = true;
+							info += " 远攻+" + ranged_skill;
+						}
+						if(melee_defense > 0){
+							if_add = true;
+							info += " 近防+" + melee_defense;
+						}
+						if(ranged_defense > 0){
+							if_add = true;
+							info += " 远防+" + ranged_defense;
+						}
+						info += "[/color]";
+						if(if_add == true){
+							this.List.push({
+								id = 16,
+								text = info
+							});
+						}
+						brother.addXP(xp);
+						brother.updateLevel();
 					}
 				}
 			}
@@ -108,6 +197,10 @@ this.el_world_level_change_event <- this.inherit("scripts/events/event", {
 		}
 		if(this.Time.getVirtualTimeF() < this.m.CooldownUntil)
 		{
+			this.m.Score = 0;
+			return;
+		}
+		if(this.World.Assets.m.EL_WorldLevel >= this.Const.EL_World.EL_WorldLevel.Max) {
 			this.m.Score = 0;
 			return;
 		}

@@ -101,6 +101,9 @@ local gt = getroottable();
 			if(this.m.EL_WorldLevel < this.Const.EL_World.EL_WorldLevel.Min){
 				this.m.EL_WorldLevel = this.Const.EL_World.EL_WorldLevel.Min;
 			}
+			if(this.m.EL_WorldLevel > this.Const.EL_World.EL_WorldLevel.Max){
+				this.m.EL_WorldLevel = this.Const.EL_World.EL_WorldLevel.Max;
+			}
 			//Calculate world strength.
 			local temp_world_strength = this.Const.EL_World.EL_WorldStrength.getWorldStrength(day);
 			local difficult_mult = this.World.Assets.EL_getWorldDifficultFactor() *

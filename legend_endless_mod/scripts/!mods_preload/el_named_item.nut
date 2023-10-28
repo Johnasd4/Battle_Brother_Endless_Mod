@@ -6,7 +6,7 @@ local gt = getroottable();
 	::mods_hookExactClass("items/weapons/named/named_weapon", function ( o )
 	{
 		o.m.EL_RankLevel <- 1;
-		
+
 		o.randomizeValues = function ()
 		{
 		}
@@ -35,12 +35,12 @@ local gt = getroottable();
 		{
 			return this.Const.EL_Item.MaxRankLevel.Named;
 		}
-	});	
+	});
 
 	::mods_hookExactClass("items/shields/named/named_shield", function ( o )
 	{
 		o.m.EL_RankLevel <- 1;
-		
+
 		o.randomizeValues = function ()
 		{
 		}
@@ -71,7 +71,7 @@ local gt = getroottable();
 	::mods_hookExactClass("items/armor/named/named_armor", function ( o )
 	{
 		o.m.EL_RankLevel <- 1;
-		
+
 		o.randomizeValues = function ()
 		{
 		}
@@ -102,7 +102,7 @@ local gt = getroottable();
 	::mods_hookExactClass("items/helmets/named/named_helmet", function ( o )
 	{
 		o.m.EL_RankLevel <- 1;
-		
+
 		o.randomizeValues = function ()
 		{
 		}
@@ -133,7 +133,7 @@ local gt = getroottable();
 	::mods_hookExactClass("items/legend_armor/legend_cloth_named", function ( o )
 	{
 		o.m.EL_RankLevel <- 1;
-		
+
 		o.randomizeValues = function ()
 		{
 		}
@@ -165,7 +165,7 @@ local gt = getroottable();
 	::mods_hookExactClass("items/legend_armor/legend_named_armor_upgrade", function ( o )
 	{
 		o.m.EL_RankLevel <- 1;
-		
+
 		o.randomizeValues = function ()
 		{
 		}
@@ -187,11 +187,11 @@ local gt = getroottable();
 			return this.Const.EL_Item.MaxRankLevel.Named;
 		}
 	});
-	
+
 	::mods_hookExactClass("items/legend_armor/legend_named_armor", function ( o )
 	{
 		o.m.EL_RankLevel <- 1;
-		
+
 		o.randomizeValues = function ()
 		{
 		}
@@ -218,11 +218,11 @@ local gt = getroottable();
 			return this.Const.EL_Item.MaxRankLevel.Named;
 		}
 	});
-	
+
 	::mods_hookExactClass("items/legend_helmets/legend_named_helmet_upgrade", function ( o )
 	{
 		o.m.EL_RankLevel <- 1;
-		
+
 		o.randomizeValues = function ()
 		{
 		}
@@ -245,7 +245,7 @@ local gt = getroottable();
 		}
 	})
 
-	for(local i = 0; i < this.Const.EL_Item_Other.EL_SpecialNamedItem.len(); ++i) {	
+	for(local i = 0; i < this.Const.EL_Item_Other.EL_SpecialNamedItem.len(); ++i) {
 		::mods_hookExactClass("items/" + this.Const.EL_Item_Other.EL_SpecialNamedItem[i], function ( o )
 		{
 			o.randomizeValues = function ()
@@ -254,9 +254,9 @@ local gt = getroottable();
 		});
 	}
 
-	
 
-	for(local i = 0; i < this.Const.EL_Item_Other.EL_OnlyItemList.len(); ++i) {	
+
+	for(local i = 0; i < this.Const.EL_Item_Other.EL_OnlyItemList.len(); ++i) {
 		::mods_hookExactClass("items/" + this.Const.EL_Item_Other.EL_OnlyItemList[i], function ( o )
 		{
 			o.EL_getRankLevelMax <- function()
