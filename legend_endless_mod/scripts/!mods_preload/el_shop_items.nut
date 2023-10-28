@@ -272,7 +272,8 @@ local gt = getroottable();
                         
                         //this.logInfo("final p："+p+" r:"+r);
                         num += p / r;
-                        num = this.Math.floor(num * (1 + EL_worldLevel * this.Const.EL_Shop.EL_ItemNumberLevelFactor) * this.World.Assets.EL_getHalfWorldDifficultFactor());
+                        num = this.Math.round(num * (1 + EL_worldLevel * this.Const.EL_Shop.EL_ItemNumberLevelFactor) * this.World.Assets.EL_getHalfWorldDifficultFactor());
+                        //this.logInfo("EL_getHalfWorldDifficultFactor:" + this.World.Assets.EL_getHalfWorldDifficultFactor());
                         EL_maxNum = (!isTrader && item.isItemType(this.Const.Items.ItemType.TradeGood)) ? EL_maxNumitems : EL_maxNum;
                         EL_maxNum = EL_isCore ? EL_coreMaxNum : EL_maxNum;
                         EL_maxNum = (num > EL_maxNum) ? EL_maxNum : num;
