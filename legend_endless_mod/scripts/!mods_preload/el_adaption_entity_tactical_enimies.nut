@@ -404,6 +404,7 @@ local gt = getroottable();
 		}
 
 	});
+    gt.Const.Tactical.Actor.LegendBanshee.Hitpoints = 2;
 
 	::mods_hookExactClass("entity/tactical/enemies/legend_stollwurm_tail", function(o){
 
