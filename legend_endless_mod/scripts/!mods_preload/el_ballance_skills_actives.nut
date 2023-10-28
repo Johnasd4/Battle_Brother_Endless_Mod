@@ -226,7 +226,6 @@ local gt = getroottable();
             }.bindenv(this), this);
             if(has_rarity_entry)
             {
-                this.m.IsDoingAttackMove = false;
                 this.getContainer().setBusy(true);
                 for(local i = 0;i < 6; ++i)
                 {
@@ -238,8 +237,7 @@ local gt = getroottable();
                         }
                     }.bindenv(this), this);
                 }
-                _skill.m.IsDoingAttackMove = true;
-                _skill.getContainer().setBusy(false);
+                this.getContainer().setBusy(false);
             }
             return true;
 		}

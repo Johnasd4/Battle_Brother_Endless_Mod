@@ -59,13 +59,11 @@ this.el_proof_of_kingly_way_entry <- this.inherit("scripts/skills/skill", {
         {
             foreach( t in tar )
             {
-                if(t != null && actor.getTile().getDistanceTo(t.getTile()) <= affect_distance) 
+                if(t != null && actor.getTile().getDistanceTo(t.getTile()) <= affect_distance && t.getMoraleState() != this.Const.MoraleState.Ignore) 
 				{
 					if(!t.isAlliedWith(actor))
 					{
-						if(t.getMoraleState() != this.Const.MoraleState.Ignore) {
-							t.setMoraleState(this.Math.max(this.Const.MoraleState.Fleeing, t.getMoraleState() - 1));
-						}
+						t.setMoraleState(this.Math.max(this.Const.MoraleState.Fleeing, t.getMoraleState() - 1));
 					}
 					else
 					{

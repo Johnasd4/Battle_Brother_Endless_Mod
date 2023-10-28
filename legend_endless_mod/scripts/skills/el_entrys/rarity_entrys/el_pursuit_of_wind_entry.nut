@@ -71,7 +71,15 @@ this.el_pursuit_of_wind_entry <- this.inherit("scripts/skills/skill", {
                 return;
             }
             this.m.EL_LastAttackActionPoint = this.getContainer().getActor().getActionPoints();
+			if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
+			{
+				return;
+			}
 			_skill.useForFree(_targetEntity.getTile());
+			if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
+			{
+				return;
+			}
             _skill.useForFree(_targetEntity.getTile());
 		}
 	}
