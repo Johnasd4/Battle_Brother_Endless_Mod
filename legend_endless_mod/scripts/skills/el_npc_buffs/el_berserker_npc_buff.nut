@@ -8,6 +8,16 @@ this.el_berserker_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_b
 		this.m.Description = "";
 	}
 
+	function onCombatStarted()
+	{
+		this.m.Name = "狂战士";
+	}
+
+	function onCombatFinished()
+	{
+		this.m.Name = "狂战士";
+	}
+
 	function onUpdate( _properties )
 	{
 		local actor = this.getContainer().getActor();

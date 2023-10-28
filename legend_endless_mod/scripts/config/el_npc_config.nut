@@ -750,7 +750,7 @@ gt.Const.EL_NPC <- {
             HumanoidRank1 = [0, 1, 0],
             HumanoidRank2 = [0, 0, 1],
             //HumanoidRank2 = [99, 99, 99],
-            NonHumanoidRank0 = [0, 0, 0],
+            NonHumanoidRank0 = [3, 0, 0],
             NonHumanoidRank1 = [0, 3, 0],
             NonHumanoidRank2 = [0, 0, 3],
             //NonHumanoidRank2 = [99, 99, 99],

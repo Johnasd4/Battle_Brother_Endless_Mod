@@ -1144,11 +1144,172 @@ local gt = getroottable();
 
 	::mods_hookNewObject("entity/tactical/player", function( o )
 	{
+
+		o.getTooltip = function( _targetedWithSkill = null )
+		{
+			if (!this.isPlacedOnMap() || !this.isAlive() || this.isDying())
+			{
+				return [];
+			}
+
+			local turnsToGo = this.Tactical.TurnSequenceBar.getTurnsUntilActive(this.getID());
+			local tooltip = [
+				{
+					id = 1,
+					type = "title",
+					text = this.getName(),
+					icon = "ui/tooltips/height_" + this.getTile().Level + ".png"
+				}
+			];
+
+			if (!this.isPlayerControlled() && _targetedWithSkill != null && this.isKindOf(_targetedWithSkill, "skill"))
+			{
+				local tile = this.getTile();
+
+				if (tile.IsVisibleForEntity && _targetedWithSkill.isUsableOn(this.getTile()))
+				{
+					tooltip.push({
+						id = 3,
+						type = "headerText",
+						icon = "ui/icons/hitchance.png",
+						text = "[color=" + this.Const.UI.Color.PositiveValue + "]" + _targetedWithSkill.getHitchance(this) + "%[/color] chance to hit",
+						children = _targetedWithSkill.getHitFactors(tile)
+					});
+				}
+			}
+
+			tooltip.extend([
+				{
+					id = 2,
+					type = "text",
+					icon = "ui/icons/initiative.png",
+					text = this.Tactical.TurnSequenceBar.getActiveEntity() == this ? "Acting right now!" : this.m.IsTurnDone || turnsToGo == null ? "Turn done" : "Acts in " + turnsToGo + (turnsToGo > 1 ? " turns" : " turn")
+				},
+				{
+					id = 3,
+					type = "progressbar",
+					icon = "ui/icons/armor_head.png",
+					value = this.getArmor(this.Const.BodyPart.Head),
+					valueMax = this.getArmorMax(this.Const.BodyPart.Head),
+					text = "" + this.getArmor(this.Const.BodyPart.Head) + " / " + this.getArmorMax(this.Const.BodyPart.Head) + "",
+					style = "armor-head-slim"
+				},
+				{
+					id = 4,
+					type = "progressbar",
+					icon = "ui/icons/armor_body.png",
+					value = this.getArmor(this.Const.BodyPart.Body),
+					valueMax = this.getArmorMax(this.Const.BodyPart.Body),
+					text = "" + this.getArmor(this.Const.BodyPart.Body) + " / " + this.getArmorMax(this.Const.BodyPart.Body) + "",
+					style = "armor-body-slim"
+				},
+				{
+					id = 5,
+					type = "progressbar",
+					icon = "ui/icons/health.png",
+					value = this.getHitpoints(),
+					valueMax = this.getHitpointsMax(),
+					text = "" + this.getHitpoints() + " / " + this.getHitpointsMax() + "",
+					style = "hitpoints-slim"
+				},
+				{
+					id = 6,
+					type = "progressbar",
+					icon = "ui/icons/morale.png",
+					value = this.getMoraleState(),
+					valueMax = this.Const.MoraleState.COUNT - 1,
+					text = this.Const.MoraleStateName[this.getMoraleState()],
+					style = "morale-slim"
+				},
+				{
+					id = 7,
+					type = "progressbar",
+					icon = "ui/icons/fatigue.png",
+					value = this.getFatigue(),
+					valueMax = this.getFatigueMax(),
+					text = "" + this.getFatigue() + " / " + this.getFatigueMax() + "",
+					style = "fatigue-slim"
+				}
+			]);
+
+			local raicial_skills = this.getSkills().query(this.Const.SkillType.Racial, false, true);
+			foreach( skill in raicial_skills )
+			{
+				if(skill.EL_isNPCBuff()) {
+					tooltip.push({
+						id = 99,
+						type = "text",
+						icon = skill.getIcon(),
+						text = skill.getName()
+					});
+				}
+			}
+
+			local statusEffects = this.getSkills().query(this.Const.SkillType.StatusEffect | this.Const.SkillType.TemporaryInjury, false, true);
+
+			foreach( i, statusEffect in statusEffects )
+			{
+				tooltip.push({
+					id = 100 + i,
+					type = "text",
+					icon = statusEffect.getIcon(),
+					text = statusEffect.getName()
+				});
+			}
+
+			return tooltip;
+		}
+
 		o.getXPValue = function() {
 			return this.actor.getXPValue();
 		}
 
 	});
+
+	::mods_hookNewObject("ui/screens/tactical/modules/turn_sequence_bar/turn_sequence_bar", function( o )
+	{
+
+		o.convertEntityStatusEffectsToUIData = function( _entity )
+		{
+			if (_entity.isPlayerControlled())
+			{
+				local result = [];
+
+				local raicial_skills = _entity.getSkills().query(this.Const.SkillType.Racial, false, true);
+				foreach( skill in raicial_skills )
+				{
+					if(skill.EL_isNPCBuff()) {
+						result.push({
+							id = skill.getID(),
+							imagePath = skill.getIcon()
+						});
+					}
+				}
+
+
+				local statusEffects = _entity.getSkills().query(this.Const.SkillType.StatusEffect);
+
+				foreach( statusEffect in statusEffects )
+				{
+					if (statusEffect.isHidden())
+					{
+						continue;
+					}
+
+					result.push({
+						id = statusEffect.getID(),
+						imagePath = statusEffect.getIcon()
+					});
+				}
+
+				return result;
+			}
+
+			return null;
+		}
+
+	});
+
 
 
 	::mods_hookClass("skills/skill", function(o) {

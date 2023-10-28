@@ -24,4 +24,8 @@ gt.Const.EL_Misc <- {
 
     }
 
+    EL_MagicStone = {
+        DropChance = [20, 40, 100],
+    }
+
 };

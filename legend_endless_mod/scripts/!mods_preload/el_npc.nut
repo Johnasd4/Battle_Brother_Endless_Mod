@@ -387,10 +387,7 @@ local gt = getroottable();
         local kill = o.kill;
         o.kill = function( _killer = null, _skill = null, _fatalityType = this.Const.FatalityType.None, _silent = false )
         {
-            // this.logInfo("_killer = " + (_killer == null ? "null" : _killer.getName()));
-            // this.logInfo("_killer.getFaction() = " + _killer.getFaction());
-            // this.logInfo("this.Const.Faction.PlayerAnimals = " + this.Const.Faction.PlayerAnimals);
-            // this.logInfo("this.Const.Faction.Player = " + this.Const.Faction.Player);
+
             if(_killer != null && (_killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals)) {
 				this.World.Statistics.getFlags().set("EL_IfPlayerPartyKilled", true);
             }
@@ -414,7 +411,7 @@ local gt = getroottable();
                     local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos(), true);
                     local party = null;
                     for(local i = 0; i < p.Parties.len(); ++i) {
-                        if(p.Parties[i].m.Name == "EquipmentEssenceOnly") {
+                        if(p.Parties[i].m.Name == "EL_DropOnly") {
                             party = p.Parties[i];
                             break;
                         }
@@ -425,7 +422,7 @@ local gt = getroottable();
                         party.EL_setFaction(this.Const.Faction.Enemy);
                         party.EL_tempPartyInit();
                         party.EL_setTroopsResourse(0);
-                        party.m.Name = "EquipmentEssenceOnly";
+                        party.m.Name = "EL_DropOnly";
                         p.Parties.push(party);
                     }
                     for(local i = 0; i < this.m.EL_EquipmentEssenceDrop.len(); ++i) {
@@ -439,6 +436,50 @@ local gt = getroottable();
                     }
                 }
             }
+
+            if (_killer != null && _killer.getFaction() == this.Const.Faction.Player && _killer.getSkills().hasSkill("el_racial.magic_thief"))
+            {
+                local npc_buffs = [];
+                local skills = this.getSkills().m.Skills;
+                foreach(skill in skills) {
+                    if(skill.EL_isNPCBuff()) {
+                        npc_buffs.push(skill);
+                    }
+                }
+                if(npc_buffs.len() != 0) {
+                    local buff_level = npc_buffs[0].EL_getRankLevel();
+                    if(this.Math.rand(1, 100) <= this.Const.EL_Misc.EL_MagicStone.DropChance[buff_level]) {
+                        local magic_stone = this.new("scripts/items/el_misc/el_npc_buff_stone_item");
+                        magic_stone.EL_generateByNPCBuffs(npc_buffs);
+                        if (this.m.WorldTroop != null && ("Party" in this.m.WorldTroop) && this.m.WorldTroop.Party != null && !this.m.WorldTroop.Party.isNull())
+                        {
+                            this.m.WorldTroop.Party.EL_addLootItem(magic_stone);
+                        }
+                        else
+                        {
+                            local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos(), true);
+                            local party = null;
+                            for(local i = 0; i < p.Parties.len(); ++i) {
+                                if(p.Parties[i].m.Name == "EL_DropOnly") {
+                                    party = p.Parties[i];
+                                    break;
+                                }
+                            }
+                            if(party == null)
+                            {
+                                party = this.new("scripts/entity/world/party");
+                                party.EL_setFaction(this.Const.Faction.Enemy);
+                                party.EL_tempPartyInit();
+                                party.EL_setTroopsResourse(0);
+                                party.m.Name = "EL_DropOnly";
+                                p.Parties.push(party);
+                            }
+                            party.EL_addLootItem(magic_stone);
+                        }
+                    }
+                }
+            }
+
             kill(_killer, _skill, _fatalityType, _silent);
         }
 

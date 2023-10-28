@@ -24,6 +24,18 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
         actor.setIsAbleToDie(false);
 	}
 
+	function onCombatStarted()
+	{
+		this.m.EL_RiseTimesLeft = this.Const.EL_NPC.EL_NPCBuff.Factor.Phoenix.RiseTimes[this.m.EL_RankLevel];
+	}
+
+	function onCombatFinished()
+	{
+		this.m.EL_RiseTimesLeft = 0;
+	}
+
+
+
 	function onTurnStart()
 	{
         if(this.m.EL_IsRising) {

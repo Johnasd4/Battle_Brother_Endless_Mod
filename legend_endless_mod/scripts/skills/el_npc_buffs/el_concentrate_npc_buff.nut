@@ -20,6 +20,16 @@ this.el_concentrate_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
 		++this.m.EL_Stack;
 	}
 
+	function onCombatStarted()
+	{
+		this.m.EL_Stack = 0;
+	}
+
+	function onCombatFinished()
+	{
+		this.m.EL_Stack = 0;
+	}
+
 	function onTargetMissed( _skill, _targetEntity )
 	{
 		if(this.m.EL_LastAttackTarget != _targetEntity) {
