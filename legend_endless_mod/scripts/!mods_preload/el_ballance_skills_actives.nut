@@ -245,7 +245,7 @@ local gt = getroottable();
 
 	::mods_hookExactClass("skills/actives/legend_staff_lunge_skill", function(o){
 
-        function onAnySkillUsed( _skill, _targetEntity, _properties )
+        o.onAnySkillUsed = function( _skill, _targetEntity, _properties )
         {
             if (_skill == this)
             {
@@ -262,7 +262,7 @@ local gt = getroottable();
 
 	::mods_hookExactClass("skills/actives/lunge_skill", function(o){
 
-        function onAnySkillUsed( _skill, _targetEntity, _properties )
+        o.onAnySkillUsed = function( _skill, _targetEntity, _properties )
         {
             if (_skill == this)
             {

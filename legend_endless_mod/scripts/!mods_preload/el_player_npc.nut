@@ -1324,6 +1324,9 @@ local gt = getroottable();
 
 		o.attackEntity = function( _user, _targetEntity, _allowDiversion = true )
 		{
+			if(_targetEntity == null) {
+				return false;
+			}
 			if (_targetEntity.isRock())
 			{
 				if (_user.getSkills().hasSkill("perk.legend_specialist_pickaxe_damage"))

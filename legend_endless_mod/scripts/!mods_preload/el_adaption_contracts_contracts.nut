@@ -965,7 +965,7 @@ local gt = getroottable();
                             this.World.Assets.getStash().add(reward_item);
                             break;
                         case 4:
-                            if(this.World.Assets.m.EL_ArenaLevel < this.World.Assets.m.EL_ArenaMaxLevel) {
+                            if(this.World.Assets.m.EL_ArenaLevel > this.World.Assets.m.EL_ArenaMaxLevel) {
                                 local reward_item = this.new("scripts/items/el_accessory/el_arena_champion_item");
                                 this.World.Assets.getStash().makeEmptySlots(1);
                                 this.World.Assets.getStash().add(reward_item);
@@ -987,7 +987,7 @@ local gt = getroottable();
                                 this.World.Assets.getStash().makeEmptySlots(1);
                                 this.World.Assets.getStash().add(reward_item);
                             }
-                            if(this.World.Assets.m.EL_ArenaLevel < this.World.Assets.m.EL_ArenaMaxLevel) {
+                            if(this.World.Assets.m.EL_ArenaLevel > this.World.Assets.m.EL_ArenaMaxLevel) {
                                 this.World.Assets.EL_addEquipmentEssence(4, 1);
                             }
                             break;
