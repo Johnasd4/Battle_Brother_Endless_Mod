@@ -228,7 +228,7 @@ local gt = getroottable();
 
         o.getTooltip = function()
         {
-            local result = this.armor.getTooltip();
+            local result = this.legend_armor.getTooltip();
             result.push({
                 id = 6,
                 type = "text",
@@ -240,7 +240,7 @@ local gt = getroottable();
 
         o.onDamageReceived = function( _damage, _fatalityType, _attacker )
         {
-            this.armor.onDamageReceived(_damage, _fatalityType, _attacker);
+            this.legend_armor.onDamageReceived(_damage, _fatalityType, _attacker);
 
             if (_attacker != null && _attacker.isAlive() && _attacker.getHitpoints() > 0 && _attacker.getID() != this.getContainer().getActor().getID() && _attacker.getTile().getDistanceTo(this.getContainer().getActor().getTile()) == 1 && !_attacker.getCurrentProperties().IsImmuneToDamageReflection)
             {
@@ -270,7 +270,7 @@ local gt = getroottable();
 
         o.getTooltip = function()
         {
-            local result = this.armor.getTooltip();
+            local result = this.legend_armor.getTooltip();
             result.push({
                 id = 6,
                 type = "text",
@@ -282,7 +282,7 @@ local gt = getroottable();
 
         o.onDamageReceived = function( _damage, _fatalityType, _attacker )
         {
-            this.armor.onDamageReceived(_damage, _fatalityType, _attacker);
+            this.legend_armor.onDamageReceived(_damage, _fatalityType, _attacker);
 
             if (_attacker != null && _attacker.isAlive() && _attacker.getHitpoints() > 0 && _attacker.getID() != this.getContainer().getActor().getID() && _attacker.getTile().getDistanceTo(this.getContainer().getActor().getTile()) == 1 && !_attacker.getCurrentProperties().IsImmuneToDamageReflection)
             {
@@ -304,7 +304,6 @@ local gt = getroottable();
         local create = o.create;
         o.create = function()
         {
-            //this.logInfo("legend_ijirok_armor create");
             create();
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
@@ -312,7 +311,7 @@ local gt = getroottable();
 
         o.getTooltip = function()
         {
-            local result = this.armor.getTooltip();
+            local result = this.legend_armor.getTooltip();
             result.push({
                 id = 6,
                 type = "text",
@@ -360,7 +359,7 @@ local gt = getroottable();
 
         o.getTooltip = function()
         {
-            local result = this.armor.getTooltip();
+            local result = this.legend_armor.getTooltip();
             result.push({
                 id = 6,
                 type = "text",

@@ -205,7 +205,6 @@ local gt = getroottable();
 		o.onDeserialize = function ( _in )
 		{
 			onDeserialize(_in);
-
 			this.m.ArmorDamageMult = _in.readF32();
 			this.m.ChanceToHitHead = _in.readU16();
 			this.m.AdditionalAccuracy = _in.readI16();
@@ -246,7 +245,7 @@ local gt = getroottable();
 				this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Armor.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
 			}
             this.m.Condition = _in.readF32();
-			this.m.RangeMax = this.m.EL_BaseWithRankRangeMax;
+			this.m.RangeMax = this.m.EL_BaseWithRankRangeMax != 0 ? this.m.EL_BaseWithRankRangeMax : this.m.RangeMax;
 		}
 
 		local consumeAmmo = o.consumeAmmo;

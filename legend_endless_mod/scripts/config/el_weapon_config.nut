@@ -18,8 +18,8 @@ gt.Const.EL_Weapon <- {
 		RegularDamageMultHalf = 1.14017,
 		ArmorDamageMult = 1.1,
 		ArmorDamageMultHalf = 1.0488,
-		DirectDamageAddMult = 1.1,
-		DirectDamageAddMultHalf = 1.0488,
+		DirectDamageAdd = 0.1,
+		DirectDamageAddHalf = 0.0488,
 		FatigueOnSkillUse = 2,
 		StaminaModifierMult = 0.85,
 		StaminaModifierMultHalf = 0.92195,
@@ -70,8 +70,8 @@ gt.Const.EL_Weapon <- {
 			ifUsable = function( _item ) { return true; },
 			changeValues = function( _item, _isHalfEffect = false )
 			{
-				local bonus = _isHalfEffect ? this.Const.EL_Weapon.EL_RankFactor.DirectDamageAddMultHalf : this.Const.EL_Weapon.EL_RankFactor.DirectDamageAddMult;
-                _item.m.DirectDamageAdd = this.Math.ceil(100 * _item.m.DirectDamageAdd * bonus) * 0.01;
+				local bonus = _isHalfEffect ? this.Const.EL_Weapon.EL_RankFactor.DirectDamageAddHalf : this.Const.EL_Weapon.EL_RankFactor.DirectDamageAdd;
+                _item.m.DirectDamageAdd += this.Math.ceil(100 * _item.m.DirectDamageMult * bonus) * 0.01;
 				_item.m.EL_BaseWithRankDirectDamageAdd = _item.m.DirectDamageAdd;
 			},
 			weight = 1
