@@ -547,6 +547,21 @@ local gt = getroottable();
 
 	});
 
+	::mods_hookNewObject("entity/world/player_party", function( o )
+	{
+		local onSerialize = o.onSerialize;
+		o.onSerialize = function ( _out )
+		{
+			onSerialize( _out );
+		}
+		local onDeserialize = o.onDeserialize;
+		o.onDeserialize = function ( _in )
+		{
+			onDeserialize( _in );
+			this.calculateStashModifier();
+		}
+	});
+
 	::mods_hookExactClass("skills/backgrounds/character_background", function ( o )
 	{
 
