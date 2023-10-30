@@ -27,6 +27,17 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 		EL_MeleeRangeMax = 0,
 		EL_RangedRangeMax = 0,
 		EL_SaveAmmo = 0.0,
+		
+		EL_DamageMultForNortherner = 0.0,
+		EL_AdditionalAccuracyForNortherner = 0,
+		EL_DamageMultForSoutherner = 0.0,
+		EL_AdditionalAccuracyForSoutherner = 0,
+		EL_DamageMultForUndead = 0.0,
+		EL_AdditionalAccuracyForUndead = 0,
+		EL_DamageMultForBeast = 0.0,
+		EL_AdditionalAccuracyForBeast = 0,
+		EL_DamageMultForGreenskin = 0.0,
+		EL_AdditionalAccuracyForGreenskin = 0,
 
 		EL_WeaponUseSkillfatigue = 0,
         EL_WeaponConditionRecoverDaliy = 0.0,
@@ -93,6 +104,17 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 		this.m.EL_MeleeRangeMax = 0;
 		this.m.EL_RangedRangeMax = 0;
 		this.m.EL_SaveAmmo = 0.0;
+
+		this.m.EL_DamageMultForNortherner = 0.0;
+		this.m.EL_AdditionalAccuracyForNortherner = 0;
+		this.m.EL_DamageMultForSoutherner = 0.0;
+		this.m.EL_AdditionalAccuracyForSoutherner = 0;
+		this.m.EL_DamageMultForUndead = 0.0;
+		this.m.EL_AdditionalAccuracyForUndead = 0;
+		this.m.EL_DamageMultForBeast = 0.0;
+		this.m.EL_AdditionalAccuracyForBeast = 0;
+		this.m.EL_DamageMultForGreenskin = 0.0;
+		this.m.EL_AdditionalAccuracyForGreenskin = 0;
 
 		this.m.EL_WeaponUseSkillfatigue = 0;
         this.m.EL_WeaponConditionRecoverDaliy = 0.0;
@@ -345,9 +367,87 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 				text = this.m.EL_SaveAmmo + "% does not consume ammo"
 			});
 		}
-
-
-
+		
+		if(this.m.EL_DamageMultForNortherner)
+		{
+			result.push({
+				id = 10,
+				type = "text",
+				text = "对北方人 + " + this.m.EL_DamageMultForNortherner + "%伤害"
+			});
+		}
+		if(this.m.EL_AdditionalAccuracyForNortherner)
+		{
+			result.push({
+				id = 10,
+				type = "text",
+				text = "对北方人 + " + this.m.EL_AdditionalAccuracyForNortherner + "%命中率"
+			});
+		}
+		if(this.m.EL_DamageMultForSoutherner)
+		{
+			result.push({
+				id = 10,
+				type = "text",
+				text = "对南方人 + " + this.m.EL_DamageMultForSoutherner + "%伤害"
+			});
+		}
+		if(this.m.EL_AdditionalAccuracyForSoutherner)
+		{
+			result.push({
+				id = 10,
+				type = "text",
+				text = "对南方人 + " + this.m.EL_AdditionalAccuracyForSoutherner + "%命中率"
+			});
+		}
+		if(this.m.EL_DamageMultForUndead)
+		{
+			result.push({
+				id = 10,
+				type = "text",
+				text = "对亡灵 + " + this.m.EL_DamageMultForUndead + "%伤害"
+			});
+		}
+		if(this.m.EL_AdditionalAccuracyForUndead)
+		{
+			result.push({
+				id = 10,
+				type = "text",
+				text = "对亡灵 + " + this.m.EL_AdditionalAccuracyForUndead + "%命中率"
+			});
+		}
+		if(this.m.EL_DamageMultForBeast)
+		{
+			result.push({
+				id = 10,
+				type = "text",
+				text = "对野兽 + " + this.m.EL_DamageMultForBeast + "%伤害"
+			});
+		}
+		if(this.m.EL_AdditionalAccuracyForBeast)
+		{
+			result.push({
+				id = 10,
+				type = "text",
+				text = "对野兽 + " + this.m.EL_AdditionalAccuracyForBeast + "%命中率"
+			});
+		}
+		if(this.m.EL_DamageMultForGreenskin)
+		{
+			result.push({
+				id = 10,
+				type = "text",
+				text = "对兽人和哥布林 + " + this.m.EL_DamageMultForGreenskin + "%伤害"
+			});
+		}
+		if(this.m.EL_AdditionalAccuracyForGreenskin)
+		{
+			result.push({
+				id = 10,
+				type = "text",
+				text = "对兽人和哥布林 + " + this.m.EL_AdditionalAccuracyForGreenskin + "%命中率"
+			});
+		}
 
 		if(this.m.EL_WeaponUseSkillfatigue)
 		{
