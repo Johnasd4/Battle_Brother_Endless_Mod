@@ -5,11 +5,11 @@ local gt = getroottable();
 {
     ::mods_hookDescendants("entity/world/settlement", function(obj)
 	{
-		
 		while (!("onUpdateShopList" in obj))
 		{
 			obj = obj[obj.SuperName];
 		}
+
 		local onUpdateShopListFunc = obj.onUpdateShopList;
 		obj.onUpdateShopList <- function( _id, _list )
 		{
