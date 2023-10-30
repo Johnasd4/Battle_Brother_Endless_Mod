@@ -349,7 +349,7 @@ local gt = getroottable();
                         this.Contract.m.BulletpointsObjectives[1] = "Enter the arena again to start the fight against %champion1% and %amount% nomads";
                         this.Text += "%SPEECH_ON%Recognize this face? There\'s a reason the artists spent time on this here pamphlet and then handed them out to every set of eyes settin\' in those seats upstairs. It\'s %champion1%, one of the greatest fighters in this land. Maybe some day they\'ll make yer face look so pretty, if the Vizier could ever find someone so talented to salvage, well, whatever ye got there between the ears, hegheghegh.%SPEECH_OFF%";
                     }
-                    if (this.World.Assets.m.EL_ArenaLevel == 4)
+                    if (this.World.Assets.m.EL_ArenaLevel == 7)
                     {
                         this.Text += "He pauses.%SPEECH_ON%We expect important guests for this bout, so everything is set up for you to die proper bloody this time, got it? And if you can\'t do that, then have your lot dispatch their opponents in the most spectacular way to please the crowd. Do that, and I\'ll hand you a proper piece of gladiator gear ontop of the coin.%SPEECH_OFF%";
                     }
@@ -811,7 +811,7 @@ local gt = getroottable();
                             this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractSuccess);
                             this.World.Assets.addMoney(this.Contract.m.Payment.getOnCompletion());
 
-                            if (this.World.Assets.m.EL_ArenaLevel == 4)
+                            if (this.World.Assets.m.EL_ArenaLevel == 7)
                             {
                                 return "Gladiators";
                             }

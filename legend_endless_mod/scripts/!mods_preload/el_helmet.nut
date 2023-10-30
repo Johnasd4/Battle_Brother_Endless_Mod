@@ -345,8 +345,8 @@ local gt = getroottable();
 				EL_init();
 				this.m.EL_EntryList.clear();
 				this.m.EL_RankPropertiesImproveIndex.clear();
+				this.Const.EL_Helmet.EL_updateRankLevelProperties(this);
 				this.Const.EL_Helmet.EL_assignItemEntrys(this, this.Const.EL_Helmet.EL_Entry.EntryNum.NormalHelmet[this.m.EL_RankLevel]);
-        	    EL_updateRankLevelProperties();
 				EL_updateLevelProperties();
 				EL_entryListSort();
 			}
@@ -1227,6 +1227,18 @@ local gt = getroottable();
             this.m.Condition = _in.readF32();
 		}
 
+		local onUse = o.onUse;
+		o.onUse = function ( _actor, _item = null )
+		{
+			local armor = _item == null ? _actor.getItems().getItemAtSlot(this.Const.ItemSlot.Head) : _item;
+
+			if (armor != null && armor.EL_getArmorType() == this.Const.EL_Item.ArmorType.UnlayeredArmor)
+			{
+				return false;
+			}
+			return onUse(_actor, _item);
+		}
+
 		o.isAmountShown = function()
 		{
 			return true;
@@ -1382,8 +1394,8 @@ local gt = getroottable();
 				EL_init();
 				this.m.EL_EntryList.clear();
 				this.m.EL_RankPropertiesImproveIndex.clear();
+				this.Const.EL_Helmet.EL_updateRankLevelProperties(this);
 				this.Const.EL_Helmet.EL_assignItemEntrys(this, this.Const.EL_Helmet.EL_Entry.EntryNum.NormalHelmet[this.m.EL_RankLevel]);
-        	    EL_updateRankLevelProperties();
 				EL_updateLevelProperties();
 			}
         }
