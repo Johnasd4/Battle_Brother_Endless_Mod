@@ -264,7 +264,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Have a engrgy shield with a maximum limit of " + this.m.EL_EngrgyShield + " that will automatically recover"
+				text = "拥有一个能够抵抗伤害的能量盾, 最大层数: " + this.m.EL_EngrgyShield
 			});
 		}
 		if(this.m.EL_DamageMult)
@@ -336,7 +336,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "chance to hit + " + this.m.EL_AdditionalAccuracy + "%"
+				text = "命中率 + " + this.m.EL_AdditionalAccuracy + "%"
 			});
 		}
 		if(this.m.EL_MeleeRangeMax)
@@ -352,7 +352,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Weapon Skill range + " + this.m.EL_RangedRangeMax
+				text = "武器技能射程 + " + this.m.EL_RangedRangeMax
 			});
 		}
 		if(this.m.EL_SaveAmmo)
@@ -580,7 +580,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Immune Bleeding, Immune Poisoned, Immune Fire, Immune Miasma"
+				text = "免疫流血，中毒，火焰，瘴气"
 			});
 		}
 		if(this.m.EL_ImmueGrabKnockTwirl)
@@ -588,7 +588,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Immune Grab, Immune Knock Back, Immune Twirl"
+				text = "免疫抓取，击退，旋转"
 			});
 		}
 		if(this.m.EL_ImmueOverwhelmDazed)
@@ -596,7 +596,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Immune Overwhelm, Immune Dazed"
+				text = "免疫压制，茫然"
 			});
 		}
 		if(this.m.EL_ImmueStunRootDisarm)
@@ -604,7 +604,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Immune Stun, Immune Root, Immune Disarm"
+				text = "免疫眩晕，定身，缴械"
 			});
 		}
 		if(this.m.EL_ImmueSurroundedRiposte)
@@ -612,7 +612,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Immune Surrounded, Immune Riposte"
+				text = "免疫包围，反击"
 			});
 		}
 		return result;

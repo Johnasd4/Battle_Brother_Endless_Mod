@@ -192,8 +192,69 @@ local gt = getroottable();
 
 	});
 
+    ::mods_hookExactClass("skills/actives/quick_shot", function(o)
+    {
+        o.isUsable = function()
+        {
+
+            local has_rarity_entry = false;
+            if(this.getContainer().hasSkill("el_rarity_entry.pursuit_of_wind") && this.getContainer().getSkillByID("el_rarity_entry.pursuit_of_wind").EL_isUsable())
+			{
+				has_rarity_entry = true;
+			}
+
+            return !this.Tactical.isActive() || this.skill.isUsable() && (this.getAmmo() > 0 || has_rarity_entry) && !this.getContainer().getActor().getTile().hasZoneOfControlOtherThan(this.getContainer().getActor().getAlliedFactions());
+        }
+	});
+
+    ::mods_hookExactClass("skills/actives/aimed_shot", function(o)
+    {
+        o.isUsable = function()
+        {
+
+            local has_rarity_entry = false;
+            if(this.getContainer().hasSkill("el_rarity_entry.pursuit_of_wind") && this.getContainer().getSkillByID("el_rarity_entry.pursuit_of_wind").EL_isUsable())
+			{
+				has_rarity_entry = true;
+			}
+
+            return !this.Tactical.isActive() || this.skill.isUsable() && (this.getAmmo() > 0 || has_rarity_entry) && !this.getContainer().getActor().getTile().hasZoneOfControlOtherThan(this.getContainer().getActor().getAlliedFactions());
+        }
+	});
+
+    ::mods_hookExactClass("skills/actives/legend_piercing_shot", function(o)
+    {
+        o.isUsable = function()
+        {
+
+            local has_rarity_entry = false;
+            if(this.getContainer().hasSkill("el_rarity_entry.pursuit_of_wind") && this.getContainer().getSkillByID("el_rarity_entry.pursuit_of_wind").EL_isUsable())
+			{
+				has_rarity_entry = true;
+			}
+
+            return !this.Tactical.isActive() || this.skill.isUsable() && (this.getAmmo() > 0 || has_rarity_entry) && !this.getContainer().getActor().getTile().hasZoneOfControlOtherThan(this.getContainer().getActor().getAlliedFactions());
+        }
+	});
+
 	::mods_hookExactClass("skills/actives/legend_cascade_skill", function(o)
     {
+        o.isUsable = function()
+        {
+            if (!this.getContainer().getActor().isArmedWithRangedWeapon())
+            {
+                return false;
+            }
+
+            local has_rarity_entry = false;
+            if(this.getContainer().hasSkill("el_rarity_entry.pursuit_of_wind") && this.getContainer().getSkillByID("el_rarity_entry.pursuit_of_wind").EL_isUsable())
+			{
+				has_rarity_entry = true;
+			}
+
+            return !this.Tactical.isActive() || this.skill.isUsable() && (this.getAmmo() > 2 || has_rarity_entry) && !this.getContainer().getActor().getTile().hasZoneOfControlOtherThan(this.getContainer().getActor().getAlliedFactions());
+        }
+
         o.isHidden = function()
         {
             local actor = this.getContainer().getActor();

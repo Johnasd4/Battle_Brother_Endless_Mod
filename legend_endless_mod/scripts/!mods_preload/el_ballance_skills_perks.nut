@@ -314,7 +314,7 @@ local gt = getroottable();
 	{
 		o.onAdded <- function()
 		{
-			this.logInfo("add actives");
+			//this.logInfo("add actives");
 			if (!this.m.Container.hasSkill("actives.legend_cascade"))
 			{
 				this.m.Container.add(this.new("scripts/skills/actives/legend_cascade_skill"));
