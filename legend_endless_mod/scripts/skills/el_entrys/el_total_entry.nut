@@ -27,6 +27,9 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 		EL_MeleeRangeMax = 0,
 		EL_RangedRangeMax = 0,
 		EL_SaveAmmo = 0.0,
+		
+		EL_DamageMultForNortherner = 0.0,
+		EL_AdditionalAccuracyNortherner = 0,
 
 		EL_WeaponUseSkillfatigue = 0,
         EL_WeaponConditionRecoverDaliy = 0.0,
@@ -93,6 +96,9 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 		this.m.EL_MeleeRangeMax = 0;
 		this.m.EL_RangedRangeMax = 0;
 		this.m.EL_SaveAmmo = 0.0;
+
+		this.m.EL_DamageMultForNortherner = 0.0;
+		this.m.EL_AdditionalAccuracyNortherner = 0;
 
 		this.m.EL_WeaponUseSkillfatigue = 0;
         this.m.EL_WeaponConditionRecoverDaliy = 0.0;
@@ -345,9 +351,23 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 				text = this.m.EL_SaveAmmo + "% does not consume ammo"
 			});
 		}
-
-
-
+		
+		if(this.m.EL_DamageMultForNortherner)
+		{
+			result.push({
+				id = 10,
+				type = "text",
+				text = "对北方人 + " + this.m.EL_DamageMultForNortherner + "%伤害"
+			});
+		}
+		if(this.m.EL_AdditionalAccuracyNortherner)
+		{
+			result.push({
+				id = 10,
+				type = "text",
+				text = "对北方人 + " + this.m.EL_AdditionalAccuracyNortherner + "%命中率"
+			});
+		}
 
 		if(this.m.EL_WeaponUseSkillfatigue)
 		{
