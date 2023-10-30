@@ -291,10 +291,7 @@ local gt = getroottable();
 
 		o.getAmountString = function()
 		{
-			if(this.m.EL_Level == -1)
-			{
-				this.Const.EL_Item_Other.EL_OtherItemInit(this);
-			}
+			this.Const.EL_Item_Other.EL_OtherItemInit(this);
 			if(this.m.Condition < this.m.ConditionMax)
 			{
 				return "lv" + this.m.EL_Level + ":" + this.Math.floor(this.m.Condition / (this.m.ConditionMax * 1.0) * 100) + "%";

@@ -143,21 +143,28 @@ gt.Const.EL_Item_Other <- {
 	{
 		if(_item != null)
 		{
-			local EL_worldLevel = this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.EL_Item.MaxLevel);
-			local level = this.Math.rand(this.Math.max(0 ,EL_worldLevel - this.Const.EL_Item_Other.MinLevelInEventAndCraft), EL_worldLevel - this.Const.EL_Item_Other.MaxLevelInEventAndCraft);
-			local random = this.Math.rand(1, 100000);
+			if(_item.EL_getLevel() == -1)
+			{
+				local EL_worldLevel = this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.EL_Item.MaxLevel);
+				local level = this.Math.rand(this.Math.max(0 ,EL_worldLevel - this.Const.EL_Item_Other.MinLevelInEventAndCraft), EL_worldLevel - this.Const.EL_Item_Other.MaxLevelInEventAndCraft);
+				local random = this.Math.rand(1, 100000);
 
-			if(random <= this.Const.EL_Shop.EL_ItemRankUpTwiceChance.EL_getChance(EL_worldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor())
-			{
-				_item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Fine, level);
-			}
-			else if(random <= (this.Const.EL_Shop.EL_ItemRankUpTwiceChance.EL_getChance(EL_worldLevel) + this.Const.EL_Shop.EL_ItemRankUpOnceChance.EL_getChance(EL_worldLevel)) * this.World.Assets.EL_getHalfWorldDifficultFactor())
-			{
-				_item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Premium, level);
+				if(random <= this.Const.EL_Shop.EL_ItemRankUpTwiceChance.EL_getChance(EL_worldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor())
+				{
+					_item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Fine, level);
+				}
+				else if(random <= (this.Const.EL_Shop.EL_ItemRankUpTwiceChance.EL_getChance(EL_worldLevel) + this.Const.EL_Shop.EL_ItemRankUpOnceChance.EL_getChance(EL_worldLevel)) * this.World.Assets.EL_getHalfWorldDifficultFactor())
+				{
+					_item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Premium, level);
+				}
+				else
+				{
+					_item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
+				}
 			}
 			else
 			{
-				_item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Normal, level);
+				_item.EL_updateLevelProperties();
 			}
 		}
 	},

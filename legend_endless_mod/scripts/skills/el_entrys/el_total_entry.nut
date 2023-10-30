@@ -57,22 +57,11 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.ID = "entry/total_entry",
 		this.m.Name = "Entry Cumulative Effect";
-		this.m.Order = this.Const.SkillOrder.Perk;
+		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.Icon = "el_entrys/el_total_entry.png";
 		this.m.Type = this.Const.SkillType.Trait;
 		this.m.IsActive = false;
 		this.m.IsStacking = false;
-		this.m.IsHidden = false;
-	}
-
-	function onCombatStarted()
-	{
-		this.m.IsHidden = true;
-	}
-
-	function onCombatFinished()
-	{
-		this.m.IsHidden = false;
 	}
 
     function Init()
