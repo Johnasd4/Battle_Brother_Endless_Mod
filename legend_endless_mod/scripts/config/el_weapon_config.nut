@@ -416,10 +416,26 @@ gt.Const.EL_Weapon <- {
 						return true;
 					}
 				},
-				// {
-				// 	Scripts = "scripts/skills/el_entrys/weapon_entrys/el_special_attack_northerner_entry",
-				// 	function EL_ifEligible(_item) { return true; }
-				// },
+				{
+					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_special_attack_beast_entry",
+					function EL_ifEligible(_item) { return true; }
+				},
+				{
+					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_special_attack_greenskin_entry",
+					function EL_ifEligible(_item) { return true; }
+				},
+				{
+					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_special_attack_northerner_entry",
+					function EL_ifEligible(_item) { return true; }
+				},
+				{
+					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_special_attack_southerner_entry",
+					function EL_ifEligible(_item) { return true; }
+				},
+				{
+					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_special_attack_undead_entry",
+					function EL_ifEligible(_item) { return true; }
+				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_stamina_modifier_mult_entry",
 					function EL_ifEligible(_item) { return true; }
@@ -999,6 +1015,114 @@ gt.Const.EL_Weapon <- {
 					30
 				]
 			},
+			EL_SpecialAttackBeast = {
+				ID = "el_weapon_entry.special_attack_beast",
+				BaseDamageMult = 30,
+				RandomMinDamageMult = [
+					1,
+					1,
+					601,
+					1201,
+					3000
+				],
+				RandomMaxDamageMult = [
+					1200,
+					1800,
+					2400,
+					3000,
+					3000
+				],
+				ColourRange = [
+					36,
+					42,
+					48,
+					54,
+					60
+				],
+				AdditionalAccuracyFactor = 1.0,
+				ValidEntity = [
+					this.Const.EntityType.Ghoul,
+					this.Const.EntityType.Wolf,
+					this.Const.EntityType.Wardog,
+					this.Const.EntityType.ArmoredWardog,
+					this.Const.EntityType.Direwolf,
+					this.Const.EntityType.Lindwurm,
+					this.Const.EntityType.Unhold,
+					this.Const.EntityType.UnholdFrost,
+					this.Const.EntityType.UnholdBog,
+					this.Const.EntityType.Spider,
+					this.Const.EntityType.SpiderEggs,
+					this.Const.EntityType.Alp,
+					this.Const.EntityType.Hexe,
+					this.Const.EntityType.Schrat,
+					this.Const.EntityType.SchratSmall,
+					this.Const.EntityType.Kraken,
+					this.Const.EntityType.KrakenTentacle,
+					this.Const.EntityType.AlpShadow,
+					this.Const.EntityType.BarbarianUnhold,
+					this.Const.EntityType.BarbarianUnholdFrost,
+					this.Const.EntityType.Warhound,
+					this.Const.EntityType.TricksterGod,
+					this.Const.EntityType.Serpent,
+					this.Const.EntityType.SandGolem,
+					this.Const.EntityType.Hyena,
+					this.Const.EntityType.LegendCat,
+					this.Const.EntityType.LegendWhiteDirewolf,
+					this.Const.EntityType.LegendSkinGhoul,
+					this.Const.EntityType.LegendStollwurm,
+					this.Const.EntityType.LegendRockUnhold,
+					this.Const.EntityType.LegendRedbackSpider,
+					this.Const.EntityType.LegendDemonAlp,
+					this.Const.EntityType.LegendHexeLeader,
+					this.Const.EntityType.LegendGreenwoodSchrat,
+					this.Const.EntityType.LegendGreenwoodSchratSmall,
+					this.Const.EntityType.LegendWhiteWarwolf,
+					this.Const.EntityType.LegendBear,
+					this.Const.EntityType.LegendHorse
+				]
+			},
+			EL_SpecialAttackGreenskin = {
+				ID = "el_weapon_entry.special_attack_greenskin",
+				BaseDamageMult = 30,
+				RandomMinDamageMult = [
+					1,
+					1,
+					601,
+					1201,
+					3000
+				],
+				RandomMaxDamageMult = [
+					1200,
+					1800,
+					2400,
+					3000,
+					3000
+				],
+				ColourRange = [
+					36,
+					42,
+					48,
+					54,
+					60
+				],
+				AdditionalAccuracyFactor = 1.0,
+				ValidEntity = [
+					this.Const.EntityType.OrcBerserker,
+					this.Const.EntityType.OrcYoung,
+					this.Const.EntityType.OrcWarrior,
+					this.Const.EntityType.OrcWarlord,
+					this.Const.EntityType.LegendOrcBehemoth,
+					this.Const.EntityType.LegendOrcElite,
+					this.Const.EntityType.GoblinFighter,
+					this.Const.EntityType.GoblinAmbusher,
+					this.Const.EntityType.GoblinLeader,
+					this.Const.EntityType.GoblinShaman,
+					this.Const.EntityType.GoblinWolfrider,
+					this.Const.EntityType.KoboldWolfrider,
+					this.Const.EntityType.KoboldFighter,
+					this.Const.EntityType.GreenskinCatapult
+				]
+			},
 			EL_SpecialAttackNortherner = {
 				ID = "el_weapon_entry.special_attack_northerner",
 				BaseDamageMult = 30,
@@ -1194,114 +1318,6 @@ gt.Const.EL_Weapon <- {
 					this.Const.EntityType.LegendMummyHeavy,
 					this.Const.EntityType.LegendMummyQueen,
 					this.Const.EntityType.LegendMummyPriest
-				]
-			},
-			EL_SpecialAttackBeast = {
-				ID = "el_weapon_entry.special_attack_beast",
-				BaseDamageMult = 30,
-				RandomMinDamageMult = [
-					1,
-					1,
-					601,
-					1201,
-					3000
-				],
-				RandomMaxDamageMult = [
-					1200,
-					1800,
-					2400,
-					3000,
-					3000
-				],
-				ColourRange = [
-					36,
-					42,
-					48,
-					54,
-					60
-				],
-				AdditionalAccuracyFactor = 1.0,
-				ValidEntity = [
-					this.Const.EntityType.Ghoul,
-					this.Const.EntityType.Wolf,
-					this.Const.EntityType.Wardog,
-					this.Const.EntityType.ArmoredWardog,
-					this.Const.EntityType.Direwolf,
-					this.Const.EntityType.Lindwurm,
-					this.Const.EntityType.Unhold,
-					this.Const.EntityType.UnholdFrost,
-					this.Const.EntityType.UnholdBog,
-					this.Const.EntityType.Spider,
-					this.Const.EntityType.SpiderEggs,
-					this.Const.EntityType.Alp,
-					this.Const.EntityType.Hexe,
-					this.Const.EntityType.Schrat,
-					this.Const.EntityType.SchratSmall,
-					this.Const.EntityType.Kraken,
-					this.Const.EntityType.KrakenTentacle,
-					this.Const.EntityType.AlpShadow,
-					this.Const.EntityType.BarbarianUnhold,
-					this.Const.EntityType.BarbarianUnholdFrost,
-					this.Const.EntityType.Warhound,
-					this.Const.EntityType.TricksterGod,
-					this.Const.EntityType.Serpent,
-					this.Const.EntityType.SandGolem,
-					this.Const.EntityType.Hyena,
-					this.Const.EntityType.LegendCat,
-					this.Const.EntityType.LegendWhiteDirewolf,
-					this.Const.EntityType.LegendSkinGhoul,
-					this.Const.EntityType.LegendStollwurm,
-					this.Const.EntityType.LegendRockUnhold,
-					this.Const.EntityType.LegendRedbackSpider,
-					this.Const.EntityType.LegendDemonAlp,
-					this.Const.EntityType.LegendHexeLeader,
-					this.Const.EntityType.LegendGreenwoodSchrat,
-					this.Const.EntityType.LegendGreenwoodSchratSmall,
-					this.Const.EntityType.LegendWhiteWarwolf,
-					this.Const.EntityType.LegendBear,
-					this.Const.EntityType.LegendHorse
-				]
-			},
-			EL_SpecialAttackGreenskin = {
-				ID = "el_weapon_entry.special_attack_greenskin",
-				BaseDamageMult = 30,
-				RandomMinDamageMult = [
-					1,
-					1,
-					601,
-					1201,
-					3000
-				],
-				RandomMaxDamageMult = [
-					1200,
-					1800,
-					2400,
-					3000,
-					3000
-				],
-				ColourRange = [
-					36,
-					42,
-					48,
-					54,
-					60
-				],
-				AdditionalAccuracyFactor = 1.0,
-				ValidEntity = [
-					this.Const.EntityType.OrcBerserker,
-					this.Const.EntityType.OrcYoung,
-					this.Const.EntityType.OrcWarrior,
-					this.Const.EntityType.OrcWarlord,
-					this.Const.EntityType.LegendOrcBehemoth,
-					this.Const.EntityType.LegendOrcElite,
-					this.Const.EntityType.GoblinFighter,
-					this.Const.EntityType.GoblinAmbusher,
-					this.Const.EntityType.GoblinLeader,
-					this.Const.EntityType.GoblinShaman,
-					this.Const.EntityType.GoblinWolfrider,
-					this.Const.EntityType.KoboldWolfrider,
-					this.Const.EntityType.KoboldFighter,
-					this.Const.EntityType.GreenskinCatapult
 				]
 			}
 		}

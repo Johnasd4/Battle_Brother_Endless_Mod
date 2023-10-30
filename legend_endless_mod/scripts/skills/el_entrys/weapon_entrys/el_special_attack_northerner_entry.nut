@@ -59,14 +59,12 @@ this.el_special_attack_northerner_entry <- this.inherit("scripts/skills/el_entry
 	{
 		if (!_skill.isAttack() || _targetEntity == null)
 		{
-			this.logInfo("fail special attack check");
 			return;
 		}
 		foreach(valid_type in this.Const.EL_Weapon.EL_Entry.Factor.EL_SpecialAttackNortherner.ValidEntity)
 		{
 			if(_targetEntity.getType() == valid_type)
 			{
-				this.logInfo("success special attack check");
 				_properties.RangedSkill += this.m.EL_AdditionalAccuracy;
 				_properties.MeleeSkill += this.m.EL_AdditionalAccuracy;
 				_properties.DamageTotalMult *= 1.0 + this.m.EL_DamageMult * 0.01;

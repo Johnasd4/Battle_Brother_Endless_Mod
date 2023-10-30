@@ -3,6 +3,45 @@ local gt = getroottable();
 ::mods_registerMod("el_settlements", 1, "el_settlements");
 ::mods_queue(null, "el_world", function ()
 {
+    ::mods_hookExactClass("entity/world/settlement", function(o) {
+        local onEnter = o.onEnter;
+        o.onEnter = function()
+        {
+            foreach( item in this.World.Assets.getStash().getItems() )
+            {
+                if (item == null)
+                {
+                    continue;
+                }
+
+                if (item.isBought())
+                {
+                    if (item.isItemType(this.Const.Items.ItemType.TradeGood))
+                    {
+                        this.World.Statistics.getFlags().increment("TradeGoodsBought");
+
+                        if (::Legends.Mod.ModSettings.getSetting("WorldEconomy").getValue())
+                        {
+                            this.setResources(this.getResources() + item.getResourceValue());
+                        }
+                    }
+                }
+
+                item.setBought(false);
+            }
+
+            foreach( bro in this.World.getPlayerRoster().getAll() )
+            {
+                foreach( item in bro.getItems().getAllItems() )
+                {
+                    item.setBought(false);
+                }
+            }
+
+            return onEnter();
+        }
+    });
+
     ::mods_hookNewObject("entity/world/settlements/buildings/arena_building", function(o)
     {
         o.refreshCooldown = function()
