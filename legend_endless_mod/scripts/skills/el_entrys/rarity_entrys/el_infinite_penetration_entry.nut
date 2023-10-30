@@ -6,8 +6,8 @@ this.el_infinite_penetration_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.infinite_penetration";
-		this.m.Name = "Infinite Penetration(Throwing Weapon)";
-		this.m.Description = "A sharp throw that runs through everything."//至锐的投掷，贯穿一切
+		this.m.Name = "无尽穿透(投掷)";
+		this.m.Description = "至锐的投掷，贯穿一切"//A sharp throw that runs through everything.
 		this.m.Icon = "el_entrys/el_infinite_penetration_entry.png";
 		//this.m.IconMini = "el_infinite_penetration_entry_mini";
 		this.m.Overlay = "el_infinite_penetration_entry";
@@ -31,19 +31,19 @@ this.el_infinite_penetration_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]No longer consume Ammo.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]不再消耗弹药[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Enemies who will continuously hit a line.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]攻击将穿透一条直线上的所有敌人[/color]"
 			},
 			{
 				id = 5,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]If the target still has armor when injured, the health damage will double this time.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]如果目标被命中时仍存在护甲，则此次攻击额外造成一次血量伤害[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -52,7 +52,7 @@ this.el_infinite_penetration_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Throwing Weapon to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备投掷武器来发挥效果[/color]"
             });
         }
 		return result;

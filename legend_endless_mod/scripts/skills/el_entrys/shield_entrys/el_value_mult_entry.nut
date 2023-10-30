@@ -14,7 +14,7 @@ this.el_value_mult_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Worth regard as a trade goods[/color]"
+			text = "[color=" + colour + "]价格视为商品[/color]"
 		};
 		return result;
 	}

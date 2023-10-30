@@ -3,8 +3,8 @@ this.el_octave_play_skill <- this.inherit("scripts/skills/skill", {
 	function create()
 	{
 		this.m.ID = "el_actives.octave_play_skill";
-		this.m.Name = "Octave Play";
-		this.m.Description = "Soothing music can alleviate fatigue.";
+		this.m.Name = "八音叠奏";
+		this.m.Description = "舒缓的音乐可以缓解疲劳。";
 		this.m.Icon = "el_skills/octave_play_skill.png";
 		this.m.IconDisabled = "el_skills/octave_play_skill_sw.png";
 		this.m.SoundOnUse = [
@@ -34,7 +34,7 @@ this.el_octave_play_skill <- this.inherit("scripts/skills/skill", {
 				id = 6,
 				type = "text",
 				icon = "ui/icons/locked_small.png",
-				text = "Restores ally " + this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.FatigueRecover + "fatigue and " + this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.HitpointsRecoverPercent * 100 + "% health."
+				text = "恢复友军 " + this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.FatigueRecover + "疲劳和 " + this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.HitpointsRecoverPercent * 100 + "%生命。"
 			}
 		]);
 		return tooltip;

@@ -194,6 +194,23 @@ local gt = getroottable();
 
 	::mods_hookExactClass("skills/actives/legend_cascade_skill", function(o)
     {
+        o.isHidden = function()
+        {
+            local actor = this.getContainer().getActor();
+
+            if (actor == null)
+            {
+                return true;
+            }
+            local main_hand = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+
+            if (main_hand == null || !main_hand.isWeaponType(this.Const.Items.WeaponType.Bow))
+            {
+                return true;
+            }
+            return false;
+        }
+
 		o.onUse = function( _user, _targetTile )
 		{
             local user = this.getContainer().getActor();
@@ -241,6 +258,16 @@ local gt = getroottable();
             }
             return true;
 		}
+
+        o.onAfterUpdate = function( _properties )
+        {
+            if(this.m.Item != null)
+            {
+                this.m.MaxRange = this.m.Item.getRangeMax() - 1 + (_properties.IsSpecializedInBows ? 1 : 0);
+                this.m.AdditionalAccuracy = this.m.Item.getAdditionalAccuracy();
+                this.m.FatigueCostMult = _properties.IsSpecializedInBows ? this.Const.Combat.WeaponSpecFatigueMult : 1.0;
+            }
+        }
 	});
 
 	::mods_hookExactClass("skills/actives/legend_staff_lunge_skill", function(o){

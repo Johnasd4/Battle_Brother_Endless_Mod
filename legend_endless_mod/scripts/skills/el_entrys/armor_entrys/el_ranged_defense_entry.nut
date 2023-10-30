@@ -16,7 +16,7 @@ this.el_ranged_defense_entry <- this.inherit("scripts/skills/el_entrys/el_access
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Ranged Defense + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_RangedDefense) + " (" + this.m.EL_RangedDefense + ")[/color]"
+				text = "[color=" + colour + "]远程防御 + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_RangedDefense) + " (" + this.m.EL_RangedDefense + ")[/color]"
 			};
 		}
 		else
@@ -24,7 +24,7 @@ this.el_ranged_defense_entry <- this.inherit("scripts/skills/el_entrys/el_access
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Ranged Defense + " + this.m.EL_RangedDefense + "[/color]"
+				text = "[color=" + colour + "]远程防御 + " + this.m.EL_RangedDefense + "[/color]"
 			};
 		}
 	}

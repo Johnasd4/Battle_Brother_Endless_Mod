@@ -233,7 +233,7 @@ local gt = getroottable();
                 id = 6,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "Reflects [color=" + this.Const.UI.Color.PositiveValue + "]25%[/color] of damage taken in melee back to the attacker"
+                text = "Reflects  [color=" + this.Const.UI.Color.PositiveValue + "]25%[/color] of damage taken in melee back to the attacker"
             });
             return result;
         }
@@ -275,7 +275,7 @@ local gt = getroottable();
                 id = 6,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "Reflects [color=" + this.Const.UI.Color.PositiveValue + "]25%[/color] of damage taken in melee back to the attacker"
+                text = "Reflects  [color=" + this.Const.UI.Color.PositiveValue + "]25%[/color] of damage taken in melee back to the attacker"
             });
             return result;
         }

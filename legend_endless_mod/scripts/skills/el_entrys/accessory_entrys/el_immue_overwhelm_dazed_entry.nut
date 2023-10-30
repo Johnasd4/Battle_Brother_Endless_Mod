@@ -12,7 +12,7 @@ this.el_immue_overwhelm_dazed_entry <- this.inherit("scripts/skills/el_entrys/el
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Immune Overwhelm, Immune Dazed[/color]"
+			text = "[color=" + colour + "]免疫压制，茫然[/color]"
 		};
 		return result;
 	}

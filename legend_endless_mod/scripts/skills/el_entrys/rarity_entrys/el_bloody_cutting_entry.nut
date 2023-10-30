@@ -4,8 +4,8 @@ this.el_bloody_cutting_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.bloody_cutting";
-		this.m.Name = "Bloody Cutting(One-Handed Cleaver)";
-		this.m.Description = "The scorching blood makes me so intoxicated.";//这炙热的鲜血，让我如此的陶醉
+		this.m.Name = "血腥切割(单手砍刀)";
+		this.m.Description = "这炙热的鲜血，让我如此的陶醉";//The scorching blood makes me so intoxicated.
 		this.m.Icon = "el_entrys/el_bloody_cutting_entry.png";
 		//this.m.IconMini = "el_bloody_cutting_entry_mini";
 		this.m.Overlay = "el_bloody_cutting_entry";
@@ -29,13 +29,13 @@ this.el_bloody_cutting_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Additional damage of " + this.Const.EL_Rarity_Entry.Factor.EL_BloodyCutting.TargetHealthLossExtraDamageMultFactor * 100 + "% of the target's health has been lost.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]目标已损失生命值的" + this.Const.EL_Rarity_Entry.Factor.EL_BloodyCutting.TargetHealthLossExtraDamageMultFactor * 100 + "%会转化为你的攻击伤害[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Add an equal amount of health damage to the bleeding effect when hit.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]额外附加等量于造成血量伤害比例的流血效果[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -43,7 +43,7 @@ this.el_bloody_cutting_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip One-Handed Cleaver to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备单手砍刀来发挥效果[/color]"
             });
         }
 		return result;

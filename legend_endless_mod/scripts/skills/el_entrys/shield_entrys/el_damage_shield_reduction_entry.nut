@@ -15,7 +15,7 @@ this.el_damage_shield_reduction_entry <- this.inherit("scripts/skills/el_entrys/
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Equipment Shield fixation reduces damage + " + this.Math.ceil(this.m.EL_DamageShieldReduction * (1.0 + this.m.EL_Level * this.Const.EL_Shield.EL_LevelFactor.DamageShieldReduction)) + "[/color]"
+			text = "[color=" + colour + "]盾牌固定减伤 + " + this.Math.ceil(this.m.EL_DamageShieldReduction * (1.0 + this.m.EL_Level * this.Const.EL_Shield.EL_LevelFactor.DamageShieldReduction)) + "(面板)[/color]"
 		};
 		return result;
 	}

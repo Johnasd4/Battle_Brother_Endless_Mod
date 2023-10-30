@@ -16,7 +16,7 @@ this.el_hitpoints_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_e
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Hitpoints + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_Hitpoints) + "% (" + this.m.EL_Hitpoints + "%)[/color]"
+				text = "[color=" + colour + "]生命值 + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_Hitpoints) + "% (" + this.m.EL_Hitpoints + "%)[/color]"
 			};
 		}
 		else
@@ -24,7 +24,7 @@ this.el_hitpoints_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_e
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Hitpoints + " + this.m.EL_Hitpoints + "%[/color]"
+				text = "[color=" + colour + "]生命值 + " + this.m.EL_Hitpoints + "%[/color]"
 			};
 		}
 	}

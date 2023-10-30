@@ -16,7 +16,7 @@ this.el_condition_recover_rate_entry <- this.inherit("scripts/skills/el_entrys/e
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Recover " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ConditionRecoverRate * 100) * 0.01 + "% (" + this.m.EL_ConditionRecoverRate + ")% Durability each turn[/color]"
+				text = "[color=" + colour + "]恢复 " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ConditionRecoverRate * 100) * 0.01 + "% (" + this.m.EL_ConditionRecoverRate + ")% 耐久每回合[/color]"
 			};
 		}
 		else
@@ -24,7 +24,7 @@ this.el_condition_recover_rate_entry <- this.inherit("scripts/skills/el_entrys/e
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Recover " + this.m.EL_ConditionRecoverRate + "% Durability each turn[/color]"
+				text = "[color=" + colour + "]恢复 " + this.m.EL_ConditionRecoverRate + "% 耐久每回合[/color]"
 			};
 		}
 	}

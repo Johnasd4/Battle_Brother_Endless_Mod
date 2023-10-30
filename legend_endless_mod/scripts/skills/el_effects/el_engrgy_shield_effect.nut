@@ -28,7 +28,12 @@ this.el_engrgy_shield_effect <- this.inherit("scripts/skills/skill", {
 			{
 				id = 6,
 				type = "text",
-				text = "Engrgy Shield: " + this.m.EL_Stack + "/" + this.m.EL_StackMax
+				text = "能量护盾: " + this.m.EL_Stack + "/" + this.m.EL_StackMax
+			},
+			{
+				id = 7,
+				type = "text",
+				text = "受到伤害时会减少1层护盾层数来免疫此次伤害"
 			}
 		]);
 		return tooltip;

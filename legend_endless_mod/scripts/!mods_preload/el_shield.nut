@@ -39,14 +39,14 @@ local gt = getroottable();
 			result.insert(4, {
 				id = 22,
 				type = "text",
-				text = "Rank Level: " + this.m.EL_RankLevel + "/" + this.EL_getRankLevelMax()
+				text = "等阶: " + this.m.EL_RankLevel + "/" + this.EL_getRankLevelMax()
 			});
 			if(this.m.EL_CurrentLevel < this.m.EL_Level)
 			{
 				result.insert(5, {
 					id = 23,
 					type = "text",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]Level: " + this.m.EL_CurrentLevel + "/" + this.m.EL_Level + "[/color]"
+					text = "[color=" + this.Const.UI.Color.NegativeValue + "]等级: " + this.m.EL_CurrentLevel + "/" + this.m.EL_Level + "[/color]"
 				});
 			}
 			else
@@ -54,7 +54,7 @@ local gt = getroottable();
 				result.insert(5, {
 					id = 23,
 					type = "text",
-					text = "Level: " + this.m.EL_Level
+					text = "等级: " + this.m.EL_Level
 				});
 			}
 			if(this.m.EL_DamageShieldReduction)
@@ -63,7 +63,7 @@ local gt = getroottable();
 					id = 24,
 					type = "text",
 					icon = "ui/icons/sturdiness.png",
-					text = "Shield fixation reduces damage: " + this.m.EL_DamageShieldReduction
+					text = "盾牌固定减伤: " + this.m.EL_DamageShieldReduction
 				});
 			}
 			if (this.m.EL_EntryList.len() != 0)
@@ -89,7 +89,7 @@ local gt = getroottable();
 				result.push({
 					id = 75,
 					type = "text",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]Current combatlevel cannot fully utilize the item's performance.[/color]"
+					text = "[color=" + this.Const.UI.Color.NegativeValue + "]当前人物的战斗等级无法发挥装备全部性能。[/color]"
 				});
 			}
 			return result;
@@ -262,6 +262,18 @@ local gt = getroottable();
 			EL_updateLevelProperties();
 			this.m.Condition = this.m.ConditionMax * percent;
         }
+
+		o.EL_addRankLevel <- function()
+		{
+			++this.m.EL_RankLevel;
+			EL_init();
+			foreach(entry in this.m.EL_EntryList)
+			{
+				entry.EL_onUpgradeRank();
+			}
+			this.Const.EL_Shield.EL_updateRankLevelProperties(this);
+			this.Const.EL_Shield.EL_assignItemEntrys(this, this.Const.EL_Shield.EL_Entry.EntryNum.NormalShield[this.m.EL_RankLevel]);
+		}
 
         o.EL_upgradeLevel <- function()
         {

@@ -14,7 +14,7 @@ this.el_shield_damage_mult_entry <- this.inherit("scripts/skills/el_entrys/el_en
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Equipment Shield Damage + " + this.m.EL_ShieldDamageMult + "%[/color]"
+			text = "[color=" + colour + "]对盾牌的伤害 + " + this.m.EL_ShieldDamageMult + "%(面板)[/color]"
 		};
 		return result;
 	}

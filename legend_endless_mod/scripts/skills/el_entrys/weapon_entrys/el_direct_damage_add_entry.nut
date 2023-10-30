@@ -14,7 +14,7 @@ this.el_direct_damage_add_entry <- this.inherit("scripts/skills/el_entrys/el_ent
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Equipment additional " + this.m.EL_DirectDamageAdd + "% of damage ignores armor[/color]"
+			text = "[color=" + colour + "]额外 " + this.m.EL_DirectDamageAdd + "% 伤害忽视盔甲(面板)[/color]"
 		};
 		return result;
 	}
@@ -53,7 +53,9 @@ this.el_direct_damage_add_entry <- this.inherit("scripts/skills/el_entrys/el_ent
 
 	function EL_onItemUpdate( _item )
 	{
+		this.logInfo("before"+item.m.DirectDamageAdd);
         _item.m.DirectDamageAdd = _item.m.EL_BaseWithRankDirectDamageAdd + this.m.EL_DirectDamageAdd * 0.01;
+		this.logInfo("after"+item.m.DirectDamageAdd);
 	}
     
     function onSerialize( _out )

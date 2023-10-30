@@ -16,7 +16,7 @@ this.el_xp_gain_mult_entry <- this.inherit("scripts/skills/el_entrys/el_accessor
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Experience Gain + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_XPGainMult * 100) * 0.01 + "% (" + this.m.EL_XPGainMult + "%)[/color]"
+				text = "[color=" + colour + "]经验获取 + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_XPGainMult * 100) * 0.01 + "% (" + this.m.EL_XPGainMult + "%)[/color]"
 			};
 		}
 		else
@@ -24,7 +24,7 @@ this.el_xp_gain_mult_entry <- this.inherit("scripts/skills/el_entrys/el_accessor
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Experience Gain + " + this.m.EL_XPGainMult + "%[/color]"
+				text = "[color=" + colour + "]经验获取 + " + this.m.EL_XPGainMult + "%[/color]"
 			};
 		}
 	}

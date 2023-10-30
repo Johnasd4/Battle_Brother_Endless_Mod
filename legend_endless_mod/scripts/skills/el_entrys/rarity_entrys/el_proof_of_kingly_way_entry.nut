@@ -4,8 +4,8 @@ this.el_proof_of_kingly_way_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.proof_of_kingly_way";
-		this.m.Name = "Proof of Kingly Way(Battle Standard)";
-		this.m.Description = "Glory is still present, and the unity of all hearts shakes the enemy's courage.";//荣光尚在，万众一心震敌胆
+		this.m.Name = "王道之证(战旗)";
+		this.m.Description = "荣光尚在，万众一心震敌胆";//Glory is still present, and the unity of all hearts shakes the enemy's courage.
 		this.m.Icon = "el_entrys/el_proof_of_kingly_way_entry.png";
 		//this.m.IconMini = "el_proof_of_kingly_way_entry_mini";
 		this.m.Overlay = "el_proof_of_kingly_way_entry";
@@ -29,13 +29,13 @@ this.el_proof_of_kingly_way_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Increase the determination gain and reduction effect of the battle standard to " + this.Const.EL_Rarity_Entry.Factor.EL_ProofOfKinglyWay.BraveryMult * 100 + "%.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]提升战旗带来的的决心加成比例为 " + this.Const.EL_Rarity_Entry.Factor.EL_ProofOfKinglyWay.BraveryMult * 100 + "%，对范围内的敌人造成同等数值的决心降低.[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]At the beginning of the turn, friendly morale within the range increases, while enemy morale decreases.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]每回合开始时，范围内的友军士气提升，敌军士气降低[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -44,7 +44,7 @@ this.el_proof_of_kingly_way_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Battle Standard to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备战旗来发挥效果[/color]"
             });
         }
 		return result;

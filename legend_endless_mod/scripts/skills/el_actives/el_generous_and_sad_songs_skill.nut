@@ -3,8 +3,8 @@ this.el_generous_and_sad_songs_skill <- this.inherit("scripts/skills/skill", {
 	function create()
 	{
 		this.m.ID = "el_actives.generous_and_sad_songs_skill";
-		this.m.Name = "Generous and Sad Songs";
-		this.m.Description = "Generous music can elevate one's state.";
+		this.m.Name = "慷慨悲歌";
+		this.m.Description = "美妙的乐曲能提升状态。";
 		this.m.Icon = "el_skills/generous_and_sad_songs_skill.png";
 		this.m.IconDisabled = "el_skills/generous_and_sad_songs_skill_sw.png";
 		this.m.SoundOnUse = [
@@ -34,7 +34,7 @@ this.el_generous_and_sad_songs_skill <- this.inherit("scripts/skills/skill", {
 				id = 6,
 				type = "text",
 				icon = "ui/icons/locked_small.png",
-				text = "Improve ally " + this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.InitiativeOffset + " Initiative, " + this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.MeleeSkillOffset + " Melee Skill, " + this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.RangedSkillOffset + " Ranged Skill, " + this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.MeleeDefenseOffset + " Melee Defense, " + this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.RangedDefenseOffset + " Ranged Defense."
+				text = "提升友军 " + this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.InitiativeOffset + " Initiative, " + this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.MeleeSkillOffset + " Melee Skill, " + this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.RangedSkillOffset + " Ranged Skill, " + this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.MeleeDefenseOffset + " Melee Defense, " + this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.RangedDefenseOffset + " Ranged Defense."
 			}
 		]);
 		return tooltip;

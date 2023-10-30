@@ -15,7 +15,7 @@ this.el_action_point_entry <- this.inherit("scripts/skills/el_entrys/el_entry", 
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Action Points + " + this.m.EL_ActionPoint + "[/color]"
+			text = "[color=" + colour + "]行动点 + " + this.m.EL_ActionPoint + "[/color]"
 		};
 		return result;
 	}

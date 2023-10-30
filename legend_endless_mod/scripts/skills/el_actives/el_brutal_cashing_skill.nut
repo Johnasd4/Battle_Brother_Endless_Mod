@@ -6,8 +6,8 @@ this.el_brutal_cashing_skill <- this.inherit("scripts/skills/skill", {
 	function create()
 	{
 		this.m.ID = "el_rarity_actives.brutal_cashing_skill";
-		this.m.Name = "Strike";
-		this.m.Description = "A sweeping strike that can cover the distance of 2 tiles and can be used from behind the frontline, outside the range of most other melee weapons.";
+		this.m.Name = "残暴劈砍";
+		this.m.Description = "A slow overhead strike performed with full force to smash a target to bits.";
 		this.m.Icon = "skills/active_66.png";
 		this.m.IconDisabled = "skills/active_66_sw.png";
 		this.m.Overlay = "active_66";

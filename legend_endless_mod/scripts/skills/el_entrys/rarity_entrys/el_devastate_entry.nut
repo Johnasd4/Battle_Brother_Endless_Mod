@@ -6,8 +6,8 @@ this.el_devastate_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.devastate";
-		this.m.Name = "Devestate(Two-Handed Hammer)";
-		this.m.Description = "Armor? Shield? The weak enemies who rely on those things will be mercilessly crushed.";//盔甲？盾牌？依赖那些东西的软弱敌人将会被毫不留情的粉碎
+		this.m.Name = "毁灭打击(双手锤)";
+		this.m.Description = "盔甲？盾牌？依赖那些东西的软弱敌人将会被毫不留情的粉碎";//Armor? Shield? The weak enemies who rely on those things will be mercilessly crushed.
 		this.m.Icon = "el_entrys/el_devastate_entry.png";
 		//this.m.IconMini = "el_devastate_entry_mini";
 		this.m.Overlay = "el_devastate_entry";
@@ -31,25 +31,25 @@ this.el_devastate_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Merge and strengthen skills.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]武器技能合并强化[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Deals additional health damage equivalent to " + this.Const.EL_Rarity_Entry.Factor.EL_Devastate.HealthDamageMult * 100 +"% of armor damage.[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]命中时额外造成等同于造成护甲伤害 " + this.Const.EL_Rarity_Entry.Factor.EL_Devastate.HealthDamageMult * 100 +"%的血量伤害[/color]"
 			},
 			{
 				id = 5,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Cause " + this.Const.EL_Rarity_Entry.Factor.EL_Devastate.InjuryNum + " slight injury to the base, and for each missing piece of armor, cause 1 additional slight injury.[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]命中时额外造成 " + this.Const.EL_Rarity_Entry.Factor.EL_Devastate.InjuryNum + "个轻伤, 目标每缺少1件护甲, 再额外造成1个轻伤[/color]"
 			},
 			{
 				id = 6,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Release a free split shield during the attack, deals " + this.Const.EL_Rarity_Entry.Factor.EL_Devastate.ShieldDamageMult * 100 + "% damage.[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]攻击时免费施加一次正常 " + this.Const.EL_Rarity_Entry.Factor.EL_Devastate.ShieldDamageMult * 100 + "%伤害的“劈盾”技能，如果你拥有这个技能"
 			}
         ]
 		if (!EL_isUsable())
@@ -58,7 +58,7 @@ this.el_devastate_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Two-Handed Hammer to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备双手锤来发挥效果[/color]"
             });
         }
 		return result;

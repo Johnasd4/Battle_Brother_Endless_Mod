@@ -4,8 +4,8 @@ this.el_bloody_knock_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.bloody_knock";
-		this.m.Name = "Bloody Knock(Two-Handed Flail)";
-		this.m.Description = "Make their heads explode like watermelons.Waghghghghghghghghgh!!!";
+		this.m.Name = "迎头痛击(双手连枷)";
+		this.m.Description = "让他们的脑袋像西瓜一样炸开 Waghghghghghghghghgh!!!";
 		this.m.Icon = "el_entrys/el_bloody_knock_entry.png";
 		//this.m.IconMini = "el_bloody_knock_entry_mini";
 		this.m.Overlay = "el_bloody_knock_entry";
@@ -29,13 +29,25 @@ this.el_bloody_knock_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Has a 100% chance to stun and make it dazed on a hit.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]命中时100%造成眩晕和茫然[/color]"
+			},
+			{
+				id = 3,
+                type = "text",
+                icon = "ui/icons/special.png",
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]必定爆头[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]When you attack the enemy, if the target does not has a helmet, it causes " + this.Const.EL_Rarity_Entry.Factor.EL_BloodyKnock.DamageMult + " times the damage. If the target has a helmet, it causes a concussion.[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]如果目标没有头盔" + this.Const.EL_Rarity_Entry.Factor.EL_BloodyKnock.DamageMult + "倍伤害[/color]"
+			},
+			{
+				id = 5,
+                type = "text",
+                icon = "ui/icons/special.png",
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]否则, 对目标造成“严重脑震荡”[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -44,7 +56,7 @@ this.el_bloody_knock_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Two-Handed Flail to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备双手连枷来发挥效果[/color]"
             });
         }
 		return result;

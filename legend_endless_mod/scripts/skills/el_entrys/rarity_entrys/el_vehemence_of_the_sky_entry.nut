@@ -4,8 +4,8 @@ this.el_vehemence_of_the_sky_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.vehemence_of_the_sky";
-		this.m.Name = "Vehemence of The Sky(Gassenhauer)";
-		this.m.Description = "The momentum is as strong as the sky, crushing and corrupting.";//势若天倾，摧垮拉朽
+		this.m.Name = "天穹之势(双手剑)";
+		this.m.Description = "势若天倾，摧垮拉朽";//The momentum is as strong as the sky, crushing and corrupting.
 		this.m.Icon = "el_entrys/el_vehemence_of_the_sky_entry.png";
 		//this.m.IconMini = "el_vehemence_of_the_sky_entry_mini";
 		this.m.Overlay = "el_vehemence_of_the_sky_entry";
@@ -29,19 +29,19 @@ this.el_vehemence_of_the_sky_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Maintain confident.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]必定自信[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Convert " + this.Const.EL_Rarity_Entry.Factor.EL_VehemenceOfTheSky.ConvertArmorIntoDamagePercent * 100 +"% of armor condition max value into weapon panel damage.[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]将全身护甲值上限的 " + this.Const.EL_Rarity_Entry.Factor.EL_VehemenceOfTheSky.ConvertArmorIntoDamagePercent * 100 +"% 转化为武器面板伤害[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Release a free split shield during the attack, deals " + this.Const.EL_Rarity_Entry.Factor.EL_VehemenceOfTheSky.ShieldDamageMult * 100 + "% damage to the weapon panel.[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]攻击时免费施加一次伤害为武器面板伤害" + this.Const.EL_Rarity_Entry.Factor.EL_VehemenceOfTheSky.ShieldDamageMult * 100 + "% 的“劈盾”技能，如果你拥有这个技能[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -50,7 +50,7 @@ this.el_vehemence_of_the_sky_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Gassenhauer to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备双手剑来发挥效果[/color]"
             });
         }
 		return result;

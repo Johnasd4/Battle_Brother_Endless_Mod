@@ -15,7 +15,7 @@ this.el_vision_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_entr
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Vision + " + this.m.EL_Vision + "[/color]"
+			text = "[color=" + colour + "]视野 + " + this.m.EL_Vision + "[/color]"
 		};
 		return result;
 	}

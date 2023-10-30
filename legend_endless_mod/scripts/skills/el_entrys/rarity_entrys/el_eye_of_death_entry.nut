@@ -4,8 +4,8 @@ this.el_eye_of_death_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.eye_of_death";
-		this.m.Name = "Eye of Death(Crossbow)";
-		this.m.Description = "Death stares at your enemies."
+		this.m.Name = "死亡之眼(弩)";
+		this.m.Description = "死亡凝视着你的敌人"
 		this.m.Icon = "el_entrys/el_eye_of_death_entry.png";
 		//this.m.IconMini = "el_eye_of_death_entry_mini";
 		this.m.Overlay = "el_eye_of_death_entry";
@@ -29,13 +29,13 @@ this.el_eye_of_death_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]No need to load and no longer consume Ammo.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]不再需要装填和消耗弹药[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Chance to hit head 100%, double the damage inflicted from hits to the head, completely ignores armor.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]造成伤害无视护甲, 必定爆头且爆头伤害翻倍[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -44,7 +44,7 @@ this.el_eye_of_death_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Crossbow to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备弩来发挥效果[/color]"
             });
         }
 		return result;

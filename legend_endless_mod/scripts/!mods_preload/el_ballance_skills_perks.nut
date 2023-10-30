@@ -310,6 +310,24 @@ local gt = getroottable();
 
 	});
 
+	::mods_hookExactClass("skills/perks/perk_legend_cascade", function ( o )
+	{
+		o.onAdded <- function()
+		{
+			this.logInfo("add actives");
+			if (!this.m.Container.hasSkill("actives.legend_cascade"))
+			{
+				this.m.Container.add(this.new("scripts/skills/actives/legend_cascade_skill"));
+			}
+		}
+
+		o.onRemoved <- function()
+		{
+			this.m.Container.removeByID("actives.legend_cascade");
+		}
+
+	});
+
 	::mods_hookExactClass("skills/legend_favoured_enemy_skill", function ( o )
 	{
 

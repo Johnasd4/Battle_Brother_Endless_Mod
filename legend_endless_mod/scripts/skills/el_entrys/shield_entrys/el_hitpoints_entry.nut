@@ -14,7 +14,7 @@ this.el_hitpoints_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Hitpoints + " + this.m.EL_Hitpoints + "%[/color]"
+			text = "[color=" + colour + "]生命值 + " + this.m.EL_Hitpoints + "%[/color]"
 		};
 		return result;
 	}

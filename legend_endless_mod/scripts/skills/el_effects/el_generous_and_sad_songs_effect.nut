@@ -3,8 +3,8 @@ this.el_generous_and_sad_songs_effect <- this.inherit("scripts/skills/skill", {
 	function create()
 	{
 		this.m.ID = "el_rarity_effects.generous_and_sad_songs";
-		this.m.Name = "Generous and Sad Songs";
-		this.m.Description = "Magnificent music can elevate one's state.";
+		this.m.Name = "慷慨悲歌";
+		this.m.Description = "美妙的乐曲能提升状态。";
 		this.m.Icon = "el_skills/generous_and_sad_songs_effect.png";
 		//this.m.IconMini = "el_generous_and_sad_songs_effect_mini";
 		this.m.Overlay = "el_generous_and_sad_songs_effect";

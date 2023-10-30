@@ -39,10 +39,8 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 		EL_DamageMultForGreenskin = 0.0,
 		EL_AdditionalAccuracyForGreenskin = 0,
 
-		EL_WeaponUseSkillfatigue = 0,
         EL_WeaponConditionRecoverDaliy = 0.0,
         EL_WeaponConditionRecoverRate = 0.0,
-		EL_ShieldUseSkillfatigue = 0,
 		EL_ShieldConditionRecoverDaliy = 0,
         EL_ShieldConditionRecoverRate = 0.0,
 		EL_ShieldDamageReceivedMult = 0.0,
@@ -116,10 +114,8 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 		this.m.EL_DamageMultForGreenskin = 0.0;
 		this.m.EL_AdditionalAccuracyForGreenskin = 0;
 
-		this.m.EL_WeaponUseSkillfatigue = 0;
         this.m.EL_WeaponConditionRecoverDaliy = 0.0;
         this.m.EL_WeaponConditionRecoverRate = 0.0;
-		this.m.EL_ShieldUseSkillfatigue = 0;
 		this.m.EL_ShieldConditionRecoverDaliy = 0.0;
         this.m.EL_ShieldConditionRecoverRate = 0.0;
 		this.m.EL_ShieldDamageReceivedMult = 0.0
@@ -172,7 +168,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Hitpoints + " + this.m.EL_Hitpoints + "%"
+				text = "生命值 + " + this.m.EL_Hitpoints + "%"
 			});
 		}
 		if(this.m.EL_Stamina)
@@ -180,7 +176,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Fatigue + " + this.m.EL_Stamina
+				text = "疲劳 + " + this.m.EL_Stamina
 			});
 		}
 		if(this.m.EL_Bravery)
@@ -188,7 +184,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Resolve + " + this.m.EL_Bravery
+				text = "决心 + " + this.m.EL_Bravery
 			});
 		}
 		if(this.m.EL_Initiative)
@@ -196,7 +192,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Initiative + " + this.m.EL_Initiative
+				text = "主动值 + " + this.m.EL_Initiative
 			});
 		}
 		if(this.m.EL_MeleeSkill)
@@ -204,7 +200,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Melee Skill + " + this.m.EL_MeleeSkill
+				text = "近战技能 + " + this.m.EL_MeleeSkill
 			});
 		}
 		if(this.m.EL_RangedSkill)
@@ -212,7 +208,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Ranged Skill + " + this.m.EL_RangedSkill
+				text = "远程技能 + " + this.m.EL_RangedSkill
 			});
 		}
 		if(this.m.EL_MeleeDefense)
@@ -220,7 +216,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Melee Defense + " + this.m.EL_MeleeDefense
+				text = "近战防御 + " + this.m.EL_MeleeDefense
 			});
 		}
 		if(this.m.EL_RangedDefense)
@@ -228,7 +224,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Ranged Defense + " + this.m.EL_RangedDefense
+				text = "远程防御 + " + this.m.EL_RangedDefense
 			});
 		}
 		if(this.m.EL_Vision)
@@ -236,7 +232,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Vision + " + this.m.EL_Vision
+				text = "视野 + " + this.m.EL_Vision
 			});
 		}
 		if(this.m.EL_CombatLevel)
@@ -244,7 +240,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "CombatLevel + " + this.m.EL_CombatLevel
+				text = "战斗等级 + " + this.m.EL_CombatLevel
 			});
 		}
 		if(this.m.EL_ActionPoint)
@@ -252,7 +248,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Action Points + " + this.m.EL_ActionPoint
+				text = "行动点 + " + this.m.EL_ActionPoint
 			});
 		}
 		if(this.m.EL_FatigueRecover)
@@ -260,7 +256,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Fatigue Recovery per turn + " + this.m.EL_FatigueRecover
+				text = "疲劳恢复 + " + this.m.EL_FatigueRecover
 			});
 		}
 		if(this.m.EL_EngrgyShield)
@@ -276,7 +272,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Attack damage + " + this.m.EL_DamageMult + "%"
+				text = "攻击伤害 + " + this.m.EL_DamageMult + "%"
 			});
 		}
 		if(this.m.EL_DamageReceivedMult)
@@ -284,7 +280,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Receive Damage - " + this.m.EL_DamageReceivedMult + "%"
+				text = "受到伤害 - " + this.m.EL_DamageReceivedMult + "%"
 			});
 		}
 		if(this.m.EL_HitpointsRecoveryRate)
@@ -292,7 +288,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Health Recovery per turn + " + this.m.EL_HitpointsRecoveryRate + "%"
+				text = "生命值每回合恢复 + " + this.m.EL_HitpointsRecoveryRate + "%"
 			});
 		}
 		if(this.m.EL_XPGainMult)
@@ -300,7 +296,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Experience Gain + " + this.m.EL_XPGainMult + "%"
+				text = "经验获取 + " + this.m.EL_XPGainMult + "%"
 			});
 		}
 		if(this.m.EL_Vampire)
@@ -308,7 +304,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Vampire + " + this.m.EL_Vampire + "%"
+				text = "造成血量伤害的" + this.m.EL_Vampire + "%将会恢复自身的生命值"
 			});
 		}
 		if(this.m.EL_Curse)
@@ -316,7 +312,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Target hit increases damage taken by " + this.m.EL_Curse + "%"
+				text = "命中目标会使其本场战斗受到伤害 + " + this.m.EL_Curse + "%"
 			});
 		}
 		if(this.m.EL_TargetAttractionMult > 1)
@@ -324,7 +320,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Character\' threat + " + (this.m.EL_TargetAttractionMult - 1) * 100 + "%"
+				text = "人物仇恨 + " + (this.m.EL_TargetAttractionMult - 1) * 100 + "%"
 			});
 		}
 		else if(this.m.EL_TargetAttractionMult < 1)
@@ -332,7 +328,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Character\' threat - " + (1.0 - this.m.EL_TargetAttractionMult) * 100 + "%"
+				text = "人物仇恨 - " + (1.0 - this.m.EL_TargetAttractionMult) * 100 + "%"
 			});
 		}
 		if(this.m.EL_AdditionalAccuracy)
@@ -348,7 +344,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Weapon Skill range + " + this.m.EL_MeleeRangeMax
+				text = "武器技能射程 + " + this.m.EL_MeleeRangeMax
 			});
 		}
 		if(this.m.EL_RangedRangeMax)
@@ -364,7 +360,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = this.m.EL_SaveAmmo + "% does not consume ammo"
+				text = this.m.EL_SaveAmmo + "%不消耗弹药"
 			});
 		}
 		
@@ -448,21 +444,12 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 				text = "对兽人和哥布林 + " + this.m.EL_AdditionalAccuracyForGreenskin + "%命中率"
 			});
 		}
-
-		if(this.m.EL_WeaponUseSkillfatigue)
-		{
-			result.push({
-				id = 10,
-				type = "text",
-				text = "Weapon skills build up " + this.m.EL_WeaponUseSkillfatigue + " less fatigue."
-			});
-		}
 		if(this.m.EL_WeaponConditionRecoverDaliy)
 		{
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Every Day Recover + " + this.m.EL_WeaponConditionRecoverDaliy + "% Weapon Durability"
+				text = "每日恢复 + " + this.m.EL_WeaponConditionRecoverDaliy + "% 武器耐久"
 			});
 		}
 		if(this.m.EL_WeaponConditionRecoverRate)
@@ -470,15 +457,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Each Turn Recover + " + this.m.EL_WeaponConditionRecoverRate + "% Weapon Durability"
-			});
-		}
-		if(this.m.EL_ShieldUseSkillfatigue)
-		{
-			result.push({
-				id = 10,
-				type = "text",
-				text = "Shield skills build up " + this.m.EL_ShieldUseSkillfatigue + " less fatigue."
+				text = "每回合恢复 + " + this.m.EL_WeaponConditionRecoverRate + "% 武器耐久"
 			});
 		}
 		if(this.m.EL_ShieldConditionRecoverDaliy)
@@ -486,7 +465,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Every Day Recover + " + this.m.EL_ShieldConditionRecoverDaliy + "% Shield Durability"
+				text = "每日恢复 + " + this.m.EL_ShieldConditionRecoverDaliy + "% 盾牌耐久"
 			});
 		}
 		if(this.m.EL_ShieldConditionRecoverRate)
@@ -494,7 +473,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Each Turn Recover + " + this.m.EL_ShieldConditionRecoverRate + "% Shield Durability"
+				text = "每回合恢复 + " + this.m.EL_ShieldConditionRecoverRate + "% 盾牌耐久"
 			});
 		}
 		if(this.m.EL_ShieldDamageReceivedMult)
@@ -502,7 +481,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Shield Receive Damage - " + this.m.EL_ShieldDamageReceivedMult
+				text = "承受劈盾伤害 - " + this.m.EL_ShieldDamageReceivedMult
 			});
 		}
 		if(this.m.EL_HelmetConditionRecoverDaliy)
@@ -510,7 +489,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Every Day Recover + " + this.m.EL_HelmetConditionRecoverDaliy + "% Helmet Durability"
+				text = "每日恢复 + " + this.m.EL_HelmetConditionRecoverDaliy + "% 头盔耐久"
 			});
 		}
 		if(this.m.EL_HelmetConditionRecoverRate)
@@ -518,7 +497,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Each Turn Recover + " + this.m.EL_HelmetConditionRecoverRate + "% Helmet Durability"
+				text = "每回合恢复 + " + this.m.EL_HelmetConditionRecoverRate + "% 头盔耐久"
 			});
 		}
 		if(this.m.EL_HelmetDamageReceivedMult)
@@ -526,7 +505,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Helmet contition receive damage - " + this.m.EL_HelmetDamageReceivedMult + "%"
+				text = "头部护甲受到伤害 - " + this.m.EL_HelmetDamageReceivedMult + "%"
 			});
 		}
 		if(this.m.EL_HelmetDamageDirectReceivedMult)
@@ -534,7 +513,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Reduces damage ignoring armor by " + this.m.EL_HelmetDamageDirectReceivedMult + "%"
+				text = "减少头部受到的忽视护甲伤害" + this.m.EL_HelmetDamageDirectReceivedMult + "%"
 			});
 		}
 		if(this.m.EL_HelmetReflectPercent)
@@ -542,7 +521,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Reflects " + this.m.EL_HelmetReflectPercent + "% of damage taken in melee back to the attacker in the head area"
+				text = "反弹 " + this.m.EL_HelmetReflectPercent + "%头部护甲受到的伤害"
 			});
 		}
 		if(this.m.EL_ArmorConditionRecoverDaliy)
@@ -550,7 +529,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Every Day Recover + " + this.m.EL_ArmorConditionRecoverDaliy + "% Armor Durability"
+				text = "每日恢复 + " + this.m.EL_ArmorConditionRecoverDaliy + "% 身体耐久"
 			});
 		}
 		if(this.m.EL_ArmorConditionRecoverRate)
@@ -558,7 +537,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Each Turn Recover + " + this.m.EL_ArmorConditionRecoverRate + "% Armor Durability"
+				text = "每回合恢复 + " + this.m.EL_ArmorConditionRecoverRate + "% 身体耐久"
 			});
 		}
 		if(this.m.EL_ArmorDamageReceivedMult)
@@ -566,7 +545,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Armor contition receive damage - " + this.m.EL_ArmorDamageReceivedMult + "%"
+				text = "身体护甲受到伤害 - " + this.m.EL_ArmorDamageReceivedMult + "%"
 			});
 		}
 		if(this.m.EL_ArmorDamageDirectReceivedMult)
@@ -574,7 +553,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Reduces body damage ignoring armor by " + this.m.EL_ArmorDamageDirectReceivedMult + "%"
+				text = "减少身体受到的忽视护甲伤害" + this.m.EL_ArmorDamageDirectReceivedMult + "%"
 			});
 		}
 		if(this.m.EL_ArmorReflectPercent)
@@ -582,7 +561,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Reflects " + this.m.EL_ArmorReflectPercent + "% of damage taken in melee back to the attacker in the body area"
+				text = "反弹 " + this.m.EL_ArmorReflectPercent + "%身体护甲受到的伤害"
 			});
 		}
 
@@ -593,7 +572,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 			result.push({
 				id = 10,
 				type = "text",
-				text = "Triggers a negative morale check to enemies on hit"
+				text = "命中目标时，根据敌我决心差使其进行一次士气降低判定"
 			});
 		}
 		if(this.m.EL_ImmueBleedingPoisonedFireMiasma)

@@ -36,14 +36,14 @@ local gt = getroottable();
 			result.insert(4, {
 				id = 22,
 				type = "text",
-				text = "Rank Level: " + this.m.EL_RankLevel + "/" + this.EL_getRankLevelMax()
+				text = "等阶: " + this.m.EL_RankLevel + "/" + this.EL_getRankLevelMax()
 			});
 			if(this.m.EL_CurrentLevel < this.m.EL_Level)
 			{
 				result.insert(5, {
 					id = 23,
 					type = "text",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]Level: " + this.m.EL_CurrentLevel + "/" + this.m.EL_Level + "[/color]"
+					text = "[color=" + this.Const.UI.Color.NegativeValue + "]等级: " + this.m.EL_CurrentLevel + "/" + this.m.EL_Level + "[/color]"
 				});
 			}
 			else
@@ -51,7 +51,7 @@ local gt = getroottable();
 				result.insert(5, {
 					id = 23,
 					type = "text",
-					text = "Level: " + this.m.EL_Level
+					text = "等级: " + this.m.EL_Level
 				});
 			}
 			if(this.m.EL_DamageHeadArmorReduction)
@@ -60,7 +60,7 @@ local gt = getroottable();
 					id = 24,
 					type = "text",
 					icon = "ui/icons/melee_defense.png",
-					text = "Helmet condition fixation reduces damage: " + this.m.EL_DamageHeadArmorReduction
+					text = "头盔耐久固定减伤: " + this.m.EL_DamageHeadArmorReduction
 				});
 			}
 			if(this.m.EL_DamageRegularReduction)
@@ -69,7 +69,7 @@ local gt = getroottable();
 					id = 24,
 					type = "text",
 					icon = "ui/icons/regular_damage.png",
-					text = "Hitpoints fixation reduces damage: " + this.m.EL_DamageRegularReduction
+					text = "血量固定减伤:  " + this.m.EL_DamageRegularReduction
 				});
 			}
 			if (this.m.EL_EntryList.len() != 0)
@@ -95,7 +95,7 @@ local gt = getroottable();
 				result.push({
 					id = 75,
 					type = "text",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]Current combatlevel cannot fully utilize the item's performance.[/color]"
+					text = "[color=" + this.Const.UI.Color.NegativeValue + "]当前人物的战斗等级无法发挥装备全部性能。[/color]"
 				});
 			}
 			return result;
@@ -289,6 +289,19 @@ local gt = getroottable();
 			EL_updateLevelProperties();
 			this.setCondition(this.Math.floor(this.getConditionMax() * percent));
         }
+
+		o.EL_addRankLevel <- function()
+		{
+			++this.m.EL_RankLevel;
+			EL_init();
+			foreach(entry in this.m.EL_EntryList)
+			{
+				entry.EL_onUpgradeRank();
+			}
+			this.Const.EL_Helmet.EL_updateRankLevelProperties(this);
+			this.Const.EL_Helmet.EL_assignItemEntrys(this, this.Const.EL_Helmet.EL_Entry.EntryNum.NormalHelmet [this.m.EL_RankLevel]);
+			EL_entryListSort();
+		}
 
         o.EL_upgradeLevel <- function()
         {
@@ -492,14 +505,14 @@ local gt = getroottable();
 			result.insert(4, {
 				id = 22,
 				type = "text",
-				text = "Rank Level: " + this.m.EL_RankLevel + "/" + this.EL_getRankLevelMax()
+				text = "等阶: " + this.m.EL_RankLevel + "/" + this.EL_getRankLevelMax()
 			});
 			if(this.m.EL_CurrentLevel < this.m.EL_Level)
 			{
 				result.insert(5, {
 					id = 23,
 					type = "text",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]Level: " + this.m.EL_CurrentLevel + "/" + this.m.EL_Level + "[/color]"
+					text = "[color=" + this.Const.UI.Color.NegativeValue + "]等级: " + this.m.EL_CurrentLevel + "/" + this.m.EL_Level + "[/color]"
 				});
 			}
 			else
@@ -507,7 +520,7 @@ local gt = getroottable();
 				result.insert(5, {
 					id = 23,
 					type = "text",
-					text = "Level: " + this.m.EL_Level
+					text = "等级: " + this.m.EL_Level
 				});
 			}
 			local position = 7;
@@ -550,7 +563,7 @@ local gt = getroottable();
 					id = 24,
 					type = "text",
 					icon = "ui/icons/melee_defense.png",
-					text = "Armor condition fixation reduces damage: " + this.EL_getDamageHeadArmorReduction()
+					text = "头盔耐久固定减伤: " + this.EL_getDamageHeadArmorReduction()
 				});
 			}
 			if(this.EL_getDamageRegularReduction())
@@ -559,7 +572,7 @@ local gt = getroottable();
 					id = 24,
 					type = "text",
 					icon = "ui/icons/regular_damage.png",
-					text = "Hitpoints fixation reduces damage: " + this.EL_getDamageRegularReduction()
+					text = "血量固定减伤:  " + this.EL_getDamageRegularReduction()
 				});
 			}
 			if(this.m.EL_CurrentLevel < this.m.EL_Level)
@@ -567,7 +580,7 @@ local gt = getroottable();
 				result.push({
 					id = 75,
 					type = "text",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]Current combatlevel cannot fully utilize the item's performance.[/color]"
+					text = "[color=" + this.Const.UI.Color.NegativeValue + "]当前人物的战斗等级无法发挥装备全部性能。[/color]"
 				});
 			}
 			return result;
@@ -1008,14 +1021,14 @@ local gt = getroottable();
 			result.insert(3, {
 				id = 22,
 				type = "text",
-				text = "Rank Level: " + this.m.EL_RankLevel + "/" + this.EL_getRankLevelMax()
+				text = "等阶: " + this.m.EL_RankLevel + "/" + this.EL_getRankLevelMax()
 			});
 			if(this.m.EL_CurrentLevel < this.m.EL_Level)
 			{
 				result.insert(4, {
 					id = 23,
 					type = "text",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]Level: " + this.m.EL_CurrentLevel + "/" + this.m.EL_Level + "[/color]"
+					text = "[color=" + this.Const.UI.Color.NegativeValue + "]等级: " + this.m.EL_CurrentLevel + "/" + this.m.EL_Level + "[/color]"
 				});
 			}
 			else
@@ -1023,7 +1036,7 @@ local gt = getroottable();
 				result.insert(4, {
 					id = 23,
 					type = "text",
-					text = "Level: " + this.m.EL_Level
+					text = "等级: " + this.m.EL_Level
 				});
 			}
 			local position = 7;
@@ -1041,7 +1054,7 @@ local gt = getroottable();
 					id = 24,
 					type = "text",
 					icon = "ui/icons/melee_defense.png",
-					text = "Helmet condition fixation reduces damage: " + this.m.EL_DamageHeadArmorReduction
+					text = "头盔耐久固定减伤: " + this.m.EL_DamageHeadArmorReduction
 				});
 			}
 			if(this.m.EL_DamageRegularReduction)
@@ -1050,7 +1063,7 @@ local gt = getroottable();
 					id = 24,
 					type = "text",
 					icon = "ui/icons/regular_damage.png",
-					text = "Hitpoints fixation reduces damage: " + this.m.EL_DamageRegularReduction
+					text = "血量固定减伤:  " + this.m.EL_DamageRegularReduction
 				});
 			}
 			if (this.m.EL_EntryList.len() != 0)
@@ -1076,7 +1089,7 @@ local gt = getroottable();
 				result.push({
 					id = 75,
 					type = "text",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]Current combatlevel cannot fully utilize the item's performance.[/color]"
+					text = "[color=" + this.Const.UI.Color.NegativeValue + "]当前人物的战斗等级无法发挥装备全部性能。[/color]"
 				});
 			}
 			return result;
@@ -1333,6 +1346,18 @@ local gt = getroottable();
 			EL_updateLevelProperties();
 			this.setCondition(this.Math.floor(this.getConditionMax() * percent));
         }
+
+		o.EL_addRankLevel <- function()
+		{
+			++this.m.EL_RankLevel;
+			EL_init();
+			foreach(entry in this.m.EL_EntryList)
+			{
+				entry.EL_onUpgradeRank();
+			}
+			this.Const.EL_Helmet.EL_updateRankLevelProperties(this);
+			this.Const.EL_Helmet.EL_assignItemEntrys(this, this.Const.EL_Helmet.EL_Entry.EntryNum.NormalHelmet [this.m.EL_RankLevel]);
+		}
 
         o.EL_upgradeLevel <- function()
         {

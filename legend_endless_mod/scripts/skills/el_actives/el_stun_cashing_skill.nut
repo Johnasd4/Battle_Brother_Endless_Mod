@@ -3,8 +3,8 @@ this.el_stun_cashing_skill <- this.inherit("scripts/skills/skill", {
 	function create()
 	{
 		this.m.ID = "el_rarity_actives.stun_cashing_skill";
-		this.m.Name = "Stun Strike";
-		this.m.Description = "A heavy strike to make the enemy formation crumble. It can cover the distance of 2 tiles and can be used from behind the frontline, outside the range of most other melee weapons.";
+		this.m.Name = "眩晕打击";
+		this.m.Description = "A heavy strike to make the enemy formation crumble.";
 		this.m.KilledString = "Smashed";
 		this.m.Icon = "el_skills/stun_cashing_skill.png";
 		this.m.IconDisabled = "el_skills/stun_cashing_skill_sw.png";

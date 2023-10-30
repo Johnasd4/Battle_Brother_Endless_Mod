@@ -4,8 +4,8 @@ this.el_cold_lie_cashing_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.cold_lie_cashing";
-		this.m.Name = "Cold Lie Cashing(Two-Handed Spear)";
-		this.m.Description = "The cold and cold awn condenses without emitting.";//冷冽的寒芒凝而不发
+		this.m.Name = "冷冽追击(双手矛)";
+		this.m.Description = "冷冽的寒芒凝而不发，但没有人会怀疑它的威力";
 		this.m.Icon = "el_entrys/el_cold_lie_cashing_entry.png";
 		//this.m.IconMini = "el_cold_lie_cashing_entry_mini";
 		this.m.Overlay = "el_cold_lie_cashing_entry";
@@ -29,13 +29,13 @@ this.el_cold_lie_cashing_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Each friendly within the attack range increases your attack damage by " + this.Const.EL_Rarity_Entry.Factor.EL_ColdLieCashing.DamageMultFactor * 100 + "%.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]攻击范围内的每格友军都会提升你" + this.Const.EL_Rarity_Entry.Factor.EL_ColdLieCashing.DamageMultFactor * 100 + "%的伤害[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]When an enemy within the attack range is attacked, you can launch a pursuit towards them.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]当你攻击范围内的敌人被命中时，你将对其进行一次免费的追击[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -44,7 +44,7 @@ this.el_cold_lie_cashing_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Two-Handed Spear to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备双手矛来发挥效果[/color]"
             });
         }
 		return result;

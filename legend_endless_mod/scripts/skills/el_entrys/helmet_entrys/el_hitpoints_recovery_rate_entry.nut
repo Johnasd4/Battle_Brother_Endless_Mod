@@ -16,7 +16,7 @@ this.el_hitpoints_recovery_rate_entry <- this.inherit("scripts/skills/el_entrys/
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Health Recovery per turn" + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_HitpointsRecoveryRate * 100) * 0.01 + "% (" + this.m.EL_HitpointsRecoveryRate + "%)[/color]"
+				text = "[color=" + colour + "]生命值每回合恢复 " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_HitpointsRecoveryRate * 100) * 0.01 + "% (" + this.m.EL_HitpointsRecoveryRate + "%)[/color]"
 			};
 		}
 		else
@@ -24,7 +24,7 @@ this.el_hitpoints_recovery_rate_entry <- this.inherit("scripts/skills/el_entrys/
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Health Recovery per turn" + this.m.EL_HitpointsRecoveryRate + "%[/color]"
+				text = "[color=" + colour + "]生命值每回合恢复 " + this.m.EL_HitpointsRecoveryRate + "%[/color]"
 			};
 		}
 	}

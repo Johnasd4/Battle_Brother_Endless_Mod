@@ -14,7 +14,7 @@ this.el_ranged_range_max_entry <- this.inherit("scripts/skills/el_entrys/el_entr
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Equipment range max + " + this.Math.floor(this.m.EL_RangeMax) + "[/color]"
+			text = "[color=" + colour + "]射程 + " + this.Math.floor(this.m.EL_RangeMax) + "(面板)[/color]"
 		};
 		return result;
 	}

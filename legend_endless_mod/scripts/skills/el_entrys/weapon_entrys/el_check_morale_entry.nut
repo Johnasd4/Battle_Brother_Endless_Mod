@@ -12,7 +12,7 @@ this.el_check_morale_entry <- this.inherit("scripts/skills/el_entrys/el_entry", 
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Triggers a negative morale check to enemies on hit[/color]"
+			text = "[color=" + colour + "]命中目标时，根据敌我决心差使其进行一次士气降低判定[/color]"
 		};
 		return result;
 	}

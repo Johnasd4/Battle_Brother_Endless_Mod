@@ -14,7 +14,7 @@ this.el_ranged_defense_entry <- this.inherit("scripts/skills/el_entrys/el_entry"
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Ranged Defense + " + this.m.EL_RangedDefense + "[/color]"
+			text = "[color=" + colour + "]远程防御 + " + this.m.EL_RangedDefense + "[/color]"
 		};
 		return result;
 	}

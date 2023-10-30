@@ -14,7 +14,7 @@ this.el_taunt_mult_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Character\' threat * " + this.m.EL_TauntMult + "%[/color]"
+			text = "[color=" + colour + "]人物仇恨 * " + this.m.EL_TauntMult + "%[/color]"
 		};
 		return result;
 	}

@@ -9,8 +9,8 @@ this.el_unbreakable_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.unbreakable";
-		this.m.Name = "Unbreakable(One-Handed Hammer)";
-		this.m.Description = "Like an iron tower, standing still.";//身如铁塔，屹立不倒
+		this.m.Name = "不可撼动(单手锤)";
+		this.m.Description = "身如铁塔，屹立不倒";//Like an iron tower, standing still.
 		this.m.Icon = "el_entrys/el_unbreakable_entry.png";
 		//this.m.IconMini = "el_master_feat_entry_mini";
 		this.m.Overlay = "el_unbreakable_entry";
@@ -35,13 +35,13 @@ this.el_unbreakable_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Automatically release Indomitable at the beginning of each turn.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]回合开始时自动“不屈”效果[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Take only one damage per turn, taking the maximum value of all single damage received in this turn.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]每回合仅受一次伤害，取本回合所受所有伤害的最大值[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -50,7 +50,7 @@ this.el_unbreakable_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Hammer to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备单手锤来发挥效果[/color]"
             });
         }
 		return result;

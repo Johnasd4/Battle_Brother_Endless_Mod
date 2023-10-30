@@ -4,8 +4,8 @@ this.el_toxic_blade_thrust_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.toxic_blade_thrust";
-		this.m.Name = "Toxic Blade Thrust(Dagger)";
-		this.m.Description = "An ominous aura lingers on the dagger, and its enemies will suffer unimaginable pain and torment.";//不详的气息在匕首上萦绕，它的敌人将遭受难以想象的痛楚与折磨
+		this.m.Name = "毒刃刺骨(匕首)";
+		this.m.Description = "不详的气息在匕首上萦绕，它的敌人将遭受难以想象的痛楚与折磨";//An ominous aura lingers on the dagger, and its enemies will suffer unimaginable pain and torment.
 		this.m.Icon = "el_entrys/el_toxic_blade_thrust_entry.png";
 		//this.m.IconMini = "el_toxic_blade_thrust_entry_mini";
 		this.m.Overlay = "el_toxic_blade_thrust_entry";
@@ -29,19 +29,19 @@ this.el_toxic_blade_thrust_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]When you hit an enemy, impose " + this.Const.EL_Rarity_Entry.Factor.EL_ToxicBladeThrust.DebuffNum + " negative effects to the target.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]当你击中目标时，随机对其施加 " + this.Const.EL_Rarity_Entry.Factor.EL_ToxicBladeThrust.DebuffNum + " 种负面效果.[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Each negative effect on the target increases your damage by an additional " + this.Const.EL_Rarity_Entry.Factor.EL_ToxicBladeThrust.DamageMultPurEffect * 100 + "%[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]目标拥有的每种负面效果都会提升你" + this.Const.EL_Rarity_Entry.Factor.EL_ToxicBladeThrust.DamageMultPurEffect * 100 + "%的伤害[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]The health damage you cause will ignore the armor.[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]造成的伤害将会直接忽视护甲[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -50,7 +50,7 @@ this.el_toxic_blade_thrust_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Dagger to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备匕首来发挥效果[/color]"
             });
         }
 		return result;

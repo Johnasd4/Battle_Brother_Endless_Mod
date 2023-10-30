@@ -7,8 +7,8 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.master_feat";
-		this.m.Name = "Master Feat(One-Handed Sword)";
-		this.m.Description = "Accomplish a task with ease.";//游刃有余
+		this.m.Name = "宗师技艺(单手剑)";
+		this.m.Description = "游刃有余";
 		this.m.Icon = "el_entrys/el_master_feat_entry.png";
 		//this.m.IconMini = "el_master_feat_entry_mini";
 		this.m.Overlay = "el_master_feat_entry";
@@ -32,25 +32,19 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Ignore damage from outside your attack range.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]忽视来自你射程之外敌人的攻击[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]100% Riposte.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]被射程内敌人攻击时100%反击.[/color]"
 			},
 			{
 				id = 5,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]When you attack the enemy, based on the difference in Initiative between you and the target, gain additional Melee Skill and Attack damage.[/color]"
-			},
-			{
-				id = 6,
-                type = "text",
-                icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]When you are attacked, based on the difference in Initiative between you and the target, gain additional Melee Denfense and Ranged Denfense.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]根据你和目标的主动值之差，获得额外的命中率，闪避率和伤害加成[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -59,7 +53,7 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Sword to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备单手剑来发挥效果[/color]"
             });
         }
 		return result;

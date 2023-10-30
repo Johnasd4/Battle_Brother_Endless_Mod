@@ -231,8 +231,18 @@ gt.Const.EL_Item_Other <- {
 				{
 					if(_actor.m.WorldTroop != null && _actor.m.WorldTroop.EL_IsBossUnit)
 					{
-						local r = this.Math.rand(0, this.Const.EL_Rarity_Entry.Pool.Entrys.len() - 1);
-						accessory.EL_addRarityEntry(this.new(this.Const.EL_Rarity_Entry.Pool.Entrys[r].Scripts));
+						if(accessory.getID() == "el_accessory.core")
+						{
+							accessory.EL_addRankLevel();
+						}
+						else
+						{
+							_actor.getItems().unequip(_actor.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory));
+							local r = this.Math.rand(0, this.Const.EL_Accessory.EL_SeniorAccessoryList.len() - 1);
+							_actor.m.Items.equip(this.new("scripts/items/" + this.Const.EL_Accessory.EL_SeniorAccessoryList[r]));
+							accessory = _actor.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
+							accessory.EL_generateByRankAndLevel(rank_level, _actor.EL_getLevel());
+						}
 					}
 					if(rank_level == 0)
 					{
@@ -273,7 +283,7 @@ gt.Const.EL_Item_Other <- {
 					{
 						item.EL_addRankLevel();
 					}
-					if(_actor.m.WorldTroop != null && _actor.m.WorldTroop.EL_IsBossUnit)
+					if(_actor.m.WorldTroop != null && _actor.m.WorldTroop.EL_IsBossUnit && !item.isItemType(this.Const.Items.ItemType.Named))
 					{
 						item.EL_addRankLevel();
 					}

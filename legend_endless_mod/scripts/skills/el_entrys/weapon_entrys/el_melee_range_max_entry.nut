@@ -15,7 +15,7 @@ this.el_melee_range_max_entry <- this.inherit("scripts/skills/el_entrys/el_entry
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Weapon Skill range + " + this.m.EL_RangeMax + "[/color]"
+			text = "[color=" + colour + "]武器技能射程 + " + this.m.EL_RangeMax + "[/color]"
 		};
 		return result;
 	}

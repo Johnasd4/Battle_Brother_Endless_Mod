@@ -16,8 +16,8 @@ this.el_take_away_by_force_or_trickery_skill <- this.inherit("scripts/skills/ski
 	function create()
 	{
 		this.m.ID = "el_rarity_actives.take_away_by_force_or_trickery_skill";
-		this.m.Name = "Disarm Whip";
-		this.m.Description = "Crack the whip over significant distance to inflict two stacks of bleeding damage at once. Quite ineffective against armor.";
+		this.m.Name = "漫天鞭影";
+		this.m.Description = "在相当远的距离上进行鞭打，同时造成两层流血伤害并暂时缴械被击中的对手。 Quite ineffective against armor.";
 		this.m.KilledString = "Whipped to death";
 		this.m.Icon = "el_skills/take_away_by_force_or_trickery_skill.png";
 		this.m.IconDisabled = "el_skills/take_away_by_force_or_trickery_skill.png";

@@ -17,7 +17,7 @@ this.el_engrgy_shield_entry <- this.inherit("scripts/skills/el_entrys/el_accesso
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Engrgy Shield: " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_StackMax) + "(" + this.m.EL_StackMax + ")[/color]"
+				text = "[color=" + colour + "]能量护盾: " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_StackMax) + "(" + this.m.EL_StackMax + ")[/color]"
 			};
 		}
 		else
@@ -25,7 +25,7 @@ this.el_engrgy_shield_entry <- this.inherit("scripts/skills/el_entrys/el_accesso
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Engrgy Shield: " + this.m.EL_StackMax + "[/color]"
+				text = "[color=" + colour + "]能量护盾: " + this.m.EL_StackMax + "[/color]"
 			};
 		}
 	}

@@ -12,7 +12,7 @@ this.el_immue_bleeding_poisoned_fire_miasma_entry <- this.inherit("scripts/skill
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Immune Bleeding, Immune Poisoned, Immune Fire, Immune Miasma[/color]"
+			text = "[color=" + colour + "]免疫流血，中毒，火焰，瘴气[/color]"
 		};
 		return result;
 	}

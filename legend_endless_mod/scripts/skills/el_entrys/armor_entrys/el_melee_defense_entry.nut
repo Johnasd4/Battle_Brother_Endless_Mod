@@ -16,7 +16,7 @@ this.el_melee_defense_entry <- this.inherit("scripts/skills/el_entrys/el_accesso
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Melee Defense + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_MeleeDefense) + " (" + this.m.EL_MeleeDefense + ")[/color]"
+				text = "[color=" + colour + "]近战防御 + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_MeleeDefense) + " (" + this.m.EL_MeleeDefense + ")[/color]"
 			};
 		}
 		else
@@ -24,7 +24,7 @@ this.el_melee_defense_entry <- this.inherit("scripts/skills/el_entrys/el_accesso
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Melee Defense + " + this.m.EL_MeleeDefense + "[/color]"
+				text = "[color=" + colour + "]近战防御 + " + this.m.EL_MeleeDefense + "[/color]"
 			};
 		}
 	}

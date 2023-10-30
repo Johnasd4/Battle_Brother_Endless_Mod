@@ -7,8 +7,8 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.circle_of_life";
-		this.m.Name = "Circle of Life(One-Handed Mace)";
-		this.m.Description = "The constantly surging vitality endows users with strong recovery ability and also enables them to drain the power of enemies.";//不断涌动的生机，赐予使用者强大的恢复能力，也使起能够吸取敌人的力量
+		this.m.Name = "生生不息(单手棍)";
+		this.m.Description = "不断涌动的生机，赐予使用者强大的恢复能力，也能够掠夺敌人的力量";//The constantly surging vitality endows users with strong recovery ability and also enables them to drain the power of enemies.
 		this.m.Icon = "el_entrys/el_circle_of_life_entry.png";
 		//this.m.IconMini = "el_circle_of_life_entry_mini";
 		this.m.Overlay = "el_circle_of_life_entry";
@@ -34,25 +34,25 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]When you attack an enemy, drain " + this.Const.EL_Rarity_Entry.Factor.EL_CircleofLife.FatigueDrainPercent * 100 + "% of the opponent's fatigue and " + this.Const.EL_Rarity_Entry.Factor.EL_CircleofLife.HitpointsDrainPercent * 100 + "% of their health.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]攻击时会夺取目标 " + this.Const.EL_Rarity_Entry.Factor.EL_CircleofLife.FatigueDrainPercent * 100 + "%的疲劳和 " + this.Const.EL_Rarity_Entry.Factor.EL_CircleofLife.HitpointsDrainPercent * 100 + "%生命值.[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Recover " + this.Const.EL_Rarity_Entry.Factor.EL_CircleofLife.HitpointsRecover * 100 + "% health, " + this.Const.EL_Rarity_Entry.Factor.EL_CircleofLife.ArmorConditonRecover * 100 + "% armor condition, and " + this.Const.EL_Rarity_Entry.Factor.EL_CircleofLife.FatigueRecover * 100 + "% fatigue each turn, and eliminate one negative effect.[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]回合开始是恢复 " + this.Const.EL_Rarity_Entry.Factor.EL_CircleofLife.HitpointsRecover * 100 + "%生命值, " + this.Const.EL_Rarity_Entry.Factor.EL_CircleofLife.ArmorConditonRecover * 100 + "%护甲耐久和 " + this.Const.EL_Rarity_Entry.Factor.EL_CircleofLife.FatigueRecover * 100 + "%疲劳, 同时随机清除一项负面效果[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Has a 100% chance to stun on a hit.[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]命中时必定击晕目标1回合[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Each battle can be fully revived once(Current remaining times: " + this.m.EL_RiseTimesLeft + ").[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]每场战斗都可以满状态复活(剩余次数: " + this.m.EL_RiseTimesLeft + ")[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -61,7 +61,7 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip One-Handed Mace to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备单手棍来发挥效果[/color]"
             });
         }
 		return result;

@@ -3,8 +3,8 @@ this.el_shake_heart_warm_ear_skill <- this.inherit("scripts/skills/skill", {
 	function create()
 	{
 		this.m.ID = "el_actives.shake_heart_warm_ear_skill";
-		this.m.Name = "Shake Heart Warm Ear";
-		this.m.Description = "Gentle music can soothes the pain.";
+		this.m.Name = "感心动耳";
+		this.m.Description = "轻柔的音乐可以减轻疼痛。";
 		this.m.Icon = "el_skills/shake_heart_warm_ear_skill.png";
 		this.m.IconDisabled = "el_skills/shake_heart_warm_ear_skill_sw.png";
 		this.m.SoundOnUse = [
@@ -34,7 +34,7 @@ this.el_shake_heart_warm_ear_skill <- this.inherit("scripts/skills/skill", {
 				id = 6,
 				type = "text",
 				icon = "ui/icons/locked_small.png",
-				text = "Randomly eliminate actor temporary injury or negative effect from friendly forces."
+				text = "随机清除友军一项负面效果或临时伤残。"
 			}
 		]);
 		return tooltip;
@@ -71,7 +71,7 @@ this.el_shake_heart_warm_ear_skill <- this.inherit("scripts/skills/skill", {
 				if(index_pool.len() != 0)
 				{
 					local r = this.Math.rand(0, index_pool.len() - 1);
-					skills.remove(skills.m.Skills[r]);
+					skills.remove(skills.m.Skills[index_pool[r]]);
 				}
 			}
 		}

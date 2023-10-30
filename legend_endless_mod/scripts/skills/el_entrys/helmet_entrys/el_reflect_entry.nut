@@ -16,7 +16,7 @@ this.el_reflect_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_ent
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Reflects " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ReflectPercent * 100) * 0.01 + "% (" + this.m.EL_ReflectPercent + ")% of damage taken in melee back to the attacker in the head area[/color]"
+				text = "[color=" + colour + "]反弹 " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ReflectPercent * 100) * 0.01 + "% (" + this.m.EL_ReflectPercent + ")%头部护甲受到的伤害[/color]"
 			};
 		}
 		else
@@ -24,7 +24,7 @@ this.el_reflect_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_ent
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Reflects " + this.m.EL_ReflectPercent + "% of damage taken in melee back to the attacker in the head area[/color]"
+				text = "[color=" + colour + "]反弹 " + this.m.EL_ReflectPercent + "%头部护甲受到的伤害[/color]"
 			};
 		}
 	}

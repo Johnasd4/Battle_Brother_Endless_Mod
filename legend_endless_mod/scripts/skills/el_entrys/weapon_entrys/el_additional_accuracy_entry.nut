@@ -14,7 +14,7 @@ this.el_additional_accuracy_entry <- this.inherit("scripts/skills/el_entrys/el_e
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Equipment chance to hit + " + this.m.EL_AdditionalAccuracy + "%[/color]"
+			text = "[color=" + colour + "]命中几率 + " + this.m.EL_AdditionalAccuracy + "%(面板)[/color]"
 		};
 		return result;
 	}

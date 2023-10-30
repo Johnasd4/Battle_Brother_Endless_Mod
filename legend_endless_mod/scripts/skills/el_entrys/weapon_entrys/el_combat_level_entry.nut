@@ -14,7 +14,7 @@ this.el_combat_level_entry <- this.inherit("scripts/skills/el_entrys/el_entry", 
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]CombatLevel + " + this.m.EL_CombatLevel + "[/color]"
+			text = "[color=" + colour + "]战斗等级 + " + this.m.EL_CombatLevel + "[/color]"
 		};
 		return result;
 	}

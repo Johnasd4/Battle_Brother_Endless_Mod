@@ -5,7 +5,7 @@ this.el_weaken_effect <- this.inherit("scripts/skills/skill", {
 	function create()
 	{
 		this.m.ID = "el_rarity_effects.weaken";
-		this.m.Name = "Weaken";
+		this.m.Name = "弱化";
 		this.m.Description = "This character was weakened in this battle.";
 		this.m.Icon = "ui/perks/ptr_from_all_sides.png";
 		this.m.IconMini = "ptr_from_all_sides_effect_mini";
