@@ -263,6 +263,11 @@ local gt = getroottable();
             {
                 return true;
             }
+
+            if (!actor.getSkills().hasSkill("perk.legend_cascade"))
+            {
+                return true;
+            }
             local main_hand = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
 
             if (main_hand == null || !main_hand.isWeaponType(this.Const.Items.WeaponType.Bow))
