@@ -26,11 +26,15 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
 
 	function onCombatStarted()
 	{
+        local actor = this.getContainer().getActor();
+        actor.setIsAbleToDie(false);
 		this.m.EL_RiseTimesLeft = this.Const.EL_NPC.EL_NPCBuff.Factor.Phoenix.RiseTimes[this.m.EL_RankLevel];
 	}
 
 	function onCombatFinished()
 	{
+        local actor = this.getContainer().getActor();
+        actor.setIsAbleToDie(true);
 		this.m.EL_RiseTimesLeft = 0;
 	}
 

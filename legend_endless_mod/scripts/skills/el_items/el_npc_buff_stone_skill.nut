@@ -28,11 +28,13 @@ this.el_npc_buff_stone_skill <- this.inherit("scripts/skills/skill", {
 		local skills = this.getContainer().getActor().getSkills().m.Skills;
 		foreach(skill in skills) {
 			if(skill.EL_isNPCBuff()) {
+				local names = this.split(_info.Name, "(");
+				local name = names[0];
 				ret.push({
 					id = 10,
 					type = "text",
 					icon = "ui/el_icons/magic_stone_rank_" + skill.EL_getRankLevel() + ".png",
-					text = skill.getName()
+					text = name
 				});
 			}
 		}

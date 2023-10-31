@@ -167,8 +167,6 @@ local gt = getroottable();
                 if(_e.getFaction() != this.Const.Faction.Player && _e.getFaction() != this.Const.Faction.PlayerAnimals) {
                     this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(_e, extra_normal_buff_num, extra_elite_buff_num, extra_leader_buff_num);
                 }
-
-                _e.EL_ballanceNPCPropertiesAfterAddingEquipment();
                 _e.EL_buildEquipmentEssenceDrop();
             }
             else {
@@ -306,46 +304,7 @@ local gt = getroottable();
 
             this.m.XP *= this.Math.pow(this.Const.EL_NPC.EL_LevelUp.XPFactor, this.Math.min(level_ups, this.Const.EL_NPC.EL_LevelUp.MaxXPLevel));
             this.m.XP = this.Math.floor(this.m.XP * this.World.Assets.EL_getHalfWorldDifficultFactor());
-        }
-
-        o.EL_ballanceNPCPropertiesAfterAddingEquipment <- function() {
-            local level_ups = this.m.EL_NPCLevel;
-            if(level_ups > this.Const.EL_NPC.EL_LevelUp.MaxXPLevel) {
-                level_ups = this.Const.EL_NPC.EL_LevelUp.MaxXPLevel + (level_ups - this.Const.EL_NPC.EL_LevelUp.MaxXPLevel) * this.Const.EL_NPC.EL_LevelUp.PropertiesLevelUpMultAfterMaxXPLevel;
-            }
-            level_ups -= this.Const.EL_NPC.EL_LevelUp.LevelUpsOffset;
-            if(level_ups < 0) {
-                level_ups = 0;
-            }
-            local main_hand = this.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
-            local off_hand = this.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand);
-            local body = this.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
-            local head = this.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
-
-            if(main_hand == null && off_hand == null) {
-                this.m.EL_IsNonHumanoid = true;
-                this.m.BaseProperties.DamageTotalMult *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpDamageMult * level_ups;
-            }
-            if(body == null) {
-                this.m.BaseProperties.Armor[this.Const.BodyPart.Body] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
-                this.m.BaseProperties.ArmorMax[this.Const.BodyPart.Body] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
-            }
-            if(head == null) {
-                this.m.BaseProperties.Armor[this.Const.BodyPart.Head] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
-                this.m.BaseProperties.ArmorMax[this.Const.BodyPart.Head] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
-            }
-            if(main_hand != null) {
-                this.m.BaseProperties.Stamina -= main_hand.EL_getLevelAddtionStaminaModifier();
-            }
-            if(off_hand != null) {
-                this.m.BaseProperties.Stamina -= off_hand.EL_getLevelAddtionStaminaModifier();
-            }
-            if(body != null) {
-                this.m.BaseProperties.Stamina -= body.EL_getLevelAddtionStaminaModifier();
-            }
-            if(head != null) {
-                this.m.BaseProperties.Stamina -= head.EL_getLevelAddtionStaminaModifier();
-            }
+            this.getSkills().add(this.new("scripts/skills/el_racials/el_npc_ballance_racial"));
         }
 
         o.EL_buildEquipmentEssenceDrop <- function() {
@@ -2007,8 +1966,6 @@ local gt = getroottable();
             this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(e, extra_normal_buff_num, extra_elite_buff_num, extra_leader_buff_num);
         }
 
-
-        e.EL_ballanceNPCPropertiesAfterAddingEquipment();
         e.EL_buildEquipmentEssenceDrop();
         return e;
     }
@@ -2111,8 +2068,6 @@ local gt = getroottable();
         if(e.getFaction() != this.Const.Faction.Player && e.getFaction() != this.Const.Faction.PlayerAnimals) {
             this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(e, extra_normal_buff_num, extra_elite_buff_num, extra_leader_buff_num);
         }
-
-        e.EL_ballanceNPCPropertiesAfterAddingEquipment();
         e.EL_buildEquipmentEssenceDrop();
         return e;
     }

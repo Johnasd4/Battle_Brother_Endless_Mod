@@ -1049,6 +1049,17 @@ local gt = getroottable();
 				_properties.MeleeSkill += this.getMeleeBonus();
 				_properties.RangedSkill += this.getMeleeBonus();
 			}
+
+			o.onTargetKilled = function( _targetEntity, _skill )
+			{
+				if (_skill == null || !_skill.isAttack())
+				{
+					return;
+				}
+
+				this.m.MeleeStacks = this.Math.min(this.m.BonusMax / this.m.BonusMeleePerStack, this.m.MeleeStacks + 1);
+				this.m.RangedStacks = this.Math.min(this.m.BonusMax / this.m.BonusRangedPerStack, this.m.RangedStacks + 1);
+			}
 		}
 	});
 
@@ -1397,6 +1408,10 @@ gt.Const.EL_Config.EL_modStrings <- function()
 		{
             ID = "perk.ptr_bloodbath",
             tooltip = "There\'s something about removing someone\'s head that just makes you want to do it again!\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• Fatalities instantly adds [color=" + this.Const.UI.Color.PositiveValue + "]3[/color] Action Points next turn.\n• The stack decrease 3 pur turn, the max Action Points addition is 9."
+        },
+		{
+            ID = "perk.ptr_cull",
+            tooltip = "Deals 200% damage when targets hitpoints persent is below 30%."
         },
 		{
             ID = "perk.ptr_discovered_talent",
