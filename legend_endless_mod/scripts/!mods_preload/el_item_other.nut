@@ -8,7 +8,7 @@ local gt = getroottable();
 		o.addEquipment = function ()
 		{
 			this.onAddEquipment();
-			this.Const.EL_Item_Other.EL_ActorItemInit(this.getContainer().getActor());
+			this.Const.EL_Item_Other.EL_actorItemInit(this.getContainer().getActor());
 			this.adjustHiringCostBasedOnEquipment();
 		}
 	});
@@ -16,7 +16,7 @@ local gt = getroottable();
 	::mods_hookExactClass("entity/tactical/actor", function(o){
         o.EL_assignRandomEquipment <- function() {
 			this.assignRandomEquipment();
-			this.Const.EL_Item_Other.EL_ActorItemInit(this, true);
+			this.Const.EL_Item_Other.EL_actorItemInit(this, true);
         }
 	});
 
@@ -30,7 +30,7 @@ local gt = getroottable();
 
 			foreach( bro in bros )
 			{
-				this.Const.EL_Item_Other.EL_ActorItemInit(bro);
+				this.Const.EL_Item_Other.EL_actorItemInit(bro);
 			}
 		}
 	});
@@ -105,15 +105,76 @@ local gt = getroottable();
 		}
 	});
 
-    // ::mods_hookClass("items/stash_container", function(o) {
-	// 	//while(!("add" in o)) o = o[o.SuperName];
-    //     local add = o.add;
-    //     o.add = function( _item )
-    //     {
-	// 		this.Const.EL_Item_Other.EL_OtherItemInit(_item);
-	// 		return add(_item);
-    //     }
-	// });
+    ::mods_hookClass("items/stash_container", function(o) {
+		//while(!("add" in o)) o = o[o.SuperName];
+        // local add = o.add;
+        // o.add = function( _item )
+        // {
+		// 	this.Const.EL_Item_Other.EL_otherItemInit(_item);
+		// 	return add(_item);
+        // }
+
+		o.onItemCompare = function( _item1, _item2 )
+		{
+			if (_item1 == null && _item2 == null)
+			{
+				return 0;
+			}
+			else if (_item1 == null && _item2 != null)
+			{
+				return 1;
+			}
+			else if (_item1 != null && _item2 == null)
+			{
+				return -1;
+			}
+			else if (_item1.getItemType() > _item2.getItemType())
+			{
+				return -1;
+			}
+			else if (_item1.getItemType() < _item2.getItemType())
+			{
+				return 1;
+			}
+			else if (_item1.getCategories() > _item2.getCategories())
+			{
+				return -1;
+			}
+			else if (_item1.getCategories() < _item2.getCategories())
+			{
+				return 1;
+			}
+			else if (_item1.getID() > _item2.getID())
+			{
+				return -1;
+			}
+			else if (_item1.getID() < _item2.getID())
+			{
+				return 1;
+			}
+			//OVERRIDE
+			else if (_item1.EL_getRankLevel() > _item2.EL_getRankLevel())
+			{
+				return -1;
+			}
+			else if (_item1.EL_getRankLevel() < _item2.EL_getRankLevel())
+			{
+				return 1;
+			}
+			else if (_item1.EL_getLevel() > _item2.EL_getLevel())
+			{
+				return -1;
+			}
+			else if (_item1.EL_getLevel() < _item2.EL_getLevel())
+			{
+				return 1;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+	});
 
 	// ::mods_hookClass("entity/world/world_entity", function(o) {
 	// 	while(!("getTroops" in o)) o = o[o.SuperName];
@@ -124,7 +185,7 @@ local gt = getroottable();
     //         onDropLootForPlayer(_lootTable);
 	// 		foreach(item in _lootTable)
 	// 		{
-	// 			this.Const.EL_Item_Other.EL_OtherItemInit(item);
+	// 			this.Const.EL_Item_Other.EL_otherItemInit(item);
 	// 		}
 	// 	}
 	// });

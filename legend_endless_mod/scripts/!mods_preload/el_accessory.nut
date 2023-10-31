@@ -162,7 +162,7 @@ local gt = getroottable();
 
 			o.getAmountString <- function()
 			{
-				this.Const.EL_Item_Other.EL_OtherItemInit(this);
+				this.Const.EL_Item_Other.EL_otherItemInit(this);
 				return "lv" + this.m.EL_Level;
 			}
 

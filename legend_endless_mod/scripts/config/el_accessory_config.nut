@@ -68,6 +68,14 @@ gt.Const.EL_Accessory <- {
 		"accessory/legend_hexen_leader_trophy_item",
 		"accessory/legend_wolfsbane_necklace_item",
 	],
+	EL_NoCoreEntityList = [
+		this.Const.EntityType.Zombie,
+		this.Const.EntityType.ZombieYeoman,
+		this.Const.EntityType.ZombieKnight,
+		this.Const.EntityType.ZombieBoss,
+		this.Const.EntityType.ZombieBetrayer,
+		this.Const.EntityType.ZombieTreasureHunter
+	]
 	function EL_updateRankLevelProperties( _item ) {
 		_item.m.EL_BaseWithRankValue = _item.m.EL_BaseNoRankValue * gt.Const.EL_Shield.EL_RankValue[_item.m.EL_RankLevel];
 	},
