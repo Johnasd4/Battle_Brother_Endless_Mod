@@ -14,7 +14,7 @@ this.el_melee_skill_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Melee Skill + " + this.m.EL_MeleeSkill + "[/color]"
+			text = "[color=" + colour + "]近战技能 + " + this.m.EL_MeleeSkill + "[/color]"
 		};
 		return result;
 	}

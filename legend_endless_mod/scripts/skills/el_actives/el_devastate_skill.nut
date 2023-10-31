@@ -5,7 +5,7 @@ this.el_devastate_skill <- this.inherit("scripts/skills/skill", {
 	function create()
 	{
 		this.m.ID = "el_rarity_actives.devastate_skill";
-		this.m.Name = "Devastate";
+		this.m.Name = "毁灭打击";
 		this.m.Description = "A slow overhead strike performed with full force to smash a target to bits. Anyone hit will be staggered and lose initiative.";
 		this.m.KilledString = "Crushed";
 		this.m.Icon = "el_skills/devastate_skill.png";

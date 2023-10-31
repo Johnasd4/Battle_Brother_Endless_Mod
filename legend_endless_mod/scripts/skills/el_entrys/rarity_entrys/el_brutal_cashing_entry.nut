@@ -6,8 +6,8 @@ this.el_brutal_cashing_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.brutal_cashing";
-		this.m.Name = "Brutal Cashing(Longaxe)";
-		this.m.Description = "Cruel hunter.";
+		this.m.Name = "残暴追击(长斧)";
+		this.m.Description = "残忍的猎杀者";
 		this.m.Icon = "el_entrys/el_brutal_cashing_entry.png";
 		//this.m.IconMini = "el_brutal_cashing_entry_mini";
 		this.m.Overlay = "el_brutal_cashing_entry";
@@ -31,13 +31,19 @@ this.el_brutal_cashing_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]When the target does not have a shield, use a split man instead.[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]当攻击目标没有盾牌时,视为使用一次“分裂人”技能[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]When an enemy within the attack range is attacked, you can launch a pursuit towards them.[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]当攻击目标拥有盾牌时,额外对其释放一次“劈盾”技能[/color]"
+			},
+			{
+				id = 5,
+                type = "text",
+                icon = "ui/icons/special.png",
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]当你攻击范围内的敌人被命中时，你将对其进行一次免费的追击[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -46,7 +52,7 @@ this.el_brutal_cashing_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Longaxe to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备长斧来发挥效果[/color]"
             });
         }
 		return result;

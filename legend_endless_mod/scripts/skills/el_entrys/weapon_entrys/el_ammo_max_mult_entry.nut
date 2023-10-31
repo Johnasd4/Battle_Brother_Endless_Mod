@@ -14,7 +14,7 @@ this.el_ammo_max_mult_entry <- this.inherit("scripts/skills/el_entrys/el_entry",
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Equipment Ammo + " + this.m.EL_AmmoMaxMult + "%[/color]"
+			text = "[color=" + colour + "]弹药量增加 + " + this.m.EL_AmmoMaxMult + "%(面板)[/color]"
 		};
 		return result;
 	}

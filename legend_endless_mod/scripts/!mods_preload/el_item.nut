@@ -213,8 +213,6 @@ local gt = getroottable();
 
 		o.EL_addRankLevel <- function()
 		{
-			++this.m.EL_RankLevel;
-			EL_recraft();
 		}
 		
 		o.EL_getArmorType <- function()

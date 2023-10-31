@@ -60,14 +60,14 @@ local gt = getroottable();
 			result.insert(4, {
 				id = 22,
 				type = "text",
-				text = "Rank Level: " + this.m.EL_RankLevel + "/" + this.EL_getRankLevelMax()
+				text = "等阶: " + this.m.EL_RankLevel + "/" + this.EL_getRankLevelMax()
 			});
 			if(this.m.EL_CurrentLevel < this.m.EL_Level)
 			{
 				result.insert(5, {
 					id = 23,
 					type = "text",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]Level: " + this.m.EL_CurrentLevel + "/" + this.m.EL_Level + "[/color]"
+					text = "[color=" + this.Const.UI.Color.NegativeValue + "]等级: " + this.m.EL_CurrentLevel + "/" + this.m.EL_Level + "[/color]"
 				});
 			}
 			else
@@ -75,7 +75,7 @@ local gt = getroottable();
 				result.insert(5, {
 					id = 23,
 					type = "text",
-					text = "Level: " + this.m.EL_Level
+					text = "等级: " + this.m.EL_Level
 				});
 			}
 			if (this.m.EL_Vision != 0)
@@ -92,7 +92,7 @@ local gt = getroottable();
 				result.push({
 					id = 26,
 					type = "text",
-					text = "Additional explosion range: [color=" + this.Const.UI.Color.PositiveValue + "]" + this.m.EL_AdditionalExplosionRange + "[/color]"
+					text = "额外爆炸范围（竖向）: [color=" + this.Const.UI.Color.PositiveValue + "]" + this.m.EL_AdditionalExplosionRange + "[/color]"
 				});
 			}
 			if (this.m.EL_EntryList.len() != 0)
@@ -118,7 +118,7 @@ local gt = getroottable();
 				result.push({
 					id = 75,
 					type = "text",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]Current combatlevel cannot fully utilize the item's performance.[/color]"
+					text = "[color=" + this.Const.UI.Color.NegativeValue + "]当前人物的战斗等级无法发挥装备全部性能。[/color]"
 				});
 			}
 			return result;
@@ -514,6 +514,19 @@ local gt = getroottable();
 			this.m.EL_CurrentLevel = this.m.EL_Level;
 			EL_updateLevelProperties();
 			this.m.Condition = this.m.ConditionMax * percent;
+		}
+
+		o.EL_addRankLevel <- function()
+		{
+			++this.m.EL_RankLevel;
+			EL_init();
+			foreach(entry in this.m.EL_EntryList)
+			{
+				entry.EL_onUpgradeRank();
+			}
+			this.Const.EL_Weapon.EL_updateRankLevelProperties(this);
+			local entry_num = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_Entry.EntryNum.OneHanded[this.m.EL_RankLevel] : this.Const.EL_Weapon.EL_Entry.EntryNum.TwoHanded[this.m.EL_RankLevel];
+			this.Const.EL_Weapon.EL_assignItemEntrys(this, entry_num);
 		}
 
         o.EL_upgradeLevel <- function()

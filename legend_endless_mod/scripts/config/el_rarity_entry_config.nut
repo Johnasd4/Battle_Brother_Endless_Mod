@@ -193,7 +193,7 @@ gt.Const.EL_Rarity_Entry <- {
 			CheckMoraleOffset = 0
 		},
 		EL_InfinitePenetration = {
-			PenetrateNum = 10,
+			PenetrateNum = 20,
 			RegularDamageMult = 2.0
 		},
 		EL_IntoTheBreach = {

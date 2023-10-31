@@ -15,7 +15,7 @@ this.el_fatigue_recover_entry <- this.inherit("scripts/skills/el_entrys/el_entry
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Fatigue Recovery per turn + " + this.m.EL_FatigueRecover + "[/color]"
+			text = "[color=" + colour + "]疲劳恢复 + " + this.m.EL_FatigueRecover + "[/color]"
 		};
 		return result;
 	}

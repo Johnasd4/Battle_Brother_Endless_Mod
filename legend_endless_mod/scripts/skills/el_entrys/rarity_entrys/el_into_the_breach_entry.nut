@@ -7,8 +7,8 @@ this.el_into_the_breach_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.into_the_breach";
-		this.m.Name = "Into The Breach(One-Handed Spear)";
-		this.m.Description = "Gathering! Deadly battle!";//集结！死战！
+		this.m.Name = "陷阵之志(单手矛)";
+		this.m.Description = "集结！死战！";//
 		this.m.Icon = "el_entrys/el_into_the_breach_entry.png";
 		//this.m.IconMini = "el_into_the_breach_entry_mini";
 		this.m.Overlay = "el_into_the_breach_entry";
@@ -32,19 +32,19 @@ this.el_into_the_breach_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]When in a spearwall state, increase the melee skill based on your's own weight.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]当你处于陷阵状态时，你的近战攻击提升相当于你装备重量100%的数值.[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]When using a spear,chain all nearby melee friendly forces to enter this state together.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]当你使用“陷阵”技能时，连锁附近的所有近战友军，是他们一起进入陷阵状态[/color]"
 			},
 			{
 				id = 5,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Each chain unit will add " + this.Const.EL_Rarity_Entry.Factor.EL_IntoTheBreach.MeleeSkillChainOffset + " melee skill and " + this.Const.EL_Rarity_Entry.Factor.EL_IntoTheBreach.MeleeDefenseChainOffset + " melee defense to all allied units being chained.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]每个被连锁的友军会增加集体 " + this.Const.EL_Rarity_Entry.Factor.EL_IntoTheBreach.MeleeSkillChainOffset + "近战技能和 " + this.Const.EL_Rarity_Entry.Factor.EL_IntoTheBreach.MeleeDefenseChainOffset + "近战防御.[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -53,7 +53,7 @@ this.el_into_the_breach_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip One-Handed Spear to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备单手矛来发挥效果[/color]"
             });
         }
 		else if(this.getContainer().getActor().getSkills().hasSkill("el_rarity_effects.into_the_breach"))

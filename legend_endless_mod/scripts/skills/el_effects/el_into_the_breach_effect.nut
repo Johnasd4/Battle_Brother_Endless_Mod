@@ -6,7 +6,7 @@ this.el_into_the_breach_effect <- this.inherit("scripts/skills/skill", {
 	function create()
 	{
 		this.m.ID = "el_rarity_effects.into_the_breach";
-		this.m.Name = "Into The Breach";
+		this.m.Name = "陷阵";
 		this.m.Icon = "skills/status_effect_04.png";
 		this.m.IconMini = "status_effect_04_mini";
 		this.m.Overlay = "status_effect_04";
@@ -17,7 +17,7 @@ this.el_into_the_breach_effect <- this.inherit("scripts/skills/skill", {
 
 	function getDescription()
 	{
-		return "Having readied the spear, this character gains an automatic free attack on any opponent trying to enter into his Zone of Control.";
+		return "这个角色对任何试图进入他控制区域的对手进行自由攻击。";
 	}
 
 	function getTooltip()
@@ -26,6 +26,11 @@ this.el_into_the_breach_effect <- this.inherit("scripts/skills/skill", {
 		tooltip.extend([
 			{
 				id = 12,
+				type = "text",
+				text = "我们同仇敌忾，誓死不退！"
+			},
+			{
+				id = 13,
 				type = "text",
 				icon = "ui/icons/melee_skill.png",
 				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_IntoTheBreach.MeleeSkillChainOffset + "[/color] Melee Skill"

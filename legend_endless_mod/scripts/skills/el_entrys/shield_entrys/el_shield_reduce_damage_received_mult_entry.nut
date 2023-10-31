@@ -14,7 +14,7 @@ this.el_shield_reduce_damage_received_mult_entry <- this.inherit("scripts/skills
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Shield Receive Damage - " + this.m.EL_ShieldDamageReceivedMult + "%[/color]"
+			text = "[color=" + colour + "]承受劈盾伤害 - " + this.m.EL_ShieldDamageReceivedMult + "%[/color]"
 		};
 		return result;
 	}

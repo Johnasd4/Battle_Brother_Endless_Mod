@@ -3,8 +3,8 @@ this.el_horn_blowing_company_battalion_effect <- this.inherit("scripts/skills/sk
 	function create()
 	{
 		this.m.ID = "el_rarity_effects.horn_blowing_company_battalion";
-		this.m.Name = "Horn Blowing Company Battalion";
-		this.m.Description = "Exciting music can awaken the spirit of war.";
+		this.m.Name = "吹角连营";
+		this.m.Description = "激昂的乐曲能唤醒战意。";
 		this.m.Icon = "el_skills/horn_blowing_company_battalion_effect.png";
 		//this.m.IconMini = "el_horn_blowing_company_battalion_effect_mini";
 		this.m.Overlay = "el_horn_blowing_company_battalion_effect";

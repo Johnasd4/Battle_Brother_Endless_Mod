@@ -16,7 +16,7 @@ this.el_reduce_damage_received_mult_entry <- this.inherit("scripts/skills/el_ent
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Helmet contition receive damage - " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ReduceDamageReceivedMult * 100) * 0.01 + "% (" + this.m.EL_ReduceDamageReceivedMult + "%)[/color]"
+				text = "[color=" + colour + "]身体护甲受到伤害 - " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ReduceDamageReceivedMult * 100) * 0.01 + "% (" + this.m.EL_ReduceDamageReceivedMult + "%)[/color]"
 			};
 		}
 		else
@@ -24,7 +24,7 @@ this.el_reduce_damage_received_mult_entry <- this.inherit("scripts/skills/el_ent
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Helmet contition receive damage - " + this.m.EL_ReduceDamageReceivedMult + "%[/color]"
+				text = "[color=" + colour + "]身体护甲受到伤害 - " + this.m.EL_ReduceDamageReceivedMult + "%[/color]"
 			};
 		}
 	}

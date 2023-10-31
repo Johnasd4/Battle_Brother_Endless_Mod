@@ -14,7 +14,7 @@ this.el_save_ammo_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]" + this.m.EL_SaveAmmoChance + "% does not consume ammo[/color]"
+			text = "[color=" + colour + "]" + this.m.EL_SaveAmmoChance + "%不消耗弹药[/color]"
 		};
 		return result;
 	}

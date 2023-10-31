@@ -17,9 +17,9 @@ this.el_damage_body_reduction_entry <- this.inherit("scripts/skills/el_entrys/el
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Equipment Body fixation reduces damage + " + this.Math.ceil(this.m.EL_CurrentLevel * this.m.EL_DamageBodyArmorReduction 
+				text = "[color=" + colour + "]身体护甲固定减伤 + " + this.Math.ceil(this.m.EL_CurrentLevel * this.m.EL_DamageBodyArmorReduction 
 																						 * (1.0 + this.m.EL_Level * this.Const.EL_Armor.EL_LevelFactor.DamageBodyArmorReduction))
-											+ "% (" + this.Math.ceil(this.m.EL_DamageBodyArmorReduction * (1.0 + this.m.EL_Level * this.Const.EL_Armor.EL_LevelFactor.DamageBodyArmorReduction)) + ")[/color]"
+											+ "% (" + this.Math.ceil(this.m.EL_DamageBodyArmorReduction * (1.0 + this.m.EL_Level * this.Const.EL_Armor.EL_LevelFactor.DamageBodyArmorReduction)) + ")(面板)[/color]"
 			};
 		}
 		else
@@ -27,7 +27,7 @@ this.el_damage_body_reduction_entry <- this.inherit("scripts/skills/el_entrys/el
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Equipment Body fixation reduces damage + " + this.Math.ceil(this.m.EL_DamageBodyArmorReduction * (1.0 + this.m.EL_Level * this.Const.EL_Armor.EL_LevelFactor.DamageBodyArmorReduction)) + "[/color]"
+				text = "[color=" + colour + "]身体护甲固定减伤 + " + this.Math.ceil(this.m.EL_DamageBodyArmorReduction * (1.0 + this.m.EL_Level * this.Const.EL_Armor.EL_LevelFactor.DamageBodyArmorReduction)) + "(面板)[/color]"
 			};
 		}
 	}

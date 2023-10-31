@@ -16,7 +16,7 @@ this.el_stamina_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_ent
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Fatigue + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_Stamina) + " (" + this.m.EL_Stamina + ")[/color]"
+				text = "[color=" + colour + "]疲劳 + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_Stamina) + " (" + this.m.EL_Stamina + ")[/color]"
 			};
 		}
 		else
@@ -24,7 +24,7 @@ this.el_stamina_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_ent
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Fatigue + " + this.m.EL_Stamina + "[/color]"
+				text = "[color=" + colour + "]疲劳 + " + this.m.EL_Stamina + "[/color]"
 			};
 		}
 	}

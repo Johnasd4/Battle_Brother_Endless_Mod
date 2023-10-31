@@ -16,7 +16,7 @@ this.el_damage_mult_entry <- this.inherit("scripts/skills/el_entrys/el_accessory
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Attack damage + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_DamageMult * 100) * 0.01 + "% (" + this.m.EL_DamageMult + "%)[/color]"
+				text = "[color=" + colour + "]攻击伤害 + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_DamageMult * 100) * 0.01 + "% (" + this.m.EL_DamageMult + "%)[/color]"
 			};
 		}
 		else
@@ -24,7 +24,7 @@ this.el_damage_mult_entry <- this.inherit("scripts/skills/el_entrys/el_accessory
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Attack damage + " + this.m.EL_DamageMult + "%[/color]"
+				text = "[color=" + colour + "]攻击伤害 + " + this.m.EL_DamageMult + "%[/color]"
 			};
 		}
 	}

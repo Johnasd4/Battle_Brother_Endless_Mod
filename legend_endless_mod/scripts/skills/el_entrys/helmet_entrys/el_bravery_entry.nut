@@ -16,7 +16,7 @@ this.el_bravery_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_ent
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Resolve + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_Bravery) + " (" + this.m.EL_Bravery + ")[/color]"
+				text = "[color=" + colour + "]决心 + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_Bravery) + " (" + this.m.EL_Bravery + ")[/color]"
 			};
 		}
 		else
@@ -24,7 +24,7 @@ this.el_bravery_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_ent
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Resolve + " + this.m.EL_Bravery + "[/color]"
+				text = "[color=" + colour + "]决心 + " + this.m.EL_Bravery + "[/color]"
 			};
 		}
 	}

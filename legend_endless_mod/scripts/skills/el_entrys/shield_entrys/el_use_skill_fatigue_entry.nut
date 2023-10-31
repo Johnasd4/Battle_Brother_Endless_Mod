@@ -14,7 +14,7 @@ this.el_use_skill_fatigue_entry <- this.inherit("scripts/skills/el_entrys/el_ent
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Shield skills build up " + this.m.EL_UseSkillfatigue + " less fatigue.[/color]"
+			text = "[color=" + colour + "]盾牌技能疲劳消耗 - " + this.m.EL_UseSkillfatigue + "(面板)[/color]"
 		};
 		return result;
 	}
@@ -56,12 +56,6 @@ this.el_use_skill_fatigue_entry <- this.inherit("scripts/skills/el_entrys/el_ent
         _item.m.FatigueOnSkillUse = _item.m.EL_BaseWithRankFatigueOnSkillUse - this.m.EL_UseSkillfatigue;
 	}
 
-	function EL_refreshTotalEntry( _EL_totalEntry )
-	{
-		++_EL_totalEntry.m.EL_EntryNum;
-		_EL_totalEntry.m.EL_ShieldUseSkillfatigue += this.m.EL_UseSkillfatigue;
-	}
-    
     function onSerialize( _out )
 	{
 		_out.writeI32(this.m.EL_UseSkillfatigue);

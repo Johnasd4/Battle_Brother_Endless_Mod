@@ -14,7 +14,7 @@ this.el_condition_recover_daliy_entry <- this.inherit("scripts/skills/el_entrys/
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Recover " + this.m.EL_ConditionRecoverDaliy + "% Durability every day[/color]"
+			text = "[color=" + colour + "]恢复 " + this.m.EL_ConditionRecoverDaliy + "% 耐久每日[/color]"
 		};
 		return result;
 	}

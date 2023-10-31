@@ -12,7 +12,7 @@ this.el_immue_stun_root_disarm_entry <- this.inherit("scripts/skills/el_entrys/e
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Immune Stun, Immune Root, Immune Disarm[/color]"
+			text = "[color=" + colour + "]免疫眩晕，定身，缴械[/color]"
 		};
 		return result;
 	}

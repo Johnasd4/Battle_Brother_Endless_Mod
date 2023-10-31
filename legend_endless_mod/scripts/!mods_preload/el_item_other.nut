@@ -169,10 +169,10 @@ local gt = getroottable();
 						}
 					}
 					local is_layered_armor = _item.EL_getArmorType() == this.Const.EL_Item.ArmorType.BaseArmor;
-					local upgrade_rank_string = _item.EL_getRankLevel() == _item.EL_getRankLevelMax() ? " to have it strengthen entry" : " to have it upgrade rank";
+					local upgrade_rank_string = _item.EL_getRankLevel() == _item.EL_getRankLevelMax() ? " 将它的词条强化" : " 将它升阶";
 					if(_item.EL_isNeedRarityEntry())
 					{
-						upgrade_rank_string = " to get rarity entry";
+						upgrade_rank_string = "来获取稀有词条";
 					}
 					local can_opearte = true;
 					if(is_layered_armor)
@@ -197,7 +197,7 @@ local gt = getroottable();
 								id = 4,
 								type = "hint",
 								icon = "ui/icons/mouse_right_button_ctrl.png",
-								text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[0]] + " to have it upgrade level"
+								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[0]] + " 将它升级"
 							});
 							break;
 						case 2:
@@ -205,8 +205,8 @@ local gt = getroottable();
 								id = 4,
 								type = "hint",
 								icon = "ui/icons/mouse_right_button_ctrl.png",
-								text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[0]] + " to have it upgrade level"
+								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[1]]
+								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[0]] + " 将它升级"
 							});
 							break;
 						case 3:
@@ -214,9 +214,9 @@ local gt = getroottable();
 								id = 4,
 								type = "hint",
 								icon = "ui/icons/mouse_right_button_ctrl.png",
-								text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[2]]
+								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[2]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[0]] + " to have it upgrade level"
+								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[0]] + " 将它升级"
 							});
 							break;
 						case 4:
@@ -224,10 +224,10 @@ local gt = getroottable();
 								id = 4,
 								type = "hint",
 								icon = "ui/icons/mouse_right_button_ctrl.png",
-								text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[3] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[3]]
+								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[3] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[3]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[2]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[0]] + " to have it upgrade level"
+								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[0]] + " 将它升级"
 							});
 							break;
 						case 5:
@@ -235,11 +235,11 @@ local gt = getroottable();
 								id = 4,
 								type = "hint",
 								icon = "ui/icons/mouse_right_button_ctrl.png",
-								text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[4] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[4]]
+								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[4] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[4]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[3] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[3]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[2]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[0]] + " to have it upgrade level"
+								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[0]] + " 将它升级"
 							});
 							break;
 						}
@@ -252,7 +252,7 @@ local gt = getroottable();
 								id = 4,
 								type = "hint",
 								icon = "ui/icons/mouse_right_button_ctrl_and_alt.png",
-								text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + upgrade_rank_string
+								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + upgrade_rank_string
 							});
 							break;
 						case 2:
@@ -260,7 +260,7 @@ local gt = getroottable();
 								id = 4,
 								type = "hint",
 								icon = "ui/icons/mouse_right_button_ctrl_and_alt.png",
-								text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[1]]
+								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[1]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + upgrade_rank_string
 							});
 							break;
@@ -269,7 +269,7 @@ local gt = getroottable();
 								id = 4,
 								type = "hint",
 								icon = "ui/icons/mouse_right_button_ctrl_and_alt.png",
-								text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[2]]
+								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[2]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[1]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + upgrade_rank_string
 							});
@@ -279,7 +279,7 @@ local gt = getroottable();
 								id = 4,
 								type = "hint",
 								icon = "ui/icons/mouse_right_button_ctrl_and_alt.png",
-								text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[3] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[3]]
+								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[3] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[3]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[2]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[1]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + upgrade_rank_string
@@ -290,7 +290,7 @@ local gt = getroottable();
 								id = 4,
 								type = "hint",
 								icon = "ui/icons/mouse_right_button_ctrl_and_alt.png",
-								text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[4] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[4]]
+								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[4] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[4]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[3] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[3]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[2]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[1]]
@@ -307,7 +307,7 @@ local gt = getroottable();
 								id = 4,
 								type = "hint",
 								icon = "ui/icons/mouse_right_button_shift.png",
-								text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[0] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[0]] + " to have it recraft"
+								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[0] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[0]] + " 将它重铸"
 							});
 							break;
 						case 2:
@@ -315,8 +315,8 @@ local gt = getroottable();
 								id = 4,
 								type = "hint",
 								icon = "ui/icons/mouse_right_button_shift.png",
-								text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[1] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[0] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[0]] + " to have it recraft"
+								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[1] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[1]]
+								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[0] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[0]] + " 将它重铸"
 							});
 							break;
 						case 3:
@@ -324,9 +324,9 @@ local gt = getroottable();
 								id = 4,
 								type = "hint",
 								icon = "ui/icons/mouse_right_button_shift.png",
-								text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[2] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[2]]
+								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[2] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[2]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[1] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[0] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[0]] + " to have it recraft"
+								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[0] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[0]] + " 将它重铸"
 							});
 							break;
 						case 4:
@@ -334,10 +334,10 @@ local gt = getroottable();
 								id = 4,
 								type = "hint",
 								icon = "ui/icons/mouse_right_button_shift.png",
-								text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[3] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[3]]
+								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[3] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[3]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[2] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[2]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[1] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[0] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[0]] + " to have it recraft"
+								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[0] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[0]] + " 将它重铸"
 							});
 							break;
 						case 5:
@@ -345,11 +345,11 @@ local gt = getroottable();
 								id = 4,
 								type = "hint",
 								icon = "ui/icons/mouse_right_button_shift.png",
-								text = "Pay [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[4] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[4]]
+								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[4] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[4]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[3] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[3]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[2] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[2]]
 								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[1] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[0] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[0]] + " to have it recraft"
+								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[0] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[0]] + " 将它重铸"
 							});
 							break;
 						}
@@ -371,7 +371,7 @@ local gt = getroottable();
 							id = 4,
 							type = "hint",
 							icon = "ui/icons/mouse_right_button_ctrl_and_shift.png",
-							text = "Disassemble it to get [img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_index_pool[0] + ".png[/img]" + EquipmentEssence_disassemble[disassemble_index_pool[0]]
+							text = "将它分解，获得[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_index_pool[0] + ".png[/img]" + EquipmentEssence_disassemble[disassemble_index_pool[0]]
 						});
 						break;
 					case 2:
@@ -379,7 +379,7 @@ local gt = getroottable();
 							id = 4,
 							type = "hint",
 							icon = "ui/icons/mouse_right_button_ctrl_and_shift.png",
-							text = "Disassemble it to get [img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_index_pool[1] + ".png[/img]" + EquipmentEssence_disassemble[disassemble_index_pool[1]]
+							text = "将它分解，获得[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_index_pool[1] + ".png[/img]" + EquipmentEssence_disassemble[disassemble_index_pool[1]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_index_pool[0] + ".png[/img]" + EquipmentEssence_disassemble[disassemble_index_pool[0]]
 						});
 						break;
@@ -388,7 +388,7 @@ local gt = getroottable();
 							id = 4,
 							type = "hint",
 							icon = "ui/icons/mouse_right_button_ctrl_and_shift.png",
-							text = "Disassemble it to get [img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_index_pool[2] + ".png[/img]" + EquipmentEssence_disassemble[disassemble_index_pool[2]]
+							text = "将它分解，获得[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_index_pool[2] + ".png[/img]" + EquipmentEssence_disassemble[disassemble_index_pool[2]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_index_pool[1] + ".png[/img]" + EquipmentEssence_disassemble[disassemble_index_pool[1]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_index_pool[0] + ".png[/img]" + EquipmentEssence_disassemble[disassemble_index_pool[0]]
 						});
@@ -398,7 +398,7 @@ local gt = getroottable();
 							id = 4,
 							type = "hint",
 							icon = "ui/icons/mouse_right_button_ctrl_and_shift.png",
-							text = "Disassemble it to get [img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_index_pool[3] + ".png[/img]" + EquipmentEssence_disassemble[disassemble_index_pool[3]]
+							text = "将它分解，获得[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_index_pool[3] + ".png[/img]" + EquipmentEssence_disassemble[disassemble_index_pool[3]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_index_pool[2] + ".png[/img]" + EquipmentEssence_disassemble[disassemble_index_pool[2]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_index_pool[1] + ".png[/img]" + EquipmentEssence_disassemble[disassemble_index_pool[1]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_index_pool[0] + ".png[/img]" + EquipmentEssence_disassemble[disassemble_index_pool[0]]
@@ -409,7 +409,7 @@ local gt = getroottable();
 							id = 4,
 							type = "hint",
 							icon = "ui/icons/mouse_right_button_ctrl_and_shift.png",
-							text = "Disassemble it to get [img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_index_pool[4] + ".png[/img]" + EquipmentEssence_disassemble[disassemble_index_pool[4]]
+							text = "将它分解，获得[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_index_pool[4] + ".png[/img]" + EquipmentEssence_disassemble[disassemble_index_pool[4]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_index_pool[3] + ".png[/img]" + EquipmentEssence_disassemble[disassemble_index_pool[3]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_index_pool[2] + ".png[/img]" + EquipmentEssence_disassemble[disassemble_index_pool[2]]
 							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + disassemble_index_pool[1] + ".png[/img]" + EquipmentEssence_disassemble[disassemble_index_pool[1]]

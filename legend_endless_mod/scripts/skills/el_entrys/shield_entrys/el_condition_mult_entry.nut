@@ -14,7 +14,7 @@ this.el_condition_mult_entry <- this.inherit("scripts/skills/el_entrys/el_entry"
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Equipment durability + " + this.m.EL_ConditionMult + "%[/color]"
+			text = "[color=" + colour + "]耐久 + " + this.m.EL_ConditionMult + "%(面板)[/color]"
 		};
 		return result;
 	}

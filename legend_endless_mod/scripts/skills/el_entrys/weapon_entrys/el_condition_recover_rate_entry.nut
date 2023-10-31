@@ -14,7 +14,7 @@ this.el_condition_recover_rate_entry <- this.inherit("scripts/skills/el_entrys/e
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Recover " + this.m.EL_ConditionRecoverRate + "% Weapon Durability each turn[/color]"
+			text = "[color=" + colour + "]恢复 " + this.m.EL_ConditionRecoverRate + "% 耐久每回合[/color]"
 		};
 		return result;
 	}

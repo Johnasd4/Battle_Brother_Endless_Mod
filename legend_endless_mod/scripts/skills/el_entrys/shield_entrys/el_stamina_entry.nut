@@ -14,7 +14,7 @@ this.el_stamina_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Fatigue + " + this.m.EL_Stamina + "[/color]"
+			text = "[color=" + colour + "]疲劳 + " + this.m.EL_Stamina + "[/color]"
 		};
 		return result;
 	}

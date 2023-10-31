@@ -6,8 +6,8 @@ this.el_curling_immortal_sound_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.curling_immortal_sound";
-		this.m.Name = "Curling Immortal Sound(Musical Instrument)";
-		this.m.Description = "Like the sound of heaven.";//如闻天籁
+		this.m.Name = "仙音袅袅(乐器)";
+		this.m.Description = "如闻天籁";//Like the sound of heaven.
 		this.m.Icon = "el_entrys/el_curling_immortal_sound_entry.png";
 		//this.m.IconMini = "el_curling_immortal_sound_entry_mini";
 		this.m.Overlay = "el_curling_immortal_sound_entry";
@@ -31,13 +31,13 @@ this.el_curling_immortal_sound_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Gain 4 powerful music skillss.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]获得4个强大的音乐技能.[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]These skills are effective for friendly forces within a range of " + this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.SkillRange + ".[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]这些技能同时对 " + this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.SkillRange + "格范围内的所有友军生效[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -46,7 +46,7 @@ this.el_curling_immortal_sound_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Musical Instrument to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备乐器来发挥效果[/color]"
             });
         }
 		return result;

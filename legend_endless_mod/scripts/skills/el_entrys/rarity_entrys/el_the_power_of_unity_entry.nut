@@ -7,8 +7,8 @@ this.el_the_power_of_unity_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.the_power_of_unity";
-		this.m.Name = "The Power of Unity(Polearm)";
-		this.m.Description = "Unity makes us invincible!";//团结使我们战无不胜
+		this.m.Name = "团结之力(长柄)";
+		this.m.Description = "团结使我们战无不胜!";
 		this.m.Icon = "el_entrys/el_the_power_of_unity_entry.png";
 		//this.m.IconMini = "el_the_power_of_unity_entry_mini";
 		this.m.Overlay = "el_the_power_of_unity_entry";
@@ -32,7 +32,7 @@ this.el_the_power_of_unity_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]When attacking, carry out an additional attack on the target with all friendly forces within the attack range that can attack the target.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]攻击时，会使自身攻击范围内所有能攻击到目标的近战友军一起对其发动一次免费的攻击.[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -41,7 +41,7 @@ this.el_the_power_of_unity_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Polearm to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备长柄武器来发挥效果[/color]"
             });
         }
 		return result;

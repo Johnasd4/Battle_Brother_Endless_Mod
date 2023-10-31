@@ -14,7 +14,7 @@ this.el_shield_melee_defense_entry <- this.inherit("scripts/skills/el_entrys/el_
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Shield Melee Defense + " + this.m.EL_ShieldMeleeDefense + "[/color]"
+			text = "[color=" + colour + "]盾牌近战防御 + " + this.m.EL_ShieldMeleeDefense + "(面板)[/color]"
 		};
 		return result;
 	}

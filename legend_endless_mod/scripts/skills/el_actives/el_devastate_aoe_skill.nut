@@ -5,7 +5,7 @@ this.el_devastate_aoe_skill <- this.inherit("scripts/skills/skill", {
 	function create()
 	{
 		this.m.ID = "el_rarity_actives.devastate_aoe_skill";
-		this.m.Name = "Devastate(AOE)";
+		this.m.Name = "毁灭打击(范围)";
 		this.m.Description = "Swing the weapon in a wide arc that hits three adjacent tiles in counter-clockwise order. A target hit may be knocked back or staggered from the force of the blow. Be careful around your own men unless you want to relieve your payroll!";
 		this.m.KilledString = "Crushed";
 		this.m.Icon = "el_skills/devastate_aoe_skill.png";

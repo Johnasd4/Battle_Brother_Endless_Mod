@@ -3,8 +3,8 @@ this.el_horn_blowing_company_battalion_skill <- this.inherit("scripts/skills/ski
 	function create()
 	{
 		this.m.ID = "el_actives.horn_blowing_company_battalion_skill";
-		this.m.Name = "Horn Blowing Company Battalion";
-		this.m.Description = "Continuous music can inspire war spirit.";
+		this.m.Name = "吹角连营";
+		this.m.Description = "激昂的乐曲能唤醒战意。";
 		this.m.Icon = "el_skills/horn_blowing_company_battalion_skill.png";
 		this.m.IconDisabled = "el_skills/horn_blowing_company_battalion_skill_sw.png";
 		this.m.SoundOnUse = [
@@ -34,7 +34,7 @@ this.el_horn_blowing_company_battalion_skill <- this.inherit("scripts/skills/ski
 				id = 6,
 				type = "text",
 				icon = "ui/icons/locked_small.png",
-				text = "Improve ally " + this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.DamageMult * 100 + "% Damage Dealt, and reduce ally " + this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.DamageReceivedMult * 100 + "% Damage Received."
+				text = "提升 " + this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.DamageMult * 100 + "% 攻击伤害, 减少 " + this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.DamageReceivedMult * 100 + "% 受到伤害。"
 			}
 		]);
 		return tooltip;

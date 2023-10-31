@@ -14,7 +14,7 @@ this.el_vampire_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Vampire + " + this.m.EL_Vampire + "%[/color]"
+			text = "[color=" + colour + "]造成血量伤害的 " + this.m.EL_Vampire + "%将会恢复自身的生命值[/color]"
 		};
 		return result;
 	}

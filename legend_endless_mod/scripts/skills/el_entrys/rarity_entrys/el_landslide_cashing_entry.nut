@@ -4,8 +4,8 @@ this.el_landslide_cashing_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.landslide_cashing";
-		this.m.Name = "Landslide Cashing(Polehammer)";
-		this.m.Description = "Move like a landslide, those who resist will die.";//动若山崩，抵挡者死
+		this.m.Name = "山崩追击(长锤)";
+		this.m.Description = "动若山崩，抵挡者死";//Move like a landslide, those who resist will die.
 		this.m.Icon = "el_entrys/el_landslide_cashing_entry.png";
 		//this.m.IconMini = "el_landslide_cashing_entry_mini";
 		this.m.Overlay = "el_landslide_cashing_entry";
@@ -29,19 +29,19 @@ this.el_landslide_cashing_entry <- this.inherit("scripts/skills/skill", {
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Deals additional health damage equivalent to " + this.Const.EL_Rarity_Entry.Factor.EL_LandslideCashing.HealthDamageMult * 100 +"% of armor damage.[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]命中时额外造成等同于造成护甲伤害 " + this.Const.EL_Rarity_Entry.Factor.EL_LandslideCashing.HealthDamageMult * 100 +"%的血量伤害[/color]"
 			},
 			{
 				id = 5,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Cause " + this.Const.EL_Rarity_Entry.Factor.EL_LandslideCashing.InjuryNum + " slight injury to the base, and if the target's current armor is 0, cause 1 additional slight injury.[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]命中时额外造成 " + this.Const.EL_Rarity_Entry.Factor.EL_LandslideCashing.InjuryNum + "个轻伤, 如果目标没有护甲, 再额外造成1个轻伤[/color]"
 			},
 			{
 				id = 6,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]When an enemy within the attack range is attacked, you can launch a pursuit towards them.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]当你攻击范围内的敌人被命中时，你将对其进行一次免费的追击[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -50,7 +50,7 @@ this.el_landslide_cashing_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Polehammer to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备长锤来发挥效果[/color]"
             });
         }
 		return result;

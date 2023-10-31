@@ -16,7 +16,7 @@ this.el_combat_level_entry <- this.inherit("scripts/skills/el_entrys/el_accessor
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]CombatLevel + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_CombatLevel * 100) * 0.01 + " (" + this.m.EL_CombatLevel + ")[/color]"
+				text = "[color=" + colour + "]战斗等级 + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_CombatLevel * 100) * 0.01 + " (" + this.m.EL_CombatLevel + ")[/color]"
 			};
 		}
 		else
@@ -24,7 +24,7 @@ this.el_combat_level_entry <- this.inherit("scripts/skills/el_entrys/el_accessor
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]CombatLevel + " + this.m.EL_CombatLevel + "[/color]"
+				text = "[color=" + colour + "]战斗等级 + " + this.m.EL_CombatLevel + "[/color]"
 			};
 		}
 	}

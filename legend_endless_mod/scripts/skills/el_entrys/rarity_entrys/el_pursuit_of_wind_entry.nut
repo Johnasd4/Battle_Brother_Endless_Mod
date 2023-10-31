@@ -6,8 +6,8 @@ this.el_pursuit_of_wind_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.pursuit_of_wind";
-		this.m.Name = "Pursuit of Wind(Bow)";
-		this.m.Description = "Death stares at your enemies."
+		this.m.Name = "风之追索(弓)";
+		this.m.Description = "风是你的伙伴，会带来敌人的消息，也会辅助你进行战斗"
 		this.m.Icon = "el_entrys/el_pursuit_of_wind_entry.png";
 		//this.m.IconMini = "el_pursuit_of_wind_entry_mini";
 		this.m.Overlay = "el_pursuit_of_wind_entry";
@@ -31,19 +31,19 @@ this.el_pursuit_of_wind_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]No longer consume Ammo.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]不再消耗弹药[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Attacks must hit, with infinite range and field of view.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]攻击必定命中，拥有无限的射程和视野[/color]"
 			},
 			{
 				id = 5,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]3 consecutive arrows per attack.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]每次射击连发3箭.[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -52,7 +52,7 @@ this.el_pursuit_of_wind_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Bow to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备弓来发挥效果[/color]"
             });
         }
 		return result;

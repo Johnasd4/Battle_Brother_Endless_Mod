@@ -16,7 +16,7 @@ this.el_taunt_mult_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Character\' threat - " + this.Math.round(100 * this.m.EL_CurrentLevel * (100.0 - 10000.0 / this.m.EL_TauntMult)) * 0.01 + "% (" + this.Math.round(100 * (100.0 - 10000.0 / this.m.EL_TauntMult)) * 0.01 + "%)[/color]"
+				text = "[color=" + colour + "]人物仇恨 - " + this.Math.round(100 * this.m.EL_CurrentLevel * (100.0 - 10000.0 / this.m.EL_TauntMult)) * 0.01 + "% (" + this.Math.round(100 * (100.0 - 10000.0 / this.m.EL_TauntMult)) * 0.01 + "%)[/color]"
 			};
 		}
 		else
@@ -24,7 +24,7 @@ this.el_taunt_mult_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Character\' threat - " + this.Math.round(100 * (100.0 - 10000.0 / this.m.EL_TauntMult)) * 0.01 + "%[/color]"
+				text = "[color=" + colour + "]人物仇恨 - " + this.Math.round(100 * (100.0 - 10000.0 / this.m.EL_TauntMult)) * 0.01 + "%[/color]"
 			};
 		}
 	}

@@ -16,7 +16,7 @@ this.el_condition_mult_entry <- this.inherit("scripts/skills/el_entrys/el_access
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Equipment durability + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ConditionMult * 100) * 0.01 + "% (" + this.m.EL_ConditionMult + ")%[/color]"
+				text = "[color=" + colour + "]耐久 + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ConditionMult * 100) * 0.01 + "% (" + this.m.EL_ConditionMult + ")%(面板)[/color]"
 			};
 		}
 		else
@@ -24,7 +24,7 @@ this.el_condition_mult_entry <- this.inherit("scripts/skills/el_entrys/el_access
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Equipment durability + " + this.m.EL_ConditionMult + "%[/color]"
+				text = "[color=" + colour + "]耐久 + " + this.m.EL_ConditionMult + "%(面板)[/color]"
 			};
 		}
 	}

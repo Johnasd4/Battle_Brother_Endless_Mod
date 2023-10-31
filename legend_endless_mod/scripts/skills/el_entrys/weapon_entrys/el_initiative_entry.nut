@@ -14,7 +14,7 @@ this.el_initiative_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Initiative + " + this.m.EL_Initiative + "[/color]"
+			text = "[color=" + colour + "]主动值 + " + this.m.EL_Initiative + "[/color]"
 		};
 		return result;
 	}

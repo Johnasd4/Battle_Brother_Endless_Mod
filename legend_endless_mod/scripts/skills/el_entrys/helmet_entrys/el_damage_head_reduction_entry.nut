@@ -17,9 +17,9 @@ this.el_damage_head_reduction_entry <- this.inherit("scripts/skills/el_entrys/el
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Equipment Head fixation reduces damage + " + this.Math.ceil(this.m.EL_CurrentLevel * this.m.EL_DamageHeadArmorReduction 
+				text = "[color=" + colour + "]头部护甲固定减伤 + " + this.Math.ceil(this.m.EL_CurrentLevel * this.m.EL_DamageHeadArmorReduction 
 																						 * (1.0 + this.m.EL_Level * this.Const.EL_Helmet.EL_LevelFactor.DamageHeadArmorReduction))
-											+ "% (" + this.Math.ceil(this.m.EL_DamageHeadArmorReduction * (1.0 + this.m.EL_Level * this.Const.EL_Helmet.EL_LevelFactor.DamageHeadArmorReduction)) + ")[/color]"
+											+ "% (" + this.Math.ceil(this.m.EL_DamageHeadArmorReduction * (1.0 + this.m.EL_Level * this.Const.EL_Helmet.EL_LevelFactor.DamageHeadArmorReduction)) + ")(面板)[/color]"
 			};
 		}
 		else
@@ -27,7 +27,7 @@ this.el_damage_head_reduction_entry <- this.inherit("scripts/skills/el_entrys/el
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]Equipment Head fixation reduces damage + " + this.Math.ceil(this.m.EL_DamageHeadArmorReduction * (1.0 + this.m.EL_Level * this.Const.EL_Helmet.EL_LevelFactor.DamageHeadArmorReduction)) + "[/color]"
+				text = "[color=" + colour + "]头部护甲固定减伤 + " + this.Math.ceil(this.m.EL_DamageHeadArmorReduction * (1.0 + this.m.EL_Level * this.Const.EL_Helmet.EL_LevelFactor.DamageHeadArmorReduction)) + "(面板)[/color]"
 			};
 		}
 	}

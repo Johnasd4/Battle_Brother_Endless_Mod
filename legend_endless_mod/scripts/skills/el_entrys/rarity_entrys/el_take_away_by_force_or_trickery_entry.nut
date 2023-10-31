@@ -7,8 +7,8 @@ this.el_take_away_by_force_or_trickery_entry <- this.inherit("scripts/skills/ski
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.take_away_by_force_or_trickery";
-		this.m.Name = "Take Away by Force or Trickery(Whip)";
-		this.m.Description = "An ominous aura lingers on the Whip, and its enemies will suffer unimaginable pain and torment.";//不详的气息在匕首上萦绕，它的敌人将遭受难以想象的痛楚与折磨
+		this.m.Name = "巧取豪夺(鞭子)";
+		this.m.Description = "漫长鞭影，无处可逃";
 		this.m.Icon = "el_entrys/el_take_away_by_force_or_trickery_entry.png";
 		//this.m.IconMini = "el_take_away_by_force_or_trickery_entry_mini";
 		this.m.Overlay = "el_take_away_by_force_or_trickery_entry";
@@ -32,13 +32,13 @@ this.el_take_away_by_force_or_trickery_entry <- this.inherit("scripts/skills/ski
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Merge and strengthen skills.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]武器技能合并强化[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Simultaneously attack all enemies within range.[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "同时攻击范围内的所有敌人[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -47,7 +47,7 @@ this.el_take_away_by_force_or_trickery_entry <- this.inherit("scripts/skills/ski
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Whip to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备鞭子来发挥效果[/color]"
             });
         }
 		return result;

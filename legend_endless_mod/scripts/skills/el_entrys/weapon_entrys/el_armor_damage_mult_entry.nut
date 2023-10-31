@@ -14,7 +14,7 @@ this.el_armor_damage_mult_entry <- this.inherit("scripts/skills/el_entrys/el_ent
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Equipment additional " + this.m.EL_ArmorDamageMult + "% effective against armor[/color]"
+			text = "[color=" + colour + "]额外 " + this.m.EL_ArmorDamageMult + "% 效果作用于盔甲(面板)[/color]"
 		};
 		return result;
 	}

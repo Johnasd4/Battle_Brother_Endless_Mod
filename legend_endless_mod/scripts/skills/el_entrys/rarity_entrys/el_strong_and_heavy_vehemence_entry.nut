@@ -6,8 +6,8 @@ this.el_strong_and_heavy_vehemence_entry <- this.inherit("scripts/skills/skill",
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.strong_and_heavy_vehemence";
-		this.m.Name = "Strong and Heavy Vehemence(Two-Handed  Mace)";
-		this.m.Description = "The majestic power makes the enemy unable to parry and unable to conceal their decline.";//磅礴的力量让敌人无法招架，难掩颓势
+		this.m.Name = "势大力沉(双手棍棒)";
+		this.m.Description = "磅礴的力量让敌人无法招架，难掩颓势";//The majestic power makes the enemy unable to parry and unable to conceal their decline.
 		this.m.Icon = "el_entrys/el_strong_and_heavy_vehemence_entry.png";
 		//this.m.IconMini = "el_strong_and_heavy_vehemence_entry_mini";
 		this.m.Overlay = "el_strong_and_heavy_vehemence_entry";
@@ -31,25 +31,19 @@ this.el_strong_and_heavy_vehemence_entry <- this.inherit("scripts/skills/skill",
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Merge and strengthen skills.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]武器技能合并强化[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Cause additional fatigue damage equivalent to " + this.Const.EL_Rarity_Entry.Factor.EL_StrongAndHeavyVehemence.FatigueDamageMult * 100 +"% times health damage.[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]命中时额外造成等同于造成血量伤害 " + this.Const.EL_Rarity_Entry.Factor.EL_StrongAndHeavyVehemence.FatigueDamageMult * 100 +"%的疲劳伤害[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Has a 100% chance to stun 2 turns on a hit.[/color]"
-			},
-			{
-				id = 4,
-                type = "text",
-                icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Release a free split shield during the attack.[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]攻击时免费施加一次“劈盾”技能，如果你拥有这个技能[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -58,7 +52,7 @@ this.el_strong_and_heavy_vehemence_entry <- this.inherit("scripts/skills/skill",
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Two-Handed  Mace to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备双手棍棒来发挥效果[/color]"
             });
         }
 		return result;

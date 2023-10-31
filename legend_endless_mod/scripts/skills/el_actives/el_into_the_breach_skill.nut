@@ -3,7 +3,7 @@ this.el_into_the_breach_skill <- this.inherit("scripts/skills/skill", {
 	function create()
 	{
 		this.m.ID = "el_rarity_actives.into_the_breach_skill";
-		this.m.Name = "Into The Breach";
+		this.m.Name = "陷阵之志！";
 		this.m.Icon = "el_skills/into_the_breach_skill.png";
 		this.m.IconDisabled = "el_skills/into_the_breach_skill_sw.png";
 		this.m.Overlay = "into_the_breach_skill";
@@ -94,7 +94,7 @@ this.el_into_the_breach_skill <- this.inherit("scripts/skills/skill", {
 			actor.getSkills().add(skill);
 			if (!_user.isHiddenToPlayer())
 			{
-				this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " uses Spearwall");
+				this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " uses 陷阵");
 			}
 		}
 		local skill = this.new("scripts/skills/el_effects/el_into_the_breach_effect");
@@ -102,7 +102,7 @@ this.el_into_the_breach_skill <- this.inherit("scripts/skills/skill", {
 		this.m.Container.add(skill);
 		if (!_user.isHiddenToPlayer())
 		{
-			this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(_user) + " uses Spearwall");
+			this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(_user) + " uses 陷阵");
 		}
 		return true;
 	}
@@ -146,11 +146,6 @@ this.el_into_the_breach_skill <- this.inherit("scripts/skills/skill", {
 				}
 			}
 		}
-	}
-
-	function onRemoved()
-	{
-		this.m.Container.removeByID("effects.spearwall");
 	}
 
 });

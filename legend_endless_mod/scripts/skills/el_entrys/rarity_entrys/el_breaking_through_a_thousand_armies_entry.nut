@@ -9,8 +9,8 @@ this.el_breaking_through_a_thousand_armies_entry <- this.inherit("scripts/skills
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.breaking_through_a_thousand_armies";
-		this.m.Name = "Breaking Through a Thousand Armies(Greataxe)";
-		this.m.Description = "The more you fight, the braver you become. Break through the formation.";//越战越勇，先登破阵
+		this.m.Name = "力破千军(双手斧)";
+		this.m.Description = "越战越勇，先登破阵";//The more you fight, the braver you become. Break through the formation.
 		this.m.Icon = "el_entrys/el_breaking_through_a_thousand_armies_entry.png";
 		//this.m.IconMini = "el_breaking_through_a_thousand_armies_entry_mini";
 		this.m.Overlay = "el_breaking_through_a_thousand_armies_entry";
@@ -34,19 +34,19 @@ this.el_breaking_through_a_thousand_armies_entry <- this.inherit("scripts/skills
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Your split man skill can deal 100% damage to both the head and body simultaneously.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]你的“分裂人”技能将会同时对身体的两个部位都造成100%伤害[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Obtain additional bonuses based on health loss.[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]根据血量损失获得加成[/color]"
 			},
 			{
 				id = 5,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Release a free split shield during the attack.[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]攻击时免费施加一次“劈盾”技能，如果你拥有这个技能[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -55,7 +55,7 @@ this.el_breaking_through_a_thousand_armies_entry <- this.inherit("scripts/skills
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Greataxe to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备双手斧来发挥效果[/color]"
             });
         }
         else if(this.m.EL_Stack)
@@ -118,7 +118,7 @@ this.el_breaking_through_a_thousand_armies_entry <- this.inherit("scripts/skills
                 id = 20,
                 type = "text",
                 icon = "ui/icons/damage_received.png",
-                text = "The first Round Swing in each round releases an additional " + this.m.EL_Stack + " times."
+                text = "每回合第一次释放的“旋风斩”技能将额外连击" + this.m.EL_Stack + "次"
             });
         }
 		return result;

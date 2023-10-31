@@ -12,7 +12,7 @@ this.el_immue_grab_knock_twirl_entry <- this.inherit("scripts/skills/el_entrys/e
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]Immune Grab, Immune Knock Back, Immune Twirl[/color]"
+			text = "[color=" + colour + "]免疫抓取，击退，旋转[/color]"
 		};
 		return result;
 	}

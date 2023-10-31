@@ -4,8 +4,8 @@ this.el_faith_of_the_rock_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.faith_of_the_rock";
-		this.m.Name = "Faith of The Rock(Shield)";
-		this.m.Description = "Accumulating Hostility,Towering Protector, Resistant to All.";//聚集敌意，高塔般的守护者，抵抗一切
+		this.m.Name = "磐石之信(盾牌)";
+		this.m.Description = "聚集敌意，高塔般的守护者，抵抗一切";//Accumulating Hostility,Towering Protector, Resistant to All.
 		this.m.Icon = "el_entrys/el_faith_of_the_rock_entry.png";
 		//this.m.IconMini = "el_faith_of_the_rock_entry_mini";
 		this.m.Overlay = "el_faith_of_the_rock_entry";
@@ -29,25 +29,25 @@ this.el_faith_of_the_rock_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]The character gains 1000 times more threat.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]人物仇恨值提升为10000倍[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Recover all shield condition at the beginning of each turn.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]盾牌永不磨损[/color]"
 			},
 			{
 				id = 5,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Automatically release shieldwall at the beginning of each turn.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]回合开始时自动释放“盾墙”技能[/color]"
 			},
 			{
 				id = 6,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Immune to all negative effects.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]免疫一切负面效果[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -56,7 +56,7 @@ this.el_faith_of_the_rock_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Shield to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备盾牌来发挥效果[/color]"
             });
         }
 		return result;

@@ -4,8 +4,8 @@ this.el_natural_dismember_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.natural_dismember";
-		this.m.Name = "Natural Dismember(Two-Handed  Cleaver)";
-		this.m.Description = "It's natural, practice makes perfect.";//浑然天成，熟能生巧
+		this.m.Name = "庖丁解牛(双手砍刀)";
+		this.m.Description = "浑然天成，熟能生巧。";//It's natural, practice makes perfect.
 		this.m.Icon = "el_entrys/el_natural_dismember_entry.png";
 		//this.m.IconMini = "el_natural_dismember_entry_mini";
 		this.m.Overlay = "el_natural_dismember_entry";
@@ -26,28 +26,22 @@ this.el_natural_dismember_entry <- this.inherit("scripts/skills/skill", {
 				text = this.getDescription()
 			},
 			{
-				id = 3,
-                type = "text",
-                icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Maintain confident.[/color]"
-			},
-			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Causing massive damage to the enemy.[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]每次攻击会使目标出现大量的伤残.[/color]"
 			},
 			{
 				id = 5,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Each injury on the target will increase your damage by " + this.Const.EL_Rarity_Entry.Factor.EL_NaturalDismember.DamageMultFactor * 100 + "%.[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]目标拥有的每种伤残都会提升你 " + this.Const.EL_Rarity_Entry.Factor.EL_NaturalDismember.DamageMultFactor * 100 + "%的伤害[/color]"
 			},
 			{
 				id = 6,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Release a free split shield during the attack.[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]攻击时免费施加一次“劈盾”技能，如果你拥有这个技能[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -56,7 +50,7 @@ this.el_natural_dismember_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Two-Handed  Cleaver to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备双手砍刀来发挥效果[/color]"
             });
         }
 		return result;

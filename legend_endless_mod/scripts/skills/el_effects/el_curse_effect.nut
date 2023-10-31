@@ -6,7 +6,7 @@ this.el_curse_effect <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.ID = "el_effects.curse";
 		this.m.Name = "Curse";
-		this.m.Description = "This character has been cursed by the death of a mummy.";
+		this.m.Description = "这个角色被诅咒了";
 		this.m.Icon = "skills/icon_mummy_curse.png";
 		this.m.IconMini = "mini_icon_mummy_curse";
 		this.m.Overlay = "mummy_curse";

@@ -6,8 +6,8 @@ this.el_stun_cashing_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.stun_cashing";
-		this.m.Name = "Stun Cashing(Polemace)";
-		this.m.Description = "Sitting in the midfield, stabilizing the overall controller.";//坐镇中场，稳固全局的控制者
+		this.m.Name = "眩晕追击(长棍)";
+		this.m.Description = "坐镇中场，稳固全局的控制者";//Sitting in the midfield, stabilizing the overall controller.
 		this.m.Icon = "el_entrys/el_stun_cashing_entry.png";
 		//this.m.IconMini = "el_stun_cashing_entry_mini";
 		this.m.Overlay = "el_stun_cashing_entry";
@@ -31,19 +31,19 @@ this.el_stun_cashing_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Merge and strengthen skills.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]武器技能合并强化[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]Cause additional fatigue damage equivalent to " + this.Const.EL_Rarity_Entry.Factor.EL_StunCashing.FatigueDamageMult * 100 +"% times health damage.[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]命中时额外造成等同于造成血量伤害 " + this.Const.EL_Rarity_Entry.Factor.EL_StunCashing.FatigueDamageMult * 100 +"%的疲劳伤害[/color]"
 			},
 			{
 				id = 6,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]When an enemy within the attack range is attacked, you can launch a pursuit towards them.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]当你攻击范围内的敌人被命中时，你将对其进行一次免费的追击[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -52,7 +52,7 @@ this.el_stun_cashing_entry <- this.inherit("scripts/skills/skill", {
                 id = 8,
                 type = "text",
                 icon = "ui/tooltips/warning.png",
-                text = "[color=" + this.Const.UI.Color.NegativeValue + "]You need to equip Polemace to take effect.[/color]"
+                text = "[color=" + this.Const.UI.Color.NegativeValue + "]你需要装备长棍来发挥效果[/color]"
             });
         }
 		return result;
