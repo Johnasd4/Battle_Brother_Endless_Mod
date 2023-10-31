@@ -291,7 +291,7 @@ local gt = getroottable();
 
 		o.getAmountString = function()
 		{
-			this.Const.EL_Item_Other.EL_OtherItemInit(this);
+			this.Const.EL_Item_Other.EL_otherItemInit(this);
 			if(this.m.Condition < this.m.ConditionMax)
 			{
 				return "lv" + this.m.EL_Level + ":" + this.Math.floor(this.m.Condition / (this.m.ConditionMax * 1.0) * 100) + "%";
@@ -775,7 +775,7 @@ local gt = getroottable();
 			{
 				if(this.m.EL_Level == -1)
 				{
-					this.Const.EL_Item_Other.EL_OtherItemInit(this);
+					this.Const.EL_Item_Other.EL_otherItemInit(this);
 				}
 				return "lv" + this.m.EL_Level + " " + this.m.Ammo + "/" + this.m.AmmoMax;
 			}

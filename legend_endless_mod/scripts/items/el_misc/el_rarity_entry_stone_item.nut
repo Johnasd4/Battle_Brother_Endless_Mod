@@ -5,8 +5,8 @@ this.el_rarity_entry_stone_item <- this.inherit("scripts/items/item", {
 	function create()
 	{
 		this.m.ID = "el_item.rarity_entry_stone";
-		this.m.Name = "Rarity Entry Stone";
-		this.m.Description = "A rarity stone, can be used to make your Accessory to get the rarity entry.";
+		this.m.Name = "稀有词条石";
+		this.m.Description = "一块奇石，可以使饰品获得稀有词条。";
 		this.m.SlotType = this.Const.ItemSlot.None;
 		this.m.ItemType = this.Const.Items.ItemType.Usable | this.Const.Items.ItemType.Misc;
 		this.m.IsAllowedInBag = false;
@@ -32,13 +32,13 @@ this.el_rarity_entry_stone_item <- this.inherit("scripts/items/item", {
 			{
 				id = 3,
 				type = "text",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Rare] + "]" + "It keeps: " + this.m.EL_RarityEntry.getName() + "[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Rare] + "]" + "它储存着: " + this.m.EL_RarityEntry.getName() + "[/color]"
 			}
 		];
 		result.push({
 			id = 65,
 			type = "text",
-			text = "Right-click onto the currently selected character in order to use. This item will be consumed in the process."
+			text = "右键单击来使用此物品，将储存的稀有词条转移至当前人物的饰品上。 此物品会在使用过程中消耗掉。"
 		});
 		return result;
 	}
