@@ -28,7 +28,7 @@ this.el_npc_buff_stone_skill <- this.inherit("scripts/skills/skill", {
 		local skills = this.getContainer().getActor().getSkills().m.Skills;
 		foreach(skill in skills) {
 			if(skill.EL_isNPCBuff()) {
-				local names = this.split(_info.Name, "(");
+				local names = this.split(skill.getName(), "(");
 				local name = names[0];
 				ret.push({
 					id = 10,

@@ -351,6 +351,93 @@ local gt = getroottable();
                 }
             }
         }
+
+        o.onUse = function( _user, _targetTile )
+        {
+            local actor = this.getContainer().getActor();
+            local myTile = actor.getTile();
+            local destTile;
+
+            for( local i = 0; i < 6; i = i )
+            {
+                if (!_targetTile.hasNextTile(i))
+                {
+                }
+                else
+                {
+                    local tile = _targetTile.getNextTile(i);
+
+                    if (tile.IsEmpty && tile.getDistanceTo(myTile) == 1 && this.Math.abs(myTile.Level - tile.Level) <= 1 && this.Math.abs(_targetTile.Level - tile.Level) <= 1)
+                    {
+                        destTile = tile;
+                        break;
+                    }
+                }
+
+                i = ++i;
+            }
+
+            if (destTile == null)
+            {
+                return false;
+            }
+            _user.spawnTerrainDropdownEffect(myTile);
+            return true;
+        }
+
+
+	});
+
+	::mods_hookExactClass("skills/actives/legend_unarmed_lunge_skill", function(o){
+
+        o.onAnySkillUsed = function( _skill, _targetEntity, _properties )
+        {
+            if (_skill == this)
+            {
+                local actor = this.getContainer().getActor();
+                _properties.DamageTotalMult *= this.Math.max(1 + actor.getInitiative() * 0.005, 0);
+
+                if (this.getContainer().getActor().getCurrentProperties().IsSpecializedInSpears)
+                {
+                    _properties.MeleeSkill += 5;
+                }
+            }
+        }
+
+        o.onUse = function( _user, _targetTile )
+        {
+            local actor = this.getContainer().getActor();
+            local myTile = actor.getTile();
+            local destTile;
+
+            for( local i = 0; i < 6; i = i )
+            {
+                if (!_targetTile.hasNextTile(i))
+                {
+                }
+                else
+                {
+                    local tile = _targetTile.getNextTile(i);
+
+                    if (tile.IsEmpty && tile.getDistanceTo(myTile) == 1 && this.Math.abs(myTile.Level - tile.Level) <= 1 && this.Math.abs(_targetTile.Level - tile.Level) <= 1)
+                    {
+                        destTile = tile;
+                        break;
+                    }
+                }
+
+                i = ++i;
+            }
+
+            if (destTile == null)
+            {
+                return false;
+            }
+            _user.spawnTerrainDropdownEffect(myTile);
+            return true;
+        }
+
+
 	});
 
 	::mods_hookExactClass("skills/actives/lunge_skill", function(o){
@@ -369,6 +456,38 @@ local gt = getroottable();
             }
         }
 
+        o.onUse = function( _user, _targetTile )
+        {
+            local actor = this.getContainer().getActor();
+            local myTile = actor.getTile();
+            local destTile;
+
+            for( local i = 0; i < 6; i = i )
+            {
+                if (!_targetTile.hasNextTile(i))
+                {
+                }
+                else
+                {
+                    local tile = _targetTile.getNextTile(i);
+
+                    if (tile.IsEmpty && tile.getDistanceTo(myTile) == 1 && this.Math.abs(myTile.Level - tile.Level) <= 1 && this.Math.abs(_targetTile.Level - tile.Level) <= 1)
+                    {
+                        destTile = tile;
+                        break;
+                    }
+                }
+
+                i = ++i;
+            }
+
+            if (destTile == null)
+            {
+                return false;
+            }
+            _user.spawnTerrainDropdownEffect(myTile);
+            return true;
+        }
 
 
 	});

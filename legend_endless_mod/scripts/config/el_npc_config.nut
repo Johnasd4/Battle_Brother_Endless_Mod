@@ -800,8 +800,8 @@ gt.Const.EL_NPC <- {
                 FatiguePurActionPoint = [2, 4, 10]
             },
             EnergyShield = {
-                MaxStack = [4, 8, 20],
-                StackRecoverPersentPurTurn = 0.2
+                MaxStack = [2, 4, 10],
+                StackRecoverPersentPurTurn = 0.25
             }
             Evasion = {
                 MeleeState = 1,

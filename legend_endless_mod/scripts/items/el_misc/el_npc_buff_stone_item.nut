@@ -37,7 +37,7 @@ this.el_npc_buff_stone_item <- this.inherit("scripts/items/trade/trading_good_it
 			text = this.getValueString()
 		});
 		foreach(skill in this.m.EL_NPCBuffs) {
-			local names = this.split(_info.Name, "(");
+			local names = this.split(skill.getName(), "(");
 			local name = names[0];
 			result.push({
 				id = 10,

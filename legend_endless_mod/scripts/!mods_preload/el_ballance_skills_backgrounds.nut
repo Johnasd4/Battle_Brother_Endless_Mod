@@ -8,12 +8,12 @@ local gt = getroottable();
 		local onAdded = o.onAdded;
 		o.onAdded = function ()
 		{
-			local actor = this.getContainer().getActor();
-			this.m.Modifiers.Ammo = this.Const.EL_PlayerOther.EL_Donkey.Ammo[actor.EL_getRankLevel()];
-			this.m.Modifiers.ArmorParts = this.Const.EL_PlayerOther.EL_Donkey.ArmorParts[actor.EL_getRankLevel()];
-			this.m.Modifiers.Meds = this.Const.EL_PlayerOther.EL_Donkey.Meds[actor.EL_getRankLevel()];
-			this.m.Modifiers.Stash = this.Const.EL_PlayerOther.EL_Donkey.Stash[actor.EL_getRankLevel()];
 			onAdded();
+			local actor = this.getContainer().getActor();
+			this.m.BaseModifiers.Ammo = this.Const.EL_PlayerOther.EL_Donkey.Ammo[actor.EL_getRankLevel()];
+			this.m.BaseModifiers.ArmorParts = this.Const.EL_PlayerOther.EL_Donkey.ArmorParts[actor.EL_getRankLevel()];
+			this.m.BaseModifiers.Meds = this.Const.EL_PlayerOther.EL_Donkey.Meds[actor.EL_getRankLevel()];
+			this.m.BaseModifiers.Stash = this.Const.EL_PlayerOther.EL_Donkey.Stash[actor.EL_getRankLevel()];
 		};
 	});
 
