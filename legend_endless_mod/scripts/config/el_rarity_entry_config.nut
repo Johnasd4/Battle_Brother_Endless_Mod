@@ -261,7 +261,7 @@ gt.Const.EL_Rarity_Entry <- {
 			DebuffNum = 2
 		},
 		EL_VehemenceOfTheSky = {
-			ConvertArmorIntoDamagePercent = 1.0,
+			ConvertArmorIntoDamagePercent = 0.4,
 			ShieldDamageMult = 0.1
 		}
 	}
