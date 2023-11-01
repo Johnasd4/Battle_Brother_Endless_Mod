@@ -374,28 +374,28 @@ gt.Const.EL_Accessory <- {
 			},
 			EL_EngrgyShield = {
 				ID = "el_accessory_entry.engrgy_shield",
-				StackRecoverPersentPurTurn = 0.2,
-				BaseEngrgyShieldStack = 5,
+				StackRecoverPersentPurTurn = 0.25,
+				BaseEngrgyShieldStack = 2,
 				RandomMinEngrgyShieldStack = [
+					0,
+					0,
 					1,
 					1,
-					2,
-					3,
-					5
+					2
 				],
 				RandomMaxEngrgyShieldStack = [
+					0,
+					1,
+					1,
 					2,
-					3,
-					4,
-					5,
-					5
+					2
 				],
 				ColourRange = [
-					6,
-					7,
-					8,
-					9,
-					10
+					2,
+					2,
+					3,
+					3,
+					4
 				]
 			},
 			EL_FatigueRecover = {

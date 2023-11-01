@@ -2,7 +2,7 @@
 this.el_engrgy_shield_effect <- this.inherit("scripts/skills/skill", {
 	m = {
         EL_StackMax = 0,
-        EL_Stack = 0
+        EL_Stack = 0.0
     },
 	function create()
 	{
@@ -41,7 +41,7 @@ this.el_engrgy_shield_effect <- this.inherit("scripts/skills/skill", {
 
 	function onBeforeDamageReceived( _attacker, _skill, _hitInfo, _properties )
     {
-        if(this.m.EL_Stack != 0) 
+        if(this.m.EL_Stack >= 1) 
 		{
             _properties.DamageReceivedTotalMult = 0;
             --this.m.EL_Stack;
@@ -50,7 +50,7 @@ this.el_engrgy_shield_effect <- this.inherit("scripts/skills/skill", {
 
 	function onTurnStart()
 	{
-        this.m.EL_Stack += this.Math.max(1, this.Math.round(this.m.EL_StackMax * this.Const.EL_Accessory.EL_Entry.Factor.EL_EngrgyShield.StackRecoverPersentPurTurn));
+        this.m.EL_Stack += this.m.EL_StackMax * this.Const.EL_Accessory.EL_Entry.Factor.EL_EngrgyShield.StackRecoverPersentPurTurn;
 		this.m.EL_Stack = this.m.EL_Stack > this.m.EL_StackMax ? this.m.EL_StackMax : this.m.EL_Stack;
 	}
 

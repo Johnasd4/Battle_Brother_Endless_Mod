@@ -277,6 +277,10 @@ local gt = getroottable();
                         EL_maxNum = (!isTrader && item.isItemType(this.Const.Items.ItemType.TradeGood)) ? EL_maxNumitems : EL_maxNum;
                         EL_maxNum = EL_isCore ? EL_coreMaxNum : EL_maxNum;
                         EL_maxNum = (num > EL_maxNum) ? EL_maxNum : num;
+                        if(isFood)
+                        {
+                            EL_maxNum = this.Math.round(EL_maxNum * this.Const.EL_Shop.EL_FoodNumMult);
+                        }
                         
                         //this.logInfo("生成运算中EL_maxNum" + EL_maxNum);
                         for(local index = 0; index < EL_maxNum; ++index)

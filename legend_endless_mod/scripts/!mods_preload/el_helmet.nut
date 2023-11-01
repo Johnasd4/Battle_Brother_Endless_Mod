@@ -679,8 +679,7 @@ local gt = getroottable();
 					upgrade.EL_addRankLevel();
 				}
 			}
-			++this.m.EL_RankLevel;
-			EL_recraft();
+			EL_addRankLevel();
 		}
 
 		o.EL_getLevelAddtionStaminaModifier <- function()

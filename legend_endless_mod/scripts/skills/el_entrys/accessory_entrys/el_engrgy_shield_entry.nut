@@ -1,7 +1,6 @@
 this.el_engrgy_shield_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_entry", {
 	m = {
-        EL_StackMax = 0,
-        EL_Stack = 0
+        EL_StackMax = 0
     },
 	function create()
 	{
