@@ -12,6 +12,7 @@ gt.Const.EL_Shop <- {
 	//EL_EquipmentEssenceLevelFactor = 1.1,
 	EL_ShopMaxNumitems = 2,
 	EL_ShopMaxNum = 3,
+	EL_FoodNumMult = 1.5,
 	EL_ItemNumberLevelFactor = 0.01,
 	EL_ItemRankUpOnceChance = {
 		Factor = {
