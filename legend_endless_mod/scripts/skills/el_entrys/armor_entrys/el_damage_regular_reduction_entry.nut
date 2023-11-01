@@ -19,7 +19,7 @@ this.el_damage_regular_reduction_entry <- this.inherit("scripts/skills/el_entrys
 				type = "text",
 				text = "[color=" + colour + "]血量固定减伤 + " + this.Math.ceil(this.m.EL_CurrentLevel * this.m.EL_DamageRegularReduction 
 																							* (1.0 + this.m.EL_Level * this.Const.EL_Armor.EL_LevelFactor.DamageRegularReduction))
-											+ "% (" + this.Math.ceil(this.m.EL_DamageRegularReduction * (1.0 + this.m.EL_Level * this.Const.EL_Armor.EL_LevelFactor.DamageRegularReduction)) + ")(面板)[/color]"
+											+ " (" + this.Math.ceil(this.m.EL_DamageRegularReduction * (1.0 + this.m.EL_Level * this.Const.EL_Armor.EL_LevelFactor.DamageRegularReduction)) + ")(面板)[/color]"
 			};
 		}
 		else

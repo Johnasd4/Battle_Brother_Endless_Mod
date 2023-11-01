@@ -166,7 +166,7 @@ local gt = getroottable();
 
 		o.getAmountString = function()
 		{
-			this.Const.EL_Item_Other.EL_OtherItemInit(this);
+			this.Const.EL_Item_Other.EL_otherItemInit(this);
 			if(this.m.Condition < this.m.ConditionMax)
 			{
 				return "lv" + this.m.EL_Level + ":" + this.Math.floor(this.m.Condition / (this.m.ConditionMax * 1.0) * 100) + "%";
@@ -379,8 +379,8 @@ local gt = getroottable();
 
         o.EL_init <- function()
 	    {
-			this.m.EL_DamageRegularReduction = 0;
-			this.m.EL_DamageBodyArmorReduction = 0;
+			this.m.EL_BaseWithRankDamageRegularReduction = 0;
+			this.m.EL_BaseWithRankDamageBodyArmorReduction = 0;
 			this.m.EL_BaseWithRankConditionMax = this.m.EL_BaseNoRankConditionMax;
 			this.m.EL_BaseWithRankValue = this.m.EL_BaseNoRankValue;
 			this.m.EL_BaseWithRankStaminaModifier = this.m.EL_BaseNoRankStaminaModifier;
@@ -569,6 +569,27 @@ local gt = getroottable();
 			}
 			return result;
 		}
+
+		// local setUpgrade = o.setUpgrade;
+		// o.setUpgrade = function( _upgrade )
+		// {
+		// 	setUpgrade(_upgrade);
+		// 	EL_updateLevelProperties();
+		// }
+
+		// o.removeUpgrade = function( _upgrade )
+		// {
+		// 	removeUpgrade(_upgrade);
+		// 	if (this.m.Upgrade == null)
+		// 	{
+		// 		return null;
+		// 	}
+
+		// 	local item = this.m.Upgrade;
+		// 	this.setUpgrade(null);
+		// 	EL_updateLevelProperties();
+		// 	return item;
+		// }
 		
 		local getAddedValue = o.getAddedValue;
 		o.getAddedValue = function ( _function, _base, _all = false )
@@ -855,7 +876,7 @@ local gt = getroottable();
 
 		o.getAmountString = function()
 		{
-			this.Const.EL_Item_Other.EL_OtherItemInit(this);
+			this.Const.EL_Item_Other.EL_otherItemInit(this);
 			if(this.getCondition() < this.getConditionMax())
 			{
 				return "lv" + this.m.EL_Level + ":" + this.Math.floor(this.getCondition() / (this.getConditionMax() * 1.0) * 100) + "%";
@@ -1223,7 +1244,7 @@ local gt = getroottable();
 
 		o.getAmountString = function()
 		{
-			this.Const.EL_Item_Other.EL_OtherItemInit(this);
+			this.Const.EL_Item_Other.EL_otherItemInit(this);
 			if(this.m.Condition < this.m.ConditionMax)
 			{
 				return "lv" + this.m.EL_Level + ":" + this.Math.floor(this.m.Condition / (this.m.ConditionMax * 1.0) * 100) + "%";
@@ -1396,6 +1417,7 @@ local gt = getroottable();
 				{
 					this.m.EL_EntryList[num].EL_setCurrentLevel(entryNum - num);
 				}
+				this.m.ConditionMax = this.m.EL_BaseNoRankConditionMax;
 			}
 			else
 			{
@@ -1429,8 +1451,8 @@ local gt = getroottable();
 
         o.EL_init <- function()
 	    {
-			this.m.EL_DamageRegularReduction = 0;
-			this.m.EL_DamageBodyArmorReduction = 0;
+			this.m.EL_BaseWithRankDamageRegularReduction = 0;
+			this.m.EL_BaseWithRankDamageBodyArmorReduction = 0;
 			this.m.EL_BaseWithRankConditionMax = this.m.EL_BaseNoRankConditionMax;
 			this.m.EL_BaseWithRankValue = this.m.EL_BaseNoRankValue;
 			this.m.EL_BaseWithRankStaminaModifier = this.m.EL_BaseNoRankStaminaModifier;

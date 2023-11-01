@@ -14,7 +14,7 @@ this.el_stamina_modifier_mult_entry <- this.inherit("scripts/skills/el_entrys/el
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]装备重量 - " + this.m.EL_StaminaModifierMult + "%[/color]"
+			text = "[color=" + colour + "]装备重量 - " + this.m.EL_StaminaModifierMult + "%(面板)[/color]"
 		};
 		return result;
 	}

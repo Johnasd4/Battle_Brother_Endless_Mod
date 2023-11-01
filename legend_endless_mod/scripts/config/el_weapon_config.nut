@@ -70,9 +70,13 @@ gt.Const.EL_Weapon <- {
 			ifUsable = function( _item ) { return true; },
 			changeValues = function( _item, _isHalfEffect = false )
 			{
+				//this.logInfo("base DirectDamageAdd:" + _item.m.EL_BaseNoRankDirectDamageAdd);
+				//this.logInfo("before DirectDamageAdd:" + _item.m.DirectDamageAdd);
+				//this.logInfo("DirectDamageMult:" + _item.m.DirectDamageMult);
 				local bonus = _isHalfEffect ? this.Const.EL_Weapon.EL_RankFactor.DirectDamageAddHalf : this.Const.EL_Weapon.EL_RankFactor.DirectDamageAdd;
                 _item.m.DirectDamageAdd += this.Math.ceil(100 * _item.m.DirectDamageMult * bonus) * 0.01;
 				_item.m.EL_BaseWithRankDirectDamageAdd = _item.m.DirectDamageAdd;
+				//this.logInfo("after DirectDamageAdd:" + _item.m.DirectDamageAdd);
 			},
 			weight = 1
 		},
@@ -238,14 +242,17 @@ gt.Const.EL_Weapon <- {
 			}
 			if(_item.m.EL_RankPropertiesImproveIndex.len())
 			{
+				//this.logInfo("升阶：" + _item.m.EL_RankPropertiesImproveIndex.len());
 				foreach(index in _item.m.EL_RankPropertiesImproveIndex)
 				{
+					//this.logInfo(index);
 					available[index](_item);
 					available.remove(index);
 				}
 			}
 			else
 			{
+				//this.logInfo("重铸");
 				for( local count = 2; count != 0 && available.len() != 0; --count )
 				{
 					local roll = this.Math.rand(0, weightSum - weightList[0]);
@@ -262,6 +269,7 @@ gt.Const.EL_Weapon <- {
 							break;
 						}
 					}
+					//this.logInfo(number);
 					weightSum -= weightList[number];
 					weightList.remove(number);
 					available[number](_item);
@@ -1302,7 +1310,6 @@ gt.Const.EL_Weapon <- {
 					this.Const.EntityType.SkeletonBoss,
 					this.Const.EntityType.Vampire,
 					this.Const.EntityType.Ghost,
-					this.Const.EntityType.Ghoul,
 					this.Const.EntityType.ZombieBetrayer,
 					this.Const.EntityType.SkeletonLich,
 					this.Const.EntityType.SkeletonLichMirrorImage,

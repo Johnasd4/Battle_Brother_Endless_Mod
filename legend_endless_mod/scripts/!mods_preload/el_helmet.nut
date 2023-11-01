@@ -170,7 +170,7 @@ local gt = getroottable();
 
 		o.getAmountString = function()
 		{
-			this.Const.EL_Item_Other.EL_OtherItemInit(this);
+			this.Const.EL_Item_Other.EL_otherItemInit(this);
 			if(this.m.Condition < this.m.ConditionMax)
 			{
 				return "lv" + this.m.EL_Level + ":" + this.Math.floor(this.m.Condition / (this.m.ConditionMax * 1.0) * 100) + "%";
@@ -386,8 +386,8 @@ local gt = getroottable();
         o.EL_init <- function()
 	    {
 			this.m.Vision = this.m.EL_BaseNoRankVision;
-			this.m.EL_DamageRegularReduction = 0;
-			this.m.EL_DamageHeadArmorReduction = 0;
+			this.m.EL_BaseWithRankDamageRegularReduction = 0;
+			this.m.EL_BaseWithRankDamageHeadArmorReduction = 0;
 			this.m.EL_BaseWithRankConditionMax = this.m.EL_BaseNoRankConditionMax;
 			this.m.EL_BaseWithRankValue = this.m.EL_BaseNoRankValue;
 			this.m.EL_BaseWithRankStaminaModifier = this.m.EL_BaseNoRankStaminaModifier;
@@ -870,7 +870,7 @@ local gt = getroottable();
 
 		o.getAmountString = function()
 		{
-			this.Const.EL_Item_Other.EL_OtherItemInit(this);
+			this.Const.EL_Item_Other.EL_otherItemInit(this);
 			if(this.getCondition() < this.getConditionMax())
 			{
 				return "lv" + this.m.EL_Level + ":" + this.Math.floor(this.getCondition() / (this.getConditionMax() * 1.0) * 100) + "%";
@@ -1253,7 +1253,7 @@ local gt = getroottable();
 
 		o.getAmountString = function()
 		{
-			this.Const.EL_Item_Other.EL_OtherItemInit(this);
+			this.Const.EL_Item_Other.EL_otherItemInit(this);
 			if(this.m.Condition < this.m.ConditionMax)
 			{
 				return "lv" + this.m.EL_Level + ":" + this.Math.floor(this.m.Condition / (this.m.ConditionMax * 1.0) * 100) + "%";
@@ -1426,6 +1426,7 @@ local gt = getroottable();
 				{
 					this.m.EL_EntryList[num].EL_setCurrentLevel(entryNum - num);
 				}
+				this.m.ConditionMax = this.m.EL_BaseNoRankConditionMax;
 			}
 			else
 			{
@@ -1452,8 +1453,8 @@ local gt = getroottable();
         o.EL_init <- function()
 	    {
 			this.m.Vision = this.m.EL_BaseNoRankVision;
-			this.m.EL_DamageRegularReduction = 0;
-			this.m.EL_DamageHeadArmorReduction = 0;
+			this.m.EL_BaseWithRankDamageRegularReduction = 0;
+			this.m.EL_BaseWithRankDamageHeadArmorReduction = 0;
 			this.m.EL_BaseWithRankConditionMax = this.m.EL_BaseNoRankConditionMax;
 			this.m.EL_BaseWithRankValue = this.m.EL_BaseNoRankValue;
 			this.m.EL_BaseWithRankStaminaModifier = this.m.EL_BaseNoRankStaminaModifier;
