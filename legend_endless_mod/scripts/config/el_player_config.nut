@@ -375,10 +375,10 @@ gt.Const.EL_Player <- {
 
     EL_Modifiers = {
         ResourceModifiersMult = {
-            Ammo = 0.04,
-            ArmorParts = 0.04,
-            Meds = 0.04,
-            Stash = 0.04,
+            Ammo = 0.01,
+            ArmorParts = 0.01,
+            Meds = 0.01,
+            Stash = 0.01,
             Healing = 0.04,
             Injury = 0.04,
             Repair = 0.04,
