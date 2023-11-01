@@ -386,8 +386,8 @@ local gt = getroottable();
         o.EL_init <- function()
 	    {
 			this.m.Vision = this.m.EL_BaseNoRankVision;
-			this.m.EL_DamageRegularReduction = 0;
-			this.m.EL_DamageHeadArmorReduction = 0;
+			this.m.EL_BaseWithRankDamageRegularReduction = 0;
+			this.m.EL_BaseWithRankDamageHeadArmorReduction = 0;
 			this.m.EL_BaseWithRankConditionMax = this.m.EL_BaseNoRankConditionMax;
 			this.m.EL_BaseWithRankValue = this.m.EL_BaseNoRankValue;
 			this.m.EL_BaseWithRankStaminaModifier = this.m.EL_BaseNoRankStaminaModifier;
@@ -1426,6 +1426,7 @@ local gt = getroottable();
 				{
 					this.m.EL_EntryList[num].EL_setCurrentLevel(entryNum - num);
 				}
+				this.m.ConditionMax = this.m.EL_BaseNoRankConditionMax;
 			}
 			else
 			{
@@ -1452,8 +1453,8 @@ local gt = getroottable();
         o.EL_init <- function()
 	    {
 			this.m.Vision = this.m.EL_BaseNoRankVision;
-			this.m.EL_DamageRegularReduction = 0;
-			this.m.EL_DamageHeadArmorReduction = 0;
+			this.m.EL_BaseWithRankDamageRegularReduction = 0;
+			this.m.EL_BaseWithRankDamageHeadArmorReduction = 0;
 			this.m.EL_BaseWithRankConditionMax = this.m.EL_BaseNoRankConditionMax;
 			this.m.EL_BaseWithRankValue = this.m.EL_BaseNoRankValue;
 			this.m.EL_BaseWithRankStaminaModifier = this.m.EL_BaseNoRankStaminaModifier;
