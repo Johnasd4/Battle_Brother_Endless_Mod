@@ -685,7 +685,7 @@ local gt = getroottable();
 					upgrade.EL_addRankLevel();
 				}
 			}
-			EL_addRankLevel();
+			this.helmet.EL_addRankLevel();
 		}
 
 		o.EL_getLevelAddtionStaminaModifier <- function()
