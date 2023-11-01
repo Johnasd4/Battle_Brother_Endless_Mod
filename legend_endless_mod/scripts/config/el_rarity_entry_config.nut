@@ -262,7 +262,7 @@ gt.Const.EL_Rarity_Entry <- {
 		},
 		EL_VehemenceOfTheSky = {
 			ConvertArmorIntoDamagePercent = 0.4,
-			ShieldDamageMult = 0.1
+			ShieldDamageMult = 0.4
 		}
 	}
 
