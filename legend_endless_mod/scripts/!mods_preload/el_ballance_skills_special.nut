@@ -272,7 +272,7 @@ local gt = getroottable();
 						id = 13,
 						type = "text",
 						icon = "ui/icons/melee_skill.png",
-						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-320[/color] Melee Skill"
+						text = "[color=" + this.Const.UI.Color.NegativeValue + "]-20[/color] Melee Skill"
 					},
 					{
 						id = 14,
