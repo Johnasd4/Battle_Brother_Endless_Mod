@@ -243,6 +243,18 @@ local gt = getroottable();
 
 	});
 
+	::mods_hookExactClass("skills/effects/dodge_effect", function(o){
+
+        o.onAfterUpdate = function( _properties )
+        {
+            local initiative = this.Math.floor(this.getContainer().getActor().getInitiative() * 0.1);
+            _properties.MeleeDefense += this.Math.max(0, initiative);
+            _properties.RangedDefense += this.Math.max(0, initiative);
+        }
+
+	});
+
+
 	::mods_hookExactClass("skills/effects/insect_swarm_effect", function(o){
 
         o.getTooltip = function()

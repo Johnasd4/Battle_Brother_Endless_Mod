@@ -34,12 +34,10 @@ this.el_npc_ballance_racial <- this.inherit("scripts/skills/skill", {
             _properties.DamageTotalMult *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpDamageMult * level_ups;
         }
         if(body == null) {
-            _properties.Armor[this.Const.BodyPart.Body] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
-            _properties.ArmorMax[this.Const.BodyPart.Body] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
+            _properties.ArmorMult[this.Const.BodyPart.Body] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
         }
         if(head == null) {
-            _properties.Armor[this.Const.BodyPart.Head] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
-            _properties.ArmorMax[this.Const.BodyPart.Head] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
+            _properties.ArmorMult[this.Const.BodyPart.Head] *= 1 + this.Const.EL_NPC.EL_LevelUp.LevelUpArmorMult * level_ups;
         }
         if(main_hand != null) {
             _properties.Stamina -= main_hand.EL_getLevelAddtionStaminaModifier();
@@ -52,6 +50,22 @@ this.el_npc_ballance_racial <- this.inherit("scripts/skills/skill", {
         }
         if(head != null) {
             _properties.Stamina -= head.EL_getLevelAddtionStaminaModifier();
+        }
+
+        if(actor.getFaction() != this.Const.Faction.Player && actor.getFaction() != this.Const.Faction.PlayerAnimals) {
+            local level = actor.EL_getLevel();
+            local difficulty_mult = this.World.Assets.EL_getHalfWorldDifficultFactor() - 1;
+            _properties.ArmorMult[this.Const.BodyPart.Body] *= (this.Const.EL_NPC.EL_DifficultBallance.Attributes.ArmorMult + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.ArmorMult) * difficulty_mult;
+            _properties.ArmorMult[this.Const.BodyPart.Head] *= (this.Const.EL_NPC.EL_DifficultBallance.Attributes.ArmorMult + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.ArmorMult) * difficulty_mult;
+            _properties.HitpointsMult *= (this.Const.EL_NPC.EL_DifficultBallance.Attributes.HitpointsMult + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.HitpointsMult) * difficulty_mult;
+            _properties.Bravery += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.Bravery + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.Bravery) * difficulty_mult;
+            _properties.Stamina += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.Fatigue + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.Fatigue) * difficulty_mult;
+            _properties.Initiative += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.Initiative + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.Initiative) * difficulty_mult;
+            _properties.MeleeSkill += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.MeleeSkill + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.MeleeSkill) * difficulty_mult;
+            _properties.RangedSkill += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.RangedSkill + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.RangedSkill) * difficulty_mult;
+            _properties.MeleeDefense += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.MeleeDefense + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.MeleeDefense) * difficulty_mult;
+            _properties.RangedDefense += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.RangedDefense + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.RangedDefense) * difficulty_mult;
+            _properties.DamageDirectMult *= (this.Const.EL_NPC.EL_DifficultBallance.DirectDamageMult) * difficulty_mult;
         }
 	}
 

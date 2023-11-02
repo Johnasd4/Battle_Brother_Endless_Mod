@@ -272,6 +272,28 @@ local gt = getroottable();
 						text = statusEffect.getName()
 					});
 				}
+
+				local perks = this.getSkills().query(this.Const.SkillType.Perk, false, true);
+				local perk_string = "";
+				for( local i = 0; i < perks.len(); ++i )
+				{
+					if(i != 0) {
+						perk_string += ",";
+					}
+					perk_string += perks[i].getName();
+				}
+				if(perks.len() != 0) {
+					tooltip.push({
+						id = 200,
+						type = "text",
+						text = "特技："
+					});
+					tooltip.push({
+						id = 201,
+						type = "text",
+						text = perk_string
+					});
+				}
 			}
 
 			return tooltip;
@@ -833,11 +855,17 @@ local gt = getroottable();
 
 			if (damage >= this.Const.Combat.SpawnBloodMinDamage)
 			{
+				this.logInfo("this.getTile() == null ? " + (this.getTile() == null));
+				this.logInfo("this.getTile().X " + this.getTile().X);
+				this.logInfo("this.getTile().Y " + this.getTile().Y);
 				this.spawnBloodDecals(this.getTile());
 			}
 
 			if (this.m.Hitpoints <= 0)
 			{
+				this.logInfo("this.getTile() == null ? " + (this.getTile() == null));
+				this.logInfo("this.getTile().X " + this.getTile().X);
+				this.logInfo("this.getTile().Y " + this.getTile().Y);
 				this.spawnBloodDecals(this.getTile());
 				this.kill(_attacker, _skill, fatalityType);
 			}

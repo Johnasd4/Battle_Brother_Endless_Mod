@@ -7,6 +7,34 @@ if (!("EL_NPC" in gt.Const))
 
 gt.Const.EL_NPC <- {
 
+    EL_DifficultBallance = {
+
+        DirectDamageMult = 1,
+
+        Attributes = {
+            HitpointsMult = 1,
+            ArmorMult = 1,
+            Bravery = 25,
+            Fatigue = 40,
+            Initiative = 40,
+            MeleeSkill = 25,
+            RangedSkill = 25,
+            MeleeDefense = 25,
+            RangedDefense = 25,
+        },
+        AttributesGrowthPurLevel = {
+            HitpointsMult = 0,
+            ArmorMult = 0,
+            Bravery = 0.25,
+            Fatigue = 0.4,
+            Initiative = 0.4,
+            MeleeSkill = 0.25,
+            RangedSkill = 0.25,
+            MeleeDefense = 0.25,
+            RangedDefense = 0.25,
+        },
+    }
+
     EL_Champion = {
         MaxGrowthLevel = 100,
 
@@ -39,6 +67,7 @@ gt.Const.EL_NPC <- {
         ],
         Attributes = {
             HitpointsMult = [1, 1.4, 2],
+            ArmorMult = [1, 1.4, 2],
             Bravery = [0, 20, 50],
             Fatigue = [0, 30, 75],
             Initiative = [0, 30, 75],
@@ -49,6 +78,7 @@ gt.Const.EL_NPC <- {
         },
         AttributesGrowthPurLevel = {
             HitpointsMult = [0, 0.004, 0.01],
+            ArmorMult = [0, 0.004, 0.01],
             Bravery = [0, 0.2, 0.5],
             Fatigue = [0, 0.3, 0.75],
             Initiative = [0, 0.3, 0.75],
@@ -74,75 +104,6 @@ gt.Const.EL_NPC <- {
             "champion_rank_2_mini"
         ]
     },
-
-    EL_PlayerChampion = {
-        MaxGrowthLevel = 100,
-        XP = {
-            Offset = [
-                0,
-                200,
-                500
-            ],
-            Mult = [
-                1,
-                2,
-                5
-            ]
-        },
-        CombatLevelOffset = [
-            0,
-            0.5,
-            1.25
-        ],
-        ActionPointsOffset = [
-            0,
-            1,
-            3
-        ],
-        DirectDamageMult = [
-            1,
-            1.1,
-            1.25
-        ],
-        Attributes = {
-            HitpointsMult = [1, 1.1, 1.25],
-            Bravery = [0, 10, 25],
-            Fatigue = [0, 15, 40],
-            Initiative = [0, 15, 40],
-            MeleeSkill = [0, 10, 25],
-            RangedSkill = [0, 10, 25],
-            MeleeDefense = [0, 10, 25],
-            RangedDefense = [0, 10, 25],
-        },
-
-        AttributesGrowthPurLevel = {
-            HitpointsMult = [0, 0.001, 0.025],
-            Bravery = [0, 0.1, 0.25],
-            Fatigue = [0, 0.15, 0.4],
-            Initiative = [0, 0.15, 0.4],
-            MeleeSkill = [0, 0.1, 0.25],
-            RangedSkill = [0, 0.1, 0.25],
-            MeleeDefense = [0, 0.1, 0.25],
-            RangedDefense = [0, 0.1, 0.25],
-        },
-
-        Name = [
-            "普通",
-            "精英",
-            "首领"
-        ],
-        Icon = [
-            "el_skills/champion_rank_0.png",
-            "el_skills/champion_rank_1.png",
-            "el_skills/champion_rank_2.png"
-        ],
-        IconMini = [
-            "champion_rank_0_mini",
-            "champion_rank_1_mini",
-            "champion_rank_2_mini"
-        ]
-    },
-
 
     EL_LevelUp = {
         LevelUpsOffset = 10,

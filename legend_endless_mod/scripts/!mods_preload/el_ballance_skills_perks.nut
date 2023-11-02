@@ -1337,6 +1337,10 @@ gt.Const.EL_Config.EL_modStrings <- function()
             ID = "perk.colossus",
             tooltip = "Bring it on! Hitpoints are increased by [color=" + this.Const.UI.Color.PositiveValue + "]25%[/color], which also reduces the chance to sustain debilitating injuries when being hit."
         },
+		{
+            ID = "perk.dodge",
+            tooltip = "Too fast for you! Gain [color=" + this.Const.UI.Color.PositiveValue + "]10%[/color] of the character\'s current Initiative as a bonus to Melee and Ranged Defense."
+        },
         {
             ID = "perk.fortified_mind",
             tooltip = "An iron will is not swayed from the true path easily. Resolve is increased by [color=" + this.Const.UI.Color.PositiveValue + "]+15[/color]."
