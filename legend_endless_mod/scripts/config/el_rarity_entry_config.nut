@@ -167,7 +167,7 @@ gt.Const.EL_Rarity_Entry <- {
 			]
 		},
 		EL_EyeOfDeath = {
-			HitHeadMult = 2
+			HitHeadMult = 3
 		}
 		EL_FaithOfTheRock = {
 			TargetAttractionMult = 1000
@@ -261,8 +261,8 @@ gt.Const.EL_Rarity_Entry <- {
 			DebuffNum = 2
 		},
 		EL_VehemenceOfTheSky = {
-			ConvertArmorIntoDamagePercent = 1.0,
-			ShieldDamageMult = 0.1
+			ConvertArmorIntoDamagePercent = 0.4,
+			ShieldDamageMult = 0.4
 		}
 	}
 

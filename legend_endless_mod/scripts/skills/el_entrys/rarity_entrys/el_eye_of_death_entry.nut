@@ -35,7 +35,19 @@ this.el_eye_of_death_entry <- this.inherit("scripts/skills/skill", {
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]造成伤害无视护甲, 必定爆头且爆头伤害翻倍[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]造成伤害无视护甲[/color]"
+			},
+			{
+				id = 4,
+                type = "text",
+                icon = "ui/icons/special.png",
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]必定爆头[/color]"
+			},
+			{
+				id = 4,
+                type = "text",
+                icon = "ui/icons/special.png",
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]爆头伤害提升为" + this.Const.EL_Rarity_Entry.Factor.EL_EyeOfDeath.HitHeadMult + "倍[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -55,20 +67,10 @@ this.el_eye_of_death_entry <- this.inherit("scripts/skills/skill", {
 		if (_targetEntity != null && _skill.m.IsWeaponSkill && EL_isUsable())
 		{
 			_properties.IsIgnoringArmorOnAttack = true;
-			_properties.DamageArmorMult *= 0.0;
-		}
-	}
-
-	function onBeforeTargetHit( _skill, _targetEntity, _hitInfo )
-	{
-        if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
-		{
-			return;
-		}
-		if (EL_isUsable())
-		{
-			_hitInfo.BodyPart = this.Const.BodyPart.Head;
-			_hitInfo.BodyDamageMult *= this.Const.EL_Rarity_Entry.Factor.EL_EyeOfDeath.HitHeadMult;
+			_properties.DamageArmorMult = 0.0;
+			_properties.HitChanceMult[this.Const.BodyPart.Head] = 1.0;
+			_properties.HitChanceMult[this.Const.BodyPart.Body] = 0.0;
+			_properties.DamageTotalMult *= /*0.5;*/this.Const.EL_Rarity_Entry.Factor.EL_EyeOfDeath.HitHeadMult;
 		}
 	}
 
