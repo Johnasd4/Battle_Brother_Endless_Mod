@@ -1426,6 +1426,9 @@ local gt = getroottable();
 					this.m.EL_EntryList[num].EL_setCurrentLevel(entryNum - num);
 				}
 				this.m.ConditionMax = this.m.EL_BaseNoRankConditionMax;
+				this.m.StaminaModifier = this.m.EL_BaseWithRankStaminaModifier;
+				this.m.EL_DamageRegularReduction = 0;
+				this.m.EL_DamageHeadArmorReduction = 0;
 			}
 			else
 			{
