@@ -143,7 +143,11 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
 		{
 			return;
 		}
-		if(_attacker == null && _attacker.isAlive() && !_attacker.isAlliedWith(actor)) {
+		if(_attacker == null || _attacker.isDying() || !_attacker.isAlive() || _EL_attacker.isAlliedWith(actor)) {
+			return;
+		}
+		local attacker_retaliation_skill = _attacker.getSkills().getSkillByID("el_npc_buffs.retaliation");
+		if(attacker_retaliation_skill != null && attacker_retaliation_skill.m.EL_IsRetaliate == true) {
 			return;
 		}
 		local actor = this.getContainer().getActor();
