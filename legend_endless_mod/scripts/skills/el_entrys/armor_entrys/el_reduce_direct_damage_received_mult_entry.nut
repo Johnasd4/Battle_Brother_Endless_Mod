@@ -65,7 +65,7 @@ this.el_reduce_direct_damage_received_mult_entry <- this.inherit("scripts/skills
 	{
 		if (_attacker != null && _attacker.isAlive() && _attacker.getHitpoints() > 0 && _attacker.getID() != this.getContainer().getActor().getID() && _hitInfo.BodyPart == this.Const.BodyPart.Body)
 		{
-			_properties.DamageReceivedArmorMult *= 1.0 - this.m.EL_CurrentLevel * this.m.EL_ReduceDirectDamageReceivedMult * 0.01;
+			_properties.DamageReceivedDirectMult *= 1.0 - this.m.EL_CurrentLevel * this.m.EL_ReduceDirectDamageReceivedMult * 0.01;
 		}
 	}
 
