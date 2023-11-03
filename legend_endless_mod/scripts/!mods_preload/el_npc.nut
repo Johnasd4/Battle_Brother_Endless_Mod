@@ -22,9 +22,6 @@ local gt = getroottable();
             this.m.Name = this.Const.EL_NPC.EL_Champion.Name[rank];
             this.m.Icon = this.Const.EL_NPC.EL_Champion.Icon[rank];
             this.m.IconMini = this.Const.EL_NPC.EL_Champion.IconMini[rank];
-            _properties.ArmorMult[this.Const.BodyPart.Body] *= this.Const.EL_NPC.EL_Champion.Attributes.ArmorMult[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.ArmorMult[rank];
-            _properties.ArmorMult[this.Const.BodyPart.Head] *= this.Const.EL_NPC.EL_Champion.Attributes.ArmorMult[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.ArmorMult[rank];
-            _properties.HitpointsMult *= this.Const.EL_NPC.EL_Champion.Attributes.HitpointsMult[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.HitpointsMult[rank];
             _properties.Bravery += this.Const.EL_NPC.EL_Champion.Attributes.Bravery[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.Bravery[rank];
             _properties.Stamina += this.Const.EL_NPC.EL_Champion.Attributes.Fatigue[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.Fatigue[rank];
             _properties.Initiative += this.Const.EL_NPC.EL_Champion.Attributes.Initiative[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.Initiative[rank];
@@ -32,7 +29,7 @@ local gt = getroottable();
             _properties.RangedSkill += this.Const.EL_NPC.EL_Champion.Attributes.RangedSkill[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.RangedSkill[rank];
             _properties.MeleeDefense += this.Const.EL_NPC.EL_Champion.Attributes.MeleeDefense[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.MeleeDefense[rank];
             _properties.RangedDefense += this.Const.EL_NPC.EL_Champion.Attributes.RangedDefense[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.RangedDefense[rank];
-
+            _properties.DamageReceivedTotalMult /= this.Const.EL_NPC.EL_Champion.Attributes.DamageReceivedTotalDiv[rank];
             _properties.DamageDirectMult *= this.Const.EL_NPC.EL_Champion.DirectDamageMult[rank];
 
             _properties.ActionPoints += this.Const.EL_NPC.EL_Champion.ActionPointsOffset[rank];

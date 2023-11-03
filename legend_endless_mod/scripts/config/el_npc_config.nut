@@ -10,10 +10,9 @@ gt.Const.EL_NPC <- {
     EL_DifficultBallance = {
 
         DirectDamageMult = 1,
-
+        DamageReceivedTotalDiv = 1.0,
         Attributes = {
-            HitpointsMult = 1,
-            ArmorMult = 1,
+
             Bravery = 25,
             Fatigue = 40,
             Initiative = 40,
@@ -23,8 +22,6 @@ gt.Const.EL_NPC <- {
             RangedDefense = 25,
         },
         AttributesGrowthPurLevel = {
-            HitpointsMult = 0,
-            ArmorMult = 0,
             Bravery = 0.25,
             Fatigue = 0.4,
             Initiative = 0.4,
@@ -65,9 +62,12 @@ gt.Const.EL_NPC <- {
             1.4,
             2
         ],
+        DamageReceivedTotalDiv = [
+            1,
+            2,
+            5
+        ]
         Attributes = {
-            HitpointsMult = [1, 1.4, 2],
-            ArmorMult = [1, 1.4, 2],
             Bravery = [0, 20, 50],
             Fatigue = [0, 30, 75],
             Initiative = [0, 30, 75],
@@ -77,8 +77,6 @@ gt.Const.EL_NPC <- {
             RangedDefense = [0, 20, 50],
         },
         AttributesGrowthPurLevel = {
-            HitpointsMult = [0, 0.004, 0.01],
-            ArmorMult = [0, 0.004, 0.01],
             Bravery = [0, 0.2, 0.5],
             Fatigue = [0, 0.3, 0.75],
             Initiative = [0, 0.3, 0.75],
