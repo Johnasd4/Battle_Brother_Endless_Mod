@@ -603,6 +603,88 @@ local gt = getroottable();
 			_properties.DamageRegularReduction += this.EL_getDamageRegularReduction();
 			onUpdateProperties(_properties);
 		}
+		
+		o.removeArmor = function ( _a )
+		{
+			local delta = _a;
+
+			for( local i = this.Const.Items.HelmetUpgrades.COUNT - 1; i >= 0; i = i )
+			{
+				if (this.m.Upgrades[i] != null)
+				{
+					delta = this.m.Upgrades[i].removeArmor(delta);
+
+					if (delta <= 0)
+					{
+						break;
+					}
+				}
+
+				i = --i;
+			}
+
+			if (delta > 0)
+			{
+				this.m.Condition = this.Math.maxf(0, this.m.Condition - delta);
+			}
+		}
+
+		o.setUpgrade = function ( _upgrade )
+		{
+			if (_upgrade == null)
+			{
+				return true;
+			}
+
+			if (_upgrade != null && this.m.Blocked[_upgrade.getType()])
+			{
+				return false;
+			}
+
+			local slot = _upgrade.getType();
+
+			if (slot == this.Const.Items.HelmetUpgrades.Vanity && this.m.Upgrades[this.Const.Items.HelmetUpgrades.Vanity] != null)
+			{
+				slot = this.Const.Items.HelmetUpgrades.ExtraVanity;
+			}
+
+			local oldIndex = "Assets" in ::World ? this.World.Assets.getStash().getItemByInstanceID(_upgrade.getInstanceID()) : null;
+
+			if (oldIndex != null)
+			{
+				oldIndex = oldIndex.index;
+			}
+
+			local oldItem;
+
+			if (this.m.Upgrades[slot] != null)
+			{
+				oldItem = this.removeUpgrade(slot);
+			}
+
+			this.m.Upgrades[slot] = _upgrade;
+			_upgrade.setArmor(this);
+			_upgrade.setVisible(true);
+
+			if (this.m.Container != null)
+			{
+				_upgrade.onEquip();
+				this.getContainer().getActor().getSkills().update();
+			}
+
+			local result = {
+				item = null,
+				index = oldIndex
+			};
+
+			if (oldItem != null && !oldItem.isDestroyedOnRemove())
+			{
+				result.item = oldItem;
+			}
+
+			this.updateAppearance();
+			return result;
+		}
 
 		local onEquip = o.onEquip;
 		o.onEquip = function ()
@@ -613,26 +695,31 @@ local gt = getroottable();
 			{
 				this.EL_addEntry(entry);
 			}
-			foreach( i, upgrade in this.m.Upgrades )
-			{
-				if (upgrade != null && i == this.Const.Items.HelmetUpgrades.ExtraVanity)
-				{
-					upgrade.onEquip();
-				}
-			}
+			// 		this.logInfo("22222222");
+			// foreach( i, upgrade in this.m.Upgrades )
+			// {
+			// 	if (upgrade != null && i == this.Const.Items.HelmetUpgrades.ExtraVanity)
+			// 	{
+			// 		this.logInfo("11111111");
+			// 		foreach(entry in upgrade.m.EL_EntryList)
+			// 		{
+			// 			this.EL_addEntry(entry);
+			// 		}
+			// 	}
+			// }
 		}
 
 		local onUnequip = o.onUnequip;
 		o.onUnequip = function ()
 		{
 			onUnequip();
-			foreach( i, upgrade in this.m.Upgrades )
-			{
-				if (upgrade != null && i == this.Const.Items.HelmetUpgrades.ExtraVanity)
-				{
-					upgrade.onUnequip();
-				}
-			}
+			// foreach( i, upgrade in this.m.Upgrades )
+			// {
+			// 	if (upgrade != null && i == this.Const.Items.HelmetUpgrades.ExtraVanity)
+			// 	{
+			// 		upgrade.onUnequip();
+			// 	}
+			// }
 			this.m.EL_CurrentLevel = this.m.EL_Level;
 			EL_updateLevelProperties();
 		}
