@@ -713,13 +713,13 @@ local gt = getroottable();
 		o.onUnequip = function ()
 		{
 			onUnequip();
-			// foreach( i, upgrade in this.m.Upgrades )
-			// {
-			// 	if (upgrade != null && i == this.Const.Items.HelmetUpgrades.ExtraVanity)
-			// 	{
-			// 		upgrade.onUnequip();
-			// 	}
-			// }
+			foreach( i, upgrade in this.m.Upgrades )
+			{
+				if (upgrade != null && i == this.Const.Items.HelmetUpgrades.ExtraVanity)
+				{
+					upgrade.onUnequip();
+				}
+			}
 			this.m.EL_CurrentLevel = this.m.EL_Level;
 			EL_updateLevelProperties();
 		}
