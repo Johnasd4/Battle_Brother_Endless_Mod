@@ -71,15 +71,10 @@ this.el_bleeding_effect <- this.inherit("scripts/skills/skill", {
             local actor = this.getContainer().getActor();
             this.spawnIcon("status_effect_01", actor.getTile());
             local hitInfo = clone this.Const.Tactical.HitInfo;
+            hitInfo.DamageArmor = this.Math.ceil(this.m.Damage * actor.getArmorMax() * 0.01 * (actor.getSkills().hasSkill("effects.hyena_potion") ? 0.5 : 1.0));
             hitInfo.DamageRegular = this.Math.ceil(this.m.Damage *actor.getBaseProperties().Hitpoints * 0.01 * (actor.getSkills().hasSkill("effects.hyena_potion") ? 0.5 : 1.0));
             hitInfo.DamageDirect = 1.0;
             hitInfo.BodyPart = this.Const.BodyPart.Body;
-            hitInfo.BodyDamageMult = 1.0;
-            hitInfo.FatalityChanceMult = 0.0;
-            actor.onDamageReceived(this.getAttacker(), this, hitInfo);
-            local hitInfo = clone this.Const.Tactical.HitInfo;
-            hitInfo.DamageArmor = this.Math.ceil(this.m.Damage * actor.getArmorMax() * 0.01 * (actor.getSkills().hasSkill("effects.hyena_potion") ? 0.5 : 1.0));
-            hitInfo.BodyPart = this.m.BodyPart;
             hitInfo.BodyDamageMult = 1.0;
             hitInfo.FatalityChanceMult = 0.0;
             actor.onDamageReceived(this.getAttacker(), this, hitInfo);

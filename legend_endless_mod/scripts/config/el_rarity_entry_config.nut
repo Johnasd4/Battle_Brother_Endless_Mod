@@ -93,7 +93,7 @@ gt.Const.EL_Rarity_Entry <- {
 	},
 	Factor = {
 		EL_BloodyCutting = {
-			TargetHealthLossExtraDamageMultFactor = 0.2,
+			TargetHealthLossExtraDamageMultFactor = 1.0,
 			BleedingFactor = 1.0
 		},
 		EL_BloodyKnock = {
