@@ -39,7 +39,7 @@ this.el_retaliation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
 
 	function EL_attackBack(_EL_attacker, _skill) {
 		local actor = this.getContainer().getActor();
-		if(!_skill.isActive() || !_skill.isAttack()) {
+		if(_skill == null || !_skill.isActive() || !_skill.isAttack()) {
 			return;
 		}
 		if(_EL_attacker == null || _EL_attacker.isDying() || !_EL_attacker.isAlive() || _EL_attacker.isAlliedWith(actor)) {
@@ -70,7 +70,7 @@ this.el_retaliation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
         }
 	}
 
-	function onDamageReceived( _attacker, _skill, _properties )
+	function onBeforeDamageReceived( _attacker, _skill, _hitInfo, _properties )
 	{
 		EL_attackBack(_attacker, _skill);
 	}
