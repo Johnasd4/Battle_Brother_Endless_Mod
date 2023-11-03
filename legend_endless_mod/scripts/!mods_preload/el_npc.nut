@@ -29,7 +29,7 @@ local gt = getroottable();
             _properties.RangedSkill += this.Const.EL_NPC.EL_Champion.Attributes.RangedSkill[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.RangedSkill[rank];
             _properties.MeleeDefense += this.Const.EL_NPC.EL_Champion.Attributes.MeleeDefense[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.MeleeDefense[rank];
             _properties.RangedDefense += this.Const.EL_NPC.EL_Champion.Attributes.RangedDefense[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.RangedDefense[rank];
-            _properties.DamageReceivedTotalMult /= this.Const.EL_NPC.EL_Champion.Attributes.DamageReceivedTotalDiv[rank];
+            _properties.DamageReceivedTotalMult /= this.Const.EL_NPC.EL_Champion.DamageReceivedTotalDiv[rank];
             _properties.DamageDirectMult *= this.Const.EL_NPC.EL_Champion.DirectDamageMult[rank];
 
             _properties.ActionPoints += this.Const.EL_NPC.EL_Champion.ActionPointsOffset[rank];
