@@ -198,8 +198,8 @@ gt.Const.EL_Rarity_Entry <- {
 		},
 		EL_IntoTheBreach = {
 			ConvertWeightIntoMeleeSkillPercent = 1.0,
-			MeleeSkillChainOffset = 5,
-			MeleeDefenseChainOffset = 5,
+			MeleeSkillChainOffset = 2,
+			MeleeDefenseChainOffset = 2,
 			DistanceRange = 2,
 			ReplaceSkillList = [
 				"actives.spearwall"

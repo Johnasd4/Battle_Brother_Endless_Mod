@@ -81,7 +81,11 @@ this.el_bloody_cutting_entry <- this.inherit("scripts/skills/skill", {
 		}
 		if (EL_isUsable())
 		{
-			_hitInfo.DamageRegular += (_targetEntity.getHitpointsMax() - _targetEntity.getHitpoints()) * this.Const.EL_Rarity_Entry.Factor.EL_BloodyCutting.TargetHealthLossExtraDamageMultFactor;
+            local hit_info = clone this.Const.Tactical.HitInfo;
+            hit_info.DamageRegular = (_targetEntity.getHitpointsMax() - _targetEntity.getHitpoints()) * this.Const.EL_Rarity_Entry.Factor.EL_BloodyCutting.TargetHealthLossExtraDamageMultFactor;
+            hit_info.DamageDirect = 1.0;
+            hit_info.BodyPart = _bodyPart;
+            _targetEntity.onDamageReceived(this.getContainer().getActor(), this, hit_info);
 		}
 	}
 
