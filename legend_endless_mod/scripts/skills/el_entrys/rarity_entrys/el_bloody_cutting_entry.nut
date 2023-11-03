@@ -35,7 +35,7 @@ this.el_bloody_cutting_entry <- this.inherit("scripts/skills/skill", {
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]额外附加等量于造成血量伤害比例的流血效果[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]额外附加等量于造成血量伤害比例的“血意诅咒”效果[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -60,16 +60,12 @@ this.el_bloody_cutting_entry <- this.inherit("scripts/skills/skill", {
 			local bleeding_damage = (this.Const.EL_Rarity_Entry.Factor.EL_BloodyCutting.BleedingFactor * _damageInflictedHitpoints) / _targetEntity.getHitpointsMax() * 100;
 			//this.logInfo("base bleeding_damage:" +bleeding_damage);
 			local actor = this.getContainer().getActor();
-			local effect = this.new("scripts/skills/effects/bleeding_effect");
+			local effect = this.new("scripts/skills/effects/el_bleeding_effect");
 			
 			effect.setActor(actor);
 			effect.setDamage(bleeding_damage);
+			effect.EL_setBodyPart(_bodyPart);
 			_targetEntity.getSkills().add(effect);
-
-			if (!actor.isHiddenToPlayer() && _targetEntity.getTile().IsVisibleForPlayer)
-			{
-				this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " made a particularly Bloody Cut inflicting additional Bleeding on " + this.Const.UI.getColorizedEntityName(_targetEntity));
-			}
 		}
 	}
 
@@ -81,7 +77,11 @@ this.el_bloody_cutting_entry <- this.inherit("scripts/skills/skill", {
 		}
 		if (EL_isUsable())
 		{
-			_hitInfo.DamageRegular += (_targetEntity.getHitpointsMax() - _targetEntity.getHitpoints()) * this.Const.EL_Rarity_Entry.Factor.EL_BloodyCutting.TargetHealthLossExtraDamageMultFactor;
+            local hit_info = clone this.Const.Tactical.HitInfo;
+            hit_info.DamageRegular = (_targetEntity.getHitpointsMax() - _targetEntity.getHitpoints()) * this.Const.EL_Rarity_Entry.Factor.EL_BloodyCutting.TargetHealthLossExtraDamageMultFactor;
+            hit_info.DamageDirect = 1.0;
+            hit_info.BodyPart = _bodyPart;
+            _targetEntity.onDamageReceived(this.getContainer().getActor(), this, hit_info);
 		}
 	}
 

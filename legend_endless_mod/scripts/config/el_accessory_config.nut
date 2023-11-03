@@ -65,8 +65,7 @@ gt.Const.EL_Accessory <- {
 	EL_SeniorAccessoryList = [
 		"accessory/legend_demon_banshee_trophy_item",
 		"accessory/legend_demonalp_trophy_item",
-		"accessory/legend_hexen_leader_trophy_item",
-		"accessory/legend_wolfsbane_necklace_item",
+		"accessory/legend_hexen_leader_trophy_item"
 	],
 	EL_NoCoreEntityList = [
 		this.Const.EntityType.Zombie,
