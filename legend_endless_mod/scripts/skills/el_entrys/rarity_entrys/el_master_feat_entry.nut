@@ -59,7 +59,7 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
 		return result;
 	}
 
-	function onDamageReceived( _attacker, _damageHitpoints, _damageArmor )
+	function onBeforeDamageReceived( _attacker, _skill, _hitInfo, _properties )
 	{
 		if (EL_isUsable())
         {
