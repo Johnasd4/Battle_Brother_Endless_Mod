@@ -565,40 +565,15 @@ gt.Const.EL_Armor <- {
 			},
 			EL_ReduceDamageReceivedMult = {
 				ID = "el_armor_entry.reduce_damage_received_mult",
-				BaseReduceDamageReceivedMult = 15,
+				BaseReduceDamageReceivedMult = 5,
 				RandomMinReduceDamageReceivedMult = [
-					1,
-					1,
-					301,
-					601,
-					1500
-				],
-				RandomMaxReduceDamageReceivedMult = [
-					600,
-					900,
-					1200,
-					1500,
-					1500
-				],
-				ColourRange = [
-					18,
-					21,
-					24,
-					27,
-					30
-				]
-			},
-			EL_ReduceDirectDamageReceivedMult = {
-				ID = "el_armor_entry.reduce_direct_damage_received_mult",
-				BaseReduceDirectDamageReceivedMult = 5,
-				RandomMinReduceDirectDamageReceivedMult = [
 					1,
 					1,
 					101,
 					201,
 					500
 				],
-				RandomMaxReduceDirectDamageReceivedMult = [
+				RandomMaxReduceDamageReceivedMult = [
 					200,
 					300,
 					400,
@@ -611,6 +586,31 @@ gt.Const.EL_Armor <- {
 					8,
 					9,
 					10
+				]
+			},
+			EL_ReduceDirectDamageReceivedMult = {
+				ID = "el_armor_entry.reduce_direct_damage_received_mult",
+				BaseReduceDirectDamageReceivedMult = 15,
+				RandomMinReduceDirectDamageReceivedMult = [
+					1,
+					1,
+					301,
+					601,
+					1500
+				],
+				RandomMaxReduceDirectDamageReceivedMult = [
+					600,
+					900,
+					1200,
+					1500,
+					1500
+				],
+				ColourRange = [
+					18,
+					21,
+					24,
+					27,
+					30
 				]
 			},
 			EL_Reflect = {
