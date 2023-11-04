@@ -22,18 +22,38 @@ local gt = getroottable();
             this.m.Name = this.Const.EL_NPC.EL_Champion.Name[rank];
             this.m.Icon = this.Const.EL_NPC.EL_Champion.Icon[rank];
             this.m.IconMini = this.Const.EL_NPC.EL_Champion.IconMini[rank];
-            _properties.Bravery += this.Const.EL_NPC.EL_Champion.Attributes.Bravery[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.Bravery[rank];
-            _properties.Stamina += this.Const.EL_NPC.EL_Champion.Attributes.Fatigue[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.Fatigue[rank];
-            _properties.Initiative += this.Const.EL_NPC.EL_Champion.Attributes.Initiative[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.Initiative[rank];
-            _properties.MeleeSkill += this.Const.EL_NPC.EL_Champion.Attributes.MeleeSkill[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.MeleeSkill[rank];
-            _properties.RangedSkill += this.Const.EL_NPC.EL_Champion.Attributes.RangedSkill[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.RangedSkill[rank];
-            _properties.MeleeDefense += this.Const.EL_NPC.EL_Champion.Attributes.MeleeDefense[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.MeleeDefense[rank];
-            _properties.RangedDefense += this.Const.EL_NPC.EL_Champion.Attributes.RangedDefense[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.RangedDefense[rank];
-            _properties.DamageReceivedTotalMult /= this.Const.EL_NPC.EL_Champion.DamageReceivedTotalDiv[rank];
-            _properties.DamageDirectMult *= this.Const.EL_NPC.EL_Champion.DirectDamageMult[rank];
+            if(actor.getFaction() == this.Const.Faction.Player || actor.getFaction() == this.Const.Faction.PlayerAnimals) {
+                _properties.Bravery += this.Const.EL_NPC.EL_Champion.Attributes.Bravery[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.Bravery[rank];
+                _properties.Stamina += this.Const.EL_NPC.EL_Champion.Attributes.Fatigue[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.Fatigue[rank];
+                _properties.Initiative += this.Const.EL_NPC.EL_Champion.Attributes.Initiative[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.Initiative[rank];
+                _properties.MeleeSkill += this.Const.EL_NPC.EL_Champion.Attributes.MeleeSkill[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.MeleeSkill[rank];
+                _properties.RangedSkill += this.Const.EL_NPC.EL_Champion.Attributes.RangedSkill[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.RangedSkill[rank];
+                _properties.MeleeDefense += this.Const.EL_NPC.EL_Champion.Attributes.MeleeDefense[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.MeleeDefense[rank];
+                _properties.RangedDefense += this.Const.EL_NPC.EL_Champion.Attributes.RangedDefense[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.RangedDefense[rank];
 
-            _properties.ActionPoints += this.Const.EL_NPC.EL_Champion.ActionPointsOffset[rank];
-            _properties.EL_CombatLevel += this.Const.EL_NPC.EL_Champion.CombatLevelOffset[rank];
+                _properties.DamageReceivedTotalMult /= this.Const.EL_NPC.EL_Champion.DamageReceivedTotalDiv[rank];
+                _properties.DamageDirectMult *= this.Const.EL_NPC.EL_Champion.DirectDamageMult[rank];
+
+                _properties.ActionPoints += this.Const.EL_NPC.EL_Champion.ActionPointsOffset[rank];
+
+                _properties.EL_CombatLevel += this.Const.EL_NPC.EL_Champion.CombatLevelOffset[rank];
+            }
+            else {
+                _properties.Bravery += this.Const.EL_NPC.EL_Champion.Attributes.Bravery[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.Bravery[rank];
+                _properties.Stamina += this.Const.EL_NPC.EL_Champion.Attributes.Fatigue[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.Fatigue[rank];
+                _properties.Initiative += this.Const.EL_NPC.EL_Champion.Attributes.Initiative[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.Initiative[rank];
+                _properties.MeleeSkill += this.Const.EL_NPC.EL_Champion.Attributes.MeleeSkill[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.MeleeSkill[rank];
+                _properties.RangedSkill += this.Const.EL_NPC.EL_Champion.Attributes.RangedSkill[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.RangedSkill[rank];
+                _properties.MeleeDefense += this.Const.EL_NPC.EL_Champion.Attributes.MeleeDefense[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.MeleeDefense[rank];
+                _properties.RangedDefense += this.Const.EL_NPC.EL_Champion.Attributes.RangedDefense[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.RangedDefense[rank];
+
+                _properties.DamageReceivedTotalMult /= this.Const.EL_NPC.EL_Champion.DamageReceivedTotalDiv[rank];
+                _properties.DamageDirectMult *= this.Const.EL_NPC.EL_Champion.DirectDamageMult[rank];
+
+                _properties.ActionPoints += this.Const.EL_NPC.EL_Champion.ActionPointsOffset[rank];
+
+                _properties.EL_CombatLevel += this.Const.EL_NPC.EL_Champion.CombatLevelOffset[rank];
+            }
 
         };
 
