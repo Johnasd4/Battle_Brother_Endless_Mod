@@ -240,7 +240,7 @@ local gt = getroottable();
 			this.m.EL_BaseWithRankAdditionalAccuracy = _in.readI32();
 			this.m.EL_BaseWithRankFatigueOnSkillUse = _in.readI32();
 			this.m.EL_BaseWithRankRangeMax = _in.readI32();
-			if(this.m.EL_Level != -1)
+			if(this.m.EL_Level != -1 && this.m.ConditionMax != 1)
 			{
 				this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Armor.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
 			}
