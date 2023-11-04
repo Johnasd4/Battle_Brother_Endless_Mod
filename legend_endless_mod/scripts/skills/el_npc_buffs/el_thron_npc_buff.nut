@@ -16,7 +16,7 @@ this.el_thron_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff"
         if(_skill == null || !_skill.isActive() || !_skill.isAttack()) {
 			return;
 		}
-        if(_attacker == null || _attacker.isDying() || !_attacker.isAlive() || _attacker == actor || this.m.EL_IsThron) {
+        if(_attacker == null || _attacker.isDying() || !_attacker.isAlive() || _attacker == actor || _attacker.isAlliedWith(actor) || this.m.EL_IsThron) {
             return;
         }
         if(actor == null || actor.isDying() || !actor.isAlive()) {
