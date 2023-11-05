@@ -4,7 +4,7 @@ local gt = getroottable();
 ::mods_queue(null, "el_player_npc", function ()
 {
 
-	::mods_hooExactClass("entity/tactical/player", function( o )
+	::mods_hookExactClass("entity/tactical/player", function( o )
 	{
 		local onSerialize = o.onSerialize;
 		o.onSerialize = function ( _out )
