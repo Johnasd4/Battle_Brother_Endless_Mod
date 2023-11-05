@@ -4,7 +4,7 @@ local gt = getroottable();
 ::mods_queue(null, "el_player_npc", function ()
 {
 
-	::mods_hookNewObject("entity/tactical/player", function( o )
+	::mods_hooExactClass("entity/tactical/player", function( o )
 	{
 		local onSerialize = o.onSerialize;
 		o.onSerialize = function ( _out )
@@ -17,6 +17,10 @@ local gt = getroottable();
 			onDeserialize( _in );
 			this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(this.m.Level, this.m.Background);
 		}
+	});
+
+	::mods_hookNewObject("entity/tactical/player", function( o )
+	{
 
 		o.EL_getLevel <- function()
 		{
@@ -499,7 +503,7 @@ local gt = getroottable();
 		};
 
 		local setStartValuesEx = o.setStartValuesEx;
-		o.setStartValuesEx = function ( _backgrounds, _addTraits = true, _gender = -1, _addEquipment = true, _EL_rankLevel = -1 )
+		o.setStartValuesEx = function( _backgrounds, _addTraits = true, _gender = -1, _addEquipment = true, _EL_rankLevel = -1 )
 		{
 			if(_EL_rankLevel == -1) {
 				local rank_1_chance = this.Const.EL_Player.EL_Rank1Chance.EL_getChance(this.World.Assets.m.EL_WorldLevel);
