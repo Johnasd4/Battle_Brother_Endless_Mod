@@ -412,6 +412,7 @@ gt.Const.EL_Player <- {
             _EL_background.m.Modifiers.Scout = this.Math.floor(_EL_background.m.BaseModifiers.Scout * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.Scout) * 100) / 100;
             _EL_background.m.Modifiers.Gathering = this.Math.floor(_EL_background.m.BaseModifiers.Gathering * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.Gathering) * 100) / 100;
             _EL_background.m.Modifiers.Training = this.Math.floor(_EL_background.m.BaseModifiers.Training * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.Training) * 100) / 100;
+            this.World.State.getPlayer().calculateStashModifier();
         }
     }
 
