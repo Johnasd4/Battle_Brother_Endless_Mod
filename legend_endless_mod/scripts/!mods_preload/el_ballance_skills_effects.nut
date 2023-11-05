@@ -49,7 +49,7 @@ local gt = getroottable();
                     id = 10,
                     type = "text",
                     icon = "ui/icons/bravery.png",
-                    text = "[color=" + this.Const.UI.Color.NegativeValue + "]-" + bonus + "[/color] Resolve"
+                    text = "[color=" + this.Const.UI.Color.NegativeValue + "]" + bonus + "[/color] Resolve"
                 });
             }
             return ret;

@@ -11,15 +11,15 @@ local gt = getroottable();
 		local onSerialize = o.onSerialize;
 		o.onSerialize = function ( _out )
 		{
-			onSerialize( _out );
 			_out.writeI32(this.m.EL_RankLevel);
+			onSerialize( _out );
 			//this.logInfo("this.EL_RankLevel : " + this.m.EL_RankLevel);
 		}
 		local onDeserialize = o.onDeserialize;
 		o.onDeserialize = function ( _in )
 		{
-			onDeserialize( _in );
 			this.m.EL_RankLevel = _in.readI32();
+			onDeserialize( _in );
 			//this.logInfo("this.EL_RankLevel : " + this.m.EL_RankLevel);
 		}
 
