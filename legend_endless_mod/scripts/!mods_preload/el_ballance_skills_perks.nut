@@ -1087,7 +1087,7 @@ local gt = getroottable();
 		o.onUpdateLevel = function()
 		{
 			local actor = this.getContainer().getActor();
-			if(!this.m.IsSpent && this.Math.rand(1, 1000) <= 10) {
+			if(!this.m.IsSpent && this.Math.rand(1, 1000) <= 1000) {
 				this.m.IsSpent = true;
 				local bg = actor.getBackground();
 				bg.m.Description += " Once a dreg of society, with your help, " + actor.getNameOnly() + " has grown into a full-fledged mercenary.";

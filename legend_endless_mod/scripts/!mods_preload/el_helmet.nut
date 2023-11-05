@@ -6,7 +6,7 @@ local gt = getroottable();
     ::mods_hookExactClass("items/helmets/helmet", function ( o )
 	{
         o.m.EL_BaseNoRankStaminaModifier <- 0;
-        o.m.EL_BaseWithRankStaminaModifier <- 0;
+        o.m.EL_BaseWithRankStaminaModifier <- 0.0;
 		o.m.EL_BaseNoRankVision <-0;
 		o.m.EL_DamageHeadArmorReduction <- 0;
 		o.m.EL_BaseWithRankDamageHeadArmorReduction <- 0;
@@ -133,7 +133,7 @@ local gt = getroottable();
 		{
 			onSerialize(_out);
 			_out.writeI32(this.m.EL_BaseNoRankStaminaModifier);
-			_out.writeI32(this.m.EL_BaseWithRankStaminaModifier);
+			_out.writeF32(this.m.EL_BaseWithRankStaminaModifier);
 			_out.writeI8(this.m.EL_BaseNoRankVision);
 			_out.writeI8(this.m.Vision);
 			_out.writeI32(this.m.EL_DamageHeadArmorReduction);
@@ -149,7 +149,7 @@ local gt = getroottable();
 		{
 			onDeserialize(_in);
             this.m.EL_BaseNoRankStaminaModifier = _in.readI32();
-            this.m.EL_BaseWithRankStaminaModifier = _in.readI32();
+            this.m.EL_BaseWithRankStaminaModifier = _in.readF32();
 			this.m.EL_BaseNoRankVision = _in.readI8();
 			this.m.Vision = _in.readI8();
 			this.m.EL_DamageHeadArmorReduction = _in.readI32();
@@ -1091,7 +1091,7 @@ local gt = getroottable();
     ::mods_hookExactClass("items/legend_helmets/legend_helmet_upgrade", function ( o )
 	{
 		o.m.EL_BaseNoRankStaminaModifier <- 0;
-        o.m.EL_BaseWithRankStaminaModifier <- 0;
+        o.m.EL_BaseWithRankStaminaModifier <- 0.0;
 		o.m.EL_BaseNoRankVision <-0;
 		o.m.EL_DamageHeadArmorReduction <- 0;
 		o.m.EL_BaseWithRankDamageHeadArmorReduction <- 0;
@@ -1305,7 +1305,7 @@ local gt = getroottable();
 		{
 			onSerialize(_out);
 			_out.writeI32(this.m.EL_BaseNoRankStaminaModifier);
-			_out.writeI32(this.m.EL_BaseWithRankStaminaModifier);
+			_out.writeF32(this.m.EL_BaseWithRankStaminaModifier);
 			_out.writeI8(this.m.EL_BaseNoRankVision);
 			_out.writeI8(this.m.Vision);
 			_out.writeI32(this.m.EL_DamageHeadArmorReduction);
@@ -1320,7 +1320,7 @@ local gt = getroottable();
 		{
 			onDeserialize(_in);
             this.m.EL_BaseNoRankStaminaModifier = _in.readI32();
-            this.m.EL_BaseWithRankStaminaModifier = _in.readI32();
+            this.m.EL_BaseWithRankStaminaModifier = _in.readF32();
 			this.m.EL_BaseNoRankVision = _in.readI8();
 			this.m.Vision = _in.readI8();
 			this.m.EL_DamageHeadArmorReduction = _in.readI32();

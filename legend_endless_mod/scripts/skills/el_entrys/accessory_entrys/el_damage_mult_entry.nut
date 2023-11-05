@@ -69,7 +69,7 @@ this.el_damage_mult_entry <- this.inherit("scripts/skills/el_entrys/el_accessory
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
 		++_EL_totalEntry.m.EL_EntryNum;
-		_EL_totalEntry.m.EL_DamageMult *= 1.0 + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_DamageMult * 100) * 0.01;
+		_EL_totalEntry.m.EL_DamageMult *= 1.0 + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_DamageMult * 100) * 0.0001;
 	}
 
     function onSerialize( _out )

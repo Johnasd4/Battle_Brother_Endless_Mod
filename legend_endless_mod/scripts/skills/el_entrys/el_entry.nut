@@ -41,7 +41,7 @@ this.el_entry <- this.inherit("scripts/skills/skill", {
 
 	function onAdded()
 	{
-		if(this.getContainer() != null)
+		if(this.getContainer() != null && !("Skills" in this.getContainer()))
 		{
 			this.getContainer().add(this.new("scripts/skills/el_entrys/el_total_entry"));
 		}

@@ -64,8 +64,8 @@ gt.Const.EL_NPC <- {
         ],
         DamageReceivedTotalDiv = [
             1,
-            2,
-            5
+            1.8,
+            3
         ]
         Attributes = {
             Bravery = [0, 20, 50],

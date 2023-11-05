@@ -16,7 +16,7 @@ local gt = getroottable();
         o.m.EL_BaseWithRankShieldDamage <- 0;
 		o.m.EL_BaseWithRankRegularDamage <- 0;
 		o.m.EL_BaseWithRankRegularDamageMax <- 0;
-		o.m.EL_BaseWithRankStaminaModifier <- 0;
+		o.m.EL_BaseWithRankStaminaModifier <- 0.0;
 
 		o.m.EL_BaseNoRankAmmoMax <- 0;
 		o.m.EL_BaseNoRankArmorDamageMult <- 0.0;
@@ -180,7 +180,7 @@ local gt = getroottable();
 			_out.writeI32(this.m.EL_BaseWithRankShieldDamage);
 			_out.writeI32(this.m.EL_BaseWithRankRegularDamage);
 			_out.writeI32(this.m.EL_BaseWithRankRegularDamageMax);
-            _out.writeI32(this.m.EL_BaseWithRankStaminaModifier);
+            _out.writeF32(this.m.EL_BaseWithRankStaminaModifier);
 
 			_out.writeI32(this.m.EL_BaseNoRankAmmoMax);
 			_out.writeF32(this.m.EL_BaseNoRankArmorDamageMult);
@@ -222,7 +222,7 @@ local gt = getroottable();
 			this.m.EL_BaseWithRankShieldDamage = _in.readI32();
 			this.m.EL_BaseWithRankRegularDamage = _in.readI32();
 			this.m.EL_BaseWithRankRegularDamageMax = _in.readI32();
-            this.m.EL_BaseWithRankStaminaModifier = _in.readI32();
+            this.m.EL_BaseWithRankStaminaModifier = _in.readF32();
 
 			this.m.EL_BaseNoRankAmmoMax = _in.readI32();
 			this.m.EL_BaseNoRankArmorDamageMult = _in.readF32();
