@@ -16,16 +16,14 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 		EL_FatigueRecover = 0,
 		EL_EngrgyShieldCombat = 0,
 		EL_EngrgyShield = 0,
-		EL_DamageMult = 0.0,
+		EL_DamageMult = 1.0,
 		EL_DamageReceivedMult = 0.0,
 		EL_HitpointsRecoveryRate = 0,
         EL_XPGainMult = 0.0,
 		EL_Vampire = 0.0,
 		EL_Curse = 0.0,
 		EL_TargetAttractionMult = 1,
-		EL_AdditionalAccuracy = 0,
 		EL_MeleeRangeMax = 0,
-		EL_RangedRangeMax = 0,
 		EL_SaveAmmo = 0.0,
 		
 		EL_DamageMultForNortherner = 0.0,
@@ -46,11 +44,11 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 		EL_ShieldDamageReceivedMult = 0.0,
 		EL_HelmetConditionRecoverDaliy = 0.0,
         EL_HelmetConditionRecoverRate = 0.0,
-		EL_HelmetDamageReceivedMult = 0.0,
-		EL_HelmetDamageDirectReceivedMult = 0.0,
+		EL_HelmetDamageReceivedMult = 1.0,
+		EL_HelmetDamageDirectReceivedMult = 1.0,
 		EL_HelmetReflectPercent = 0.0,
-		EL_ArmorConditionRecoverDaliy = 0.0,
-        EL_ArmorConditionRecoverRate = 0.0,
+		EL_ArmorConditionRecoverDaliy = 1.0,
+        EL_ArmorConditionRecoverRate = 1.0,
 		EL_ArmorDamageReceivedMult = 0.0,
 		EL_ArmorDamageDirectReceivedMult = 0.0,
 		EL_ArmorReflectPercent = 0.0,
@@ -91,16 +89,14 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 		this.m.EL_FatigueRecover = 0;
 		this.m.EL_EngrgyShieldCombat = 0;
 		this.m.EL_EngrgyShield = 0;
-		this.m.EL_DamageMult = 0.0;
+		this.m.EL_DamageMult = 1.0;
 		this.m.EL_DamageReceivedMult = 0.0;
 		this.m.EL_HitpointsRecoveryRate = 0.0;
         this.m.EL_XPGainMult = 0.0;
 		this.m.EL_Vampire = 0.0;
 		this.m.EL_Curse = 0.0
 		this.m.EL_TargetAttractionMult = 1;
-		this.m.EL_AdditionalAccuracy = 0;
 		this.m.EL_MeleeRangeMax = 0;
-		this.m.EL_RangedRangeMax = 0;
 		this.m.EL_SaveAmmo = 0.0;
 
 		this.m.EL_DamageMultForNortherner = 0.0;
@@ -121,13 +117,13 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 		this.m.EL_ShieldDamageReceivedMult = 0.0
 		this.m.EL_HelmetConditionRecoverDaliy = 0.0;
         this.m.EL_HelmetConditionRecoverRate = 0.0;
-		this.m.EL_HelmetDamageReceivedMult = 0.0;
-		this.m.EL_HelmetDamageDirectReceivedMult = 0.0;
+		this.m.EL_HelmetDamageReceivedMult = 1.0;
+		this.m.EL_HelmetDamageDirectReceivedMult = 1.0;
 		this.m.EL_HelmetReflectPercent = 0.0;
 		this.m.EL_ArmorConditionRecoverDaliy = 0.0;
         this.m.EL_ArmorConditionRecoverRate = 0.0;
-		this.m.EL_ArmorDamageReceivedMult = 0.0;
-		this.m.EL_ArmorDamageDirectReceivedMult = 0.0;
+		this.m.EL_ArmorDamageReceivedMult = 1.0;
+		this.m.EL_ArmorDamageDirectReceivedMult = 1.0;
 		this.m.EL_ArmorReflectPercent = 0.0;
 
 		this.m.EL_CheckMorale = false;
@@ -267,12 +263,12 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 				text = "拥有一个能够抵抗伤害的能量盾, 最大层数: " + this.m.EL_EngrgyShield
 			});
 		}
-		if(this.m.EL_DamageMult)
+		if(this.m.EL_DamageMult != 1.0)
 		{
 			result.push({
 				id = 10,
 				type = "text",
-				text = "攻击伤害 + " + this.m.EL_DamageMult + "%"
+				text = "攻击伤害 + " + (this.m.EL_DamageMult - 1.0) * 100 + "%"
 			});
 		}
 		if(this.m.EL_DamageReceivedMult)
@@ -331,28 +327,12 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 				text = "人物仇恨 - " + (1.0 - this.m.EL_TargetAttractionMult) * 100 + "%"
 			});
 		}
-		if(this.m.EL_AdditionalAccuracy)
-		{
-			result.push({
-				id = 10,
-				type = "text",
-				text = "命中率 + " + this.m.EL_AdditionalAccuracy + "%"
-			});
-		}
 		if(this.m.EL_MeleeRangeMax)
 		{
 			result.push({
 				id = 10,
 				type = "text",
 				text = "武器技能射程 + " + this.m.EL_MeleeRangeMax
-			});
-		}
-		if(this.m.EL_RangedRangeMax)
-		{
-			result.push({
-				id = 10,
-				type = "text",
-				text = "武器技能射程 + " + this.m.EL_RangedRangeMax
 			});
 		}
 		if(this.m.EL_SaveAmmo)
@@ -500,20 +480,20 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 				text = "每回合恢复 + " + this.m.EL_HelmetConditionRecoverRate + "% 头盔耐久"
 			});
 		}
-		if(this.m.EL_HelmetDamageReceivedMult)
+		if(this.m.EL_HelmetDamageReceivedMult != 1)
 		{
 			result.push({
 				id = 10,
 				type = "text",
-				text = "头部护甲受到伤害 - " + this.m.EL_HelmetDamageReceivedMult + "%"
+				text = "头部护甲受到伤害 - " + this.Math.round((1.0 - this.m.EL_HelmetDamageReceivedMult) * 10000) * 0.01 + "%"
 			});
 		}
-		if(this.m.EL_HelmetDamageDirectReceivedMult)
+		if(this.m.EL_HelmetDamageDirectReceivedMult != 1)
 		{
 			result.push({
 				id = 10,
 				type = "text",
-				text = "减少头部受到的忽视护甲伤害" + this.m.EL_HelmetDamageDirectReceivedMult + "%"
+				text = "减少头部受到的忽视护甲伤害" + this.Math.round((1.0 - this.m.EL_HelmetDamageDirectReceivedMult) * 10000) * 0.01 + "%"
 			});
 		}
 		if(this.m.EL_HelmetReflectPercent)
@@ -540,20 +520,20 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 				text = "每回合恢复 + " + this.m.EL_ArmorConditionRecoverRate + "% 身体耐久"
 			});
 		}
-		if(this.m.EL_ArmorDamageReceivedMult)
+		if(this.m.EL_ArmorDamageReceivedMult != 1)
 		{
 			result.push({
 				id = 10,
 				type = "text",
-				text = "身体护甲受到伤害 - " + this.m.EL_ArmorDamageReceivedMult + "%"
+				text = "身体护甲受到伤害 - " + this.Math.round((1.0 - this.m.EL_ArmorDamageReceivedMult) * 10000) * 0.01 + "%"
 			});
 		}
-		if(this.m.EL_ArmorDamageDirectReceivedMult)
+		if(this.m.EL_ArmorDamageDirectReceivedMult != 1)
 		{
 			result.push({
 				id = 10,
 				type = "text",
-				text = "减少身体受到的忽视护甲伤害" + this.m.EL_ArmorDamageDirectReceivedMult + "%"
+				text = "减少身体受到的忽视护甲伤害" + this.Math.round((1.0 - this.m.EL_ArmorDamageDirectReceivedMult) * 10000) * 0.01 + "%"
 			});
 		}
 		if(this.m.EL_ArmorReflectPercent)

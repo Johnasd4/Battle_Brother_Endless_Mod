@@ -72,7 +72,7 @@ this.el_reduce_direct_damage_received_mult_entry <- this.inherit("scripts/skills
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
 		++_EL_totalEntry.m.EL_EntryNum;
-		_EL_totalEntry.m.EL_ArmorDamageDirectReceivedMult += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ReduceDirectDamageReceivedMult * 100) * 0.01;
+		_EL_totalEntry.m.EL_ArmorDamageDirectReceivedMult *= 1.0 - this.m.EL_CurrentLevel * this.m.EL_ReduceDirectDamageReceivedMult * 0.01;
 	}
 
     function onSerialize( _out )

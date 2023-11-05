@@ -59,11 +59,11 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
 		return result;
 	}
 
-	function onDamageReceived( _attacker, _damageHitpoints, _damageArmor )
+	function onBeforeDamageReceived( _attacker, _skill, _hitInfo, _properties )
 	{
 		if (EL_isUsable())
         {
-		    EL_attackBack(_attacker);
+		    EL_attackBack(_attacker, _skill);
         }
 	}
 
@@ -71,7 +71,7 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
 	{
 		if (EL_isUsable())
         {
-		    EL_attackBack(_attacker);
+		    EL_attackBack(_attacker, _skill);
         }
 	}
 
@@ -137,13 +137,13 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
         }
 	}
 
-	function EL_attackBack( _attacker ) 
+	function EL_attackBack( _attacker, _skill ) 
 	{
 		if(this.m.EL_IsRetaliate)
 		{
 			return;
 		}
-		if(_attacker == null || _attacker.isDying() || !_attacker.isAlive() || _attacker.isAlliedWith(actor)) {
+		if(_attacker == null || _attacker.isDying() || !_attacker.isAlive() || _attacker.isAlliedWith(this.getContainer().getActor()) || !_skill.isActive() || !_skill.isAttack()) {
 			return;
 		}
 		local attacker_retaliation_skill = _attacker.getSkills().getSkillByID("el_npc_buffs.retaliation");
