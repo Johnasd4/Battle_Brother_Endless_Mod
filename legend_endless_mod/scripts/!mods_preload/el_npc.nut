@@ -247,6 +247,7 @@ local gt = getroottable();
 			this.getSkills().add(this.new("scripts/skills/effects/ptr_direct_damage_limiter_effect"));
             this.getSkills().add(this.new("scripts/skills/effects/battle_standard_effect"));
             this.getSkills().add(this.new("scripts/skills/effects/wms_mastery_effect"));
+			this.getSkills().add(this.new("scripts/skills/el_entrys/el_total_entry"));
 			local flags = this.getFlags();
 			if (flags.has("undead") && !flags.has("ghost") && !flags.has("ghoul") && !flags.has("vampire"))
 			{
@@ -265,6 +266,7 @@ local gt = getroottable();
 			if (this.m.MoraleState != this.Const.MoraleState.Ignore)
 			{
 				this.m.Skills.add(this.new("scripts/skills/effects/battle_standard_effect"));
+				this.m.Skills.add(this.new("scripts/skills/el_entrys/el_total_entry"));
 			}
 			return;
 		}
