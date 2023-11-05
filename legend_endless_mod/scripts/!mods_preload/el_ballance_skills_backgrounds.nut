@@ -14,6 +14,7 @@ local gt = getroottable();
 			this.m.BaseModifiers.ArmorParts = this.Const.EL_PlayerOther.EL_Donkey.ArmorParts[actor.EL_getRankLevel()];
 			this.m.BaseModifiers.Meds = this.Const.EL_PlayerOther.EL_Donkey.Meds[actor.EL_getRankLevel()];
 			this.m.BaseModifiers.Stash = this.Const.EL_PlayerOther.EL_Donkey.Stash[actor.EL_getRankLevel()];
+			this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(actor.getLevel(), this);
 		};
 	});
 
