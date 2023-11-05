@@ -6,7 +6,7 @@ local gt = getroottable();
     ::mods_hookExactClass("items/armor/armor", function ( o )
 	{
         o.m.EL_BaseNoRankStaminaModifier <- 0;
-        o.m.EL_BaseWithRankStaminaModifier <- 0;
+        o.m.EL_BaseWithRankStaminaModifier <- 0.0;
 		o.m.EL_DamageBodyArmorReduction <- 0;
 		o.m.EL_BaseWithRankDamageBodyArmorReduction <- 0;
 		o.m.EL_DamageRegularReduction <- 0;
@@ -133,7 +133,7 @@ local gt = getroottable();
 		{
 			onSerialize(_out);
 			_out.writeI32(this.m.EL_BaseNoRankStaminaModifier);
-			_out.writeI32(this.m.EL_BaseWithRankStaminaModifier);
+			_out.writeF32(this.m.EL_BaseWithRankStaminaModifier);
 			_out.writeI32(this.m.EL_DamageBodyArmorReduction);
 			_out.writeI32(this.m.EL_BaseWithRankDamageBodyArmorReduction);
 			_out.writeI32(this.m.EL_DamageRegularReduction);
@@ -147,7 +147,7 @@ local gt = getroottable();
 		{
 			onDeserialize(_in);
             this.m.EL_BaseNoRankStaminaModifier = _in.readI32();
-            this.m.EL_BaseWithRankStaminaModifier = _in.readI32();
+            this.m.EL_BaseWithRankStaminaModifier = _in.readF32();
 			this.m.EL_DamageBodyArmorReduction = _in.readI32();
 			this.m.EL_BaseWithRankDamageBodyArmorReduction = _in.readI32();
 			this.m.EL_DamageRegularReduction = _in.readI32();
@@ -999,7 +999,7 @@ local gt = getroottable();
     ::mods_hookExactClass("items/legend_armor/legend_armor_upgrade", function ( o )
 	{
 		o.m.EL_BaseNoRankStaminaModifier <- 0;
-        o.m.EL_BaseWithRankStaminaModifier <- 0;
+        o.m.EL_BaseWithRankStaminaModifier <- 0.0;
 		o.m.EL_DamageBodyArmorReduction <- 0;
 		o.m.EL_BaseWithRankDamageBodyArmorReduction <- 0;
 		o.m.EL_DamageRegularReduction <- 0;
@@ -1199,7 +1199,7 @@ local gt = getroottable();
 		{
 			onSerialize(_out);
 			_out.writeI32(this.m.EL_BaseNoRankStaminaModifier);
-			_out.writeI32(this.m.EL_BaseWithRankStaminaModifier);
+			_out.writeF32(this.m.EL_BaseWithRankStaminaModifier);
 			_out.writeI32(this.m.EL_DamageBodyArmorReduction);
 			_out.writeI32(this.m.EL_BaseWithRankDamageBodyArmorReduction);
 			_out.writeI32(this.m.EL_DamageRegularReduction);
@@ -1212,7 +1212,7 @@ local gt = getroottable();
 		{
 			onDeserialize(_in);
             this.m.EL_BaseNoRankStaminaModifier = _in.readI32();
-            this.m.EL_BaseWithRankStaminaModifier = _in.readI32();
+            this.m.EL_BaseWithRankStaminaModifier = _in.readF32();
 			this.m.EL_DamageBodyArmorReduction = _in.readI32();
 			this.m.EL_BaseWithRankDamageBodyArmorReduction = _in.readI32();
 			this.m.EL_DamageRegularReduction = _in.readI32();

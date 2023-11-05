@@ -69,7 +69,7 @@ gt.Const.EL_Armor <- {
 			changeValues = function( _item, _isHalfEffect = false )
 			{
 				local bonus = _isHalfEffect ? this.Const.EL_Armor.EL_RankFactor.StaminaModifierMultHalf : this.Const.EL_Armor.EL_RankFactor.StaminaModifierMult;
-				_item.m.EL_BaseWithRankStaminaModifier = this.Math.floor(_item.m.EL_BaseWithRankStaminaModifier * bonus);
+				_item.m.EL_BaseWithRankStaminaModifier = _item.m.EL_BaseWithRankStaminaModifier * bonus;
 			},
 			weight = 1
 		},
