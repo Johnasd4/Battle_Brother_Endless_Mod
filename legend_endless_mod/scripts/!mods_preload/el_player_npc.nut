@@ -708,12 +708,6 @@ local gt = getroottable();
 				//this.logInfo("attackEntity combat level decrease damage mult" + (this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, this.Math.abs(_user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()))));
 			}
 			//this.logInfo("dmgMult after " + dmgMult);
-
-			_hitInfo.DamageRegular -= p.DamageRegularReduction;
-			_hitInfo.DamageArmor -= p.DamageArmorReduction;
-			//OVERRIDE
-			_hitInfo.DamageArmor -= _hitInfo.BodyPart == this.Const.BodyPart.Head ? p.EL_DamageHeadArmorReduction : p.EL_DamageBodyArmorReduction;
-			_hitInfo.DamageRegular *= p.DamageReceivedRegularMult * dmgMult;
 			_hitInfo.DamageArmor *= p.DamageReceivedArmorMult * dmgMult;
 			local armor = 0;
 			local armorDamage = 0;
@@ -725,11 +719,13 @@ local gt = getroottable();
 				armor = armor - armorDamage;
 				_hitInfo.DamageInflictedArmor = this.Math.max(0, armorDamage);
 			}
+			_hitInfo.DamageRegular = this.Math.maxf(0.0, _hitInfo.DamageRegular - armor * this.Const.Combat.ArmorDirectDamageMitigationMult);
+			_hitInfo.DamageRegular *= p.DamageReceivedRegularMult * dmgMult;
 
 			_hitInfo.DamageFatigue *= p.FatigueEffectMult;
 			this.m.Fatigue = this.Math.min(this.getFatigueMax(), this.Math.round(this.m.Fatigue + _hitInfo.DamageFatigue * p.FatigueReceivedPerHitMult * this.m.CurrentProperties.FatigueLossOnAnyAttackMult));
 			local damage = 0;
-			damage = damage + this.Math.maxf(0.0, _hitInfo.DamageRegular * _hitInfo.DamageDirect * p.DamageReceivedDirectMult - armor * this.Const.Combat.ArmorDirectDamageMitigationMult);
+			damage = damage + this.Math.maxf(0.0, _hitInfo.DamageRegular * _hitInfo.DamageDirect * p.DamageReceivedDirectMult);
 
 			if (armor <= 0 || _hitInfo.DamageDirect >= 1.0)
 			{
@@ -1349,6 +1345,122 @@ local gt = getroottable();
 		}
 
 		o.EL_reset <- function() {}
+
+		o.onScheduledTargetHit = function( _info )
+		{
+			_info.Container.setBusy(false);
+
+			if (!_info.TargetEntity.isAlive())
+			{
+				return;
+			}
+
+			local partHit = this.Math.rand(1, 100);
+			local bodyPart = this.Const.BodyPart.Body;
+			local bodyPartDamageMult = 1.0;
+
+			if (partHit <= _info.Properties.getHitchance(this.Const.BodyPart.Head))
+			{
+				bodyPart = this.Const.BodyPart.Head;
+			}
+			else
+			{
+				bodyPart = this.Const.BodyPart.Body;
+			}
+
+			bodyPartDamageMult = bodyPartDamageMult * _info.Properties.DamageAgainstMult[bodyPart];
+			local damageMult = this.m.IsRanged ? _info.Properties.RangedDamageMult : _info.Properties.MeleeDamageMult;
+			damageMult = damageMult * _info.Properties.DamageTotalMult;
+			local damageRegular = this.Math.rand(_info.Properties.DamageRegularMin, _info.Properties.DamageRegularMax) * _info.Properties.DamageRegularMult;
+			local damageArmor = this.Math.rand(_info.Properties.DamageRegularMin, _info.Properties.DamageRegularMax) * _info.Properties.DamageArmorMult;
+			damageRegular = this.Math.max(0, damageRegular + _info.DistanceToTarget * _info.Properties.DamageAdditionalWithEachTile);
+			damageArmor = this.Math.max(0, damageArmor + _info.DistanceToTarget * _info.Properties.DamageAdditionalWithEachTile);
+			local damageDirect = this.Math.minf(1.0, _info.Properties.DamageDirectMult * (this.m.DirectDamageMult + _info.Properties.DamageDirectAdd + (this.m.IsRanged ? _info.Properties.DamageDirectRangedAdd : _info.Properties.DamageDirectMeleeAdd)));
+			local injuries;
+
+			if (this.m.InjuriesOnBody != null && bodyPart == this.Const.BodyPart.Body)
+			{
+				if (_info.TargetEntity.getFlags().has("skeleton"))
+				{
+					injuries = this.Const.Injury.SkeletonBody;
+				}
+				else
+				{
+					injuries = this.m.InjuriesOnBody;
+				}
+			}
+			else if (this.m.InjuriesOnHead != null && bodyPart == this.Const.BodyPart.Head)
+			{
+				if (_info.TargetEntity.getFlags().has("skeleton"))
+				{
+					injuries = this.Const.Injury.SkeletonHead;
+				}
+				else
+				{
+					injuries = this.m.InjuriesOnHead;
+				}
+			}
+
+			local hitInfo = clone this.Const.Tactical.HitInfo;
+			hitInfo.DamageRegular = damageRegular * damageMult;
+			hitInfo.DamageArmor = damageArmor * damageMult;
+			hitInfo.DamageDirect = damageDirect;
+			hitInfo.DamageFatigue = this.Const.Combat.FatigueReceivedPerHit * _info.Properties.FatigueDealtPerHitMult;
+			hitInfo.DamageMinimum = _info.Properties.DamageMinimum;
+			hitInfo.BodyPart = bodyPart;
+			hitInfo.BodyDamageMult = bodyPartDamageMult;
+			hitInfo.FatalityChanceMult = _info.Properties.FatalityChanceMult;
+			hitInfo.Injuries = injuries;
+			hitInfo.InjuryThresholdMult = _info.Properties.ThresholdToInflictInjuryMult;
+			hitInfo.Tile = _info.TargetEntity.getTile();
+
+			//EL_OVERRIDE
+			local p = _info.TargetEntity.getCurrentProperties().getClone();
+			hitInfo.DamageRegular -= p.DamageRegularReduction;
+			hitInfo.DamageArmor -= p.DamageArmorReduction;
+			hitInfo.DamageArmor -= hitInfo.BodyPart == this.Const.BodyPart.Head ? p.EL_DamageHeadArmorReduction : p.EL_DamageBodyArmorReduction;
+
+
+			_info.Container.onBeforeTargetHit(_info.Skill, _info.TargetEntity, hitInfo);
+			local pos = _info.TargetEntity.getPos();
+			local hasArmorHitSound = _info.TargetEntity.getItems().getAppearance().ImpactSound[bodyPart].len() != 0;
+			_info.TargetEntity.onDamageReceived(_info.User, _info.Skill, hitInfo);
+
+			if (hitInfo.DamageInflictedHitpoints >= this.Const.Combat.PlayHitSoundMinDamage)
+			{
+				if (this.m.SoundOnHitHitpoints.len() != 0)
+				{
+					this.Sound.play(this.m.SoundOnHitHitpoints[this.Math.rand(0, this.m.SoundOnHitHitpoints.len() - 1)], this.Const.Sound.Volume.Skill * this.m.SoundVolume, pos);
+				}
+			}
+
+			if (hitInfo.DamageInflictedHitpoints == 0 && hitInfo.DamageInflictedArmor >= this.Const.Combat.PlayHitSoundMinDamage)
+			{
+				if (this.m.SoundOnHitArmor.len() != 0)
+				{
+					this.Sound.play(this.m.SoundOnHitArmor[this.Math.rand(0, this.m.SoundOnHitArmor.len() - 1)], this.Const.Sound.Volume.Skill * this.m.SoundVolume, pos);
+				}
+			}
+
+			if (typeof _info.User == "instance" && _info.User.isNull() || !_info.User.isAlive() || _info.User.isDying())
+			{
+				return;
+			}
+
+			_info.Container.onTargetHit(_info.Skill, _info.TargetEntity, hitInfo.BodyPart, hitInfo.DamageInflictedHitpoints, hitInfo.DamageInflictedArmor);
+			_info.User.getItems().onDamageDealt(_info.TargetEntity, this, hitInfo);
+
+			if (hitInfo.DamageInflictedHitpoints >= this.Const.Combat.SpawnBloodMinDamage && !_info.Skill.isRanged() && (_info.TargetEntity.getBloodType() == this.Const.BloodType.Red || _info.TargetEntity.getBloodType() == this.Const.BloodType.Dark))
+			{
+				_info.User.addBloodied();
+				local item = _info.User.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+
+				if (item != null && item.isItemType(this.Const.Items.ItemType.MeleeWeapon))
+				{
+					item.setBloodied(true);
+				}
+			}
+		}
 
 		o.attackEntity = function( _user, _targetEntity, _allowDiversion = true )
 		{
