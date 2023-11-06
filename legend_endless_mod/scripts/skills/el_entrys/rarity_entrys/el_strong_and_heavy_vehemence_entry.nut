@@ -66,7 +66,10 @@ this.el_strong_and_heavy_vehemence_entry <- this.inherit("scripts/skills/skill",
 		}
 		if (EL_isUsable())
 		{
-			this.Const.EL_Rarity_Entry.EL_useFreeSplitShield(this.getContainer().getActor(), _targetEntity);
+			if(!_skill.isAOE())
+			{
+				this.Const.EL_Rarity_Entry.EL_useFreeSplitShield(this.getContainer().getActor(), _targetEntity);
+			}
 		}
 	}
     
@@ -91,7 +94,10 @@ this.el_strong_and_heavy_vehemence_entry <- this.inherit("scripts/skills/skill",
 		}
 		if (EL_isUsable())
 		{
-			this.Const.EL_Rarity_Entry.EL_useFreeSplitShield(this.getContainer().getActor(), _targetEntity);
+			if(!_skill.isAOE())
+			{
+				this.Const.EL_Rarity_Entry.EL_useFreeSplitShield(this.getContainer().getActor(), _targetEntity);
+			}
 		}
 	}
 
