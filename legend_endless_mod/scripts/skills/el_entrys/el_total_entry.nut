@@ -1,7 +1,5 @@
 this.el_total_entry <- this.inherit("scripts/skills/skill", {
 	m = {
-		PerkGroupMultipliers = [],
-		SpecialPerkMultipliers = [],
 		EL_EntryNum = 0,
 		EL_Hitpoints = 0,
 		EL_Stamina = 0,
@@ -68,7 +66,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 		this.m.Name = "Entry Cumulative Effect";
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.Icon = "el_entrys/el_total_entry.png";
-		this.m.Type = this.Const.SkillType.Trait;
+		this.m.Type = this.Const.SkillType.Background | this.Const.SkillType.Trait;
 		this.m.IsActive = false;
 		this.m.IsStacking = false;
 	}
