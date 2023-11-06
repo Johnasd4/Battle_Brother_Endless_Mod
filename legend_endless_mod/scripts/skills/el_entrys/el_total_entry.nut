@@ -1,5 +1,7 @@
 this.el_total_entry <- this.inherit("scripts/skills/skill", {
 	m = {
+		PerkGroupMultipliers = [],
+		SpecialPerkMultipliers = [],
 		EL_EntryNum = 0,
 		EL_Hitpoints = 0,
 		EL_Stamina = 0,

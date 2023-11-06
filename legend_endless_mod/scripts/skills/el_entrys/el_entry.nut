@@ -14,6 +14,18 @@ this.el_entry <- this.inherit("scripts/skills/skill", {
 		this.EL_createAddition();
 	}
 
+	function onSerialize( _out )
+	{
+	}
+
+	function onDeserialize( _in )
+	{
+	}
+	
+	function onUpdate( _properties )
+	{
+	}
+
 	function EL_isEntryEffect()
 	{
 		return true;
