@@ -132,10 +132,7 @@ this.el_breaking_through_a_thousand_armies_entry <- this.inherit("scripts/skills
 		}
 		if (EL_isUsable())
 		{
-			if(!_skill.isAOE())
-			{
-				this.Const.EL_Rarity_Entry.EL_useFreeSplitShield(this.getContainer().getActor(), _targetEntity);
-			}
+			this.Const.EL_Rarity_Entry.EL_useFreeSplitShield(this.getContainer().getActor(), _targetEntity);
 		}
 	}
     
@@ -166,10 +163,7 @@ this.el_breaking_through_a_thousand_armies_entry <- this.inherit("scripts/skills
 		}
 		if (EL_isUsable() && _skill.getID() == "actives.round_swing")
 		{
-			if(!_skill.isAOE())
-			{
-				this.Const.EL_Rarity_Entry.EL_useFreeSplitShield(this.getContainer().getActor(), _targetEntity);
-			}
+			this.Const.EL_Rarity_Entry.EL_useFreeSplitShield(this.getContainer().getActor(), _targetEntity);
             if(this.m.EL_IsFirstRoundSwing)
             {
                 this.m.EL_IsFirstRoundSwing = false;

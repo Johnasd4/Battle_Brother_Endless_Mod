@@ -66,10 +66,7 @@ this.el_brutal_cashing_entry <- this.inherit("scripts/skills/skill", {
 		}
 		if (EL_isUsable())
 		{
-			if(!_skill.isAOE())
-			{
-				this.Const.EL_Rarity_Entry.EL_useFreeSplitShield(this.getContainer().getActor(), _targetEntity);
-			}
+			this.Const.EL_Rarity_Entry.EL_useFreeSplitShield(this.getContainer().getActor(), _targetEntity);
 		}
 	}
 
@@ -81,10 +78,7 @@ this.el_brutal_cashing_entry <- this.inherit("scripts/skills/skill", {
 		}
 		if (EL_isUsable())
 		{
-			if(!_skill.isAOE())
-			{
-				this.Const.EL_Rarity_Entry.EL_useFreeSplitShield(this.getContainer().getActor(), _targetEntity);
-			}
+			this.Const.EL_Rarity_Entry.EL_useFreeSplitShield(this.getContainer().getActor(), _targetEntity);
 		}
 	}
 

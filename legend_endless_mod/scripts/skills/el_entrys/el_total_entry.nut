@@ -63,7 +63,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 	function create()
 	{
 		this.m.ID = "entry/total_entry",
-		this.m.Name = "Entry Cumulative Effect";
+		this.m.Name = "词条总加成";
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.Icon = "el_entrys/el_total_entry.png";
 		this.m.Type = this.Const.SkillType.Racial | this.Const.SkillType.Trait;

@@ -177,6 +177,10 @@ local gt = getroottable();
 		local applyShieldDamage = o.applyShieldDamage;
 		o.applyShieldDamage = function ( _damage, _playHitSound = true )
 		{
+			if(this.getCondition() == 0)
+			{
+				return;
+			}
 			local container = this.getContainer();
 			this.logInfo("container:"+this.IO.scriptFilenameByHash(container.ClassNameHash));
 			local skill = container.getActor().getSkills().getSkillByID("el_rarity_entry.faith_of_the_rock");
