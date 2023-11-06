@@ -66,7 +66,7 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
 		this.m.Name = "Entry Cumulative Effect";
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.Icon = "el_entrys/el_total_entry.png";
-		this.m.Type = this.Const.SkillType.Background | this.Const.SkillType.Trait;
+		this.m.Type = this.Const.SkillType.Racial | this.Const.SkillType.Trait;
 		this.m.IsActive = false;
 		this.m.IsStacking = false;
 	}
