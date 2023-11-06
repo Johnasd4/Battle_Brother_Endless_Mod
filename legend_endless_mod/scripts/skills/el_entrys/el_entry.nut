@@ -27,26 +27,6 @@ this.el_entry <- this.inherit("scripts/skills/skill", {
 	{
 	}
 
-	function onSerialize( _out )
-	{
-	}
-
-	function onDeserialize( _in )
-	{
-	}
-
-	function onUpdate( _properties )
-	{
-	}
-
-	function onAdded()
-	{
-		if(this.getContainer() != null && !("Skills" in this.getContainer()))
-		{
-			this.getContainer().add(this.new("scripts/skills/el_entrys/el_total_entry"));
-		}
-	}
-
 	function EL_strengthen()
 	{
 	}

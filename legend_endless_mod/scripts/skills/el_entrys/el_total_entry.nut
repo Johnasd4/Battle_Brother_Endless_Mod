@@ -144,10 +144,11 @@ this.el_total_entry <- this.inherit("scripts/skills/skill", {
                 skill.EL_refreshTotalEntry(this);
             }
         }
-		if(this.m.EL_EntryNum == 0)
-		{
-			this.removeSelf();
-		}
+	}
+
+	function isHidden()
+	{
+		return this.m.EL_EntryNum == 0;
 	}
 
     function getTooltip()
