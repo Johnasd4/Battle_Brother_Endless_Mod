@@ -124,6 +124,18 @@ local gt = getroottable();
 
 	::mods_hookExactClass("skills/actives/legend_spawn_skill", function(o){
 
+        o.getCostString = function()
+        {
+            local actor = this.getContainer().getActor();
+            return "[i]Costs " + (this.isAffordableBasedOnAPPreview() ? "[b][color=" + this.Const.UI.Color.PositiveValue + "]" + this.getActionPointCost() : "[b][color=" + this.Const.UI.Color.NegativeValue + "]" + this.getActionPointCost()) + " AP[/color][/b] and [b][color=" + this.Const.UI.Color.NegativeValue + "]" + this.Math.floor(this.m.HPCost * (1 + actor.getLevel() * 0.04)) + " HP[/color][/b] to use and builds up " + (this.isAffordableBasedOnFatiguePreview() ? "[b][color=" + this.Const.UI.Color.PositiveValue + "]" + this.getFatigueCost() : "[b][color=" + this.Const.UI.Color.NegativeValue + "]" + this.getFatigueCost()) + " Fatigue[/color][/b][/i]\n";
+        }
+
+        o.isUsable <- function()
+        {
+            local actor = this.getContainer().getActor();
+            return this.skill.isUsable() && actor.getHitpointsMax() > this.Math.floor(this.m.HPCost * (1 + actor.getLevel() * 0.04));
+        }
+
         o.onUse = function( _user, _targetTile )
         {
             local spawnItem;
@@ -166,7 +178,13 @@ local gt = getroottable();
             spawnItem.setEntity(entity);
             this.m.Items.push(spawnItem);
             this.spawnIcon("status_effect_01", _user.getTile());
-            _user.setHitpoints(this.Math.max(_user.getHitpoints() - this.m.HPCost, 1));
+            local skills = _user.getSkills();
+            local ballance_skill = skill.getSkillByID("el_effects.summon_ballance");
+            if(ballance_skill == null) {
+                ballance_skill = this.new("scripts/skills/el_effects/el_summon_ballance_effect");
+                _user.getSkills().add(ballance_skill);
+            }
+            ballance_skill.EL_addHitpointsOffset(this.Math.floor(this.m.HPCost * (1 + _user.getLevel() * 0.04)));
             return true;
         }
 

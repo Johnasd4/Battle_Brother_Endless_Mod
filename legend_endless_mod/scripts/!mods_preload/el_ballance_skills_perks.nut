@@ -190,7 +190,7 @@ local gt = getroottable();
 
 		o.getDescription <- function()
 		{
-			return "Your confidence affects your performance. Gain [color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] melee skill, ranged skill, melee defense and ranged defense when at confident morale. This bonuses reduces as your morale state decreases. [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color]at Steady, [color=" + this.Const.UI.Color.NegativeValue + "]-5[/color] when breaking and [color=" + this.Const.UI.Color.NegativeValue + "]-10[/color] when fleeing.";
+			return "你的信心影响的发挥。自信时获得 [color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] 近攻，远攻，近防和远防。加成的属性会在士气衰减时衰减。稳定士气[color=" + this.Const.UI.Color.PositiveValue + "]+5[/color]，溃散士气[color=" + this.Const.UI.Color.NegativeValue + "]-5[/color]，逃跑士气[color=" + this.Const.UI.Color.NegativeValue + "]-10[/color]。";
 		}
 
 		o.onUpdate = function( _properties )
@@ -1383,7 +1383,7 @@ gt.Const.EL_Config.EL_modStrings <- function()
         },
         {
             ID = "perk.legend_assured_conquest",
-            tooltip = "Your confidence affects your performance. Gain [color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] melee skill, ranged skill, melee defense and ranged defense when at confident morale. This bonuses reduces as your morale state decreases. [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color]at Steady, [color=" + this.Const.UI.Color.NegativeValue + "]-5[/color] when breaking and [color=" + this.Const.UI.Color.NegativeValue + "]-10[/color] when fleeing."
+            tooltip = "你的信心影响的发挥。自信时获得 [color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] 近攻，远攻，近防和远防。加成的属性会在士气衰减时衰减。稳定士气[color=" + this.Const.UI.Color.PositiveValue + "]+5[/color]，溃散士气[color=" + this.Const.UI.Color.NegativeValue + "]-5[/color]，逃跑士气[color=" + this.Const.UI.Color.NegativeValue + "]-10[/color]。"
         },
 		{
             ID = "perk.legend_barter_greed",
@@ -1421,7 +1421,10 @@ gt.Const.EL_Config.EL_modStrings <- function()
             ID = "perk.ptr_discovered_talent",
             tooltip = "You don\'t know where it came from, but you\'ve suddenly started excelling at everything you do!\n\n[color=" + this.Const.UI.Color.OneTimeEffect + "][u]One-Time Effect:[/u][/color]\n• Gain [color=" + this.Const.UI.Color.PositiveValue + "]1[/color] Star to the talents in all attributes.\n• Then instantly gain a levelup to increase this character's attributes using normal rolls with talents.\n• Cannot increase the talent in an attribute beyond [color=" + this.Const.UI.Color.NegativeValue + "]4[/color] stars."
         },
-
+		{
+            ID = "perk.ptr_fresh_and_furious",
+            tooltip = "战斗开始时的活力是你造成最大伤害的时候！\n\n[color=" + this.Const.UI.Color.Passive + "][u]被动：[/u][/color]\n• 当回合开始疲劳恢复后低于[color=" + this.Const.UI.Color.NegativeValue + "]30%[/color]最大疲劳，每回合第一个技能的行动点消耗[color=" + this.Const.UI.Color.PositiveValue + "]减半[/color]，疲劳消耗减少[color=" + this.Const.UI.Color.PositiveValue + "]25%[/color]。"
+        },
         {
             ID = "perk.ptr_fruits_of_labor",
             tooltip = "You\'ve quickly realized that your years of hard labor give you an edge in mercenary work!\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• Hitpoints, Maximum Fatigue, and Initiative are increased by [color=" + this.Const.UI.Color.PositiveValue + "]+12[/color] each."
@@ -1432,7 +1435,7 @@ gt.Const.EL_Config.EL_modStrings <- function()
         },
 		{
             ID = "perk.ptr_promised_potential",
-            tooltip = "The Captain said he\'d take a gamble on you, but you\'d better not disappoint!\n\n[color=" + this.Const.UI.Color.OneTimeEffect + "][u]One-Time Effect:[/u][/color]\n• Every time level ups, it has a [color=" + this.Const.UI.Color.PositiveValue + "]1%[/color] chance of being replaced with \'Realized Potential\' which will increase all talents by [color=" + this.Const.UI.Color.PositiveValue + "]+1[/color], get [color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] level ups, get [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color] perk points, unlock about [color=" + this.Const.UI.Color.PositiveValue + "]+50[/color] perks, and refund all perk points, including the one spent on this perk."
+            tooltip = "队长说他要赌一把你的可能性，但你最好不要失望！\n\n[color=" + this.Const.UI.Color.OneTimeEffect + "][u]一次性效果：[/u][/color]\n每次升级都有[color=" + this.Const.UI.Color.PositiveValue + "] 1% [/color]的机会被替换为\'实现潜能\'，这会使你的所有属性天赋[color=" + this.Const.UI.Color.PositiveValue + "]+1[/color], 获得 [color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] 升级点数, 获得 [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color] 特技点，解锁大约 [color=" + this.Const.UI.Color.PositiveValue + "]+50[/color] 个可选特技并且返还所有小号的特技点，包括花在这个特技上的。"
         },
 		{
             ID = "perk.ptr_target_practice",

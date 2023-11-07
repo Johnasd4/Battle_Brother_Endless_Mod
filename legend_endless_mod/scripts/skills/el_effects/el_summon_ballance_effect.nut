@@ -1,6 +1,6 @@
 this.el_summon_ballance_effect <- this.inherit("scripts/skills/skill", {
 	m = {
-		EL_HitpointsMinusPersent = 0
+		EL_HitpointsOffset = 0
 	},
 	function create()
 	{
@@ -16,21 +16,16 @@ this.el_summon_ballance_effect <- this.inherit("scripts/skills/skill", {
 		this.m.IsRemovedAfterBattle = true;
 	}
 
-	function onUpdate( _properties )
+	function onAfterUpdate( _properties )
 	{
-        _properties.
-		_properties.Bravery -= this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenBravery * this.m.Count;
-		_properties.Initiative -= this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenInitiative * this.m.Count;
-		_properties.MeleeSkill -= this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenMeleeSkill * this.m.Count;
-		_properties.RangedSkill -= this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenRangedSkill * this.m.Count;
-		_properties.MeleeDefense -= this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenMeleeDefense * this.m.Count;
-		_properties.RangedDefense -= this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenRangedDefense * this.m.Count;
-		_properties.DamageReceivedTotalMult *= (this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenDamageReceivedTotalMult * this.m.Count + 1);
+        _properties.Hitpoints += this.m.EL_HitpointsOffset;
 	}
 
-    function EL_addHitpointsMinusPersent(_EL_hitpointPersent)
+    function EL_addHitpointsOffset(_EL_hitpointOffset)
     {
-        this.m.EL_HitpointsMinusPersent += _EL_hitpointPersent;
+        local actor = this.getContainer().getActor();
+        this.m.EL_HitpointsOffset += _EL_hitpointOffset;
+        actor.setHitpoints(this.Math.min(actor.getHitpointsMax() + _EL_hitpointOffset, actor.getHitpoints()));
     }
 
 });
