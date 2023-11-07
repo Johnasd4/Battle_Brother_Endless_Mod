@@ -85,6 +85,7 @@ this.el_natural_dismember_entry <- this.inherit("scripts/skills/skill", {
 		}
 		if (EL_isUsable())
 		{
+			this.Const.EL_Rarity_Entry.EL_useFreeSplitShield(this.getContainer().getActor(), _targetEntity);
 			local injury_num = EL_getTargetInjuryNum(_targetEntity);			
 			_hitInfo.DamageRegular *= 1.0 + injury_num * this.Const.EL_Rarity_Entry.Factor.EL_NaturalDismember.DamageMultFactor;
 			_hitInfo.DamageArmor *= 1.0 + injury_num * this.Const.EL_Rarity_Entry.Factor.EL_NaturalDismember.DamageMultFactor;
