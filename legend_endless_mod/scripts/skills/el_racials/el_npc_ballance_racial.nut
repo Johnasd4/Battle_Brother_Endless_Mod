@@ -41,15 +41,19 @@ this.el_npc_ballance_racial <- this.inherit("scripts/skills/skill", {
         }
         if(main_hand != null) {
             _properties.Stamina -= main_hand.EL_getLevelAddtionStaminaModifier();
+            _properties.Initiative -= main_hand.EL_getLevelAddtionStaminaModifier();
         }
         if(off_hand != null) {
             _properties.Stamina -= off_hand.EL_getLevelAddtionStaminaModifier();
+            _properties.Initiative -= off_hand.EL_getLevelAddtionStaminaModifier();
         }
         if(body != null) {
             _properties.Stamina -= body.EL_getLevelAddtionStaminaModifier();
+            _properties.Initiative -= body.EL_getLevelAddtionStaminaModifier();
         }
         if(head != null) {
             _properties.Stamina -= head.EL_getLevelAddtionStaminaModifier();
+            _properties.Initiative -= head.EL_getLevelAddtionStaminaModifier();
         }
 
         if(actor.getFaction() != this.Const.Faction.Player && actor.getFaction() != this.Const.Faction.PlayerAnimals) {

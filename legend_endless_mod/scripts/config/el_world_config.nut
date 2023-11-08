@@ -14,9 +14,10 @@ gt.Const.EL_World <- {
     EL_WorldLevel = {
         Min = 0,
         Max = 200,
+        FastGrowLevel = 10,
         BaseStableLevel = 100,
-        BaseStableMult = 27,
-        LevelUpBaseDay = 7,
+        BaseStableMult = 35,
+        LevelUpBaseDay = 10,
         //1.1/1.085
         LevelUpMult = 1.013825,
         Table = [],
@@ -106,10 +107,18 @@ gt.Const.EL_World <- {
 
 
 //World level
-for( local level = 0, current_level_day_needed = this.Const.EL_World.EL_WorldLevel.LevelUpBaseDay, level_day_need = 0;
+local level_day_need = 0;
+for( local level = 0, current_level_day_needed = 1;
+    level < this.Const.EL_World.EL_WorldLevel.FastGrowLevel; ++level )
+{
+    level_day_need += current_level_day_needed;
+    current_level_day_needed += 1;
+    this.Const.EL_World.EL_WorldLevel.Table.push(level_day_need);
+}
+for( local level = this.Const.EL_World.EL_WorldLevel.FastGrowLevel, current_level_day_needed = this.Const.EL_World.EL_WorldLevel.LevelUpBaseDay;
     level < this.Const.EL_World.EL_WorldLevel.BaseStableLevel; ++level )
 {
-	level_day_need += current_level_day_needed;
+    level_day_need += current_level_day_needed;
     current_level_day_needed *= this.Const.EL_World.EL_WorldLevel.LevelUpMult;
     this.Const.EL_World.EL_WorldLevel.Table.push(level_day_need);
 }

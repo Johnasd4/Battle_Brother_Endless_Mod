@@ -383,14 +383,14 @@ local gt = getroottable();
 
 			//multiply xp if player level is lower then the world level
 			if(this.m.Level < world_level - this.Const.EL_Player.EL_CombatXP.BelowOffset){
-				local mult_factor = 1 + this.Math.pow((world_level - this.m.Level - this.Const.EL_Player.EL_CombatXP.BelowOffset) * this.Const.EL_Player.EL_CombatXP.BelowMult, 2);
+				local mult_factor = this.Math.pow(1 + (world_level - this.m.Level - this.Const.EL_Player.EL_CombatXP.BelowOffset) * this.Const.EL_Player.EL_CombatXP.BelowMult, 3);
 				if(mult_factor > this.Const.EL_Player.EL_CombatXP.BelowMultMax) {
 					mult_factor = this.Const.EL_Player.EL_CombatXP.BelowMultMax;
 				}
 				_xp *= mult_factor;
 			}
 			else if (this.m.Level > world_level + this.Const.EL_Player.EL_CombatXP.OverOffset){
-				local mult_factor = 1.0 / (1 + this.Math.pow((this.m.Level - world_level - this.Const.EL_Player.EL_CombatXP.OverOffset) * this.Const.EL_Player.EL_CombatXP.OverMult, 2));
+				local mult_factor = 1.0 / (this.Math.pow(1 + (this.m.Level - world_level - this.Const.EL_Player.EL_CombatXP.OverOffset) * this.Const.EL_Player.EL_CombatXP.OverMult, 3));
 				if(mult_factor < this.Const.EL_Player.EL_CombatXP.OverMultMin) {
 					mult_factor = this.Const.EL_Player.EL_CombatXP.OverMultMin;
 				}

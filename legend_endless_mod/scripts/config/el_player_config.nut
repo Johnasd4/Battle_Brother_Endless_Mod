@@ -18,15 +18,15 @@ gt.Const.EL_Player <- {
 
     EL_CombatXP = {
         MaxWorldLevel = 100,
-        MaxDiv = 12.0,
-        // XP * (1 + (WorldLevel - Level - 5) * 0.2) ^ 2 (Level < WorldLevel - 5)
+        MaxDiv = 8.0,
+        // XP * (1 + (WorldLevel - Level - 5) * 0.2) ^ 3 (Level < WorldLevel - 5)
         BelowOffset = 6,
         BelowMult = 0.2,
-        BelowMultMax = 10,
-        // XP / (1 + (Level - WorldLevel - 0) * 0.2) ^ 2 (Level > WorldLevel - 0)
+        BelowMultMax = 100,
+        // XP / (1 + (Level - WorldLevel - 0) * 0.2) ^ 3 (Level > WorldLevel - 0)
         OverOffset = 0,
         OverMult = 0.2,
-        OverMultMin = 0.1
+        OverMultMin = 0.01
     }
 
     EL_LevelUpsPurTime = 5,
