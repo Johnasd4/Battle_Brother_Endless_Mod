@@ -1,6 +1,7 @@
 this.el_pursuit_of_wind_entry <- this.inherit("scripts/skills/skill", {
 	m = {
-        EL_LastAttackActionPoint = 999
+        EL_IsComboAttack = false,
+		EL_ExtraAttackTimes = 3
     },
 	function create()
 	{
@@ -58,29 +59,44 @@ this.el_pursuit_of_wind_entry <- this.inherit("scripts/skills/skill", {
 		return result;
 	}
 
-	function onBeforeTargetHit( _skill, _targetEntity, _hitInfo )
+	// function onBeforeTargetHit( _skill, _targetEntity, _hitInfo )
+	// {
+    //     if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
+	// 	{
+	// 		this.m.EL_IsComboAttack = false;
+	// 		this.m.EL_ExtraAttackTimes = 3;
+	// 		return;
+	// 	}
+	// 	if (EL_isUsable() && _skill.m.IsWeaponSkill)
+	// 	{
+	// 		EL_comboAttack(_skill, _targetEntity);
+	// 	}
+	// }
+
+	// function onTargetMissed( _skill, _targetEntity )
+	// {
+    //     if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
+	// 	{
+	// 		this.m.EL_IsComboAttack = false;
+	// 		this.m.EL_ExtraAttackTimes = 3;
+	// 		return;
+	// 	}
+	// 	if (EL_isUsable() && _skill.m.IsWeaponSkill)
+	// 	{
+	// 		EL_comboAttack(_skill, _targetEntity);
+	// 	}
+	// }
+	function EL_onOtherSkillUesd( _skill, _targetEntity )
 	{
         if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
 		{
+			this.m.EL_IsComboAttack = false;
+			this.m.EL_ExtraAttackTimes = 3;
 			return;
 		}
 		if (EL_isUsable() && _skill.m.IsWeaponSkill)
 		{
-            if(this.m.EL_LastAttackActionPoint == this.getContainer().getActor().getActionPoints())
-            {
-                return;
-            }
-            this.m.EL_LastAttackActionPoint = this.getContainer().getActor().getActionPoints();
-			if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
-			{
-				return;
-			}
-			_skill.useForFree(_targetEntity.getTile());
-			if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
-			{
-				return;
-			}
-            _skill.useForFree(_targetEntity.getTile());
+			EL_comboAttack(_skill, _targetEntity);
 		}
 	}
 
@@ -93,7 +109,7 @@ this.el_pursuit_of_wind_entry <- this.inherit("scripts/skills/skill", {
             {
                 if (skill.m.IsWeaponSkill || skill.getID() == "actives.legend_cascade")
                 {
-                    skill.m.MaxRange += 9993;
+                    skill.m.MaxRange = 10000;
                 }
             }
 		}
@@ -109,8 +125,31 @@ this.el_pursuit_of_wind_entry <- this.inherit("scripts/skills/skill", {
 
     function onCombatStarted()
     {
-        this.m.EL_LastAttackActionPoint = 999;
+        this.m.EL_IsComboAttack = false;
+		this.m.EL_ExtraAttackTimes = 3;
     }
+
+	function EL_comboAttack( _skill, _targetEntity )
+	{
+		if(!this.m.EL_IsComboAttack)
+		{
+			this.m.EL_IsComboAttack = true;
+			_skill.useForFree(_targetEntity.getTile());
+			if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
+			{
+				this.m.EL_IsComboAttack = false;
+				this.m.EL_ExtraAttackTimes = 3;
+				return;
+			}
+			_skill.useForFree(_targetEntity.getTile());
+		}
+		--this.m.EL_ExtraAttackTimes;
+		if(this.m.EL_ExtraAttackTimes == 0)
+		{
+			this.m.EL_IsComboAttack = false;
+			this.m.EL_ExtraAttackTimes = 3;
+		}
+	}
 
 	function EL_isUsable()
 	{

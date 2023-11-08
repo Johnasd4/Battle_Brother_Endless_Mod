@@ -1346,6 +1346,8 @@ local gt = getroottable();
 
 		o.EL_reset <- function() {}
 
+        o.EL_onOtherSkillUesd <- function ( _skill, _targetEntity ) {}
+
 		o.onScheduledTargetHit = function( _info )
 		{
 			_info.Container.setBusy(false);
@@ -1467,6 +1469,12 @@ local gt = getroottable();
 			if(_targetEntity == null) {
 				return false;
 			}
+
+			if(this.m.Container != null)
+			{
+				this.m.Container.EL_onOtherSkillUesd(this, _targetEntity);
+			}
+			
 			if (_targetEntity.isRock())
 			{
 				if (_user.getSkills().hasSkill("perk.legend_specialist_pickaxe_damage"))
@@ -1920,6 +1928,10 @@ local gt = getroottable();
 			{
 				local distanceToTarget = _user.getTile().getDistanceTo(_targetEntity.getTile());
 				_targetEntity.onMissed(_user, this, this.m.IsShieldRelevant && shield != null && r <= toHit + shieldBonus * 2);
+				if(this.m.Container == null)
+				{
+					return false;
+				}
 				this.m.Container.onTargetMissed(this, _targetEntity);
 				local prohibitDiversion = false;
 

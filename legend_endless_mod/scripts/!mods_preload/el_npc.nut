@@ -182,6 +182,13 @@ local gt = getroottable();
                 skill.EL_reset();
             }
         }
+
+        o.EL_onOtherSkillUesd <- function ( _skill, _targetEntity ){
+            foreach( skill in this.m.Skills )
+            {
+                skill.EL_onOtherSkillUesd( _skill, _targetEntity );
+            }
+        }
     });
 
 	::mods_hookExactClass("entity/tactical/actor", function(o){
