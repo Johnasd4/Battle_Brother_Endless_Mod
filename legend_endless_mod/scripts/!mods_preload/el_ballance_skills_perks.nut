@@ -1063,6 +1063,60 @@ local gt = getroottable();
 		}
 	});
 
+	::mods_hookExactClass("skills/perks/perk_gifted", function ( o )
+	{
+		o.onAdded = function()
+		{
+			if (!this.m.IsApplied)
+			{
+				this.m.IsApplied = true;
+				local actor = this.getContainer().getActor();
+				actor.m.LevelUps += 2;
+				actor.fillAttributeLevelUpValues(2, true);
+			}
+		}
+
+		o.updatePerkVisuals = function ()
+		{
+			foreach (perk in this.getContainer().getActor().getBackground().m.PerkTree[0])
+			{
+				if (perk.ID == "perk.ptr_promised_potential")
+				{
+					perk.Name = "Realized Potential";
+					perk.Icon = "ui/perks/ptr_realized_potential.png";
+					perk.Tooltip = "From rags to riches! This character has truly come a long way. Who was once a dreg of society is now a full-fledged mercenary.";
+					break;
+				}
+			}
+			this.m.IsVisualsUpdated = true;
+		}
+
+		o.onUpdateLevel = function()
+		{
+			local actor = this.getContainer().getActor();
+			if(!this.m.IsSpent && this.Math.rand(1, 1000) <= 10) {
+				this.m.IsSpent = true;
+				local bg = actor.getBackground();
+				bg.m.Description += " Once a dreg of society, with your help, " + actor.getNameOnly() + " has grown into a full-fledged mercenary.";
+				bg.m.RawDescription += " Once a dreg of society, with your help, %name% has grown into a full-fledged mercenary.";
+
+				actor.m.PerkPoints += 5;
+				actor.m.LevelUps += 10;
+
+				for(local i = 0 ;i < this.Const.Attributes.COUNT; ++i) {
+					actor.m.Talents[i] = this.Math.min(4, actor.m.Talents[i] + 1);
+					actor.m.Attributes[i] = [];
+				}
+				this.Const.EL_Player.EL_PerkTree.EL_AddRandomPerkTreeToPlayer(actor, 50);
+				actor.resetPerks();
+				actor.improveMood(1.0, "Realized potential");
+				this.updatePerkVisuals();
+			}
+		}
+		o.onUpdate = function(_properties) {}
+
+	});
+
 	::mods_hookExactClass("skills/perks/perk_ptr_promised_potential", function ( o )
 	{
 		o.onAdded = function()
@@ -1087,7 +1141,7 @@ local gt = getroottable();
 		o.onUpdateLevel = function()
 		{
 			local actor = this.getContainer().getActor();
-			if(!this.m.IsSpent && this.Math.rand(1, 1000) <= 1000) {
+			if(!this.m.IsSpent && this.Math.rand(1, 1000) <= 10) {
 				this.m.IsSpent = true;
 				local bg = actor.getBackground();
 				bg.m.Description += " Once a dreg of society, with your help, " + actor.getNameOnly() + " has grown into a full-fledged mercenary.";
@@ -1458,6 +1512,10 @@ gt.Const.EL_Config.EL_modStrings <- function()
             ID = "perk.student",
             tooltip = "如果你全神贯注，你一切都可以学到. 额外获得 [color=" + this.Const.UI.Color.PositiveValue + "]20%[/color] 的经验。达到11级时, 不再获得加成，并额外获得1个特技点。"
         },
+        {
+            ID = "perk.gifted",
+            tooltip = "当你天生有天赋的时候，雇佣兵的生活就会变得轻松。这个角色立即获得两次以能掷骰出的最大点数给属性加点的机会，但没有天赋的加成。"
+        }
 
 		    ]
 

@@ -222,6 +222,10 @@ gt.Const.EL_Armor <- {
 					}
 				},
 				{
+					Scripts = "scripts/skills/el_entrys/armor_entrys/el_hitpoints_recover_daliy_entry",
+					function EL_ifEligible(_item) { return true; }
+				},
+				{
 					Scripts = "scripts/skills/el_entrys/armor_entrys/el_hitpoints_recovery_rate_entry",
 					function EL_ifEligible(_item) { return true; }
 				},
@@ -462,6 +466,32 @@ gt.Const.EL_Armor <- {
 					18,
 					20
 				]
+			},
+			EL_HitpointsRecoverDaliy = {
+				ID = "el_armor_entry.hitpoints_recovery_daily",
+				BaseHitpointsRecoverDaily = 10,
+				RandomMinHitpointsRecoverDaily = [
+					1,
+					1,
+					201,
+					401,
+					1000
+				],
+				RandomMaxHitpointsRecoverDaily = [
+					400,
+					600,
+					800,
+					1000,
+					1000
+				],
+				ColourRange = [
+					12,
+					14,
+					16,
+					18,
+					20
+				]
+
 			},
 			EL_HitpointsRecoveryRate = {
 				ID = "el_armor_entry.hitpoints_recovery_rate",

@@ -141,6 +141,10 @@ gt.Const.EL_Accessory <- {
                     function EL_ifNeedRemove(_entryLevel) { return false; }
 				},
 				{
+					Scripts = "scripts/skills/el_entrys/accessory_entrys/el_hitpoints_recover_daliy_entry",
+					function EL_ifEligible(_item) { return true; }
+				},
+				{
 					Scripts = "scripts/skills/el_entrys/accessory_entrys/el_hitpoints_recovery_rate_entry",
 					function EL_ifEligible(_item) { return true; }
                     function EL_ifNeedRemove(_entryLevel) { return false; }
@@ -425,6 +429,32 @@ gt.Const.EL_Accessory <- {
 					54,
 					60
 				]
+			},
+			EL_HitpointsRecoverDaliy = {
+				ID = "el_accessory_entry.hitpoints_recovery_daily",
+				BaseHitpointsRecoverDaily = 30,
+				RandomMinHitpointsRecoverDaily = [
+					1,
+					1,
+					601,
+					1201,
+					3000
+				],
+				RandomMaxHitpointsRecoverDaily = [
+					1200,
+					1800,
+					2400,
+					3000,
+					3000
+				],
+				ColourRange = [
+					36,
+					42,
+					48,
+					54,
+					60
+				]
+
 			},
 			EL_HitpointsRecoveryRate = {
 				ID = "el_accessory_entry.hitpoints_recovery_rate",

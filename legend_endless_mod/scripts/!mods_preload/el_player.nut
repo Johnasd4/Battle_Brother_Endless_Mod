@@ -6,6 +6,18 @@ local gt = getroottable();
 
 	::mods_hookExactClass("entity/tactical/player", function( o )
 	{
+		o.getLevelUps = function ()
+		{
+			if(this.m.LevelUps)
+			{
+				return this.m.LevelUps;
+			}
+			else if(this.m.PerkPoints)
+			{
+				return 1;
+			}
+		}
+
 		local onSerialize = o.onSerialize;
 		o.onSerialize = function ( _out )
 		{
@@ -259,7 +271,7 @@ local gt = getroottable();
 				}
 			}
 			local base_properties = this.getBaseProperties();
-			local level_up_time = this.m.LevelUps >= this.Const.EL_Player.EL_LevelUpsPurTime ? this.Const.EL_Player.EL_LevelUpsPurTime : 1;
+			local level_up_time = this.getLevelUps() >= this.Const.EL_Player.EL_LevelUpsPurTime ? this.Const.EL_Player.EL_LevelUpsPurTime : 1;
 
 			local ret = {
 				hitpoints = base_properties.Hitpoints,
@@ -305,8 +317,12 @@ local gt = getroottable();
 			if(this.m.LevelUps >= this.Const.EL_Player.EL_LevelUpsPurTime) {
 				this.m.LevelUps -= this.Const.EL_Player.EL_LevelUpsPurTime;
 			}
-			else {
+			else if(this.m.LevelUps != 0) {
 				this.m.LevelUps -= 1;
+			}
+			else
+			{
+				this.m.PerkPoints -= 1;
 			}
 
 			for( local i = 0; i != this.Const.Attributes.COUNT; i = i )
