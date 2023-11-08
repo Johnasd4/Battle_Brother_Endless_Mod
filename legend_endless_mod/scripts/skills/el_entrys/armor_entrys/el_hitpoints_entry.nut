@@ -63,7 +63,13 @@ this.el_hitpoints_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_e
 
 	function onUpdate( _properties )
 	{
-		_properties.Hitpoints += this.Math.floor(0.01 * this.m.EL_CurrentLevel * this.m.EL_Hitpoints * this.getContainer().getActor().getBaseProperties().Hitpoints);
+		local container_scripts = this.IO.scriptFilenameByHash(this.getContainer().ClassNameHash);
+		//this.logInfo("Container:" + this.IO.scriptFilenameByHash(container.ClassNameHash));
+		if(container_scripts == "scripts/skills/skill_container")
+		{
+			_properties.Hitpoints += this.Math.floor(0.01 * this.m.EL_CurrentLevel * this.m.EL_Hitpoints * this.getContainer().getActor().getBaseProperties().Hitpoints);
+		}
+		
 	}
 
 	function EL_refreshTotalEntry( _EL_totalEntry )

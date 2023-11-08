@@ -38,11 +38,13 @@ this.el_combo_attack_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_np
 			}
 
 		}
-		--this.m.EL_ExtraAttackTimes;
-		if(this.m.EL_ExtraAttackTimes == 0)
-		{
-			this.m.EL_IsComboAttack = false;
-			this.m.EL_ExtraAttackTimes = this.Const.EL_NPC.EL_NPCBuff.Factor.ComboAttack.AttackTimes[this.m.EL_RankLevel];
+		else{
+			--this.m.EL_ExtraAttackTimes;
+			if(this.m.EL_ExtraAttackTimes == 0)
+			{
+				this.m.EL_IsComboAttack = false;
+				this.m.EL_ExtraAttackTimes = this.Const.EL_NPC.EL_NPCBuff.Factor.ComboAttack.AttackTimes[this.m.EL_RankLevel];
+			}
 		}
 	}
 

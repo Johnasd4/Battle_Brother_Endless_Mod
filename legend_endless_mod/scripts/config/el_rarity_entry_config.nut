@@ -167,7 +167,7 @@ gt.Const.EL_Rarity_Entry <- {
 			]
 		},
 		EL_EyeOfDeath = {
-			HitHeadMult = 3
+			HitHeadMult = 4
 		}
 		EL_FaithOfTheRock = {
 			TargetAttractionMult = 1000
