@@ -143,6 +143,7 @@ gt.Const.EL_Accessory <- {
 				{
 					Scripts = "scripts/skills/el_entrys/accessory_entrys/el_hitpoints_recover_daliy_entry",
 					function EL_ifEligible(_item) { return true; }
+                    function EL_ifNeedRemove(_entryLevel) { return false; }
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/accessory_entrys/el_hitpoints_recovery_rate_entry",
