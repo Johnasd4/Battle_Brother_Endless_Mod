@@ -12,10 +12,9 @@ gt.Const.EL_NPC <- {
         DirectDamageMult = 1,
         DamageReceivedTotalDiv = 1.0,
         Attributes = {
-
             Bravery = 25,
-            Fatigue = 40,
-            Initiative = 40,
+            Fatigue = 25,
+            Initiative = 25,
             MeleeSkill = 25,
             RangedSkill = 25,
             MeleeDefense = 25,
@@ -23,8 +22,8 @@ gt.Const.EL_NPC <- {
         },
         AttributesGrowthPurLevel = {
             Bravery = 0.25,
-            Fatigue = 0.4,
-            Initiative = 0.4,
+            Fatigue = 0.25,
+            Initiative = 0.25,
             MeleeSkill = 0.25,
             RangedSkill = 0.25,
             MeleeDefense = 0.25,
@@ -70,7 +69,7 @@ gt.Const.EL_NPC <- {
         Attributes = {
             Bravery = [0, 20, 50],
             Fatigue = [0, 30, 75],
-            Initiative = [0, 30, 75],
+            Initiative = [0, 20, 50],
             MeleeSkill = [0, 20, 50],
             RangedSkill = [0, 20, 50],
             MeleeDefense = [0, 20, 50],
@@ -79,7 +78,7 @@ gt.Const.EL_NPC <- {
         AttributesGrowthPurLevel = {
             Bravery = [0, 0.2, 0.5],
             Fatigue = [0, 0.3, 0.75],
-            Initiative = [0, 0.3, 0.75],
+            Initiative = [0, 0.2, 0.5],
             MeleeSkill = [0, 0.2, 0.5],
             RangedSkill = [0, 0.2, 0.5],
             MeleeDefense = [0, 0.2, 0.5],
