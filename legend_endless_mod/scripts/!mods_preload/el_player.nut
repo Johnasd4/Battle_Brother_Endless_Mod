@@ -16,6 +16,7 @@ local gt = getroottable();
 			{
 				return 1;
 			}
+			return 0;
 		}
 
 		local onSerialize = o.onSerialize;

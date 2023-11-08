@@ -1928,7 +1928,7 @@ local gt = getroottable();
 			{
 				local distanceToTarget = _user.getTile().getDistanceTo(_targetEntity.getTile());
 				_targetEntity.onMissed(_user, this, this.m.IsShieldRelevant && shield != null && r <= toHit + shieldBonus * 2);
-				if(this.m.Container == null)
+				if(this.IO.scriptFilenameByHash(this.m.Container.ClassNameHash) != "scripts/skills/skill_container")
 				{
 					return false;
 				}
