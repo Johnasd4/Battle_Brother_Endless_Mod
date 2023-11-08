@@ -5,7 +5,7 @@ this.el_hitpoints_recover_daliy_entry <- this.inherit("scripts/skills/el_entrys/
 	function create()
 	{
 		this.el_entry.create();
-		this.m.ID = this.Const.EL_Helmet.EL_Entry.Factor.EL_HitpointsRecoverDaliy.ID;
+		this.m.ID = this.Const.EL_Shield.EL_Entry.Factor.EL_HitpointsRecoverDaliy.ID;
 	}
 
 	function getTooltip( _id )
@@ -33,7 +33,7 @@ this.el_hitpoints_recover_daliy_entry <- this.inherit("scripts/skills/el_entrys/
 	{
         for (local index = 0; index <= this.Const.EL_Item.Type.Legendary; ++index)
         {
-            if (this.m.EL_HitpointsRecoverDaliy <= this.Const.EL_Helmet.EL_Entry.Factor.EL_HitpointsRecoverDaliy.ColourRange[index])
+            if (this.m.EL_HitpointsRecoverDaliy <= this.Const.EL_Shield.EL_Entry.Factor.EL_HitpointsRecoverDaliy.ColourRange[index])
             {
                 return this.Const.EL_Item.Colour[index];
             }
@@ -43,21 +43,21 @@ this.el_hitpoints_recover_daliy_entry <- this.inherit("scripts/skills/el_entrys/
 
 	function EL_createAddition()
 	{
-		local randomMin = this.Const.EL_Helmet.EL_Entry.Factor.EL_HitpointsRecoverDaliy.RandomMinHitpointsRecoverDaily[this.getItem().m.EL_RankLevel];
-		local randomMax = this.Const.EL_Helmet.EL_Entry.Factor.EL_HitpointsRecoverDaliy.RandomMaxHitpointsRecoverDaily[this.getItem().m.EL_RankLevel];
-		this.m.EL_HitpointsRecoverDaliy = this.Const.EL_Helmet.EL_Entry.Factor.EL_HitpointsRecoverDaliy.BaseHitpointsRecoverDaily + this.Math.rand(randomMin, randomMax) * 0.01;
+		local randomMin = this.Const.EL_Shield.EL_Entry.Factor.EL_HitpointsRecoverDaliy.RandomMinHitpointsRecoverDaily[this.getItem().m.EL_RankLevel];
+		local randomMax = this.Const.EL_Shield.EL_Entry.Factor.EL_HitpointsRecoverDaliy.RandomMaxHitpointsRecoverDaily[this.getItem().m.EL_RankLevel];
+		this.m.EL_HitpointsRecoverDaliy = this.Const.EL_Shield.EL_Entry.Factor.EL_HitpointsRecoverDaliy.BaseHitpointsRecoverDaily + this.Math.rand(randomMin, randomMax) * 0.01;
 	}
 
 	function EL_strengthen()
 	{
-		this.m.EL_HitpointsRecoverDaliy = this.Const.EL_Helmet.EL_Entry.EntryStrengthenMult * this.Const.EL_Helmet.EL_Entry.Factor.EL_HitpointsRecoverDaliy.ColourRange[this.Const.EL_Item.Type.Legendary];
+		this.m.EL_HitpointsRecoverDaliy = this.Const.EL_Shield.EL_Entry.EntryStrengthenMult * this.Const.EL_Shield.EL_Entry.Factor.EL_HitpointsRecoverDaliy.ColourRange[this.Const.EL_Item.Type.Legendary];
 	}
 
 	function EL_onUpgradeRank()
 	{
 		if(EL_getEntryColour() != this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Legendary])
 		{
-			this.m.EL_HitpointsRecoverDaliy += this.Const.EL_Helmet.EL_Entry.Factor.EL_HitpointsRecoverDaliy.RandomMaxHitpointsRecoverDaily[this.Const.EL_Item.Type.Normal] / 2 * 0.01;
+			this.m.EL_HitpointsRecoverDaliy += this.Const.EL_Shield.EL_Entry.Factor.EL_HitpointsRecoverDaliy.RandomMaxHitpointsRecoverDaily[this.Const.EL_Item.Type.Normal] / 2 * 0.01;
 		}
 	}
 
