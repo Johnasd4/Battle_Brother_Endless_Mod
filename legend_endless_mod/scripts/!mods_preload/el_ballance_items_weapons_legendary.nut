@@ -31,7 +31,7 @@ local gt = getroottable();
                 id = 6,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "Inflicts an additional [color=" + this.Const.UI.Color.DamageValue + "]5%[/color] targets current hitpoints + [color=" + this.Const.UI.Color.DamageValue + "]20[/color] damage that ignores armor. The lightning won't hit the same target and will pass on until no targets left."
+                text = "造成[color=" + this.Const.UI.Color.DamageValue + "] 5% [/color]目标当前生命值 + [color=" + this.Const.UI.Color.DamageValue + "]20[/color] 忽视护甲的伤害。闪电链不会击中同一个单位2次。"
             });
             return result;
         }

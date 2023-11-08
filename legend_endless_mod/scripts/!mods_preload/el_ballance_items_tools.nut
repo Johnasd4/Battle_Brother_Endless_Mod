@@ -19,10 +19,10 @@ local gt = getroottable();
                 id = 10,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "At a range of " + this.EL_getRange() + " tiles or less, " +
-                       "allies [color=" + this.Const.UI.Color.PositiveValue + "]+" + this.EL_getAllyBonus() + "[/color] resolve, " +
-                       "enemies [color=" + this.Const.UI.Color.NegativeValue + "]-" + this.EL_getEnemyBonus() + "[/color] resolve. " +
-                       "The auras is effected by the the resolve of the character holding this standard."
+                text = "距离 " + this.EL_getRange() + " 以内, " +
+                       "友军 [color=" + this.Const.UI.Color.PositiveValue + "]+" + this.EL_getAllyBonus() + "[/color] 决心，" +
+                       "敌军 [color=" + this.Const.UI.Color.NegativeValue + "]-" + this.EL_getEnemyBonus() + "[/color] 决心。" +
+                       "光环的效果受到持有者的决心影响。"
             });
             return result;
         }
