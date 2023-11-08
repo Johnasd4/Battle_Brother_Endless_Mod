@@ -126,7 +126,6 @@ local gt = getroottable();
 		{
 			if(this.m.EL_CurrentUpdateDay < this.World.getTime().Days) {
 				this.EL_UpdateWorldStrengthAndLevel();
-                this.EL_onNewDayItemEntry();
 			}
 			update(_worldState);
 		}

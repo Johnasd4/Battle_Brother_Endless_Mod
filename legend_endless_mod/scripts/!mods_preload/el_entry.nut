@@ -5,7 +5,22 @@ local gt = getroottable();
 {
 	::mods_hookNewObjectOnce("states/world/asset_manager", function ( o )
 	{
-		o.EL_onNewDayItemEntry <- function() {
+		local update = o.update;
+		o.update = function( _worldState )
+		{
+            if(this.World.getTime().Hours != this.m.LastHourUpdated)
+            {
+                local times = this.World.getTime().Hours - this.m.LastHourUpdated;
+                this.logInfo("time:" + times); 
+                for(local i = 0; i < times; ++i)
+                {
+                    this.EL_onNewHour();
+                }
+            }
+			update(_worldState);
+		}
+
+		o.EL_onNewHour <- function() {
             local items = this.World.Assets.getStash().getItems();
             foreach( item in items )
             {
@@ -14,7 +29,7 @@ local gt = getroottable();
                     //this.logInfo("item:" + item.getName());
                     foreach(entry in item.m.EL_EntryList)
                     {
-                        entry.EL_onNewDay(item);
+                        entry.EL_onNewHour(item);
                     }
                 }
             }
@@ -29,7 +44,7 @@ local gt = getroottable();
                     {
                         foreach(entry in item.m.EL_EntryList)
                         {
-                            entry.EL_onNewDay(item);
+                            entry.EL_onNewHour(item);
                         }
                     }
                 }

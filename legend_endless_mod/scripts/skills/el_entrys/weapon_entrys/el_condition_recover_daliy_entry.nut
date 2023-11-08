@@ -51,11 +51,11 @@ this.el_condition_recover_daliy_entry <- this.inherit("scripts/skills/el_entrys/
 		}
 	}
 
-	function EL_onNewDay( _item )
+	function EL_onNewHour( _item )
 	{
 		if(_item != null)
 		{
-			local condition_recover = this.Math.round(_item.getConditionMax() * this.m.EL_ConditionRecoverDaliy * 0.01);
+			local condition_recover = this.Math.ceil(_item.getConditionMax() * this.m.EL_ConditionRecoverDaliy * 0.01 / 24);
 			_item.setCondition(this.Math.min(_item.getConditionMax(), _item.getCondition() + condition_recover));
 			//this.logInfo("weapon entry-daliy recover conditon:" + condition_recover);
 		}

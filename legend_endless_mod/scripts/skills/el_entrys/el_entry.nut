@@ -47,7 +47,7 @@ this.el_entry <- this.inherit("scripts/skills/skill", {
 	{
 	}
 
-	function EL_onNewDay( _item )
+	function EL_onNewHour( _item )
 	{
 	}
 

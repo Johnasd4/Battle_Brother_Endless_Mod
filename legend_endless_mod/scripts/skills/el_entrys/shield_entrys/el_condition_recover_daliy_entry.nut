@@ -50,12 +50,12 @@ this.el_condition_recover_daliy_entry <- this.inherit("scripts/skills/el_entrys/
 			this.m.EL_ConditionRecoverDaliy += this.Const.EL_Shield.EL_Entry.Factor.EL_ConditionRecoverDaliy.RandomMaxConditionRecoverDaliy[this.Const.EL_Item.Type.Normal] / 2 * 0.01;
 		}
 	}
-
-	function EL_onNewDay( _item )
+	
+	function EL_onNewHour( _item )
 	{
 		if(_item != null)
 		{
-			local condition_recover = this.Math.round(_item.getConditionMax() * this.m.EL_ConditionRecoverDaliy * 0.01);
+			local condition_recover = this.Math.ceil(_item.getConditionMax() * this.m.EL_ConditionRecoverDaliy * 0.01 / 24);
 			_item.setCondition(this.Math.min(_item.getConditionMax(), _item.getCondition() + condition_recover));
 		}
 	}

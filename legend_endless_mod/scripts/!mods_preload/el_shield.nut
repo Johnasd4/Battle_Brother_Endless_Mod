@@ -245,7 +245,8 @@ local gt = getroottable();
         }
 		o.EL_getLevelAddtionStaminaModifier <- function()
 		{
-			return this.m.StaminaModifier - this.m.EL_BaseWithRankStaminaModifier;
+			local stamina_mult = this.getContainer().getActor().getSkills().hasSkill("perk.brawny") ? 0.7 : 1.0;
+			return this.m.StaminaModifier - this.m.EL_BaseWithRankStaminaModifier * stamina_mult;
 		}
 		o.EL_getRankLevelMax <- function()
 		{
