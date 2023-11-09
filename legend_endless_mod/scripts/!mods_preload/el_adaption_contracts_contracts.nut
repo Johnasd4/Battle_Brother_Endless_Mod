@@ -136,6 +136,84 @@ local gt = getroottable();
             this.m.Payment.Pool *= this.World.Assets.m.EL_ArenaLevel + 1;
         }
 
+        o.createStates = function()
+        {
+            this.m.States.push({
+                ID = "Offer",
+                function start()
+                {
+                    this.Contract.m.BulletpointsObjectives = [
+                        "Equip up to three of your men with arena collars",
+                        "Enter the arena again to start the fight",
+                        "The fight will be to the death and you won\'t be able to retreat or loot afterwards"
+                    ];
+                    this.Contract.m.BulletpointsPayment = [
+                        "Get " + this.Contract.m.Payment.getOnCompletion() + " crowns for your victory"
+                    ];
+
+                    if (this.World.Statistics.getFlags().getAsInt("ArenaRegularFightsWon") > 0 && this.World.Statistics.getFlags().getAsInt("ArenaRegularFightsWon") % 5 == 0)
+                    {
+                        this.Contract.m.BulletpointsPayment.push("Win a piece of gladiator gear");
+                    }
+
+                    this.Contract.setScreen("Task");
+                }
+
+                function end()
+                {
+                    this.Flags.set("Day", this.World.getTime().Days);
+                    this.Contract.setScreen("Overview");
+                    this.World.Contracts.setActiveContract(this.Contract);
+                }
+
+            });
+            this.m.States.push({
+                ID = "Running",
+                function start()
+                {
+                    this.Contract.m.Home.getSprite("selection").Visible = true;
+                }
+
+                function update()
+                {
+                    this.EL_removeBrosCollar();
+                    if (this.Flags.get("IsVictory"))
+                    {
+                        this.Contract.setScreen("Success");
+                        this.World.Contracts.showActiveContract();
+                    }
+                    else if (this.Flags.get("IsFailure"))
+                    {
+                        this.Contract.setScreen("Failure1");
+                        this.World.Contracts.showActiveContract();
+                    }
+                    else if (this.World.getTime().Days > this.Flags.get("Day"))
+                    {
+                        this.Contract.setScreen("Failure2");
+                        this.World.Contracts.showActiveContract();
+                    }
+                }
+
+                function onCombatVictory( _combatID )
+                {
+                    if (_combatID == "Arena")
+                    {
+                        this.Flags.set("IsVictory", true);
+                    }
+                }
+
+                function onRetreatedFromCombat( _combatID )
+                {
+                    if (_combatID == "Arena")
+                    {
+                        this.Flags.set("IsFailure", true);
+                    }
+                }
+
+            });
+        }
+
+
         o.createScreens = function()
         {
             //this.logInfo("arena_contract createScreens");
@@ -431,7 +509,6 @@ local gt = getroottable();
                             //this.logInfo("push bros");
                             for( local i = 0; i < bros.len() && i < 3; i = i )
                             {
-                                bros[i].getSkills().removeByID("el_items.arena_collar_skill");
                                 p.Players.push(bros[i]);
                                 i = ++i;
                             }
@@ -1107,6 +1184,15 @@ local gt = getroottable();
             });
         }
 
+        o.EL_removeBrosCollar() <- function()
+        {
+            local roster = this.World.getPlayerRoster().getAll();
+            foreach( bro in roster )
+            {
+                bro.getSkills().removeByID("el_items.arena_collar_skill");
+            }
+        }
+
         o.getBros = function()
         {
             local ret = [];
@@ -1125,6 +1211,84 @@ local gt = getroottable();
     });
 
 	::mods_hookExactClass("contracts/contracts/arena_tournament_contract", function(o){
+
+        o.createStates = function()
+        {
+            this.m.States.push({
+                ID = "Offer",
+                function start()
+                {
+                    this.Contract.m.BulletpointsObjectives = [
+                        "Equip up to five of your men with arena collars",
+                        "Enter the arena again to start the first round",
+                        "Each round will be to the death and you won\'t be able to retreat or loot afterwards",
+                        "After each round you can elect to drop out for some consolation pay or start the next round right away"
+                    ];
+                    this.Contract.m.BulletpointsPayment = [
+                        "Get a famed %prizetype% called %prizename% for winning all three rounds"
+                    ];
+                    this.Contract.setScreen("Task");
+                }
+
+                function end()
+                {
+                    this.Flags.set("Day", this.World.getTime().Days);
+                    this.Contract.setScreen("Overview");
+                    this.World.Contracts.setActiveContract(this.Contract);
+                }
+
+            });
+            this.m.States.push({
+                ID = "Running",
+                function start()
+                {
+                    this.Contract.m.Home.getSprite("selection").Visible = true;
+                }
+
+                function update()
+                {
+                    this.EL_removeBrosCollar();
+                    if (this.Flags.get("Round") > 1 && this.Contract.getBros() == 0)
+                    {
+                        this.Contract.setScreen("Failure1");
+                        this.World.Contracts.showActiveContract();
+                    }
+                    else if (this.Flags.get("IsFailure"))
+                    {
+                        this.Contract.setScreen("Failure1");
+                        this.World.Contracts.showActiveContract();
+                    }
+                    else if (this.World.getTime().Days > this.Flags.get("Day") + 1)
+                    {
+                        this.Contract.setScreen("Failure2");
+                        this.World.Contracts.showActiveContract();
+                    }
+                    else if (this.Flags.get("Round") > 1)
+                    {
+                        this.Contract.setScreen("Won" + this.Flags.get("Round"));
+                        this.World.Contracts.showActiveContract();
+                    }
+                }
+
+                function onCombatVictory( _combatID )
+                {
+                    if (_combatID == "Arena")
+                    {
+                        this.Flags.increment("Round");
+                    }
+                }
+
+                function onRetreatedFromCombat( _combatID )
+                {
+                    if (_combatID == "Arena")
+                    {
+                        this.Flags.set("IsFailure", true);
+                    }
+                }
+
+            });
+        }
+
 
         o.createScreens = function()
         {
@@ -1480,6 +1644,15 @@ local gt = getroottable();
                     }
                 ]
             });
+        }
+
+        o.EL_removeBrosCollar() <- function()
+        {
+            local roster = this.World.getPlayerRoster().getAll();
+            foreach( bro in roster )
+            {
+                bro.getSkills().removeByID("el_items.arena_collar_skill");
+            }
         }
 
         o.getBros = function()
