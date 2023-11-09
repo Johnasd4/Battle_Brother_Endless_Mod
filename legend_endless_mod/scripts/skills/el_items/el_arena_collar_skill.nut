@@ -6,7 +6,7 @@ this.el_arena_collar_skill <- this.inherit("scripts/skills/skill", {
 		this.m.ID = "el_items.arena_collar_skill";
 		this.m.Name = "竞技场选手";
 		this.m.Description = "被选中参加竞技场。";
-		this.m.Type = this.Const.SkillType.Racial;
+		this.m.Type = this.Const.SkillType.Trait;
 		this.m.Icon = "el_skills/el_arena_collar_skill.png";
 		this.m.Order = this.Const.SkillOrder.First;
 	}
