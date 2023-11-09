@@ -1184,7 +1184,7 @@ local gt = getroottable();
             });
         }
 
-        o.EL_removeBrosCollar() <- function()
+        o.EL_removeBrosCollar <- function()
         {
             local roster = this.World.getPlayerRoster().getAll();
             foreach( bro in roster )
@@ -1646,7 +1646,7 @@ local gt = getroottable();
             });
         }
 
-        o.EL_removeBrosCollar() <- function()
+        o.EL_removeBrosCollar <- function()
         {
             local roster = this.World.getPlayerRoster().getAll();
             foreach( bro in roster )
