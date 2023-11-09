@@ -12,7 +12,6 @@ this.el_arena_collar_item <- this.inherit("scripts/items/item", {
 		this.m.IsUsable = true;
 		this.m.IconLarge = "";
 		this.m.Icon = "accessory/gladiator_necklace.png";
-		this.m.Sprite = "gladiator_necklace_01";
 		this.m.Value = 0;
 	}
 
