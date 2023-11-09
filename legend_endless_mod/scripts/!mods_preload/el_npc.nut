@@ -403,7 +403,7 @@ local gt = getroottable();
                     
 					if(this.m.WorldTroop != null && this.m.WorldTroop.EL_IsBossUnit)
 					{
-                        local items = bro.getItems().getAllItems();
+                        local items = this.getItems().getAllItems();
                         foreach(item in items)
                         {
                             if(item.EL_getRankLevel() > _item.EL_getRankLevelMax())
