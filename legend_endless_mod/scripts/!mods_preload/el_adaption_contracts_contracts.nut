@@ -1113,9 +1113,7 @@ local gt = getroottable();
     
             foreach( bro in roster )
             {
-                local skill = bro.getSkills().hasSkill("el_items.arena_collar_skill");
-    
-                if (skill != null)
+                if (bro.getSkills().hasSkill("el_items.arena_collar_skill"))
                 {
                     bro.getSkills().removeByID("el_items.arena_collar_skill");
                     ret.push(bro);
@@ -1491,9 +1489,7 @@ local gt = getroottable();
     
             foreach( bro in roster )
             {
-                local skill = bro.getSkills().hasSkill("el_items.arena_collar_skill");
-    
-                if (skill != null)
+                if (bro.getSkills().hasSkill("el_items.arena_collar_skill"))
                 {
                     bro.getSkills().removeByID("el_items.arena_collar_skill");
                     ret.push(bro);
