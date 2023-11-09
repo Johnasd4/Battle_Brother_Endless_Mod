@@ -12,11 +12,11 @@ local gt = getroottable();
             onAfterUpdate(_properties);
             if(this.m.Difference > 0) {
                 this.m.Icon = "ui/perks/perk_28.png";
-                this.m.Name = "Banner auras [color=" + this.Const.UI.Color.PositiveValue + "]+" + this.m.Difference + "[/color] Resolve";
+                this.m.Name = "战旗光环 [color=" + this.Const.UI.Color.PositiveValue + "]+" + this.m.Difference + "[/color] 决心";
             }
             else {
                 this.m.Icon = "ui/perks/perk_28_sw.png";
-                this.m.Name = "Banner auras [color=" + this.Const.UI.Color.NegativeValue + "]-" + this.m.Difference + "[/color] Resolve";
+                this.m.Name = "战旗光环 [color=" + this.Const.UI.Color.NegativeValue + "]" + this.m.Difference + "[/color] 决心";
             }
         }
 

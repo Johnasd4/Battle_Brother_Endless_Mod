@@ -523,8 +523,8 @@ local gt = getroottable();
 		o.setStartValuesEx = function( _backgrounds, _addTraits = true, _gender = -1, _addEquipment = true, _EL_rankLevel = -1 )
 		{
 			if(_EL_rankLevel == -1) {
-				local rank_1_chance = this.Const.EL_Player.EL_Rank1Chance.EL_getChance(this.World.Assets.m.EL_WorldLevel);
-				local rank_2_chance = this.Const.EL_Player.EL_Rank2Chance.EL_getChance(this.World.Assets.m.EL_WorldLevel);
+				local rank_1_chance = this.Const.EL_Player.EL_Rank1Chance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor();
+				local rank_2_chance = this.Const.EL_Player.EL_Rank2Chance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor();
 				local temp_rank = 0;
 				if(rank_2_chance * 10 >= this.Math.rand(1, 1000)) {
 					temp_rank = 2;
@@ -1273,6 +1273,26 @@ local gt = getroottable();
 
 	});
 
+
+	::mods_hookExactClass("entity/tactical/actor", function(o){
+
+		local resetPerks = o.resetPerks;
+		o.resetPerks = function()
+		{
+			local has_gifted = this.getSkills().getSkillByID("perk.gifted");
+
+			resetPerks();
+
+			if (has_gifted != null)
+			{
+				this.m.PerkPoints -= 1;
+				local perk = ::new("scripts/skills/perks/perk_ptr_rising_star");
+				perk.m.IsApplied = true;
+				this.getSkills().add(perk);
+			}
+		}
+
+	});
 
 
 	::mods_hookNewObjectOnce("ui/screens/tooltip/tooltip_events", function ( o )

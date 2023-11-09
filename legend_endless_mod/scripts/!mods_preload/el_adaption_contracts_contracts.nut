@@ -373,9 +373,9 @@ local gt = getroottable();
                         Text = "I accept.",
                         function getResult()
                         {
-                            this.World.Assets.getStash().add(this.new("scripts/items/accessory/special/arena_collar_item"));
-                            this.World.Assets.getStash().add(this.new("scripts/items/accessory/special/arena_collar_item"));
-                            this.World.Assets.getStash().add(this.new("scripts/items/accessory/special/arena_collar_item"));
+                            this.World.Assets.getStash().add(this.new("scripts/items/el_special/el_arena_collar_item"));
+                            this.World.Assets.getStash().add(this.new("scripts/items/el_special/el_arena_collar_item"));
+                            this.World.Assets.getStash().add(this.new("scripts/items/el_special/el_arena_collar_item"));
                             this.Contract.setState("Running");
                             return 0;
                         }
@@ -1106,9 +1106,401 @@ local gt = getroottable();
             });
         }
 
+        o.getBros = function()
+        {
+            local ret = [];
+            local roster = this.World.getPlayerRoster().getAll();
+    
+            foreach( bro in roster )
+            {
+                local skill = bro.getSkills().hasSkill("el_items.arena_collar_skill");
+    
+                if (skill != null)
+                {
+                    bro.getSkills().removeByID("el_items.arena_collar_skill");
+                    ret.push(bro);
+                }
+            }
+            return ret;
+        }
+
     });
 
 	::mods_hookExactClass("contracts/contracts/arena_tournament_contract", function(o){
+
+        o.createScreens = function()
+        {
+            this.m.Screens.push({
+                ID = "Task",
+                Title = "At the Arena",
+                Text = "",
+                Image = "",
+                List = [],
+                ShowDifficulty = true,
+                Options = [
+                    {
+                        Text = "{We shall win the grand prize!}",
+                        function getResult()
+                        {
+                            return "Overview";
+                        }
+    
+                    },
+                    {
+                        Text = "{We are not ready for this.}",
+                        function getResult()
+                        {
+                            this.Contract.getHome().removeSituationByID("situation.arena_tournament");
+                            this.Contract.getHome().getBuilding("building.arena").refreshCooldown();
+                            this.World.State.getTownScreen().getMainDialogModule().reload();
+                            return 0;
+                        }
+    
+                    }
+                ],
+                function start()
+                {
+                    this.Text = "[img]gfx/ui/events/event_155.png[/img]Dozens of men mingle about the arena\'s entrance. Some stand stoically, not wishing to give any hint of their capabilities. Others, however, boast and brag with aplomb, either sincerely confident in their martial skills or hoping their bravado masks any holes in their game.\n\n";
+                    this.Text += "The arena master, typically the most disinterested man you\'ve ever met to have an interesting job, is actually rather lively today. He presents you with a scroll in one hand and three fingers held up in the other.%SPEECH_ON%Three rounds! Three rounds, one after the other and each harder than the last. Win all three with the same five men to earn the grand prize of a famed %prizetype% called %prizename%! It\'sahtournamentah! You want in or not-ah?%SPEECH_OFF%";
+                    this.Text += "The arena master continues.%SPEECH_ON%When you\'re ready, have the men who\'ll be doing the fighting put on the arena collars we\'ll give you.%SPEECH_OFF%";
+                }
+    
+            });
+            this.m.Screens.push({
+                ID = "Overview",
+                Title = "Overview",
+                Text = "This arena tournament works as follows. Do you agree to the terms?",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "We enter the tournament!",
+                        function getResult()
+                        {
+                            for( local i = 0; i < 5; i = i )
+                            {
+                                this.World.Assets.getStash().add(this.new("scripts/items/el_special/el_arena_collar_item"));
+                                i = ++i;
+                            }
+    
+                            this.Contract.setState("Running");
+                            return 0;
+                        }
+    
+                    },
+                    {
+                        Text = "I\'ll have to think it over.",
+                        function getResult()
+                        {
+                            return 0;
+                        }
+    
+                    }
+                ],
+                ShowObjectives = true,
+                ShowPayment = true,
+                function start()
+                {
+                    this.Contract.m.IsNegotiated = true;
+                }
+    
+            });
+            this.m.Screens.push({
+                ID = "Start",
+                Title = "At the Arena",
+                Text = "[img]gfx/ui/events/event_155.png[/img]{As you wait your turn, the crowd\'s bloodlust crawls through the dark, sheets of dust falling from above, the stomps of feet thunderous. They murmur in anticipation, and roar at killings. The quiet between battles is mere moments, and this silence is snatched away as the rusted gate lurches upward, chains rankling, the crowd abuzz once more. You step out into the light and so thunderous is the noise against your heart it could surely yet spur a dead man forth... | The arena\'s crowd is shoulder to shoulder, most blathering drunk. They scream and shout, their languages a mix of local and foreign, though the appeal to their bloodlust needs little articulation beyond their maddened faces and pumping fists. Now, the %companyname%\'s men will satiate these mad fools... | Cleaners hurry about the arena. They drag away the bodies, collect what\'s worth collecting, and occasionally throw a trophy into the crowds, eliciting a moblike rendition of the arena\'s battles in the stands themselves. The %companyname% is now a part of this affair. | The arena awaits, the crowd alight, and the %companyname%\'s turn to gain glory is at hand! | The crowd booms as the %companyname%\'s men stride into its bloody pit. Despite the mindless bloodlust of the peoples, you can\'t help but feel a beat of pride in your chest, knowing that it is your company ready to put on a show. | The gate rises. Nothing is heard save the rattle of chains, the creak of pulleys, the grunts of slaves at work. When the men of the %companyname% step out of the arena\'s bowels they can hear the crunch of sand underfoot until they come to stand in the center of the pit. A strange voice screams from the tops of the stadium, some lost language beyond your knowing, but the words echo just once before the crowd erupts with cheers and roaring. Now is the time your men shall prove themselves before the watchful eye of the commoner. | The %companyname%\'s business is rarely done before the eyes of those who would prefer themselves distantly separated from such violence. But in the arena, the commoner greedily awaits death and suffering, and it growls with bloodlust as your men enter the pits, and roars as the sellswords draw their weapons and ready for battle. | The arena is shaped like the pit of some sore, its ceiling torn away by the gods, revealing the vanity, bloodlust, and savagery of man. And it is man there, yelling and screaming, and if the blood sprays hit them, they wash their faces in the gore and grin at one another as though it were a joke. They fight one another for trophies and relish in the pain of others. And it is before these peoples that the %companyname% will fight, and for them they shall entertain and entertain well. | The arena\'s crowd is a mash of classes, rich and poor, for only the Viziers separate themselves out into stations above all. Briefly unified, the peoples of %townname% have graciously come together to watch men and monsters murder one another. With pleasure, the %companyname% seeks to do its part. | Boys sitting on the shoulders of fathers, young girls throwing flowers to the gladiators, women fanning themselves, men wondering if they could do it. These are the peoples of the arena - and the rest are all drunk out of their gourd and screaming nonsense. You hope the %companyname% can contribute to at least an hour or two to entertaining this mad lot. | The crowd roars as the %companyname%\'s men step into the pit. One would be dumb to confuse excitement for desire, for as soon as the applause ends there is a smattering of empty beer mugs and rotten tomatoes and the general giggling delight of those watching the matter. You wonder if the %companyname%\'s men are really best spent here, but then think hard on the gold and glory to be won, and that at the end of the day these mongrels in the stands will go home to their shit lives, and you\'ll go home to your shit life as well, but at least your pockets will be a bit deeper.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "Let\'s win us that prize!",
+                        function getResult()
+                        {
+                            this.Contract.startTournamentRound();
+                            return 0;
+                        }
+    
+                    },
+                    {
+                        Text = "We\'re not doing this. I don\'t want to die!",
+                        function getResult()
+                        {
+                            this.Contract.getHome().removeSituationByID("situation.arena_tournament");
+                            this.Contract.getHome().getBuilding("building.arena").refreshCooldown();
+                            this.World.State.getTownScreen().getMainDialogModule().reload();
+                            this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnArenaCancel);
+                            this.World.Contracts.finishActiveContract(true);
+                            return 0;
+                        }
+    
+                    }
+                ],
+                function start()
+                {
+                    this.Text += "\n\n\n\n\n\nThe following characters will enter the arena:\n\n%bro1name%\n%bro2name%\n%bro3name%\n%bro4name%\n%bro5name%";
+                }
+    
+            });
+            this.m.Screens.push({
+                ID = "Won2",
+                Title = "At the Arena",
+                Text = "[img]gfx/ui/events/event_147.png[/img]{The first of the three battles is over. You\'ll have to make a careful assessment of your men and if they can continue to the next round, which will only be harder than the last. Just as you\'ll find no pride in the grave, there\'s no shame in leaving. You\'d still get some coin, but you\'d also forfeit any chance to win the grand prize.}",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "We\'ll win the next round as well!",
+                        function getResult()
+                        {
+                            this.Contract.startTournamentRound();
+                            return 0;
+                        }
+    
+                    },
+                    {
+                        Text = "Time for us to drop out of this tournament.",
+                        function getResult()
+                        {
+                            return "DropOut";
+                        }
+    
+                    }
+                ],
+                function start()
+                {
+                    if (this.Flags.getAsInt("RewardsApplied") < 2)
+                    {
+                        this.Flags.set("RewardsApplied", 2);
+                        this.World.Statistics.getFlags().increment("ArenaFightsWon", 1);
+    
+                        if (this.World.Statistics.getFlags().getAsInt("ArenaFightsWon") >= 10)
+                        {
+                            this.updateAchievement("Gladiator", 1, 1);
+                        }
+    
+                        this.Contract.updateTraits(this.List);
+                    }
+    
+                    this.Contract.m.BulletpointsObjectives = [
+                        "The next round will start automatically",
+                        "Each round will be to the death and you won\'t be able to retreat or loot afterwards",
+                        "After each round you can elect to drop out or start the next round right away"
+                    ];
+                }
+    
+            });
+            this.m.Screens.push({
+                ID = "Won3",
+                Title = "At the Arena",
+                Text = "[img]gfx/ui/events/event_147.png[/img]The penultimate battle is won, leaving you with the choice to drop out now or take on the final fight to win the grand prize.",
+                Image = "",
+                List = [],
+                Options = [
+                    {
+                        Text = "On to the final round!",
+                        function getResult()
+                        {
+                            this.Contract.startTournamentRound();
+                            return 0;
+                        }
+    
+                    },
+                    {
+                        Text = "Time for us to drop out of this tournament.",
+                        function getResult()
+                        {
+                            return "DropOut";
+                        }
+    
+                    }
+                ],
+                function start()
+                {
+                    if (this.Flags.getAsInt("RewardsApplied") < 3)
+                    {
+                        this.Flags.set("RewardsApplied", 3);
+                        this.World.Statistics.getFlags().increment("ArenaFightsWon", 1);
+    
+                        if (this.World.Statistics.getFlags().getAsInt("ArenaFightsWon") >= 10)
+                        {
+                            this.updateAchievement("Gladiator", 1, 1);
+                        }
+    
+                        this.Contract.updateTraits(this.List);
+                    }
+                }
+    
+            });
+            this.m.Screens.push({
+                ID = "Won4",
+                Title = "At the Arena",
+                Text = "[img]gfx/ui/events/event_147.png[/img]The combat is over, and the dull warbling in your ear is the roar of the crowd, overwhelming all senses in an explosion of celebratory ecstasy. You are but an avatar for the people, a totem through which they can vicariously electrify their own vanity and vacant heroism. Alongside the adoration of the mob, you are rewarded the grand prize: %prizename%!",
+                Image = "",
+                Characters = [],
+                List = [],
+                Options = [
+                    {
+                        Text = "Victory!",
+                        function getResult()
+                        {
+                            this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractSuccess * 2);
+                            this.Contract.getHome().removeSituationByID("situation.arena_tournament");
+                            this.Contract.getHome().getBuilding("building.arena").refreshCooldown();
+                            this.World.Contracts.finishActiveContract();
+                            return 0;
+                        }
+    
+                    }
+                ],
+                function start()
+                {
+                    this.Flags.set("RewardsApplied", 4);
+                    this.World.Statistics.getFlags().increment("ArenaFightsWon", 1);
+    
+                    if (this.World.Statistics.getFlags().getAsInt("ArenaFightsWon") >= 10)
+                    {
+                        this.updateAchievement("Gladiator", 1, 1);
+                    }
+    
+                    this.World.Assets.getStash().makeEmptySlots(1);
+                    local item = this.new(this.IO.scriptFilenameByHash(this.Flags.get("PrizeScript")));
+                    item.setName(this.Flags.get("PrizeName"));
+                    this.World.Assets.getStash().add(item);
+                    this.List.push({
+                        id = 12,
+                        icon = "ui/items/" + item.getIcon(),
+                        text = "You gain " + item.getName()
+                    });
+                    this.Contract.updateTraits(this.List);
+                }
+    
+            });
+            this.m.Screens.push({
+                ID = "DropOut",
+                Title = "At the Arena",
+                Text = "[img]gfx/ui/events/event_147.png[/img]{You decide to depart the tournament and preserve your men to fight another day. No boos or hisses are heard as this is done in the belly of the arena. It is a bureaucratic affair at best, a small exchange of monetary compensation and you are sent on your way. No grief is given, especially not from fellow gladiators who understand the point of the decision better than anyone. And the crowd? They just want blood, they\'ll never even notice which bodies carrying it are gone.}",
+                Image = "",
+                Characters = [],
+                List = [],
+                Options = [
+                    {
+                        Text = "Maybe next time.",
+                        function getResult()
+                        {
+                            this.Contract.getHome().removeSituationByID("situation.arena_tournament");
+                            this.Contract.getHome().getBuilding("building.arena").refreshCooldown();
+                            this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractFail);
+                            this.World.Contracts.finishActiveContract(true);
+                            return 0;
+                        }
+    
+                    }
+                ],
+                function start()
+                {
+                    local money = (this.Flags.get("Round") - 1) * 1000;
+                    this.World.Assets.addMoney(money);
+                    this.List.push({
+                        id = 10,
+                        icon = "ui/icons/asset_money.png",
+                        text = "You gain [color=" + this.Const.UI.Color.PositiveEventValue + "]" + money + "[/color] Crowns"
+                    });
+                }
+    
+            });
+            this.m.Screens.push({
+                ID = "Failure1",
+                Title = "At the Arena",
+                Text = "[img]gfx/ui/events/event_147.png[/img]{The %companyname%\'s men have been defeated, either dead or, perhaps worse, badly mangled. At least the crowds are happy. In the pits, any showing, even that which ends in demise, is a good showing.}",
+                Image = "",
+                Characters = [],
+                List = [],
+                Options = [
+                    {
+                        Text = "Disaster!",
+                        function getResult()
+                        {
+                            local roster = this.World.getPlayerRoster().getAll();
+    
+                            foreach( bro in roster )
+                            {
+                                local item = bro.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
+    
+                                if (item != null && item.getID() == "accessory.arena_collar")
+                                {
+                                    bro.getFlags().increment("ArenaFights", 1);
+                                }
+                            }
+    
+                            this.Contract.getHome().removeSituationByID("situation.arena_tournament");
+                            this.Contract.getHome().getBuilding("building.arena").refreshCooldown();
+                            this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractFail);
+                            this.World.Contracts.finishActiveContract(true);
+                            return 0;
+                        }
+    
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Failure2",
+                Title = "At the Arena",
+                Text = "{[img]gfx/ui/events/event_155.png[/img]The time for your arena match has come and passed, but you didn\'t show up there. Perhaps something more important came up, or perhaps you\'ve just been hiding like cowards. Either way, your reputation will suffer because of this.",
+                Image = "",
+                Characters = [],
+                List = [],
+                Options = [
+                    {
+                        Text = "But...",
+                        function getResult()
+                        {
+                            this.Contract.getHome().removeSituationByID("situation.arena_tournament");
+                            this.Contract.getHome().getBuilding("building.arena").refreshCooldown();
+                            this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractFail);
+                            this.World.Contracts.finishActiveContract(true);
+                            return 0;
+                        }
+    
+                    }
+                ]
+            });
+            this.m.Screens.push({
+                ID = "Collars",
+                Title = "At the Arena",
+                Text = "{[img]gfx/ui/events/event_155.png[/img]The time for your arena match has come, but none of your men bear the arena collars, and so they aren\'t let in.\n\nYou should decide on who is to fight by equipping them with the arena collars that you\'ve been given, and the match will start once you enter the arena again.",
+                Image = "",
+                Characters = [],
+                List = [],
+                Options = [
+                    {
+                        Text = "Oh, right!",
+                        function getResult()
+                        {
+                            return 0;
+                        }
+    
+                    }
+                ]
+            });
+        }
+
+        o.getBros = function()
+        {
+            local ret = [];
+            local roster = this.World.getPlayerRoster().getAll();
+    
+            foreach( bro in roster )
+            {
+                local skill = bro.getSkills().hasSkill("el_items.arena_collar_skill");
+    
+                if (skill != null)
+                {
+                    bro.getSkills().removeByID("el_items.arena_collar_skill");
+                    ret.push(bro);
+                }
+            }
+            return ret;
+        }
 
         o.getOpponents = function( _round, _index = -1 )
         {
