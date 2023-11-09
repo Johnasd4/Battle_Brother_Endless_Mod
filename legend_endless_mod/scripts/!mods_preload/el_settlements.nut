@@ -107,8 +107,8 @@ local gt = getroottable();
 			rosterMax = rosterMax * this.m.Modifiers.RecruitsMult;
 			rosterMin = rosterMin + this.World.Assets.m.RosterSizeAdditionalMin;
 			rosterMax = rosterMax + this.World.Assets.m.RosterSizeAdditionalMax;
-			rosterMin *= this.Math.round(this.World.Assets.EL_getHalfWorldDifficultFactor());
-			rosterMax *= this.Math.round(this.World.Assets.EL_getHalfWorldDifficultFactor());
+			rosterMin = this.Math.round(rosterMin * this.World.Assets.EL_getHalfWorldDifficultFactor());
+			rosterMax = this.Math.round(rosterMax * this.World.Assets.EL_getHalfWorldDifficultFactor());
 			if (iterations < 7)
 			{
 				for( local i = 0; i < iterations; i = i )
