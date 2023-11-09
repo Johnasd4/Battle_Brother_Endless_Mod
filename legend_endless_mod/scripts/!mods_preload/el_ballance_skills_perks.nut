@@ -420,8 +420,8 @@ local gt = getroottable();
 
 	::mods_hookExactClass("skills/perks/perk_legend_barter_greed", function ( o )
 	{
-		o.m.OffensiveMult = 5;
-		o.m.DefensiveMult = 5;
+		o.m.OffensiveMult = 3;
+		o.m.DefensiveMult = 3;
 
 		o.calculateBonus = function( _multiplier )
 		{
@@ -843,7 +843,21 @@ local gt = getroottable();
 
 	::mods_hookExactClass("skills/perks/perk_ptr_bulwark", function ( o )
 	{
-		o.m.ArmorPercentageAsBonus = 1;
+		o.m.ArmorPercentageAsBonus = 5;
+
+        o.getBonus <- function()
+        {
+            local armor = this.getContainer().getActor().getArmor(this.Const.BodyPart.Head) + this.getContainer().getActor().getArmor(this.Const.BodyPart.Body);
+			local armor_need = 100.0;
+			local bonus = 0;
+			while(armor > 0)
+			{
+				++bonus;
+				armor -= armor_need;
+				armor_need *= 2;
+			}
+			return this.Math.floor((bonus + (armor / armor_need)) * this.m.ArmorPercentageAsBonus);
+        }
 	});
 
 	::mods_hookExactClass("skills/perks/perk_ptr_cull", function ( o )
@@ -1353,7 +1367,7 @@ gt.Const.EL_Config.EL_modStrings <- function()
         },
 		{
             ID = "perk.dodge",
-            tooltip = "Too fast for you! Gain [color=" + this.Const.UI.Color.PositiveValue + "]10%[/color] of the character\'s current Initiative as a bonus to Melee and Ranged Defense."
+            tooltip = "对你来说太快了！获得角色当前主动值获得近战和远程防御的加成。"
         },
         {
             ID = "perk.fortified_mind",
@@ -1466,7 +1480,7 @@ gt.Const.EL_Config.EL_modStrings <- function()
         },
         {
             ID = "perk.ptr_bulwark",
-            tooltip = "\'Not much to be afraid of behind a suit of plate!\'\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• Resolve is increased by [color=" + this.Const.UI.Color.PositiveValue + "]1%[/color] of the combined current durability of head and body armor.\n• This bonus is [color=" + this.Const.UI.Color.PositiveValue + "]doubled[/color] against negative morale checks except mental attacks."
+            tooltip = "\'Not much to be afraid of behind a suit of plate!\'\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• 获得基于当前盔甲总耐久度的决心。\n• This bonus is [color=" + this.Const.UI.Color.PositiveValue + "]doubled[/color] against negative morale checks except mental attacks."
         },
         {
             ID = "perk.student",

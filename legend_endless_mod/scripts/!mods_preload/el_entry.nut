@@ -11,7 +11,7 @@ local gt = getroottable();
             if(this.World.getTime().Hours != this.m.LastHourUpdated)
             {
                 local times = this.World.getTime().Hours - this.m.LastHourUpdated;
-                this.logInfo("time:" + times); 
+                //this.logInfo("time:" + times); 
                 for(local i = 0; i < times; ++i)
                 {
                     this.EL_onNewHour();

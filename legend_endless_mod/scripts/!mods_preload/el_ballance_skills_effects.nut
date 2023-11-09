@@ -244,12 +244,55 @@ local gt = getroottable();
 	});
 
 	::mods_hookExactClass("skills/effects/dodge_effect", function(o){
+        o.getBonus <- function()
+        {
+            local offset = 10;
+            local initiative = this.getContainer().getActor().getInitiative();
+			local initiative_need = 100.0;
+			local bonus = 0;
+			while(initiative > 0)
+			{
+				++bonus;
+				initiative -= initiative_need;
+				initiative_need *= 2;
+			}
+			return this.Math.floor((bonus + (initiative / initiative_need)) * offset);
+        }
 
         o.onAfterUpdate = function( _properties )
         {
-            local initiative = this.Math.floor(this.getContainer().getActor().getInitiative() * 0.1);
+            local initiative = getBonus();
             _properties.MeleeDefense += this.Math.max(0, initiative);
             _properties.RangedDefense += this.Math.max(0, initiative);
+        }
+
+        o.getTooltip = function()
+        {
+            local initiative = getBonus();
+            return [
+                {
+                    id = 1,
+                    type = "title",
+                    text = this.getName()
+                },
+                {
+                    id = 2,
+                    type = "description",
+                    text = this.getDescription()
+                },
+                {
+                    id = 10,
+                    type = "text",
+                    icon = "ui/icons/melee_defense.png",
+                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + initiative + "[/color] Melee Defense"
+                },
+                {
+                    id = 11,
+                    type = "text",
+                    icon = "ui/icons/ranged_defense.png",
+                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + initiative + "[/color] Ranged Defense"
+                }
+            ];
         }
 
 	});
@@ -1244,6 +1287,60 @@ local gt = getroottable();
             _properties.RangedSkill -= 5 * this.m.Count;
         }
 
+	});
+
+	::mods_hookExactClass("skills/effects/ptr_swordmaster_scenario_recruit_effect", function ( o )
+	{
+		o.getBonus = function()
+		{
+			local offset = 2;
+			local level = this.getContainer().getActor().getLevel();
+			local level_need = 10.0;
+			local bonus = 0;
+			while(level > 0)
+			{
+				++bonus;
+				level -= level_need;
+				level_need *= 2;
+			}
+			return this.Math.floor((bonus + (level / level_need)) * offset) * (this.getContainer().hasSkill("perk.ptr_swordmaster_precise") ? 2 : 1);
+		}
+	});
+
+	::mods_hookExactClass("skills/effects/ptr_swordmaster_scenario_avatar_effect", function ( o )
+	{
+		o.getSkillBonus = function()
+		{
+			local offset = 4;
+			local level = this.getContainer().getActor().getLevel();
+			local level_need = 10.0;
+			local bonus = 0;
+			while(level > 0)
+			{
+				++bonus;
+				level -= level_need;
+				level_need *= 2;
+			}
+			return this.Math.floor((bonus + (level / level_need)) * offset) * (this.getContainer().hasSkill("perk.ptr_swordmaster_precise") ? 2 : 1);
+		}
+	});
+
+	::mods_hookExactClass("skills/effects/ptr_swordmasters_finesse_effect", function ( o )
+	{
+		o.getSkillBonus = function()
+		{
+			local offset = 4;
+			local level = this.getContainer().getActor().getLevel();
+			local level_need = 10.0;
+			local bonus = 0;
+			while(level > 0)
+			{
+				++bonus;
+				level -= level_need;
+				level_need *= 2;
+			}
+			return this.Math.floor((bonus + (level / level_need)) * offset) * (this.getContainer().hasSkill("perk.ptr_swordmaster_precise") ? 2 : 1);
+		}
 	});
 
 	::mods_hookExactClass("skills/effects/ptr_armor_fatigue_recovery_effect", function(o){
