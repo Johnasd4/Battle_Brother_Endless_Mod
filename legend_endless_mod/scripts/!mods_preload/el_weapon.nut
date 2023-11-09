@@ -519,6 +519,7 @@ local gt = getroottable();
 
 		o.EL_addRankLevel <- function()
 		{
+			local percent = (this.m.Condition * 1.0)/ this.m.ConditionMax;
 			++this.m.EL_RankLevel;
 			EL_init();
 			foreach(entry in this.m.EL_EntryList)
@@ -528,6 +529,7 @@ local gt = getroottable();
 			this.Const.EL_Weapon.EL_updateRankLevelProperties(this);
 			local entry_num = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_Entry.EntryNum.OneHanded[this.m.EL_RankLevel] : this.Const.EL_Weapon.EL_Entry.EntryNum.TwoHanded[this.m.EL_RankLevel];
 			this.Const.EL_Weapon.EL_assignItemEntrys(this, entry_num);
+			this.setCondition(this.m.ConditionMax * percent);
 		}
 
         o.EL_upgradeLevel <- function()
@@ -625,6 +627,7 @@ local gt = getroottable();
 			this.m.AdditionalAccuracy = this.m.EL_BaseNoRankAdditionalAccuracy;
 			this.m.FatigueOnSkillUse = this.m.EL_BaseNoRankFatigueOnSkillUse;
 			this.m.RangeMax = this.m.EL_BaseNoRankRangeMax;
+			this.m.EL_BaseWithRankDirectDamageAdd = this.m.EL_BaseNoRankDirectDamageAdd;
 			this.m.EL_BaseWithRankConditionMax = this.m.EL_BaseNoRankConditionMax;
 			this.m.EL_BaseWithRankValue = this.m.EL_BaseNoRankValue;
 			this.m.EL_BaseWithRankRegularDamage = this.m.EL_BaseNoRankRegularDamage;
