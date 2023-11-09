@@ -179,7 +179,7 @@ local gt = getroottable();
             this.m.Items.push(spawnItem);
             this.spawnIcon("status_effect_01", _user.getTile());
             local skills = _user.getSkills();
-            local ballance_skill = skill.getSkillByID("el_effects.summon_ballance");
+            local ballance_skill = skills.getSkillByID("el_effects.summon_ballance");
             if(ballance_skill == null) {
                 ballance_skill = this.new("scripts/skills/el_effects/el_summon_ballance_effect");
                 _user.getSkills().add(ballance_skill);

@@ -22,8 +22,8 @@ this.el_combo_attack_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_np
 		}
 		if(!this.m.EL_IsComboAttack)
 		{
+			this.m.EL_IsComboAttack = true;
 			if(this.Math.rand(1, 100) <= this.Const.EL_NPC.EL_NPCBuff.Factor.ComboAttack.Chance[this.m.EL_RankLevel]) {
-				this.m.EL_IsComboAttack = true;
 				for(local i = 0; i < this.Const.EL_NPC.EL_NPCBuff.Factor.ComboAttack.AttackTimes[this.m.EL_RankLevel]; ++i) {
 					if (_targetEntity != null && !_targetEntity.isDying() && _targetEntity.isAlive()) {
 						if (user != null && !user.isDying() && user.isAlive()) {
@@ -36,7 +36,6 @@ this.el_combo_attack_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_np
 					}
 				}
 			}
-
 		}
 		else{
 			--this.m.EL_ExtraAttackTimes;
