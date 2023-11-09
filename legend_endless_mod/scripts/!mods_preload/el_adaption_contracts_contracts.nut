@@ -2345,7 +2345,6 @@ local gt = getroottable();
 
             for( local i = 0; i < bros.len() && i < 5; i = i )
             {
-                bros[i].getSkills().removeByID("el_items.arena_collar_skill");
                 p.Players.push(bros[i]);
                 i = ++i;
             }
