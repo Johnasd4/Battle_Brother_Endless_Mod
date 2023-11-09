@@ -176,7 +176,11 @@ local gt = getroottable();
 
                 function update()
                 {
-                    this.EL_removeBrosCollar();
+                    local roster = this.World.getPlayerRoster().getAll();
+                    foreach( bro in roster )
+                    {
+                        bro.getSkills().removeByID("el_items.arena_collar_skill");
+                    }
                     if (this.Flags.get("IsVictory"))
                     {
                         this.Contract.setScreen("Success");
@@ -1184,15 +1188,6 @@ local gt = getroottable();
             });
         }
 
-        o.EL_removeBrosCollar <- function()
-        {
-            local roster = this.World.getPlayerRoster().getAll();
-            foreach( bro in roster )
-            {
-                bro.getSkills().removeByID("el_items.arena_collar_skill");
-            }
-        }
-
         o.getBros = function()
         {
             local ret = [];
@@ -1247,7 +1242,11 @@ local gt = getroottable();
 
                 function update()
                 {
-                    this.EL_removeBrosCollar();
+                    local roster = this.World.getPlayerRoster().getAll();
+                    foreach( bro in roster )
+                    {
+                        bro.getSkills().removeByID("el_items.arena_collar_skill");
+                    }
                     if (this.Flags.get("Round") > 1 && this.Contract.getBros() == 0)
                     {
                         this.Contract.setScreen("Failure1");
@@ -1644,15 +1643,6 @@ local gt = getroottable();
                     }
                 ]
             });
-        }
-
-        o.EL_removeBrosCollar <- function()
-        {
-            local roster = this.World.getPlayerRoster().getAll();
-            foreach( bro in roster )
-            {
-                bro.getSkills().removeByID("el_items.arena_collar_skill");
-            }
         }
 
         o.getBros = function()

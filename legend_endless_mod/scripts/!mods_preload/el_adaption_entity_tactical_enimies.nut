@@ -31,49 +31,42 @@ local gt = getroottable();
                 EL_CombatLevel = this.EL_getCombatLevel(),
                 EL_RankLevel = this.EL_getRankLevel()
             };
-
-            if (this.m.LastBodyPartHit == this.Const.BodyPart.Body)
-            {
-                //this.spawnDeadWolf(_killer, _skill, _tile, _fatalityType);
-            }
-            else
-            {
-                //this.goblin.onDeath(_killer, _skill, _tile, _fatalityType);
-            }
+            this.spawnDeadWolf(_killer, _skill, _tile, _fatalityType);
+            this.goblin.onDeath(_killer, _skill, _tile, _fatalityType);
         }
 
         o.spawnWolf = function( _info )
         {
-            this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
-            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Wolf, _info.Tile, _info.Faction, _info.EL_RankLevel,  _info.EL_CombatLevel);
-            if (entity != null)
-            {
-                entity.setVariant(this.m.Variant, _info.WolfColor, _info.WolfSaturation, 0.45);
-                entity.setMoraleState(_info.Morale);
-            }
+            // this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
+            // local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Wolf, _info.Tile, _info.Faction, _info.EL_RankLevel,  _info.EL_CombatLevel);
+            // if (entity != null)
+            // {
+            //     entity.setVariant(this.m.Variant, _info.WolfColor, _info.WolfSaturation, 0.45);
+            //     entity.setMoraleState(_info.Morale);
+            // }
         }
 
         o.spawnGoblin = function( _info )
         {
-            this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.Other1][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.Other1].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
-            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.GoblinSkirmisher, _info.Tile, _info.Faction, _info.EL_RankLevel,  _info.EL_CombatLevel);
+            // this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.Other1][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.Other1].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
+            // local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.GoblinSkirmisher, _info.Tile, _info.Faction, _info.EL_RankLevel,  _info.EL_CombatLevel);
 
-            if (entity != null)
-            {
-                local newBody = entity.getSprite("body");
-                newBody.setBrush(_info.Body);
-                newBody.Color = _info.Color;
-                newBody.Saturation = _info.Saturation;
-                local newHead = entity.getSprite("head");
-                newHead.setBrush(_info.Head);
-                newHead.Color = _info.Color;
-                newHead.Saturation = _info.Saturation;
-                entity.getItems().clear();
-                this.m.Items.transferTo(entity.getItems());
-                entity.setMoraleState(_info.Morale);
-                entity.setHitpoints(entity.getHitpointsMax() * 0.45);
-                entity.onUpdateInjuryLayer();
-            }
+            // if (entity != null)
+            // {
+            //     local newBody = entity.getSprite("body");
+            //     newBody.setBrush(_info.Body);
+            //     newBody.Color = _info.Color;
+            //     newBody.Saturation = _info.Saturation;
+            //     local newHead = entity.getSprite("head");
+            //     newHead.setBrush(_info.Head);
+            //     newHead.Color = _info.Color;
+            //     newHead.Saturation = _info.Saturation;
+            //     entity.getItems().clear();
+            //     this.m.Items.transferTo(entity.getItems());
+            //     entity.setMoraleState(_info.Morale);
+            //     entity.setHitpoints(entity.getHitpointsMax() * 0.45);
+            //     entity.onUpdateInjuryLayer();
+            // }
         }
 
 
@@ -109,49 +102,42 @@ local gt = getroottable();
                 EL_CombatLevel = this.EL_getCombatLevel(),
                 EL_RankLevel = this.EL_getRankLevel()
             };
-
-            if (this.m.LastBodyPartHit == this.Const.BodyPart.Body)
-            {
-                //this.spawnDeadWolf(_killer, _skill, _tile, _fatalityType);
-            }
-            else
-            {
-                //this.goblin.onDeath(_killer, _skill, _tile, _fatalityType);
-            }
+            this.spawnDeadWolf(_killer, _skill, _tile, _fatalityType);
+            this.goblin.onDeath(_killer, _skill, _tile, _fatalityType);
         }
 
         o.spawnWolf = function( _info )
         {
-            this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
-            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Wolf, _info.Tile, _info.Faction, _info.EL_RankLevel,  _info.EL_CombatLevel);
-            if (entity != null)
-            {
-                entity.setVariant(this.m.Variant, _info.WolfColor, _info.WolfSaturation, 0.45);
-                entity.setMoraleState(_info.Morale);
-            }
+            // this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
+            // local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Wolf, _info.Tile, _info.Faction, _info.EL_RankLevel,  _info.EL_CombatLevel);
+            // if (entity != null)
+            // {
+            //     entity.setVariant(this.m.Variant, _info.WolfColor, _info.WolfSaturation, 0.45);
+            //     entity.setMoraleState(_info.Morale);
+            // }
         }
 
         o.spawnGoblin = function( _info )
         {
-            this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.Other1][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.Other1].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
-            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.GoblinSkirmisher, _info.Tile, _info.Faction, _info.EL_RankLevel,  _info.EL_CombatLevel);
+            // this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.Other1][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.Other1].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
+            // local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.GoblinSkirmisher, _info.Tile, _info.Faction, _info.EL_RankLevel,  _info.EL_CombatLevel);
 
-            if (entity != null)
-            {
-                local newBody = entity.getSprite("body");
-                newBody.setBrush(_info.Body);
-                newBody.Color = _info.Color;
-                newBody.Saturation = _info.Saturation;
-                local newHead = entity.getSprite("head");
-                newHead.setBrush(_info.Head);
-                newHead.Color = _info.Color;
-                newHead.Saturation = _info.Saturation;
-                entity.getItems().clear();
-                this.m.Items.transferTo(entity.getItems());
-                entity.setMoraleState(_info.Morale);
-                entity.setHitpoints(entity.getHitpointsMax() * 0.45);
-                entity.onUpdateInjuryLayer();
-            }
+            // if (entity != null)
+            // {
+            //     local newBody = entity.getSprite("body");
+            //     newBody.setBrush(_info.Body);
+            //     newBody.Color = _info.Color;
+            //     newBody.Saturation = _info.Saturation;
+            //     local newHead = entity.getSprite("head");
+            //     newHead.setBrush(_info.Head);
+            //     newHead.Color = _info.Color;
+            //     newHead.Saturation = _info.Saturation;
+            //     entity.getItems().clear();
+            //     this.m.Items.transferTo(entity.getItems());
+            //     entity.setMoraleState(_info.Morale);
+            //     entity.setHitpoints(entity.getHitpointsMax() * 0.45);
+            //     entity.onUpdateInjuryLayer();
+            // }
         }
 
 
@@ -342,53 +328,46 @@ local gt = getroottable();
                 EL_CombatLevel = this.EL_getCombatLevel(),
                 EL_RankLevel = this.EL_getRankLevel()
             };
-
-            if (this.m.LastBodyPartHit == this.Const.BodyPart.Body)
-            {
-                //this.spawnDeadWolf(_killer, _skill, _tile, _fatalityType);
-            }
-            else
-            {
-                //this.goblin.onDeath(_killer, _skill, _tile, _fatalityType);
-            }
+            this.spawnDeadWolf(_killer, _skill, _tile, _fatalityType);
+            this.goblin.onDeath(_killer, _skill, _tile, _fatalityType);
         }
 
         o.spawnWolf = function( _info )
         {
-            this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
-            local entity = this.Const.World.Common.EL_addEntity({
-                ID = 0,
-                Variant = 0,
-                Strength = 10,
-                Cost = 0,
-                Row = 0,
-                Script = "scripts/entity/tactical/enemies/legend_horse"
-            }, _info.Tile, _info.Faction, this.EL_getRankLevel(), this.EL_getLevel());
+            // this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.DamageReceived].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
+            // local entity = this.Const.World.Common.EL_addEntity({
+            //     ID = 0,
+            //     Variant = 0,
+            //     Strength = 10,
+            //     Cost = 0,
+            //     Row = 0,
+            //     Script = "scripts/entity/tactical/enemies/legend_horse"
+            // }, _info.Tile, _info.Faction, this.EL_getRankLevel(), this.EL_getLevel());
 
-            if (entity != null)
-            {
-                entity.setVariant(this.m.Variant);
-                entity.setMoraleState(_info.Morale);
-            }
+            // if (entity != null)
+            // {
+            //     entity.setVariant(this.m.Variant);
+            //     entity.setMoraleState(_info.Morale);
+            // }
         }
 
         o.spawnGoblin = function( _info )
         {
-            this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.Other1][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.Other1].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
-            local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.BanditThug, _info.Tile, _info.Faction, this.EL_getRankLevel(), this.EL_getLevel());
+            // this.Sound.play(this.m.Sound[this.Const.Sound.ActorEvent.Other1][this.Math.rand(0, this.m.Sound[this.Const.Sound.ActorEvent.Other1].len() - 1)], this.Const.Sound.Volume.Actor * this.m.SoundVolume[this.Const.Sound.ActorEvent.Other1], _info.Tile.Pos, 1.0);
+            // local entity = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.BanditThug, _info.Tile, _info.Faction, this.EL_getRankLevel(), this.EL_getLevel());
 
-            if (entity != null)
-            {
-                local newHead = entity.getSprite("head");
-                newHead.setBrush(_info.Head);
-                newHead.Color = _info.Color;
-                newHead.Saturation = _info.Saturation;
-                entity.getItems().clear();
-                this.m.Items.transferTo(entity.getItems());
-                entity.setMoraleState(_info.Morale);
-                entity.setHitpoints(entity.getHitpointsMax() * 0.45);
-                entity.onUpdateInjuryLayer();
-            }
+            // if (entity != null)
+            // {
+            //     local newHead = entity.getSprite("head");
+            //     newHead.setBrush(_info.Head);
+            //     newHead.Color = _info.Color;
+            //     newHead.Saturation = _info.Saturation;
+            //     entity.getItems().clear();
+            //     this.m.Items.transferTo(entity.getItems());
+            //     entity.setMoraleState(_info.Morale);
+            //     entity.setHitpoints(entity.getHitpointsMax() * 0.45);
+            //     entity.onUpdateInjuryLayer();
+            // }
         }
 
     });

@@ -592,7 +592,7 @@ local gt = getroottable();
 
 		o.getDescription <- function()
 		{
-			return "Put your full weight into every blow and gain [color=" + this.Const.UI.Color.PositiveValue + "]+10%[/color] of your current hitpoints as additional minimum and maximum damage.";
+			return "把你的重量运用到每次攻击，增加 [color=" + this.Const.UI.Color.PositiveValue + "]+10%[/color] 的最小伤害和最大伤害。";
 		}
 
 		o.onUpdate = function( _properties )
@@ -1099,17 +1099,19 @@ local gt = getroottable();
 
 		o.updatePerkVisuals = function ()
 		{
-			foreach (perk in this.getContainer().getActor().getBackground().m.PerkTree[0])
-			{
-				if (perk.ID == "perk.ptr_promised_potential")
+			if(this.m.IsSpent == true) {
+				foreach (perk in this.getContainer().getActor().getBackground().m.PerkTree[0])
 				{
-					perk.Name = "Realized Potential";
-					perk.Icon = "ui/perks/ptr_realized_potential.png";
-					perk.Tooltip = "From rags to riches! This character has truly come a long way. Who was once a dreg of society is now a full-fledged mercenary.";
-					break;
+					if (perk.ID == "perk.ptr_promised_potential")
+					{
+						perk.Name = "Realized Potential";
+						perk.Icon = "ui/perks/ptr_realized_potential.png";
+						perk.Tooltip = "From rags to riches! This character has truly come a long way. Who was once a dreg of society is now a full-fledged mercenary.";
+						break;
+					}
 				}
+				this.m.IsVisualsUpdated = true;
 			}
-			this.m.IsVisualsUpdated = true;
 		}
 
 		o.onUpdateLevel = function()
@@ -1117,6 +1119,7 @@ local gt = getroottable();
 			local actor = this.getContainer().getActor();
 			if(!this.m.IsSpent && this.Math.rand(1, 1000) <= 10) {
 				this.m.IsSpent = true;
+
 				local bg = actor.getBackground();
 				bg.m.Description += " Once a dreg of society, with your help, " + actor.getNameOnly() + " has grown into a full-fledged mercenary.";
 				bg.m.RawDescription += " Once a dreg of society, with your help, %name% has grown into a full-fledged mercenary.";
@@ -1134,7 +1137,12 @@ local gt = getroottable();
 				this.updatePerkVisuals();
 			}
 		}
-		o.onUpdate = function(_properties) {}
+		o.onUpdate = function(_properties) {
+			if (this.m.IsSpent && !this.m.IsVisualsUpdated)
+			{
+				this.updatePerkVisuals();
+			}
+		}
 
 	});
 
@@ -1459,7 +1467,7 @@ gt.Const.EL_Config.EL_modStrings <- function()
         },
 		{
             ID = "perk.ptr_formidable_approach",
-            tooltip = "[color=" + this.Const.UI.Color.NegativeValue + "][u]Requires:[/u] Two-Handed Melee Weapon[/color]\nMake them think twice about getting close!\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• When wielding a Two-Handed weapon, reduce the Melee Skill and Melee Defense of any enemy who enters your zone of control by [color=" + this.Const.UI.Color.NegativeValue + "]10[/color] Melee Skill.\n• The debuff lasts until the enemy exits your zone of control or successfully hits you.\n• Only has half the effect against enemies with Two-Handed weapons, and does not work if the enemy also has this perk."
+            tooltip = "[color=" + this.Const.UI.Color.NegativeValue + "][u]Requires:[/u] Two-Handed Melee Weapon[/color]\nMake them think twice about getting close!\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• 当持有双手武器时，减少控制区域内的敌方单位 [color=" + this.Const.UI.Color.NegativeValue + "]10[/color] 点近攻和近防。\n• The debuff lasts until the enemy exits your zone of control or successfully hits you.\n• Only has half the effect against enemies with Two-Handed weapons, and does not work if the enemy also has this perk."
         },
 		{
             ID = "perk.ptr_promised_potential",
