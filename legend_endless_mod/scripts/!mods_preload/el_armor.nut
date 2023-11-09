@@ -284,7 +284,6 @@ local gt = getroottable();
 
 		o.EL_addRankLevel <- function()
 		{
-			local percent = (this.m.Condition * 1.0)/ this.m.ConditionMax;
 			++this.m.EL_RankLevel;
 			EL_init();
 			foreach(entry in this.m.EL_EntryList)
@@ -294,7 +293,7 @@ local gt = getroottable();
 			this.Const.EL_Armor.EL_updateRankLevelProperties(this);
 			this.Const.EL_Armor.EL_assignItemEntrys(this, this.Const.EL_Armor.EL_Entry.EntryNum.NormalArmor [this.m.EL_RankLevel]);
 			EL_entryListSort();
-			this.setCondition(this.m.ConditionMax * percent);
+			this.setCondition(this.getConditionMax());
 		}
 
         o.EL_upgradeLevel <- function()
@@ -1345,7 +1344,6 @@ local gt = getroottable();
 
 		o.EL_addRankLevel <- function()
 		{
-			local percent = (this.m.Condition * 1.0)/ this.m.ConditionMax;
 			++this.m.EL_RankLevel;
 			EL_init();
 			foreach(entry in this.m.EL_EntryList)
@@ -1354,7 +1352,7 @@ local gt = getroottable();
 			}
 			this.Const.EL_Armor.EL_updateRankLevelProperties(this);
 			this.Const.EL_Armor.EL_assignItemEntrys(this, this.Const.EL_Armor.EL_Entry.EntryNum.NormalArmor [this.m.EL_RankLevel]);
-			this.setCondition(this.m.ConditionMax * percent);
+			this.setCondition(this.getConditionMax());
 		}
 
         o.EL_upgradeLevel <- function()
