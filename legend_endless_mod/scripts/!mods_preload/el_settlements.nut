@@ -61,7 +61,7 @@ local gt = getroottable();
 			local allbros = roster.getAll();
 			local current = [];
 
-			for( local i = 0; i < allbros.len(); i = i )
+			for( local i = 0; i < allbros.len(); ++i )
 			{
 				if (allbros[i].isStabled())
 				{
@@ -71,8 +71,6 @@ local gt = getroottable();
 				{
 					current.push(allbros[i]);
 				}
-
-				i = ++i;
 			}
 
 			local iterations = this.Math.max(1, daysPassed / 2);

@@ -118,7 +118,7 @@ this.el_breaking_through_a_thousand_armies_entry <- this.inherit("scripts/skills
                 id = 20,
                 type = "text",
                 icon = "ui/icons/damage_received.png",
-                text = "每回合第一次释放的“旋风斩”技能将额外连击" + this.m.EL_Stack + "次"
+                text = "每回合第一次释放的“环劈”技能将额外连击" + this.m.EL_Stack + "次"
             });
         }
 		return result;
@@ -142,16 +142,9 @@ this.el_breaking_through_a_thousand_armies_entry <- this.inherit("scripts/skills
 		{
 			return;
 		}
-		if (EL_isUsable() && _skill.getID() == "actives.round_swing")
+		if (EL_isUsable())
 		{
-			if(this.m.EL_IsFirstRoundSwing)
-            {
-                this.m.EL_IsFirstRoundSwing = false;
-                while (this.m.EL_AdditionalRoundSwingTimes) {
-                    --this.m.EL_AdditionalRoundSwingTimes;
-                    _skill.useForFree(_targetEntity.getTile());
-                }
-            }
+            EL_comboAttack(_skill, _targetEntity);
 		}
 	}
 
@@ -161,17 +154,10 @@ this.el_breaking_through_a_thousand_armies_entry <- this.inherit("scripts/skills
 		{
 			return;
 		}
-		if (EL_isUsable() && _skill.getID() == "actives.round_swing")
+		if (EL_isUsable())
 		{
 			this.Const.EL_Rarity_Entry.EL_useFreeSplitShield(this.getContainer().getActor(), _targetEntity);
-            if(this.m.EL_IsFirstRoundSwing)
-            {
-                this.m.EL_IsFirstRoundSwing = false;
-                while (this.m.EL_AdditionalRoundSwingTimes) {
-                    --this.m.EL_AdditionalRoundSwingTimes;
-                    _skill.useForFree(_targetEntity.getTile());
-                }
-            }
+            EL_comboAttack(_skill, _targetEntity);
 		}
 	}
 
@@ -219,6 +205,22 @@ this.el_breaking_through_a_thousand_armies_entry <- this.inherit("scripts/skills
 			if(this.m.EL_IsFirstRoundSwing)
             {
             	this.m.EL_AdditionalRoundSwingTimes = this.m.EL_Stack;
+			}
+		}
+	}
+
+	function EL_comboAttack( _skill, _targetEntity )
+	{
+		if(this.m.EL_IsFirstRoundSwing && _skill.getID() == "actives.round_swing")
+		{
+			this.m.EL_IsFirstRoundSwing = false;
+			while (this.m.EL_AdditionalRoundSwingTimes) {
+				--this.m.EL_AdditionalRoundSwingTimes;
+				if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
+				{
+					return;
+				}
+				_skill.useForFree(_targetEntity.getTile());
 			}
 		}
 	}

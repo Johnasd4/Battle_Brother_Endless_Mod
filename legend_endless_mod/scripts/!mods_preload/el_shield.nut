@@ -182,7 +182,7 @@ local gt = getroottable();
 				return;
 			}
 			local container = this.getContainer();
-			this.logInfo("container:"+this.IO.scriptFilenameByHash(container.ClassNameHash));
+			//this.logInfo("container:"+this.IO.scriptFilenameByHash(container.ClassNameHash));
 			local skill = container.getActor().getSkills().getSkillByID("el_rarity_entry.faith_of_the_rock");
 			if(skill != null && skill.EL_isUsable())
 			{
