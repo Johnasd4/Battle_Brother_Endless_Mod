@@ -164,7 +164,6 @@ gt.Const.EL_Item_Other <- {
 			}
 			else
 			{
-				_item.m.EL_RankLevel = _item.m.EL_RankLevel > _item.EL_getRankLevelMax() ? _item.EL_getRankLevelMax() : _item.m.EL_RankLevel;
 				_item.EL_updateLevelProperties();
 			}
 		}

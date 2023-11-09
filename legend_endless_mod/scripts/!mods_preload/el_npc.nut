@@ -399,6 +399,26 @@ local gt = getroottable();
                         core.EL_generateCoreXPByActorXP(this.Math.floor(this.getXP()));
                         party.EL_addLootItem(core);
                     }
+
+                    
+					if(this.m.WorldTroop != null && this.m.WorldTroop.EL_IsBossUnit)
+					{
+                        local items = bro.getItems().getAllItems();
+                        foreach(item in items)
+                        {
+                            if(item.EL_getRankLevel() > _item.EL_getRankLevelMax())
+                            {
+                                item.m.EL_RankLevel = item.EL_getRankLevelMax();
+                                item.EL_recraft();
+                                local result = item.EL_getUpgradeRankEquipmentEssenceNum();
+                                for(local i = 0; i < this.m.EL_EquipmentEssenceDrop.len(); ++i)
+                                {
+                                    party.EL_addEquipmentEssence(i, result[i]);
+                                }
+                            }
+                        }
+					}
+
                 }
             }
 
