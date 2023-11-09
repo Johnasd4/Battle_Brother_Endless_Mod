@@ -431,6 +431,7 @@ local gt = getroottable();
                             //this.logInfo("push bros");
                             for( local i = 0; i < bros.len() && i < 3; i = i )
                             {
+                                bros[i].getSkills().removeByID("el_items.arena_collar_skill");
                                 p.Players.push(bros[i]);
                                 i = ++i;
                             }
@@ -1110,12 +1111,11 @@ local gt = getroottable();
         {
             local ret = [];
             local roster = this.World.getPlayerRoster().getAll();
-    
+
             foreach( bro in roster )
             {
                 if (bro.getSkills().hasSkill("el_items.arena_collar_skill"))
                 {
-                    bro.getSkills().removeByID("el_items.arena_collar_skill");
                     ret.push(bro);
                 }
             }
@@ -1142,7 +1142,7 @@ local gt = getroottable();
                         {
                             return "Overview";
                         }
-    
+
                     },
                     {
                         Text = "{We are not ready for this.}",
@@ -1153,7 +1153,7 @@ local gt = getroottable();
                             this.World.State.getTownScreen().getMainDialogModule().reload();
                             return 0;
                         }
-    
+
                     }
                 ],
                 function start()
@@ -1162,7 +1162,7 @@ local gt = getroottable();
                     this.Text += "The arena master, typically the most disinterested man you\'ve ever met to have an interesting job, is actually rather lively today. He presents you with a scroll in one hand and three fingers held up in the other.%SPEECH_ON%Three rounds! Three rounds, one after the other and each harder than the last. Win all three with the same five men to earn the grand prize of a famed %prizetype% called %prizename%! It\'sahtournamentah! You want in or not-ah?%SPEECH_OFF%";
                     this.Text += "The arena master continues.%SPEECH_ON%When you\'re ready, have the men who\'ll be doing the fighting put on the arena collars we\'ll give you.%SPEECH_OFF%";
                 }
-    
+
             });
             this.m.Screens.push({
                 ID = "Overview",
@@ -1180,11 +1180,11 @@ local gt = getroottable();
                                 this.World.Assets.getStash().add(this.new("scripts/items/el_special/el_arena_collar_item"));
                                 i = ++i;
                             }
-    
+
                             this.Contract.setState("Running");
                             return 0;
                         }
-    
+
                     },
                     {
                         Text = "I\'ll have to think it over.",
@@ -1192,7 +1192,7 @@ local gt = getroottable();
                         {
                             return 0;
                         }
-    
+
                     }
                 ],
                 ShowObjectives = true,
@@ -1201,7 +1201,7 @@ local gt = getroottable();
                 {
                     this.Contract.m.IsNegotiated = true;
                 }
-    
+
             });
             this.m.Screens.push({
                 ID = "Start",
@@ -1217,7 +1217,7 @@ local gt = getroottable();
                             this.Contract.startTournamentRound();
                             return 0;
                         }
-    
+
                     },
                     {
                         Text = "We\'re not doing this. I don\'t want to die!",
@@ -1230,14 +1230,14 @@ local gt = getroottable();
                             this.World.Contracts.finishActiveContract(true);
                             return 0;
                         }
-    
+
                     }
                 ],
                 function start()
                 {
                     this.Text += "\n\n\n\n\n\nThe following characters will enter the arena:\n\n%bro1name%\n%bro2name%\n%bro3name%\n%bro4name%\n%bro5name%";
                 }
-    
+
             });
             this.m.Screens.push({
                 ID = "Won2",
@@ -1253,7 +1253,7 @@ local gt = getroottable();
                             this.Contract.startTournamentRound();
                             return 0;
                         }
-    
+
                     },
                     {
                         Text = "Time for us to drop out of this tournament.",
@@ -1261,7 +1261,7 @@ local gt = getroottable();
                         {
                             return "DropOut";
                         }
-    
+
                     }
                 ],
                 function start()
@@ -1270,22 +1270,22 @@ local gt = getroottable();
                     {
                         this.Flags.set("RewardsApplied", 2);
                         this.World.Statistics.getFlags().increment("ArenaFightsWon", 1);
-    
+
                         if (this.World.Statistics.getFlags().getAsInt("ArenaFightsWon") >= 10)
                         {
                             this.updateAchievement("Gladiator", 1, 1);
                         }
-    
+
                         this.Contract.updateTraits(this.List);
                     }
-    
+
                     this.Contract.m.BulletpointsObjectives = [
                         "The next round will start automatically",
                         "Each round will be to the death and you won\'t be able to retreat or loot afterwards",
                         "After each round you can elect to drop out or start the next round right away"
                     ];
                 }
-    
+
             });
             this.m.Screens.push({
                 ID = "Won3",
@@ -1301,7 +1301,7 @@ local gt = getroottable();
                             this.Contract.startTournamentRound();
                             return 0;
                         }
-    
+
                     },
                     {
                         Text = "Time for us to drop out of this tournament.",
@@ -1309,7 +1309,7 @@ local gt = getroottable();
                         {
                             return "DropOut";
                         }
-    
+
                     }
                 ],
                 function start()
@@ -1318,16 +1318,16 @@ local gt = getroottable();
                     {
                         this.Flags.set("RewardsApplied", 3);
                         this.World.Statistics.getFlags().increment("ArenaFightsWon", 1);
-    
+
                         if (this.World.Statistics.getFlags().getAsInt("ArenaFightsWon") >= 10)
                         {
                             this.updateAchievement("Gladiator", 1, 1);
                         }
-    
+
                         this.Contract.updateTraits(this.List);
                     }
                 }
-    
+
             });
             this.m.Screens.push({
                 ID = "Won4",
@@ -1347,19 +1347,19 @@ local gt = getroottable();
                             this.World.Contracts.finishActiveContract();
                             return 0;
                         }
-    
+
                     }
                 ],
                 function start()
                 {
                     this.Flags.set("RewardsApplied", 4);
                     this.World.Statistics.getFlags().increment("ArenaFightsWon", 1);
-    
+
                     if (this.World.Statistics.getFlags().getAsInt("ArenaFightsWon") >= 10)
                     {
                         this.updateAchievement("Gladiator", 1, 1);
                     }
-    
+
                     this.World.Assets.getStash().makeEmptySlots(1);
                     local item = this.new(this.IO.scriptFilenameByHash(this.Flags.get("PrizeScript")));
                     item.setName(this.Flags.get("PrizeName"));
@@ -1371,7 +1371,7 @@ local gt = getroottable();
                     });
                     this.Contract.updateTraits(this.List);
                 }
-    
+
             });
             this.m.Screens.push({
                 ID = "DropOut",
@@ -1391,7 +1391,7 @@ local gt = getroottable();
                             this.World.Contracts.finishActiveContract(true);
                             return 0;
                         }
-    
+
                     }
                 ],
                 function start()
@@ -1404,7 +1404,7 @@ local gt = getroottable();
                         text = "You gain [color=" + this.Const.UI.Color.PositiveEventValue + "]" + money + "[/color] Crowns"
                     });
                 }
-    
+
             });
             this.m.Screens.push({
                 ID = "Failure1",
@@ -1419,24 +1419,24 @@ local gt = getroottable();
                         function getResult()
                         {
                             local roster = this.World.getPlayerRoster().getAll();
-    
+
                             foreach( bro in roster )
                             {
                                 local item = bro.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
-    
+
                                 if (item != null && item.getID() == "accessory.arena_collar")
                                 {
                                     bro.getFlags().increment("ArenaFights", 1);
                                 }
                             }
-    
+
                             this.Contract.getHome().removeSituationByID("situation.arena_tournament");
                             this.Contract.getHome().getBuilding("building.arena").refreshCooldown();
                             this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractFail);
                             this.World.Contracts.finishActiveContract(true);
                             return 0;
                         }
-    
+
                     }
                 ]
             });
@@ -1458,7 +1458,7 @@ local gt = getroottable();
                             this.World.Contracts.finishActiveContract(true);
                             return 0;
                         }
-    
+
                     }
                 ]
             });
@@ -1476,7 +1476,7 @@ local gt = getroottable();
                         {
                             return 0;
                         }
-    
+
                     }
                 ]
             });
@@ -1486,12 +1486,11 @@ local gt = getroottable();
         {
             local ret = [];
             local roster = this.World.getPlayerRoster().getAll();
-    
+
             foreach( bro in roster )
             {
                 if (bro.getSkills().hasSkill("el_items.arena_collar_skill"))
                 {
-                    bro.getSkills().removeByID("el_items.arena_collar_skill");
                     ret.push(bro);
                 }
             }
@@ -2173,6 +2172,7 @@ local gt = getroottable();
 
             for( local i = 0; i < bros.len() && i < 5; i = i )
             {
+                bros[i].getSkills().removeByID("el_items.arena_collar_skill");
                 p.Players.push(bros[i]);
                 i = ++i;
             }
