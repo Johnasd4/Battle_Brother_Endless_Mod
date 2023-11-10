@@ -180,21 +180,33 @@ local gt = getroottable();
                     {
                         this.Contract.setScreen("Success");
                         this.World.Contracts.showActiveContract();
+                        local roster = this.World.getPlayerRoster().getAll();
+                        foreach( bro in roster )
+                        {
+                            bro.getSkills().removeByID("el_items.arena_collar_skill");
+                        }                        
                     }
                     else if (this.Flags.get("IsFailure"))
                     {
                         this.Contract.setScreen("Failure1");
                         this.World.Contracts.showActiveContract();
+                        local roster = this.World.getPlayerRoster().getAll();
+                        foreach( bro in roster )
+                        {
+                            bro.getSkills().removeByID("el_items.arena_collar_skill");
+                        }
+
                     }
                     else if (this.World.getTime().Days > this.Flags.get("Day"))
                     {
                         this.Contract.setScreen("Failure2");
                         this.World.Contracts.showActiveContract();
-                    }
-                    local roster = this.World.getPlayerRoster().getAll();
-                    foreach( bro in roster )
-                    {
-                        bro.getSkills().removeByID("el_items.arena_collar_skill");
+                        local roster = this.World.getPlayerRoster().getAll();
+                        foreach( bro in roster )
+                        {
+                            bro.getSkills().removeByID("el_items.arena_collar_skill");
+                        }
+
                     }
                 }
 
@@ -1244,26 +1256,41 @@ local gt = getroottable();
                     {
                         this.Contract.setScreen("Failure1");
                         this.World.Contracts.showActiveContract();
+                        local roster = this.World.getPlayerRoster().getAll();
+                        foreach( bro in roster )
+                        {
+                            bro.getSkills().removeByID("el_items.arena_collar_skill");
+                        }
                     }
                     else if (this.Flags.get("IsFailure"))
                     {
                         this.Contract.setScreen("Failure1");
                         this.World.Contracts.showActiveContract();
+                        local roster = this.World.getPlayerRoster().getAll();
+                        foreach( bro in roster )
+                        {
+                            bro.getSkills().removeByID("el_items.arena_collar_skill");
+                        }
                     }
                     else if (this.World.getTime().Days > this.Flags.get("Day") + 1)
                     {
                         this.Contract.setScreen("Failure2");
                         this.World.Contracts.showActiveContract();
+                        local roster = this.World.getPlayerRoster().getAll();
+                        foreach( bro in roster )
+                        {
+                            bro.getSkills().removeByID("el_items.arena_collar_skill");
+                        }
                     }
                     else if (this.Flags.get("Round") > 1)
                     {
                         this.Contract.setScreen("Won" + this.Flags.get("Round"));
                         this.World.Contracts.showActiveContract();
-                    }
-                    local roster = this.World.getPlayerRoster().getAll();
-                    foreach( bro in roster )
-                    {
-                        bro.getSkills().removeByID("el_items.arena_collar_skill");
+                        local roster = this.World.getPlayerRoster().getAll();
+                        foreach( bro in roster )
+                        {
+                            bro.getSkills().removeByID("el_items.arena_collar_skill");
+                        }
                     }
                 }
 
