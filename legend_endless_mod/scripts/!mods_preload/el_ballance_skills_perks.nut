@@ -850,7 +850,7 @@ local gt = getroottable();
             local armor = this.getContainer().getActor().getArmor(this.Const.BodyPart.Head) + this.getContainer().getActor().getArmor(this.Const.BodyPart.Body);
 			local armor_need = 100.0;
 			local bonus = 0;
-			while(armor > 0)
+			while(armor > armor_need)
 			{
 				++bonus;
 				armor -= armor_need;
