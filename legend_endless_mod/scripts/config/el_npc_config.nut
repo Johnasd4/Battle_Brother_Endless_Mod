@@ -110,7 +110,7 @@ gt.Const.EL_NPC <- {
             Fatigue = 0.5,
             Initiative = 2,
             MeleeSkill = 3,
-            RangedSkill = 4,
+            RangedSkill = 3,
             MeleeDefense = 3,
             RangedDefense = 3,
         },

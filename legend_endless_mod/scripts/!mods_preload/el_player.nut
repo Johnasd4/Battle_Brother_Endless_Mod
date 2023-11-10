@@ -6,17 +6,11 @@ local gt = getroottable();
 
 	::mods_hookExactClass("entity/tactical/player", function( o )
 	{
-		o.getLevelUps = function ()
+		local onInit = o.onInit;
+		o.onInit = function()
 		{
-			if(this.m.LevelUps)
-			{
-				return this.m.LevelUps;
-			}
-			else if(this.m.PerkPoints)
-			{
-				return 1;
-			}
-			return 0;
+			onInit();
+			this.m.Skills.add(this.new("scripts/skills/el_racials/el_player_ballance_racial"));
 		}
 
 		local onSerialize = o.onSerialize;
@@ -34,6 +28,18 @@ local gt = getroottable();
 
 	::mods_hookNewObject("entity/tactical/player", function( o )
 	{
+		o.getLevelUps = function ()
+		{
+			if(this.m.LevelUps)
+			{
+				return this.m.LevelUps;
+			}
+			else if(this.m.PerkPoints)
+			{
+				return 1;
+			}
+			return 0;
+		}
 
 		o.EL_getLevel <- function()
 		{
@@ -759,8 +765,8 @@ local gt = getroottable();
 						52
 					],
 					RangedSkill = [
-						27,
-						37
+						37,
+						47
 					],
 					MeleeDefense = [
 						0,
@@ -796,8 +802,8 @@ local gt = getroottable();
 						52
 					],
 					RangedSkill = [
-						27,
-						37
+						37,
+						47
 					],
 					MeleeDefense = [
 						0,
@@ -833,8 +839,8 @@ local gt = getroottable();
 						57
 					],
 					RangedSkill = [
-						32,
-						42
+						42,
+						52
 					],
 					MeleeDefense = [
 						0,

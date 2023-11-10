@@ -155,8 +155,8 @@ gt.Const.EL_Player <- {
             Max = [3, 3, 3, 4, 4]
         },
         {//RangedSkill
-            Min = [2, 3, 4, 4, 5],
-            Max = [4, 4, 4, 5, 5]
+            Min = [1, 2, 3, 3, 4],
+            Max = [3, 3, 3, 4, 4]
         },
         {//MeleeDefense
             Min = [1, 2, 3, 3, 4],
