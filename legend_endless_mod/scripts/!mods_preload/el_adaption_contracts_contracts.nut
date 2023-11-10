@@ -176,11 +176,6 @@ local gt = getroottable();
 
                 function update()
                 {
-                    local roster = this.World.getPlayerRoster().getAll();
-                    foreach( bro in roster )
-                    {
-                        bro.getSkills().removeByID("el_items.arena_collar_skill");
-                    }
                     if (this.Flags.get("IsVictory"))
                     {
                         this.Contract.setScreen("Success");
@@ -195,6 +190,11 @@ local gt = getroottable();
                     {
                         this.Contract.setScreen("Failure2");
                         this.World.Contracts.showActiveContract();
+                    }
+                    local roster = this.World.getPlayerRoster().getAll();
+                    foreach( bro in roster )
+                    {
+                        bro.getSkills().removeByID("el_items.arena_collar_skill");
                     }
                 }
 
@@ -926,9 +926,7 @@ local gt = getroottable();
 
                     foreach( bro in roster )
                     {
-                        local item = bro.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
-
-                        if (item != null && item.getID() == "accessory.arena_collar")
+                        if (bro.getSkills().hasSkill("el_items.arena_collar_skill"))
                         {
                             local skill;
                             bro.getFlags().increment("ArenaFightsWon", 1);
@@ -1242,11 +1240,6 @@ local gt = getroottable();
 
                 function update()
                 {
-                    local roster = this.World.getPlayerRoster().getAll();
-                    foreach( bro in roster )
-                    {
-                        bro.getSkills().removeByID("el_items.arena_collar_skill");
-                    }
                     if (this.Flags.get("Round") > 1 && this.Contract.getBros() == 0)
                     {
                         this.Contract.setScreen("Failure1");
@@ -1266,6 +1259,11 @@ local gt = getroottable();
                     {
                         this.Contract.setScreen("Won" + this.Flags.get("Round"));
                         this.World.Contracts.showActiveContract();
+                    }
+                    local roster = this.World.getPlayerRoster().getAll();
+                    foreach( bro in roster )
+                    {
+                        bro.getSkills().removeByID("el_items.arena_collar_skill");
                     }
                 }
 
