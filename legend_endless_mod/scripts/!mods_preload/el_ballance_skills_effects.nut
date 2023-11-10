@@ -250,7 +250,7 @@ local gt = getroottable();
             local initiative = this.getContainer().getActor().getInitiative();
 			local initiative_need = 100.0;
 			local bonus = 0;
-			while(initiative > 0)
+			while(initiative > initiative_need)
 			{
 				++bonus;
 				initiative -= initiative_need;
@@ -1297,7 +1297,7 @@ local gt = getroottable();
 			local level = this.getContainer().getActor().getLevel();
 			local level_need = 10.0;
 			local bonus = 0;
-			while(level > 0)
+			while(level > level_need)
 			{
 				++bonus;
 				level -= level_need;
@@ -1315,7 +1315,7 @@ local gt = getroottable();
 			local level = this.getContainer().getActor().getLevel();
 			local level_need = 10.0;
 			local bonus = 0;
-			while(level > 0)
+			while(level > level_need)
 			{
 				++bonus;
 				level -= level_need;
@@ -1333,7 +1333,7 @@ local gt = getroottable();
 			local level = this.getContainer().getActor().getLevel();
 			local level_need = 10.0;
 			local bonus = 0;
-			while(level > 0)
+			while(level > level_need)
 			{
 				++bonus;
 				level -= level_need;

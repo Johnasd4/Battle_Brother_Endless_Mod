@@ -40,10 +40,16 @@ this.el_breaking_through_a_thousand_armies_entry <- this.inherit("scripts/skills
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]根据血量损失获得加成[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]不再受伤残影响[/color]"
 			},
 			{
 				id = 5,
+                type = "text",
+                icon = "ui/icons/special.png",
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]根据血量损失获得加成[/color]"
+			},
+			{
+				id = 6,
                 type = "text",
                 icon = "ui/icons/special.png",
                 text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]攻击时免费施加一次“劈盾”技能，如果你拥有这个技能[/color]"
@@ -199,6 +205,7 @@ this.el_breaking_through_a_thousand_armies_entry <- this.inherit("scripts/skills
 			_properties.MeleeDefense += this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.MeleeDefenseOffset;
 			_properties.RangedDefense += this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.RangedDefenseOffset;
 			_properties.FatigueOnSkillUse += this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.FatigueOnSkillUseOffset;
+			_properties.IsAffectedByInjuries = false;
 
 			_properties.DamageDirectMult *= 1.0 + this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.DamageDirectMult;
 			_properties.DamageReceivedTotalMult *= 1.0 - this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.DamageReceivedTotalMult;

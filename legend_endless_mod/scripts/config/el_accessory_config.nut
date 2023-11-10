@@ -284,7 +284,7 @@ gt.Const.EL_Accessory <- {
 			10,
 			100,
 			1000,
-			1000
+			10000
 		],
 		EntryNum = {
 			NormalAccessory = [
