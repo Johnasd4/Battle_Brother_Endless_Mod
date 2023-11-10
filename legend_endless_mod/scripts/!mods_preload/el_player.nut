@@ -1443,6 +1443,7 @@ local gt = getroottable();
 		o.addCharacterToUIData = function( _entity, _target )
 		{
 			addCharacterToUIData(_entity, _target);
+			_target.levelUpTimes <- _entity.m.LevelUps;
 			if(_entity.getLevel() < this.Const.EL_Player.EL_PlayerLevel.Max) {
 				_target.xpValue = this.Math.floor(_entity.getXP() - this.Const.LevelXP[_entity.getLevel() - 1]);
 				_target.xpValueMax = this.Math.floor(this.Const.LevelXP[_entity.getLevel()] - this.Const.LevelXP[_entity.getLevel() - 1]);
