@@ -16,8 +16,8 @@ this.el_player_ballance_racial <- this.inherit("scripts/skills/skill", {
 	function onUpdate( _properties )
 	{
         local base_properties = this.getContainer().getActor().getBaseProperties();
-        _properties.MeleeSkill += this.Math.Max(0, base_properties.RangedSkill - base_properties.MeleeSkill - 50);
-        _properties.RangedSkill += this.Math.Max(0, base_properties.MeleeSkill - base_properties.RangedSkill - 50);
+        _properties.MeleeSkill += this.Math.max(0, base_properties.RangedSkill - base_properties.MeleeSkill - 50);
+        _properties.RangedSkill += this.Math.max(0, base_properties.MeleeSkill - base_properties.RangedSkill - 50);
 	}
 
 
