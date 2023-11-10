@@ -22,11 +22,11 @@ gt.Const.EL_Player <- {
         // XP * (1 + (WorldLevel - Level - 5) * 0.2) ^ 3 (Level < WorldLevel - 5)
         BelowOffset = 6,
         BelowMult = 0.2,
-        BelowMultMax = 100,
+        BelowMultMax = 10,
         // XP / (1 + (Level - WorldLevel - 0) * 0.2) ^ 3 (Level > WorldLevel - 0)
         OverOffset = 0,
         OverMult = 0.2,
-        OverMultMin = 0.01
+        OverMultMin = 0.1
     }
 
     EL_LevelUpsPurTime = 5,
