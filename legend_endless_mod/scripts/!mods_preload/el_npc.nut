@@ -400,7 +400,7 @@ local gt = getroottable();
                         party.EL_addLootItem(core);
                     }
 
-                    
+
 					if(this.m.WorldTroop != null && this.m.WorldTroop.EL_IsBossUnit)
 					{
                         local items = this.getItems().getAllItems();
@@ -1343,7 +1343,7 @@ local gt = getroottable();
 
         o.EL_getMaxContractLevel <- function()
         {
-            return 3;
+            return 2;
         }
 
         o.getPaymentMult = function ()
