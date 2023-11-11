@@ -853,7 +853,7 @@ local gt = getroottable();
 					upgrade.EL_recraft();
 				}
 			}
-			this.helmet.EL_recraft();
+			this.armor.EL_recraft();
 			EL_entryListSort();
         }
 
