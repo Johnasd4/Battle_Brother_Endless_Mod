@@ -385,89 +385,119 @@ local gt = getroottable();
 	});
     gt.Const.Tactical.Actor.LegendBanshee.Hitpoints = 2;
 
+	::mods_hookExactClass("entity/tactical/enemies/legend_stollwurm", function(o){
+
+        local kill = o.kill;
+        o.kill = function( _killer = null, _skill = null, _fatalityType = this.Const.FatalityType.None, _silent = false )
+        {
+            this.m.Tail.m.Body = null;
+            kill(_killer, _skill, _fatalityType, _silent);
+        }
+    });
+
 	::mods_hookExactClass("entity/tactical/enemies/legend_stollwurm_tail", function(o){
 
 		o.EL_getRankLevel <- function ()
 		{
-			return this.m.Body.EL_getRankLevel();
+			return this.m.Body == null ? 0 : this.m.Body.EL_getRankLevel();
 		}
 		o.EL_getCombatLevel <- function ()
 		{
-			return this.m.Body.EL_getCombatLevel();
+			return this.m.Body == null ? 0 : this.m.Body.EL_getCombatLevel();
 		}
         o.isAttackable <- function()
         {
-			return this.m.Body.isAttackable();
+			return this.m.Body == null ? false : this.m.Body.isAttackable();
         }
         o.isAbleToDie <- function()
         {
-			return this.m.Body.isAbleToDie();
+			return this.m.Body == null ? true : this.m.Body.isAbleToDie();
         }
         o.getName <- function()
 		{
-			return this.m.Name + " - Lv" + this.m.Body.m.EL_NPCLevel + "(" + ((this.Math.round(this.EL_getCombatLevel() * 10) * 0.1)) + ")";
+			return this.m.Name + " - Lv" + (this.m.Body == null ? 0 : this.m.Body.m.EL_NPCLevel) + "(" + ((this.Math.round(this.EL_getCombatLevel() * 10) * 0.1)) + ")";
 		}
         o.getXP <- function()
 		{
-			return this.m.Body.m.XP;
+			return this.m.Body == null ? 0 : this.m.Body.m.XP;
 		}
         o.onAttacked <- function(_attacker)
         {
-            this.m.Body.onAttacked(_attacker);
+            if(this.m.Body != null) {
+                this.m.Body.onAttacked(_attacker);
+            }
         }
         o.onMissed <- function( _attacker, _skill, _dontShake = false )
         {
-            this.m.Body.onMissed(_attacker, _skill, _dontShake);
+            if(this.m.Body != null) {
+                this.m.Body.onMissed(_attacker, _skill, _dontShake);
+            }
         }
         o.onDamageReceived = function( _attacker, _damageHitpoints, _damageArmor )
         {
-            this.m.Body.onDamageReceived(_attacker, _damageHitpoints, _damageArmor);
+            if(this.m.Body != null) {
+                this.m.Body.onDamageReceived(_attacker, _damageHitpoints, _damageArmor);
+            }
         }
         o.getArmorMax = function( _bodyPart )
         {
             return this.m.Body == null ? 0 : this.m.Body.getArmorMax(_bodyPart);
         }
+    });
 
+	::mods_hookExactClass("entity/tactical/enemies/lindwurm", function(o){
 
+        local kill = o.kill;
+        o.kill = function( _killer = null, _skill = null, _fatalityType = this.Const.FatalityType.None, _silent = false )
+        {
+            this.m.Tail.m.Body = null;
+            kill(_killer, _skill, _fatalityType, _silent);
+        }
     });
 
 	::mods_hookExactClass("entity/tactical/enemies/lindwurm_tail", function(o){
 
 		o.EL_getRankLevel <- function ()
 		{
-			return this.m.Body.EL_getRankLevel();
+			return this.m.Body == null ? 0 : this.m.Body.EL_getRankLevel();
 		}
 		o.EL_getCombatLevel <- function ()
 		{
-			return this.m.Body.EL_getCombatLevel();
+			return this.m.Body == null ? 0 : this.m.Body.EL_getCombatLevel();
 		}
         o.isAttackable <- function()
         {
-			return this.m.Body.isAttackable();
+			return this.m.Body == null ? false : this.m.Body.isAttackable();
         }
         o.isAbleToDie <- function()
         {
-			return this.m.Body.isAbleToDie();
+			return this.m.Body == null ? true : this.m.Body.isAbleToDie();
         }
         o.getName <- function()
 		{
-			return this.m.Name + " - Lv" + this.m.Body.m.EL_NPCLevel + "(" + ((this.Math.round(this.EL_getCombatLevel() * 10) * 0.1)) + ")";
+			return this.m.Name + " - Lv" + (this.m.Body == null ? 0 : this.m.Body.m.EL_NPCLevel) + "(" + ((this.Math.round(this.EL_getCombatLevel() * 10) * 0.1)) + ")";
 		}
         o.getXP <- function()
 		{
-			return this.m.Body.m.XP;
+			return this.m.Body == null ? 0 : this.m.Body.m.XP;
 		}
         o.onAttacked <- function(_attacker)
         {
-            return this.m.Body.onAttacked(_attacker);
+            if(this.m.Body != null) {
+                this.m.Body.onAttacked(_attacker);
+            }
         }
         o.onMissed <- function( _attacker, _skill, _dontShake = false )
         {
-            return this.m.Body.onMissed(_attacker, _skill, _dontShake);
+            if(this.m.Body != null) {
+                this.m.Body.onMissed(_attacker, _skill, _dontShake);
+            }
         }
         o.onDamageReceived = function( _attacker, _damageHitpoints, _damageArmor )
         {
-            return this.m.Body.onDamageReceived(_attacker, _damageHitpoints, _damageArmor);
+            if(this.m.Body != null) {
+                this.m.Body.onDamageReceived(_attacker, _damageHitpoints, _damageArmor);
+            }
         }
         o.getArmorMax = function( _bodyPart )
         {
