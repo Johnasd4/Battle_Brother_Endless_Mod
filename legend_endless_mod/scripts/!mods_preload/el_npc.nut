@@ -484,6 +484,11 @@ local gt = getroottable();
         o.m.EL_Faction <- 0;
         o.m.EL_LootItems <- [];
 
+        o.isAlliedWithPlayer = function()
+        {
+            return (this.EL_getFaction() != 0 && (this.EL_getFaction() == this.Const.FactionType.Player || this.World.FactionManager.isAlliedWithPlayer(this.EL_getFaction()))) || this.getFaction() == 0 || this.getFaction() == this.Const.FactionType.Player || this.World.FactionManager.isAlliedWithPlayer(this.getFaction());
+        }
+
 
         o.EL_tempPartyInit <- function() {
             this.getFaction <- function() { return this.EL_getFaction(); };
