@@ -425,7 +425,7 @@ local gt = getroottable();
         }
         o.getArmorMax = function( _bodyPart )
         {
-            return this.m.Body.getArmorMax(_bodyPart);
+            return this.m.Body == null ? 0 : this.m.Body.getArmorMax(_bodyPart);
         }
 
 
@@ -471,7 +471,7 @@ local gt = getroottable();
         }
         o.getArmorMax = function( _bodyPart )
         {
-            return this.m.Body.getArmorMax(_bodyPart);
+            return this.m.Body == null ? 0 : this.m.Body.getArmorMax(_bodyPart);
         }
     });
 
