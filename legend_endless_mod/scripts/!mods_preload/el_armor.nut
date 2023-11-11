@@ -769,28 +769,66 @@ local gt = getroottable();
 			this.setCondition(this.Math.floor(this.getConditionMax() * percent));
         }
 
-        o.EL_upgradeLevel <- function()
-        {
+		o.EL_addRankLevel <- function()
+		{
 			foreach(upgrade in this.m.Upgrades)
 			{
 				if(upgrade != null)
 				{
-					return;
+					upgrade.EL_addRankLevel();
 				}
 			}
-			this.armor.EL_upgradeLevel();
+			this.armor.EL_addRankLevel();
+		}
+
+        o.EL_upgradeLevel <- function()
+        {
+			local min_level = 999;
+			foreach(upgrade in this.m.Upgrades)
+			{
+				if(upgrade != null)
+				{
+					min_level = this.Math.min(min_level, upgrade.EL_getLevel());
+				}
+			}
+			min_level = this.Math.min(min_level, EL_getLevel());
+			foreach(upgrade in this.m.Upgrades)
+			{
+				if(upgrade != null && upgrade.EL_getLevel() == min_level)
+				{
+					upgrade.EL_upgradeLevel();
+				}
+			}
+			if(EL_getLevel() == min_level)
+			{
+				this.armor.EL_upgradeLevel();
+			}
         }
 
         o.EL_upgradeRank <- function()
         {
+			local min_rank = 999;
+			local has_upgrade = false;
 			foreach(upgrade in this.m.Upgrades)
 			{
 				if(upgrade != null)
 				{
-					return;
+					has_upgrade = true;
+					min_rank = this.Math.min(min_rank, upgrade.EL_getRankLevel());
 				}
 			}
-			this.armor.EL_upgradeRank();
+			min_rank = this.Math.min(min_rank, this.EL_getRankLevel());
+			foreach(upgrade in this.m.Upgrades)
+			{
+				if(upgrade != null && upgrade.EL_getRankLevel() == min_rank && upgrade.EL_getRankLevel() != upgrade.EL_getRankLevelMax())
+				{
+					upgrade.EL_upgradeRank();
+				}
+			}
+			if(EL_getRankLevel() == min_rank && (EL_getRankLevel() != EL_getRankLevelMax() || !has_upgrade))
+			{
+				this.armor.EL_upgradeRank();
+			}
 			EL_entryListSort();
         }
 
@@ -812,10 +850,10 @@ local gt = getroottable();
 			{
 				if(upgrade != null)
 				{
-					return;
+					upgrade.EL_recraft();
 				}
 			}
-			this.armor.EL_recraft();
+			this.helmet.EL_recraft();
 			EL_entryListSort();
         }
 
@@ -895,14 +933,27 @@ local gt = getroottable();
 		o.EL_getUpgradeLevelEquipmentEssenceNum <- function()
 		{
 			local result = [0, 0, 0, 0, 0];
+			local min_level = 999;
 			foreach(upgrade in this.m.Upgrades)
 			{
 				if(upgrade != null)
 				{
-					return result;
+					min_level = this.Math.min(min_level, upgrade.EL_getLevel());
 				}
 			}
-			if(this.m.EL_Level < 100)
+			min_level = this.Math.min(min_level, EL_getLevel());
+			foreach(upgrade in this.m.Upgrades)
+			{
+				if(upgrade != null && upgrade.EL_getLevel() == min_level)
+				{
+					local array = upgrade.EL_getUpgradeLevelEquipmentEssenceNum();
+					for(local index = 0; index <= this.Const.EL_Item.Type.Legendary; ++index)
+					{
+						result[index] += array[index];
+					}
+				}
+			}
+			if(this.EL_getLevel() < 100 && this.EL_getLevel() == min_level)
 			{
 				local min_calculate_weight = this.Const.EL_Armor.EL_EquipmentEssence.MinCalculateWeight;
 				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Armor.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel) * this.Const.EL_Armor.EL_EquipmentEssence.UpgradeLevelFactor 
@@ -914,35 +965,54 @@ local gt = getroottable();
 		o.EL_getUpgradeRankEquipmentEssenceNum <- function()
 		{
 			local result = [0, 0, 0, 0, 0];
+			local min_rank = 999;
+			local has_upgrade = false;
 			foreach(upgrade in this.m.Upgrades)
 			{
 				if(upgrade != null)
 				{
-					return result;
+					has_upgrade = true;
+					min_rank = this.Math.min(min_rank, upgrade.EL_getRankLevel());
 				}
 			}
-			if(EL_getRankLevel() < EL_getRankLevelMax())
+			min_rank = this.Math.min(min_rank, this.EL_getRankLevel());
+			foreach(upgrade in this.m.Upgrades)
 			{
-				local rank_level = EL_getRankLevel() + 1;
-				local min_calculate_weight = this.Const.EL_Armor.EL_EquipmentEssence.MinCalculateWeight;
-				if(rank_level == this.Const.EL_Item.Type.Legendary)
+				if(upgrade != null && upgrade.EL_getRankLevel() == min_rank && upgrade.EL_getRankLevel() != upgrade.EL_getRankLevelMax())
 				{
-					++result[this.Const.EL_Item.Type.Legendary];
+					
+					local array = upgrade.EL_getUpgradeRankEquipmentEssenceNum();
+					for(local index = 0; index <= this.Const.EL_Item.Type.Legendary; ++index)
+					{
+						result[index] += array[index];
+					}
 				}
-				else
-				{
-					result[rank_level] += this.Math.ceil(this.Const.EL_Armor.EL_EquipmentEssence.UpgradeRankFactor * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier)));
-				}
-				for(local index = 0; index < this.m.EL_Level; ++index)
-				{
-					result[this.Const.EL_Item.Type.Normal] += this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * index);
-				}
-				result[this.Const.EL_Item.Type.Normal] = this.Math.floor(this.Math.abs(result[this.Const.EL_Item.Type.Normal]) * this.Const.EL_Armor.EL_EquipmentEssence.UpgradeLevelFactor 
-													  * (this.Math.pow(this.Const.EL_Armor.EL_EquipmentEssence.RankFactor, rank_level) - this.Math.pow(this.Const.EL_Armor.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel)));
 			}
-			else if(this.m.EL_StrengthenEntryNum < this.m.EL_EntryList.len())
+			if(EL_getRankLevel() == min_rank)
 			{
-				result[this.Const.EL_Item.Type.Legendary] += this.Const.EL_Armor.EL_EquipmentEssence.StrengthenEntryNum;
+				if(EL_getRankLevel() < EL_getRankLevelMax())
+				{
+					local rank_level = EL_getRankLevel() + 1;
+					local min_calculate_weight = this.Const.EL_Armor.EL_EquipmentEssence.MinCalculateWeight;
+					if(rank_level == this.Const.EL_Item.Type.Legendary)
+					{
+						++result[this.Const.EL_Item.Type.Legendary];
+					}
+					else
+					{
+						result[rank_level] += this.Math.ceil(this.Const.EL_Armor.EL_EquipmentEssence.UpgradeRankFactor * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier)));
+					}
+					for(local index = 0; index < this.m.EL_Level; ++index)
+					{
+						result[this.Const.EL_Item.Type.Normal] += this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * index);
+					}
+					result[this.Const.EL_Item.Type.Normal] = this.Math.floor(this.Math.abs(result[this.Const.EL_Item.Type.Normal]) * this.Const.EL_Armor.EL_EquipmentEssence.UpgradeLevelFactor 
+														* (this.Math.pow(this.Const.EL_Armor.EL_EquipmentEssence.RankFactor, rank_level) - this.Math.pow(this.Const.EL_Armor.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel)));
+				}
+				else if(!has_upgrade && this.m.EL_StrengthenEntryNum < this.m.EL_EntryList.len())
+				{
+					result[this.Const.EL_Item.Type.Legendary] += this.Const.EL_Armor.EL_EquipmentEssence.StrengthenEntryNum;
+				}
 			}
 			return result;
 		}
@@ -983,7 +1053,11 @@ local gt = getroottable();
 			{
 				if(upgrade != null)
 				{
-					return result;
+					local array = upgrade.EL_getRecraftEquipmentEssenceNum();
+					for(local index = 0; index <= this.Const.EL_Item.Type.Legendary; ++index)
+					{
+						result[index] += array[index];
+					}
 				}
 			}
 			if(this.m.EL_RankLevel)
