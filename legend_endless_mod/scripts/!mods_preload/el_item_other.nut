@@ -229,199 +229,175 @@ local gt = getroottable();
 							disassemble_index_pool.push(rank);
 						}
 					}
-					local is_layered_armor = _item.EL_getArmorType() == this.Const.EL_Item.ArmorType.BaseArmor;
 					local upgrade_rank_string = _item.EL_getRankLevel() == _item.EL_getRankLevelMax() ? " 将它的词条强化" : " 将它升阶";
 					if(_item.EL_isNeedRarityEntry())
 					{
 						upgrade_rank_string = "来获取稀有词条";
 					}
-					local can_opearte = true;
-					if(is_layered_armor)
+					switch(upgrade_level_index_pool.len())
 					{
-						foreach(upgrade in _item.m.Upgrades)
-						{
-							if(upgrade != null)
-							{
-								can_opearte = false;
-								break;
-							}
-						}
-					}
-					if(can_opearte)
-					{
-						switch(upgrade_level_index_pool.len())
-						{
-						case 0:
-							break;
-						case 1:
-							tooltip.push({
-								id = 4,
-								type = "hint",
-								icon = "ui/icons/mouse_right_button_ctrl.png",
-								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[0]] + " 将它升级"
-							});
-							break;
-						case 2:
-							tooltip.push({
-								id = 4,
-								type = "hint",
-								icon = "ui/icons/mouse_right_button_ctrl.png",
-								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[0]] + " 将它升级"
-							});
-							break;
-						case 3:
-							tooltip.push({
-								id = 4,
-								type = "hint",
-								icon = "ui/icons/mouse_right_button_ctrl.png",
-								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[2]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[0]] + " 将它升级"
-							});
-							break;
-						case 4:
-							tooltip.push({
-								id = 4,
-								type = "hint",
-								icon = "ui/icons/mouse_right_button_ctrl.png",
-								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[3] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[3]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[2]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[0]] + " 将它升级"
-							});
-							break;
-						case 5:
-							tooltip.push({
-								id = 4,
-								type = "hint",
-								icon = "ui/icons/mouse_right_button_ctrl.png",
-								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[4] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[4]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[3] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[3]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[2]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[0]] + " 将它升级"
-							});
-							break;
-						}
-						switch(upgrade_rank_index_pool.len())
-						{
-						case 0:
-							break;
-						case 1:
-							tooltip.push({
-								id = 4,
-								type = "hint",
-								icon = "ui/icons/mouse_right_button_ctrl_and_alt.png",
-								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + upgrade_rank_string
-							});
-							break;
-						case 2:
-							tooltip.push({
-								id = 4,
-								type = "hint",
-								icon = "ui/icons/mouse_right_button_ctrl_and_alt.png",
-								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + upgrade_rank_string
-							});
-							break;
-						case 3:
-							tooltip.push({
-								id = 4,
-								type = "hint",
-								icon = "ui/icons/mouse_right_button_ctrl_and_alt.png",
-								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[2]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + upgrade_rank_string
-							});
-							break;
-						case 4:
-							tooltip.push({
-								id = 4,
-								type = "hint",
-								icon = "ui/icons/mouse_right_button_ctrl_and_alt.png",
-								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[3] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[3]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[2]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + upgrade_rank_string
-							});
-							break;
-						case 5:
-							tooltip.push({
-								id = 4,
-								type = "hint",
-								icon = "ui/icons/mouse_right_button_ctrl_and_alt.png",
-								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[4] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[4]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[3] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[3]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[2]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + upgrade_rank_string
-							});
-							break;
-						}
-						switch(recraft_index_pool.len())
-						{
-						case 0:
-							break;
-						case 1:
-							tooltip.push({
-								id = 4,
-								type = "hint",
-								icon = "ui/icons/mouse_right_button_shift.png",
-								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[0] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[0]] + " 将它重铸"
-							});
-							break;
-						case 2:
-							tooltip.push({
-								id = 4,
-								type = "hint",
-								icon = "ui/icons/mouse_right_button_shift.png",
-								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[1] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[0] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[0]] + " 将它重铸"
-							});
-							break;
-						case 3:
-							tooltip.push({
-								id = 4,
-								type = "hint",
-								icon = "ui/icons/mouse_right_button_shift.png",
-								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[2] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[2]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[1] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[0] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[0]] + " 将它重铸"
-							});
-							break;
-						case 4:
-							tooltip.push({
-								id = 4,
-								type = "hint",
-								icon = "ui/icons/mouse_right_button_shift.png",
-								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[3] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[3]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[2] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[2]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[1] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[0] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[0]] + " 将它重铸"
-							});
-							break;
-						case 5:
-							tooltip.push({
-								id = 4,
-								type = "hint",
-								icon = "ui/icons/mouse_right_button_shift.png",
-								text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[4] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[4]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[3] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[3]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[2] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[2]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[1] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[1]]
-								+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[0] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[0]] + " 将它重铸"
-							});
-							break;
-						}
-					}
-					else
-					{
+					case 0:
+						break;
+					case 1:
 						tooltip.push({
 							id = 4,
 							type = "hint",
-							text = "No other operations can be performed on the Armors are split into layers. You have to remove all layers"
+							icon = "ui/icons/mouse_right_button_ctrl.png",
+							text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[0]] + " 将它升级"
 						});
+						break;
+					case 2:
+						tooltip.push({
+							id = 4,
+							type = "hint",
+							icon = "ui/icons/mouse_right_button_ctrl.png",
+							text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[1]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[0]] + " 将它升级"
+						});
+						break;
+					case 3:
+						tooltip.push({
+							id = 4,
+							type = "hint",
+							icon = "ui/icons/mouse_right_button_ctrl.png",
+							text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[2]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[1]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[0]] + " 将它升级"
+						});
+						break;
+					case 4:
+						tooltip.push({
+							id = 4,
+							type = "hint",
+							icon = "ui/icons/mouse_right_button_ctrl.png",
+							text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[3] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[3]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[2]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[1]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[0]] + " 将它升级"
+						});
+						break;
+					case 5:
+						tooltip.push({
+							id = 4,
+							type = "hint",
+							icon = "ui/icons/mouse_right_button_ctrl.png",
+							text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[4] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[4]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[3] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[3]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[2]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[1]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_level_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_level[upgrade_level_index_pool[0]] + " 将它升级"
+						});
+						break;
+					}
+					switch(upgrade_rank_index_pool.len())
+					{
+					case 0:
+						break;
+					case 1:
+						tooltip.push({
+							id = 4,
+							type = "hint",
+							icon = "ui/icons/mouse_right_button_ctrl_and_alt.png",
+							text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + upgrade_rank_string
+						});
+						break;
+					case 2:
+						tooltip.push({
+							id = 4,
+							type = "hint",
+							icon = "ui/icons/mouse_right_button_ctrl_and_alt.png",
+							text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[1]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + upgrade_rank_string
+						});
+						break;
+					case 3:
+						tooltip.push({
+							id = 4,
+							type = "hint",
+							icon = "ui/icons/mouse_right_button_ctrl_and_alt.png",
+							text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[2]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[1]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + upgrade_rank_string
+						});
+						break;
+					case 4:
+						tooltip.push({
+							id = 4,
+							type = "hint",
+							icon = "ui/icons/mouse_right_button_ctrl_and_alt.png",
+							text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[3] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[3]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[2]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[1]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + upgrade_rank_string
+						});
+						break;
+					case 5:
+						tooltip.push({
+							id = 4,
+							type = "hint",
+							icon = "ui/icons/mouse_right_button_ctrl_and_alt.png",
+							text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[4] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[4]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[3] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[3]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[2] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[2]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[1] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[1]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + upgrade_rank_index_pool[0] + ".png[/img]" + EquipmentEssence_upgrade_rank[upgrade_rank_index_pool[0]] + upgrade_rank_string
+						});
+						break;
+					}
+					switch(recraft_index_pool.len())
+					{
+					case 0:
+						break;
+					case 1:
+						tooltip.push({
+							id = 4,
+							type = "hint",
+							icon = "ui/icons/mouse_right_button_shift.png",
+							text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[0] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[0]] + " 将它重铸"
+						});
+						break;
+					case 2:
+						tooltip.push({
+							id = 4,
+							type = "hint",
+							icon = "ui/icons/mouse_right_button_shift.png",
+							text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[1] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[1]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[0] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[0]] + " 将它重铸"
+						});
+						break;
+					case 3:
+						tooltip.push({
+							id = 4,
+							type = "hint",
+							icon = "ui/icons/mouse_right_button_shift.png",
+							text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[2] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[2]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[1] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[1]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[0] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[0]] + " 将它重铸"
+						});
+						break;
+					case 4:
+						tooltip.push({
+							id = 4,
+							type = "hint",
+							icon = "ui/icons/mouse_right_button_shift.png",
+							text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[3] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[3]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[2] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[2]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[1] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[1]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[0] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[0]] + " 将它重铸"
+						});
+						break;
+					case 5:
+						tooltip.push({
+							id = 4,
+							type = "hint",
+							icon = "ui/icons/mouse_right_button_shift.png",
+							text = "支付 [img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[4] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[4]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[3] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[3]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[2] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[2]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[1] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[1]]
+							+ "[img]gfx/ui/tooltips/equipment_essence_rank_" + recraft_index_pool[0] + ".png[/img]" + EquipmentEssence_recraft[recraft_index_pool[0]] + " 将它重铸"
+						});
+						break;
 					}
 					switch(disassemble_index_pool.len())
 					{
