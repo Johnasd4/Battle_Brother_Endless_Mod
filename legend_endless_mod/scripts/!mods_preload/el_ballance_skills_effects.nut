@@ -76,14 +76,16 @@ local gt = getroottable();
                     {
                         continue;
                     }
-                    local citrin = t.getSkills().getSkillByID("actives.legend_citrinitas_trance");
+                    local skills = t.getSkills()
+                    local citrin = skills == null ? null : skills.getSkillByID("actives.legend_citrinitas_trance");
                     if (citrin != null && citrin.m.IsInTrance && t.isAlliedWith(actor))
                     {
                         if(best_bravery < t.getBravery())
 						best_bravery = t.getBravery();
                     }
 
-                    local banner = t.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+                    local items = t.getItems();
+                    local banner = items == null ? null : items.getItemAtSlot(this.Const.ItemSlot.Mainhand);
                     if (banner != null && banner.getID() == "weapon.player_banner")
                     {
                         local distance = actor.getTile().getDistanceTo(t.getTile());

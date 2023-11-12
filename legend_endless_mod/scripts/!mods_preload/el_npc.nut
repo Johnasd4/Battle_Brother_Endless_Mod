@@ -393,7 +393,8 @@ local gt = getroottable();
                     for(local i = 0; i < this.m.EL_EquipmentEssenceDrop.len(); ++i) {
                         party.EL_addEquipmentEssence(i, this.m.EL_EquipmentEssenceDrop[i]);
                     }
-                    local accessory = this.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
+                    local items = this.getItems();
+                    local accessory = items == null ? null : items.getItemAtSlot(this.Const.ItemSlot.Accessory);
                     if(accessory != null && accessory.getID() == "el_accessory.core") {
                         local core = this.new("scripts/items/el_misc/el_core_rank_" + accessory.EL_getRankLevel() + "_item");
                         core.EL_generateCoreXPByActorXP(this.Math.floor(this.getXP()));

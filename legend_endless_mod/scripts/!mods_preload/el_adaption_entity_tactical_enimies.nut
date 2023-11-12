@@ -385,17 +385,13 @@ local gt = getroottable();
 	});
     gt.Const.Tactical.Actor.LegendBanshee.Hitpoints = 2;
 
-	::mods_hookExactClass("entity/tactical/enemies/legend_stollwurm", function(o){
+	::mods_hookExactClass("entity/tactical/enemies/legend_stollwurm_tail", function(o){
 
-        local kill = o.kill;
         o.kill = function( _killer = null, _skill = null, _fatalityType = this.Const.FatalityType.None, _silent = false )
         {
-            this.m.Tail.m.Body = null;
-            kill(_killer, _skill, _fatalityType, _silent);
+            this.m.Body = null;
+            this.actor.kill(_killer, _skill, _fatalityType, _silent);
         }
-    });
-
-	::mods_hookExactClass("entity/tactical/enemies/legend_stollwurm_tail", function(o){
 
 		o.EL_getRankLevel <- function ()
 		{
@@ -445,17 +441,13 @@ local gt = getroottable();
         }
     });
 
-	::mods_hookExactClass("entity/tactical/enemies/lindwurm", function(o){
+	::mods_hookExactClass("entity/tactical/enemies/lindwurm_tail", function(o){
 
-        local kill = o.kill;
         o.kill = function( _killer = null, _skill = null, _fatalityType = this.Const.FatalityType.None, _silent = false )
         {
-            this.m.Tail.m.Body = null;
-            kill(_killer, _skill, _fatalityType, _silent);
+            this.m.Body = null;
+            this.actor.kill(_killer, _skill, _fatalityType, _silent);
         }
-    });
-
-	::mods_hookExactClass("entity/tactical/enemies/lindwurm_tail", function(o){
 
 		o.EL_getRankLevel <- function ()
 		{
