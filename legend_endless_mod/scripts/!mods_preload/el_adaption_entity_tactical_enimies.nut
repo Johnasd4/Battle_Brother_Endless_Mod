@@ -686,6 +686,9 @@ local gt = getroottable();
                 this.World.Flags.set("EL_IsExtraLindwurm", true);
                 local e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.LegendStollwurm, spawnTile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
                 local skills = this.getSkills().m.Skills;
+                local extra_normal_buff_num = 0;
+                local extra_elite_buff_num = 0;
+                local extra_leader_buff_num = 0;
                 foreach(skill in skills) {
                     if(skill.EL_isNPCBuff()) {
                         extra_normal_buff_num += skill.EL_getRankLevel() == 0 ? 1 : 0;
@@ -998,6 +1001,9 @@ local gt = getroottable();
                 this.World.Flags.set("EL_IsExtraLindwurm", true);
                 local e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Lindwurm, spawnTile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
                 local skills = this.getSkills().m.Skills;
+                local extra_normal_buff_num = 0;
+                local extra_elite_buff_num = 0;
+                local extra_leader_buff_num = 0;
                 foreach(skill in skills) {
                     if(skill.EL_isNPCBuff()) {
                         extra_normal_buff_num += skill.EL_getRankLevel() == 0 ? 1 : 0;
