@@ -704,7 +704,7 @@ local gt = getroottable();
                         extra_leader_buff_num -= skill.EL_getRankLevel() == 2 ? 1 : 0;
                     }
                 }
-                this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(this, extra_normal_buff_num, extra_elite_buff_num, extra_leader_buff_num);
+                this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(e, extra_normal_buff_num, extra_elite_buff_num, extra_leader_buff_num);
             }
             else {
                 this.World.Flags.set("EL_IsExtraLindwurm", false);
@@ -1019,7 +1019,7 @@ local gt = getroottable();
                         extra_leader_buff_num -= skill.EL_getRankLevel() == 2 ? 1 : 0;
                     }
                 }
-                this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(this, extra_normal_buff_num, extra_elite_buff_num, extra_leader_buff_num);
+                this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(e, extra_normal_buff_num, extra_elite_buff_num, extra_leader_buff_num);
             }
             else {
                 this.World.Flags.set("EL_IsExtraLindwurm", false);
