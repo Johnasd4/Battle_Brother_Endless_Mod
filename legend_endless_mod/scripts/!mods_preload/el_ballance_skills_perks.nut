@@ -796,7 +796,7 @@ local gt = getroottable();
 			return ret;
 		}
 
-		o.getReductionChance = function ()
+		o.getReductionChance = function ( _reduction )
 		{
 			local fat = 0;
 			local body = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Body);
