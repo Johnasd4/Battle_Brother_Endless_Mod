@@ -1475,6 +1475,11 @@ local gt = getroottable();
 				this.m.Container.EL_onOtherSkillUesd(this, _targetEntity);
 			}
 
+			if(_user == null || _user.isDying() || !_user.isAlive())
+			{
+				return false;
+			}
+
 			if (_targetEntity.isRock())
 			{
 				if (_user.getSkills().hasSkill("perk.legend_specialist_pickaxe_damage"))

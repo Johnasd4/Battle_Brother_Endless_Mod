@@ -38,7 +38,7 @@ this.el_rarity_entry_stone_item <- this.inherit("scripts/items/item", {
 		result.push({
 			id = 65,
 			type = "text",
-			text = "右键单击来使用此物品，将储存的稀有词条转移至当前人物的饰品上。 此物品会在使用过程中消耗掉。"
+			text = "右键单击来使用此物品，将储存的稀有词条转移至当前人物的饰品上。若当前饰品已有稀有词条，原稀有词条将被覆盖，请谨慎使用！ 此物品会在使用过程中消耗掉。"
 		});
 		return result;
 	}
@@ -48,7 +48,7 @@ this.el_rarity_entry_stone_item <- this.inherit("scripts/items/item", {
 		this.Sound.play("sounds/cloth_01.wav", this.Const.Sound.Volume.Inventory);
 	}
 
-	function EL_addRarityEntry( _EL_rarityEntry )
+	function EL_setRarityEntry( _EL_rarityEntry )
 	{
 		this.m.EL_RarityEntry = _EL_rarityEntry;
 	}
@@ -56,9 +56,9 @@ this.el_rarity_entry_stone_item <- this.inherit("scripts/items/item", {
 	function onUse( _actor, _item = null )
 	{
 		local accessory = _actor.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
-		if(accessory != null && accessory.EL_isValid() && accessory.m.EL_RarityEntry == null)
+		if(accessory != null && accessory.EL_isValid())
 		{
-			accessory.EL_addRarityEntry(this.m.EL_RarityEntry);
+			accessory.EL_setRarityEntry(this.m.EL_RarityEntry);
 			accessory.addSkill(this.m.EL_RarityEntry);
 			this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav",  this.Const.Sound.Volume.Inventory);
 			return true;
