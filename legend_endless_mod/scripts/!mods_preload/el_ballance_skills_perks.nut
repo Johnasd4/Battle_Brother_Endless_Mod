@@ -592,7 +592,7 @@ local gt = getroottable();
 
 		o.getDescription <- function()
 		{
-			return "把你的重量运用到每次攻击，增加 [color=" + this.Const.UI.Color.PositiveValue + "]+10%[/color] 的最小伤害和最大伤害。";
+			return "把你的重量运用到每次攻击，增加 [color=" + this.Const.UI.Color.PositiveValue + "]+10%[/color] 最大生命值的最小伤害和最大伤害。";
 		}
 
 		o.onUpdate = function( _properties )
@@ -1435,7 +1435,7 @@ gt.Const.EL_Config.EL_modStrings <- function()
         },
         {
             ID = "perk.legend_muscularity",
-            tooltip = "把你的重量运用到每次攻击，增加 [color=" + this.Const.UI.Color.PositiveValue + "]+10%[/color] 的最小伤害和最大伤害。"
+            tooltip = "把你的重量运用到每次攻击，增加 [color=" + this.Const.UI.Color.PositiveValue + "]+10%[/color] 最大生命值的最小伤害和最大伤害。"
         },
         {
             ID = "perk.legend_pacifist",
