@@ -652,10 +652,12 @@ local gt = getroottable();
                         i = ++i;
                     }
                 }
-
-                if (spawnTile != null)
-                {
+                if(spawnTile != null && (!this.World.Flags.has("EL_IsExtraLindwurm") || !this.World.Flags.get("EL_IsExtraLindwurm"))) {
+                    this.World.Flags.set("EL_IsExtraLindwurm", true);
                     this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.LegendStollwurm, spawnTile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
+                }
+                else {
+                    this.World.Flags.set("EL_IsExtraLindwurm", false);
                 }
             }
 
@@ -945,10 +947,12 @@ local gt = getroottable();
                         i = ++i;
                     }
                 }
-
-                if (spawnTile != null)
-                {
+                if(spawnTile != null && (!this.World.Flags.has("EL_IsExtraLindwurm") || !this.World.Flags.get("EL_IsExtraLindwurm"))) {
+                    this.World.Flags.set("EL_IsExtraLindwurm", true);
                     this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Lindwurm, spawnTile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
+                }
+                else {
+                    this.World.Flags.set("EL_IsExtraLindwurm", false);
                 }
             }
             this.m.Skills.addPerkTree(this.Const.Perks.AxeTree);
