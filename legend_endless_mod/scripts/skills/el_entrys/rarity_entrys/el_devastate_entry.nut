@@ -31,7 +31,7 @@ this.el_devastate_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]武器技能合并强化[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]武器技能强化[/color]"
 			},
 			{
 				id = 4,
@@ -49,7 +49,7 @@ this.el_devastate_entry <- this.inherit("scripts/skills/skill", {
 				id = 6,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]攻击时免费施加一次正常 " + this.Const.EL_Rarity_Entry.Factor.EL_Devastate.ShieldDamageMult * 100 + "%伤害的“劈盾”技能，如果你拥有这个技能"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]攻击时免费施加一次正常 " + this.Const.EL_Rarity_Entry.Factor.EL_Devastate.ShieldDamageMult * 100 + "%伤害的“劈盾”技能，如果你拥有这个技能[/color]"
 			}
         ]
 		if (!EL_isUsable())
