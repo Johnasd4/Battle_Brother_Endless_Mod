@@ -164,7 +164,7 @@ local gt = getroottable();
                 if(_e.getFaction() != this.Const.Faction.Player && _e.getFaction() != this.Const.Faction.PlayerAnimals) {
                     this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(_e, extra_normal_buff_num, extra_elite_buff_num, extra_leader_buff_num);
                 }
-                _e.EL_buildEquipmentEssenceDrop();
+                _e.EL_afterEntityBuild();
             }
             else {
 
@@ -342,6 +342,10 @@ local gt = getroottable();
             if(this.EL_getRankLevel() > 0) {
                 this.m.EL_EquipmentEssenceDrop[rank] = this.Math.ceil(rank_essence * this.World.Assets.EL_getHalfWorldDifficultFactor());
             }
+        }
+
+        o.EL_afterEntityBuild <- function() {
+            this.EL_buildEquipmentEssenceDrop();
         }
 
 		o.getName = function()
@@ -1998,7 +2002,7 @@ local gt = getroottable();
             this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(e, extra_normal_buff_num, extra_elite_buff_num, extra_leader_buff_num);
         }
 
-        e.EL_buildEquipmentEssenceDrop();
+        e.EL_afterEntityBuild();
         return e;
     }
 
@@ -2100,7 +2104,7 @@ local gt = getroottable();
         if(e.getFaction() != this.Const.Faction.Player && e.getFaction() != this.Const.Faction.PlayerAnimals) {
             this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(e, extra_normal_buff_num, extra_elite_buff_num, extra_leader_buff_num);
         }
-        e.EL_buildEquipmentEssenceDrop();
+        e.EL_afterEntityBuild();
         return e;
     }
 

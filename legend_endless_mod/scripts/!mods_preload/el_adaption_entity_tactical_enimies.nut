@@ -623,42 +623,6 @@ local gt = getroottable();
                 b.FatigueRecoveryRate += this.Math.floor(bonus / 4);
             }
 
-            if (this.m.Tail == null)
-            {
-                local myTile = this.getTile();
-                local spawnTile;
-
-                if (myTile.hasNextTile(this.Const.Direction.NE) && myTile.getNextTile(this.Const.Direction.NE).IsEmpty)
-                {
-                    spawnTile = myTile.getNextTile(this.Const.Direction.NE);
-                }
-                else if (myTile.hasNextTile(this.Const.Direction.SE) && myTile.getNextTile(this.Const.Direction.SE).IsEmpty)
-                {
-                    spawnTile = myTile.getNextTile(this.Const.Direction.SE);
-                }
-                else
-                {
-                    for( local i = 0; i < 6; i = i )
-                    {
-                        if (!myTile.hasNextTile(i))
-                        {
-                        }
-                        else if (myTile.getNextTile(i).IsEmpty)
-                        {
-                            spawnTile = myTile.getNextTile(i);
-                            break;
-                        }
-
-                        i = ++i;
-                    }
-                }
-
-                if (spawnTile != null)
-                {
-                    this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.LegendStollwurm, spawnTile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
-                }
-            }
-
             this.m.Skills.addPerkTree(this.Const.Perks.AxeTree);
 			this.m.Skills.getSkillByID("perk.ptr_cull").m.IsForceEnabled = true;
 
@@ -687,6 +651,64 @@ local gt = getroottable();
 				maulerPerk.m.IsForceEnabled = true;
 				this.m.Skills.add(maulerPerk);
 			}
+        }
+
+        o.EL_afterEntityBuild <- function() {
+            this.actor.EL_afterEntityBuild();
+            local myTile = this.getTile();
+            local spawnTile;
+
+            if (myTile.hasNextTile(this.Const.Direction.NE) && myTile.getNextTile(this.Const.Direction.NE).IsEmpty)
+            {
+                spawnTile = myTile.getNextTile(this.Const.Direction.NE);
+            }
+            else if (myTile.hasNextTile(this.Const.Direction.SE) && myTile.getNextTile(this.Const.Direction.SE).IsEmpty)
+            {
+                spawnTile = myTile.getNextTile(this.Const.Direction.SE);
+            }
+            else
+            {
+                for( local i = 0; i < 6; i = i )
+                {
+                    if (!myTile.hasNextTile(i))
+                    {
+                    }
+                    else if (myTile.getNextTile(i).IsEmpty)
+                    {
+                        spawnTile = myTile.getNextTile(i);
+                        break;
+                    }
+
+                    i = ++i;
+                }
+            }
+            if(spawnTile != null && (!this.World.Flags.has("EL_IsExtraLindwurm") || !this.World.Flags.get("EL_IsExtraLindwurm"))) {
+                this.World.Flags.set("EL_IsExtraLindwurm", true);
+                local e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.LegendStollwurm, spawnTile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
+                local skills = this.getSkills().m.Skills;
+                local extra_normal_buff_num = 0;
+                local extra_elite_buff_num = 0;
+                local extra_leader_buff_num = 0;
+                foreach(skill in skills) {
+                    if(skill.EL_isNPCBuff()) {
+                        extra_normal_buff_num += skill.EL_getRankLevel() == 0 ? 1 : 0;
+                        extra_elite_buff_num += skill.EL_getRankLevel() == 1 ? 1 : 0;
+                        extra_leader_buff_num += skill.EL_getRankLevel() == 2 ? 1 : 0;
+                    }
+                }
+                skills = e.getSkills().m.Skills;
+                foreach(skill in skills) {
+                    if(skill.EL_isNPCBuff()) {
+                        extra_normal_buff_num -= skill.EL_getRankLevel() == 0 ? 1 : 0;
+                        extra_elite_buff_num -= skill.EL_getRankLevel() == 1 ? 1 : 0;
+                        extra_leader_buff_num -= skill.EL_getRankLevel() == 2 ? 1 : 0;
+                    }
+                }
+                this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(e, extra_normal_buff_num, extra_elite_buff_num, extra_leader_buff_num);
+            }
+            else {
+                this.World.Flags.set("EL_IsExtraLindwurm", false);
+            }
         }
 
         o.onMovementFinish = function( _tile )
@@ -916,41 +938,6 @@ local gt = getroottable();
                 this.m.Skills.add(this.new("scripts/skills/traits/fearless_trait"));
             }
 
-            if (this.m.Tail == null)
-            {
-                local myTile = this.getTile();
-                local spawnTile;
-
-                if (myTile.hasNextTile(this.Const.Direction.NE) && myTile.getNextTile(this.Const.Direction.NE).IsEmpty)
-                {
-                    spawnTile = myTile.getNextTile(this.Const.Direction.NE);
-                }
-                else if (myTile.hasNextTile(this.Const.Direction.SE) && myTile.getNextTile(this.Const.Direction.SE).IsEmpty)
-                {
-                    spawnTile = myTile.getNextTile(this.Const.Direction.SE);
-                }
-                else
-                {
-                    for( local i = 0; i < 6; i = i )
-                    {
-                        if (!myTile.hasNextTile(i))
-                        {
-                        }
-                        else if (myTile.getNextTile(i).IsEmpty)
-                        {
-                            spawnTile = myTile.getNextTile(i);
-                            break;
-                        }
-
-                        i = ++i;
-                    }
-                }
-
-                if (spawnTile != null)
-                {
-                    this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Lindwurm, spawnTile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
-                }
-            }
             this.m.Skills.addPerkTree(this.Const.Perks.AxeTree);
 			this.m.Skills.getSkillByID("perk.ptr_cull").m.IsForceEnabled = true;
 
@@ -979,6 +966,64 @@ local gt = getroottable();
 				maulerPerk.m.IsForceEnabled = true;
 				this.m.Skills.add(maulerPerk);
 			}
+        }
+
+        o.EL_afterEntityBuild <- function() {
+            this.actor.EL_afterEntityBuild();
+            local myTile = this.getTile();
+            local spawnTile;
+
+            if (myTile.hasNextTile(this.Const.Direction.NE) && myTile.getNextTile(this.Const.Direction.NE).IsEmpty)
+            {
+                spawnTile = myTile.getNextTile(this.Const.Direction.NE);
+            }
+            else if (myTile.hasNextTile(this.Const.Direction.SE) && myTile.getNextTile(this.Const.Direction.SE).IsEmpty)
+            {
+                spawnTile = myTile.getNextTile(this.Const.Direction.SE);
+            }
+            else
+            {
+                for( local i = 0; i < 6; i = i )
+                {
+                    if (!myTile.hasNextTile(i))
+                    {
+                    }
+                    else if (myTile.getNextTile(i).IsEmpty)
+                    {
+                        spawnTile = myTile.getNextTile(i);
+                        break;
+                    }
+
+                    i = ++i;
+                }
+            }
+            if(spawnTile != null && (!this.World.Flags.has("EL_IsExtraLindwurm") || !this.World.Flags.get("EL_IsExtraLindwurm"))) {
+                this.World.Flags.set("EL_IsExtraLindwurm", true);
+                local e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Lindwurm, spawnTile, this.getFaction(), this.EL_getRankLevel(), this.EL_getLevel());
+                local skills = this.getSkills().m.Skills;
+                local extra_normal_buff_num = 0;
+                local extra_elite_buff_num = 0;
+                local extra_leader_buff_num = 0;
+                foreach(skill in skills) {
+                    if(skill.EL_isNPCBuff()) {
+                        extra_normal_buff_num += skill.EL_getRankLevel() == 0 ? 1 : 0;
+                        extra_elite_buff_num += skill.EL_getRankLevel() == 1 ? 1 : 0;
+                        extra_leader_buff_num += skill.EL_getRankLevel() == 2 ? 1 : 0;
+                    }
+                }
+                skills = e.getSkills().m.Skills;
+                foreach(skill in skills) {
+                    if(skill.EL_isNPCBuff()) {
+                        extra_normal_buff_num -= skill.EL_getRankLevel() == 0 ? 1 : 0;
+                        extra_elite_buff_num -= skill.EL_getRankLevel() == 1 ? 1 : 0;
+                        extra_leader_buff_num -= skill.EL_getRankLevel() == 2 ? 1 : 0;
+                    }
+                }
+                this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(e, extra_normal_buff_num, extra_elite_buff_num, extra_leader_buff_num);
+            }
+            else {
+                this.World.Flags.set("EL_IsExtraLindwurm", false);
+            }
         }
 
         o.onMovementFinish = function( _tile )
