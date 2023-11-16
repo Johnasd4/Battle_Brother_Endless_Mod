@@ -242,7 +242,7 @@ local gt = getroottable();
                                     }
                                     else
                                     {
-                                        local e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SkeletonHeavyPolearm, tile, f, 1 -1, true);
+                                        local e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.SkeletonHeavyPolearm, tile, f, 1, -1, true);
                                         local item = e.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
                                         item.setCondition(this.Math.rand(item.getConditionMax() / 2, item.getConditionMax()));
                                         heavy_polearm = --heavy_polearm;
