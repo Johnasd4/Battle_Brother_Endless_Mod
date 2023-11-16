@@ -43,7 +43,8 @@ this.el_arena_collar_item <- this.inherit("scripts/items/item", {
 	}
 
 	function onNewDay() {
-		this.removeSelf();
+		local stash = this.World.Assets.getStash();
+		stash.remove(this);
 	}
 
 	function onUse( _actor, _item = null )
