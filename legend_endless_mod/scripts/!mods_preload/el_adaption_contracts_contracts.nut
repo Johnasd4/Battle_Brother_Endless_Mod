@@ -880,7 +880,14 @@ local gt = getroottable();
                 ],
                 function start()
                 {
-                    this.Text += "\n\n\n\n\n\n\n\nThe following characters will enter the arena:\n\n%bro1name%\n%bro2name%\n%bro3name%";
+                    this.Text += "\n\n\n\n\n\n\n\nThe following characters will enter the arena:\n";
+                    local roster = this.World.getPlayerRoster().getAll();
+                    foreach( bro in roster )
+                    {
+                        if (bro.getSkills().hasSkill("el_items.arena_collar_skill")) {
+                            this.Text += "\n" + bro.getName();
+                        }
+                    }
                 }
 
             });
@@ -1099,9 +1106,8 @@ local gt = getroottable();
 
                             foreach( bro in roster )
                             {
-                                local item = bro.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
 
-                                if (item != null && item.getID() == "accessory.arena_collar")
+                                if (bro.getSkills().hasSkill("el_items.arena_collar_skill"))
                                 {
                                     bro.getFlags().increment("ArenaFights", 1);
                                     n = ++n;
@@ -1407,7 +1413,14 @@ local gt = getroottable();
                 ],
                 function start()
                 {
-                    this.Text += "\n\n\n\n\n\nThe following characters will enter the arena:\n\n%bro1name%\n%bro2name%\n%bro3name%\n%bro4name%\n%bro5name%";
+                    this.Text += "\n\n\n\n\n\n\n\nThe following characters will enter the arena:\n";
+                    local roster = this.World.getPlayerRoster().getAll();
+                    foreach( bro in roster )
+                    {
+                        if (bro.getSkills().hasSkill("el_items.arena_collar_skill")) {
+                            this.Text += "\n" + bro.getName();
+                        }
+                    }
                 }
 
             });

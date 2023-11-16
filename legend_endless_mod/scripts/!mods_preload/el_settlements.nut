@@ -207,7 +207,6 @@ local gt = getroottable();
 				{
 					local inj = allInjuries[i];
 
-	//				if (!inj.isTreated() && inj.isTreatable())
 					if (inj.isTreatable())
 					{
 						injuries.push({
@@ -221,7 +220,6 @@ local gt = getroottable();
 					i = ++i;
 				}
 
-	//add SemiInjury
 				local allInjuries = b.getSkills().query(this.Const.SkillType.SemiInjury);
 				for( local i = 0; i != allInjuries.len(); i = i )
 				{
@@ -240,7 +238,6 @@ local gt = getroottable();
 					i = ++i;
 				}
 
-	//add PermanentInjury
 				local allInjuries = b.getSkills().query(this.Const.SkillType.PermanentInjury);
 				for( local i = 0; i != allInjuries.len(); i = i )
 				{
@@ -266,7 +263,6 @@ local gt = getroottable();
 
 					i = ++i;
 				}
-	//
 
 				if (injuries.len() == 0) { continue; }
 
@@ -357,7 +353,7 @@ local gt = getroottable();
 						id = inj.getID(),
 						icon = inj.getIconColored(),
 						name = inj.getNameOnly(),
-						price = 500,
+						price = this.Math.floor(500 * (1 + this.Const.EL_Player.EL_HealInjury.LevelMult * entity.getLevel()) * this.Const.EL_Player.EL_HealInjury.PermanentMult),
 					});
 				}
 				else if ( inj.getID() == "injury.weakened_heart" || inj.getID() == "injury.traumatized" || inj.getID() == "injury.missing_hand" || inj.getID() == "injury.missing_eye" || inj.getID() == "injury.maimed_foot" || inj.getID() == "injury.collapsed_lung_part" || inj.getID() == "injury.broken_knee" || inj.getID() == "injury.broken_elbow_joint" || inj.getID() == "injury.brain_damage" )
@@ -366,7 +362,7 @@ local gt = getroottable();
 						id = inj.getID(),
 						icon = inj.getIconColored(),
 						name = inj.getNameOnly(),
-						price = 1000,
+						price = -this.Math.floor(1000 * (1 + this.Const.EL_Player.EL_HealInjury.LevelMult * entity.getLevel()) * this.Const.EL_Player.EL_HealInjury.PermanentMult),
 					});
 				}
 			}
