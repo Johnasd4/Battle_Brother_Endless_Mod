@@ -101,7 +101,7 @@ local gt = getroottable();
 						id = 6,
 						type = "text",
 						icon = "ui/icons/ranged_defense.png",
-						text = "Ranged Defense [color=" + this.Const.UI.Color.PositiveValue + "]+" + this.m.RangedDefense + "[/color] (" + this.m.EL_BaseNoRankMeleeDefense + ")"
+						text = "Ranged Defense [color=" + this.Const.UI.Color.PositiveValue + "]+" + this.m.RangedDefense + "[/color] (" + this.m.EL_BaseNoRankRangedDefense + ")"
 					};
 				}
 				else if(result[i].id == 7 && result[i].icon == "ui/icons/fatigue.png")
