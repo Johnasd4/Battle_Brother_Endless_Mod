@@ -38,7 +38,6 @@ local gt = getroottable();
 		local getTooltip = o.getTooltip;
 		o.getTooltip = function ()
 		{
-			EL_updateLevelProperties();
 			local result = getTooltip();
 
 			if(this.m.EL_RankLevel == 0)
@@ -111,6 +110,28 @@ local gt = getroottable();
 						result.push(tool_tip);
 						++tool_tip_id;
 					}
+				}
+			}
+			for(local i = 0; i < result.len(); ++i)
+			{
+				if(result[i].id == 4 && result[i].icon == "ui/icons/regular_damage.png") 
+				{
+					result[i] = {
+						id = 5,
+						type = "text",
+						icon = "ui/icons/melee_defense.png",
+						text = "Damage of [color=" + this.Const.UI.Color.DamageValue + "]" + this.m.RegularDamage + "[/color] - [color=" + this.Const.UI.Color.DamageValue + "]" + this.m.RegularDamageMax + "[/color] (" + this.m.EL_BaseNoRankRegularDamage + " - " + this.m.EL_BaseNoRankRegularDamageMax + ")"
+					};
+				}
+				else if(result[i].id == 8 && result[i].icon == "ui/icons/fatigue.png")
+				{
+					result[i] = {
+						id = 8,
+						type = "text",
+						icon = "ui/icons/fatigue.png",
+						text = "Maximum Fatigue [color=" + this.Const.UI.Color.NegativeValue + "]" + this.m.StaminaModifier + "[/color] (" + this.m.EL_BaseNoRankStaminaModifier + ")"
+					};
+					break;
 				}
 			}
 			if(this.m.EL_CurrentLevel < this.m.EL_Level)
