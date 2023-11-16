@@ -100,7 +100,7 @@ local gt = getroottable();
                             party.EL_setFaction(f);
                             party.EL_tempPartyInit();
                             party.EL_setIsBossParty(true);
-                            properties.Parties.push(party);
+                            p.Parties.push(party);
                             for( local i = 0; i < 4; i = ++i )
                             {
                                 this.Const.World.Common.addTroop(party, {
@@ -108,7 +108,7 @@ local gt = getroottable();
                                 }, false);
                             }
                             foreach(troop in party.getTroops()) {
-                                properties.Entities.push(troop);
+                                p.Entities.push(troop);
                             }
 
                             p.BeforeDeploymentCallback = function ()

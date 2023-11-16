@@ -744,7 +744,7 @@ local gt = getroottable();
 		o.getTooltip = function()
 		{
 			local actor = this.getContainer().getActor();
-			local fm = this.Math.round(this.getReductionChance() * 100);
+			local fm = this.Math.round(this.getReductionChance(0) * 100);
 			local tooltip = this.skill.getTooltip();
 
 			if (fm < 100)
