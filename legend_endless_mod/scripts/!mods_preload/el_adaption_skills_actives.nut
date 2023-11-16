@@ -167,7 +167,7 @@ local gt = getroottable();
                 return false;
             }
 
-            local entity = this.Const.World.Common.EL_addEntityByScript(this.getScript(), _targetTile, this.m.IsControlledByPlayer ? this.Const.Faction.Player : this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getCombatLevel(), true);
+            local entity = this.Const.World.Common.EL_addEntityByScript(this.getScript(), _targetTile, this.m.IsControlledByPlayer ? this.Const.Faction.Player : this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getLevel(), true);
 
             entity.setItem(spawnItem);
             entity.setName(spawnItem.getName());
@@ -195,7 +195,7 @@ local gt = getroottable();
         o.onUse = function( _user, _targetTile )
         {
             _user.getSkills().add(this.new("scripts/skills/effects/legend_summoned_bear_effect"));
-            local entity = this.Const.World.Common.EL_addEntityByScript(this.m.Script, _targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getCombatLevel());
+            local entity = this.Const.World.Common.EL_addEntityByScript(this.m.Script, _targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getLevel());
             entity.setName(this.m.EntityName);
 
             if (this.getContainer().getActor().getSkills().hasSkill("perk.legend_dogwhisperer"))
@@ -214,7 +214,7 @@ local gt = getroottable();
 
         o.onUse = function( _user, _targetTile )
         {
-            local entity = this.Const.World.Common.EL_addEntityByScript(this.m.Script, _targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getCombatLevel());
+            local entity = this.Const.World.Common.EL_addEntityByScript(this.m.Script, _targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getLevel());
             entity.setName(this.m.EntityName);
             entity.setMoraleState(this.Const.MoraleState.Confident);
             this.m.Entity = entity;
@@ -234,7 +234,7 @@ local gt = getroottable();
         o.onUse = function( _user, _targetTile )
         {
             _user.getSkills().add(this.new("scripts/skills/effects/legend_summoned_catapult_effect"));
-            local entity = this.Const.World.Common.EL_addEntityByScript(this.m.Script, _targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getCombatLevel());
+            local entity = this.Const.World.Common.EL_addEntityByScript(this.m.Script, _targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getLevel());
             entity.setName(this.m.EntityName);
             return true;
         }
@@ -246,7 +246,7 @@ local gt = getroottable();
         o.onUse = function( _user, _targetTile )
         {
             _user.getSkills().add(this.new("scripts/skills/effects/legend_summoned_hound_effect"));
-            local entity = this.Const.World.Common.EL_addEntityByScript(this.m.Script, _targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getCombatLevel());
+            local entity = this.Const.World.Common.EL_addEntityByScript(this.m.Script, _targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getLevel());
             entity.setName(this.m.EntityName);
 
             if (this.getContainer().hasSkill("background.houndmaster"))
@@ -271,7 +271,7 @@ local gt = getroottable();
         o.onUse = function( _user, _targetTile )
         {
             _user.getSkills().add(this.new("scripts/skills/effects/legend_summoned_hound_effect"));
-            local entity = this.Const.World.Common.EL_addEntityByScript(this.m.Script, _targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getCombatLevel());
+            local entity = this.Const.World.Common.EL_addEntityByScript(this.m.Script, _targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getLevel());
             entity.setName(this.m.EntityName);
 
             if (this.getContainer().hasSkill("background.houndmaster"))
@@ -289,7 +289,7 @@ local gt = getroottable();
 
         o.onUse = function( _user, _targetTile )
         {
-            local entity = this.Const.World.Common.EL_addEntityByScript(this.m.Item.getScript(), _targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getCombatLevel());
+            local entity = this.Const.World.Common.EL_addEntityByScript(this.m.Item.getScript(), _targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getLevel());
             entity.setItem(this.m.Item);
             entity.setName(this.m.Item.getName());
             this.m.Item.setEntity(entity);
@@ -309,7 +309,7 @@ local gt = getroottable();
 
         o.onUse = function( _user, _targetTile )
         {
-            local entity = this.Const.World.Common.EL_addEntityByScript(this.m.Item.getScript(), _targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getCombatLevel());
+            local entity = this.Const.World.Common.EL_addEntityByScript(this.m.Item.getScript(), _targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getLevel());
             entity.setItem(this.m.Item);
             entity.setName(this.m.Item.getName());
             this.m.Item.setEntity(entity);
@@ -332,7 +332,7 @@ local gt = getroottable();
         o.onUse = function( _user, _targetTile )
         {
             _user.getSkills().add(this.new("scripts/skills/effects/legend_summoned_wolf_effect"));
-            local entity = this.Const.World.Common.EL_addEntityByScript(this.m.Script, _targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getCombatLevel());
+            local entity = this.Const.World.Common.EL_addEntityByScript(this.m.Script, _targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getLevel());
             entity.setName(this.m.EntityName);
 
             if (this.getContainer().hasSkill("background.houndmaster"))
@@ -679,7 +679,7 @@ local gt = getroottable();
 
         o.onUse = function( _user, _targetTile )
         {
-            local entity = this.Const.World.Common.EL_addEntityByScript(this.m.Item.getScript(), _targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getCombatLevel());
+            local entity = this.Const.World.Common.EL_addEntityByScript(this.m.Item.getScript(), _targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getLevel());
             entity.setItem(this.m.Item);
             entity.setName(this.m.Item.getName());
             entity.setVariant(this.m.Item.getVariant());
@@ -707,7 +707,7 @@ local gt = getroottable();
 
         o.onUse = function( _user, _targetTile )
         {
-            local entity = this.Const.World.Common.EL_addEntityByScript(this.m.Item.getScript(), _targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getCombatLevel());
+            local entity = this.Const.World.Common.EL_addEntityByScript(this.m.Item.getScript(), _targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getLevel());
             entity.setItem(this.m.Item);
             entity.setName(this.m.Item.getName());
             this.m.Item.setEntity(entity);

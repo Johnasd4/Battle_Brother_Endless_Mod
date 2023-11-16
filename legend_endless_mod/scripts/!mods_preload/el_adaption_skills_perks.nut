@@ -15,7 +15,7 @@ local gt = getroottable();
                 if (WardenSpawnTile != null)
                 {
                     local actor = this.getContainer().getActor();
-                    local entity = this.Const.World.Common.EL_addEntityByScript("scripts/entity/tactical/legend_vala_warden_script", WardenSpawnTile, this.Const.Faction.PlayerAnimals, 0, actor.EL_getCombatLevel());
+                    local entity = this.Const.World.Common.EL_addEntityByScript("scripts/entity/tactical/legend_vala_warden_script", WardenSpawnTile, this.Const.Faction.PlayerAnimals, 0, actor.EL_getLevel());
                     entity.setName(actor.m.Name + "\'s Warden");
                     entity.setVala(this);
                     entity.setWardenStats(this.getContainer().getActor().getBravery());

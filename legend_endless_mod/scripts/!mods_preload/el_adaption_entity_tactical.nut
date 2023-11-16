@@ -222,10 +222,10 @@ local gt = getroottable();
             else {
                 local faction = _user.getFaction();
                 if (faction == this.Const.Faction.Player || faction == this.Const.Faction.PlayerAnimals) {
-                    entity = this.Const.World.Common.EL_addEntityByScript(_info.Type, targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getCombatLevel());
+                    entity = this.Const.World.Common.EL_addEntityByScript(_info.Type, targetTile, this.Const.Faction.PlayerAnimals, _user.EL_getRankLevel(), _user.EL_getLevel());
                 }
                 else {
-                    entity = this.Const.World.Common.EL_addEntityByScript(_info.Type, targetTile, faction, _user.EL_getRankLevel(), _user.EL_getCombatLevel());
+                    entity = this.Const.World.Common.EL_addEntityByScript(_info.Type, targetTile, faction, _user.EL_getRankLevel(), _user.EL_getLevel());
                 }
             }
 
