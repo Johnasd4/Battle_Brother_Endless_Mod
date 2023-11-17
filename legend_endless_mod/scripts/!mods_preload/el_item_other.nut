@@ -113,6 +113,10 @@ local gt = getroottable();
 		// 	this.Const.EL_Item_Other.EL_otherItemInit(_item);
 		// 	return add(_item);
         // }
+		o.getActor <- function()
+		{
+			return null;
+		}
 
 		o.onItemCompare = function( _item1, _item2 )
 		{
