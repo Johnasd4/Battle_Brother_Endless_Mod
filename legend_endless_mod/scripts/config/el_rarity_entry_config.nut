@@ -303,7 +303,7 @@ gt.Const.EL_Rarity_Entry <- {
 	function EL_useFreeSplitShield( _actor, _targetEntity )
 	{
 		local split_shield = _actor.getSkills().getSkillByID("actives.split_shield");
-		if(split_shield != null)
+		if(split_shield != null && _targetEntity.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand) != null)
 		{
 			//this.logInfo("split_shield use?" + split_shield.getID());
 			split_shield.useForFree(_targetEntity.getTile());
