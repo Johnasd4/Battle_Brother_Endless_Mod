@@ -18,7 +18,7 @@ this.el_stamp_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff"
         local skill = skills.getSkillByID("el_effects.stamp");
         if(skill == null) {
             skill = this.new("scripts/skills/el_effects/el_stamp_effect");
-            skills.addSkill(skill);
+            skills.add(skill);
         }
         skill.EL_addStack(this.Const.EL_NPC.EL_NPCBuff.Factor.Stamp.StackPurHit[this.m.EL_RankLevel]);
 	}

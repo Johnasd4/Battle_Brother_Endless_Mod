@@ -7,7 +7,7 @@ this.el_engrgy_shield_effect <- this.inherit("scripts/skills/skill", {
 	function create()
 	{
 		this.m.ID = "el_effects.engrgy_shield";
-		this.m.Name = "Engrgy Shield";
+		this.m.Name = "能量护盾";
 		this.m.Icon = "ui/perks/omens_circle.png";
 		this.m.IconMini = "mini_omens_circle";
 		this.m.Overlay = "omens_circle";

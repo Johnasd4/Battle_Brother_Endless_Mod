@@ -6,19 +6,36 @@ this.el_stamp_effect <- this.inherit("scripts/skills/skill", {
 	function create()
 	{
 		this.m.ID = "el_effects.stamp";
+		this.m.Name = "印记";
 		this.m.Type = this.Const.SkillType.StatusEffect;
+		this.m.Icon = "el_skills/stamp_1.png";
 		this.m.IsActive = false;
 		this.m.IsStacking = true;
 		this.m.IsRemovedAfterBattle = true;
 	}
 
+	function getTooltip()
+	{
+		local tooltip = this.skill.getTooltip();
+		tooltip.extend([
+			{
+				id = 6,
+				type = "text",
+				text = "积满5层印记时爆炸，当前层数： " + this.m.EL_Stack
+			}
+		]);
+		return tooltip;
+	}
+
     function EL_addStack( EL_stackNum )
 	{
         this.m.EL_Stack += EL_stackNum;
+		this.m.Icon = "el_skills/stamp_" + this.m.EL_Stack + ".png";
         if(this.m.EL_Stack >= this.Const.EL_NPC.EL_NPCBuff.Factor.Stamp.ExplodeStackNum) {
             this.EL_explode();
         }
 	}
+
     function EL_explode()
     {
         local actor = this.getContainer().getActor();
