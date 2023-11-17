@@ -519,13 +519,6 @@ gt.Const.EL_NPC <- {
                     return true;
                 }
             },
-            // {
-            //     Scripts = "scripts/skills/el_npc_buffs/el_combo_attack_npc_buff",
-            //     function EL_ifEligible(_EL_npc) {
-            //         if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
-            //         return true;
-            //     }
-            // },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_concentrate_npc_buff",
                 function EL_ifEligible(_EL_npc) {
@@ -661,6 +654,14 @@ gt.Const.EL_NPC <- {
                 }
             },
             {
+                Scripts = "scripts/skills/el_npc_buffs/el_stamp_npc_buff",
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    return true;
+                }
+            },
+            {
                 Scripts = "scripts/skills/el_npc_buffs/el_stunning_strike_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
@@ -734,10 +735,6 @@ gt.Const.EL_NPC <- {
                     "scripts/skills/effects/dazed_effect",
                     "scripts/skills/effects/legend_dazed_effect"
                 ]
-            },
-            ComboAttack = {
-                Chance = [50, 100, 100],
-                AttackTimes = [1, 1, 2]
             },
             Concentrate = {
                 MeleeSkillOffsetPurStack = [4 ,8, 20],
@@ -827,11 +824,19 @@ gt.Const.EL_NPC <- {
                 DamageMultPurStack = [0.04, 0.08, 0.2],
             },
             SelfDestruct = {
-                DamageBase = 100,
+                DamageBase = 200,
                 DamageMultPurCombatLevel = 0.04,
                 DamageRate = [0.2, 0.4, 1],
                 DamageDecayRatePurTile = 0.5,
                 MaxDistance = 4
+            },
+            Stamp = {
+                DamageBase = 50,
+                DamageMultPurWorldLevel = 0.04,
+                StackPurHit = [1, 2, 5],
+                ExplodeStackNum = 5,
+                ExplodeStackGain = 1,
+                MaxDistance = 2
             },
             Strength = {
                 DamageDirectMult = [0.4, 0.8, 2]
