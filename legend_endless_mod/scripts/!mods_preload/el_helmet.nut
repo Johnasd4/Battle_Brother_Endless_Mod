@@ -90,6 +90,31 @@ local gt = getroottable();
 					}
 				}
 			}
+			for(local i = 0; i < result.len(); ++i)
+			{
+				if(result[i].id == 4 && result[i].icon == "ui/icons/armor_head.png") 
+				{
+					result[i] = {
+						id = 4,
+						type = "progressbar",
+						icon = "ui/icons/armor_head.png",
+						value = this.Math.floor(this.m.Condition),
+						valueMax = this.Math.floor(this.m.ConditionMax),
+						text = "" + this.Math.floor(this.getCondition()) + " / " + this.Math.floor(this.getConditionMax()) + " (" + this.m.EL_BaseNoRankConditionMax + ")",
+						style = "armor-head-slim"
+					};
+				}
+				else if(result[i].id == 5 && result[i].icon == "ui/icons/fatigue.png")
+				{
+					result[i] = {
+						id = 5,
+						type = "text",
+						icon = "ui/icons/fatigue.png",
+						text = "Maximum Fatigue [color=" + this.Const.UI.Color.NegativeValue + "]" + this.m.StaminaModifier + "[/color] (" + this.m.EL_BaseNoRankStaminaModifier + ")"
+					};
+					break;
+				}
+			}
 			if(this.m.EL_CurrentLevel < this.m.EL_Level)
 			{
 				result.push({
@@ -576,6 +601,34 @@ local gt = getroottable();
 					icon = "ui/icons/regular_damage.png",
 					text = "血量固定减伤:  " + this.EL_getDamageRegularReduction()
 				});
+			}
+			if(getUpgrade() == null)
+			{
+				for(local i = 0; i < result.len(); ++i)
+				{
+					if(result[i].id == 4 && result[i].icon == "ui/icons/armor_head.png") 
+					{
+						result[i] = {
+							id = 4,
+							type = "progressbar",
+							icon = "ui/icons/armor_head.png",
+							value = this.Math.floor(this.m.Condition),
+							valueMax = this.Math.floor(this.m.ConditionMax),
+							text = "" + this.Math.floor(this.getCondition()) + " / " + this.Math.floor(this.getConditionMax()) + " (" + this.m.EL_BaseNoRankConditionMax + ")",
+							style = "armor-head-slim"
+						};
+					}
+					else if(result[i].id == 5 && result[i].icon == "ui/icons/fatigue.png")
+					{
+						result[i] = {
+							id = 5,
+							type = "text",
+							icon = "ui/icons/fatigue.png",
+							text = "Maximum Fatigue [color=" + this.Const.UI.Color.NegativeValue + "]" + this.m.StaminaModifier + "[/color] (" + this.m.EL_BaseNoRankStaminaModifier + ")"
+						};
+						break;
+					}
+				}
 			}
 			if(this.m.EL_CurrentLevel < this.m.EL_Level)
 			{
@@ -1259,6 +1312,31 @@ local gt = getroottable();
 						result.push(tool_tip);
 						++tool_tip_id;
 					}
+				}
+			}
+			for(local i = 0; i < result.len(); ++i)
+			{
+				if(result[i].id == 4 && result[i].icon == "ui/icons/armor_head.png") 
+				{
+					result[i] = {
+						id = 4,
+						type = "progressbar",
+						icon = "ui/icons/armor_head.png",
+						value = this.Math.floor(this.m.Condition),
+						valueMax = this.Math.floor(this.m.ConditionMax),
+						text = "" + this.Math.floor(this.getCondition()) + " / " + this.Math.floor(this.getConditionMax()) + " (" + this.m.EL_BaseNoRankConditionMax + ")",
+						style = "armor-head-slim"
+					};
+				}
+				else if(result[i].id == 5 && result[i].icon == "ui/icons/fatigue.png")
+				{
+					result[i] = {
+						id = 5,
+						type = "text",
+						icon = "ui/icons/fatigue.png",
+						text = "Maximum Fatigue [color=" + this.Const.UI.Color.NegativeValue + "]" + this.m.StaminaModifier + "[/color] (" + this.m.EL_BaseNoRankStaminaModifier + ")"
+					};
+					break;
 				}
 			}
 			if(this.m.EL_CurrentLevel < this.m.EL_Level)

@@ -84,6 +84,37 @@ local gt = getroottable();
 					}
 				}
 			}
+			for(local i = 0; i < result.len(); ++i)
+			{
+				if(result[i].id == 5 && result[i].icon == "ui/icons/melee_defense.png") 
+				{
+					result[i] = {
+						id = 5,
+						type = "text",
+						icon = "ui/icons/melee_defense.png",
+						text = "Melee Defense [color=" + this.Const.UI.Color.PositiveValue + "]+" + this.m.MeleeDefense + "[/color] (" + this.m.EL_BaseNoRankMeleeDefense + ")"
+					};
+				}
+				else if(result[i].id == 6 && result[i].icon == "ui/icons/ranged_defense.png")
+				{
+					result[i] = {
+						id = 6,
+						type = "text",
+						icon = "ui/icons/ranged_defense.png",
+						text = "Ranged Defense [color=" + this.Const.UI.Color.PositiveValue + "]+" + this.m.RangedDefense + "[/color] (" + this.m.EL_BaseNoRankRangedDefense + ")"
+					};
+				}
+				else if(result[i].id == 7 && result[i].icon == "ui/icons/fatigue.png")
+				{
+					result[i] = {
+						id = 7,
+						type = "text",
+						icon = "ui/icons/fatigue.png",
+						text = "Maximum Fatigue [color=" + this.Const.UI.Color.NegativeValue + "]" + this.m.StaminaModifier + "[/color] (" + this.m.EL_BaseNoRankStaminaModifier + ")"
+					};
+					break;
+				}
+			}
 			if(this.m.EL_CurrentLevel < this.m.EL_Level)
 			{
 				result.push({

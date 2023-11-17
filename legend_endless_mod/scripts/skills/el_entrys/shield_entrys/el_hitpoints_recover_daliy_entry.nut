@@ -52,7 +52,7 @@ this.el_hitpoints_recover_daliy_entry <- this.inherit("scripts/skills/el_entrys/
 
 	function EL_onNewHour( _item )
 	{
-		if(this.getContainer() == null)
+		if(this.getContainer() == null);
 		{
 			return;
 		}
