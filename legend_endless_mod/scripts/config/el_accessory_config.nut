@@ -670,7 +670,7 @@ gt.Const.EL_Accessory <- {
 		{
 			this.logInfo("!!!RarityEntry!!!" + r);
 			local r = this.Math.rand(0, this.Const.EL_Rarity_Entry.Pool.Entrys.len() - 1);
-			_item.EL_addRarityEntry(this.new(this.Const.EL_Rarity_Entry.Pool.Entrys[r].Scripts));
+			_item.EL_setRarityEntry(this.new(this.Const.EL_Rarity_Entry.Pool.Entrys[r].Scripts));
 		}
 	}
 };
