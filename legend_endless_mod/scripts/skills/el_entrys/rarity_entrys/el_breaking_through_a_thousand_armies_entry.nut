@@ -124,7 +124,7 @@ this.el_breaking_through_a_thousand_armies_entry <- this.inherit("scripts/skills
                 id = 20,
                 type = "text",
                 icon = "ui/icons/damage_received.png",
-                text = "每回合第一次释放的“环劈”技能将额外连击" + this.m.EL_Stack + "次"
+                text = "“环劈”技能将额外连击" + this.m.EL_Stack + "次"
             });
         }
 		return result;
@@ -141,18 +141,6 @@ this.el_breaking_through_a_thousand_armies_entry <- this.inherit("scripts/skills
 			this.Const.EL_Rarity_Entry.EL_useFreeSplitShield(this.getContainer().getActor(), _targetEntity);
 		}
 	}
-    
-	function onTargetHit( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
-	{
-		if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
-		{
-			return;
-		}
-		if (EL_isUsable())
-		{
-            EL_comboAttack(_skill, _targetEntity);
-		}
-	}
 
 	function onTargetMissed( _skill, _targetEntity )
 	{
@@ -163,7 +151,6 @@ this.el_breaking_through_a_thousand_armies_entry <- this.inherit("scripts/skills
 		if (EL_isUsable())
 		{
 			this.Const.EL_Rarity_Entry.EL_useFreeSplitShield(this.getContainer().getActor(), _targetEntity);
-            EL_comboAttack(_skill, _targetEntity);
 		}
 	}
 
@@ -173,11 +160,13 @@ this.el_breaking_through_a_thousand_armies_entry <- this.inherit("scripts/skills
 		{
 			this.Const.EL_Rarity_Entry.EL_ReplaceSkill(this.getContainer().getActor(), this.m.EL_replacedSkills, this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.ReplaceSkillList);
 			this.getContainer().add(this.new("scripts/skills/el_actives/el_strengthen_split_man_skill"));
+			this.getContainer().add(this.new("scripts/skills/el_actives/el_round_swing_skill"));
 		}
 		else
 		{
 			this.m.EL_replacedSkills.clear();
 			this.getContainer().removeByID("el_rarity_actives.strengthen_split_man_skill");
+			this.getContainer().removeByID("el_rarity_actives.round_swing");
 		}
 	}
 
@@ -185,11 +174,7 @@ this.el_breaking_through_a_thousand_armies_entry <- this.inherit("scripts/skills
 	{
 		this.Const.EL_Rarity_Entry.EL_ReturnSkill(this.getContainer().getActor(), this.m.EL_replacedSkills);
 		this.getContainer().removeByID("el_rarity_actives.strengthen_split_man_skill");
-	}
-
-	function onTurnStart()
-	{
-        this.m.EL_IsFirstRoundSwing = true;
+		this.getContainer().removeByID("el_rarity_actives.round_swing");
 	}
 
 	function onUpdate( _properties )
@@ -209,26 +194,6 @@ this.el_breaking_through_a_thousand_armies_entry <- this.inherit("scripts/skills
 
 			_properties.DamageDirectMult *= 1.0 + this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.DamageDirectMult;
 			_properties.DamageReceivedTotalMult *= 1.0 - this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.DamageReceivedTotalMult;
-			if(this.m.EL_IsFirstRoundSwing)
-            {
-            	this.m.EL_AdditionalRoundSwingTimes = this.m.EL_Stack;
-			}
-		}
-	}
-
-	function EL_comboAttack( _skill, _targetEntity )
-	{
-		if(this.m.EL_IsFirstRoundSwing && _skill.getID() == "actives.round_swing")
-		{
-			this.m.EL_IsFirstRoundSwing = false;
-			while (this.m.EL_AdditionalRoundSwingTimes) {
-				--this.m.EL_AdditionalRoundSwingTimes;
-				if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
-				{
-					return;
-				}
-				_skill.useForFree(_targetEntity.getTile());
-			}
 		}
 	}
 
