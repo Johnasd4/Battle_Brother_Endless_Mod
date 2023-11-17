@@ -50,6 +50,21 @@ local gt = getroottable();
 
 	});
 
+	::mods_hookExactClass("skills/perks/perk_double_strike", function ( o )
+	{
+
+		o.onTargetHit = function( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
+		{
+			local actor = this.getContainer().getActor();
+
+			if (actor.isAlive() && !actor.isDying() && !actor.getSkills().hasSkill("effect.double_strike"))
+			{
+				actor.getSkills().add(this.new("scripts/skills/effects/double_strike_effect"));
+			}
+		}
+
+	});
+
 	::mods_hookExactClass("skills/perks/perk_fortified_mind", function ( o )
 	{
 

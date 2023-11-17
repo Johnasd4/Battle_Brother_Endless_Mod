@@ -201,7 +201,11 @@ local gt = getroottable();
                         local roster = this.World.getPlayerRoster().getAll();
                         foreach( bro in roster )
                         {
-                            bro.getSkills().removeByID("el_items.arena_collar_skill");
+                            if(bro.getSkills().hasSkill("el_items.arena_collar_skill")) {
+                                bro.getFlags().increment("ArenaFightsWon", 1);
+                                bro.getFlags().increment("ArenaFights", 1);
+                                bro.getSkills().removeByID("el_items.arena_collar_skill");
+                            }
                         }
                         this.Flags.set("IsVictory", true);
                     }
@@ -214,7 +218,10 @@ local gt = getroottable();
                         local roster = this.World.getPlayerRoster().getAll();
                         foreach( bro in roster )
                         {
-                            bro.getSkills().removeByID("el_items.arena_collar_skill");
+                            if(bro.getSkills().hasSkill("el_items.arena_collar_skill")) {
+                                bro.getFlags().increment("ArenaFights", 1);
+                                bro.getSkills().removeByID("el_items.arena_collar_skill");
+                            }
                         }
                         this.Flags.set("IsFailure", true);
                     }
@@ -437,7 +444,7 @@ local gt = getroottable();
                         this.Contract.m.BulletpointsObjectives[1] = "Enter the arena again to start the fight against %champion1% and %amount% nomads";
                         this.Text += "%SPEECH_ON%Recognize this face? There\'s a reason the artists spent time on this here pamphlet and then handed them out to every set of eyes settin\' in those seats upstairs. It\'s %champion1%, one of the greatest fighters in this land. Maybe some day they\'ll make yer face look so pretty, if the Vizier could ever find someone so talented to salvage, well, whatever ye got there between the ears, hegheghegh.%SPEECH_OFF%";
                     }
-                    if (this.World.Assets.m.EL_ArenaLevel == 7)
+                    if (this.World.Assets.m.EL_ArenaLevel == 4)
                     {
                         this.Text += "He pauses.%SPEECH_ON%We expect important guests for this bout, so everything is set up for you to die proper bloody this time, got it? And if you can\'t do that, then have your lot dispatch their opponents in the most spectacular way to please the crowd. Do that, and I\'ll hand you a proper piece of gladiator gear ontop of the coin.%SPEECH_OFF%";
                     }
@@ -906,7 +913,7 @@ local gt = getroottable();
                             this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractSuccess);
                             this.World.Assets.addMoney(this.Contract.m.Payment.getOnCompletion());
 
-                            if (this.World.Assets.m.EL_ArenaLevel == 7)
+                            if (this.World.Assets.m.EL_ArenaLevel == 4)
                             {
                                 return "Gladiators";
                             }
@@ -942,8 +949,6 @@ local gt = getroottable();
                         if (bro.getSkills().hasSkill("el_items.arena_collar_skill"))
                         {
                             local skill;
-                            bro.getFlags().increment("ArenaFightsWon", 1);
-                            bro.getFlags().increment("ArenaFights", 1);
 
                             if (bro.getFlags().getAsInt("ArenaFightsWon") == 1)
                             {
@@ -1104,21 +1109,6 @@ local gt = getroottable();
                             local roster = this.World.getPlayerRoster().getAll();
                             local n = 0;
 
-                            foreach( bro in roster )
-                            {
-
-                                if (bro.getSkills().hasSkill("el_items.arena_collar_skill"))
-                                {
-                                    bro.getFlags().increment("ArenaFights", 1);
-                                    n = ++n;
-                                    n = n;
-                                }
-
-                                if (n >= 3)
-                                {
-                                    break;
-                                }
-                            }
 
                             this.Contract.getHome().getBuilding("building.arena").refreshCooldown();
                             this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractFail);
@@ -1281,7 +1271,11 @@ local gt = getroottable();
                         local roster = this.World.getPlayerRoster().getAll();
                         foreach( bro in roster )
                         {
-                            bro.getSkills().removeByID("el_items.arena_collar_skill");
+                            if(bro.getSkills().hasSkill("el_items.arena_collar_skill")) {
+                                bro.getFlags().increment("ArenaFightsWon", 1);
+                                bro.getFlags().increment("ArenaFights", 1);
+                                bro.getSkills().removeByID("el_items.arena_collar_skill");
+                            }
                         }
                         this.Flags.increment("Round");
                     }
@@ -1294,7 +1288,10 @@ local gt = getroottable();
                         local roster = this.World.getPlayerRoster().getAll();
                         foreach( bro in roster )
                         {
-                            bro.getSkills().removeByID("el_items.arena_collar_skill");
+                            if(bro.getSkills().hasSkill("el_items.arena_collar_skill")) {
+                                bro.getFlags().increment("ArenaFights", 1);
+                                bro.getSkills().removeByID("el_items.arena_collar_skill");
+                            }
                         }
                         this.Flags.set("IsFailure", true);
                     }
@@ -1603,14 +1600,6 @@ local gt = getroottable();
                         Text = "Disaster!",
                         function getResult()
                         {
-                            local roster = this.World.getPlayerRoster().getAll();
-                            foreach( bro in roster )
-                            {
-                                if (bro.getSkills().hasSkill("el_items.arena_collar_skill"))
-                                {
-                                    bro.getFlags().increment("ArenaFights", 1);
-                                }
-                            }
 
                             this.Contract.getHome().removeSituationByID("situation.arena_tournament");
                             this.Contract.getHome().getBuilding("building.arena").refreshCooldown();
