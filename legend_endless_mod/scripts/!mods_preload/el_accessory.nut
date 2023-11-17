@@ -59,7 +59,7 @@ local gt = getroottable();
 			}
 		}
 
-		o.EL_addRarityEntry <- function ( _EL_rarityEntry )
+		o.EL_setRarityEntry <- function ( _EL_rarityEntry )
 		{
 		}
 
@@ -256,7 +256,7 @@ local gt = getroottable();
 				{
 					this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
 					local r = this.Math.rand(0, this.Const.EL_Rarity_Entry.Pool.Entrys.len() - 1);
-					this.EL_addRarityEntry(this.new(this.Const.EL_Rarity_Entry.Pool.Entrys[r].Scripts));
+					this.EL_setRarityEntry(this.new(this.Const.EL_Rarity_Entry.Pool.Entrys[r].Scripts));
 					
 				}
 				else if(this.m.EL_StrengthenEntryNum < this.m.EL_EntryList.len())
@@ -274,7 +274,7 @@ local gt = getroottable();
 				if(this.m.EL_RarityEntry != null)
 				{
 					rarity_stone = this.new("scripts/items/el_misc/el_rarity_entry_stone_item");
-					rarity_stone.EL_addRarityEntry(this.m.EL_RarityEntry);
+					rarity_stone.EL_setRarityEntry(this.m.EL_RarityEntry);
 				}
 				local stash = this.World.Assets.getStash();
 				stash.remove(this);
@@ -344,7 +344,7 @@ local gt = getroottable();
 				return false;
 			}
 
-			o.EL_addRarityEntry <- function ( _EL_rarityEntry )
+			o.EL_setRarityEntry <- function ( _EL_rarityEntry )
 			{
 				this.m.EL_RarityEntry = _EL_rarityEntry;
 			}
