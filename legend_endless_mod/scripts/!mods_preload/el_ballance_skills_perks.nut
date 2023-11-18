@@ -1133,7 +1133,6 @@ local gt = getroottable();
 	{
 		o.onAdded = function()
 		{
-			this.m.WillSucceed = false;
 		}
 
 		o.updatePerkVisuals = function ()

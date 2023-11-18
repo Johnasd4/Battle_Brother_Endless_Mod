@@ -1292,7 +1292,7 @@ local gt = getroottable();
 			if (has_gifted != null)
 			{
 				this.m.PerkPoints -= 1;
-				local perk = ::new("scripts/skills/perks/perk_ptr_rising_star");
+				local perk = ::new("scripts/skills/perks/perk_gifted");
 				perk.m.IsApplied = true;
 				this.getSkills().add(perk);
 			}
