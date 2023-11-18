@@ -14,9 +14,7 @@ this.el_multiple_attacks_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/e
 	{
         local actor = this.getContainer().getActor();
         if(actor == null || actor.isDying() || !actor.isAlive()) {
-            if (actor != null && !actor.isDying() && actor.isAlive()) {
-                _skill.useForFree(affect_targets[i].getTile());
-            }
+            return;
         }
         if(_skill.isActive() && _skill.isAttack() && !_skill.isRanged() && !this.m.EL_IsExtraAttack) {
 
@@ -40,9 +38,13 @@ this.el_multiple_attacks_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/e
                     if(affect_targets[i] != null && !affect_targets[i].isDying() && affect_targets[i].isAlive()) {
                         if (actor != null && !actor.isDying() && actor.isAlive()) {
                             _skill.useForFree(affect_targets[i].getTile());
+                            actor.setFatigue(actor.getFatigue() + _skill.getFatigueCost());
+                        }
+                        else {
+                            return;
                         }
                     }
-                    actor.setFatigue(actor.getFatigue() + _skill.getFatigueCost());
+
                 }
             }
             this.m.EL_IsExtraAttack = false;
