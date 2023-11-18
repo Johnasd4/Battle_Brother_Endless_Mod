@@ -1280,9 +1280,7 @@ local gt = getroottable();
                                 bro.getSkills().removeByID("el_items.arena_collar_skill");
                             }
                         }
-                                bro.getSkills().removeByID("el_items.arena_collar_skill");
-                            }
-                        }
+
                         this.Flags.increment("Round");
                     }
                 }
