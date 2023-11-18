@@ -11,9 +11,9 @@ this.el_stamp_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff"
 
 	function onTargetHit( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
 	{
-		if(_damageInflictedHitpoints + _damageInflictedArmor == 0) {
-			return;
-		}
+		if(_targetEntity == null || _targetEntity.isDying() || !_targetEntity.isAlive() || _damageInflictedHitpoints + _damageInflictedArmor == 0) {
+            return;
+        }
         local skills = _targetEntity.getSkills();
         local skill = skills.getSkillByID("el_effects.stamp");
         if(skill == null) {

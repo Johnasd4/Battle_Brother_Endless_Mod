@@ -27,7 +27,7 @@ this.el_equipment_essence_item <- this.inherit("scripts/items/item", {
 	function create()
 	{
 		this.m.ID = "el_supplies.equipment_essence_rank_" + this.m.EL_RankLevel;
-		this.m.Name = "[color=" + this.Const.EL_Item.Colour[this.m.EL_RankLevel] + "]Equipment Essence[/color]";
+		this.m.Name = "[color=" + this.Const.EL_Item.Colour[this.m.EL_RankLevel] + "]装备精华[/color]";
 		this.m.Icon = "el_supplies/equipment_essence_rank_" + this.m.EL_RankLevel + ".png";
 		this.m.SlotType = this.Const.ItemSlot.None;
 		this.m.ItemType = this.Const.Items.ItemType.Supply;
@@ -58,7 +58,7 @@ this.el_equipment_essence_item <- this.inherit("scripts/items/item", {
 			{
 				id = 2,
 				type = "description",
-				text = "The amount of [color=" + this.Const.UI.Color.PositiveValue + "]" + this.m.EL_Amount + "[/color] equipment essences, the currency in these lands. Will be added to your global stock once you\'re back on the worldmap."
+				text = "数量为 [color=" + this.Const.UI.Color.PositiveValue + "]" + this.m.EL_Amount + "[/color] 的装备精华, 可以在武器店或者盔甲点升级、升阶、重铸装备。一旦你重新进入世界地图，将会自动添加到你的库存中。"
 			}
 		];
 

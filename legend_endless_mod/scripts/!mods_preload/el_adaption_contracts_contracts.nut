@@ -204,6 +204,52 @@ local gt = getroottable();
                             if(bro.getSkills().hasSkill("el_items.arena_collar_skill")) {
                                 bro.getFlags().increment("ArenaFightsWon", 1);
                                 bro.getFlags().increment("ArenaFights", 1);
+                                local skill;
+
+                                if (bro.getFlags().getAsInt("ArenaFightsWon") == 1)
+                                {
+                                    skill = this.new("scripts/skills/traits/arena_pit_fighter_trait");
+                                    bro.getSkills().add(skill);
+                                }
+                                else if (bro.getFlags().getAsInt("ArenaFightsWon") == 5)
+                                {
+                                    bro.getSkills().removeByID("trait.pit_fighter");
+                                    skill = this.new("scripts/skills/traits/arena_fighter_trait");
+                                    bro.getSkills().add(skill);
+                                }
+                                else if (bro.getFlags().getAsInt("ArenaFightsWon") == 12)
+                                {
+                                    bro.getSkills().removeByID("trait.arena_fighter");
+                                    skill = this.new("scripts/skills/traits/arena_veteran_trait");
+                                    bro.getSkills().add(skill);
+                                }
+                                else if (bro.getFlags().getAsInt("ArenaFightsWon") > 25 && bro.getSkills().hasSkill("trait.arena_veteran"))
+                                {
+                                    bro.getSkills().removeByID("trait.arena_veteran");
+
+                                    if (bro.getFlags().getAsInt("ArenaFightsWon") < 50)
+                                    {
+                                        skill = this.new("scripts/skills/traits/arena_champion_trait");
+                                    }
+                                    else
+                                    {
+                                        skill = this.new("scripts/skills/traits/arena_invictus_trait");
+                                    }
+
+                                    bro.getSkills().add(skill);
+                                }
+                                else if (bro.getFlags().getAsInt("ArenaFightsWon") == 25)
+                                {
+                                    bro.getSkills().removeByID("trait.arena_veteran");
+                                    skill = this.new("scripts/skills/traits/arena_champion_trait");
+                                    bro.getSkills().add(skill);
+                                }
+                                else if (bro.getFlags().getAsInt("ArenaFightsWon") == 50)
+                                {
+                                    bro.getSkills().removeByID("trait.arena_champion");
+                                    skill = this.new("scripts/skills/traits/arena_invictus_trait");
+                                    bro.getSkills().add(skill);
+                                }
                                 bro.getSkills().removeByID("el_items.arena_collar_skill");
                             }
                         }
@@ -944,96 +990,6 @@ local gt = getroottable();
                     local roster = this.World.getPlayerRoster().getAll();
                     local n = 0;
 
-                    foreach( bro in roster )
-                    {
-                        if (bro.getSkills().hasSkill("el_items.arena_collar_skill"))
-                        {
-                            local skill;
-
-                            if (bro.getFlags().getAsInt("ArenaFightsWon") == 1)
-                            {
-                                skill = this.new("scripts/skills/traits/arena_pit_fighter_trait");
-                                bro.getSkills().add(skill);
-                                this.List.push({
-                                    id = 10,
-                                    icon = skill.getIcon(),
-                                    text = bro.getName() + " is now " + this.Const.Strings.getArticle(skill.getName()) + skill.getName()
-                                });
-                            }
-                            else if (bro.getFlags().getAsInt("ArenaFightsWon") == 5)
-                            {
-                                bro.getSkills().removeByID("trait.pit_fighter");
-                                skill = this.new("scripts/skills/traits/arena_fighter_trait");
-                                bro.getSkills().add(skill);
-                                this.List.push({
-                                    id = 10,
-                                    icon = skill.getIcon(),
-                                    text = bro.getName() + " is now " + this.Const.Strings.getArticle(skill.getName()) + skill.getName()
-                                });
-                            }
-                            else if (bro.getFlags().getAsInt("ArenaFightsWon") == 12)
-                            {
-                                bro.getSkills().removeByID("trait.arena_fighter");
-                                skill = this.new("scripts/skills/traits/arena_veteran_trait");
-                                bro.getSkills().add(skill);
-                                this.List.push({
-                                    id = 10,
-                                    icon = skill.getIcon(),
-                                    text = bro.getName() + " is now " + this.Const.Strings.getArticle(skill.getName()) + skill.getName()
-                                });
-                            }
-                            else if (bro.getFlags().getAsInt("ArenaFightsWon") > 25 && bro.getSkills().hasSkill("trait.arena_veteran"))
-                            {
-                                bro.getSkills().removeByID("trait.arena_veteran");
-
-                                if (bro.getFlags().getAsInt("ArenaFightsWon") < 50)
-                                {
-                                    skill = this.new("scripts/skills/traits/arena_champion_trait");
-                                }
-                                else
-                                {
-                                    skill = this.new("scripts/skills/traits/arena_invictus_trait");
-                                }
-
-                                bro.getSkills().add(skill);
-                                this.List.push({
-                                    id = 10,
-                                    icon = skill.getIcon(),
-                                    text = bro.getName() + " is now " + this.Const.Strings.getArticle(skill.getName()) + skill.getName()
-                                });
-                            }
-                            else if (bro.getFlags().getAsInt("ArenaFightsWon") == 25)
-                            {
-                                bro.getSkills().removeByID("trait.arena_veteran");
-                                skill = this.new("scripts/skills/traits/arena_champion_trait");
-                                bro.getSkills().add(skill);
-                                this.List.push({
-                                    id = 10,
-                                    icon = skill.getIcon(),
-                                    text = bro.getName() + " is now " + this.Const.Strings.getArticle(skill.getName()) + skill.getName()
-                                });
-                            }
-                            else if (bro.getFlags().getAsInt("ArenaFightsWon") == 50)
-                            {
-                                bro.getSkills().removeByID("trait.arena_champion");
-                                skill = this.new("scripts/skills/traits/arena_invictus_trait");
-                                bro.getSkills().add(skill);
-                                this.List.push({
-                                    id = 10,
-                                    icon = skill.getIcon(),
-                                    text = bro.getName() + " is now " + this.Const.Strings.getArticle(skill.getName()) + skill.getName()
-                                });
-                            }
-
-                            n = ++n;
-                            n = n;
-                        }
-
-                        if (n >= 3)
-                        {
-                            break;
-                        }
-                    }
                     local xp_level = this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1));
                     local core_xp = this.Math.floor(0.25 * (this.Const.LevelXP[xp_level] - this.Const.LevelXP[xp_level - 1]) * this.World.Assets.EL_getHalfWorldDifficultFactor());
                     switch(this.World.Assets.m.EL_ArenaLevel)
@@ -1274,6 +1230,56 @@ local gt = getroottable();
                             if(bro.getSkills().hasSkill("el_items.arena_collar_skill")) {
                                 bro.getFlags().increment("ArenaFightsWon", 1);
                                 bro.getFlags().increment("ArenaFights", 1);
+
+                                local skill;
+
+                                if (bro.getFlags().getAsInt("ArenaFightsWon") == 1)
+                                {
+                                    skill = this.new("scripts/skills/traits/arena_pit_fighter_trait");
+                                    bro.getSkills().add(skill);
+                                }
+                                else if (bro.getFlags().getAsInt("ArenaFightsWon") == 5)
+                                {
+                                    bro.getSkills().removeByID("trait.pit_fighter");
+                                    skill = this.new("scripts/skills/traits/arena_fighter_trait");
+                                    bro.getSkills().add(skill);
+                                }
+                                else if (bro.getFlags().getAsInt("ArenaFightsWon") == 12)
+                                {
+                                    bro.getSkills().removeByID("trait.arena_fighter");
+                                    skill = this.new("scripts/skills/traits/arena_veteran_trait");
+                                    bro.getSkills().add(skill);
+                                }
+                                else if (bro.getFlags().getAsInt("ArenaFightsWon") > 25 && bro.getSkills().hasSkill("trait.arena_veteran"))
+                                {
+                                    bro.getSkills().removeByID("trait.arena_veteran");
+
+                                    if (bro.getFlags().getAsInt("ArenaFightsWon") < 50)
+                                    {
+                                        skill = this.new("scripts/skills/traits/arena_champion_trait");
+                                    }
+                                    else
+                                    {
+                                        skill = this.new("scripts/skills/traits/arena_invictus_trait");
+                                    }
+
+                                    bro.getSkills().add(skill);
+                                }
+                                else if (bro.getFlags().getAsInt("ArenaFightsWon") == 25)
+                                {
+                                    bro.getSkills().removeByID("trait.arena_veteran");
+                                    skill = this.new("scripts/skills/traits/arena_champion_trait");
+                                    bro.getSkills().add(skill);
+                                }
+                                else if (bro.getFlags().getAsInt("ArenaFightsWon") == 50)
+                                {
+                                    bro.getSkills().removeByID("trait.arena_champion");
+                                    skill = this.new("scripts/skills/traits/arena_invictus_trait");
+                                    bro.getSkills().add(skill);
+                                }
+                                bro.getSkills().removeByID("el_items.arena_collar_skill");
+                            }
+                        }
                                 bro.getSkills().removeByID("el_items.arena_collar_skill");
                             }
                         }

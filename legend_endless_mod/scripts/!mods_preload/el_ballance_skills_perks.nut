@@ -1133,6 +1133,7 @@ local gt = getroottable();
 	{
 		o.onAdded = function()
 		{
+			this.m.WillSucceed = false;
 		}
 
 		o.updatePerkVisuals = function ()
@@ -1157,7 +1158,7 @@ local gt = getroottable();
 			local actor = this.getContainer().getActor();
 			if(!this.m.IsSpent && this.Math.rand(1, 1000) <= 10) {
 				this.m.IsSpent = true;
-
+				this.m.WillSucceed = true;
 				local bg = actor.getBackground();
 				bg.m.Description += " Once a dreg of society, with your help, " + actor.getNameOnly() + " has grown into a full-fledged mercenary.";
 				bg.m.RawDescription += " Once a dreg of society, with your help, %name% has grown into a full-fledged mercenary.";
@@ -1485,7 +1486,7 @@ gt.Const.EL_Config.EL_modStrings <- function()
         },
 		{
             ID = "perk.ptr_bloodbath",
-            tooltip = "There\'s something about removing someone\'s head that just makes you want to do it again!\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• Fatalities instantly adds [color=" + this.Const.UI.Color.PositiveValue + "]3[/color] Action Points next turn.\n• The stack decrease 3 pur turn, the max Action Points addition is 9."
+            tooltip = "你只想再来一遍去头术！\n\n[color=" + this.Const.UI.Color.Passive + "][u]被动:[/u][/color]\n• 击杀后叠一层血浴，每层使下回合增加 [color=" + this.Const.UI.Color.PositiveValue + "]3[/color] 行动点，最多增加[color=" + this.Const.UI.Color.PositiveValue + "]9[/color]点。\n• 回合开始时减少3层效果。"
         },
 		{
             ID = "perk.ptr_cull",
