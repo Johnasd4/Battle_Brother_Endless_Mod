@@ -79,15 +79,6 @@ this.el_world_level_change_event <- this.inherit("scripts/events/event", {
 				function start( _event )
 				{
 					local brothers = this.World.getPlayerRoster().getAll();
-					local xp_level = this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1));
-					local xp = this.Math.floor((this.Const.LevelXP[xp_level] - this.Const.LevelXP[xp_level - 1]) * 0.2 * this.Index);
-					local xp_info = "所有兄弟获得: 经验+[color=" + this.Const.UI.Color.PositiveEventValue + "]" + xp + "[/color]";
-					if(xp != 0){
-						this.List.push({
-							id = 16,
-							text = xp_info
-						});
-					}
 					foreach( brother in brothers )
 					{
 						local hitpoints = 0;
@@ -179,8 +170,6 @@ this.el_world_level_change_event <- this.inherit("scripts/events/event", {
 								text = info
 							});
 						}
-						brother.addXP(xp);
-						brother.updateLevel();
 					}
 				}
 			}
