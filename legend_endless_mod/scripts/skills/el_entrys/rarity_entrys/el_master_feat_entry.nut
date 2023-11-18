@@ -63,7 +63,10 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
 	{
 		if (EL_isUsable())
         {
+			local is_able_to_die = _targetEntity.m.IsAbleToDie;
+			_targetEntity.m.IsAbleToDie = false;
 		    EL_attackBack(_attacker, _skill);
+			_targetEntity.m.IsAbleToDie = is_able_to_die;
         }
 	}
 
