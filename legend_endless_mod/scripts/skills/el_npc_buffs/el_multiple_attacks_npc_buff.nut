@@ -13,6 +13,11 @@ this.el_multiple_attacks_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/e
 	function EL_attackAllEnemies(_skill, _targetEntity)
 	{
         local actor = this.getContainer().getActor();
+        if(actor == null || actor.isDying() || !actor.isAlive()) {
+            if (actor != null && !actor.isDying() && actor.isAlive()) {
+                _skill.useForFree(affect_targets[i].getTile());
+            }
+        }
         if(_skill.isActive() && _skill.isAttack() && !_skill.isRanged() && !this.m.EL_IsExtraAttack) {
 
             //this.logInfo("multiple attack");
