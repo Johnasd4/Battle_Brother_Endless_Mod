@@ -169,7 +169,7 @@ this.el_core_item <- this.inherit("scripts/items/trade/trading_good_item", {
 
 	function onUse( _actor, _item = null )
 	{
-		_actor.addXP(this.m.EL_XP);
+		_actor.addXP(this.m.EL_XP, false);
 		_actor.updateLevel();
 		local skill = _actor.getSkills().getSkillByID("el_items.core_skill");
 		if(skill == null) {
