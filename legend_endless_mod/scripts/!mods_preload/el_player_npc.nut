@@ -2060,12 +2060,12 @@ local gt = getroottable();
 					this.Tactical.EventLog.logEx(this.Const.UI.getColorizedEntityName(user) + " has hit " + this.Const.UI.getColorizedEntityName(targetEntity) + "\'s shield for 1 damage");
 				}
 
-				if (!this.Tactical.getNavigator().isTravelling(targetEntity))
-				{
-					this.Tactical.getShaker().shake(targetEntity, user.getTile(), 2, this.Const.Combat.ShakeEffectSplitShieldColor, this.Const.Combat.ShakeEffectSplitShieldHighlight, this.Const.Combat.ShakeEffectSplitShieldFactor, 1.0, [
-						"shield_icon"
-					], 1.0);
-				}
+				// if (!this.Tactical.getNavigator().isTravelling(targetEntity))
+				// {
+				// 	this.Tactical.getShaker().shake(targetEntity, user.getTile(), 2, this.Const.Combat.ShakeEffectSplitShieldColor, this.Const.Combat.ShakeEffectSplitShieldHighlight, this.Const.Combat.ShakeEffectSplitShieldFactor, 1.0, [
+				// 		"shield_icon"
+				// 	], 1.0);
+				// }
 			}
 
 			_info.TargetEntity.getItems().onShieldHit(_info.User, this);

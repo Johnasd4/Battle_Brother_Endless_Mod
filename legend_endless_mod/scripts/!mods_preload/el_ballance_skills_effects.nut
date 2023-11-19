@@ -1517,10 +1517,16 @@ local gt = getroottable();
 	});
 
 	::mods_hookExactClass("skills/effects/ptr_direct_damage_limiter_effect", function(o){
-        o.m.Max = 0;
+        o.onAnySkillUsed = function ( _skill, _targetEntity, _properties )
+        {
+        }
+        o.onBeforeTargetHit = function ( _skill, _targetEntity, _hitInfo )
+        {
+        }
+        o.onQueryTooltip = function ( _skill, _tooltip )
+        {
+        }
 	});
-
-
 
 	::mods_hookExactClass("skills/effects/ptr_follow_up_proccer_effect", function(o){
         o.onTargetHit = function( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
