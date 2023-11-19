@@ -1516,6 +1516,10 @@ local gt = getroottable();
 
 	});
 
+	::mods_hookExactClass("skills/effects/ptr_direct_damage_limiter_effect", function(o){
+        o.m.Max = 0;
+	});
+
 
 
 	::mods_hookExactClass("skills/effects/ptr_follow_up_proccer_effect", function(o){

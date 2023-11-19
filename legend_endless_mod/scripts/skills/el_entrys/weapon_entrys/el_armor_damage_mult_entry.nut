@@ -14,7 +14,7 @@ this.el_armor_damage_mult_entry <- this.inherit("scripts/skills/el_entrys/el_ent
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]额外 " + this.m.EL_ArmorDamageMult + "% 效果作用于盔甲(面板)[/color]"
+			text = "[color=" + colour + "]作用于盔甲效果增加基础数值的" + this.m.EL_ArmorDamageMult + "% (面板)[/color]"
 		};
 		return result;
 	}
@@ -53,7 +53,7 @@ this.el_armor_damage_mult_entry <- this.inherit("scripts/skills/el_entrys/el_ent
 
 	function EL_onItemUpdate( _item )
 	{
-        _item.m.ArmorDamageMult = _item.m.EL_BaseWithRankArmorDamageMult + this.m.EL_ArmorDamageMult * 0.01;
+        _item.m.ArmorDamageMult += _item.m.EL_BaseNoRankArmorDamageMult * this.m.EL_ArmorDamageMult * 0.01;
 	}
     
     function onSerialize( _out )
