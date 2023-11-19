@@ -540,14 +540,14 @@ gt.Const.EL_Weapon <- {
 			EL_ArmorDamageMult = {
 				ID = "el_weapon_entry.armor_damage_mult",
 				BaseArmorDamageMult = 5,
-				RandomMinArmorDamageMult = [
+				RandomMinDirectDamageAdd = [
 					1,
 					1,
 					2,
 					3,
 					5
 				],
-				RandomMaxArmorDamageMult = [
+				RandomMaxDirectDamageAdd = [
 					2,
 					3,
 					4,
