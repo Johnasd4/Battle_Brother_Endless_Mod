@@ -14,7 +14,7 @@ this.el_direct_damage_add_entry <- this.inherit("scripts/skills/el_entrys/el_ent
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]忽视盔甲增加基础数值的 " + this.m.EL_DirectDamageAdd + "% (面板)[/color]"
+			text = "[color=" + colour + "]忽视盔甲效果增加基础数值的 " + this.m.EL_DirectDamageAdd + "% (面板)[/color]"
 		};
 		return result;
 	}
@@ -53,7 +53,7 @@ this.el_direct_damage_add_entry <- this.inherit("scripts/skills/el_entrys/el_ent
 
 	function EL_onItemUpdate( _item )
 	{
-        _item.m.DirectDamageAdd += _item.m.EL_BaseNoRankDirectDamageAdd + this.m.EL_DirectDamageAdd * 0.01;
+        _item.m.DirectDamageAdd += _item.m.EL_BaseNoRankDirectDamageAdd + this.m.EL_DirectDamageAdd * 0.0001;
 	}
     
     function onSerialize( _out )
