@@ -154,6 +154,9 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
 			return;
 		}
 		local actor = this.getContainer().getActor();
+		if(actor == null || actor.isDying() || !actor.isAlive()) {
+			return;
+		}
 		if(actor.getSkills().hasSkill("effects.stunned") || actor.getCurrentProperties().IsStunned)
 		{
 			return;
