@@ -53,7 +53,7 @@ this.el_armor_damage_mult_entry <- this.inherit("scripts/skills/el_entrys/el_ent
 
 	function EL_onItemUpdate( _item )
 	{
-        _item.m.ArmorDamageMult += _item.m.EL_BaseNoRankArmorDamageMult * this.m.EL_ArmorDamageMult * 0.0001;
+        _item.m.ArmorDamageMult = _item.m.EL_BaseWithRankArmorDamageMult + _item.m.EL_BaseNoRankArmorDamageMult * this.m.EL_ArmorDamageMult * 0.01;
 	}
     
     function onSerialize( _out )

@@ -53,7 +53,7 @@ this.el_direct_damage_add_entry <- this.inherit("scripts/skills/el_entrys/el_ent
 
 	function EL_onItemUpdate( _item )
 	{
-        _item.m.DirectDamageAdd += _item.m.EL_BaseNoRankDirectDamageAdd + this.m.EL_DirectDamageAdd * 0.0001;
+        _item.m.DirectDamageAdd = _item.m.EL_BaseWithRankDirectDamageAdd + _item.m.DirectDamageMult * this.m.EL_DirectDamageAdd * 0.01;
 	}
     
     function onSerialize( _out )

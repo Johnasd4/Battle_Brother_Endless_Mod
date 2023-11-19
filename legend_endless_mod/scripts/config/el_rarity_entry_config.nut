@@ -116,7 +116,8 @@ gt.Const.EL_Rarity_Entry <- {
             DamageDirectMult = this.Const.EL_PlayerNPC.EL_Morale.Effect.DamageDirectMult[this.Const.MoraleState.Confident] - 1.0,
             DamageReceivedTotalMult = 1.0 - this.Const.EL_PlayerNPC.EL_Morale.Effect.DamageReceivedTotalMult[this.Const.MoraleState.Confident],
 			ReplaceSkillList = [
-				"actives.split_man"
+				"actives.split_man",
+				"actives.round_swing"
 			]
 		}
 		EL_CircleofLife = {
