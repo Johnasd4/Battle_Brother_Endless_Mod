@@ -53,7 +53,7 @@ this.el_ammo_max_mult_entry <- this.inherit("scripts/skills/el_entrys/el_entry",
 
 	function EL_onItemUpdate( _item )
 	{
-        _item.m.AmmoMax = this.Math.ceil(_item.m.AmmoMax * (1.0 + this.m.EL_AmmoMaxMult * 0.01));
+        _item.m.AmmoMax = this.Math.ceil(_item.m.EL_BaseWithRankAmmoMax * (1.0 + this.m.EL_AmmoMaxMult * 0.01));
 	}
     
     function onSerialize( _out )
