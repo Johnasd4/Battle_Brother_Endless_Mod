@@ -27,18 +27,21 @@ this.el_stamp_effect <- this.inherit("scripts/skills/skill", {
 		return tooltip;
 	}
 
-    function EL_addStack( EL_stackNum )
+    function EL_addStack( _EL_stackNum, _EL_user )
 	{
-        this.m.EL_Stack += EL_stackNum;
+        this.m.EL_Stack += _EL_stackNum;
 		this.m.Icon = "el_skills/stamp_" + this.m.EL_Stack + ".png";
         if(this.m.EL_Stack >= this.Const.EL_NPC.EL_NPCBuff.Factor.Stamp.ExplodeStackNum) {
-            this.EL_explode();
+            this.EL_explode(_EL_user);
         }
 	}
 
-    function EL_explode()
+    function EL_explode(_EL_user)
     {
         local actor = this.getContainer().getActor();
+        if(_EL_user == null) {
+            _EL_user = actor;
+        }
         this.m.EL_Stack -= this.Const.EL_NPC.EL_NPCBuff.Factor.Stamp.ExplodeStackNum;
         local targets = this.Tactical.Entities.getAllInstances();
         local damage = this.Math.floor((this.Const.EL_NPC.EL_NPCBuff.Factor.Stamp.DamageBase * (1 + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_NPCBuff.Factor.Stamp.DamageMultPurWorldLevel)));
@@ -68,7 +71,7 @@ this.el_stamp_effect <- this.inherit("scripts/skills/skill", {
                 body_hit_info.BodyPart = this.Const.BodyPart.Body;
                 body_hit_info.BodyDamageMult = 1.0;
                 body_hit_info.FatalityChanceMult = 0.0;
-                affect_targets[i].onDamageReceived(this.getContainer().getActor(), this, body_hit_info);
+                affect_targets[i].onDamageReceived(_EL_user, this, body_hit_info);
             }
 
             if(affect_targets[i]!= null && !affect_targets[i].isDying() && affect_targets[i].isAlive()) {
@@ -79,7 +82,7 @@ this.el_stamp_effect <- this.inherit("scripts/skills/skill", {
                 head_hit_info.BodyPart = this.Const.BodyPart.Head;
                 head_hit_info.BodyDamageMult = 1.0;
                 head_hit_info.FatalityChanceMult = 0.0;
-                affect_targets[i].onDamageReceived(this.getContainer().getActor(), this, head_hit_info);
+                affect_targets[i].onDamageReceived(_EL_user, this, head_hit_info);
             }
             if(affect_targets[i]!= null && !affect_targets[i].isDying() && affect_targets[i].isAlive()) {
                 local skills = affect_targets[i].getSkills();

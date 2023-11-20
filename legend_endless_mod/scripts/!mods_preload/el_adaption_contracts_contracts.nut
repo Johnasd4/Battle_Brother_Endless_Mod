@@ -8922,12 +8922,12 @@ local gt = getroottable();
                                 party.EL_setHaveRandomLeader(false);
                                 party.EL_setHaveStrongestLeader(false);
                                 party.EL_setTroopsResourse(0);
-                                p.Parties.push(party);
+                                properties.Parties.push(party);
                                 this.Const.World.Common.addTroop(party, {
                                     Type = this.Const.World.Spawn.Troops.BarbarianChampion
                                 }, false, 0, difficulty >= 1.15 ? 1 : 0);
                                 foreach(troop in party.getTroops()) {
-                                    p.Entities.push(troop);
+                                    properties.Entities.push(troop);
                                 }
                                 properties.EnemyBanners.push(this.Contract.m.Destination.getBanner());
                                 properties.Players.push(bro);
@@ -18415,7 +18415,7 @@ local gt = getroottable();
                 {
                     this.Tactical.getTileSquare(21, 17).removeObject();
                     local tile = this.Tactical.getTile(21, 17 - 21 / 2);
-                    e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.BanditRaiderLOW, tile, this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID(), 0, -1);
+                    local e = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.BanditRaiderLOW, tile, this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID(), 0, -1);
                     e.setName(this.Flags.get("BossName"));
                     e.m.IsGeneratingKillName = false;
                     e.getAIAgent().getProperties().BehaviorMult[this.Const.AI.Behavior.ID.Retreat] = 0.0;

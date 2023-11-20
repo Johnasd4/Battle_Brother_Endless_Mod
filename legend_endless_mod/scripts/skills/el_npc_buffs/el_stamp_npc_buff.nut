@@ -20,7 +20,11 @@ this.el_stamp_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff"
             skill = this.new("scripts/skills/el_effects/el_stamp_effect");
             skills.add(skill);
         }
-        skill.EL_addStack(this.Const.EL_NPC.EL_NPCBuff.Factor.Stamp.StackPurHit[this.m.EL_RankLevel]);
+		local user = this.getContainer().getActor();
+		if(user == null || user.isDying() || !user.isAlive()) {
+			user = null;
+		}
+        skill.EL_addStack(this.Const.EL_NPC.EL_NPCBuff.Factor.Stamp.StackPurHit[this.m.EL_RankLevel], user);
 	}
 
 });
