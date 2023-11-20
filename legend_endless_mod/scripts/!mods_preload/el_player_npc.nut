@@ -502,13 +502,9 @@ local gt = getroottable();
 			}
 			local head_count_bouns = 0;
 
-			if(head_count_gap > 0) {
-				head_count_bouns = this.Const.EL_PlayerNPC.EL_Morale.HeadCount.Factor3 * this.Math.pow(head_count_gap, this.Const.EL_PlayerNPC.EL_Morale.HeadCount.Factor2);
-			}
-			else {
+			if(head_count_gap < 0) {
 				head_count_bouns = -this.Const.EL_PlayerNPC.EL_Morale.HeadCount.Factor3 * this.Math.pow(-head_count_gap, this.Const.EL_PlayerNPC.EL_Morale.HeadCount.Factor2);
 			}
-
 
 			local calculate_bravery = bravery + _difficulty + head_count_bouns - threatBonus;
 			if(_EL_noCheck == true) {
