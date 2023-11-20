@@ -820,10 +820,6 @@ gt.Const.EL_NPC <- {
                 FatigueRecoveryRate = [4, 8, 20],
                 ArmorRecoveryRate = [0.04, 0.08, 0.20]
             },
-            Retaliation = {
-                AttackChance = [50, 100, 100],
-                RetaliationNum = [1, 1, 2]
-            },
             Revenge = {
                 DamageMultPurStack = [0.04, 0.08, 0.2],
             },

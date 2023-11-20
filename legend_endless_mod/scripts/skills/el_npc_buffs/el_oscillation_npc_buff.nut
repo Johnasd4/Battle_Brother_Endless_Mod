@@ -77,6 +77,7 @@ this.el_oscillation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
                                     target = t,
                                     distance = temp_distance
                                 });
+                                break;
                             }
                         }
                         if(i == affect_targets.len()) {
