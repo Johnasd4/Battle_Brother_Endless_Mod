@@ -91,7 +91,7 @@ this.el_stamp_effect <- this.inherit("scripts/skills/skill", {
                     skill = this.new("scripts/skills/el_effects/el_stamp_effect");
                     skills.add(skill);
                 }
-                skill.EL_addStack(this.Const.EL_NPC.EL_NPCBuff.Factor.Stamp.ExplodeStackGain);
+                skill.EL_addStack(this.Const.EL_NPC.EL_NPCBuff.Factor.Stamp.ExplodeStackGain, _EL_user);
             }
         }
 
