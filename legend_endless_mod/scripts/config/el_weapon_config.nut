@@ -16,8 +16,8 @@ gt.Const.EL_Weapon <- {
 	EL_RankFactor = {
 		RegularDamageMult = 1.3,
 		RegularDamageMultHalf = 1.14017,
-		ArmorDamageMult = 1.1,
-		ArmorDamageMultHalf = 1.0488,
+		ArmorDamageMult = 0.1,
+		ArmorDamageMultHalf = 0.0488,
 		DirectDamageAdd = 0.1,
 		DirectDamageAddHalf = 0.0488,
 		FatigueOnSkillUse = 2,
@@ -85,7 +85,7 @@ gt.Const.EL_Weapon <- {
 			changeValues = function( _item, _isHalfEffect = false )
 			{
 				local bonus = _isHalfEffect ? this.Const.EL_Weapon.EL_RankFactor.ArmorDamageMultHalf : this.Const.EL_Weapon.EL_RankFactor.ArmorDamageMult;
-				_item.m.ArmorDamageMult = this.Math.ceil(100 * _item.m.ArmorDamageMult * bonus) * 0.01;
+				_item.m.ArmorDamageMult += this.Math.ceil(100 * _item.m.ArmorDamageMult * bonus) * 0.01;
 				_item.m.EL_BaseWithRankArmorDamageMult = _item.m.ArmorDamageMult;
 			},
 			weight = 1
@@ -539,27 +539,27 @@ gt.Const.EL_Weapon <- {
 			},
 			EL_ArmorDamageMult = {
 				ID = "el_weapon_entry.armor_damage_mult",
-				BaseArmorDamageMult = 25,
+				BaseArmorDamageMult = 5,
 				RandomMinArmorDamageMult = [
 					1,
 					1,
-					6,
-					11,
-					25
+					2,
+					3,
+					5
 				],
 				RandomMaxArmorDamageMult = [
-					10,
-					15,
-					20,
-					25,
-					25
+					2,
+					3,
+					4,
+					5,
+					5
 				],
 				ColourRange = [
-					30,
-					35,
-					40,
-					45,
-					50
+					6,
+					7,
+					8,
+					9,
+					10
 				]
 			},
             EL_Bravery = {

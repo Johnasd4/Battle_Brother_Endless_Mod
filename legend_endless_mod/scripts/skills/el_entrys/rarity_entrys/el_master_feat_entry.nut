@@ -32,19 +32,19 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]忽视来自你射程之外敌人的攻击[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]忽视来自你攻击范围之外敌人的攻击[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]被射程内敌人攻击时100%反击.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]常驻反击姿态[/color]"
 			},
 			{
 				id = 5,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]根据你和目标的主动值之差，获得额外的命中率，闪避率和伤害加成[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]将你的主动值超出目标主动值的 " + this.Const.EL_Rarity_Entry.Factor.EL_MasterFeat.MeleeSkillFactor * 100 + "% 转化为额外的命中率，闪避率和伤害加成[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -59,16 +59,16 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
 		return result;
 	}
 
-	function onBeforeDamageReceived( _attacker, _skill, _hitInfo, _properties )
-	{
-		if (EL_isUsable())
-        {
-			local is_able_to_die = _targetEntity.m.IsAbleToDie;
-			_targetEntity.m.IsAbleToDie = false;
-		    EL_attackBack(_attacker, _skill);
-			_targetEntity.m.IsAbleToDie = is_able_to_die;
-        }
-	}
+	// function onBeforeDamageReceived( _attacker, _skill, _hitInfo, _properties )
+	// {
+	// 	if (EL_isUsable())
+    //     {
+	// 		local is_able_to_die = _targetEntity.m.IsAbleToDie;
+	// 		_targetEntity.m.IsAbleToDie = false;
+	// 	    EL_attackBack(_attacker, _skill);
+	// 		_targetEntity.m.IsAbleToDie = is_able_to_die;
+    //     }
+	// }
 
 	function onMissed( _attacker, _skill )
 	{
@@ -154,6 +154,9 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
 			return;
 		}
 		local actor = this.getContainer().getActor();
+		if(actor == null || actor.isDying() || !actor.isAlive()) {
+			return;
+		}
 		if(actor.getSkills().hasSkill("effects.stunned") || actor.getCurrentProperties().IsStunned)
 		{
 			return;

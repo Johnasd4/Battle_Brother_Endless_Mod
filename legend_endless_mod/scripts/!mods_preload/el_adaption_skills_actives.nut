@@ -472,6 +472,10 @@ local gt = getroottable();
 
 	});
 
+    ::mods_hookExactClass("skills/actives/sweep_zoc_skill", function(o){
+        o.m.ActionPointCost = 4;
+	});
+
 	::mods_hookExactClass("skills/actives/throw_golem_skill", function(o){
 
 

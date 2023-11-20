@@ -20,7 +20,7 @@ gt.Const.EL_Player <- {
         MaxWorldLevel = 100,
         MaxDiv = 8.0,
         // XP * (1 + (WorldLevel - Level - 5) * 0.2) ^ 3 (Level < WorldLevel - 5)
-        BelowOffset = 6,
+        BelowOffset = 5,
         BelowMult = 0.2,
         BelowMultMax = 10,
         // XP / (1 + (Level - WorldLevel - 0) * 0.2) ^ 3 (Level > WorldLevel - 0)
