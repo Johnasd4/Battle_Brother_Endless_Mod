@@ -94,7 +94,7 @@ this.el_oscillation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
             local distance = actor.getTile().getDistanceTo(affect_targets[i].target.getTile());
             local target_tile = affect_targets[i].target.getTile();
             local j = 0;
-            local knock_to_tile = null;
+            local knock_to_tile = target_tile;
             for(; j < this.Const.EL_NPC.EL_NPCBuff.Factor.Oscillation.MaxDistance[this.m.EL_RankLevel]; ++j) {
                 local temp_knock_to_tile = this.findTileToKnockBackTo(actor.getTile(), knock_to_tile);
                 if(temp_knock_to_tile != null) {
@@ -104,7 +104,7 @@ this.el_oscillation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
                     break;
                 }
             }
-            if(knock_to_tile != null) {
+            if(knock_to_tile != target_tile) {
                 if (!actor.isHiddenToPlayer() && (target_tile.IsVisibleForPlayer || knock_to_tile.IsVisibleForPlayer))
                 {
                     this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " 击退了 " + this.Const.UI.getColorizedEntityName(affect_targets[i].target));
