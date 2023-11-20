@@ -59,7 +59,7 @@ this.el_vehemence_of_the_sky_subsidiary_entry <- this.inherit("scripts/skills/el
 			condition_max += armor.getConditionMax();
 		}
 		//this.logInfo("condition_max" + condition_max);
-        _item.m.RegularDamage += condition_max * this.Const.EL_Rarity_Entry.Factor.EL_VehemenceOfTheSky.ConvertArmorIntoDamagePercent;
-		_item.m.RegularDamageMax += condition_max * this.Const.EL_Rarity_Entry.Factor.EL_VehemenceOfTheSky.ConvertArmorIntoDamagePercent;
+        _item.m.RegularDamage += this.Math.floor(condition_max * this.Const.EL_Rarity_Entry.Factor.EL_VehemenceOfTheSky.ConvertArmorIntoDamagePercent);
+		_item.m.RegularDamageMax += this.Math.floor(condition_max * this.Const.EL_Rarity_Entry.Factor.EL_VehemenceOfTheSky.ConvertArmorIntoDamagePercent);
 	}
 });

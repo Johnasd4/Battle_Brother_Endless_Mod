@@ -2,58 +2,28 @@ this.el_arena_champion_armor <- this.inherit("scripts/items/armor/armor", {
 	m = {},
 	function create()
 	{
-		this.accessory.create();
+		this.armor.create();
 		this.m.ID = "el_armor.arena_champion";
-		this.m.Name = "Arena Champion Armor";
-		this.m.Description = "The sysbol of the arena champion.";
+		this.m.Name = "冠军战甲";
+		this.m.Description = "竞技场冠军的证明。";
 		this.m.SlotType = this.Const.ItemSlot.Body;
 		this.m.IsDroppedAsLoot = true;
 		this.m.ShowOnCharacter = true;
 		this.m.IsIndestructible = true;
-		this.m.Value = 2000;
-		this.m.Condition = 400;
-		this.m.ConditionMax = 400;
+		this.m.Variant = 100;
+		this.updateVariant();
+		this.m.ImpactSound = this.Const.Sound.ArmorHalfplateImpact;
+		this.m.InventorySound = this.Const.Sound.ArmorHalfplateImpact;
+		this.m.Value = 12000;
+		this.m.Condition = 350;
+		this.m.ConditionMax = 350;
 		this.m.StaminaModifier = -25;
 		this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
 	}
 
 	function getTooltip()
 	{
-		local result = [
-			{
-				id = 1,
-				type = "title",
-				text = this.getName()
-			},
-			{
-				id = 2,
-				type = "description",
-				text = this.getDescription()
-			}
-		];
-		result.push({
-			id = 66,
-			type = "text",
-			text = this.getValueString()
-		});
-
-		if (this.getIconLarge() != null)
-		{
-			result.push({
-				id = 3,
-				type = "image",
-				image = this.getIconLarge(),
-				isLarge = true
-			});
-		}
-		else
-		{
-			result.push({
-				id = 3,
-				type = "image",
-				image = this.getIcon()
-			});
-		}
+		local result = this.armor.getTooltip();
 
 		result.push({
 			id = 10,

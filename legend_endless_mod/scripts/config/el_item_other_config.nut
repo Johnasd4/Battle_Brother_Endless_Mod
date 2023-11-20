@@ -67,6 +67,7 @@ gt.Const.EL_Item_Other <- {
 		"accessory/undead_trophy_item",
 		"accessory/oathtaker_skull_02_item",
 		"el_accessory/el_arena_champion_item",
+		"el_armor/el_arena_champion_armor",
 		"armor/legendary/armor_of_davkul",
 		"armor/legendary/emperors_armor",
 		"armor/legendary/ijirok_armor",
