@@ -380,23 +380,6 @@ local gt = getroottable();
                     core.EL_generateCoreXPByActorXP(this.Math.floor(this.getXP()));
                     party.EL_addLootItem(core);
                 }
-                if(this.m.WorldTroop != null && this.m.WorldTroop.EL_IsBossUnit)
-                {
-                    local items = this.getItems().getAllItems();
-                    foreach(item in items)
-                    {
-                        if(item.EL_getRankLevel() > _item.EL_getRankLevelMax())
-                        {
-                            item.m.EL_RankLevel = item.EL_getRankLevelMax();
-                            item.EL_recraft();
-                            local result = item.EL_getUpgradeRankEquipmentEssenceNum();
-                            for(local i = 0; i < this.m.EL_EquipmentEssenceDrop.len(); ++i)
-                            {
-                                party.EL_addEquipmentEssence(i, result[i]);
-                            }
-                        }
-                    }
-                }
             }
 
             if (_killer != null && _killer.getFaction() == this.Const.Faction.Player && _killer.getSkills().hasSkill("el_racial.magic_thief"))
@@ -1229,8 +1212,22 @@ local gt = getroottable();
 		o.onDropLootForPlayer = function (_lootTable)
 		{
             onDropLootForPlayer(_lootTable);
-            this.EL_dropEquipmentEssence(_lootTable);
             this.EL_dropLootItems(_lootTable);
+            foreach(item in _lootTable)
+            {                
+                if(item.EL_getRankLevel() > item.EL_getRankLevelMax())
+                {
+                    item.EL_setRankLevel(item.EL_getRankLevelMax() - 1);
+                    local result = item.EL_getUpgradeRankEquipmentEssenceNum();
+                    for(local i = 0; i < this.m.EL_LootEquipmentEssence.len(); ++i)
+                    {
+                        this.EL_addEquipmentEssence(i, result[i]);
+                    }
+                    item.EL_setRankLevel(item.EL_getRankLevelMax());
+                    item.EL_recraft();
+                }
+            }
+            this.EL_dropEquipmentEssence(_lootTable);
 		}
 
 

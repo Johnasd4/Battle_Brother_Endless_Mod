@@ -322,12 +322,11 @@ local gt = getroottable();
 			{
 				++this.m.EL_RankLevel;
 				EL_init();
-				foreach(entry in this.m.EL_EntryList)
-				{
-					entry.EL_onUpgradeRank();
-				}
+				this.m.EL_EntryList.clear();
+				this.m.EL_RankPropertiesImproveIndex.clear();
 				this.Const.EL_Helmet.EL_updateRankLevelProperties(this);
-				this.Const.EL_Helmet.EL_assignItemEntrys(this, this.Const.EL_Helmet.EL_Entry.EntryNum.NormalHelmet [this.m.EL_RankLevel]);
+				this.Const.EL_Helmet.EL_assignItemEntrys(this, this.Const.EL_Helmet.EL_Entry.EntryNum.NormalHelmet[this.m.EL_RankLevel]);
+				EL_updateLevelProperties();
 				EL_entryListSort();
 				this.setCondition(this.getConditionMax());
 			}
@@ -1600,12 +1599,11 @@ local gt = getroottable();
 			{
 				++this.m.EL_RankLevel;
 				EL_init();
-				foreach(entry in this.m.EL_EntryList)
-				{
-					entry.EL_onUpgradeRank();
-				}
+				this.m.EL_EntryList.clear();
+				this.m.EL_RankPropertiesImproveIndex.clear();
 				this.Const.EL_Helmet.EL_updateRankLevelProperties(this);
-				this.Const.EL_Helmet.EL_assignItemEntrys(this, this.Const.EL_Helmet.EL_Entry.EntryNum.NormalHelmet [this.m.EL_RankLevel]);
+				this.Const.EL_Helmet.EL_assignItemEntrys(this, this.Const.EL_Helmet.EL_Entry.EntryNum.NormalHelmet[this.m.EL_RankLevel]);
+				EL_updateLevelProperties();
 				this.setCondition(this.getConditionMax());
 			}
 		}

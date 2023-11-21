@@ -70,14 +70,15 @@ this.el_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario
 		this.World.Assets.getStash().add(this.new("scripts/items/legend_armor/armor_upgrades/legend_leather_shoulderguards_upgrade"));
 		this.World.Assets.getStash().add(this.new("scripts/items/weapons/named/named_goblin_spear"));
 		this.World.Assets.getStash().add(this.new("scripts/items/el_armor/el_arena_champion_armor"));
+		this.World.Assets.getStash().add(this.new("scripts/items/el_helmet/el_arena_champion_helmet"));
 		
-		// local npc_buffs = [];
-		// local skill = this.new("scripts/skills/el_npc_buffs/el_combo_attack_npc_buff");
-		// skill.EL_setRankLevel(1);
-		// npc_buffs.push(skill);
-		// local magic_stone = this.new("scripts/items/el_misc/el_npc_buff_stone_item");
-        // magic_stone.EL_generateByNPCBuffs(npc_buffs);
-		//this.World.Assets.getStash().add(magic_stone);
+		local npc_buffs = [];
+		local skill = this.new("scripts/skills/el_npc_buffs/el_charge_npc_buff");
+		skill.EL_setRankLevel(1);
+		npc_buffs.push(skill);
+		local magic_stone = this.new("scripts/items/el_misc/el_npc_buff_stone_item");
+        magic_stone.EL_generateByNPCBuffs(npc_buffs);
+		this.World.Assets.getStash().add(magic_stone);
 
 
 		local item = this.new("scripts/items/accessory/orc_trophy_item");
@@ -93,6 +94,8 @@ this.el_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario
 		this.World.Assets.m.Medicine = 99;
 		this.World.Assets.m.Ammo = 99;
 		bros[0].m.Skills.add(this.new("scripts/skills/perks/perk_ptr_know_their_weakness"));
+		
+		bros[0].m.Skills.add(this.new("scripts/skills/perks/perk_legend_cascade"));
 	}
 
 	function onSpawnPlayer()
