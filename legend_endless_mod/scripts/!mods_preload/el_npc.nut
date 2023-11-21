@@ -362,7 +362,7 @@ local gt = getroottable();
             }
             if (_killer == null || _killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals)
             {
-                local p = this.World.getAllEntitiesAtPos(_pos, this.Const.World.CombatSettings.CombatPlayerDistance * 2.0);
+                local p = this.World.getAllEntitiesAtPos(this.World.State.getPlayer().getPos(), this.Const.World.CombatSettings.CombatPlayerDistance * 2.0);
                 local party = null;
                 for(local i = 0; i < p.len(); ++i) {
                     if(p[i].m.Name == "EL_DropOnly") {
@@ -423,7 +423,7 @@ local gt = getroottable();
                         local magic_stone = this.new("scripts/items/el_misc/el_npc_buff_stone_item");
                         magic_stone.EL_generateByNPCBuffs(npc_buffs);
 
-                        local p = this.World.getAllEntitiesAtPos(_pos, this.Const.World.CombatSettings.CombatPlayerDistance * 2.0);
+                        local p = this.World.getAllEntitiesAtPos(this.World.State.getPlayer().getPos(), this.Const.World.CombatSettings.CombatPlayerDistance * 2.0);
                         local party = null;
                         for(local i = 0; i < p.len(); ++i) {
                             if(p[i].m.Name == "EL_DropOnly") {
