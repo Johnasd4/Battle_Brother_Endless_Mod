@@ -359,7 +359,7 @@ local gt = getroottable();
 
 			o.EL_isNeedRarityEntry <- function ()
 			{
-				return this.m.EL_RarityEntry == null && this.EL_getRankLevel() == this.EL_getRankLevelMax();
+				return this.m.EL_RarityEntry == null && this.EL_getRankLevel() >= this.EL_getRankLevelMax();
 			}
 
 			o.EL_getUpgradeLevelEquipmentEssenceNum <- function()

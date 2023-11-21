@@ -233,7 +233,7 @@ local gt = getroottable();
 							disassemble_index_pool.push(rank);
 						}
 					}
-					local upgrade_rank_string = _item.EL_getRankLevel() == _item.EL_getRankLevelMax() ? " 将它的词条强化" : " 将它升阶";
+					local upgrade_rank_string = _item.EL_getRankLevel() >= _item.EL_getRankLevelMax() ? " 将它的词条强化" : " 将它升阶";
 					if(_item.EL_isNeedRarityEntry())
 					{
 						upgrade_rank_string = "来获取稀有词条";
