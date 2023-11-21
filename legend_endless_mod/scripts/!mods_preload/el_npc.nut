@@ -362,23 +362,14 @@ local gt = getroottable();
             }
             if (_killer == null || _killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals)
             {
-                local p = this.World.getAllEntitiesAtPos(this.World.State.getPlayer().getPos(), this.Const.World.CombatSettings.CombatPlayerDistance * 2.0);
-                local party = null;
-                for(local i = 0; i < p.len(); ++i) {
-                    if(p[i].m.Name == "EL_DropOnly") {
-                        party = p[i];
-                        break;
-                    }
+                if(this.World.Assets.m.EL_DropParty == null) {
+                    this.World.Assets.m.EL_DropParty = this.new("scripts/entity/world/party");
+                    this.World.Assets.m.EL_DropParty.EL_setFaction(this.Const.Faction.Enemy);
+                    this.World.Assets.m.EL_DropParty.EL_tempPartyInit();
+                    this.World.Assets.m.EL_DropParty.EL_setTroopsResourse(0);
+                    this.World.Assets.m.EL_DropParty.m.Name = "EL_DropOnly";
                 }
-                if(party == null)
-                {
-                    party = this.new("scripts/entity/world/party");
-                    party.EL_setFaction(this.Const.Faction.Enemy);
-                    party.EL_tempPartyInit();
-                    party.EL_setTroopsResourse(0);
-                    party.m.Name = "EL_DropOnly";
-                    p.push(party);
-                }
+                local party = this.World.Assets.m.EL_DropParty;
                 for(local i = 0; i < this.m.EL_EquipmentEssenceDrop.len(); ++i) {
                     party.EL_addEquipmentEssence(i, this.m.EL_EquipmentEssenceDrop[i]);
                 }
@@ -420,26 +411,18 @@ local gt = getroottable();
                 if(npc_buffs.len() != 0) {
                     local buff_level = npc_buffs[0].EL_getRankLevel();
                     if(this.Math.rand(1, 100) <= this.Const.EL_Misc.EL_MagicStone.DropChance[buff_level]) {
+                        if(this.World.Assets.m.EL_DropParty == null) {
+                            this.World.Assets.m.EL_DropParty = this.new("scripts/entity/world/party");
+                            this.World.Assets.m.EL_DropParty.EL_setFaction(this.Const.Faction.Enemy);
+                            this.World.Assets.m.EL_DropParty.EL_tempPartyInit();
+                            this.World.Assets.m.EL_DropParty.EL_setTroopsResourse(0);
+                            this.World.Assets.m.EL_DropParty.m.Name = "EL_DropOnly";
+                        }
+                        local party = this.World.Assets.m.EL_DropParty;
+
                         local magic_stone = this.new("scripts/items/el_misc/el_npc_buff_stone_item");
                         magic_stone.EL_generateByNPCBuffs(npc_buffs);
 
-                        local p = this.World.getAllEntitiesAtPos(this.World.State.getPlayer().getPos(), this.Const.World.CombatSettings.CombatPlayerDistance * 2.0);
-                        local party = null;
-                        for(local i = 0; i < p.len(); ++i) {
-                            if(p[i].m.Name == "EL_DropOnly") {
-                                party = p[i];
-                                break;
-                            }
-                        }
-                        if(party == null)
-                        {
-                            party = this.new("scripts/entity/world/party");
-                            party.EL_setFaction(this.Const.Faction.Enemy);
-                            party.EL_tempPartyInit();
-                            party.EL_setTroopsResourse(0);
-                            party.m.Name = "EL_DropOnly";
-                            p.push(party);
-                        }
                         party.EL_addLootItem(magic_stone);
                     }
                 }

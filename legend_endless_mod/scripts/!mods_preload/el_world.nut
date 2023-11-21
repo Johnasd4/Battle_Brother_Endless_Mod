@@ -17,6 +17,8 @@ local gt = getroottable();
 		o.m.EL_ArenaLevel <- 0;
 		o.m.EL_ArenaMaxLevel <- 0;
 
+		o.m.EL_DropParty <- null;
+
 		local onSerialize = o.onSerialize;
 		o.onSerialize = function ( _out )
 		{
@@ -771,6 +773,13 @@ local gt = getroottable();
 			if (!isArena && this.m.StrategicProperties != null)
 			{
 				local player = this.World.State.getPlayer();
+
+				if(this.World.Assets.m.EL_DropParty != null) {
+					if(this.World.Statistics.getFlags().get("LastCombatResult") == 1) {
+						this.World.Assets.m.EL_DropParty.onDropLootForPlayer(loot);
+					}
+					this.World.Assets.m.EL_DropParty = null;
+				}
 
 				foreach( party in this.m.StrategicProperties.Parties )
 				{
