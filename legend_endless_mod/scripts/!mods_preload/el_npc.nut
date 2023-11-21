@@ -362,68 +362,49 @@ local gt = getroottable();
             }
             if (_killer == null || _killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals)
             {
-                if (this.m.WorldTroop != null && ("Party" in this.m.WorldTroop) && this.m.WorldTroop.Party != null && !this.m.WorldTroop.Party.isNull())
-                {
-                    for(local i = 0; i < this.m.EL_EquipmentEssenceDrop.len(); ++i) {
-                        this.m.WorldTroop.Party.EL_addEquipmentEssence(i, this.m.EL_EquipmentEssenceDrop[i]);
-                    }
-
-                    local accessory = this.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
-                    if(accessory != null && accessory.getID() == "el_accessory.core") {
-                        local core = this.new("scripts/items/el_misc/el_core_rank_" + accessory.EL_getRankLevel() + "_item");
-                        core.EL_generateCoreXPByActorXP(this.Math.floor(this.getXP()));
-                        this.m.WorldTroop.Party.EL_addLootItem(core);
+                local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos(), true);
+                local party = null;
+                for(local i = 0; i < p.Parties.len(); ++i) {
+                    if(p.Parties[i].m.Name == "EL_DropOnly") {
+                        party = p.Parties[i];
+                        break;
                     }
                 }
-                else
+                if(party == null)
                 {
-                    local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos(), true);
-                    local party = null;
-                    for(local i = 0; i < p.Parties.len(); ++i) {
-                        if(p.Parties[i].m.Name == "EL_DropOnly") {
-                            party = p.Parties[i];
-                            break;
-                        }
-                    }
-                    if(party == null)
+                    party = this.new("scripts/entity/world/party");
+                    party.EL_setFaction(this.Const.Faction.Enemy);
+                    party.EL_tempPartyInit();
+                    party.EL_setTroopsResourse(0);
+                    party.m.Name = "EL_DropOnly";
+                    p.Parties.push(party);
+                }
+                for(local i = 0; i < this.m.EL_EquipmentEssenceDrop.len(); ++i) {
+                    party.EL_addEquipmentEssence(i, this.m.EL_EquipmentEssenceDrop[i]);
+                }
+                local items = this.getItems();
+                local accessory = items == null ? null : items.getItemAtSlot(this.Const.ItemSlot.Accessory);
+                if(accessory != null && accessory.getID() == "el_accessory.core") {
+                    local core = this.new("scripts/items/el_misc/el_core_rank_" + accessory.EL_getRankLevel() + "_item");
+                    core.EL_generateCoreXPByActorXP(this.Math.floor(this.getXP()));
+                    party.EL_addLootItem(core);
+                }
+                if(this.m.WorldTroop != null && this.m.WorldTroop.EL_IsBossUnit)
+                {
+                    local items = this.getItems().getAllItems();
+                    foreach(item in items)
                     {
-                        party = this.new("scripts/entity/world/party");
-                        party.EL_setFaction(this.Const.Faction.Enemy);
-                        party.EL_tempPartyInit();
-                        party.EL_setTroopsResourse(0);
-                        party.m.Name = "EL_DropOnly";
-                        p.Parties.push(party);
-                    }
-                    for(local i = 0; i < this.m.EL_EquipmentEssenceDrop.len(); ++i) {
-                        party.EL_addEquipmentEssence(i, this.m.EL_EquipmentEssenceDrop[i]);
-                    }
-                    local items = this.getItems();
-                    local accessory = items == null ? null : items.getItemAtSlot(this.Const.ItemSlot.Accessory);
-                    if(accessory != null && accessory.getID() == "el_accessory.core") {
-                        local core = this.new("scripts/items/el_misc/el_core_rank_" + accessory.EL_getRankLevel() + "_item");
-                        core.EL_generateCoreXPByActorXP(this.Math.floor(this.getXP()));
-                        party.EL_addLootItem(core);
-                    }
-
-
-					if(this.m.WorldTroop != null && this.m.WorldTroop.EL_IsBossUnit)
-					{
-                        local items = this.getItems().getAllItems();
-                        foreach(item in items)
+                        if(item.EL_getRankLevel() > _item.EL_getRankLevelMax())
                         {
-                            if(item.EL_getRankLevel() > _item.EL_getRankLevelMax())
+                            item.m.EL_RankLevel = item.EL_getRankLevelMax();
+                            item.EL_recraft();
+                            local result = item.EL_getUpgradeRankEquipmentEssenceNum();
+                            for(local i = 0; i < this.m.EL_EquipmentEssenceDrop.len(); ++i)
                             {
-                                item.m.EL_RankLevel = item.EL_getRankLevelMax();
-                                item.EL_recraft();
-                                local result = item.EL_getUpgradeRankEquipmentEssenceNum();
-                                for(local i = 0; i < this.m.EL_EquipmentEssenceDrop.len(); ++i)
-                                {
-                                    party.EL_addEquipmentEssence(i, result[i]);
-                                }
+                                party.EL_addEquipmentEssence(i, result[i]);
                             }
                         }
-					}
-
+                    }
                 }
             }
 

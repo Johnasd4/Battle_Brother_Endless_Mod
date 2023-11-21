@@ -1929,10 +1929,6 @@ local gt = getroottable();
 			{
 				local distanceToTarget = _user.getTile().getDistanceTo(_targetEntity.getTile());
 				_targetEntity.onMissed(_user, this, this.m.IsShieldRelevant && shield != null && r <= toHit + shieldBonus * 2);
-				if("onTargetMissed" in this.m.Container)
-				{
-					return false;
-				}
 				this.m.Container.onTargetMissed(this, _targetEntity);
 				local prohibitDiversion = false;
 
