@@ -422,31 +422,25 @@ local gt = getroottable();
                     if(this.Math.rand(1, 100) <= this.Const.EL_Misc.EL_MagicStone.DropChance[buff_level]) {
                         local magic_stone = this.new("scripts/items/el_misc/el_npc_buff_stone_item");
                         magic_stone.EL_generateByNPCBuffs(npc_buffs);
-                        if (this.m.WorldTroop != null && ("Party" in this.m.WorldTroop) && this.m.WorldTroop.Party != null && !this.m.WorldTroop.Party.isNull())
-                        {
-                            this.m.WorldTroop.Party.EL_addLootItem(magic_stone);
-                        }
-                        else
-                        {
-                            local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos(), true);
-                            local party = null;
-                            for(local i = 0; i < p.Parties.len(); ++i) {
-                                if(p.Parties[i].m.Name == "EL_DropOnly") {
-                                    party = p.Parties[i];
-                                    break;
-                                }
+
+                        local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos(), true);
+                        local party = null;
+                        for(local i = 0; i < p.Parties.len(); ++i) {
+                            if(p.Parties[i].m.Name == "EL_DropOnly") {
+                                party = p.Parties[i];
+                                break;
                             }
-                            if(party == null)
-                            {
-                                party = this.new("scripts/entity/world/party");
-                                party.EL_setFaction(this.Const.Faction.Enemy);
-                                party.EL_tempPartyInit();
-                                party.EL_setTroopsResourse(0);
-                                party.m.Name = "EL_DropOnly";
-                                p.Parties.push(party);
-                            }
-                            party.EL_addLootItem(magic_stone);
                         }
+                        if(party == null)
+                        {
+                            party = this.new("scripts/entity/world/party");
+                            party.EL_setFaction(this.Const.Faction.Enemy);
+                            party.EL_tempPartyInit();
+                            party.EL_setTroopsResourse(0);
+                            party.m.Name = "EL_DropOnly";
+                            p.Parties.push(party);
+                        }
+                        party.EL_addLootItem(magic_stone);
                     }
                 }
             }
