@@ -1032,11 +1032,11 @@ local gt = getroottable();
                             }
                             break;
                         case 3:
-                            // if(this.World.Assets.m.EL_ArenaLevel > this.World.Assets.m.EL_ArenaMaxLevel) {
-                            //     local reward_item = this.new("scripts/items/el_accessory/el_arena_champion_item");
-                            //     this.World.Assets.getStash().makeEmptySlots(1);
-                            //     this.World.Assets.getStash().add(reward_item);
-                            // }
+                            if(this.World.Assets.m.EL_ArenaLevel > this.World.Assets.m.EL_ArenaMaxLevel) {
+                                local reward_item = this.new("scripts/items/el_armor/el_arena_champion_armor");
+                                this.World.Assets.getStash().makeEmptySlots(1);
+                                this.World.Assets.getStash().add(reward_item);
+                            }
                             for(local i = 0; i < 3; ++i)
                             {
                                 local reward_item = this.new("scripts/items/el_misc/el_core_rank_3_item");

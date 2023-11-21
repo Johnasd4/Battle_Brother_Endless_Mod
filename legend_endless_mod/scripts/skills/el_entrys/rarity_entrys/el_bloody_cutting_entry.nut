@@ -60,7 +60,7 @@ this.el_bloody_cutting_entry <- this.inherit("scripts/skills/skill", {
 			local bleeding_damage = (this.Const.EL_Rarity_Entry.Factor.EL_BloodyCutting.BleedingFactor * _damageInflictedHitpoints) / _targetEntity.getHitpointsMax() * 100;
 			//this.logInfo("base bleeding_damage:" +bleeding_damage);
 			local actor = this.getContainer().getActor();
-			local effect = this.new("scripts/skills/effects/el_bleeding_effect");
+			local effect = this.new("scripts/skills/el_effects/el_bleeding_effect");
 			
 			effect.setActor(actor);
 			effect.setDamage(bleeding_damage);
