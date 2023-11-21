@@ -11,6 +11,9 @@ this.el_intimidate_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_
 	function EL_intimidateEnemies()
 	{
         local actor = this.getContainer().getActor();
+        if(actor == null || actor.isDying() || !actor.isAlive()) {
+            return;
+        }
         local targets = this.Tactical.Entities.getAllInstances();
         local affect_targets = [];
         if(this.Math.rand(1, 100) <= this.Const.EL_NPC.EL_NPCBuff.Factor.Intimidate.MoraleCheckChance[this.m.EL_RankLevel]) {
