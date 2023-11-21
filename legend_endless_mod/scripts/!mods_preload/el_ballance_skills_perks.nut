@@ -437,6 +437,7 @@ local gt = getroottable();
 	{
 		o.m.OffensiveMult = 3;
 		o.m.DefensiveMult = 3;
+		o.m.ResolveMult = 3;
 
 		o.calculateBonus = function( _multiplier )
 		{
