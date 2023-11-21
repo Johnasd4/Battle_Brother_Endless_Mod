@@ -303,7 +303,7 @@ local gt = getroottable();
 
 		o.EL_addRankLevel <- function()
 		{
-			if(EL_getRankLevel() <= this.Const.EL_Item.Type.Legendary)
+			if(EL_getRankLevel() < this.Const.EL_Item.Type.Legendary)
 			{
 				++this.m.EL_RankLevel;
 				EL_init();
