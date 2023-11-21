@@ -228,7 +228,8 @@ gt.Const.EL_NPC <- {
             this.Const.EntityType.PeasantSouthern,
             this.Const.EntityType.Slave,
             this.Const.EntityType.CaravanDonkey,
-            this.Const.EntityType.MilitaryDonkey
+            this.Const.EntityType.MilitaryDonkey,
+            this.Const.EntityType.SkeletonPhylactery
         ]
 
         Name = [
@@ -499,6 +500,10 @@ gt.Const.EL_NPC <- {
             function EL_ifMoraleStateIgnore(_EL_npc) {
                 return _EL_npc.getMoraleState() == this.Const.MoraleState.Ignore;
             }
+            function EL_ifNoBuff(_EL_npc) {
+                return _EL_npc.getType() == this.Const.EntityType.SkeletonPhylactery;
+            }
+
 
 
         }
@@ -509,6 +514,7 @@ gt.Const.EL_NPC <- {
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
@@ -518,6 +524,7 @@ gt.Const.EL_NPC <- {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
@@ -526,6 +533,7 @@ gt.Const.EL_NPC <- {
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
@@ -534,6 +542,7 @@ gt.Const.EL_NPC <- {
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifMoraleStateIgnore(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
@@ -541,6 +550,7 @@ gt.Const.EL_NPC <- {
                 Scripts = "scripts/skills/el_npc_buffs/el_endurance_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
@@ -548,21 +558,29 @@ gt.Const.EL_NPC <- {
                 Scripts = "scripts/skills/el_npc_buffs/el_energy_drain_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_energy_shield_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_evasion_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_exploding_ammo_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(!this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
@@ -570,6 +588,7 @@ gt.Const.EL_NPC <- {
                 Scripts = "scripts/skills/el_npc_buffs/el_growth_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
@@ -577,6 +596,7 @@ gt.Const.EL_NPC <- {
                 Scripts = "scripts/skills/el_npc_buffs/el_hawk_eye_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(!this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
@@ -585,6 +605,7 @@ gt.Const.EL_NPC <- {
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
@@ -593,6 +614,7 @@ gt.Const.EL_NPC <- {
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
@@ -600,6 +622,7 @@ gt.Const.EL_NPC <- {
                 Scripts = "scripts/skills/el_npc_buffs/el_lightning_speed_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
@@ -609,6 +632,7 @@ gt.Const.EL_NPC <- {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
@@ -618,6 +642,7 @@ gt.Const.EL_NPC <- {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return true; }
                     if(!this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
@@ -626,17 +651,22 @@ gt.Const.EL_NPC <- {
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_phoenix_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_recovery_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
@@ -645,6 +675,7 @@ gt.Const.EL_NPC <- {
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
@@ -653,6 +684,7 @@ gt.Const.EL_NPC <- {
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
@@ -661,6 +693,7 @@ gt.Const.EL_NPC <- {
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
@@ -668,32 +701,44 @@ gt.Const.EL_NPC <- {
                 Scripts = "scripts/skills/el_npc_buffs/el_stunning_strike_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_tank_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_thick_skin_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_thron_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_veteran_npc_buff",
-                function EL_ifEligible(_EL_npc) { return true; }
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
+                    return true;
+                }
             },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_weapon_master_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
@@ -702,6 +747,7 @@ gt.Const.EL_NPC <- {
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             }
