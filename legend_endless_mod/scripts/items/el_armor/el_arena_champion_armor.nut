@@ -29,7 +29,7 @@ this.el_arena_champion_armor <- this.inherit("scripts/items/armor/armor", {
 			id = 10,
 			type = "text",
 			icon = "ui/icons/special.png",
-			text = "护甲存在时免疫头部穿甲伤害。"
+			text = "护甲存在时免疫身体穿甲伤害。"
 		});
 		return result;
 	}

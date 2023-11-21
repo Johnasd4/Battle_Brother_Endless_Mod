@@ -68,6 +68,7 @@ gt.Const.EL_Item_Other <- {
 		"accessory/oathtaker_skull_02_item",
 		"el_accessory/el_arena_champion_item",
 		"el_armor/el_arena_champion_armor",
+		"el_helmet/el_arena_champion_helmet",
 		"armor/legendary/armor_of_davkul",
 		"armor/legendary/emperors_armor",
 		"armor/legendary/ijirok_armor",

@@ -63,7 +63,10 @@ this.el_proof_of_kingly_way_entry <- this.inherit("scripts/skills/skill", {
 				{
 					if(!t.isAlliedWith(actor))
 					{
-						t.setMoraleState(this.Math.max(this.Const.MoraleState.Fleeing, t.getMoraleState() - 1));
+						if(t.m.MoraleState > this.Const.EL_PlayerNPC.EL_RankToMoraleMin[t.m.EL_RankLevel])
+						{
+							t.setMoraleState(this.Math.max(this.Const.MoraleState.Fleeing, t.getMoraleState() - 1));
+						}
 					}
 					else
 					{
