@@ -362,16 +362,14 @@ local gt = getroottable();
             }
             if (_killer == null || _killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals)
             {
-                this.logInfo("Step 1");
-                local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos(), true);
+                local p = this.World.getAllEntitiesAtPos(_pos, this.Const.World.CombatSettings.CombatPlayerDistance * 2.0);
                 local party = null;
-                for(local i = 0; i < p.Parties.len(); ++i) {
-                    if(p.Parties[i].m.Name == "EL_DropOnly") {
-                        party = p.Parties[i];
+                for(local i = 0; i < p.len(); ++i) {
+                    if(p[i].m.Name == "EL_DropOnly") {
+                        party = p[i];
                         break;
                     }
                 }
-                this.logInfo("Step 2");
                 if(party == null)
                 {
                     party = this.new("scripts/entity/world/party");
@@ -379,18 +377,14 @@ local gt = getroottable();
                     party.EL_tempPartyInit();
                     party.EL_setTroopsResourse(0);
                     party.m.Name = "EL_DropOnly";
-                    p.Parties.push(party);
-                    this.logInfo("Step 3");
+                    p.push(party);
                 }
-                this.logInfo("Step 4");
                 for(local i = 0; i < this.m.EL_EquipmentEssenceDrop.len(); ++i) {
                     party.EL_addEquipmentEssence(i, this.m.EL_EquipmentEssenceDrop[i]);
-                    this.logInfo("EL_EquipmentEssenceDrop " + i + " " + this.m.EL_EquipmentEssenceDrop[i]);
                 }
                 local items = this.getItems();
                 local accessory = items == null ? null : items.getItemAtSlot(this.Const.ItemSlot.Accessory);
                 if(accessory != null && accessory.getID() == "el_accessory.core") {
-                    this.logInfo("Step 5");
                     local core = this.new("scripts/items/el_misc/el_core_rank_" + accessory.EL_getRankLevel() + "_item");
                     core.EL_generateCoreXPByActorXP(this.Math.floor(this.getXP()));
                     party.EL_addLootItem(core);
@@ -429,11 +423,11 @@ local gt = getroottable();
                         local magic_stone = this.new("scripts/items/el_misc/el_npc_buff_stone_item");
                         magic_stone.EL_generateByNPCBuffs(npc_buffs);
 
-                        local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos(), true);
+                        local p = this.World.getAllEntitiesAtPos(_pos, this.Const.World.CombatSettings.CombatPlayerDistance * 2.0);
                         local party = null;
-                        for(local i = 0; i < p.Parties.len(); ++i) {
-                            if(p.Parties[i].m.Name == "EL_DropOnly") {
-                                party = p.Parties[i];
+                        for(local i = 0; i < p.len(); ++i) {
+                            if(p[i].m.Name == "EL_DropOnly") {
+                                party = p[i];
                                 break;
                             }
                         }
@@ -444,7 +438,7 @@ local gt = getroottable();
                             party.EL_tempPartyInit();
                             party.EL_setTroopsResourse(0);
                             party.m.Name = "EL_DropOnly";
-                            p.Parties.push(party);
+                            p.push(party);
                         }
                         party.EL_addLootItem(magic_stone);
                     }
