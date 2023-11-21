@@ -100,7 +100,7 @@ local gt = getroottable();
 						icon = "ui/icons/armor_body.png",
 						value = this.Math.floor(this.m.Condition),
 						valueMax = this.Math.floor(this.m.ConditionMax),
-						text = "" + this.Math.floor(this.getCondition()) + " / " + this.Math.floor(this.getArmorMax()) + " (" + this.m.EL_BaseNoRankConditionMax + ")",
+						text = "" + this.Math.floor(this.getCondition()) + " / " + this.Math.floor(this.getConditionMax()) + " (" + this.m.EL_BaseNoRankConditionMax + ")",
 						style = "armor-body-slim"
 					};
 				}
@@ -304,7 +304,7 @@ local gt = getroottable();
 			this.m.EL_CurrentLevel = this.m.EL_Level;
 			EL_updateLevelProperties();
 			//this.logInfo("计算等级后固定减伤" + this.m.EL_DamageRegularReduction+this.m.EL_DamageBodyArmorReduction);
-			this.setCondition(this.Math.floor(this.getArmorMax() * percent));
+			this.setCondition(this.Math.floor(this.getConditionMax() * percent));
         }
 
 		o.EL_addRankLevel <- function()
@@ -319,7 +319,7 @@ local gt = getroottable();
 				this.Const.EL_Armor.EL_assignItemEntrys(this, this.Const.EL_Armor.EL_Entry.EntryNum.NormalArmor[this.m.EL_RankLevel]);
 				EL_updateLevelProperties();
 				EL_entryListSort();
-				this.setCondition(this.getArmorMax());
+				this.setCondition(this.getConditionMax());
 			}
 		}
 
@@ -600,7 +600,7 @@ local gt = getroottable();
 							icon = "ui/icons/armor_body.png",
 							value = this.Math.floor(this.m.Condition),
 							valueMax = this.Math.floor(this.m.ConditionMax),
-							text = "" + this.Math.floor(this.getCondition()) + " / " + this.Math.floor(this.getArmorMax()) + " (" + this.m.EL_BaseNoRankConditionMax + ")",
+							text = "" + this.Math.floor(this.getCondition()) + " / " + this.Math.floor(this.getConditionMax()) + " (" + this.m.EL_BaseNoRankConditionMax + ")",
 							style = "armor-body-slim"
 						};
 					}
@@ -789,7 +789,7 @@ local gt = getroottable();
 		
 		o.EL_generateByRankAndLevel <- function( _EL_rankLevel, EL_level, EL_additionalRarityChance = 0 )
         {
-			local percent = (this.getCondition() * 1.0)/ this.getArmorMax();
+			local percent = (this.getCondition() * 1.0)/ this.getConditionMax();
 			foreach(upgrade in this.m.Upgrades)
 			{
 				if(upgrade != null)
@@ -809,7 +809,7 @@ local gt = getroottable();
 			}
 			this.m.EL_CurrentLevel = this.m.EL_Level;
 			EL_updateLevelProperties();
-			this.setCondition(this.Math.floor(this.getArmorMax() * percent));
+			this.setCondition(this.Math.floor(this.getConditionMax() * percent));
         }
 
 		o.EL_addRankLevel <- function()
@@ -947,9 +947,9 @@ local gt = getroottable();
 			return this.Math.floor(this.getAddedValue("getCondition", this.m.Condition));
 		}
 
-		o.getArmorMax <- function()
+		o.getConditionMax <- function()
 		{
-			return this.Math.floor(this.getAddedValue("getArmorMax", this.m.ConditionMax));
+			return this.Math.floor(this.getAddedValue("getConditionMax", this.m.ConditionMax));
 		}
 
 		o.isAmountShown = function()
@@ -960,9 +960,9 @@ local gt = getroottable();
 		o.getAmountString = function()
 		{
 			this.Const.EL_Item_Other.EL_otherItemInit(this);
-			if(this.getCondition() < this.getArmorMax())
+			if(this.getCondition() < this.getConditionMax())
 			{
-				return "lv" + this.m.EL_Level + ":" + this.Math.floor(this.getCondition() / (this.getArmorMax() * 1.0) * 100) + "%";
+				return "lv" + this.m.EL_Level + ":" + this.Math.floor(this.getCondition() / (this.getConditionMax() * 1.0) * 100) + "%";
 			}
 			return "lv" + this.m.EL_Level;
 		}
@@ -1217,7 +1217,7 @@ local gt = getroottable();
 						icon = "ui/icons/armor_body.png",
 						value = this.Math.floor(this.m.Condition),
 						valueMax = this.Math.floor(this.m.ConditionMax),
-						text = "" + this.Math.floor(this.getCondition()) + " / " + this.Math.floor(this.getArmorMax()) + " (" + this.m.EL_BaseNoRankConditionMax + ")",
+						text = "" + this.Math.floor(this.getCondition()) + " / " + this.Math.floor(this.getConditionMax()) + " (" + this.m.EL_BaseNoRankConditionMax + ")",
 						style = "armor-body-slim"
 					};
 				}
@@ -1481,7 +1481,7 @@ local gt = getroottable();
 			}
 			this.m.EL_CurrentLevel = this.m.EL_Level;
 			EL_updateLevelProperties();
-			this.setCondition(this.Math.floor(this.getArmorMax() * percent));
+			this.setCondition(this.Math.floor(this.getConditionMax() * percent));
         }
 
 		o.EL_addRankLevel <- function()
@@ -1495,7 +1495,7 @@ local gt = getroottable();
 				this.Const.EL_Armor.EL_updateRankLevelProperties(this);
 				this.Const.EL_Armor.EL_assignItemEntrys(this, this.Const.EL_Armor.EL_Entry.EntryNum.NormalArmor[this.m.EL_RankLevel]);
 				EL_updateLevelProperties();
-				this.setCondition(this.getArmorMax());
+				this.setCondition(this.getConditionMax());
 			}
 		}
 
