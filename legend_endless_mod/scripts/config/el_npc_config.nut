@@ -192,6 +192,7 @@ gt.Const.EL_NPC <- {
             this.Const.EntityType.SkeletonLich,
             this.Const.EntityType.SkeletonLichMirrorImage,
             this.Const.EntityType.FlyingSkull,
+            this.Const.EntityType.LegendHexeLeader
         ],
 
         EliteUnit = [

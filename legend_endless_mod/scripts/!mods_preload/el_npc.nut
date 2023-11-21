@@ -362,6 +362,7 @@ local gt = getroottable();
             }
             if (_killer == null || _killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals)
             {
+                this.logInfo("Step 1");
                 local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos(), true);
                 local party = null;
                 for(local i = 0; i < p.Parties.len(); ++i) {
@@ -370,6 +371,7 @@ local gt = getroottable();
                         break;
                     }
                 }
+                this.logInfo("Step 2");
                 if(party == null)
                 {
                     party = this.new("scripts/entity/world/party");
@@ -378,13 +380,17 @@ local gt = getroottable();
                     party.EL_setTroopsResourse(0);
                     party.m.Name = "EL_DropOnly";
                     p.Parties.push(party);
+                    this.logInfo("Step 3");
                 }
+                this.logInfo("Step 4");
                 for(local i = 0; i < this.m.EL_EquipmentEssenceDrop.len(); ++i) {
                     party.EL_addEquipmentEssence(i, this.m.EL_EquipmentEssenceDrop[i]);
+                    this.logInfo("EL_EquipmentEssenceDrop " + i + " " + this.m.EL_EquipmentEssenceDrop[i]);
                 }
                 local items = this.getItems();
                 local accessory = items == null ? null : items.getItemAtSlot(this.Const.ItemSlot.Accessory);
                 if(accessory != null && accessory.getID() == "el_accessory.core") {
+                    this.logInfo("Step 5");
                     local core = this.new("scripts/items/el_misc/el_core_rank_" + accessory.EL_getRankLevel() + "_item");
                     core.EL_generateCoreXPByActorXP(this.Math.floor(this.getXP()));
                     party.EL_addLootItem(core);
