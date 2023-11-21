@@ -515,6 +515,7 @@ gt.Const.EL_NPC <- {
                 Scripts = "scripts/skills/el_npc_buffs/el_charge_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
                     return true;
                 }
