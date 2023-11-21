@@ -54,7 +54,8 @@ this.el_npc_ballance_racial <- this.inherit("scripts/skills/skill", {
 
         if(actor.getFaction() != this.Const.Faction.Player && actor.getFaction() != this.Const.Faction.PlayerAnimals) {
             local level = actor.EL_getLevel();
-            local difficulty_mult = this.World.Assets.EL_getHalfWorldDifficultFactor();
+            //local difficulty_mult = this.World.Assets.EL_getHalfWorldDifficultFactor();
+            local difficulty_mult = this.World.Assets.EL_getWorldDifficultFactor();
             _properties.Bravery += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.Bravery + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.Bravery) * (difficulty_mult - 1);
             _properties.Stamina += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.Fatigue + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.Fatigue) * (difficulty_mult - 1);
             _properties.Initiative += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.Initiative + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.Initiative) * (difficulty_mult - 1);
