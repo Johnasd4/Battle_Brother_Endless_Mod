@@ -1,12 +1,12 @@
-this.el_arena_champion_armor <- this.inherit("scripts/items/armor/armor", {
+this.el_arena_champion_helmet <- this.inherit("scripts/items/armor/armor", {
 	m = {},
 	function create()
 	{
-		this.armor.create();
-		this.m.ID = "el_armor.arena_champion";
-		this.m.Name = "冠军战甲";
+		this.helmet.create();
+		this.m.ID = "el_helmet.arena_champion";
+		this.m.Name = "冠军战盔";
 		this.m.Description = "竞技场冠军的证明。";
-		this.m.SlotType = this.Const.ItemSlot.Body;
+		this.m.SlotType = this.Const.ItemSlot.Head;
 		this.m.IsDroppedAsLoot = true;
 		this.m.ShowOnCharacter = true;
 		this.m.IsIndestructible = true;
@@ -17,7 +17,7 @@ this.el_arena_champion_armor <- this.inherit("scripts/items/armor/armor", {
 		this.m.Value = 12000;
 		this.m.Condition = 350;
 		this.m.ConditionMax = 350;
-		this.m.StaminaModifier = -25;
+		this.m.StaminaModifier = -15;
 		this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
 	}
 
@@ -29,7 +29,7 @@ this.el_arena_champion_armor <- this.inherit("scripts/items/armor/armor", {
 			id = 10,
 			type = "text",
 			icon = "ui/icons/special.png",
-			text = "护甲存在时免疫头部穿甲伤害。"
+			text = "护甲存在时免疫身体穿甲伤害。"
 		});
 		return result;
 	}
@@ -37,7 +37,7 @@ this.el_arena_champion_armor <- this.inherit("scripts/items/armor/armor", {
 	function onBeforeDamageReceived( _attacker, _skill, _hitInfo, _properties )
 	{
 		this.armor.onBeforeDamageReceived(_attacker, _skill, _hitInfo, _properties);
-		if (_hitInfo.BodyPart == this.Const.BodyPart.Body && this.getArmor() != 0)
+		if (_hitInfo.BodyPart == this.Const.BodyPart.Head && this.getArmor() != 0)
 		{
 			_properties.DamageReceivedDirectMult = 0;
 		}
