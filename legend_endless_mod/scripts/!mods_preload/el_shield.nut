@@ -303,15 +303,18 @@ local gt = getroottable();
 
 		o.EL_addRankLevel <- function()
 		{
-			++this.m.EL_RankLevel;
-			EL_init();
-			foreach(entry in this.m.EL_EntryList)
+			if(EL_getRankLevel() <= this.Const.EL_Item.Type.Legendary)
 			{
-				entry.EL_onUpgradeRank();
+				++this.m.EL_RankLevel;
+				EL_init();
+				foreach(entry in this.m.EL_EntryList)
+				{
+					entry.EL_onUpgradeRank();
+				}
+				this.Const.EL_Shield.EL_updateRankLevelProperties(this);
+				this.Const.EL_Shield.EL_assignItemEntrys(this, this.Const.EL_Shield.EL_Entry.EntryNum.NormalShield[this.m.EL_RankLevel]);
+				this.setCondition(this.getConditionMax());
 			}
-			this.Const.EL_Shield.EL_updateRankLevelProperties(this);
-			this.Const.EL_Shield.EL_assignItemEntrys(this, this.Const.EL_Shield.EL_Entry.EntryNum.NormalShield[this.m.EL_RankLevel]);
-			this.setCondition(this.getConditionMax());
 		}
 
         o.EL_upgradeLevel <- function()
