@@ -540,16 +540,19 @@ local gt = getroottable();
 
 		o.EL_addRankLevel <- function()
 		{
-			++this.m.EL_RankLevel;
-			EL_init();
-			foreach(entry in this.m.EL_EntryList)
+			if(EL_getRankLevel() <= this.Const.EL_Item.Type.Legendary)
 			{
-				entry.EL_onUpgradeRank();
+				++this.m.EL_RankLevel;
+				EL_init();
+				foreach(entry in this.m.EL_EntryList)
+				{
+					entry.EL_onUpgradeRank();
+				}
+				this.Const.EL_Weapon.EL_updateRankLevelProperties(this);
+				local entry_num = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_Entry.EntryNum.OneHanded[this.m.EL_RankLevel] : this.Const.EL_Weapon.EL_Entry.EntryNum.TwoHanded[this.m.EL_RankLevel];
+				this.Const.EL_Weapon.EL_assignItemEntrys(this, entry_num);
+				this.setCondition(this.getConditionMax());
 			}
-			this.Const.EL_Weapon.EL_updateRankLevelProperties(this);
-			local entry_num = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_Entry.EntryNum.OneHanded[this.m.EL_RankLevel] : this.Const.EL_Weapon.EL_Entry.EntryNum.TwoHanded[this.m.EL_RankLevel];
-			this.Const.EL_Weapon.EL_assignItemEntrys(this, entry_num);
-			this.setCondition(this.getConditionMax());
 		}
 
         o.EL_upgradeLevel <- function()

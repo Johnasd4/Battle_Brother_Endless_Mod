@@ -309,16 +309,19 @@ local gt = getroottable();
 
 		o.EL_addRankLevel <- function()
 		{
-			++this.m.EL_RankLevel;
-			EL_init();
-			foreach(entry in this.m.EL_EntryList)
+			if(EL_getRankLevel() <= this.Const.EL_Item.Type.Legendary)
 			{
-				entry.EL_onUpgradeRank();
+				++this.m.EL_RankLevel;
+				EL_init();
+				foreach(entry in this.m.EL_EntryList)
+				{
+					entry.EL_onUpgradeRank();
+				}
+				this.Const.EL_Armor.EL_updateRankLevelProperties(this);
+				this.Const.EL_Armor.EL_assignItemEntrys(this, this.Const.EL_Armor.EL_Entry.EntryNum.NormalArmor [this.m.EL_RankLevel]);
+				EL_entryListSort();
+				this.setCondition(this.getConditionMax());
 			}
-			this.Const.EL_Armor.EL_updateRankLevelProperties(this);
-			this.Const.EL_Armor.EL_assignItemEntrys(this, this.Const.EL_Armor.EL_Entry.EntryNum.NormalArmor [this.m.EL_RankLevel]);
-			EL_entryListSort();
-			this.setCondition(this.getConditionMax());
 		}
 
         o.EL_upgradeLevel <- function()
@@ -729,18 +732,6 @@ local gt = getroottable();
 			}
 			this.m.EL_RankLevel = _EL_rankLevel;
 			EL_recraft();
-		}
-
-		o.EL_addRankLevel <- function()
-		{
-			foreach(upgrade in this.m.Upgrades)
-			{
-				if(upgrade != null)
-				{
-					upgrade.EL_addRankLevel();
-				}
-			}
-			this.armor.EL_addRankLevel();
 		}
 
 		o.EL_getLevelAddtionStaminaModifier <- function()
@@ -1496,15 +1487,18 @@ local gt = getroottable();
 
 		o.EL_addRankLevel <- function()
 		{
-			++this.m.EL_RankLevel;
-			EL_init();
-			foreach(entry in this.m.EL_EntryList)
+			if(EL_getRankLevel() <= this.Const.EL_Item.Type.Legendary)
 			{
-				entry.EL_onUpgradeRank();
+				++this.m.EL_RankLevel;
+				EL_init();
+				foreach(entry in this.m.EL_EntryList)
+				{
+					entry.EL_onUpgradeRank();
+				}
+				this.Const.EL_Armor.EL_updateRankLevelProperties(this);
+				this.Const.EL_Armor.EL_assignItemEntrys(this, this.Const.EL_Armor.EL_Entry.EntryNum.NormalArmor [this.m.EL_RankLevel]);
+				this.setCondition(this.getConditionMax());
 			}
-			this.Const.EL_Armor.EL_updateRankLevelProperties(this);
-			this.Const.EL_Armor.EL_assignItemEntrys(this, this.Const.EL_Armor.EL_Entry.EntryNum.NormalArmor [this.m.EL_RankLevel]);
-			this.setCondition(this.getConditionMax());
 		}
 
         o.EL_upgradeLevel <- function()
