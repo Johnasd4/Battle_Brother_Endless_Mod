@@ -778,7 +778,6 @@ local gt = getroottable();
 					if(this.World.Statistics.getFlags().get("LastCombatResult") == 1) {
 						this.World.Assets.m.EL_DropParty.onDropLootForPlayer(loot);
 					}
-					this.World.Assets.m.EL_DropParty = null;
 				}
 
 				foreach( party in this.m.StrategicProperties.Parties )
@@ -839,6 +838,7 @@ local gt = getroottable();
 			this.m.CombatResultLoot.sort();
 
 			this.World.Statistics.getFlags().set("EL_IfPlayerPartyKilled", false);
+			this.World.Assets.m.EL_DropParty = null;
 		};
 	});
 
