@@ -265,7 +265,7 @@ gt.Const.EL_Shield <- {
 					Scripts = "scripts/skills/el_entrys/shield_entrys/el_value_mult_entry",
 					function EL_ifEligible(_item) 
 					{ 
-						if(_item.m.EL_RankLevel > 1)
+						if(_item.m.EL_RankLevel > 1 && _item.m.Value != 0)
 						{
 							return true;
 						} 

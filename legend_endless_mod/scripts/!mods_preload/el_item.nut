@@ -242,7 +242,12 @@ local gt = getroottable();
 		{
 		}
 
-		o.EL_init <- function()
+		o.EL_isValid <- function()
+		{
+			return true;
+		}
+
+        o.EL_init <- function()
 		{
 		}
 

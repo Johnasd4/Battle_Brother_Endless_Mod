@@ -287,6 +287,7 @@ gt.Const.EL_Helmet <- {
 					Scripts = "scripts/skills/el_entrys/helmet_entrys/el_value_mult_entry",
 					function EL_ifEligible(_item) {
 						if(_item.m.EL_RankLevel <= 1) { return false; }
+						if(_item.m.Value == 0) { return false; }
 						return true;
 					}
 				},

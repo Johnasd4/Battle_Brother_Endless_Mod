@@ -412,6 +412,11 @@ local gt = getroottable();
 			this.m.Condition = this.m.Condition > this.m.ConditionMax ? this.m.ConditionMax : this.m.Condition;
 		}
 
+        o.EL_isValid <- function()
+		{
+			return true;
+		}
+
         o.EL_init <- function()
 	    {
 			this.m.Vision = this.m.EL_BaseNoRankVision;
@@ -1700,6 +1705,11 @@ local gt = getroottable();
 				}
 			}
 			this.m.Condition = this.m.Condition > this.m.ConditionMax ? this.m.ConditionMax : this.m.Condition;
+		}
+
+        o.EL_isValid <- function()
+		{
+			return true;
 		}
 
         o.EL_init <- function()

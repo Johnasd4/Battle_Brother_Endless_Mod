@@ -404,6 +404,11 @@ local gt = getroottable();
 			this.m.Condition = this.m.Condition > this.m.ConditionMax ? this.m.ConditionMax : this.m.Condition;
 		}
 
+        o.EL_isValid <- function()
+		{
+			return true;
+		}
+
         o.EL_init <- function()
 	    {
 			this.m.FatigueOnSkillUse = this.m.EL_BaseNoRankFatigueOnSkillUse;
