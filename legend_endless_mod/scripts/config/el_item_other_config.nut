@@ -9,10 +9,9 @@ gt.Const.EL_Item_Other <- {
     MinLevelInEventAndCraft = 10,
     MaxLevelInEventAndCraft = 0,
 	EquipmentEssenceRankDownFactor = [
-		200,
+		10,
 		2,
-		2,
-		200
+		2
 	],	
 	EL_NormalNPCEquipmentRankUpChance = {
 		Factor = {
@@ -257,14 +256,14 @@ gt.Const.EL_Item_Other <- {
 					}
 					if(rank_level == 0)
 					{
-						if(this.Math.rand(1, 100000) <= this.Const.EL_Item_Other.EL_NormalNPCEquipmentRankUpChance.EL_getChance(this.World.Assets.m.EL_WorldLevel))
+						if(this.Math.rand(1, 100000) <= this.Const.EL_Item_Other.EL_NormalNPCEquipmentRankUpChance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * this.World.Assets.EL_getWorldDifficultFactor())
 						{
 							accessory.EL_addRankLevel();
 						}
 					}
 					else
 					{
-						if(this.Math.rand(1, 100000) <= this.Const.EL_Item_Other.EL_SeniorNPCEquipmentRankUpChance.EL_getChance(this.World.Assets.m.EL_WorldLevel))
+						if(this.Math.rand(1, 100000) <= this.Const.EL_Item_Other.EL_SeniorNPCEquipmentRankUpChance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * this.World.Assets.EL_getWorldDifficultFactor())
 						{
 							accessory.EL_addRankLevel();
 						}
@@ -278,14 +277,14 @@ gt.Const.EL_Item_Other <- {
 				{
 					if(rank_level == 0)
 					{
-						if(this.Math.rand(1, 100000) <= this.Const.EL_Item_Other.EL_NormalNPCEquipmentRankUpChance.EL_getChance(this.World.Assets.m.EL_WorldLevel))
+						if(this.Math.rand(1, 100000) <= this.Const.EL_Item_Other.EL_NormalNPCEquipmentRankUpChance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * this.World.Assets.EL_getWorldDifficultFactor())
 						{
 							item.EL_addRankLevel();
 						}
 					}
 					else
 					{
-						if(this.Math.rand(1, 100000) <= this.Const.EL_Item_Other.EL_SeniorNPCEquipmentRankUpChance.EL_getChance(this.World.Assets.m.EL_WorldLevel))
+						if(this.Math.rand(1, 100000) <= this.Const.EL_Item_Other.EL_SeniorNPCEquipmentRankUpChance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * this.World.Assets.EL_getWorldDifficultFactor())
 						{
 							item.EL_addRankLevel();
 						}

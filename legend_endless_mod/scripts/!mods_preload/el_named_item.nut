@@ -263,6 +263,15 @@ local gt = getroottable();
 			{
 				return this.Const.EL_Item.MaxRankLevel.Only;
 			}
+
+			o.EL_disassemble <- function(_itemIndex)
+			{
+			}
+
+			o.EL_getDisassembleEquipmentEssenceNum <- function()
+			{
+				return [0, 0, 0, 0, 0];
+			}
 		});
 	}
 });
