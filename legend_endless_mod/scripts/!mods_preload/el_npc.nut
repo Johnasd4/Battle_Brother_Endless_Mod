@@ -1219,9 +1219,16 @@ local gt = getroottable();
                 {
                     item.EL_setRankLevel(item.EL_getRankLevelMax() - 1);
                     local result = item.EL_getUpgradeRankEquipmentEssenceNum();
-                    for(local i = 0; i < this.m.EL_LootEquipmentEssence.len(); ++i)
+                    for(local i = 0; i < this.m.EL_LootEquipmentEssence.len() - 1; ++i)
                     {
-                        this.EL_addEquipmentEssence(i, result[i]);
+                        if(i == 0)
+                        {
+                            this.EL_addEquipmentEssence(i, result[i] * 3);
+                        }
+                        else
+                        {
+                            this.EL_addEquipmentEssence(i + 1, result[i]);
+                        }
                     }
                     item.EL_setRankLevel(item.EL_getRankLevelMax());
                     item.EL_recraft();

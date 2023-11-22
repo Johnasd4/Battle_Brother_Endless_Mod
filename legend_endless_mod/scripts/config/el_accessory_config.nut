@@ -25,7 +25,9 @@ gt.Const.EL_Accessory <- {
 		DisassembleFactor = 0.8,
 		RecraftFactor = 1,
 		SeniorEquipmentEssenceMult = 0.1,
+		LowerEquipmentEssenceMult = 3,
 		StrengthenEntryNum = 3,
+		UpgradeRankLegendaryNum = 3,
 		MinCalculateWeight = -40
 	},
 	EL_DroppedChance = [

@@ -38,7 +38,11 @@ gt.Const.EL_Helmet <- {
 		DisassembleFactor = 0.8,
 		RecraftFactor = 1,
 		SeniorEquipmentEssenceMult = 0.1,
-		StrengthenEntryNum = 1,
+		LowerEquipmentEssenceMult = 3,
+		UnlayeredStrengthenEntryNum = 3,
+		LayeredStrengthenEntryNum = 1,
+		UnlayeredUpgradeRankLegendaryNum = 3,
+		LayeredUpgradeRankLegendaryNum = 1,
 		MinCalculateWeight = -1
 	},
 	EL_DecorativeUpgrade = [

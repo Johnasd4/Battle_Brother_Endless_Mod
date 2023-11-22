@@ -42,7 +42,9 @@ gt.Const.EL_Shield <- {
 		DisassembleFactor = 2.4,
 		RecraftFactor = 3,
 		SeniorEquipmentEssenceMult = 0.1,
+		LowerEquipmentEssenceMult = 3,
 		StrengthenEntryNum = 3,
+		UpgradeRankLegendaryNum = 3,
 		MinCalculateWeight = -1
 	},
 	EL_RankPropertiesInitFunctions = [
