@@ -1195,7 +1195,7 @@ local gt = getroottable();
 		o.onUpdateLevel = function()
 		{
 			local actor = this.getContainer().getActor();
-			if(!this.m.IsSpent && this.Math.rand(1, 1000) <= 10) {
+			if(!this.m.IsSpent && this.Math.rand(1, 1000) <= 2) {
 				this.m.IsSpent = true;
 				this.m.WillSucceed = true;
 				local bg = actor.getBackground();
@@ -1203,7 +1203,7 @@ local gt = getroottable();
 				bg.m.RawDescription += " Once a dreg of society, with your help, %name% has grown into a full-fledged mercenary.";
 
 				actor.m.PerkPoints += 5;
-				actor.m.LevelUps += 5;
+				actor.m.LevelUps += 10;
 
 				for(local i = 0 ;i < this.Const.Attributes.COUNT; ++i) {
 					actor.m.Talents[i] = this.Math.min(4, actor.m.Talents[i] + 1);
@@ -1549,7 +1549,7 @@ gt.Const.EL_Config.EL_modStrings <- function()
         },
 		{
             ID = "perk.ptr_promised_potential",
-            tooltip = "队长说他要赌一把你的可能性，但你最好不要失望！\n\n[color=" + this.Const.UI.Color.OneTimeEffect + "][u]一次性效果：[/u][/color]\n每次升级都有[color=" + this.Const.UI.Color.PositiveValue + "] 1% [/color]的机会被替换为\'实现潜能\'，这会使你的所有属性天赋[color=" + this.Const.UI.Color.PositiveValue + "]+1[/color], 获得 [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color] 升级点数, 获得 [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color] 特技点，解锁大约 [color=" + this.Const.UI.Color.PositiveValue + "]+50[/color] 个可选特技并且返还所有小号的特技点，包括花在这个特技上的。"
+            tooltip = "队长说他要赌一把你的可能性，但你最好不要失望！\n\n[color=" + this.Const.UI.Color.OneTimeEffect + "][u]一次性效果：[/u][/color]\n每次升级都有[color=" + this.Const.UI.Color.PositiveValue + "] 1‰ [/color]的机会被替换为\'实现潜能\'，这会使你的所有属性天赋[color=" + this.Const.UI.Color.PositiveValue + "]+1[/color], 获得 [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color] 升级点数, 获得 [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color] 特技点，解锁大约 [color=" + this.Const.UI.Color.PositiveValue + "]+50[/color] 个可选特技并且返还所有小号的特技点，包括花在这个特技上的。"
         },
 		{
             ID = "perk.ptr_target_practice",
