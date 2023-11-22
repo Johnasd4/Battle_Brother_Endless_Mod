@@ -70,13 +70,13 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
     //     }
 	// }
 
-	function onMissed( _attacker, _skill )
-	{
-		if (EL_isUsable())
-        {
-		    EL_attackBack(_attacker, _skill);
-        }
-	}
+	// function onMissed( _attacker, _skill )
+	// {
+	// 	if (EL_isUsable())
+    //     {
+	// 	    EL_attackBack(_attacker, _skill);
+    //     }
+	// }
 
 	function onAfterUpdate( _properties )
 	{
@@ -87,6 +87,14 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
 		else
 		{
 			this.m.EL_replacedSkills.clear();
+		}
+	}
+
+	function onUpdate( _properties )
+	{
+		if (EL_isUsable())
+		{
+			_properties.IsRiposting = true;
 		}
 	}
 

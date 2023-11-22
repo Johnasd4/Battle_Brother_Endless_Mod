@@ -323,6 +323,11 @@ local gt = getroottable();
 				}
 			}
 
+			o.EL_isValid <- function()
+			{
+				return true;
+			}
+
 			o.EL_init <- function()
 			{
 				this.m.EL_BaseWithRankValue = this.m.EL_BaseNoRankValue;

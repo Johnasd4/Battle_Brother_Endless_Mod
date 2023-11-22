@@ -1215,7 +1215,7 @@ local gt = getroottable();
             this.EL_dropLootItems(_lootTable);
             foreach(item in _lootTable)
             {                
-                if(item.EL_getRankLevel() > item.EL_getRankLevelMax())
+                if(item.EL_getRankLevel() > item.EL_getRankLevelMax() && item.EL_isValid())
                 {
                     item.EL_setRankLevel(item.EL_getRankLevelMax() - 1);
                     local result = item.EL_getUpgradeRankEquipmentEssenceNum();
