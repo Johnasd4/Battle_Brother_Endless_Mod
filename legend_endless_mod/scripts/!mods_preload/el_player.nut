@@ -1194,12 +1194,12 @@ local gt = getroottable();
 					{
 						id = 103,
 						type = "hint",
-						text = "Combat Level : " + (this.Math.round(brother.EL_getCombatLevel() * 10) * 0.1)
+						text = "战斗等级：" + (this.Math.round(brother.EL_getCombatLevel() * 10) * 0.1)
 					},
 					{
 						id = 104,
 						type = "hint",
-						text = "Projection of this character\'s base attribute ranges calculated as if that attribute is improved on every level up from current level to " + this.Const.EL_Player.EL_PlayerLevel.Max + "."
+						text = "达到" + this.Const.EL_Player.EL_PlayerLevel.Max + "级时的时候属预估："
 					},
 					{
 						id = 105,
