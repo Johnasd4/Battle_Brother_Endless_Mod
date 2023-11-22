@@ -966,7 +966,7 @@ local gt = getroottable();
 			this.m.IsApplied = true;
 			actor.m.LevelUps += 1;
 			for(local i = 0 ;i < this.Const.Attributes.COUNT; ++i) {
-				actor.m.Talents[i] = this.Math.min(4, actor.m.Talents[i] + 1);
+				actor.m.Talents[i] = this.Math.min(3, actor.m.Talents[i] + 1);
 				actor.m.Attributes[i] = [];
 			}
 
@@ -1533,7 +1533,7 @@ gt.Const.EL_Config.EL_modStrings <- function()
         },
 		{
             ID = "perk.ptr_discovered_talent",
-            tooltip = "You don\'t know where it came from, but you\'ve suddenly started excelling at everything you do!\n\n[color=" + this.Const.UI.Color.OneTimeEffect + "][u]One-Time Effect:[/u][/color]\n• Gain [color=" + this.Const.UI.Color.PositiveValue + "]1[/color] Star to the talents in all attributes.\n• Then instantly gain a levelup to increase this character's attributes using normal rolls with talents.\n• Cannot increase the talent in an attribute beyond [color=" + this.Const.UI.Color.NegativeValue + "]4[/color] stars."
+            tooltip = "You don\'t know where it came from, but you\'ve suddenly started excelling at everything you do!\n\n[color=" + this.Const.UI.Color.OneTimeEffect + "][u]One-Time Effect:[/u][/color]\n• Gain [color=" + this.Const.UI.Color.PositiveValue + "]1[/color] Star to the talents in all attributes.\n• Then instantly gain a levelup to increase this character's attributes using normal rolls with talents.\n• Cannot increase the talent in an attribute beyond [color=" + this.Const.UI.Color.NegativeValue + "]3[/color] stars."
         },
 		{
             ID = "perk.ptr_fresh_and_furious",
