@@ -17,7 +17,7 @@ this.el_energy_drain_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_np
 
         local fatigue = _targetEntity.getFatigue();
 		this.applyFatigueDamage(_targetEntity, _skill.getActionPointCost() * this.Const.EL_NPC.EL_NPCBuff.Factor.EnergyDrain.FatiguePurActionPoint[this.m.EL_RankLevel]);
-		local fatigue_drain = _targetEntity.getFatigue() - fatigue;
+		local fatigue_drain = this.Math.max(0, _targetEntity.getFatigue() - fatigue);
 		user.setFatigue(this.Math.max(0, user.getFatigue() - fatigue_drain));
 	}
 
