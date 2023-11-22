@@ -905,14 +905,14 @@ local gt = getroottable();
                             //4
                             if(temp_level > 0) {
                                 foreach(troop in party.getTroops()) {
-                                    troop.EL_ExtraBuffNum[1] += 3;
+                                    troop.EL_ExtraBuffNum[1] += 2;
                                 }
                                 --temp_level;
                             }
                             //5
                             while(temp_level > 0) {
                                 foreach(troop in party.getTroops()) {
-                                    troop.EL_ExtraCombatLevel += 5;
+                                    troop.EL_ExtraCombatLevel += 10;
                                 }
                                 --temp_level;
                             }
@@ -1069,7 +1069,7 @@ local gt = getroottable();
                                 this.World.Assets.getStash().add(reward_item);
                             }
                             if(this.World.Assets.m.EL_ArenaLevel > this.World.Assets.m.EL_ArenaMaxLevel) {
-                                this.World.Assets.EL_addEquipmentEssence(4, 1);
+                                this.World.Assets.EL_addEquipmentEssence(4, 3);
                             }
                             break;
                     }
