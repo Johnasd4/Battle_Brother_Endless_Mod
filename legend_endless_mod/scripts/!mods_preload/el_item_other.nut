@@ -113,12 +113,12 @@ local gt = getroottable();
 			if(item.EL_canUpgradeLevelInBagOrStash())
 			{
 				local limited_level = 100;
-				if(!_item.isItemType(this.Const.Items.ItemType.Accessory))
+				if(!item.isItemType(this.Const.Items.ItemType.Accessory))
 				{
 					local accessory = bro.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
-					limited_rank = accessory.EL_getLevel();
+					limited_level = accessory.EL_getLevel();
 				}
-				if(limited_rank < _item.EL_getLevel())
+				if(limited_level < item.EL_getLevel())
 				{
 					return this.UIDataHelper.convertStashAndEntityToUIData(bro, null, false, this.m.InventoryFilter);
 				}
@@ -155,12 +155,12 @@ local gt = getroottable();
 			if(item.EL_canUpgradeRankInBagOrStash() && !this.Tactical.isActive())
 			{
 				local limited_rank = 100;
-				if(!_item.isItemType(this.Const.Items.ItemType.Accessory))
+				if(!item.isItemType(this.Const.Items.ItemType.Accessory))
 				{
 					local accessory = bro.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
 					limited_rank = accessory.EL_getRankLevel();
 				}
-				if(limited_rank < _item.EL_getRankLevel())
+				if(limited_rank < item.EL_getRankLevel())
 				{
 					return this.UIDataHelper.convertStashAndEntityToUIData(bro, null, false, this.m.InventoryFilter);
 				}

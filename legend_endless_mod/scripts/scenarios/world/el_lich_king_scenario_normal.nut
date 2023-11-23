@@ -62,6 +62,7 @@ this.el_lich_king_scenario_normal <- this.inherit("scripts/scenarios/world/start
 		this.World.Assets.m.ArmorParts = 10;
 		this.World.Assets.m.Medicine = 10;
 		this.World.Assets.m.Ammo = 10;
+		this.World.Assets.EL_setSoulEnergy(5);
 	}
 
 	function onSpawnPlayer()
@@ -140,7 +141,6 @@ this.el_lich_king_scenario_normal <- this.inherit("scripts/scenarios/world/start
 	{
 		this.starting_scenario.onInit();
 		this.World.Assets.m.BusinessReputationRate = 0.5;
-		this.World.Assets.EL_setSoulEnergy(5);
 	}
 
 	function onUpdateHiringRoster( _roster )
