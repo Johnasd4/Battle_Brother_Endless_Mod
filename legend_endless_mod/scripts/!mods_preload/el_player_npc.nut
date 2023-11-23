@@ -718,7 +718,7 @@ local gt = getroottable();
 				armor = armor - armorDamage;
 				_hitInfo.DamageInflictedArmor = this.Math.max(0, armorDamage);
 			}
-			_hitInfo.DamageRegular = this.Math.maxf(0.0, _hitInfo.DamageRegular - armor * this.Const.Combat.ArmorDirectDamageMitigationMult);
+			_hitInfo.DamageRegular = this.Math.maxf(0.0, _hitInfo.DamageRegular - armor * this.Const.Combat.EL_ArmorDirectDamageMitigationMult);
 			_hitInfo.DamageRegular *= p.DamageReceivedRegularMult * dmgMult;
 
 			_hitInfo.DamageFatigue *= p.FatigueEffectMult;

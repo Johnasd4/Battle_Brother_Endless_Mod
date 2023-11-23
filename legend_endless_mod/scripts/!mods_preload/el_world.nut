@@ -31,6 +31,7 @@ local gt = getroottable();
 			_out.writeI32(this.m.EL_LastArenaDay);
 			_out.writeI32(this.m.EL_ArenaLevel);
 			_out.writeI32(this.m.EL_ArenaMaxLevel);
+			//_out.writeI32(1);
 			for(local i = 0; i < this.m.EL_EquipmentEssence.len(); ++i) {
                 _out.writeI32(this.m.EL_EquipmentEssence[i]);
             }
