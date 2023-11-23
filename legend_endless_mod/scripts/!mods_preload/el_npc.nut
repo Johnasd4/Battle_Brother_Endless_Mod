@@ -961,9 +961,9 @@ local gt = getroottable();
             else {
                 max_troop_num = this.Math.min(this.Const.EL_NPC.EL_Troop.MaxTroopNum, this.Const.EL_NPC.EL_Troop.BaseMaxTroopNum + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.MaxTroopNumAddPurWorldLevel);
             }
-            this.m.Troops[random_leader_index].EL_ExtraBuffNum[0] = 0;
-            this.m.Troops[random_leader_index].EL_ExtraBuffNum[1] = 0;
-            this.m.Troops[random_leader_index].EL_ExtraBuffNum[2] = 0;
+            _EL_troop.EL_ExtraBuffNum[0] = 0;
+            _EL_troop.EL_ExtraBuffNum[1] = 0;
+            _EL_troop.EL_ExtraBuffNum[2] = 0;
             if(this.m.EL_FinishGenerate) {
                 local troop_info = this.Const.EL_NPC.EL_Troop.EL_getTroopInfo(_EL_troop);
                 //Calculate ranks, level, combat level.
