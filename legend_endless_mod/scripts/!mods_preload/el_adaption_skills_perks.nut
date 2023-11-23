@@ -70,7 +70,6 @@ local gt = getroottable();
         }
 	});
 
-
 	::mods_hookExactClass("skills/perks/legend_vala_warden", function(o){
 
         o.summonWarden = function()
