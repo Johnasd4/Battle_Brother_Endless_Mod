@@ -33,6 +33,11 @@ this.el_lich_king_scenario_easy <- this.inherit("scripts/scenarios/world/startin
 		bro.m.BaseProperties.RangedSkill = 80;
 		bro.m.BaseProperties.MeleeDefense = 20;
 		bro.m.BaseProperties.RangedDefense = 20;
+		local talents = bro.getTalents();
+		for (local i = 0; i < talents.len(); i++)
+		{
+			talents[i] = 4;
+		}
 		bro.setPlaceInFormation(4);
 		bro.getFlags().set("IsPlayerCharacter", true);
 		bro.getSkills().add(this.new("scripts/skills/traits/player_character_trait"));
