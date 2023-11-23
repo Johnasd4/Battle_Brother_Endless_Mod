@@ -722,7 +722,9 @@ local gt = getroottable();
                 _out.writeI32(t.EL_ExtraBuffNum[0]);
                 _out.writeI32(t.EL_ExtraBuffNum[1]);
                 _out.writeI32(t.EL_ExtraBuffNum[2]);
-
+                this.logInfo("write troop.EL_ExtraBuffNum[0] = " + t.EL_ExtraBuffNum[0]);
+                this.logInfo("write troop.EL_ExtraBuffNum[1] = " + t.EL_ExtraBuffNum[1]);
+                this.logInfo("write troop.EL_ExtraBuffNum[2] = " + t.EL_ExtraBuffNum[2]);
                 if ("Outfits" in t)
                 {
                     _out.writeBool(true);
@@ -822,7 +824,9 @@ local gt = getroottable();
                 troop.EL_ExtraBuffNum[0] = _in.readI32();
                 troop.EL_ExtraBuffNum[1] = _in.readI32();
                 troop.EL_ExtraBuffNum[2] = _in.readI32();
-
+                this.logInfo("read troop.EL_ExtraBuffNum[0] = " + troop.EL_ExtraBuffNum[0]);
+                this.logInfo("read troop.EL_ExtraBuffNum[1] = " + troop.EL_ExtraBuffNum[1]);
+                this.logInfo("read troop.EL_ExtraBuffNum[2] = " + troop.EL_ExtraBuffNum[2]);
                 local hasOutfits = _in.readBool();
 
                 if (hasOutfits)
