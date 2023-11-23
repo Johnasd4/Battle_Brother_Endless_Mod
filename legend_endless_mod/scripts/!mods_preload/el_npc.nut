@@ -1066,9 +1066,9 @@ local gt = getroottable();
                             this.m.Troops[i].EL_RankLevel = this.Math.max(1, this.m.Troops[i].EL_RankLevelMin);
                         }
                         this.m.Troops[i].EL_ExtraCombatLevel = troops_info[i].EL_ExtraCombatLevel;
-                        if(!this.m.Troops[i].EL_IsBossUnit) {
-                            this.m.Troops[i].EL_ExtraBuffNum[this.m.Troops[i].EL_RankLevel] = 2;
-                        }
+                        // if(!this.m.Troops[i].EL_IsBossUnit) {
+                        //     this.m.Troops[i].EL_ExtraBuffNum[this.m.Troops[i].EL_RankLevel] = 2;
+                        // }
                     }
                 }
                 else if(this.m.EL_IsEliteParty) {
