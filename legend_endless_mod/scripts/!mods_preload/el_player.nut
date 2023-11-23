@@ -406,16 +406,16 @@ local gt = getroottable();
 				}
 				_xp *= mult_factor;
 			}
+			_xp *= this.m.CurrentProperties.XPGainMult;
 			// xp multiplying end
-			if (this.m.XP + _xp * this.m.CurrentProperties.XPGainMult >= this.Const.LevelXP[this.Const.LevelXP.len() - 1])
+			if (this.m.XP + _xp >= this.Const.LevelXP[this.Const.LevelXP.len() - 1])
 			{
 				// Now, the XP will be wasted, hhhh
 				//this.m.CombatStats.XPGained += this.Const.LevelXP[this.Const.LevelXP.len() - 1] - this.m.XP;
 				this.m.XP = this.Const.LevelXP[this.Const.LevelXP.len() - 1];
 				return;
 			}
-			_xp = this.Math.min(this.Const.LevelXP[this.m.Level + this.Const.EL_Player.EL_PlayerLevel.MaxLevelImproveOnce - 1] - this.m.XP, _xp * this.m.CurrentProperties.XPGainMult)
-			this.m.XP += this.Math.floor(_xp);
+			this.m.XP = this.Math.min(this.Const.LevelXP[this.Math.min(this.Const.LevelXP.len() - 1, this.m.Level + this.Const.EL_Player.EL_PlayerLevel.MaxLevelImproveOnce - 1)], this.m.XP + this.Math.floor(_xp));
 			this.m.CombatStats.XPGained += this.Math.floor(_xp);
 		};
 
