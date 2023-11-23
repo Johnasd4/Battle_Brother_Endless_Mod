@@ -877,7 +877,7 @@ local gt = getroottable();
                             //2
                             if(temp_level > 0) {
                                 local troops = party.getTroops();
-                                for(local i = 0, j = 0; j < 3 && i < troops[i].len; ++i) {
+                                for(local i = 0, j = 0; j < 3 && i < troops.len(); ++i) {
                                     if(troops[i].EL_RankLevel == 1)
                                     {
                                         troops[i].EL_RankLevel = 2;
@@ -891,7 +891,7 @@ local gt = getroottable();
                             //3
                             if(temp_level > 0) {
                                 local troops = party.getTroops();
-                                for(local i = 0, j = 0; j < 2 && i < troops[i].len; ++i) {
+                                for(local i = 0, j = 0; j < 2 && i < troops.len(); ++i) {
                                     if(troops[i].EL_RankLevel == 1)
                                     {
                                         troops[i].EL_RankLevel = 2;
