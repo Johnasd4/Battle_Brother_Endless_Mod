@@ -13,6 +13,11 @@ local gt = getroottable();
 		o.m.EL_CurrentUpdateDay <- 0;
 		o.m.EL_EquipmentEssence <- [0, 0, 0, 0, 0];
 
+		o.m.EL_SoulEnergy <- 0;
+		o.m.EL_SoulEnergyMax <- this.Const.EL_World.EL_SoulEnergy.Min;
+		o.m.EL_SoulEnergyXP <- 0;
+		o.m.EL_SoulEnergyGianMult <- 1.0;
+
 		o.m.EL_LastArenaDay <- 0;
 		o.m.EL_ArenaLevel <- 0;
 		o.m.EL_ArenaMaxLevel <- 0;
@@ -28,10 +33,15 @@ local gt = getroottable();
 			_out.writeI32(this.m.EL_WorldLevelOffset);
 			_out.writeI32(this.m.EL_WorldStrength);
 			_out.writeI32(this.m.EL_CurrentUpdateDay);
+
+			_out.writeF32(this.m.EL_SoulEnergy);
+			_out.writeI32(this.m.EL_SoulEnergyMax);
+			_out.writeF32(this.m.EL_SoulEnergyXP);
+
 			_out.writeI32(this.m.EL_LastArenaDay);
 			_out.writeI32(this.m.EL_ArenaLevel);
 			_out.writeI32(this.m.EL_ArenaMaxLevel);
-			//_out.writeI32(1);
+			
 			for(local i = 0; i < this.m.EL_EquipmentEssence.len(); ++i) {
                 _out.writeI32(this.m.EL_EquipmentEssence[i]);
             }
@@ -46,6 +56,11 @@ local gt = getroottable();
 			this.m.EL_WorldLevelOffset = _in.readI32();
 			this.m.EL_WorldStrength = _in.readI32();
 			this.m.EL_CurrentUpdateDay = _in.readI32();
+
+			this.m.EL_SoulEnergy = _in.readF32();
+			this.m.EL_SoulEnergyMax = _in.readI32();
+			this.m.EL_SoulEnergyXP = _in.readF32();
+
 			this.m.EL_LastArenaDay = _in.readI32();
 			this.m.EL_ArenaLevel = _in.readI32();
 			this.m.EL_ArenaMaxLevel = _in.readI32();
@@ -77,6 +92,66 @@ local gt = getroottable();
 		o.EL_setEquipmentEssence <- function( _rank, _num )
 		{
 			this.m.EL_EquipmentEssence[_rank] = _num;
+		}
+
+
+		o.EL_addSoulEnergy <- function( _num )
+		{
+			local soul_energy_max = 100;
+			local bros = this.World.getPlayerRoster().getAll();
+			foreach( bro in bros )
+			{
+				local main_hand = bro.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+				if(main_hand != null && main_hand.getID() == "el_weapon.frostmourne")
+				{
+					soul_energy_max += main_hand.EL_getRankLevel() * 100;
+				}
+			} 
+			if(_num > 0)
+			{
+				_num = this.Math.round(_num * this.EL_getSoulEnergyGianMult());
+				this.m.EL_SoulEnergyXP += _num;
+			}
+			while(this.m.EL_SoulEnergyXP > this.m.EL_SoulEnergyMax - this.Const.EL_World.EL_SoulEnergy.Min)
+			{
+				++this.m.EL_SoulEnergyMax;
+				this.m.EL_SoulEnergyXP -= this.m.EL_SoulEnergyMax - this.Const.EL_World.EL_SoulEnergy.Min;
+				if(this.m.EL_SoulEnergyMax >= soul_energy_max)
+				{
+					this.m.EL_SoulEnergyMax = soul_energy_max;
+					this.m.EL_SoulEnergyXP = 0;
+				}
+			}
+			this.m.EL_SoulEnergy += _num;
+			if(this.m.EL_SoulEnergy > this.m.EL_SoulEnergyMax)
+			{
+				this.m.EL_SoulEnergy = this.m.EL_SoulEnergyMax;
+			}
+		}
+
+		o.EL_getSoulEnergy <- function()
+		{
+			return this.Math.floor(this.m.EL_SoulEnergy);
+		}
+
+		o.EL_setSoulEnergy <- function( _num )
+		{
+			this.m.EL_SoulEnergy = _num;
+		}
+
+		o.EL_getSoulEnergyMax <- function()
+		{
+			return this.m.EL_SoulEnergyMax;
+		}
+
+		o.EL_setSoulEnergyMax <- function( _num )
+		{
+			this.m.EL_SoulEnergyMax = _num;
+		}
+
+		o.EL_getSoulEnergyGianMult <- function()
+		{
+			return this.m.EL_SoulEnergyGianMult;
 		}
 
 

@@ -13,7 +13,8 @@ gt.Const.EL_Player <- {
         //Part1(level < 11), XP = 200 * level ^ 2
         Part1Factor = 200,
         //Part2, XP(level) = XP(level - 1) * 1.1
-        Part2Factor = 1.1
+        Part2Factor = 1.1,
+        MaxLevelImproveOnce = 5
     }
 
     EL_CombatXP = {

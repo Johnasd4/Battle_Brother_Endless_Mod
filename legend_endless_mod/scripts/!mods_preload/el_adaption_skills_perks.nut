@@ -3,6 +3,73 @@ local gt = getroottable();
 ::mods_registerMod("el_adaption_skills_perks", 1, "el_adaption_skills_perks");
 ::mods_queue(null, "el_player_npc", function ()
 {
+    ::mods_hookExactClass("skills/perks/perk_ptr_weapon_master", function(o){
+        o.onUpdate = function(_properties)
+        {
+            if (!this.isEnabled(_properties))
+            {
+                return;
+            }
+
+            local actor = this.getContainer().getActor();
+            if (actor.isPlayerControlled() && !actor.isSummoned())
+            {
+                local bg = actor.getBackground();
+                if (bg.m.PerkTree != null)
+                {
+                    if (bg.hasPerk(this.Const.Perks.PerkDefs.SpecAxe))
+                    {
+                        _properties.IsSpecializedInAxes = true;
+                    }
+                    if (bg.hasPerk(this.Const.Perks.PerkDefs.SpecCleaver))
+                    {
+                        _properties.IsSpecializedInCleavers = true;
+                    }
+                    if (bg.hasPerk(this.Const.Perks.PerkDefs.SpecDagger))
+                    {
+                        _properties.IsSpecializedInDaggers = true;
+                    }
+                    if (bg.hasPerk(this.Const.Perks.PerkDefs.SpecFlail))
+                    {
+                        _properties.IsSpecializedInFlails = true;
+                    }
+                    if (bg.hasPerk(this.Const.Perks.PerkDefs.SpecHammer))
+                    {
+                        _properties.IsSpecializedInHammers = true;
+                    }
+                    if (bg.hasPerk(this.Const.Perks.PerkDefs.SpecMace))
+                    {
+                        _properties.IsSpecializedInMaces = true;
+                    }
+                    if (bg.hasPerk(this.Const.Perks.PerkDefs.SpecSpear))
+                    {
+                        _properties.IsSpecializedInSpears = true;
+                    }
+                    if (bg.hasPerk(this.Const.Perks.PerkDefs.SpecSword))
+                    {
+                        _properties.IsSpecializedInSwords = true;
+                    }
+                    if (bg.hasPerk(this.Const.Perks.PerkDefs.SpecThrowing))
+                    {
+                        _properties.IsSpecializedInThrowing = true;
+                    }
+                }
+            }
+            else
+            {
+                _properties.IsSpecializedInAxes = true;
+                _properties.IsSpecializedInCleavers = true;
+                _properties.IsSpecializedInDaggers = true;
+                _properties.IsSpecializedInFlails = true;
+                _properties.IsSpecializedInHammers = true;
+                _properties.IsSpecializedInMaces = true;
+                _properties.IsSpecializedInSpears = true;
+                _properties.IsSpecializedInSwords = true;
+                _properties.IsSpecializedInThrowing = true;
+            }
+        }
+	});
+
 
 	::mods_hookExactClass("skills/perks/legend_vala_warden", function(o){
 

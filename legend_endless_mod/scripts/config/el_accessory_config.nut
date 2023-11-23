@@ -58,7 +58,8 @@ gt.Const.EL_Accessory <- {
 		"accessory/sergeant_badge_item",
 		"accessory/undead_trophy_item",
 		"el_accessory/el_arena_champion_item",
-		"el_accessory/el_core_item"
+		"el_accessory/el_core_item",
+		"el_accessory/el_taelia_present_item"
 	],
 	EL_NormalAccessoryList = [
 		"accessory/alp_trophy_item",

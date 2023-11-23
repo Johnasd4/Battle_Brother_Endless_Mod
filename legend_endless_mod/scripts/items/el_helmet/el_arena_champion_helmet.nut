@@ -24,6 +24,12 @@ this.el_arena_champion_helmet <- this.inherit("scripts/items/helmets/helmet", {
 		this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
 	}
 
+	function updateVariant()
+	{
+		this.helmet.updateVariant();
+		this.m.Icon = "helmets/arena_champion_helmet.png";
+	}
+
 	function getTooltip()
 	{
 		local result = this.helmet.getTooltip();

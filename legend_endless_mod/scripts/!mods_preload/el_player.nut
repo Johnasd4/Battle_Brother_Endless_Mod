@@ -55,7 +55,7 @@ local gt = getroottable();
 				food = food * 2;
 			}
 			food *= this.Const.EL_Player.EL_Champion.DailyFoodMult[this.m.EL_RankLevel];
-			food = this.Math.max(1, food - this.World.State.getPlayer().getFoodModifier());
+			food = this.Math.max(0, food - this.World.State.getPlayer().getFoodModifier());
 			return food;
 		};
 
@@ -414,8 +414,9 @@ local gt = getroottable();
 				this.m.XP = this.Const.LevelXP[this.Const.LevelXP.len() - 1];
 				return;
 			}
-			this.m.XP += this.Math.floor(_xp * this.m.CurrentProperties.XPGainMult);
-			this.m.CombatStats.XPGained += this.Math.floor(_xp * this.m.CurrentProperties.XPGainMult);
+			_xp = this.Math.min(this.Const.LevelXP[this.m.Level + this.Const.EL_Player.EL_PlayerLevel.MaxLevelImproveOnce - 1] - this.m.XP, _xp * this.m.CurrentProperties.XPGainMult)
+			this.m.XP += this.Math.floor(_xp);
+			this.m.CombatStats.XPGained += this.Math.floor(_xp);
 		};
 
 		o.fillTalentValues = function ( _num, _force = false )
