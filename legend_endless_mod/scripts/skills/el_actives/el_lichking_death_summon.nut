@@ -104,7 +104,7 @@ this.el_lichking_death_summon <- this.inherit("scripts/skills/skill", {
 		// 	bravery_need *= 2.0;
 		// }
 		// return 0.01 * (100 + ((bravery / bravery_need) + bonus) * offset);
-		return 1 + 0.01 * (this.getContainer().getActor().getBravery() - 100);
+		return 1 + 0.01 * (this.getContainer().getActor().getBravery() - 100) / 2;
 	}
 	
 	function getScript( _has_corpse )

@@ -259,10 +259,9 @@ local gt = getroottable();
 	for(local i = 0; i < this.Const.EL_Item_Other.EL_OnlyItemList.len(); ++i) {
 		::mods_hookExactClass("items/" + this.Const.EL_Item_Other.EL_OnlyItemList[i], function ( o )
 		{
-			o.m.EL_BaseNoRankValue <- 0;
-			
 			o.EL_getRankLevelMax <- function()
 			{
+				this.m.EL_BaseNoRankValue = 0;
 				return this.Const.EL_Item.MaxRankLevel.Only;
 			}
 
