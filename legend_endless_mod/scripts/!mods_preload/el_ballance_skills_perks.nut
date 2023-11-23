@@ -364,71 +364,45 @@ local gt = getroottable();
 					id = 10,
 					type = "text",
 					icon = "ui/icons/melee_skill.png",
-					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + stats.HitChance + "%[/color] Melee Skill due to being a favored enemy"
+					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + 20 + "%[/color] Melee Skill due to being a favored enemy"
 				},
 				{
 					id = 11,
 					type = "text",
 					icon = "ui/icons/ranged_skill.png",
-					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + stats.HitChance + "%[/color] Range Skill due to being a favored enemy"
+					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + 20 + "%[/color] Range Skill due to being a favored enemy"
 				},
 				{
 					id = 11,
 					type = "text",
 					icon = "ui/icons/damage_dealt.png",
-					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.Math.floor((stats.HitMult - 1.0) * 100.0) + "%[/color] Max Damage due to being a favored enemy"
+					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + 20 + "%[/color] Max Damage due to being a favored enemy"
 				}
 			];
+			return resp;
+		}
 
-			if (this.m.BraveryMult > 1)
+		o.onAnySkillUsed = function( _skill, _targetEntity, _properties )
+		{
+			if (_targetEntity == null)
 			{
-				resp.push({
-					id = 15,
-					type = "text",
-					icon = "ui/icons/bravery.png",
-					text = "[color=" + this.Const.UI.Color.PositiveValue + "]+" + this.Math.floor((this.m.BraveryMult - 1.0) * 100.0) + "[/color] Resolve due to being a favored enemy"
-				});
+				return;
 			}
 
-			resp.push({
-				id = 15,
-				type = "hint",
-				icon = "ui/icons/special.png",
-				text = stats.Kills + " favored enemy kills"
-			});
-			return resp;
+			if (this.validTarget(_targetEntity.getType()))
+			{
+				_properties.MeleeSkill += 20;
+				_properties.RangedSkill += 20
+				_properties.DamageRegularMax *= 1.2;
+			}
+			else
+			{
+				return;
+			}
 		}
 
 		o.onUpdate = function( _properties )
 		{
-			if (this.m.BraveryMult == 1.0)
-			{
-				return;
-			}
-
-			if (!("Entities" in this.Tactical))
-			{
-				return;
-			}
-
-			if (this.Tactical.Entities == null)
-			{
-				return;
-			}
-
-			local actors = this.Tactical.Entities.getAllInstancesAsArray();
-
-			foreach( a in actors )
-			{
-				foreach( vt in this.m.ValidTypes )
-				{
-					if (a.getType() == vt)
-					{
-						_properties.Bravery += this.m.BraveryMult * 100 - 100;
-						return;
-					}
-				}
-			}
 		}
 
 	});
@@ -613,7 +587,7 @@ local gt = getroottable();
 
 		o.onUpdate = function( _properties )
 		{
-			local bodyHealth = this.getContainer().getActor().getHitpoints();
+			local bodyHealth = this.getContainer().getActor().getHitpointsMax();
 			_properties.DamageRegularMin += this.Math.floor(bodyHealth * 0.1);
 			_properties.DamageRegularMax += this.Math.floor(bodyHealth * 0.1);
 		}
@@ -905,7 +879,7 @@ local gt = getroottable();
 		o.create = function()
 		{
 			create();
-			this.m.Description = "Deals 200% damage when targets hitpoints persent is below 30%.";
+			this.m.Description = "对生命值低于50%的单位造成200%的伤害。";
 		}
 
 		o.onTargetHit = function( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
@@ -914,7 +888,7 @@ local gt = getroottable();
 
 		o.onAnySkillUsed <- function ( _skill, _targetEntity, _properties )
 		{
-			if (_targetEntity != null && _targetEntity.isAttackable() && _targetEntity.getHitpointsPct() <= 0.3)
+			if (_targetEntity != null && _targetEntity.isAttackable() && _targetEntity.getHitpointsPct() <= 0.5)
 			{
 				_properties.DamageTotalMult *= 2;
 			}
@@ -1529,7 +1503,7 @@ gt.Const.EL_Config.EL_modStrings <- function()
         },
 		{
             ID = "perk.ptr_cull",
-            tooltip = "Deals 200% damage when targets hitpoints persent is below 30%."
+            tooltip = "对生命值低于 50% 的单位造成 200% 的伤害。"
         },
 		{
             ID = "perk.ptr_discovered_talent",

@@ -128,7 +128,8 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
                    !skill.isType(this.Const.SkillType.Terrain) &&
                    !skill.isType(this.Const.SkillType.WorldEvent) &&
                    !skill.isType(this.Const.SkillType.Background) &&
-                   !skill.isType(this.Const.SkillType.Alert)
+                   !skill.isType(this.Const.SkillType.Alert) &&
+                   skill.getID() != "effects.gruesome_feast"
                 )
                 {
                     skills.remove(skill);

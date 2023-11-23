@@ -360,8 +360,11 @@ local gt = getroottable();
 			this.updateLevel();
 		}
 
-		o.addXP = function( _xp, _scale = true )
+		o.addXP = function( _xp, _scale = true, _ifReservesAdds = false)
 		{
+			if(!_ifReservesAdds && this.isInReserves()) {
+				return;
+			}
 			if (this.m.Level >= this.Const.LevelXP.len() || this.isGuest())
 			{
 				return;
