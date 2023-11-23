@@ -21,6 +21,13 @@ this.el_arena_champion_armor <- this.inherit("scripts/items/armor/armor", {
 		this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
 	}
 
+	function updateVariant()
+	{
+		this.armor.updateVariant();
+		this.m.IconLarge = "armor/arena_champion_armor.png";
+		this.m.Icon = "armor/icon_arena_champion_armor.png";
+	}
+
 	function getTooltip()
 	{
 		local result = this.armor.getTooltip();

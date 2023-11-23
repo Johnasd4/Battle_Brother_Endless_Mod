@@ -388,6 +388,15 @@ local gt = getroottable();
 
 	});
 
+	::mods_hookExactClass("skills/actives/swallow_whole_skill", function(o){
+
+        o.isUsable = function()
+        {
+            return false;
+        }
+
+	});
+
     ::mods_hookExactClass("skills/actives/sweep_skill", function(o){
         o.onPerformAttack = function( _tag )
         {
@@ -475,6 +484,7 @@ local gt = getroottable();
     ::mods_hookExactClass("skills/actives/sweep_zoc_skill", function(o){
         local create = o.create;
         o.create = function() {
+            create();
             this.m.ActionPointCost = 4;
         }
 	});

@@ -299,6 +299,63 @@ local gt = getroottable();
 
 	});
 
+	::mods_hookExactClass("skills/effects/gruesome_feast_effect", function(o){
+        o.m.EL_ExtraStack <- 0;
+        o.addFeastStack = function()
+        {
+            local actor = this.getContainer().getActor();
+            if(actor.getSize() < 3) {
+                actor.grow();
+            }
+            else {
+                ++this.m.EL_ExtraStack;
+                this.m.Name = "Feasted(x" + this.m.EL_ExtraStack + ")";
+            }
+            local skills = actor.getSkills();
+            foreach( skill in skills.m.Skills ) {
+                if(skill.isType(this.Const.SkillType.TemporaryInjury))
+                {
+                    skills.remove(skill);
+                }
+            }
+            actor.checkMorale(1, 20);
+        }
+        o.onUpdate = function ( _properties )
+        {
+            local base_properties = this.getContainer().getActor().getBaseProperties();
+            local size = this.getContainer().getActor().getSize();
+            this.m.IsHidden = size <= 1;
+
+            if (size == 2)
+            {
+                _properties.Hitpoints += this.Math.floor(base_properties.Hitpoints * 2);
+                _properties.MeleeSkill += 10;
+                _properties.MeleeDefense += 5;
+                _properties.RangedDefense -= 5;
+                _properties.Bravery += 30;
+                _properties.DamageRegularMin += 15;
+                _properties.DamageRegularMax += 20;
+                _properties.Initiative -= 15;
+            }
+            else if (size >= 3)
+            {
+                _properties.Hitpoints += this.Math.floor(base_properties.Hitpoints * (2 + this.m.EL_ExtraStack));
+                _properties.MeleeSkill += 20 + 10 * this.m.EL_ExtraStack;
+                _properties.MeleeDefense += 10 + 5 * this.m.EL_ExtraStack;
+                _properties.RangedDefense -= 10 + 5 * this.m.EL_ExtraStack;
+                _properties.Bravery += 60 + 30 * this.m.EL_ExtraStack;
+                _properties.DamageRegularMin += 30 + 15 * this.m.EL_ExtraStack;
+                _properties.DamageRegularMax += 40 + 20 * this.m.EL_ExtraStack;
+                _properties.Initiative -= 30 + 15 * this.m.EL_ExtraStack;
+                this.getContainer().getActor().getAIAgent().getProperties().BehaviorMult[this.Const.AI.Behavior.ID.Retreat] = 0.0;
+            }
+
+
+        }
+
+	});
+
+
 
 	::mods_hookExactClass("skills/effects/insect_swarm_effect", function(o){
 
@@ -1380,17 +1437,13 @@ local gt = getroottable();
             local head = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
             if(head != null) {
                 head_armor = head.getCondition();
-                head_armor_max = head.getConditionMax();
             }
             else {
                 head_armor = properties.Armor[this.Const.BodyPart.Head];
-                head_armor_max = properties.ArmorMax[this.Const.BodyPart.Head];
             }
-            local persent = 1;
-            if(head_armor + body_armor != 0) {
-                local persent = 1.0 * (head_armor + body_armor) / (1.0 * (head_armor_max + body_armor_max));
-            }
-            local damage_received_direct_mult = this.Math.maxf(0, 1 - (armorFat / (1.0 + actor.getLevel() * 0.04)) * 0.05 * 0.10 * persent);
+
+            local calculate_armor = (head_armor + body_armor) / (1.0 + actor.getLevel() * 0.04);
+            local damage_received_direct_mult = 1 - calculate_armor / (200.0 + calculate_armor);
 
             if(extra_movement_fatigue_cost > 0) {
                 tooltip.push({
@@ -1447,17 +1500,12 @@ local gt = getroottable();
                 local head = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
                 if(head != null) {
                     head_armor = head.getCondition();
-                    head_armor_max = head.getConditionMax();
                 }
                 else {
                     head_armor = _properties.Armor[this.Const.BodyPart.Head];
-                    head_armor_max = _properties.ArmorMax[this.Const.BodyPart.Head];
                 }
-                local persent = 1;
-                if(head_armor + body_armor != 0) {
-                    local persent = 1.0 * (head_armor + body_armor) / (1.0 * (head_armor_max + body_armor_max));
-                }
-                local damage_received_direct_mult = this.Math.maxf(0, 1 - (armorFat / (1.0 + actor.getLevel() * 0.04)) * 0.05 * 0.10 * persent);
+                local calculate_armor = (head_armor + body_armor) / (1.0 + actor.getLevel() * 0.04);
+                local damage_received_direct_mult = 1 - calculate_armor / (200.0 + calculate_armor);
                 _properties.DamageReceivedDirectMult *= damage_received_direct_mult;
             }
         }

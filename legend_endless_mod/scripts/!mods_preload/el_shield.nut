@@ -511,6 +511,33 @@ local gt = getroottable();
 		}
 	});
 
+	::mods_hookExactClass("items/shields/legendary/gilders_embrace_shield", function ( o ){
+        local create = o.create;
+        o.create = function()
+        {
+            create();
+            this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+        }
+
+		o.getTooltip = function()
+		{
+			local result = this.shield.getTooltip();
+			result.push({
+				id = 8,
+				type = "text",
+				icon = "ui/icons/special.png",
+				text = "Is indestructible"
+			});
+			result.push({
+				id = 8,
+				type = "text",
+				icon = "ui/icons/special.png",
+				text = "Everyone striking this shield receives the \'Dazed\' effect"
+			});
+			return result;
+		}
+	});
+
 	::mods_hookExactClass("skills/actives/split_shield", function(o){
         o.onUse = function( _user, _targetTile )
         {
@@ -588,3 +615,5 @@ local gt = getroottable();
         }
 	});
 });
+
+

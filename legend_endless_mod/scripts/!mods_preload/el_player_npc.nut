@@ -400,8 +400,7 @@ local gt = getroottable();
 					{
 						return false;
 					}
-					//OVERRIDE
-					if(this.getSkills().hasSkill("rarity_entry.el_vehemence_of_the_sky") && this.getSkills().getSkillByID("rarity_entry.el_vehemence_of_the_sky").EL_isUsable())
+					if(this.getSkills().hasSkill("el_rarity_entry.vehemence_of_the_sky") && this.getSkills().getSkillByID("el_rarity_entry.vehemence_of_the_sky").EL_isUsable())
 					{
 						return false;
 					}
@@ -718,7 +717,7 @@ local gt = getroottable();
 				armor = armor - armorDamage;
 				_hitInfo.DamageInflictedArmor = this.Math.max(0, armorDamage);
 			}
-			_hitInfo.DamageRegular = this.Math.maxf(0.0, _hitInfo.DamageRegular - armor * this.Const.Combat.ArmorDirectDamageMitigationMult);
+			_hitInfo.DamageRegular = this.Math.maxf(0.0, _hitInfo.DamageRegular - armor * this.Const.EL_PlayerNPC.EL_ArmorDirectDamageMitigationMult);
 			_hitInfo.DamageRegular *= p.DamageReceivedRegularMult * dmgMult;
 
 			_hitInfo.DamageFatigue *= p.FatigueEffectMult;
