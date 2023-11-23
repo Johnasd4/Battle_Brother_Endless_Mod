@@ -16,7 +16,41 @@ this.el_taelia_present_item <- this.inherit("scripts/items/accessory/accessory",
 
 	function getTooltip()
 	{
-		local result = this.accessory.getTooltip();
+		local result = [
+			{
+				id = 1,
+				type = "title",
+				text = this.getName()
+			},
+			{
+				id = 2,
+				type = "description",
+				text = this.getDescription()
+			}
+		];
+		result.push({
+			id = 66,
+			type = "text",
+			text = this.getValueString()
+		});
+
+		if (this.getIconLarge() != null)
+		{
+			result.push({
+				id = 3,
+				type = "image",
+				image = this.getIconLarge(),
+				isLarge = true
+			});
+		}
+		else
+		{
+			result.push({
+				id = 3,
+				type = "image",
+				image = this.getIcon()
+			});
+		}
 		result.push({
 			id = 9,
 			type = "text",

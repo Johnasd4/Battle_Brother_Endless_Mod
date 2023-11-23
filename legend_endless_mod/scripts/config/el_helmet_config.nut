@@ -39,8 +39,7 @@ gt.Const.EL_Helmet <- {
 		RecraftFactor = 1,
 		SeniorEquipmentEssenceMult = 0.1,
 		LowerEquipmentEssenceMult = 3,
-		UnlayeredStrengthenEntryNum = 1,
-		LayeredStrengthenEntryNum = 1,
+		StrengthenEntryNum = 1,
 		UnlayeredUpgradeRankLegendaryNum = 3,
 		LayeredUpgradeRankLegendaryNum = 1,
 		MinCalculateWeight = -1
