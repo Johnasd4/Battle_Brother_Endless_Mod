@@ -415,7 +415,7 @@ local gt = getroottable();
 				this.m.XP = this.Const.LevelXP[this.Const.LevelXP.len() - 1];
 				return;
 			}
-			this.m.XP = this.Math.min(this.Const.LevelXP[this.m.Level + this.Const.EL_Player.EL_PlayerLevel.MaxLevelImproveOnce - 1], this.m.XP + this.Math.floor(_xp));
+			this.m.XP = this.Math.min(this.Const.LevelXP[this.Math.min(this.Const.LevelXP.len() - 1, this.m.Level + this.Const.EL_Player.EL_PlayerLevel.MaxLevelImproveOnce - 1)], this.m.XP + this.Math.floor(_xp));
 			this.m.CombatStats.XPGained += this.Math.floor(_xp);
 		};
 
