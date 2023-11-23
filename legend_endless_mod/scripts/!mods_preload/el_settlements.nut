@@ -260,6 +260,15 @@ local gt = getroottable();
 							price = this.Math.floor(1000 * (1 + this.Const.EL_Player.EL_HealInjury.LevelMult * b.getLevel()) * this.Const.EL_Player.EL_HealInjury.PermanentMult),
 						});
 					}
+					else if( inj.getID() == "el_effect.become_undead" )
+					{
+						injuries.push({
+							id = inj.getID(),
+							icon = inj.getIconColored(),
+							name = inj.getNameOnly(),
+							price = this.Math.floor(this.Math.pow(inj.m.EL_ConversionProgress, 2) / 10 * (1 + this.Const.EL_Player.EL_HealInjury.LevelMult * b.getLevel()) * this.Const.EL_Player.EL_HealInjury.PermanentMult),
+						});
+					}
 
 					i = ++i;
 				}

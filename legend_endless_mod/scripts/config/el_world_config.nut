@@ -23,6 +23,10 @@ gt.Const.EL_World <- {
         Table = [],
     },
 
+    EL_SoulEnergy = {
+        Min = 10
+    },
+
     EL_WorldStrength = {
         Min = 40,
         Factor = {

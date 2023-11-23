@@ -217,6 +217,10 @@ local gt = getroottable();
             }
             this.m.EL_IsNonHumanoid = _in.readBool();
 		}
+        
+        o.isGuest <- function() {
+            return true;
+        }
 
         o.EL_isNonHumanoid <- function() {
             return this.m.EL_IsNonHumanoid;
@@ -255,6 +259,7 @@ local gt = getroottable();
             this.getSkills().add(this.new("scripts/skills/effects/battle_standard_effect"));
             this.getSkills().add(this.new("scripts/skills/effects/wms_mastery_effect"));
 			this.getSkills().add(this.new("scripts/skills/el_entrys/el_total_entry"));
+            this.getSkills().add(this.new("scripts/skills/el_effects/el_lichking_halo_effect"));
 			local flags = this.getFlags();
 			if (flags.has("undead") && !flags.has("ghost") && !flags.has("ghoul") && !flags.has("vampire"))
 			{
@@ -273,8 +278,9 @@ local gt = getroottable();
 			if (this.m.MoraleState != this.Const.MoraleState.Ignore)
 			{
 				this.m.Skills.add(this.new("scripts/skills/effects/battle_standard_effect"));
-				this.m.Skills.add(this.new("scripts/skills/el_entrys/el_total_entry"));
 			}
+			this.m.Skills.add(this.new("scripts/skills/el_entrys/el_total_entry"));
+            this.getSkills().add(this.new("scripts/skills/el_effects/el_lichking_halo_effect"));
 			return;
 		}
 

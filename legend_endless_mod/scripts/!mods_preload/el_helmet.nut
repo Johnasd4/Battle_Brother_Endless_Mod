@@ -56,7 +56,7 @@ local gt = getroottable();
 			}
 			if(this.m.EL_DamageHeadArmorReduction)
 			{
-				result.insert(8, {
+				result.insert(7, {
 					id = 24,
 					type = "text",
 					icon = "ui/icons/melee_defense.png",
@@ -65,7 +65,7 @@ local gt = getroottable();
 			}
 			if(this.m.EL_DamageRegularReduction)
 			{
-				result.insert(8, {
+				result.insert(7, {
 					id = 24,
 					type = "text",
 					icon = "ui/icons/regular_damage.png",

@@ -85,6 +85,10 @@ gt.Const.EL_Item_Other <- {
 		"weapons/legendary/obsidian_dagger",
 		"shields/legendary/gilders_embrace_shield"
 		"tools/player_banner",
+		"el_accessory/el_taelia_present_item",
+		"el_weapon/el_frostmourne",
+		"el_helmet/el_crown_of_rule",
+		"el_armor/el_ice_armor"
 	],	
 	EL_SpecialNamedItem = [
 		"legend_armor/chain/legend_armor_hauberk_full_named",

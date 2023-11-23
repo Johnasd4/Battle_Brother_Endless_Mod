@@ -100,6 +100,51 @@ local gt = getroottable();
 			}
 		}
 
+		o.EL_canUpgradeLevelInBagOrStash <- function()
+		{
+			if(!this.Const.EL_LichKing.IsLichKingSuit(this))
+			{
+				return false;
+			}
+			return true;
+		}
+
+		o.EL_canUpgradeRankInBagOrStash <- function()
+		{
+			if(!this.Const.EL_LichKing.IsLichKingSuit(this))
+			{
+				return false;
+			}
+			return true;
+		}
+
+		o.EL_canRecraftInBagOrStash <- function()
+		{
+			if(!this.Const.EL_LichKing.IsLichKingSuit(this))
+			{
+				return false;
+			}
+			return true;
+		}
+
+		o.EL_canDisassembleInBagOrStash <- function()
+		{
+			if(1)
+			{
+				return false;
+			}
+			return true;
+		}
+
+		o.EL_canDropIntoBagOrStash <- function()
+		{
+			if(!this.Const.EL_LichKing.IsLichKingSuit(this))
+			{
+				return false;
+			}
+			return true;
+		}
+
 		o.EL_hasEntry <- function( _id )
 		{
 			foreach(entry in this.m.EL_EntryList)
@@ -122,6 +167,19 @@ local gt = getroottable();
 		{
 			this.m.SkillPtrs.push(_entry);
 			this.getContainer().getActor().getSkills().add(_entry);
+		}
+
+		o.EL_getEntryListLen <- function()
+		{
+			local reuslt = this.m.EL_EntryList.len();
+			for(local index = 0; index < this.m.EL_EntryList.len(); ++index)
+			{
+				if(this.m.EL_EntryList[index].getID() == "el_special_entry.repair_by_engrgy" || this.m.EL_EntryList[index].getID() == "el_rarity_entry.vehemence_of_the_sky_subsidiary")
+				{
+					--reuslt;
+				}
+			}
+			return reuslt;
 		}
 
 		o.EL_getStrengthenEntryNum <- function()
