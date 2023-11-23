@@ -130,7 +130,8 @@ this.el_lichking_death_summon <- this.inherit("scripts/skills/skill", {
 						r -= this.Const.EL_LichKing.Weapon.DeathSummon.ZombiePool.Senior[i].Weight;
 						continue;
 					}
-					return this.Const.EL_LichKing.Weapon.DeathSummon.ZombiePool.Senior[i].Script;
+					local random = this.Math.rand(0, this.Const.EL_LichKing.Weapon.DeathSummon.ZombiePool.Normal[i].Script.len() - 1);
+					return this.Const.EL_LichKing.Weapon.DeathSummon.ZombiePool.Senior[i].Script[random];
 				}
 			}
 			else
@@ -152,7 +153,8 @@ this.el_lichking_death_summon <- this.inherit("scripts/skills/skill", {
 						r -= this.Const.EL_LichKing.Weapon.DeathSummon.ZombiePool.Normal[i].Weight;
 						continue;
 					}
-					return this.Const.EL_LichKing.Weapon.DeathSummon.ZombiePool.Normal[i].Script;
+					local random = this.Math.rand(0, this.Const.EL_LichKing.Weapon.DeathSummon.ZombiePool.Normal[i].Script.len() - 1);
+					return this.Const.EL_LichKing.Weapon.DeathSummon.ZombiePool.Normal[i].Script[random];
 				}
 			}
 		}
@@ -177,7 +179,7 @@ this.el_lichking_death_summon <- this.inherit("scripts/skills/skill", {
 						r -= this.Const.EL_LichKing.Weapon.DeathSummon.SkeletonPool.Senior[i].Weight;
 						continue;
 					}
-					local random = this.Math.rand(0, this.Const.EL_LichKing.Weapon.DeathSummon.GhostPool.Normal[i].Script.len() - 1)
+					local random = this.Math.rand(0, this.Const.EL_LichKing.Weapon.DeathSummon.GhostPool.Normal[i].Script.len() - 1);
 					return this.Const.EL_LichKing.Weapon.DeathSummon.SkeletonPool.Senior[i].Script[random];
 				}
 			}
@@ -200,7 +202,7 @@ this.el_lichking_death_summon <- this.inherit("scripts/skills/skill", {
 						r -= this.Const.EL_LichKing.Weapon.DeathSummon.SkeletonPool.Normal[i].Weight;
 						continue;
 					}
-					local random = this.Math.rand(0, this.Const.EL_LichKing.Weapon.DeathSummon.GhostPool.Normal[i].Script.len() - 1)
+					local random = this.Math.rand(0, this.Const.EL_LichKing.Weapon.DeathSummon.GhostPool.Normal[i].Script.len() - 1);
 					return this.Const.EL_LichKing.Weapon.DeathSummon.SkeletonPool.Normal[i].Script[random];
 				}
 			}
@@ -224,7 +226,7 @@ this.el_lichking_death_summon <- this.inherit("scripts/skills/skill", {
 					r -= this.Const.EL_LichKing.Weapon.DeathSummon.GhostPool.Senior[i].Weight;
 					continue;
 				}
-				local random = this.Math.rand(0, this.Const.EL_LichKing.Weapon.DeathSummon.GhostPool.Normal[i].Script.len() - 1)
+				local random = this.Math.rand(0, this.Const.EL_LichKing.Weapon.DeathSummon.GhostPool.Normal[i].Script.len() - 1);
 				return this.Const.EL_LichKing.Weapon.DeathSummon.GhostPool.Senior[i].Script[random];
 			}
 		}
@@ -247,7 +249,7 @@ this.el_lichking_death_summon <- this.inherit("scripts/skills/skill", {
 					r -= this.Const.EL_LichKing.Weapon.DeathSummon.GhostPool.Normal[i].Weight;
 					continue;
 				}
-				local random = this.Math.rand(0, this.Const.EL_LichKing.Weapon.DeathSummon.GhostPool.Normal[i].Script.len() - 1)
+				local random = this.Math.rand(0, this.Const.EL_LichKing.Weapon.DeathSummon.GhostPool.Normal[i].Script.len() - 1);
 				return this.Const.EL_LichKing.Weapon.DeathSummon.GhostPool.Normal[i].Script[random];
 			}
 		}
@@ -278,7 +280,9 @@ this.el_lichking_death_summon <- this.inherit("scripts/skills/skill", {
 	function onUse( _user, _targetTile )
 	{
         this.World.Assets.EL_addSoulEnergy(-this.m.EL_SoulEnergyCost);
-		local entity = this.Const.World.Common.EL_addEntityByScript(this.getScript(_targetTile.Properties.has("Corpse")), _targetTile, this.Const.Faction.Player, this.Math.floor(this.m.EL_RankLevel * 0.5), _user.EL_getLevel());
+		local script = this.getScript(_targetTile.Properties.has("Corpse"));
+		local entity = this.Const.World.Common.EL_addEntityByScript(script, _targetTile, this.Const.Faction.Player, this.Math.floor(this.m.EL_RankLevel * 0.5), _user.EL_getLevel());
+		this.logInfo("script:" + script);
 		local helmet = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Head);
 		helmet.EL_addEntityToControlList(entity, this.Const.EL_LichKing.Weapon.DeathSummon.ControlAbilityCost[this.m.EL_RankLevel], entity.getAIAgent());
 		
