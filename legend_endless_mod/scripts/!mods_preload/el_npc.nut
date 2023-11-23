@@ -119,9 +119,6 @@ local gt = getroottable();
                     extra_elite_buff_num = this.Const.EL_NPC.EL_NPCBuff.Num.BossUnitExtraRank1;
                     extra_leader_buff_num = this.Const.EL_NPC.EL_NPCBuff.Num.BossUnitExtraRank2;
                 }
-                this.logInfo("0 extra_normal_buff_num = " + extra_normal_buff_num);
-                this.logInfo("0 extra_elite_buff_num = " + extra_elite_buff_num);
-                this.logInfo("0 extra_leader_buff_num = " + extra_leader_buff_num);
                 if(_e.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand) == null &&
                    _e.getItems().getItemAtSlot(this.Const.ItemSlot.Offhand) == null)
                 {
@@ -135,9 +132,6 @@ local gt = getroottable();
                     extra_elite_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank1[_t.EL_RankLevel];
                     extra_leader_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.HumanoidRank2[_t.EL_RankLevel];
                 }
-                this.logInfo("1 extra_normal_buff_num = " + extra_normal_buff_num);
-                this.logInfo("1 extra_elite_buff_num = " + extra_elite_buff_num);
-                this.logInfo("1 extra_leader_buff_num = " + extra_leader_buff_num);
                 local chance = this.World.Assets.EL_getWorldDifficultFactor() * 100 - 100;
                 while(true) {
                     local r = this.Math.rand(1, this.Const.EL_NPC.EL_Troop.ExtraBuffRollMax);
@@ -164,15 +158,9 @@ local gt = getroottable();
                         extra_normal_buff_num += this.Const.EL_NPC.EL_NPCBuff.Num.ExtraBuffRank0[0];
                     }
                 }
-                this.logInfo("2 extra_normal_buff_num = " + extra_normal_buff_num);
-                this.logInfo("2 extra_elite_buff_num = " + extra_elite_buff_num);
-                this.logInfo("2 extra_leader_buff_num = " + extra_leader_buff_num);
                 extra_normal_buff_num += _t.EL_ExtraBuffNum[0];
                 extra_elite_buff_num += _t.EL_ExtraBuffNum[1];
                 extra_leader_buff_num += _t.EL_ExtraBuffNum[2];
-                this.logInfo("3 extra_normal_buff_num = " + extra_normal_buff_num);
-                this.logInfo("3 extra_elite_buff_num = " + extra_elite_buff_num);
-                this.logInfo("3 extra_leader_buff_num = " + extra_leader_buff_num);
                 if(_e.getFaction() != this.Const.Faction.Player && _e.getFaction() != this.Const.Faction.PlayerAnimals) {
                     this.Const.EL_NPC.EL_NPCBuff.EL_assignNPCBuffs(_e, extra_normal_buff_num, extra_elite_buff_num, extra_leader_buff_num);
                 }
