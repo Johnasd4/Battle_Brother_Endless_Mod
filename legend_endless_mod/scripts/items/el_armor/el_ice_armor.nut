@@ -105,7 +105,7 @@ this.el_ice_armor <- this.inherit("scripts/items/armor/armor", {
 
 	function EL_getRecraftSoulEnergy()
 	{
-		return this.Const.EL_LichKing.SoulEnergy.RecraftConsumption;
+		return this.Const.EL_LichKing.SoulEnergy.RecraftConsumption * this.EL_getRankLevel();
 	}
 });
 

@@ -395,7 +395,7 @@ local gt = getroottable();
 						result[rank_level] += this.Math.ceil(this.Const.EL_Accessory.EL_EquipmentEssence.UpgradeRankFactor * this.Math.abs(min_calculate_weight));
 					}
 					result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Accessory.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel) * this.Const.EL_Accessory.EL_EquipmentEssence.UpgradeLevelFactor 
-														* this.Math.abs(calculate_weight * (1 + this.Const.EL_Accessory.EL_LevelFactor.StaminaModifier * this.m.EL_Level)) * this.Const.EL_Accessory.EL_EquipmentEssence.UpgradeRankNormalEssenceFactor);	
+															* this.Math.abs(min_calculate_weight * (1 + this.Const.EL_Accessory.EL_LevelFactor.StaminaModifier * this.m.EL_Level)) * this.Const.EL_Accessory.EL_EquipmentEssence.UpgradeRankNormalEssenceFactor);	
 				}
 				else if(this.m.EL_RarityEntry == null)
 				{
