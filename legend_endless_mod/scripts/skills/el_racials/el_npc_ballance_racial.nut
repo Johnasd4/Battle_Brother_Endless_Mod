@@ -64,7 +64,7 @@ this.el_npc_ballance_racial <- this.inherit("scripts/skills/skill", {
             _properties.MeleeDefense += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.MeleeDefense + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.MeleeDefense) * (half_difficulty_mult - 1);
             _properties.RangedDefense += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.RangedDefense + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.RangedDefense) * (half_difficulty_mult - 1);
             _properties.DamageReceivedTotalMult /= (this.Const.EL_NPC.EL_DifficultBallance.DamageReceivedTotalDiv) * (difficulty_mult > 1 ? difficulty_mult * difficulty_mult : difficulty_mult);
-            _properties.DamageDirectMult *= (this.Const.EL_NPC.EL_DifficultBallance.DirectDamageMult) * half_difficulty_mult;
+            _properties.DamageTotalMult *= (this.Const.EL_NPC.EL_DifficultBallance.DamageTotalMult) * half_difficulty_mult;
         }
 	}
 
