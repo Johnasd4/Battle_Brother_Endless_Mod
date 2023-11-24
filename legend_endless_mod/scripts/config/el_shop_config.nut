@@ -157,18 +157,18 @@ gt.Const.EL_Shop <- {
     },
 	EL_EquipmentEssence = {
 		NumEachGroup = [
-			200,
-			10,
-			10,
-			10,
+			1000,
+			100,
+			100,
+			100,
 			1
 		],
 		PriceEachOne = [
 			1,
+			50,
 			200,
-			500,
-			1200,
-			500000
+			1000,
+			100000
 		]
 	},
 	EL_PremiumEquipmentEssenceChance = {

@@ -343,10 +343,28 @@ local gt = getroottable();
                                 item.EL_generateCoreXPByActorXP(10 * core_xp);
                             }
                             else if(EL_isEssence)
-                            {
-                                item = this.new("scripts/items/el_supplies/el_equipment_essence_rank_0_item");
-                                item.EL_setAmount(this.Const.EL_Shop.EL_EquipmentEssence.NumEachGroup[0]);
-                                item.setValue(item.EL_getAmount() * this.Const.EL_Shop.EL_EquipmentEssence.PriceEachOne[0]);
+                            {                                
+                                local r = this.Math.rand(1, 100000);
+                                local essence_rank = 0;
+                                if(r <= this.Const.EL_Shop.EL_LegendaryEquipmentEssenceChance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor())
+                                {
+                                    essence_rank = 4;
+                                }
+                                else if(r <= this.Const.EL_Shop.EL_EpicEquipmentEssenceChance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor())
+                                {
+                                    essence_rank = 3;
+                                }
+                                else if(r <= this.Const.EL_Shop.EL_FineEquipmentEssenceChance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor())
+                                {
+                                    essence_rank = 2;
+                                }
+                                else if(r <= this.Const.EL_Shop.EL_PremiumEquipmentEssenceChance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor())
+                                {
+                                    essence_rank = 1;
+                                }
+                                item = this.new("scripts/items/el_supplies/el_equipment_essence_rank_" + essence_rank + "_item");
+                                item.EL_setAmount(this.Const.EL_Shop.EL_EquipmentEssence.NumEachGroup[essence_rank]);
+                                item.setValue(item.EL_getAmount() * this.Const.EL_Shop.EL_EquipmentEssence.PriceEachOne[essence_rank]);
                             }
                             else
                             {
@@ -408,48 +426,48 @@ local gt = getroottable();
                     }
                 }
             }
-            if(EL_hasEssence)
-            {
-                local r = this.Math.rand(1, 100000);
-                local item;
-                local essence_rank = 0;
-                if(r <= this.Const.EL_Shop.EL_LegendaryEquipmentEssenceChance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor())
-                {
-                    essence_rank = 4;
-                    item = this.new("scripts/items/el_supplies/el_equipment_essence_rank_" + essence_rank + "_item");
-                    item.EL_setAmount(this.Const.EL_Shop.EL_EquipmentEssence.NumEachGroup[essence_rank]);
-                    item.setValue(item.EL_getAmount() * this.Const.EL_Shop.EL_EquipmentEssence.PriceEachOne[essence_rank]);
-                    item.setPriceMult(_priceMult);
-                    _stash.add(item);
-                }
-                if(r <= this.Const.EL_Shop.EL_EpicEquipmentEssenceChance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor())
-                {
-                    essence_rank = 3;
-                    item = this.new("scripts/items/el_supplies/el_equipment_essence_rank_" + essence_rank + "_item");
-                    item.EL_setAmount(this.Const.EL_Shop.EL_EquipmentEssence.NumEachGroup[essence_rank]);
-                    item.setValue(item.EL_getAmount() * this.Const.EL_Shop.EL_EquipmentEssence.PriceEachOne[essence_rank]);
-                    item.setPriceMult(_priceMult);
-                    _stash.add(item);
-                }
-                if(r <= this.Const.EL_Shop.EL_FineEquipmentEssenceChance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor())
-                {
-                    essence_rank = 2;
-                    item = this.new("scripts/items/el_supplies/el_equipment_essence_rank_" + essence_rank + "_item");
-                    item.EL_setAmount(this.Const.EL_Shop.EL_EquipmentEssence.NumEachGroup[essence_rank]);
-                    item.setValue(item.EL_getAmount() * this.Const.EL_Shop.EL_EquipmentEssence.PriceEachOne[essence_rank]);
-                    item.setPriceMult(_priceMult);
-                    _stash.add(item);
-                }
-                if(r <= this.Const.EL_Shop.EL_PremiumEquipmentEssenceChance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor())
-                {
-                    essence_rank = 1;
-                    item = this.new("scripts/items/el_supplies/el_equipment_essence_rank_" + essence_rank + "_item");
-                    item.EL_setAmount(this.Const.EL_Shop.EL_EquipmentEssence.NumEachGroup[essence_rank]);
-                    item.setValue(item.EL_getAmount() * this.Const.EL_Shop.EL_EquipmentEssence.PriceEachOne[essence_rank]);
-                    item.setPriceMult(_priceMult);
-                    _stash.add(item);
-                }
-            }
+            // if(EL_hasEssence)
+            // {
+            //     local r = this.Math.rand(1, 100000);
+            //     local item;
+            //     local essence_rank = 0;
+            //     if(r <= this.Const.EL_Shop.EL_LegendaryEquipmentEssenceChance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor())
+            //     {
+            //         essence_rank = 4;
+            //         item = this.new("scripts/items/el_supplies/el_equipment_essence_rank_" + essence_rank + "_item");
+            //         item.EL_setAmount(this.Const.EL_Shop.EL_EquipmentEssence.NumEachGroup[essence_rank]);
+            //         item.setValue(item.EL_getAmount() * this.Const.EL_Shop.EL_EquipmentEssence.PriceEachOne[essence_rank]);
+            //         item.setPriceMult(_priceMult);
+            //         _stash.add(item);
+            //     }
+            //     if(r <= this.Const.EL_Shop.EL_EpicEquipmentEssenceChance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor())
+            //     {
+            //         essence_rank = 3;
+            //         item = this.new("scripts/items/el_supplies/el_equipment_essence_rank_" + essence_rank + "_item");
+            //         item.EL_setAmount(this.Const.EL_Shop.EL_EquipmentEssence.NumEachGroup[essence_rank]);
+            //         item.setValue(item.EL_getAmount() * this.Const.EL_Shop.EL_EquipmentEssence.PriceEachOne[essence_rank]);
+            //         item.setPriceMult(_priceMult);
+            //         _stash.add(item);
+            //     }
+            //     if(r <= this.Const.EL_Shop.EL_FineEquipmentEssenceChance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor())
+            //     {
+            //         essence_rank = 2;
+            //         item = this.new("scripts/items/el_supplies/el_equipment_essence_rank_" + essence_rank + "_item");
+            //         item.EL_setAmount(this.Const.EL_Shop.EL_EquipmentEssence.NumEachGroup[essence_rank]);
+            //         item.setValue(item.EL_getAmount() * this.Const.EL_Shop.EL_EquipmentEssence.PriceEachOne[essence_rank]);
+            //         item.setPriceMult(_priceMult);
+            //         _stash.add(item);
+            //     }
+            //     if(r <= this.Const.EL_Shop.EL_PremiumEquipmentEssenceChance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor())
+            //     {
+            //         essence_rank = 1;
+            //         item = this.new("scripts/items/el_supplies/el_equipment_essence_rank_" + essence_rank + "_item");
+            //         item.EL_setAmount(this.Const.EL_Shop.EL_EquipmentEssence.NumEachGroup[essence_rank]);
+            //         item.setValue(item.EL_getAmount() * this.Const.EL_Shop.EL_EquipmentEssence.PriceEachOne[essence_rank]);
+            //         item.setPriceMult(_priceMult);
+            //         _stash.add(item);
+            //     }
+            // }
             _stash.sort();
         }
 	});
