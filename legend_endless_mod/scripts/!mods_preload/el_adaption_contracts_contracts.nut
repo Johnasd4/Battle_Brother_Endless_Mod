@@ -905,7 +905,15 @@ local gt = getroottable();
                             //4
                             if(temp_level > 0) {
                                 foreach(troop in party.getTroops()) {
-                                    troop.EL_ExtraBuffNum[1] += 2;
+                                    if(troop.EL_RankLevel == 1)
+                                    {
+                                        troop.EL_ExtraBuffNum[1] += 2;
+                                    }
+                                    else
+                                    {
+                                        troop.EL_IsBossUnit = true;
+                                    }
+                                    
                                 }
                                 --temp_level;
                             }
@@ -1018,11 +1026,6 @@ local gt = getroottable();
                             }
                             break;
                         case 2:
-                            if(this.World.Assets.m.EL_ArenaLevel > this.World.Assets.m.EL_ArenaMaxLevel) {
-                                local reward_item = this.new("scripts/items/el_helmet/el_arena_champion_helmet");
-                                this.World.Assets.getStash().makeEmptySlots(1);
-                                this.World.Assets.getStash().add(reward_item);
-                            }
                             for(local i = 0; i < 3; ++i)
                             {
                                 local reward_item = this.new("scripts/items/el_misc/el_core_rank_2_item");
@@ -1032,11 +1035,6 @@ local gt = getroottable();
                             }
                             break;
                         case 3:
-                            if(this.World.Assets.m.EL_ArenaLevel > this.World.Assets.m.EL_ArenaMaxLevel) {
-                                local reward_item = this.new("scripts/items/el_armor/el_arena_champion_armor");
-                                this.World.Assets.getStash().makeEmptySlots(1);
-                                this.World.Assets.getStash().add(reward_item);
-                            }
                             for(local i = 0; i < 3; ++i)
                             {
                                 local reward_item = this.new("scripts/items/el_misc/el_core_rank_3_item");
@@ -1047,6 +1045,15 @@ local gt = getroottable();
                             break;
                         case 4:
                             if(this.World.Assets.m.EL_ArenaLevel > this.World.Assets.m.EL_ArenaMaxLevel) {
+                                local reward_item = this.new("scripts/items/el_helmet/el_arena_champion_helmet");
+                                this.World.Assets.getStash().makeEmptySlots(1);
+                                this.World.Assets.getStash().add(reward_item);
+                                local reward_item = this.new("scripts/items/el_armor/el_arena_champion_armor");
+                                this.World.Assets.getStash().makeEmptySlots(1);
+                                this.World.Assets.getStash().add(reward_item);
+                                // local reward_item = this.new("scripts/items/el_armor/el_arena_champion_armor");
+                                // this.World.Assets.getStash().makeEmptySlots(1);
+                                // this.World.Assets.getStash().add(reward_item);
                                 local reward_item = this.new("scripts/items/el_accessory/el_arena_champion_item");
                                 this.World.Assets.getStash().makeEmptySlots(1);
                                 this.World.Assets.getStash().add(reward_item);
