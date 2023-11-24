@@ -961,9 +961,6 @@ local gt = getroottable();
             else {
                 max_troop_num = this.Math.min(this.Const.EL_NPC.EL_Troop.MaxTroopNum, this.Const.EL_NPC.EL_Troop.BaseMaxTroopNum + this.World.Assets.m.EL_WorldLevel * this.Const.EL_NPC.EL_Troop.MaxTroopNumAddPurWorldLevel);
             }
-            _EL_troop.EL_ExtraBuffNum[0] = 0;
-            _EL_troop.EL_ExtraBuffNum[1] = 0;
-            _EL_troop.EL_ExtraBuffNum[2] = 0;
             if(this.m.EL_FinishGenerate) {
                 local troop_info = this.Const.EL_NPC.EL_Troop.EL_getTroopInfo(_EL_troop);
                 //Calculate ranks, level, combat level.
@@ -997,6 +994,9 @@ local gt = getroottable();
                     _EL_troop.Name += this.Const.EL_NPC.EL_Troop.Name[this.Math.rand(0, this.Const.EL_NPC.EL_Troop.Name.len() - 1)];
                     _EL_troop.Name += this.Const.EL_NPC.EL_Troop.NameSuffix[_EL_troop.EL_RankLevel];
                 }
+                _EL_troop.EL_ExtraBuffNum[0] = 0;
+                _EL_troop.EL_ExtraBuffNum[1] = 0;
+                _EL_troop.EL_ExtraBuffNum[2] = 0;
                 if(_EL_troop.EL_IsBossUnit) {
 
                 }
@@ -1052,6 +1052,9 @@ local gt = getroottable();
                 if(this.m.EL_IsBossParty) {
                     for(local i = 0; i < this.m.Troops.len(); ++i) {
                         //At least two leaders.
+                        this.m.Troops[random_leader_index].EL_ExtraBuffNum[0] = 0;
+                        this.m.Troops[random_leader_index].EL_ExtraBuffNum[1] = 0;
+                        this.m.Troops[random_leader_index].EL_ExtraBuffNum[2] = 0;
                         if(troops_info[i].EL_IsBossUnit) {
                             this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevelMin);
                             this.m.Troops[i].EL_IsBossUnit = true;
@@ -1086,6 +1089,9 @@ local gt = getroottable();
                         ++i;
                     }
                     for(; i < troops_info.len(); ++i) {
+                        this.m.Troops[random_leader_index].EL_ExtraBuffNum[0] = 0;
+                        this.m.Troops[random_leader_index].EL_ExtraBuffNum[1] = 0;
+                        this.m.Troops[random_leader_index].EL_ExtraBuffNum[2] = 0;
                         if(troops_info[i].EL_IsBossUnit) {
                             this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevelMin);
                             this.m.Troops[i].EL_IsBossUnit = true;
@@ -1119,6 +1125,7 @@ local gt = getroottable();
                         if(this.m.Troops[random_leader_index].EL_IsBossUnit) {
                             this.m.Troops[random_leader_index].EL_ExtraBuffNum[0] = 0;
                             this.m.Troops[random_leader_index].EL_ExtraBuffNum[1] = 0;
+                            this.m.Troops[random_leader_index].EL_ExtraBuffNum[2] = 0;
                         }
                         else {
                             this.m.Troops[random_leader_index].EL_ExtraBuffNum[2] = this.m.Troops[random_leader_index].EL_ExtraBuffNum[1] + this.m.Troops[random_leader_index].EL_ExtraBuffNum[0];
