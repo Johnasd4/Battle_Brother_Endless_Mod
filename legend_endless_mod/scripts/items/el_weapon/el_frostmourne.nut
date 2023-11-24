@@ -19,6 +19,7 @@ this.el_frostmourne <- this.inherit("scripts/items/weapons/weapon", {
 		this.m.AddGenericSkill = true;
 		this.m.ShowQuiver = false;
 		this.m.ShowArmamentIcon = true;
+		this.m.IsDroppedAsLoot = false;
 		this.m.ArmamentIcon = "icon_legend_crusader_sword_01";
 		this.m.ShieldDamage = 32;
 		this.m.Condition = 72.0;
@@ -65,6 +66,12 @@ this.el_frostmourne <- this.inherit("scripts/items/weapons/weapon", {
 	{
 		local result = this.weapon.getTooltip();
 		result.push({
+			id = 10,
+			type = "text",
+            icon = "ui/icons/special.png",
+			text = "周围 " + EL_getAffectRange() + " 格内有敌方单位死亡时获取灵魂能量。"
+		});
+		result.push({
             id = 11,
             type = "text",
             icon = "ui/tooltips/soul_energy.png",
@@ -74,7 +81,7 @@ this.el_frostmourne <- this.inherit("scripts/items/weapons/weapon", {
 			id = 66,
             icon = "ui/icons/special.png",
 			type = "text",
-			text = "灵魂能量的上限依靠吸取游离灵魂能量（战场中有人死亡）提升，但上限的最大值由霜之哀伤的等阶决定"
+			text = "灵魂能量的上限会随着灵魂能量的获取而逐渐提升，但上限的最大值由霜之哀伤的等阶决定"
 		});
 		return result;
 	}
@@ -82,6 +89,13 @@ this.el_frostmourne <- this.inherit("scripts/items/weapons/weapon", {
 	function getRepair()
 	{
 		return this.item.getRepairMax();
+	}
+
+	function EL_getAffectRange()
+	{
+		local range_item = this.Const.EL_LichKing.Weapon.DeathCoil.BaseSkillRangeMax + this.m.EL_RankLevel * this.Const.EL_LichKing.Weapon.DeathCoil.SkillRangeMaxRankFactor;
+		local range_hitpoints = this.Const.EL_LichKing.Weapon.DeathCoil.BaseSkillRangeMax + this.Math.floor(this.getContainer().getActor().getHitpointsMax() / 100);
+		return this.Math.min(range_item, range_hitpoints);
 	}
 
 	function EL_generateByRankAndLevel( _EL_rankLevel, EL_level, EL_additionalRarityChance = 0 )

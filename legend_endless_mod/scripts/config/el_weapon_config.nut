@@ -38,8 +38,8 @@ gt.Const.EL_Weapon <- {
 	EL_LevelFactor = {
 		Condition = 0.04,
 		Value = 0.04,
-		RegularDamage = 0.04,
-		RegularDamageMax = 0.04,
+		RegularDamage = 0.02,
+		RegularDamageMax = 0.02,
 		StaminaModifier = 0.04,
 		ShieldDamage = 0.04,
 	},
@@ -459,6 +459,7 @@ gt.Const.EL_Weapon <- {
 					function EL_ifEligible(_item) {
 						if(_item.m.EL_RankLevel <= 1) { return false; }
 						if(_item.m.Value == 0) { return false; }
+						if(_item.isItemType(this.Const.Items.ItemType.Legendary)) { return false; }
 						return true;
 					}
 				},

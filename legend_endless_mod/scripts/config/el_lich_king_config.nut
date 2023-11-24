@@ -17,7 +17,7 @@ gt.Const.EL_LichKing <- {
             4,
             25
         ],
-        LevelFactor = 0.01,
+        LevelFactor = 0.04,
         BaseNum = 1
     },
     SoulEnergyState = {
@@ -235,11 +235,11 @@ gt.Const.EL_LichKing <- {
                 5
             ],
             ControlAbilityCost = [
-                50,
-                50,
-                100,
-                100,
-                250
+                10,
+                10,
+                20,
+                20,
+                50
             ]
         }
     },

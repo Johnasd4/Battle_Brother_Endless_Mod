@@ -200,8 +200,8 @@ this.el_lichking_overhead_strike <- this.inherit("scripts/skills/skill", {
             };
             this.onScheduledTargetHit(info);
             local difficulty = _user.getBravery() * this.Const.EL_LichKing.Weapon.NormalSkill.MoraleCheck.AdditionMoraleCheckPersent[this.m.EL_RankLevel] + this.Const.EL_LichKing.Weapon.NormalSkill.MoraleCheck.BaseOffset
-                            this.Const.EL_NPC.EL_NPCBuff.Factor.Intimidate.RankFactor * (target.EL_getRankLevel() - _user.EL_getRankLevel()) +
-                            this.Math.pow(this.Const.EL_NPC.EL_NPCBuff.Factor.Intimidate.CombatLevelFactor, this.Math.abs(target.EL_getCombatLevel() - _user.EL_getCombatLevel())) * (target.EL_getCombatLevel() - _user.EL_getCombatLevel());
+                            this.Const.EL_LichKing.Weapon.NormalSkill.MoraleCheck.RankFactor * (target.EL_getRankLevel() - _user.EL_getRankLevel()) +
+                            this.Math.pow(this.Const.EL_LichKing.Weapon.NormalSkill.MoraleCheck.CombatLevelFactor, this.Math.abs(target.EL_getCombatLevel() - _user.EL_getCombatLevel())) * (target.EL_getCombatLevel() - _user.EL_getCombatLevel());
             target.checkMorale(-1, difficulty);
         }
 	}

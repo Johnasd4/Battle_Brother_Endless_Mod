@@ -43,7 +43,7 @@ this.el_lichking_death_summon <- this.inherit("scripts/skills/skill", {
     
 	function isUsable()
 	{
-        return this.World.Assets.EL_getSoulEnergy() < this.m.EL_SoulEnergyCost ? false : this.skill.isUsable();
+        return this.World.Assets.EL_getSoulEnergy() < this.m.EL_SoulEnergyCost || !EL_canControlMoreEntity() ? false : this.skill.isUsable();
 	}
 
 	function getCostString()

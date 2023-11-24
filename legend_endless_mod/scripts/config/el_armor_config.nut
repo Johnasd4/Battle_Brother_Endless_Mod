@@ -269,6 +269,7 @@ gt.Const.EL_Armor <- {
 					function EL_ifEligible(_item) {
 						if(_item.m.EL_RankLevel <= 1) { return false; }
 						if(_item.m.Value == 0) { return false; }
+						if(_item.isItemType(this.Const.Items.ItemType.Legendary)) { return false; }
 						return true;
 					}
 				}

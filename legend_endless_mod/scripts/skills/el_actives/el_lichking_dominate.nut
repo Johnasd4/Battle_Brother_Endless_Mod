@@ -43,7 +43,7 @@ this.el_lichking_dominate <- this.inherit("scripts/skills/skill", {
     
 	function isUsable()
 	{
-        return this.World.Assets.EL_getSoulEnergy() < this.m.EL_SoulEnergyCost ? false : this.skill.isUsable();
+        return this.World.Assets.EL_getSoulEnergy() < this.m.EL_SoulEnergyCost || !EL_canControlMoreEntity() ? false : this.skill.isUsable();
 	}
 
 	function getCostString()
@@ -125,6 +125,10 @@ this.el_lichking_dominate <- this.inherit("scripts/skills/skill", {
 		local user = this.getContainer().getActor();
 
 		if (target == null || target.isAlliedWith(user) || !EL_isUndead(target) || target.EL_getRankLevel() > this.Math.floor(this.m.EL_RankLevel * 0.5))
+		{
+			return false;
+		}
+		if (this.World.Assets.EL_getSoulEnergy() <  this.Const.EL_LichKing.Helmet.Dominate.SoulEnergyCost[this.m.EL_RankLevel])
 		{
 			return false;
 		}

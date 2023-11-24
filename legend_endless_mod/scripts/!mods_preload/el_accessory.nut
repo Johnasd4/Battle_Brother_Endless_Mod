@@ -408,6 +408,8 @@ local gt = getroottable();
 				else if(this.m.EL_StrengthenEntryNum < this.m.EL_EntryList.len())
 				{
 					result[this.Const.EL_Item.Type.Legendary] += this.Const.EL_Accessory.EL_EquipmentEssence.StrengthenEntryNum;
+					result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Accessory.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel) * this.Const.EL_Accessory.EL_EquipmentEssence.UpgradeLevelFactor 
+															* this.Math.abs(min_calculate_weight * (1 + this.Const.EL_Accessory.EL_LevelFactor.StaminaModifier * this.Const.EL_Item.MaxLevel)));
 				}
 				return result;
 			}
