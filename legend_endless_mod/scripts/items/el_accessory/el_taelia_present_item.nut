@@ -96,11 +96,6 @@ this.el_taelia_present_item <- this.inherit("scripts/items/accessory/accessory",
 												this.EL_getLevel() * this.Const.EL_LichKing.Accessory.BraveryLevelFactor);
 	}
 
-	function EL_onUpgradeLevelItem()
-	{
-		this.logInfo(1111111111111111111111111);
-	}
-
     function EL_disassemble(_itemIndex)
     {
     }

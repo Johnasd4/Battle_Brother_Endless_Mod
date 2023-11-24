@@ -399,7 +399,7 @@ local gt = getroottable();
 				}
 				else if(this.m.EL_RarityEntry == null)
 				{
-					++result[this.Const.EL_Item.Type.Legendary];
+					result[this.Const.EL_Item.Type.Legendary] += 3;
 				}
 				else if(this.m.EL_StrengthenEntryNum < this.m.EL_EntryList.len())
 				{
