@@ -11,7 +11,7 @@ gt.Const.EL_PlayerNPC <- {
         Mult = 30,
     },
 
-    EL_ArmorDirectDamageMitigationMult = 0.4,
+    EL_ArmorDirectDamageMitigationMult = 0.1,
 
     EL_ShieldDamage = {
         Base = 1,
