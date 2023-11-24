@@ -52,7 +52,7 @@ el_soul_energy_state_effect <- this.inherit("scripts/skills/skill", {
                 {
                     id = 14,
                     type = "text",
-                    icon = "ui/icons/damage_dealt.png",
+                    icon = "ui/icons/action_points.png",
                     text = "[color=" + this.Const.UI.Color.PositiveValue + "]+"+ this.m.EL_Stack * this.Const.EL_LichKing.SoulEnergyState.ActionPointOffset + "[/color] 行动点"
                 }
             ]);
@@ -87,7 +87,7 @@ el_soul_energy_state_effect <- this.inherit("scripts/skills/skill", {
                 {
                     id = 14,
                     type = "text",
-                    icon = "ui/icons/damage_dealt.png",
+                    icon = "ui/tooltips/soul_energy.png",
                     text = "灵魂能量获取速度 [color=" + this.Const.UI.Color.PositiveValue + "]+"+ this.m.EL_Stack * this.Const.EL_LichKing.SoulEnergyState.SoulEnergyGianMult * 100 + "%[/color]"
                 }
             ]);
@@ -101,7 +101,7 @@ el_soul_energy_state_effect <- this.inherit("scripts/skills/skill", {
         if(percent < 0.1)
         {
             this.m.Name = "灵能干涸";
-            this.m.Description = "霜之哀伤，饿了，它开始吸取你的力量来取悦自己。\n你将难以使用专属技能，除非你快速找到新的灵魂能量来源。";
+            this.m.Description = "霜之哀伤，饿了，它开始撕扯你的灵魂来取悦自己。\n你将难以使用专属技能，除非你快速找到新的灵魂能量来源。";
             this.m.Icon = "el_skills/soul_energy_state_0.png";
             this.m.EL_Stack = -2;
         }

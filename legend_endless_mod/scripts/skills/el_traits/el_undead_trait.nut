@@ -22,7 +22,7 @@ this.el_undead_trait <- this.inherit("scripts/skills/traits/character_trait", {
 				id = 7,
 				type = "text",
 				icon = "ui/icons/special.png",
-				text = "免疫流血、眩晕、茫然、伤残、毒素、瘴气、恐惧和精神控制。不消耗食物，工资 - 50%。"
+				text = "免疫流血、眩晕、茫然、伤残、毒素、瘴气、恐惧和精神控制。不消耗食物，不再需要工资。"
 			},
 			{
 				id = 8,
@@ -47,8 +47,7 @@ this.el_undead_trait <- this.inherit("scripts/skills/traits/character_trait", {
 		_properties.InitiativeMult *= 0.5;
         _properties.ActionPoints -= 2;
 		_properties.Bravery += 50;
-		//起源本身有3倍惩罚,变为亡灵后忽视该惩罚
-		_properties.DailyWageMult *= 0.5 / 3.0;
+		_properties.DailyWageMult = 0;
 	}
 	
 	function onAdded()
