@@ -6,8 +6,8 @@ this.el_arena_champion_axe <- this.inherit("scripts/items/weapons/weapon", {
 		this.m.ID = "el_weapon.arena_champion_axe";
 		this.m.Name = "冠军之斧";
 		this.m.Description = "一种充满荣誉与欢呼的斧头。做工精良，独特的设计往往能让他直接给予敌人死亡。";
-		this.m.IconLarge = "weapons/melee/axe_03.png";
-		this.m.Icon = "weapons/melee/axe_03_70x70.png";
+		this.m.IconLarge = "weapons/melee/arena_champion_axe.png";
+		this.m.Icon = "weapons/melee/arena_champion_axe_70x70.png";
 		this.m.WeaponType = this.Const.Items.WeaponType.Axe;
 		this.m.SlotType = this.Const.ItemSlot.Mainhand;
 		this.m.ItemType = this.Const.Items.ItemType.Weapon | this.Const.Items.ItemType.MeleeWeapon | this.Const.Items.ItemType.OneHanded;
@@ -46,17 +46,19 @@ this.el_arena_champion_axe <- this.inherit("scripts/items/weapons/weapon", {
 			id = 10,
 			type = "text",
 			icon = "ui/icons/special.png",
-			text = "结算伤害后若目标生命值低于25%，则直接杀死敌人。"
+			text = "结算伤害后若目标生命值低于20%，则直接杀死敌人。"
 		});
 		return result;
 	}
-    
-    
 
 	function onDamageDealt( _target, _skill, _hitInfo )
 	{
         this.weapon.onDamageDealt(_target, _skill, _hitInfo);
-        if(_target.getHitpoints() / (_target.getHitpointsMax() * 1.0) < 0.25)
+		if (_target == null || !_target.isAlive() || _target.isDying())
+		{
+			return;
+		}
+        if(_target.getHitpoints() / (_target.getHitpointsMax() * 1.0) < 0.20)
         {
             _target.kill(this.getContainer().getActor(), _skill);
         }
