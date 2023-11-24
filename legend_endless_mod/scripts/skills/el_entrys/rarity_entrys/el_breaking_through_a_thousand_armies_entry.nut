@@ -112,7 +112,7 @@ this.el_breaking_through_a_thousand_armies_entry <- this.inherit("scripts/skills
                 id = 18,
                 type = "text",
                 icon = "ui/icons/damage_dealt.png",
-                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+"+ this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.DamageDirectMult * 100 + "%[/color] Damage Dealt"
+                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+"+ this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.DamageTotalMult * 100 + "%[/color] Damage Dealt"
             });
             result.push({
                 id = 19,
@@ -192,7 +192,7 @@ this.el_breaking_through_a_thousand_armies_entry <- this.inherit("scripts/skills
 			_properties.FatigueOnSkillUse += this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.FatigueOnSkillUseOffset;
 			_properties.IsAffectedByInjuries = false;
 
-			_properties.DamageDirectMult *= 1.0 + this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.DamageDirectMult;
+			_properties.DamageTotalMult *= 1.0 + this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.DamageTotalMult;
 			_properties.DamageReceivedTotalMult *= 1.0 - this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_BreakingThroughThousandArmies.DamageReceivedTotalMult;
 		}
 	}

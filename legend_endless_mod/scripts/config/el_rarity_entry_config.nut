@@ -113,7 +113,7 @@ gt.Const.EL_Rarity_Entry <- {
             MeleeDefenseOffset = this.Const.EL_PlayerNPC.EL_Morale.Effect.MeleeDefenseOffset[this.Const.MoraleState.Confident],
             RangedDefenseOffset = this.Const.EL_PlayerNPC.EL_Morale.Effect.RangedDefenseOffset[this.Const.MoraleState.Confident],
             FatigueOnSkillUseOffset = this.Const.EL_PlayerNPC.EL_Morale.Effect.FatigueOnSkillUseOffset[this.Const.MoraleState.Confident],
-            DamageDirectMult = this.Const.EL_PlayerNPC.EL_Morale.Effect.DamageDirectMult[this.Const.MoraleState.Confident] - 1.0,
+            DamageTotalMult = this.Const.EL_PlayerNPC.EL_Morale.Effect.DamageTotalMult[this.Const.MoraleState.Confident] - 1.0,
             DamageReceivedTotalMult = 1.0 - this.Const.EL_PlayerNPC.EL_Morale.Effect.DamageReceivedTotalMult[this.Const.MoraleState.Confident],
 			ReplaceSkillList = [
 				"actives.split_man",
