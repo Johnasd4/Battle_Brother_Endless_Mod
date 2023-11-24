@@ -54,17 +54,17 @@ this.el_npc_ballance_racial <- this.inherit("scripts/skills/skill", {
 
         if(actor.getFaction() != this.Const.Faction.Player && actor.getFaction() != this.Const.Faction.PlayerAnimals) {
             local level = actor.EL_getLevel();
-            //local difficulty_mult = this.World.Assets.EL_getHalfWorldDifficultFactor();
+            local half_difficulty_mult = this.World.Assets.EL_getHalfWorldDifficultFactor();
             local difficulty_mult = this.World.Assets.EL_getWorldDifficultFactor();
-            _properties.Bravery += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.Bravery + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.Bravery) * (difficulty_mult - 1);
-            _properties.Stamina += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.Fatigue + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.Fatigue) * (difficulty_mult - 1);
-            _properties.Initiative += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.Initiative + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.Initiative) * (difficulty_mult - 1);
-            _properties.MeleeSkill += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.MeleeSkill + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.MeleeSkill) * (difficulty_mult - 1);
-            _properties.RangedSkill += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.RangedSkill + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.RangedSkill) * (difficulty_mult - 1);
-            _properties.MeleeDefense += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.MeleeDefense + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.MeleeDefense) * (difficulty_mult - 1);
-            _properties.RangedDefense += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.RangedDefense + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.RangedDefense) * (difficulty_mult - 1);
-            _properties.DamageReceivedTotalMult /= (this.Const.EL_NPC.EL_DifficultBallance.DamageReceivedTotalDiv) * difficulty_mult;
-            _properties.DamageDirectMult *= (this.Const.EL_NPC.EL_DifficultBallance.DirectDamageMult) * difficulty_mult;
+            _properties.Bravery += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.Bravery + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.Bravery) * (half_difficulty_mult - 1);
+            _properties.Stamina += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.Fatigue + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.Fatigue) * (half_difficulty_mult - 1);
+            _properties.Initiative += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.Initiative + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.Initiative) * (half_difficulty_mult - 1);
+            _properties.MeleeSkill += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.MeleeSkill + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.MeleeSkill) * (half_difficulty_mult - 1);
+            _properties.RangedSkill += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.RangedSkill + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.RangedSkill) * (half_difficulty_mult - 1);
+            _properties.MeleeDefense += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.MeleeDefense + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.MeleeDefense) * (half_difficulty_mult - 1);
+            _properties.RangedDefense += (this.Const.EL_NPC.EL_DifficultBallance.Attributes.RangedDefense + level * this.Const.EL_NPC.EL_DifficultBallance.AttributesGrowthPurLevel.RangedDefense) * (half_difficulty_mult - 1);
+            _properties.DamageReceivedTotalMult /= (this.Const.EL_NPC.EL_DifficultBallance.DamageReceivedTotalDiv) * (difficulty_mult > 1 ? difficulty_mult * difficulty_mult : difficulty_mult);
+            _properties.DamageDirectMult *= (this.Const.EL_NPC.EL_DifficultBallance.DirectDamageMult) * half_difficulty_mult;
         }
 	}
 
