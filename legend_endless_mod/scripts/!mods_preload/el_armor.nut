@@ -436,8 +436,8 @@ local gt = getroottable();
 			if(this.m.EL_Level < 100)
 			{
 				local min_calculate_weight = this.Const.EL_Armor.EL_EquipmentEssence.MinCalculateWeight;
-				local calculate_weight = this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier);
-				local weight_mult = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10, 2) : this.Math.pow(calculate_weight / 10, 0.5);
+				local calculate_weight = this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier));
+				local weight_mult = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10.0, 2) : this.Math.pow(calculate_weight / 10.0, 0.5);
 				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(weight_mult * this.Math.pow(this.Const.EL_Armor.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel) * this.Const.EL_Armor.EL_EquipmentEssence.UpgradeLevelFactor 
 														* this.Math.abs(calculate_weight * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
 			}
@@ -451,8 +451,8 @@ local gt = getroottable();
 			{
 				local rank_level = EL_getRankLevel() + 1;
 				local min_calculate_weight = this.Const.EL_Armor.EL_EquipmentEssence.MinCalculateWeight;
-				local calculate_weight = this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier);
-				local weight_mult = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10, 2) : this.Math.pow(calculate_weight / 10, 0.5);
+				local calculate_weight = this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier));
+				local weight_mult = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10.0, 2) : this.Math.pow(calculate_weight / 10.0, 0.5);
 				if(rank_level == this.Const.EL_Item.Type.Legendary)
 				{
 					result[this.Const.EL_Item.Type.Legendary] += EL_getArmorType() == this.Const.EL_Item.ArmorType.UnlayeredArmor ? this.Const.EL_Armor.EL_EquipmentEssence.UnlayeredUpgradeRankLegendaryNum : this.Const.EL_Armor.EL_EquipmentEssence.LayeredUpgradeRankLegendaryNum;
@@ -482,8 +482,8 @@ local gt = getroottable();
 		{
 			local result = [0, 0, 0, 0, 0];
 			local min_calculate_weight = this.Const.EL_Armor.EL_EquipmentEssence.MinCalculateWeight;
-			local calculate_weight = this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier);
-			local weight_mult = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10, 2) : this.Math.pow(calculate_weight / 10, 0.5);
+			local calculate_weight = this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier));
+			local weight_mult = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10.0, 2) : this.Math.pow(calculate_weight / 10.0, 0.5);
 			result[this.Const.EL_Item.Type.Normal] += this.Math.floor(weight_mult * this.Math.pow(this.Const.EL_Armor.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel) * this.Const.EL_Armor.EL_EquipmentEssence.DisassembleFactor
 													* this.Math.abs(calculate_weight * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
 			if(this.m.EL_RankLevel == this.Const.EL_Item.Type.Legendary)
@@ -503,9 +503,9 @@ local gt = getroottable();
 			if(this.m.EL_RankLevel)
 			{
 				local rank_level = this.Math.min(this.m.EL_RankLevel, this.Const.EL_Item.Type.Epic);
-				local min_calculate_weight = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Armor.EL_EquipmentEssence.OneHandedMinCalculateWeight : this.Const.EL_Armor.EL_EquipmentEssence.TwoHandedMinCalculateWeight;
-				local calculate_weight = this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier);
-				local weight_mult = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10, 2) : this.Math.pow(calculate_weight / 10, 0.5);
+				local min_calculate_weight = this.Const.EL_Armor.EL_EquipmentEssence.MinCalculateWeight;
+				local calculate_weight = this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier));
+				local weight_mult = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10.0, 2) : this.Math.pow(calculate_weight / 10.0, 0.5);
 				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(weight_mult * this.Math.pow(this.Const.EL_Armor.EL_EquipmentEssence.RankFactor, rank_level) * this.Const.EL_Armor.EL_EquipmentEssence.RecraftFactor 
 														* this.Math.abs(calculate_weight * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)));
 				result[rank_level] += this.Math.ceil(weight_mult * this.Const.EL_Armor.EL_EquipmentEssence.SeniorEquipmentEssenceMult * this.Const.EL_Armor.EL_EquipmentEssence.RecraftFactor 
@@ -1623,8 +1623,8 @@ local gt = getroottable();
 			if(this.m.EL_Level < 100)
 			{
 				local min_calculate_weight = this.Const.EL_Armor.EL_EquipmentEssence.MinCalculateWeight;
-				local calculate_weight = this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier);
-				local weight_mult = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10, 2) : this.Math.pow(calculate_weight / 10, 0.5);
+				local calculate_weight = this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier));
+				local weight_mult = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10.0, 2) : this.Math.pow(calculate_weight / 10.0, 0.5);
 				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(weight_mult * this.Math.pow(this.Const.EL_Armor.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel) * this.Const.EL_Armor.EL_EquipmentEssence.UpgradeLevelFactor 
 														* this.Math.abs(calculate_weight * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
 			}
@@ -1638,8 +1638,8 @@ local gt = getroottable();
 			{
 				local rank_level = EL_getRankLevel() + 1;
 				local min_calculate_weight = this.Const.EL_Armor.EL_EquipmentEssence.MinCalculateWeight;
-				local calculate_weight = this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier);
-				local weight_mult = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10, 2) : this.Math.pow(calculate_weight / 10, 0.5);
+				local calculate_weight = this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier));
+				local weight_mult = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10.0, 2) : this.Math.pow(calculate_weight / 10.0, 0.5);
 				if(rank_level == this.Const.EL_Item.Type.Legendary)
 				{
 					result[this.Const.EL_Item.Type.Legendary] += EL_getArmorType() == this.Const.EL_Item.ArmorType.UnlayeredArmor ? this.Const.EL_Armor.EL_EquipmentEssence.UnlayeredUpgradeRankLegendaryNum : this.Const.EL_Armor.EL_EquipmentEssence.LayeredUpgradeRankLegendaryNum;
@@ -1669,8 +1669,8 @@ local gt = getroottable();
 		{
 			local result = [0, 0, 0, 0, 0];
 			local min_calculate_weight = this.Const.EL_Armor.EL_EquipmentEssence.MinCalculateWeight;
-			local calculate_weight = this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier);
-			local weight_mult = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10, 2) : this.Math.pow(calculate_weight / 10, 0.5);
+			local calculate_weight = this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier));
+			local weight_mult = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10.0, 2) : this.Math.pow(calculate_weight / 10.0, 0.5);
 			result[this.Const.EL_Item.Type.Normal] += this.Math.floor(weight_mult * this.Math.pow(this.Const.EL_Armor.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel) * this.Const.EL_Armor.EL_EquipmentEssence.DisassembleFactor
 													* this.Math.abs(calculate_weight * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
 			if(this.m.EL_RankLevel == this.Const.EL_Item.Type.Legendary)
@@ -1690,9 +1690,9 @@ local gt = getroottable();
 			if(this.m.EL_RankLevel)
 			{
 				local rank_level = this.Math.min(this.m.EL_RankLevel, this.Const.EL_Item.Type.Epic);
-				local min_calculate_weight = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Armor.EL_EquipmentEssence.OneHandedMinCalculateWeight : this.Const.EL_Armor.EL_EquipmentEssence.TwoHandedMinCalculateWeight;
-				local calculate_weight = this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier);
-				local weight_mult = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10, 2) : this.Math.pow(calculate_weight / 10, 0.5);
+				local min_calculate_weight = this.Const.EL_Armor.EL_EquipmentEssence.MinCalculateWeight;
+				local calculate_weight = this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier));
+				local weight_mult = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10.0, 2) : this.Math.pow(calculate_weight / 10.0, 0.5);
 				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(weight_mult * this.Math.pow(this.Const.EL_Armor.EL_EquipmentEssence.RankFactor, rank_level) * this.Const.EL_Armor.EL_EquipmentEssence.RecraftFactor 
 														* this.Math.abs(calculate_weight * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)));
 				result[rank_level] += this.Math.ceil(weight_mult * this.Const.EL_Armor.EL_EquipmentEssence.SeniorEquipmentEssenceMult * this.Const.EL_Armor.EL_EquipmentEssence.RecraftFactor 
