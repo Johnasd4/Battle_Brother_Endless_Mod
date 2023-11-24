@@ -179,7 +179,7 @@ this.el_lich_king_scenario_easy <- this.inherit("scripts/scenarios/world/startin
                 }
             }
         }
-		if(lich_king == null)
+		if(lich_king == null || _actor.isAlliedWith(lich_king))
 		{
 			return;
 		}

@@ -65,9 +65,6 @@ gt.Const.EL_Item_Other <- {
 		"accessory/orc_trophy_item",
 		"accessory/undead_trophy_item",
 		"accessory/oathtaker_skull_02_item",
-		"el_accessory/el_arena_champion_item",
-		"el_armor/el_arena_champion_armor",
-		"el_helmet/el_arena_champion_helmet",
 		"armor/legendary/armor_of_davkul",
 		"armor/legendary/emperors_armor",
 		"armor/legendary/ijirok_armor",
@@ -85,10 +82,14 @@ gt.Const.EL_Item_Other <- {
 		"weapons/legendary/obsidian_dagger",
 		"shields/legendary/gilders_embrace_shield"
 		"tools/player_banner",
+		"el_accessory/el_arena_champion_item",
 		"el_accessory/el_taelia_present_item",
-		"el_weapon/el_frostmourne",
 		"el_helmet/el_crown_of_rule",
-		"el_armor/el_ice_armor"
+		"el_helmet/el_arena_champion_helmet",
+		"el_armor/el_arena_champion_armor",
+		"el_armor/el_ice_armor",
+		"el_weapon/el_arena_champion_axe",
+		"el_weapon/el_frostmourne"
 	],	
 	EL_SpecialNamedItem = [
 		"legend_armor/chain/legend_armor_hauberk_full_named",
