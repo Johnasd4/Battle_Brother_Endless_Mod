@@ -113,7 +113,7 @@ gt.Const.EL_Rarity_Entry <- {
             MeleeDefenseOffset = this.Const.EL_PlayerNPC.EL_Morale.Effect.MeleeDefenseOffset[this.Const.MoraleState.Confident],
             RangedDefenseOffset = this.Const.EL_PlayerNPC.EL_Morale.Effect.RangedDefenseOffset[this.Const.MoraleState.Confident],
             FatigueOnSkillUseOffset = this.Const.EL_PlayerNPC.EL_Morale.Effect.FatigueOnSkillUseOffset[this.Const.MoraleState.Confident],
-            DamageDirectMult = this.Const.EL_PlayerNPC.EL_Morale.Effect.DamageDirectMult[this.Const.MoraleState.Confident] - 1.0,
+            DamageTotalMult = this.Const.EL_PlayerNPC.EL_Morale.Effect.DamageTotalMult[this.Const.MoraleState.Confident] - 1.0,
             DamageReceivedTotalMult = 1.0 - this.Const.EL_PlayerNPC.EL_Morale.Effect.DamageReceivedTotalMult[this.Const.MoraleState.Confident],
 			ReplaceSkillList = [
 				"actives.split_man",
@@ -300,7 +300,7 @@ gt.Const.EL_Rarity_Entry <- {
 		}
 		return false;
 	}
-	
+
 	function EL_useFreeSplitShield( _actor, _targetEntity )
 	{
 		local split_shield = _actor.getSkills().getSkillByID("actives.split_shield");
@@ -310,12 +310,12 @@ gt.Const.EL_Rarity_Entry <- {
 			split_shield.useForFree(_targetEntity.getTile());
 		}
 	}
-	
+
 	function EL_ReplaceSkill( _actor, _EL_replacedSkills, _EL_replaceSkillList )
 	{
 		local skills = _actor.getSkills();
-		foreach( skill in skills.m.Skills ) 
-		{			
+		foreach( skill in skills.m.Skills )
+		{
 			foreach(skill_id in _EL_replaceSkillList)
 			{
 				if(skill.getID() == skill_id)
@@ -327,18 +327,18 @@ gt.Const.EL_Rarity_Entry <- {
 			}
 		}
 	}
-	
+
 	function EL_ReturnSkill( _actor, _EL_replacedSkills )
 	{
-		foreach(skill in _EL_replacedSkills) 
+		foreach(skill in _EL_replacedSkills)
 		{
 			skill.m.IsGarbage = false;
 			_actor.getSkills().add(skill);
 		}
 		_EL_replacedSkills.clear();
 	}
-	
-	function EL_addPursuitEffect( _targetEntity, _EL_sourceEntity, _EL_attackSkill ) 
+
+	function EL_addPursuitEffect( _targetEntity, _EL_sourceEntity, _EL_attackSkill )
 	{
 		local skill = this.new("scripts/skills/el_effects/el_pursuit_effect");
 		skill.EL_setSourceActorAndAttackSkill(_EL_sourceEntity, _EL_attackSkill);
