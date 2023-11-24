@@ -1048,13 +1048,13 @@ local gt = getroottable();
                                 local reward_item = this.new("scripts/items/el_helmet/el_arena_champion_helmet");
                                 this.World.Assets.getStash().makeEmptySlots(1);
                                 this.World.Assets.getStash().add(reward_item);
-                                local reward_item = this.new("scripts/items/el_armor/el_arena_champion_armor");
+                                reward_item = this.new("scripts/items/el_armor/el_arena_champion_armor");
                                 this.World.Assets.getStash().makeEmptySlots(1);
                                 this.World.Assets.getStash().add(reward_item);
-                                // local reward_item = this.new("scripts/items/el_armor/el_arena_champion_armor");
+                                // reward_item = this.new("scripts/items/el_armor/el_arena_champion_armor");
                                 // this.World.Assets.getStash().makeEmptySlots(1);
                                 // this.World.Assets.getStash().add(reward_item);
-                                local reward_item = this.new("scripts/items/el_accessory/el_arena_champion_item");
+                                reward_item = this.new("scripts/items/el_accessory/el_arena_champion_item");
                                 this.World.Assets.getStash().makeEmptySlots(1);
                                 this.World.Assets.getStash().add(reward_item);
                             }
