@@ -1,6 +1,6 @@
 local gt = getroottable();
 
-::mods_registerMod("el_adaption_events_events", 1, "el_adaption_events_events");
+::mods_registerMod("el_adaption_events_events_crisis", 1, "el_adaption_events_events_crisis");
 ::mods_queue(null, "el_player_npc", function ()
 {
 
