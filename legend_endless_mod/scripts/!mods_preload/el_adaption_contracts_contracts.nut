@@ -913,14 +913,14 @@ local gt = getroottable();
                                     {
                                         troop.EL_IsBossUnit = true;
                                     }
-                                    
                                 }
                                 --temp_level;
                             }
                             //5
                             while(temp_level > 0) {
                                 foreach(troop in party.getTroops()) {
-                                    troop.EL_ExtraCombatLevel += 10;
+                                    troop.EL_ExtraCombatLevel += 5;
+                                    troop.EL_ExtraBuffNum[troop.EL_RankLevel] += 1;
                                 }
                                 --temp_level;
                             }
