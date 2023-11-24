@@ -40,6 +40,7 @@ this.el_lichking_trait <- this.inherit("scripts/skills/skill", {
         _properties.IsImmuneToPoison = true;
         _properties.IsResistantToMiasma = true;
         _properties.IsImmuneToDaze = true;
+		_properties.IsImmuneToDisarm = true;
 		_properties.Bravery += 40;
 		_properties.XPGainMult *= 1.25;
 	}

@@ -10,7 +10,7 @@ this.el_strength_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_bu
 
 	function onUpdate( _properties )
 	{
-		_properties.DamageTotalMult *= this.Const.EL_NPC.EL_NPCBuff.Factor.Strength.DamageTotalMult[this.m.EL_RankLevel];
+		_properties.DamageDirectMult *= this.Const.EL_NPC.EL_NPCBuff.Factor.Strength.DamageDirectMult[this.m.EL_RankLevel];
 	}
 
 });

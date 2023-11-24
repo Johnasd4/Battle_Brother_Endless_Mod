@@ -69,7 +69,7 @@ local gt = getroottable();
 
 			_properties.FatigueOnSkillUse += this.Const.EL_PlayerNPC.EL_Morale.Effect.FatigueOnSkillUseOffset[state];
 
-			_properties.DamageTotalMult *= this.Const.EL_PlayerNPC.EL_Morale.Effect.DamageTotalMult[state];
+			_properties.DamageDirectMult *= this.Const.EL_PlayerNPC.EL_Morale.Effect.DamageDirectMult[state];
 			_properties.DamageReceivedTotalMult *= this.Const.EL_PlayerNPC.EL_Morale.Effect.DamageReceivedTotalMult[state];
 			switch(state)
 			{

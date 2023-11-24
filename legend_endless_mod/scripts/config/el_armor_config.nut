@@ -34,6 +34,7 @@ gt.Const.EL_Armor <- {
 		RankFactor = 3,
 		UpgradeLevelFactor = 1,
 		UpgradeRankFactor = 1,
+		UpgradeRankNormalEssenceFactor = 10,
 		DisassembleFactor = 0.8,
 		RecraftFactor = 1,
 		SeniorEquipmentEssenceMult = 0.1,

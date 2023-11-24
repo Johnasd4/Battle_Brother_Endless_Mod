@@ -32,7 +32,7 @@ local gt = getroottable();
                 _properties.RangedDefense += this.Const.EL_NPC.EL_Champion.Attributes.RangedDefense[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.RangedDefense[rank];
 
                 _properties.DamageReceivedTotalMult /= this.Const.EL_NPC.EL_Champion.DamageReceivedTotalDiv[rank];
-                _properties.DamageTotalMult *= this.Const.EL_NPC.EL_Champion.DamageTotalMult[rank];
+                _properties.DamageDirectMult *= this.Const.EL_NPC.EL_Champion.DirectDamageMult[rank];
 
                 _properties.ActionPoints += this.Const.EL_NPC.EL_Champion.ActionPointsOffset[rank];
 
@@ -48,7 +48,7 @@ local gt = getroottable();
                 _properties.RangedDefense += this.Const.EL_NPC.EL_Champion.Attributes.RangedDefense[rank] + level * this.Const.EL_NPC.EL_Champion.AttributesGrowthPurLevel.RangedDefense[rank];
 
                 _properties.DamageReceivedTotalMult /= this.Const.EL_NPC.EL_Champion.DamageReceivedTotalDiv[rank];
-                _properties.DamageTotalMult *= this.Const.EL_NPC.EL_Champion.DamageTotalMult[rank];
+                _properties.DamageDirectMult *= this.Const.EL_NPC.EL_Champion.DirectDamageMult[rank];
 
                 _properties.ActionPoints += this.Const.EL_NPC.EL_Champion.ActionPointsOffset[rank];
 

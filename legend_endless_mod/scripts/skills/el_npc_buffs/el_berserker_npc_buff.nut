@@ -28,7 +28,7 @@ this.el_berserker_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_b
 		else {
 			this.m.Name = "狂战士";
 		}
-		_properties.DamageTotalMult *= this.Const.EL_NPC.EL_NPCBuff.Factor.Berserker.DamageMultPurStack[this.m.EL_RankLevel] * stack;
+		_properties.DamageDirectMult *= this.Const.EL_NPC.EL_NPCBuff.Factor.Berserker.DamageMultPurStack[this.m.EL_RankLevel] * stack;
 		_properties.MeleeSkill += this.Const.EL_NPC.EL_NPCBuff.Factor.Berserker.MeleeSkillOffsetPurStack[this.m.EL_RankLevel] * stack;
         _properties.RangedSkill += this.Const.EL_NPC.EL_NPCBuff.Factor.Berserker.RangedSkillOffsetPurStack[this.m.EL_RankLevel] * stack;
 	}

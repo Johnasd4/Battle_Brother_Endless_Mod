@@ -48,6 +48,7 @@ gt.Const.EL_Weapon <- {
 		RankFactor = 3,
 		UpgradeLevelFactor = 3,
 		UpgradeRankFactor = 3,
+		UpgradeRankNormalEssenceFactor = 10,
 		DisassembleFactor = 2.4,
 		RecraftFactor = 3,
 		SeniorEquipmentEssenceMult = 0.1,
@@ -74,6 +75,7 @@ gt.Const.EL_Weapon <- {
 			{
 				//this.logInfo("base DirectDamageAdd:" + _item.m.EL_BaseNoRankDirectDamageAdd);
 				//this.logInfo("before DirectDamageAdd:" + _item.m.DirectDamageAdd);
+				//this.logInfo("DirectDamageMult:" + _item.m.DirectDamageMult);
 				local bonus = _isHalfEffect ? this.Const.EL_Weapon.EL_RankFactor.DirectDamageAddHalf : this.Const.EL_Weapon.EL_RankFactor.DirectDamageAdd;
                 _item.m.DirectDamageAdd += this.Math.ceil(100 * _item.m.DirectDamageMult * bonus) * 0.01;
 				_item.m.EL_BaseWithRankDirectDamageAdd = _item.m.DirectDamageAdd;
@@ -302,19 +304,19 @@ gt.Const.EL_Weapon <- {
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_additional_accuracy_entry",
-					function EL_ifEligible(_item) {
-						if(_item.m.EL_BaseWithRankAdditionalAccuracy == 0 && !_item.isItemType(this.Const.Items.ItemType.RangedWeapon))
-						{
-							return false;
+					function EL_ifEligible(_item) { 
+						if(_item.m.EL_BaseWithRankAdditionalAccuracy == 0 && !_item.isItemType(this.Const.Items.ItemType.RangedWeapon)) 
+						{ 
+							return false; 
 						}
-						return true;
+						return true; 
 					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_ammo_max_mult_entry",
-					function EL_ifEligible(_item) {
+					function EL_ifEligible(_item) { 
 						if(!_item.isWeaponType(this.Const.Items.WeaponType.Throwing)) { return false; }
-						return true;
+						return true; 
 					}
 				},
 				{
@@ -371,12 +373,12 @@ gt.Const.EL_Weapon <- {
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_hit_head_entry",
-					function EL_ifEligible(_item) {
-						if(_item.m.ChanceToHitHead == 0)
-						{
-							return false;
+					function EL_ifEligible(_item) { 
+						if(_item.m.ChanceToHitHead == 0) 
+						{ 
+							return false; 
 						}
-						return true;
+						return true; 
 					}
 				},
 				{

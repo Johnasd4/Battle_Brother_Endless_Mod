@@ -9,7 +9,7 @@ gt.Const.EL_NPC <- {
 
     EL_DifficultBallance = {
 
-        DamageTotalMult = 1,
+        DirectDamageMult = 1,
         DamageReceivedTotalDiv = 1.0,
         Attributes = {
             Bravery = 25,
@@ -56,7 +56,7 @@ gt.Const.EL_NPC <- {
             1,
             3
         ],
-        DamageTotalMult = [
+        DirectDamageMult = [
             1,
             1.4,
             2
@@ -851,7 +851,7 @@ gt.Const.EL_NPC <- {
                 ActionPointsMult = [1.2, 1.4, 2]
             },
             MultipleAttacks = {
-                DamageTotalMult = [0.2, 0.4, 1]
+                DamageDirectMult = [0.2, 0.4, 1]
             }
             Oscillation = {
                 MaxDistance = [1, 2, 3]
@@ -887,7 +887,7 @@ gt.Const.EL_NPC <- {
                 MaxDistance = 2
             },
             Strength = {
-                DamageTotalMult = [0.4, 0.8, 2]
+                DamageDirectMult = [0.4, 0.8, 2]
             },
             StunningStrike = {
                 Chance = [50, 100, 100],

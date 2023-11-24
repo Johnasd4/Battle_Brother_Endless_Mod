@@ -36,7 +36,7 @@ this.el_horn_blowing_company_battalion_effect <- this.inherit("scripts/skills/sk
 
 	function onUpdate( _properties )
 	{
-		_properties.DamageTotalMult *= 1.0 + this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.DamageMult;
+		_properties.DamageDirectMult *= 1.0 + this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.DamageMult;
 		_properties.DamageReceivedTotalMult *= 1.0 - this.Const.EL_Rarity_Entry.Factor.EL_CurlingImmortalSound.DamageReceivedMult;
 	}
 

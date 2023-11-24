@@ -72,7 +72,7 @@ this.el_multiple_attacks_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/e
 	function onAnySkillUsed( _skill, _targetEntity, _properties )
 	{
         if(this.m.EL_IsExtraAttack) {
-            _properties.DamageTotalMult *= this.Const.EL_NPC.EL_NPCBuff.Factor.MultipleAttacks.DamageTotalMult[this.m.EL_RankLevel];
+            _properties.DamageDirectMult *= this.Const.EL_NPC.EL_NPCBuff.Factor.MultipleAttacks.DamageDirectMult[this.m.EL_RankLevel];
         }
 	}
 
