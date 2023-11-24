@@ -142,5 +142,13 @@ this.el_charge_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff
         }
 	}
 
+	function onKnockedDown( _entity, _tag )
+	{
+		if (_tag.HitInfo.DamageRegular != 0)
+		{
+			_entity.onDamageReceived(_tag.Attacker, _tag.Skill, _tag.HitInfo);
+		}
+	}
+
 });
 

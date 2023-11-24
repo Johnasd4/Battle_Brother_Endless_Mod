@@ -113,7 +113,7 @@ this.el_devastate_aoe_skill <- this.inherit("scripts/skills/skill", {
 	function applyEffectToTarget( _user, _target, _targetTile )
 	{
 		local applyEffect = this.Math.rand(1, 3);
-		
+
 		_target.getSkills().add(this.new("scripts/skills/effects/staggered_effect"));
 
 		if (!_user.isHiddenToPlayer() && _targetTile.IsVisibleForPlayer)
