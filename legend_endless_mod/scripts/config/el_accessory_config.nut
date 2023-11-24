@@ -28,7 +28,7 @@ gt.Const.EL_Accessory <- {
 		LowerEquipmentEssenceMult = 3,
 		StrengthenEntryNum = 3,
 		UpgradeRankLegendaryNum = 3,
-		MinCalculateWeight = -40
+		MinCalculateWeight = -160
 	},
 	EL_DroppedChance = [
 		4,
