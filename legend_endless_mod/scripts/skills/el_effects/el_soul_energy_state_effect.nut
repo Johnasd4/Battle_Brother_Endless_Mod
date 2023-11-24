@@ -47,7 +47,7 @@ el_soul_energy_state_effect <- this.inherit("scripts/skills/skill", {
                     id = 14,
                     type = "text",
                     icon = "ui/icons/damage_dealt.png",
-                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+"+ this.m.EL_Stack * this.Const.EL_LichKing.SoulEnergyState.DamageDirectMult * 100 + "%[/color] Damage Dealt"
+                    text = "[color=" + this.Const.UI.Color.PositiveValue + "]+"+ this.m.EL_Stack * this.Const.EL_LichKing.SoulEnergyState.DamageTotalMult * 100 + "%[/color] Damage Dealt"
                 },
                 {
                     id = 14,
@@ -82,7 +82,7 @@ el_soul_energy_state_effect <- this.inherit("scripts/skills/skill", {
                     id = 14,
                     type = "text",
                     icon = "ui/icons/damage_dealt.png",
-                    text = "[color=" + this.Const.UI.Color.NegativeValue + "]"+ this.m.EL_Stack * this.Const.EL_LichKing.SoulEnergyState.DamageDirectMult * 100 + "%[/color] Damage Dealt"
+                    text = "[color=" + this.Const.UI.Color.NegativeValue + "]"+ this.m.EL_Stack * this.Const.EL_LichKing.SoulEnergyState.DamageTotalMult * 100 + "%[/color] Damage Dealt"
                 },
                 {
                     id = 14,
@@ -136,7 +136,7 @@ el_soul_energy_state_effect <- this.inherit("scripts/skills/skill", {
 		_properties.Initiative += this.m.EL_Stack * this.Const.EL_LichKing.SoulEnergyState.InitiativeOffset;
         _properties.MeleeSkill += this.m.EL_Stack * this.Const.EL_LichKing.SoulEnergyState.MeleeSkillOffset;
         _properties.FatigueEffectMult *= 1.0 + this.m.EL_Stack * this.Const.EL_LichKing.SoulEnergyState.FatigueOnSkillUseOffset;
-        _properties.DamageDirectMult *= 1.0 + this.m.EL_Stack * this.Const.EL_LichKing.SoulEnergyState.DamageDirectMult;
+        _properties.DamageTotalMult *= 1.0 + this.m.EL_Stack * this.Const.EL_LichKing.SoulEnergyState.DamageTotalMult;
         _properties.ActionPoints += this.Math.max(0, this.m.EL_Stack * this.Const.EL_LichKing.SoulEnergyState.ActionPointOffset);
         
         this.World.Assets.m.EL_SoulEnergyGianMult = this.Math.max(1, 1 - this.m.EL_Stack * this.Const.EL_LichKing.SoulEnergyState.SoulEnergyGianMult);

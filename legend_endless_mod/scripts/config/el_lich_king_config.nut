@@ -25,7 +25,7 @@ gt.Const.EL_LichKing <- {
         MeleeSkillOffset = 10,
         ActionPointOffset = 1,
         FatigueOnSkillUseOffset = -0.1,
-        DamageDirectMult = 0.1,
+        DamageTotalMult = 0.1,
         SoulEnergyGianMult = -0.1,
     }
 	Accessory = {
