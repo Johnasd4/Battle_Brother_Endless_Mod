@@ -26,6 +26,7 @@ this.el_arena_champion_axe <- this.inherit("scripts/items/weapons/weapon", {
 		this.m.RegularDamageMax = 65;
 		this.m.ArmorDamageMult = 1.3;
 		this.m.DirectDamageMult = 0.3;
+		this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
 	}
 
 	function onEquip()
@@ -36,25 +37,29 @@ this.el_arena_champion_axe <- this.inherit("scripts/items/weapons/weapon", {
 		skillToAdd.setApplyAxeMastery(true);
 		this.addSkill(skillToAdd);
 	}
+
+	function getTooltip()
+	{
+		local result = this.weapon.getTooltip();
+
+		result.push({
+			id = 10,
+			type = "text",
+			icon = "ui/icons/special.png",
+			text = "结算伤害后若目标生命值低于25%，则直接杀死敌人。"
+		});
+		return result;
+	}
     
     
 
 	function onDamageDealt( _target, _skill, _hitInfo )
 	{
-		local actor = this.getContainer().getActor();
-
-		if (actor == null || actor.isNull())
-		{
-			return;
-		}
-
-		if (actor.isPlayerControlled() && _skill.getDirectDamage() < 1.0 && !_skill.isRanged() && this.m.ConditionMax > 1)
-		{
-			if (_target.getArmorMax(_hitInfo.BodyPart) >= 50 && _hitInfo.DamageInflictedArmor >= 5 || this.m.ConditionMax == 2)
-			{
-				this.lowerCondition();
-			}
-		}
+        this.weapon.onDamageDealt(_target, _skill, _hitInfo);
+        if(_target.getHitpoints() / (_target.getHitpointsMax() * 1.0) < 0.25)
+        {
+            _target.kill(this.getContainer().getActor(), _skill);
+        }
 	}
 
 

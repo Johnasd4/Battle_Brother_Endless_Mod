@@ -17,7 +17,7 @@ gt.Const.EL_LichKing <- {
             4,
             25
         ],
-        LevelFactor = 0.01,
+        LevelFactor = 0.04,
         BaseNum = 1
     },
     SoulEnergyState = {

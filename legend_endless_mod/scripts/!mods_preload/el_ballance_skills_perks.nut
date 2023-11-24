@@ -888,6 +888,10 @@ local gt = getroottable();
 
 		o.onAnySkillUsed <- function ( _skill, _targetEntity, _properties )
 		{
+			if(!this.isEnabled())
+			{
+				return;
+			}
 			if (_targetEntity != null && _targetEntity.isAttackable() && _targetEntity.getHitpointsPct() <= 0.5)
 			{
 				_properties.DamageTotalMult *= 2;
@@ -1503,7 +1507,7 @@ gt.Const.EL_Config.EL_modStrings <- function()
         },
 		{
             ID = "perk.ptr_cull",
-            tooltip = "对生命值低于 50% 的单位造成 200% 的伤害。"
+            tooltip = "[color=" + this.Const.UI.Color.NegativeValue + "][u]Requires:[/u] Axe[/color]\n对生命值低于 50% 的单位造成 200% 的伤害。"
         },
 		{
             ID = "perk.ptr_discovered_talent",
