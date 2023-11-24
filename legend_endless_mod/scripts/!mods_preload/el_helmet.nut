@@ -1472,9 +1472,9 @@ local gt = getroottable();
 		local onUse = o.onUse;
 		o.onUse = function ( _actor, _item = null )
 		{
-			local helmet = _item == null ? _actor.getItems().getItemAtSlot(this.Const.ItemSlot.Head) : _item;
+			//local helmet = _item == null ? _actor.getItems().getItemAtSlot(this.Const.ItemSlot.Head) : _item;
 
-			if (helmet != null && helmet.EL_getArmorType() == this.Const.EL_Item.ArmorType.UnlayeredArmor)
+			if (_item != null && _item.EL_getArmorType() == this.Const.EL_Item.ArmorType.UnlayeredArmor)
 			{
 				return false;
 			}

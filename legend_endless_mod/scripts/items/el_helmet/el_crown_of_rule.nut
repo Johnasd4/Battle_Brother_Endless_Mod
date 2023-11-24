@@ -168,7 +168,7 @@ this.el_crown_of_rule <- this.inherit("scripts/items/helmets/helmet", {
 
 	function EL_getRecraftSoulEnergy()
 	{
-		return this.Const.EL_LichKing.SoulEnergy.RecraftConsumption * this.EL_getRankLevel();
+		return this.Const.EL_LichKing.SoulEnergy.RecraftConsumption * (this.EL_getRankLevel() + 1);
 	}
 
 });
