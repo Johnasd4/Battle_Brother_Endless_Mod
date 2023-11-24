@@ -1310,7 +1310,7 @@ local gt = getroottable();
 						value = this.Math.floor(this.m.Condition),
 						valueMax = this.Math.floor(this.m.ConditionMax),
 						text = "" + this.Math.floor(this.getCondition()) + " / " + this.Math.floor(this.getConditionMax()) + " (" + this.m.EL_BaseNoRankConditionMax + ")",
-						style = "helmet-head-slim"
+						style = "armor-head-slim"
 					};
 				}
 				else if(result[i].id == 5 && result[i].icon == "ui/icons/fatigue.png")
