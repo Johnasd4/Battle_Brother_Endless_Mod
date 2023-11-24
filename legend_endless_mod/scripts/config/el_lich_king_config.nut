@@ -235,11 +235,11 @@ gt.Const.EL_LichKing <- {
                 5
             ],
             ControlAbilityCost = [
-                50,
-                50,
-                100,
-                100,
-                250
+                10,
+                10,
+                20,
+                20,
+                50
             ]
         }
     },

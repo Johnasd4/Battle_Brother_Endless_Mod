@@ -7,7 +7,7 @@ this.el_ice_armor <- this.inherit("scripts/items/armor/armor", {
 		this.m.Name = "寒冰护甲";
 		this.m.Description = "一套狰狞可怖的战甲，充满了邪恶与冰冷的力量，伴随着微不可闻的灵魂哀嚎声。凝视它时仿佛看到一个个若隐若现的灵魂在其上扭曲、挣扎。";
 		this.m.SlotType = this.Const.ItemSlot.Body;
-		this.m.IsDroppedAsLoot = true;
+		this.m.IsDroppedAsLoot = false;
 		this.m.ShowOnCharacter = true;
 		this.m.IsIndestructible = true;
 		//

@@ -9,7 +9,7 @@ this.el_crown_of_rule <- this.inherit("scripts/items/helmets/helmet", {
 		this.m.Name = "统御之冠";
 		this.m.Description = "一个利用暗影界的至臻技艺打造而成的头盔，代表了死者之王的身份。将没有亡灵能抵抗它的意志。";
 		this.m.ShowOnCharacter = true;
-		this.m.IsDroppedAsLoot = true;
+		this.m.IsDroppedAsLoot = false;
 		this.m.HideHair = true;
 		this.m.HideBeard = true;
 		this.m.HideCharacterHead = true;

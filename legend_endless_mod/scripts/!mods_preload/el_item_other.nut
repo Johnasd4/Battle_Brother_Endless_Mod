@@ -194,12 +194,11 @@ local gt = getroottable();
 	::mods_hookNewObject("items/item_container", function(o) {
 		o.unequip = function( _item )
 		{
-			if (_item.EL_canDropIntoBagOrStash())
+			if (_item == null || _item == -1)
 			{
 				return false;
 			}
-
-			if (_item == null || _item == -1)
+			if (_item.EL_canDropIntoBagOrStash())
 			{
 				return false;
 			}

@@ -7,7 +7,7 @@ this.el_lich_king_scenario_easy <- this.inherit("scripts/scenarios/world/startin
 	{
 		this.m.ID = "scenario.el_lich_king_1easy";
 		this.m.Name = "巫妖王(简单)";
-		this.m.Description = "[p=c][img]gfx/ui/events/lich_king.png[/img][/p][p]异域的巫妖王穿越来到这个世界，尽管你对原本的装备做了幻形处理，但是那庞大的死亡与寒冷的气息缺无法掩盖，仍是人们眼中的异类，他们会下意识的疏远你\n\n[color=#bcad8c]独有机制:[/color] 拥有特殊的灵魂能量机制。\n[color=#bcad8c]专属装备:[/color] 获得一套强大的，不可替换的巫妖王装备。\n[color=#bcad8c]举世皆敌:[/color] 初始人数上限为1，声望获取速度为80%，招募费用与工资提升200%。\n[color=#bcad8c]肆意收割:[/color] 获取灵魂能量的速度提升为150%。\n[color=#bcad8c]化身:[/color] 如果你的巫妖王死了，战役就结束了。[/p]";
+		this.m.Description = "[p=c][img]gfx/ui/events/lich_king.png[/img][/p][p]异域的巫妖王穿越来到这个世界，尽管你对原本的装备做了幻形处理，但是那庞大的死亡与寒冷的气息缺无法掩盖，仍是人们眼中的异类，他们会下意识的疏远你\n\n[color=#bcad8c]独有机制:[/color] 拥有特殊的灵魂能量机制。\n[color=#bcad8c]专属装备:[/color] 获得一套强大的，不可替换的巫妖王装备。\n[color=#bcad8c]举世皆敌:[/color] 初始人数上限为1，声望获取速度为70%，招募费用与工资提升200%。\n[color=#bcad8c]肆意收割:[/color] 获取灵魂能量的速度提升为150%。\n[color=#bcad8c]化身:[/color] 如果你的巫妖王死了，战役就结束了。[/p]";
 		this.m.Difficulty = 1;
 		this.m.Order = 3;
 		this.m.StartingRosterTier = this.Const.Roster.getTierForSize(1);
@@ -140,7 +140,7 @@ this.el_lich_king_scenario_easy <- this.inherit("scripts/scenarios/world/startin
 	function onInit()
 	{
 		this.starting_scenario.onInit();
-		this.World.Assets.m.BusinessReputationRate = 0.8;
+		this.World.Assets.m.BusinessReputationRate = 0.7;
 	}
 
 	function onUpdateHiringRoster( _roster )
@@ -160,7 +160,39 @@ this.el_lich_king_scenario_easy <- this.inherit("scripts/scenarios/world/startin
 
 	function onActorKilled( _actor, _killer, _combatID )
 	{
+		local lich_king = null;
+        local targets = this.Tactical.Entities.getAllInstances();
+        foreach( tar in targets )
+        {
+            foreach( t in tar )
+            {
+                if (t == null || t.getID() == _actor.getID() || t.isDying() || !t.isAlive())
+                {
+                    continue;
+                }
+
+                local items = t.getItems();
+                local main_hand = items == null ? null : items.getItemAtSlot(this.Const.ItemSlot.Mainhand);
+                if (main_hand != null && main_hand.getID() == "el_weapon.frostmourne" && _actor.getTile().getDistanceTo(t.getTile()) <= main_hand.EL_getAffectRange())
+                {
+                    lich_king = t;
+                }
+            }
+        }
+		if(lich_king == null)
+		{
+			return;
+		}
 		local num = this.Const.EL_LichKing.EntityDropNum.BaseNum * (1 + _actor.EL_getLevel() * this.Const.EL_LichKing.EntityDropNum.LevelFactor) * this.Const.EL_LichKing.EntityDropNum.RankFactor[_actor.EL_getRankLevel()];
 		this.World.Assets.EL_addSoulEnergy(1.5 * num);
+	}
+
+	
+
+	function EL_getSkillRange()
+	{
+		local range_item = this.Const.EL_LichKing.Weapon.DeathCoil.BaseSkillRangeMax + this.m.EL_RankLevel * this.Const.EL_LichKing.Weapon.DeathCoil.SkillRangeMaxRankFactor;
+		local range_hitpoints = this.Const.EL_LichKing.Weapon.DeathCoil.BaseSkillRangeMax + this.Math.floor(this.getContainer().getActor().getHitpointsMax() / 100);
+		return this.Math.min(range_item, range_hitpoints);
 	}
 });

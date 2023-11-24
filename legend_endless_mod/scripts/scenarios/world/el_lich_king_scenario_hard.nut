@@ -160,6 +160,29 @@ this.el_lich_king_scenario_hard <- this.inherit("scripts/scenarios/world/startin
 
 	function onActorKilled( _actor, _killer, _combatID )
 	{
+		local lich_king = null;
+        local targets = this.Tactical.Entities.getAllInstances();
+        foreach( tar in targets )
+        {
+            foreach( t in tar )
+            {
+                if (t == null || t.getID() == _actor.getID() || t.isDying() || !t.isAlive())
+                {
+                    continue;
+                }
+
+                local items = t.getItems();
+                local main_hand = items == null ? null : items.getItemAtSlot(this.Const.ItemSlot.Mainhand);
+                if (main_hand != null && main_hand.getID() == "el_weapon.frostmourne" && _actor.getTile().getDistanceTo(t.getTile()) <= main_hand.EL_getAffectRange())
+                {
+                    lich_king = t;
+                }
+            }
+        }
+		if(lich_king == null)
+		{
+			return;
+		}
 		local num = this.Const.EL_LichKing.EntityDropNum.BaseNum * (1 + _actor.EL_getLevel() * this.Const.EL_LichKing.EntityDropNum.LevelFactor) * this.Const.EL_LichKing.EntityDropNum.RankFactor[_actor.EL_getRankLevel()];
 		this.World.Assets.EL_addSoulEnergy(num);
 	}

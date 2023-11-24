@@ -37,13 +37,14 @@ el_lichking_death_coil <- this.inherit("scripts/skills/skill", {
 		this.m.IsTooCloseShown = true;
 		this.m.InjuriesOnBody = this.Const.Injury.BluntBody;
 		this.m.InjuriesOnHead = this.Const.Injury.BluntHead;
-		this.m.DirectDamageMult = 0.5;
+		this.m.DirectDamageMult = 0.3;
 		this.m.ActionPointCost = this.Const.EL_LichKing.Weapon.DeathCoil.SkillActionPointCost;
 		this.m.FatigueCost =  this.Const.EL_LichKing.Weapon.DeathCoil.SkillFatigueCost;
 		this.m.MinRange = 1;
 		this.m.ChanceDecapitate = 0;
 		this.m.ChanceDisembowel = 0;
 		this.m.ChanceSmash = 100;
+		this.m.IsUsingHitchance = false;
 
 		this.m.EL_SoulEnergyCost = this.Const.EL_LichKing.Weapon.DeathCoil.SoulEnergyCost[this.m.EL_RankLevel];
 	}

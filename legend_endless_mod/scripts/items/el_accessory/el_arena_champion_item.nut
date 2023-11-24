@@ -7,7 +7,7 @@ this.el_arena_champion_item <- this.inherit("scripts/items/accessory/accessory",
 		this.m.Name = "Arena Champion";
 		this.m.Description = "The sysbol of the arena champion.";
 		this.m.SlotType = this.Const.ItemSlot.Accessory;
-		this.m.IsDroppedAsLoot = true;
+		this.m.IsDroppedAsLoot = false;
 		this.m.ShowOnCharacter = true;
 		this.m.IconLarge = "";
 		//OVERRIDE

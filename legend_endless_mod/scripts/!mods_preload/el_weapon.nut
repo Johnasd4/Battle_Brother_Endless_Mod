@@ -703,8 +703,10 @@ local gt = getroottable();
 			if(this.m.EL_Level < 100)
 			{
 				local min_calculate_weight = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_EquipmentEssence.OneHandedMinCalculateWeight : this.Const.EL_Weapon.EL_EquipmentEssence.TwoHandedMinCalculateWeight;
-				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Weapon.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel) * this.Const.EL_Weapon.EL_EquipmentEssence.UpgradeLevelFactor 
-														* this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
+				local calculate_weight = this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier);
+				local weight_mult = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10, 2) : this.Math.pow(calculate_weight / 10, 0.5);
+				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(weight_mult * this.Math.pow(this.Const.EL_Weapon.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel) * this.Const.EL_Weapon.EL_EquipmentEssence.UpgradeLevelFactor 
+														* this.Math.abs(calculate_weight * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
 			}
 			return result;
 		}
@@ -716,25 +718,29 @@ local gt = getroottable();
 			{
 				local rank_level = EL_getRankLevel() + 1;
 				local min_calculate_weight = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_EquipmentEssence.OneHandedMinCalculateWeight : this.Const.EL_Weapon.EL_EquipmentEssence.TwoHandedMinCalculateWeight;
+				local calculate_weight = this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier);
+				local weight_mult = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10, 2) : this.Math.pow(calculate_weight / 10, 0.5);
 				if(rank_level == this.Const.EL_Item.Type.Legendary)
 				{
 					++result[this.Const.EL_Item.Type.Legendary];
 				}
 				else
 				{
-					result[rank_level] += this.Math.ceil(this.Const.EL_Weapon.EL_EquipmentEssence.UpgradeRankFactor * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier)));
+					result[rank_level] += this.Math.ceil(weight_mult * this.Const.EL_Weapon.EL_EquipmentEssence.UpgradeRankFactor * this.Math.abs(calculate_weight));
 				}
 				
 				for(local index = 0; index < this.m.EL_Level; ++index)
 				{
-					result[this.Const.EL_Item.Type.Normal] += this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * index);
+					result[this.Const.EL_Item.Type.Normal] += calculate_weight * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * index);
 				}
-				result[this.Const.EL_Item.Type.Normal] = this.Math.floor(this.Math.abs(result[this.Const.EL_Item.Type.Normal]) * this.Const.EL_Weapon.EL_EquipmentEssence.UpgradeLevelFactor 
+				result[this.Const.EL_Item.Type.Normal] = this.Math.floor(weight_mult * this.Math.abs(result[this.Const.EL_Item.Type.Normal]) * this.Const.EL_Weapon.EL_EquipmentEssence.UpgradeLevelFactor 
 													  * (this.Math.pow(this.Const.EL_Weapon.EL_EquipmentEssence.RankFactor, rank_level) - this.Math.pow(this.Const.EL_Weapon.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel)));
 			}
 			else if(this.m.EL_StrengthenEntryNum < this.m.EL_EntryList.len())
 			{
 				result[this.Const.EL_Item.Type.Legendary] += this.Const.EL_Weapon.EL_EquipmentEssence.StrengthenEntryNum;
+				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(weight_mult * this.Math.pow(this.Const.EL_Weapon.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel) * this.Const.EL_Weapon.EL_EquipmentEssence.UpgradeLevelFactor 
+														* this.Math.abs(calculate_weight * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.Const.EL_Item.MaxLevel)));
 			}
 			return result;
 		}
@@ -743,18 +749,18 @@ local gt = getroottable();
 		{
 			local result = [0, 0, 0, 0, 0];
 			local min_calculate_weight = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_EquipmentEssence.OneHandedMinCalculateWeight : this.Const.EL_Weapon.EL_EquipmentEssence.TwoHandedMinCalculateWeight;
-			result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Weapon.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel) * this.Const.EL_Weapon.EL_EquipmentEssence.DisassembleFactor
-													* this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
+			local calculate_weight = this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier);
+			local weight_mult = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10, 2) : this.Math.pow(calculate_weight / 10, 0.5);
+			result[this.Const.EL_Item.Type.Normal] += this.Math.floor(weight_mult * this.Math.pow(this.Const.EL_Weapon.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel) * this.Const.EL_Weapon.EL_EquipmentEssence.DisassembleFactor
+													* this.Math.abs(calculate_weight * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
 			if(this.m.EL_RankLevel == this.Const.EL_Item.Type.Legendary)
 			{
-				++result[this.Const.EL_Item.Type.Legendary];
+				result[this.Const.EL_Item.Type.Legendary] += (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_EquipmentEssence.UpgradeRankLegendaryNum : this.Const.EL_Weapon.EL_EquipmentEssence.UpgradeRankLegendaryNum * 2;
 			}
 			else if(this.m.EL_RankLevel != this.Const.EL_Item.Type.Normal)
 			{
-				result[this.m.EL_RankLevel] += this.Math.ceil(this.Const.EL_Weapon.EL_EquipmentEssence.DisassembleFactor * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier)));
-				
+				result[this.m.EL_RankLevel] += this.Math.ceil(weight_mult * this.Const.EL_Weapon.EL_EquipmentEssence.DisassembleFactor * this.Math.abs(calculate_weight));
 			}
-			
 			return result;
 		}
 
@@ -765,10 +771,12 @@ local gt = getroottable();
 			{
 				local rank_level = this.Math.min(this.m.EL_RankLevel, this.Const.EL_Item.Type.Epic);
 				local min_calculate_weight = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_EquipmentEssence.OneHandedMinCalculateWeight : this.Const.EL_Weapon.EL_EquipmentEssence.TwoHandedMinCalculateWeight;
-				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Weapon.EL_EquipmentEssence.RankFactor, rank_level) * this.Const.EL_Weapon.EL_EquipmentEssence.RecraftFactor 
-														* this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier) * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)));
-				result[rank_level] += this.Math.ceil(this.Const.EL_Weapon.EL_EquipmentEssence.SeniorEquipmentEssenceMult * this.Const.EL_Weapon.EL_EquipmentEssence.RecraftFactor 
-											 * this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier)));
+				local calculate_weight = this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier);
+				local weight_mult = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10, 2) : this.Math.pow(calculate_weight / 10, 0.5);
+				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(weight_mult * this.Math.pow(this.Const.EL_Weapon.EL_EquipmentEssence.RankFactor, rank_level) * this.Const.EL_Weapon.EL_EquipmentEssence.RecraftFactor 
+														* this.Math.abs(calculate_weight * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)));
+				result[rank_level] += this.Math.ceil(weight_mult * this.Const.EL_Weapon.EL_EquipmentEssence.SeniorEquipmentEssenceMult * this.Const.EL_Weapon.EL_EquipmentEssence.RecraftFactor 
+											 * this.Math.abs(calculate_weight));
 			}
 			return result;
 		}

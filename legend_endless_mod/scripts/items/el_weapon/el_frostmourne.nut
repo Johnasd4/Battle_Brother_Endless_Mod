@@ -19,6 +19,7 @@ this.el_frostmourne <- this.inherit("scripts/items/weapons/weapon", {
 		this.m.AddGenericSkill = true;
 		this.m.ShowQuiver = false;
 		this.m.ShowArmamentIcon = true;
+		this.m.IsDroppedAsLoot = false;
 		this.m.ArmamentIcon = "icon_legend_crusader_sword_01";
 		this.m.ShieldDamage = 32;
 		this.m.Condition = 72.0;
@@ -82,6 +83,13 @@ this.el_frostmourne <- this.inherit("scripts/items/weapons/weapon", {
 	function getRepair()
 	{
 		return this.item.getRepairMax();
+	}
+
+	function EL_getAffectRange()
+	{
+		local range_item = this.Const.EL_LichKing.Weapon.DeathCoil.BaseSkillRangeMax + this.m.EL_RankLevel * this.Const.EL_LichKing.Weapon.DeathCoil.SkillRangeMaxRankFactor;
+		local range_hitpoints = this.Const.EL_LichKing.Weapon.DeathCoil.BaseSkillRangeMax + this.Math.floor(this.getContainer().getActor().getHitpointsMax() / 100);
+		return this.Math.min(range_item, range_hitpoints);
 	}
 
 	function EL_generateByRankAndLevel( _EL_rankLevel, EL_level, EL_additionalRarityChance = 0 )
