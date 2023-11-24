@@ -8,7 +8,7 @@ this.el_taelia_present_item <- this.inherit("scripts/items/accessory/accessory",
 		this.m.Description = "来自伯瓦尔女儿的礼物，是他在这个新世界为数不多的回忆，也是他人性的锚点。为此他加装了一个来历不明的骷髅装饰用于保护这最后的念想。";
 		this.m.SlotType = this.Const.ItemSlot.Accessory;
 		this.m.ShowOnCharacter = false;
-		this.m.IsDroppedAsLoot = true;
+		this.m.IsDroppedAsLoot = false;
 		this.m.IconLarge = "accessory/taelia_present.png";
 		this.m.Icon = "accessory/taelia_present.png";
 		this.m.AddGenericSkill = true;

@@ -110,6 +110,7 @@ this.el_pursuit_of_wind_entry <- this.inherit("scripts/skills/skill", {
                 if (skill.m.IsWeaponSkill || skill.getID() == "actives.legend_cascade")
                 {
                     skill.m.MaxRange = 10000;
+					skill.m.IsUsingHitchance = false;
                 }
             }
 		}

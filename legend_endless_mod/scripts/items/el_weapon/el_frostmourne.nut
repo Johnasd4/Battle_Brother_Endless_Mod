@@ -19,6 +19,7 @@ this.el_frostmourne <- this.inherit("scripts/items/weapons/weapon", {
 		this.m.AddGenericSkill = true;
 		this.m.ShowQuiver = false;
 		this.m.ShowArmamentIcon = true;
+		this.m.IsDroppedAsLoot = false;
 		this.m.ArmamentIcon = "icon_legend_crusader_sword_01";
 		this.m.ShieldDamage = 32;
 		this.m.Condition = 72.0;
