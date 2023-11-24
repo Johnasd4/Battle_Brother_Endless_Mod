@@ -9,7 +9,7 @@ gt.Const.EL_LichKing <- {
     SoulEnergy = {
         UpgradeLevelConsumptionFactor = 4,
         UpgradeRankConsumptionFactor = 100,
-        RecraftConsumption = 100
+        RecraftConsumption = 10
     },
     EntityDropNum = {
         RankFactor = [

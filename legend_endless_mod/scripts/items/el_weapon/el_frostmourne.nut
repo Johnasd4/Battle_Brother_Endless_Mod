@@ -145,7 +145,7 @@ this.el_frostmourne <- this.inherit("scripts/items/weapons/weapon", {
 
 	function EL_getRecraftSoulEnergy()
 	{
-		return this.Const.EL_LichKing.SoulEnergy.RecraftConsumption;
+		return this.Const.EL_LichKing.SoulEnergy.RecraftConsumption * this.EL_getRankLevel();
 	}
 });
 
