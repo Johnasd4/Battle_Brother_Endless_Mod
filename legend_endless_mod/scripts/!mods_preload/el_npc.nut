@@ -1052,9 +1052,9 @@ local gt = getroottable();
                 if(this.m.EL_IsBossParty) {
                     for(local i = 0; i < this.m.Troops.len(); ++i) {
                         //At least two leaders.
-                        this.m.Troops[random_leader_index].EL_ExtraBuffNum[0] = 0;
-                        this.m.Troops[random_leader_index].EL_ExtraBuffNum[1] = 0;
-                        this.m.Troops[random_leader_index].EL_ExtraBuffNum[2] = 0;
+                        this.m.Troops[i].EL_ExtraBuffNum[0] = 0;
+                        this.m.Troops[i].EL_ExtraBuffNum[1] = 0;
+                        this.m.Troops[i].EL_ExtraBuffNum[2] = 0;
                         if(troops_info[i].EL_IsBossUnit) {
                             this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevelMin);
                             this.m.Troops[i].EL_IsBossUnit = true;
@@ -1089,9 +1089,9 @@ local gt = getroottable();
                         ++i;
                     }
                     for(; i < troops_info.len(); ++i) {
-                        this.m.Troops[random_leader_index].EL_ExtraBuffNum[0] = 0;
-                        this.m.Troops[random_leader_index].EL_ExtraBuffNum[1] = 0;
-                        this.m.Troops[random_leader_index].EL_ExtraBuffNum[2] = 0;
+                        this.m.Troops[i].EL_ExtraBuffNum[0] = 0;
+                        this.m.Troops[i].EL_ExtraBuffNum[1] = 0;
+                        this.m.Troops[i].EL_ExtraBuffNum[2] = 0;
                         if(troops_info[i].EL_IsBossUnit) {
                             this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevelMin);
                             this.m.Troops[i].EL_IsBossUnit = true;
