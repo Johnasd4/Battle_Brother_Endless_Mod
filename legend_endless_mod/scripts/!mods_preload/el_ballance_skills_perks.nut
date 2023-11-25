@@ -1392,6 +1392,23 @@ local gt = getroottable();
 		}
 	});
 
+	::mods_hookExactClass("skills/perks/perk_rebound", function ( o )
+	{
+		o.onUpdate = function( _properties )
+		{
+			local actor = this.getContainer().getActor();
+			local maxFat = actor.getFatigueMax();
+			local currentFat = actor.getFatigue();
+			local ratio = currentFat / (maxFat <= 0 ? 1 : maxFat);
+			if (ratio > 0.9)
+			{
+				_properties.FatigueRecoveryRate += 5;
+			}
+		}
+
+	});
+
+
 	::mods_hookExactClass("skills/perks/perk_student", function ( o )
 	{
 		o.onUpdate = function( _properties )
