@@ -92,17 +92,17 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 		}
 	}
 
-	function onTargetMissed( _skill, _targetEntity )
-	{
-		if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
-		{
-			return;
-		}
-		if (EL_isUsable())
-		{
-			this.EL_drainFatigueAndHitpoints(_skill, _targetEntity);
-		}
-	}
+	// function onTargetMissed( _skill, _targetEntity )
+	// {
+	// 	if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
+	// 	{
+	// 		return;
+	// 	}
+	// 	if (EL_isUsable())
+	// 	{
+	// 		this.EL_drainFatigueAndHitpoints(_skill, _targetEntity);
+	// 	}
+	// }
 
 	function onTurnStart()
 	{

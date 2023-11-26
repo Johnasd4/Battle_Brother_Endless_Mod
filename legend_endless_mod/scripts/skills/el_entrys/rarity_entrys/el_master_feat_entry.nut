@@ -44,7 +44,7 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
 				id = 5,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]将你的主动值超出目标主动值的 " + this.Const.EL_Rarity_Entry.Factor.EL_MasterFeat.MeleeSkillFactor * 100 + "% 转化为额外的命中率，闪避率和伤害加成[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]将你与目标主动值的主动值之差(仅计算正值)获得额外的命中率，闪避率和伤害加成[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -108,7 +108,7 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
 		if (_targetEntity != null && _skill.m.IsWeaponSkill && EL_isUsable())
 		{
             local user = this.getContainer().getActor();
-            local bonus = this.Math.max(0, user.getInitiative() - _targetEntity.getInitiative());
+            local bonus = EL_getBonus(user.getInitiative() - _targetEntity.getInitiative());
             //this.logInfo("before skill:"+_properties.MeleeSkill);
             //this.logInfo("before damage_mult:"+_properties.DamageTotalMult);
 			_properties.MeleeSkill += bonus * this.Const.EL_Rarity_Entry.Factor.EL_MasterFeat.MeleeSkillFactor;
@@ -140,7 +140,7 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
 		if (EL_isUsable())
         {
             local user = this.getContainer().getActor();
-            local bonus = this.Math.max(0, user.getInitiative() - _attacker.getInitiative());
+            local bonus = EL_getBonus(user.getInitiative() - _attacker.getInitiative());
             //this.logInfo("before defense:"+_properties.MeleeDefense + "::"+_properties.RangedDefense);
 			_properties.MeleeDefense += bonus * this.Const.EL_Rarity_Entry.Factor.EL_MasterFeat.MeleeDefenseFactor;
 			_properties.RangedDefense += bonus * this.Const.EL_Rarity_Entry.Factor.EL_MasterFeat.RangedDefenseFactor;
@@ -177,6 +177,21 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
 		this.m.EL_IsRetaliate = true;
         skill.useForFree(_attacker.getTile());
 		this.m.EL_IsRetaliate = false;
+	}
+	
+	function EL_getBonus( _initiative_difference )
+	{
+		local bonus = 0;
+		if(_initiative_difference < 0)
+		{
+			return bonus;
+		}
+		while(_initiative_difference > 0)
+		{
+			++bonus;
+			_initiative_difference -= bonus;
+		}
+		return bonus;
 	}
 
 	function EL_isUsable()

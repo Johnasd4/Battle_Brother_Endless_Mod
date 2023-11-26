@@ -14,19 +14,12 @@ this.el_immue_bleeding_poisoned_fire_miasma_entry <- this.inherit("scripts/skill
 			type = "text",
 			text = "[color=" + colour + "]免疫流血，中毒，火焰，瘴气[/color]"
 		};
+		
+		if(this.m.EL_CurrentLevel != 1)
+		{
+			result.text += "[color=" + this.Const.EL_Item.Type.Normal + "] (暂不生效)[/color]";
+		}
 		return result;
-	}
-
-	function EL_setCurrentLevel(_EL_currentLevel)
-	{
-		if(_EL_currentLevel >= 1)
-		{
-			this.m.EL_CurrentLevel = 1.0;
-		}
-		else
-		{
-			this.m.EL_CurrentLevel = 0.0;
-		}
 	}
 
 	function EL_getEntryColour()

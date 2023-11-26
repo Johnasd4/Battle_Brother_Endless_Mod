@@ -37,7 +37,7 @@ this.el_stun_cashing_entry <- this.inherit("scripts/skills/skill", {
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]命中时额外造成等同于造成血量伤害 " + this.Const.EL_Rarity_Entry.Factor.EL_StunCashing.FatigueDamageMult * 100 +"%的疲劳伤害[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]命中时额外造成等同于武器基础面板伤害 " + this.Const.EL_Rarity_Entry.Factor.EL_StunCashing.FatigueDamageMult * 100 +"%的疲劳伤害[/color]"
 			},
 			{
 				id = 6,
@@ -66,7 +66,7 @@ this.el_stun_cashing_entry <- this.inherit("scripts/skills/skill", {
 		}
 		if (EL_isUsable())
 		{
-			local fatigue_damage = _damageInflictedHitpoints * this.Const.EL_Rarity_Entry.Factor.EL_StunCashing.FatigueDamageMult;
+			local fatigue_damage = EL_getFatigueDamage();
 			this.applyFatigueDamage(_targetEntity, fatigue_damage);
 		}
 	}
@@ -123,6 +123,12 @@ this.el_stun_cashing_entry <- this.inherit("scripts/skills/skill", {
 	{
 		this.Const.EL_Rarity_Entry.EL_ReturnSkill(this.getContainer().getActor(), this.m.EL_replacedSkills);
 		this.getContainer().removeByID("el_rarity_actives.stun_cashing_skill");
+	}
+
+	function EL_getFatigueDamage()
+	{
+		local weapon = this.m.Container.getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+		return this.Math.floor((weapon.EL_getBaseNoRankRegularDamage() + weapon.EL_getBaseNoRankRegularDamageMax()) / 2 * this.Const.EL_Rarity_Entry.Factor.EL_StunCashing.FatigueDamageMult);
 	}
 
 	function EL_isUsable()

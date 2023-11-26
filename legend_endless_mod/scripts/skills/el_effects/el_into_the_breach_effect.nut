@@ -62,8 +62,8 @@ this.el_into_the_breach_effect <- this.inherit("scripts/skills/skill", {
 		{
 			_properties.IsAttackingOnZoneOfControlAlways = true;
 		}
-        _properties.MeleeSkill += this.Math.floor(this.m.EL_Stack  * this.Const.EL_Rarity_Entry.Factor.EL_IntoTheBreach.MeleeSkillChainOffset);
-		_properties.MeleeDefense += this.Math.floor(this.m.EL_Stack  * this.Const.EL_Rarity_Entry.Factor.EL_IntoTheBreach.MeleeDefenseChainOffset);
+        _properties.MeleeSkill += this.Math.floor(this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_IntoTheBreach.MeleeSkillChainOffset);
+		_properties.MeleeDefense += this.Math.floor(this.m.EL_Stack * this.Const.EL_Rarity_Entry.Factor.EL_IntoTheBreach.MeleeDefenseChainOffset);
 	}
 
 	function onRemoved()

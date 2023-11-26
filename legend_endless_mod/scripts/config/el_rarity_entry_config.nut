@@ -97,7 +97,7 @@ gt.Const.EL_Rarity_Entry <- {
 			BleedingFactor = 1.0
 		},
 		EL_BloodyKnock = {
-			DamageMult = 5
+			DamageMult = 2
 		},
 		EL_BrutalCashing = {
 			ReplaceSkillList = [
@@ -105,7 +105,7 @@ gt.Const.EL_Rarity_Entry <- {
 			]
 		}
 		EL_BreakingThroughThousandArmies = {
-			StackPercent = 0.15,
+			StackPercent = 0.30,
 			BraveryOffset = this.Const.EL_PlayerNPC.EL_Morale.Effect.BraveryOffset[this.Const.MoraleState.Confident],
             InitiativeOffset = this.Const.EL_PlayerNPC.EL_Morale.Effect.InitiativeOffset[this.Const.MoraleState.Confident],
             MeleeSkillOffset = this.Const.EL_PlayerNPC.EL_Morale.Effect.MeleeSkillOffset[this.Const.MoraleState.Confident],
@@ -121,20 +121,20 @@ gt.Const.EL_Rarity_Entry <- {
 			]
 		}
 		EL_CircleofLife = {
-			HitpointsRecover = 0.2,
-			FatigueRecover = 0.2,
-			ArmorConditonRecover = 0.2,
-			HelmetConditonRecover = 0.2,
+			HitpointsRecover = 0.15,
+			FatigueRecover = 0.15,
+			ArmorConditonRecover = 0.15,
+			HelmetConditonRecover = 0.15,
 			RiseNum = 1,
-			FatigueDrainPercent = 0.2,
-			HitpointsDrainPercent = 0.05,
+			FatigueDrainPercent = 0.30,
+			HitpointsDrainPercent = 0.30,
 		},
 		EL_ColdLieCashing = {
-			DamageMultFactor = 0.25
+			DamageMultFactor = 0.15
 		},
 		EL_CurlingImmortalSound = {
 			SkillRange = 5,
-			SkillActionPointCost = 3,
+			SkillActionPointCost = 4,
 			SkillFatigueCost = 6,
 			SkillScriptList = [
 				"scripts/skills/el_actives/el_shake_heart_warm_ear_skill",
@@ -150,13 +150,13 @@ gt.Const.EL_Rarity_Entry <- {
 			],
 			HitpointsRecoverPercent = 0.15,
 			FatigueRecover = 15,
-			DamageMult = 0.25,
-			DamageReceivedMult = 0.25,
-			InitiativeOffset = 60,
-			MeleeSkillOffset = 20,
-			RangedSkillOffset = 20,
-			MeleeDefenseOffset = 20,
-			RangedDefenseOffset = 20
+			DamageMult = 0.15,
+			DamageReceivedMult = 0.15,
+			InitiativeOffset = 30,
+			MeleeSkillOffset = 15,
+			RangedSkillOffset = 15,
+			MeleeDefenseOffset = 15,
+			RangedDefenseOffset = 15
 		},
 		EL_Devastate = {
 			ShieldDamageMult = 3,
@@ -168,10 +168,10 @@ gt.Const.EL_Rarity_Entry <- {
 			]
 		},
 		EL_EyeOfDeath = {
-			HitHeadMult = 4
+			HitHeadMult = 2
 		}
 		EL_FaithOfTheRock = {
-			TargetAttractionMult = 1000
+			TargetAttractionMult = 9999
 		},
 		EL_FightAndWin = {
 			WeakenBravery = 5,
@@ -181,13 +181,13 @@ gt.Const.EL_Rarity_Entry <- {
 			WeakenMeleeDefense = 5,
 			WeakenRangedDefense = 5,
 			WeakenDamageReceivedTotalMult = 0.05,
-			TempWeakenBravery = 20,
-			TempWeakenInitiative = 30,
-			TempWeakenMeleeSkill = 20,
-			TempWeakenRangedSkill = 20,
-			TempWeakenMeleeDefense = 20,
-			TempWeakenRangedDefense = 20,
-			TempWeakenDamageReceivedTotalMult = 0.2
+			TempWeakenBravery = 15,
+			TempWeakenInitiative = 15,
+			TempWeakenMeleeSkill = 30,
+			TempWeakenRangedSkill = 15,
+			TempWeakenMeleeDefense = 15,
+			TempWeakenRangedDefense = 15,
+			TempWeakenDamageReceivedTotalMult = 0.15
 		},
 		EL_GunfireLicksTheHeavens = {
 			ExplosionRangeMult = 3,
@@ -199,8 +199,8 @@ gt.Const.EL_Rarity_Entry <- {
 		},
 		EL_IntoTheBreach = {
 			ConvertWeightIntoMeleeSkillPercent = 1.0,
-			MeleeSkillChainOffset = 2,
-			MeleeDefenseChainOffset = 2,
+			MeleeSkillChainOffset = 1.5,
+			MeleeDefenseChainOffset = 1.5,
 			DistanceRange = 2,
 			ReplaceSkillList = [
 				"actives.spearwall"
@@ -211,7 +211,7 @@ gt.Const.EL_Rarity_Entry <- {
 			HealthDamageMult = 1
 		},
 		EL_MassacreDesire = {
-			TempDamageMult = 0.2
+			TempDamageMult = 0.15
 		},
 		EL_MasterFeat = {
 			DamageMultFactor = 0.01,
@@ -231,7 +231,7 @@ gt.Const.EL_Rarity_Entry <- {
 			BraveryMult = 0.3
 		},
 		EL_StrongAndHeavyVehemence = {
-			FatigueDamageMult = 3,
+			FatigueDamageMult = 2,
 			ReplaceSkillList = [
 				"actives.bash",
 				"actives.knock_out",
@@ -241,7 +241,7 @@ gt.Const.EL_Rarity_Entry <- {
 			]
 		},
 		EL_StunCashing = {
-			FatigueDamageMult = 1,
+			FatigueDamageMult = 0.5,
 			ReplaceSkillList = [
 				"actives.crumble",
 				"actives.knock_over"
@@ -258,12 +258,12 @@ gt.Const.EL_Rarity_Entry <- {
 			ExtraAttackFatigueCostFactor = 0.0
 		},
 		EL_ToxicBladeThrust = {
-			DamageMultPurEffect = 0.25,
+			DamageMultPurEffect = 0.15,
 			DebuffNum = 2
 		},
 		EL_VehemenceOfTheSky = {
-			ConvertArmorIntoDamagePercent = 0.4,
-			ShieldDamageMult = 0.4
+			ConvertArmorIntoDamagePercent = 0.2,
+			ShieldDamageMult = 0.2
 		}
 	}
 
