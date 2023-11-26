@@ -505,8 +505,8 @@ local gt = getroottable();
 						{
 							temp_talent += 3;
 						}
-						if(temp_talent > this.Const.EL_Player.EL_Talent.Max) {
-							temp_talent = this.Const.EL_Player.EL_Talent.Max;
+						if(temp_talent > this.Const.EL_Player.EL_Talent.Max[this.m.EL_RankLevel]) {
+							temp_talent = this.Const.EL_Player.EL_Talent.Max[this.m.EL_RankLevel];
 						}
 						if(this.m.Talents[j] < temp_talent) {
 							this.m.Talents[j] = temp_talent;
