@@ -400,6 +400,9 @@ gt.Const.EL_Player <- {
         },
 
         function EL_setModifiersLevel(_EL_level, _EL_background) {
+            if(_EL_background == null) {
+                return;
+            }
             _EL_background.m.Modifiers.Ammo = this.Math.floor(_EL_background.m.BaseModifiers.Ammo * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.Ammo));
             _EL_background.m.Modifiers.ArmorParts = this.Math.floor(_EL_background.m.BaseModifiers.ArmorParts * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.ArmorParts));
             _EL_background.m.Modifiers.Meds = this.Math.floor(_EL_background.m.BaseModifiers.Meds * (1 + _EL_level * this.Const.EL_Player.EL_Modifiers.ResourceModifiersMult.Meds));
