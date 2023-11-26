@@ -72,7 +72,7 @@ this.el_npc_buff_stone_item <- this.inherit("scripts/items/trade/trading_good_it
 			skills.remove(skill);
 		}
 		foreach(skill in this.m.EL_NPCBuffs) {
-			EL_setRankLevel(this.Math.min(_actor.EL_getRankLevel(), skill.EL_getRankLevel()));
+			skill.EL_setRankLevel(this.Math.min(_actor.EL_getRankLevel(), skill.EL_getRankLevel()));
 			skills.add(skill);
 		}
 		skills.add(this.new("scripts/skills/el_items/el_npc_buff_stone_skill"));
