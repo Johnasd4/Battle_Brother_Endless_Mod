@@ -84,7 +84,7 @@ this.el_stamp_effect <- this.inherit("scripts/skills/skill", {
                 head_hit_info.FatalityChanceMult = 0.0;
                 affect_targets[i].onDamageReceived(_EL_user, this, head_hit_info);
             }
-            if(affect_targets[i]!= null && !affect_targets[i].isDying() && affect_targets[i].isAlive()) {
+            if(affect_targets[i]!= null && !affect_targets[i].isDying() && affect_targets[i].isAlive() && affect_targets[i].isAttackable()) {
                 local skills = affect_targets[i].getSkills();
                 local skill = skills.getSkillByID("el_effects.stamp");
                 if(skill == null) {
