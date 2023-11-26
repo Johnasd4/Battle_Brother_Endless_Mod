@@ -1462,15 +1462,18 @@ local gt = getroottable();
                     extra_elite_chance = 10;
                     break;
                 case 3:
-                    extra_elite_chance = 30;
+                    extra_elite_chance = 20;
                     break;
                 case 4:
+                    extra_elite_chance = 30;
                     _entity.EL_setHaveRandomLeader(true);
                     break;
                 case 5:
+                    extra_elite_chance = 40;
                     _entity.EL_setHaveStrongestLeader(true);
                     break;
                 case 6:
+                    extra_elite_chance = 50;
                     _entity.EL_setHaveRandomLeader(true);
                     _entity.EL_setHaveStrongestLeader(true);
                     break;
