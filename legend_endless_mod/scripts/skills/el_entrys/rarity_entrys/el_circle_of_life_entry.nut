@@ -92,17 +92,17 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 		}
 	}
 
-	function onTargetMissed( _skill, _targetEntity )
-	{
-		if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
-		{
-			return;
-		}
-		if (EL_isUsable())
-		{
-			this.EL_drainFatigueAndHitpoints(_skill, _targetEntity);
-		}
-	}
+	// function onTargetMissed( _skill, _targetEntity )
+	// {
+	// 	if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
+	// 	{
+	// 		return;
+	// 	}
+	// 	if (EL_isUsable())
+	// 	{
+	// 		this.EL_drainFatigueAndHitpoints(_skill, _targetEntity);
+	// 	}
+	// }
 
 	function onTurnStart()
 	{
@@ -139,7 +139,7 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 					}
 				}
 				user.setHitpoints(user.getHitpointsMax());
-            	user.setActionPoints(actor.getActionPointsMax());
+            	user.setActionPoints(user.getActionPointsMax());
 				user.setFatigue(0);
                 user.setMoraleState(this.Const.MoraleState.Confident);
 				local armor = user.getItems().getItemAtSlot(this.Const.ItemSlot.Body);

@@ -17,7 +17,14 @@ this.el_pursuit_effect <- this.inherit("scripts/skills/skill", {
 
     function onTargetHit( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
 	{
+		if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
+		{
+			return;
+		}
+		local is_able_to_die = _targetEntity.m.IsAbleToDie;
+		_targetEntity.m.IsAbleToDie = false;
 		EL_useFreeSkill(_skill, _targetEntity);
+		_targetEntity.m.IsAbleToDie = is_able_to_die;
 	}
 
 	function onTargetMissed( _skill, _targetEntity )

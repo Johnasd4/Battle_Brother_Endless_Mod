@@ -18,14 +18,7 @@ this.el_temp_weaken_effect <- this.inherit("scripts/skills/skill", {
 
 	function getName()
 	{
-		if (this.m.Count <= 1)
-		{
-			return this.m.Name;
-		}
-		else
-		{
-			return this.m.Name + " (x" + this.m.Count + ")";
-		}
+		return this.m.Name + " (x" + this.m.Count + ")";
 	}
 
 	function getTooltip()
@@ -88,18 +81,18 @@ this.el_temp_weaken_effect <- this.inherit("scripts/skills/skill", {
 
 	function onRefresh()
 	{
-		++this.m.Count;
-		this.spawnIcon("el_temp_weaken_effect", this.getContainer().getActor().getTile());
+		this.m.Count += 0.5;
+		//this.spawnIcon("ptr_from_all_sides_effect", this.getContainer().getActor().getTile());
 	}
 
 	function onUpdate( _properties )
 	{
-		_properties.Bravery -= this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.TempWeakenBravery * this.m.Count;
-		_properties.Initiative -= this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.TempWeakenInitiative * this.m.Count;
-		_properties.MeleeSkill -= this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.TempWeakenMeleeSkill * this.m.Count;
-		_properties.RangedSkill -= this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.TempWeakenRangedSkill * this.m.Count;
-		_properties.MeleeDefense -= this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.TempWeakenMeleeDefense * this.m.Count;
-		_properties.RangedDefense -= this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.TempWeakenRangedDefense * this.m.Count;
+		_properties.Bravery -= this.Math.floor(this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.TempWeakenBravery * this.m.Count);
+		_properties.Initiative -= this.Math.floor(this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.TempWeakenInitiative * this.m.Count);
+		_properties.MeleeSkill -= this.Math.floor(this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.TempWeakenMeleeSkill * this.m.Count);
+		_properties.RangedSkill -= this.Math.floor(this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.TempWeakenRangedSkill * this.m.Count);
+		_properties.MeleeDefense -= this.Math.floor(this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.TempWeakenMeleeDefense * this.m.Count);
+		_properties.RangedDefense -= this.Math.floor(this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.TempWeakenRangedDefense * this.m.Count);
 		_properties.DamageReceivedTotalMult *= (this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.TempWeakenDamageReceivedTotalMult * this.m.Count + 1);
 		//this.logInfo("target properties impress by temp weaken:" + this.m.Count);
 	}

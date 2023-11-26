@@ -6,7 +6,7 @@ this.el_undead_trait <- this.inherit("scripts/skills/traits/character_trait", {
 	{
 		this.character_trait.create();
 		this.m.ID = "el_trait.undead";
-		this.m.Name = "亡灵生物";
+		this.m.Name = "亡灵生物(活尸)";
 		this.m.Icon = "ui/traits/rotting_flesh_trait.png";
 		this.m.Type = this.Const.SkillType.Racial | this.Const.SkillType.Trait;
 		this.m.Order = this.Const.SkillOrder.Last;

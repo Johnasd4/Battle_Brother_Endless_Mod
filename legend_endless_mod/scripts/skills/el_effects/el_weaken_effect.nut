@@ -17,15 +17,8 @@ this.el_weaken_effect <- this.inherit("scripts/skills/skill", {
 	}
 
 	function getName()
-	{
-		if (this.m.Count <= 1)
-		{
-			return this.m.Name;
-		}
-		else
-		{
-			return this.m.Name + " (x" + this.m.Count + ")";
-		}
+	{		
+		return this.m.Name + " (x" + this.m.Count + ")";
 	}
 
 	function getTooltip()
@@ -88,18 +81,17 @@ this.el_weaken_effect <- this.inherit("scripts/skills/skill", {
 
 	function onRefresh()
 	{
-		++this.m.Count;
-		this.spawnIcon("el_weaken_effect", this.getContainer().getActor().getTile());
+		this.m.Count += 3;
 	}
 
 	function onUpdate( _properties )
 	{
-		_properties.Bravery -= this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenBravery * this.m.Count;
-		_properties.Initiative -= this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenInitiative * this.m.Count;
-		_properties.MeleeSkill -= this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenMeleeSkill * this.m.Count;
-		_properties.RangedSkill -= this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenRangedSkill * this.m.Count;
-		_properties.MeleeDefense -= this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenMeleeDefense * this.m.Count;
-		_properties.RangedDefense -= this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenRangedDefense * this.m.Count;
+		_properties.Bravery -= this.Math.floor(this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenBravery * this.m.Count);
+		_properties.Initiative -= this.Math.floor(this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenInitiative * this.m.Count);
+		_properties.MeleeSkill -= this.Math.floor(this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenMeleeSkill * this.m.Count);
+		_properties.RangedSkill -= this.Math.floor(this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenRangedSkill * this.m.Count);
+		_properties.MeleeDefense -= this.Math.floor(this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenMeleeDefense * this.m.Count);
+		_properties.RangedDefense -= this.Math.floor(this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenRangedDefense * this.m.Count);
 		_properties.DamageReceivedTotalMult *= (this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenDamageReceivedTotalMult * this.m.Count + 1);
 		
 		//this.logInfo("target properties impress by weaken:" + this.m.Count);

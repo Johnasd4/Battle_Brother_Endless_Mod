@@ -36,7 +36,13 @@ this.el_fight_and_win_entry <- this.inherit("scripts/skills/skill", {
                 type = "text",
                 icon = "ui/icons/special.png",
                 text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]命中敌人时, 使他决心 - " + this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenBravery + ", 主动值 - " + this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenInitiative + ", 近战技能 - " + this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenMeleeSkill + ", 远程技能 - " + this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenRangedSkill + ", 近战防御 - " + this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenMeleeDefense + ", 远程防御 - " + this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenRangedDefense + ", 受到伤害 + " + this.Const.EL_Rarity_Entry.Factor.EL_FightAndWin.WeakenDamageReceivedTotalMult * 100 + "%直到战斗结束[/color]"
-			}
+			},
+			{
+				id = 5,
+                type = "text",
+                icon = "ui/icons/special.png",
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]三头连枷的每次攻击效果减半[/color]"
+			},
         ]
 		if (!EL_isUsable())
 		{
@@ -60,6 +66,11 @@ this.el_fight_and_win_entry <- this.inherit("scripts/skills/skill", {
 		{
 			_targetEntity.getSkills().add(this.new("scripts/skills/el_effects/el_temp_weaken_effect"));
 			_targetEntity.getSkills().add(this.new("scripts/skills/el_effects/el_weaken_effect"));
+			if(!EL_isHalf())
+			{	
+				_targetEntity.getSkills().add(this.new("scripts/skills/el_effects/el_temp_weaken_effect"));
+				_targetEntity.getSkills().add(this.new("scripts/skills/el_effects/el_weaken_effect"));
+			}
 		}
 	}
 
@@ -72,7 +83,21 @@ this.el_fight_and_win_entry <- this.inherit("scripts/skills/skill", {
 		if (EL_isUsable())
 		{
 			_targetEntity.getSkills().add(this.new("scripts/skills/el_effects/el_temp_weaken_effect"));
+			if(!EL_isHalf())
+			{	
+				_targetEntity.getSkills().add(this.new("scripts/skills/el_effects/el_temp_weaken_effect"));
+			}
 		}
+	}
+
+	function EL_isHalf()
+	{
+		local item = this.m.Container.getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+		if (item.getID() == "weapon.three_headed_flail" || item.getID() == "weapon.named_three_headed_flail")
+		{
+			return true;
+		}
+		return false;
 	}
 
 	function EL_isUsable()

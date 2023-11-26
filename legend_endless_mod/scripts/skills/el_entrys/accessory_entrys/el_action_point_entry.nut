@@ -17,18 +17,11 @@ this.el_action_point_entry <- this.inherit("scripts/skills/el_entrys/el_accessor
 			type = "text",
 			text = "[color=" + colour + "]行动点 + " + this.m.EL_ActionPoint + "[/color]"
 		};
+		if(this.m.EL_CurrentLevel != 1)
+		{
+			result.text += "[color=" + this.Const.EL_Item.Type.Normal + "] (暂不生效)[/color]";
+		}
 		return result;
-	}
-	function EL_setCurrentLevel(_EL_currentLevel)
-	{
-		if(_EL_currentLevel >= 1)
-		{
-			this.m.EL_CurrentLevel = 1.0;
-		}
-		else
-		{
-			this.m.EL_CurrentLevel = 0.0;
-		}
 	}
 	function EL_getEntryColour()
 	{
