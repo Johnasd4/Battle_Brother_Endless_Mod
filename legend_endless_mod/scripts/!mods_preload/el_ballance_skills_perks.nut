@@ -944,7 +944,7 @@ local gt = getroottable();
 			this.m.IsApplied = true;
 			actor.m.LevelUps += 1;
 			for(local i = 0 ;i < this.Const.Attributes.COUNT; ++i) {
-				actor.m.Talents[i] = this.Math.min(this.Const.EL_Player.EL_Talent.Max[actor.EL_getRankLevel()], actor.m.Talents[i] + 1);
+				actor.m.Talents[i] = this.Math.max(actor.m.Talents[i], this.Math.min(this.Const.EL_Player.EL_Talent.Max[actor.EL_getRankLevel()], actor.m.Talents[i] + 1));
 				actor.m.Attributes[i] = [];
 			}
 
