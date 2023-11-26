@@ -230,6 +230,9 @@ gt.Const.EL_Rarity_Entry <- {
 		EL_ProofOfKinglyWay = {
 			BraveryMult = 0.3
 		},
+		EL_PursuitOfWind = {
+			DamageMult = 0.7
+		},
 		EL_StrongAndHeavyVehemence = {
 			FatigueDamageMult = 2,
 			ReplaceSkillList = [
@@ -263,7 +266,7 @@ gt.Const.EL_Rarity_Entry <- {
 		},
 		EL_VehemenceOfTheSky = {
 			ConvertArmorIntoDamagePercent = 0.2,
-			ShieldDamageMult = 0.2
+			ShieldDamageMult = 0.4
 		}
 	}
 
