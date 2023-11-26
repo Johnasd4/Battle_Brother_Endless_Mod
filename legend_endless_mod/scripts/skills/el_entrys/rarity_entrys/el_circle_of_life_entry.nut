@@ -139,7 +139,7 @@ this.el_circle_of_life_entry <- this.inherit("scripts/skills/skill", {
 					}
 				}
 				user.setHitpoints(user.getHitpointsMax());
-            	user.setActionPoints(actor.getActionPointsMax());
+            	user.setActionPoints(user.getActionPointsMax());
 				user.setFatigue(0);
                 user.setMoraleState(this.Const.MoraleState.Confident);
 				local armor = user.getItems().getItemAtSlot(this.Const.ItemSlot.Body);

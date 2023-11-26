@@ -257,6 +257,8 @@ local gt = getroottable();
 	for(local i = 0; i < this.Const.EL_Item_Other.EL_OnlyItemList.len(); ++i) {
 		::mods_hookExactClass("items/" + this.Const.EL_Item_Other.EL_OnlyItemList[i], function ( o )
 		{
+			o.m.Value <- 0;
+
 			local create = o.create;
 			o.create = function()
 			{

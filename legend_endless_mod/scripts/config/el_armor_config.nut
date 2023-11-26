@@ -717,8 +717,12 @@ gt.Const.EL_Armor <- {
 			while(_item.m.EL_EntryList.len() < _entryNum && index_pool.len() != 0)
 			{
 				local r = this.Math.rand(0, index_pool.len() - 1);
-				_item.EL_addEntryToList(this.new(this.Const.EL_Armor.EL_Entry.Pool.Entrys[index_pool[r]].Scripts));
+				local entry = this.new(this.Const.EL_Armor.EL_Entry.Pool.Entrys[index_pool[r]].Scripts);
 				index_pool.remove(r);
+				if(!_item.EL_hasEntry(entry.getID()) || _item.EL_getArmorType() == this.Const.EL_Item.ArmorType.UnlayeredArmor)
+				{
+					_item.EL_addEntryToList(entry);
+				}
 			}
 			_entryNum += this.Const.EL_Armor.EL_Entry.EntryNum.NormalArmor[_item.m.EL_RankLevel];
 		}

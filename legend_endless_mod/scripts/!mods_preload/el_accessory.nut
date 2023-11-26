@@ -373,7 +373,7 @@ local gt = getroottable();
 				if(this.m.EL_Level < 100)
 				{
 					local min_calculate_weight = this.Const.EL_Accessory.EL_EquipmentEssence.MinCalculateWeight;
-					result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Accessory.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel) * this.Const.EL_Accessory.EL_EquipmentEssence.UpgradeLevelFactor 
+					result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Accessory.EL_EquipmentEssence.RankFactor, this.Math.min(this.m.EL_RankLevel, this.Const.EL_Item.Type.Epic)) * this.Const.EL_Accessory.EL_EquipmentEssence.UpgradeLevelFactor 
 															* this.Math.abs(min_calculate_weight * (1 + this.Const.EL_Accessory.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
 				}
 				return result;
@@ -394,7 +394,7 @@ local gt = getroottable();
 					{
 						result[rank_level] += this.Math.ceil(this.Const.EL_Accessory.EL_EquipmentEssence.UpgradeRankFactor * this.Math.abs(min_calculate_weight));
 					}
-					result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Accessory.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel) * this.Const.EL_Accessory.EL_EquipmentEssence.UpgradeLevelFactor 
+					result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Accessory.EL_EquipmentEssence.RankFactor, this.Math.min(this.m.EL_RankLevel, this.Const.EL_Item.Type.Epic)) * this.Const.EL_Accessory.EL_EquipmentEssence.UpgradeLevelFactor 
 															* this.Math.abs(min_calculate_weight * (1 + this.Const.EL_Accessory.EL_LevelFactor.StaminaModifier * this.m.EL_Level)) * this.Const.EL_Accessory.EL_EquipmentEssence.UpgradeRankNormalEssenceFactor);	
 				}
 				else if(this.m.EL_RarityEntry == null)
@@ -405,7 +405,7 @@ local gt = getroottable();
 				{
 					local min_calculate_weight = this.Const.EL_Accessory.EL_EquipmentEssence.MinCalculateWeight;
 					result[this.Const.EL_Item.Type.Legendary] += this.Const.EL_Accessory.EL_EquipmentEssence.StrengthenEntryNum;
-					result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Accessory.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel) * this.Const.EL_Accessory.EL_EquipmentEssence.UpgradeLevelFactor 
+					result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Accessory.EL_EquipmentEssence.RankFactor, this.Math.min(this.m.EL_RankLevel, this.Const.EL_Item.Type.Epic)) * this.Const.EL_Accessory.EL_EquipmentEssence.UpgradeLevelFactor 
 															* this.Math.abs(min_calculate_weight * (1 + this.Const.EL_Accessory.EL_LevelFactor.StaminaModifier * this.Const.EL_Item.MaxLevel)));
 				}
 				return result;
@@ -415,7 +415,7 @@ local gt = getroottable();
 			{
 				local result = [0, 0, 0, 0, 0];
 				local min_calculate_weight = this.Const.EL_Accessory.EL_EquipmentEssence.MinCalculateWeight;
-				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Accessory.EL_EquipmentEssence.RankFactor, this.m.EL_RankLevel) * this.Const.EL_Accessory.EL_EquipmentEssence.DisassembleFactor
+				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Accessory.EL_EquipmentEssence.RankFactor, this.Math.min(this.m.EL_RankLevel, this.Const.EL_Item.Type.Epic)) * this.Const.EL_Accessory.EL_EquipmentEssence.DisassembleFactor
 														* this.Math.abs(min_calculate_weight * (1 + this.Const.EL_Accessory.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
 				if(this.m.EL_RankLevel == this.Const.EL_Item.Type.Legendary)
 				{
