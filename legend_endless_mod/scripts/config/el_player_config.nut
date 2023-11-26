@@ -78,13 +78,13 @@ gt.Const.EL_Player <- {
         ],
         HiringCostMult = [
             1,
-            2,
-            5
+            4,
+            10
         ],
         HiringCostOffset = [
             0,
-            4000,
-            25000
+            16000,
+            100000
         ],
         DailyCostMult = [
             1,
@@ -93,8 +93,8 @@ gt.Const.EL_Player <- {
         ],
         DailyCostOffset = [
             0,
-            40,
-            250
+            80,
+            500
         ],
         DailyFoodMult = [
             1,
@@ -170,7 +170,11 @@ gt.Const.EL_Player <- {
     ],
 
     EL_Talent = {
-        Max = 3,
+        Max = [
+            3,
+            3,
+            4
+        ],
         Chance = [
             40,
             70,

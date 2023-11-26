@@ -470,8 +470,8 @@ local gt = getroottable();
 						this.m.Talents[i] = 3;
 					}
 					this.m.Talents[i] += this.Const.EL_Player.EL_Talent.RankBonus[this.m.EL_RankLevel];
-					if(this.m.Talents[i] > this.Const.EL_Player.EL_Talent.Max) {
-						this.m.Talents[i] = this.Const.EL_Player.EL_Talent.Max;
+					if(this.m.Talents[i] > this.Const.EL_Player.EL_Talent.Max[this.m.EL_RankLevel]) {
+						this.m.Talents[i] = this.Const.EL_Player.EL_Talent.Max[this.m.EL_RankLevel];
 					}
 					attributes.push(i);
 					weights.push(this.m.StarWeights[i]);
