@@ -44,7 +44,7 @@ this.el_pursuit_of_wind_entry <- this.inherit("scripts/skills/skill", {
 				id = 5,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]每次射击连发3箭.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]每次射击连发3根伤害为" + this.Const.EL_Rarity_Entry.Factor.EL_PursuitOfWind.DamageMult * 100 + "%的箭[/color]"
 			}
         ]
 		if (!EL_isUsable())
@@ -104,6 +104,8 @@ this.el_pursuit_of_wind_entry <- this.inherit("scripts/skills/skill", {
 	{
 		if (EL_isUsable())
 		{
+			_properties.Vision = 10000;
+			_properties.DamageTotalMult *= this.Const.EL_Rarity_Entry.Factor.EL_PursuitOfWind.DamageMult;
 			local skills = this.getContainer().getActor().getSkills().m.Skills;
             foreach( skill in skills )
             {
@@ -113,14 +115,6 @@ this.el_pursuit_of_wind_entry <- this.inherit("scripts/skills/skill", {
 					skill.m.IsUsingHitchance = false;
                 }
             }
-		}
-	}
-
-	function onUpdate( _properties )
-	{
-		if (EL_isUsable())
-		{
-			_properties.Vision = 10000;
 		}
 	}
 
