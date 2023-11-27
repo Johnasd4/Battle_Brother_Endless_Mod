@@ -22,4 +22,35 @@ local gt = getroottable();
         }
 
 	});
+
+	::mods_hookExactClass("entity/world/locations/legendary/legend_tournament_location", function(o){
+
+        o.getDescription = function()
+        {
+            return "看上与世界格格不入的一个建筑。";
+        }
+
+        o.create = function()
+        {
+            this.location.create();
+            this.m.TypeID = "location.legend_tournament";
+            this.m.LocationType = this.Const.World.LocationType.Unique;
+            this.m.IsShowingDefenders = false;
+            this.m.IsShowingBanner = true;
+            this.m.IsAttackable = false;
+            this.m.IsDestructible = false;
+            this.m.VisibilityMult = 0.8;
+            this.m.Resources = 0;
+            this.m.OnEnter = "event.location.legend_tournament_enter";
+        }
+
+        o.onSpawned = function()
+        {
+            this.m.Name = "世界竞技场";
+            this.location.onSpawned();
+        }
+
+	});
+
+
 });

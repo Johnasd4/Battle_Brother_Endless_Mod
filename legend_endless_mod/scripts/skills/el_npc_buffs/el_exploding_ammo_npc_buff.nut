@@ -30,7 +30,7 @@ this.el_exploding_ammo_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_
                 }
             }
         }
-        local target_tile = _targetEntity.getTile();
+        local target_tile = clone _targetEntity.getTile();
         for(local i = 0; i < affect_targets.len(); ++i) {
             if(affect_targets[i] == null || affect_targets[i].isDying() || !affect_targets[i].isAlive()) {
                 continue;

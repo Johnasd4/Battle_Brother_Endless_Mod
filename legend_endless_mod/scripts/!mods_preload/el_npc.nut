@@ -1055,6 +1055,7 @@ local gt = getroottable();
                         this.m.Troops[i].EL_ExtraBuffNum[0] = 0;
                         this.m.Troops[i].EL_ExtraBuffNum[1] = 0;
                         this.m.Troops[i].EL_ExtraBuffNum[2] = 0;
+                        this.m.Troops[i].EL_IsBossUnit = false;
                         if(troops_info[i].EL_IsBossUnit) {
                             this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevelMin);
                             this.m.Troops[i].EL_IsBossUnit = true;
@@ -1092,6 +1093,7 @@ local gt = getroottable();
                         this.m.Troops[i].EL_ExtraBuffNum[0] = 0;
                         this.m.Troops[i].EL_ExtraBuffNum[1] = 0;
                         this.m.Troops[i].EL_ExtraBuffNum[2] = 0;
+                        this.m.Troops[i].EL_IsBossUnit = false;
                         if(troops_info[i].EL_IsBossUnit) {
                             this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevelMin);
                             this.m.Troops[i].EL_IsBossUnit = true;
@@ -1153,6 +1155,10 @@ local gt = getroottable();
                         ++i;
                     }
                     for(; i < troops_info.len(); ++i) {
+                        this.m.Troops[i].EL_ExtraBuffNum[0] = 0;
+                        this.m.Troops[i].EL_ExtraBuffNum[1] = 0;
+                        this.m.Troops[i].EL_ExtraBuffNum[2] = 0;
+                        this.m.Troops[i].EL_IsBossUnit = false;
                         if(troops_info[i].EL_IsBossUnit) {
                             this.m.Troops[i].EL_RankLevel = this.Math.max(2, this.m.Troops[i].EL_RankLevelMin);
                             this.m.Troops[i].EL_IsBossUnit = true;
@@ -2107,6 +2113,39 @@ local gt = getroottable();
         e.EL_afterEntityBuild();
         return e;
     }
+
+    gt.Const.LegendMod.GetFavEnemyBossChance <- function ( _id )
+    {
+        if (!this.Const.DLC.Wildmen)
+        {
+            return 0;
+        }
+
+        local perks = this.Const.LegendMod.FavEnemyPerkMap.getPerks(_id);
+
+        if (perks.len() == 0)
+        {
+            return 0;
+        }
+
+        local bonus = 0;
+        local roster = this.World.getPlayerRoster().getAll();
+
+        foreach( bro in roster )
+        {
+            foreach( perk in perks )
+            {
+                if (!bro.getSkills().hasSkill(perk))
+                {
+                    continue;
+                }
+                bonus += 15;
+                break;
+            }
+        }
+        return bonus;
+    };
+
 
 });
 

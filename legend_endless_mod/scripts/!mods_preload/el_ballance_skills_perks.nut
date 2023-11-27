@@ -1287,7 +1287,7 @@ local gt = getroottable();
             if(actor == null || actor.isDying() || !actor.isAlive()) {
                 return;
             }
-			if (!_skill.isAttack() || _targetEntity.isAlliedWith(actor) || this.Tactical.TurnSequenceBar.getActiveEntity() == null || this.Tactical.TurnSequenceBar.getActiveEntity().getID() != actor.getID())
+			if (!_skill.isAttack() || _targetEntity == null || _targetEntity.isDying() || !_targetEntity.isAlive() || _targetEntity.isAlliedWith(actor) || this.Tactical.TurnSequenceBar.getActiveEntity() == null || this.Tactical.TurnSequenceBar.getActiveEntity().getID() != actor.getID())
 			{
 				return;
 			}
