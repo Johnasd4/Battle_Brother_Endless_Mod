@@ -344,61 +344,84 @@ local gt = getroottable();
 
 	::mods_hookExactClass("events/events/legends/location/legend_tournament_enter_event", function(o){
 
-        o.selectFight = function( _scale, _type, _lootingStopped )
-        {
-            //this.logInfo("legend_tournament_enter_event selectFight");
+        o.create = function()	{
+            this.logInfo("Creating tournament event");
+            this.m.ID = "event.location.legend_tournament_enter";
+            this.m.Title = "世界竞技场";
+            this.m.Cooldown = 100;
+            this.m.IsSpecial = true;
 
-            local round = this.World.Flags.get("LegendTournamentRound");
-            local roundDifficulty = 0.7 + round * 0.3;
-            this.World.Flags.increment("LegendTournamentRound", 1);
-            local p = this.Const.Tactical.CombatInfo.getClone();
-            p.LocationTemplate = clone this.Const.Tactical.LocationTemplate;
-            p.TerrainTemplate = "tactical.tournament";
-            p.LocationTemplate.Template[0] = "tactical.legend_tournament_floor";
-            p.CombatID = "Legend Tournament";
-            local tracks = [
-                this.Const.Music.OrcsTracks,
-                this.Const.Music.NobleTracks,
-                this.Const.Music.UndeadTracks,
-                this.Const.Music.BanditTracks,
-                this.Const.Music.CivilianTracks,
-                this.Const.Music.BeastsTracks,
-                this.Const.Music.GoblinsTracks,
-                this.Const.Music.OrientalBanditTracks,
-                this.Const.Music.OrientalCityStateTracks,
-                this.Const.Music.BarbarianTracks,
-                this.Const.Music.BattleTracks
-            ];
-            p.Music = tracks[this.Math.rand(0, tracks.len() - 1)];
-            p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Arena;
-            p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Arena;
-            p.IsUsingSetPlayers = false;
-            p.IsFleeingProhibited = true;
-            p.IsLootingProhibited = _lootingStopped;
-            p.IsWithoutAmbience = true;
-            p.IsFogOfWarVisible = false;
-            p.IsArenaMode = true;
-            p.IsAutoAssigningBases = false;
-            p.Players = [];
-            p.Entities = [];
-            //this.logInfo("push party");
-            local party = this.new("scripts/entity/world/party");
-            party.EL_setFaction(this.Const.Faction.Enemy);
-            party.EL_tempPartyInit();
-            //party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Arena).getID());
-            //Stop copying troops.
-            party.EL_setTroopsResourse(0);
-            p.Parties.push(party);
-            this.Const.World.Common.addUnitsToCombat(party, _type, this.Math.pow(_scale, roundDifficulty), this.Const.Faction.Enemy);
-            foreach(troop in party.getTroops()) {
-                p.Entities.push(troop);
+            local start_screen = {
+                ID = "A",
+                Text = "[img]gfx/ui/events/legend_tournament.png[/img]欢迎来到世界竞技场，在这里你会挑战来自世界各地甚至世界之外的的各种强者。 \n\n 1. 一旦开始你需要连续打满三场才可以离开。  \n\n 2. 完成挑战你将会获得传说装备奖励！ \n\n 3. 胜利或者死亡！！！",
+                Image = "",
+                List = [],
+                Characters = [],
+                Options = [
+                    {
+                        Text = "The Grand Melee is for us, let\'s begin at once",
+                        function getResult( _event )
+                        {
+                            local p = _event.selectFight(_event.getReputationToDifficultyLightMult(), this.Const.World.Spawn.GrandMelee, false);
+                            _event.registerToShowAfterCombat("F", "null");
+                            this.World.State.startScriptedCombat(p, false, false, false);
+                            return 0;
+                        }
+
+                    },
+                    {
+                        Text = "Actually, I\'m not...",
+                        function getResult( _event )
+                        {
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start( _event )
+                {
+                }
             }
-            p.AfterDeploymentCallback = function ()
-            {
-                this.Tactical.getWeather().setAmbientLightingPreset(1);
-                this.Tactical.getWeather().setAmbientLightingSaturation(1.1);
-            };
-            return p;
+
+            this.m.Screens.push(start_screen);
+            this.m.Screens.push({
+                ID = "G3",
+                Text = "[img]gfx/ui/events/event_04.png[/img]{The attendant guides you to a tournament official who checks a large ledger of fight results.  %SPEECH_ON% Ah yes, here you are. The %companyname%, took part in a small Show Match. Here is your reward.%SPEECH_OFF% The official hands a pouch to you, and the attendant leads you back out through the main door of the tournament.}",
+                Image = "",
+                List = [],
+                Characters = [],
+                Options = [
+                    {
+                        Text = "Fare well",
+                        function getResult( _event )
+                        {
+                            return 0;
+                        }
+
+                    }
+                ],
+                function start( _event )
+                {
+                    local round = this.World.Flags.get("LegendTournamentRound");
+                    local payment = 250;
+
+                    for( local i = 0; i < round && i < 5; i = i )
+                    {
+                        payment = payment * 2;
+                        i = ++i;
+                        i = i;
+                    }
+
+                    this.World.Assets.addMoney(payment);
+                    this.List.push({
+                        id = 10,
+                        icon = "ui/icons/asset_money.png",
+                        text = payment + " crowns as reward"
+                    });
+                    this.World.Flags.set("LegendTournamentRound", 1);
+                }
+
+            });
         }
 
     });
