@@ -9,9 +9,9 @@ this.el_exploding_ammo_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_
 		this.m.Description = "";
 	}
 
-	function onTargetHit( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
+	function onBeforeTargetHit( _skill, _targetEntity, _hitInfo )
 	{
-        if(_targetEntity == null || _targetEntity.isDying() || !_targetEntity.isAlive() || !_skill.isRanged() || _damageInflictedHitpoints + _damageInflictedArmor == 0) {
+        if(_targetEntity == null || _targetEntity.isDying() || !_targetEntity.isAlive() || !_skill.isRanged()) {
             return;
         }
         local actor = this.getContainer().getActor();
