@@ -13,7 +13,7 @@ this.el_arena_champion_item <- this.inherit("scripts/items/accessory/accessory",
 		//OVERRIDE
 		this.m.Icon = "accessory/el_arena_champion.png";
 		this.m.Sprite = "gladiator_necklace_01";
-		this.m.Value = 2000;
+		this.m.Value = 0;
 		this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0, -100000);
 	}
 

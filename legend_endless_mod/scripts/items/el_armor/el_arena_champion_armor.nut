@@ -14,7 +14,7 @@ this.el_arena_champion_armor <- this.inherit("scripts/items/armor/armor", {
 		this.updateVariant();
 		this.m.ImpactSound = this.Const.Sound.ArmorHalfplateImpact;
 		this.m.InventorySound = this.Const.Sound.ArmorHalfplateImpact;
-		this.m.Value = 12000;
+		this.m.Value = 0;
 		this.m.Condition = 350;
 		this.m.ConditionMax = 350;
 		this.m.StaminaModifier = -25;
