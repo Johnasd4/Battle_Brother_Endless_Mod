@@ -18,7 +18,7 @@ local gt = getroottable();
 			}
 			if(this.m.EL_RarityEntry != null && this.getContainer().getActor().getFaction() == this.Const.Faction.Player)
 			{
-				this.logInfo("Rarity entry is equip, name = " + this.m.EL_RarityEntry.m.Name);
+				this.logInfo("Rarity entry is equip:" + this.m.EL_RarityEntry.getID());
 				this.addSkill(this.m.EL_RarityEntry);
 			}
 		}

@@ -52,9 +52,7 @@ this.el_human_emperors_sword <- this.inherit("scripts/items/weapons/weapon", {
     function onEquip()
 	{
 		this.weapon.onEquip();
-		local skillToAdd = this.new("scripts/skills/actives/overhead_strike");
-		skillToAdd.setStunChance(this.m.StunChance);
-		this.addSkill(skillToAdd);
+		this.addSkill(this.new("scripts/skills/actives/overhead_strike"));
 		this.addSkill(this.new("scripts/skills/actives/split"));
 		this.addSkill(this.new("scripts/skills/actives/swing"));
 		local skillToAdd = this.new("scripts/skills/actives/split_shield");
