@@ -1337,7 +1337,7 @@ local gt = getroottable();
 
             if (tile != null)
             {
-                local spider_level = this.EL_getLevel() + this.Math.floor(this.m.Count / 4);
+                local spider_level = this.EL_getLevel() + this.Math.floor(this.m.Count / 1.0);
                 local spawn = this.Const.World.Common.EL_addEntity(this.Const.World.Spawn.Troops.Spider, tile, this.getFaction(), this.EL_getRankLevel(), spider_level);
                 spawn.setSize(this.Math.rand(60, 75) * 0.01);
                 local allies = this.Tactical.Entities.getInstancesOfFaction(this.getFaction());
