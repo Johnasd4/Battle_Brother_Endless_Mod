@@ -6,8 +6,8 @@ this.el_orc_berserker_axe <- this.inherit("scripts/items/weapons/weapon", {
 		this.m.ID = "el_weapon.orc_berserker_axe";
 		this.m.Name = "兽人狂暴战斧";
 		this.m.Description = "一把巨大而粗糙的双头战斧，随伤痕累累，但却是不少部落的文化象征，只有真正地猛士能拿起他。";
-		this.m.IconLarge = "weapons/melee/orc_axe_two_handed.png";
-		this.m.Icon = "weapons/melee/orc_axe_two_handed_70x70.png";
+		this.m.IconLarge = "weapons/melee/orc_berserker_axe.png";
+		this.m.Icon = "weapons/melee/orc_berserker_axe_70x70.png";
 		this.m.WeaponType = this.Const.Items.WeaponType.Axe;
 		this.m.SlotType = this.Const.ItemSlot.Mainhand;
 		this.m.BlockedSlotType = this.Const.ItemSlot.Offhand;

@@ -3,12 +3,10 @@ local gt = getroottable();
 ::mods_registerMod("el_player_npc", 1, "el_player_npc");
 ::mods_queue(null, "el_world", function ()
 {
-	::mods_hookExactClass("entity/factions/faction_manager", function(o) {
-
+	::mods_hookNewObjectOnce("entity/factions/faction_manager", function(o) {
 		local isAllied = o.isAllied;
 		o.isAllied = function ( _f1, _f2 )
 		{
-			this.logInfo("1111111111111");
 			if (_f1 >= this.m.Factions.len() || _f2 >= this.m.Factions.len())
 			{
 				return false;

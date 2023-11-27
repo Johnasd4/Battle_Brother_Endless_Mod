@@ -53,7 +53,24 @@ this.el_ranged_range_max_entry <- this.inherit("scripts/skills/el_entrys/el_entr
 
 	function EL_onItemUpdate( _item )
 	{
+		
         _item.m.RangeMax = _item.m.EL_BaseWithRankRangeMax + this.m.EL_RangeMax;
+	}
+	
+	function onAfterUpdate( _properties )
+	{
+		local item = this.m.Container.getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+		if (item != null && item.isWeaponType(this.Const.Items.WeaponType.Throwing))
+		{
+			local skills = this.getContainer().getActor().getSkills().m.Skills;
+			foreach( skill in skills )
+			{
+				if (skill.m.IsWeaponSkill)
+				{
+					skill.m.MaxRange += this.m.EL_RangeMax;
+				}
+			}
+		}
 	}
     
     function onSerialize( _out )

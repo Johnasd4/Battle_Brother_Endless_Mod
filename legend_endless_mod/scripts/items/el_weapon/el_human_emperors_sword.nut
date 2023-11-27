@@ -6,8 +6,8 @@ this.el_human_emperors_sword <- this.inherit("scripts/items/weapons/weapon", {
 		this.m.ID = "el_weapon.human_emperors_sword";
 		this.m.Name = "人皇剑";
 		this.m.Description = "这是一把古老的传说之剑。拥有他的人便是命定的领袖，肩负着众生的期盼，是屹立不倒的顶梁柱。\n挽狂澜于既倒 扶大厦之将倾！";
-		this.m.IconLarge = "weapons/melee/sword_two_hand_02.png";
-		this.m.Icon = "weapons/melee/sword_two_hand_02_70x70.png";
+		this.m.IconLarge = "weapons/melee/human_emperors_sword.png";
+		this.m.Icon = "weapons/melee/human_emperors_sword_70x70.png";
 		this.m.WeaponType = this.Const.Items.WeaponType.Sword;
 		this.m.SlotType = this.Const.ItemSlot.Mainhand;
 		this.m.BlockedSlotType = this.Const.ItemSlot.Offhand;
