@@ -1311,7 +1311,6 @@ local gt = getroottable();
                                     skill = this.new("scripts/skills/traits/arena_invictus_trait");
                                     bro.getSkills().add(skill);
                                 }
-                                bro.getSkills().removeByID("el_items.arena_collar_skill");
                             }
                         }
 
@@ -1572,6 +1571,12 @@ local gt = getroottable();
                 ],
                 function start()
                 {
+                    foreach( bro in roster )
+                    {
+                        if(bro.getSkills().hasSkill("el_items.arena_collar_skill")) {
+                            bro.getSkills().removeByID("el_items.arena_collar_skill");
+                        }
+                    }
                     this.Flags.set("RewardsApplied", 4);
                     this.World.Statistics.getFlags().increment("ArenaFightsWon", 1);
 
@@ -1605,6 +1610,12 @@ local gt = getroottable();
                         Text = "Maybe next time.",
                         function getResult()
                         {
+                            foreach( bro in roster )
+                            {
+                                if(bro.getSkills().hasSkill("el_items.arena_collar_skill")) {
+                                    bro.getSkills().removeByID("el_items.arena_collar_skill");
+                                }
+                            }
                             this.Contract.getHome().removeSituationByID("situation.arena_tournament");
                             this.Contract.getHome().getBuilding("building.arena").refreshCooldown();
                             this.World.Assets.addBusinessReputation(this.Const.World.Assets.ReputationOnContractFail);

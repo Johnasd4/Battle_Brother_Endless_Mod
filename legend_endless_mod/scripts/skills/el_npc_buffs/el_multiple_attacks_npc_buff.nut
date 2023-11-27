@@ -41,7 +41,7 @@ this.el_multiple_attacks_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/e
                             actor.setFatigue(actor.getFatigue() + _skill.getFatigueCost());
                         }
                         else {
-                            return;
+                            break;
                         }
                     }
 
