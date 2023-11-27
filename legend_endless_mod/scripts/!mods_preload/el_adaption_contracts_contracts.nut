@@ -1571,6 +1571,7 @@ local gt = getroottable();
                 ],
                 function start()
                 {
+                    local roster = this.World.getPlayerRoster().getAll();
                     foreach( bro in roster )
                     {
                         if(bro.getSkills().hasSkill("el_items.arena_collar_skill")) {
@@ -1610,6 +1611,7 @@ local gt = getroottable();
                         Text = "Maybe next time.",
                         function getResult()
                         {
+                            local roster = this.World.getPlayerRoster().getAll();
                             foreach( bro in roster )
                             {
                                 if(bro.getSkills().hasSkill("el_items.arena_collar_skill")) {
