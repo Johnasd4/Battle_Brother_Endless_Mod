@@ -518,24 +518,32 @@ local gt = getroottable();
         o.create = function()
         {
             create();
+			this.m.Value = 0;
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
 		o.getTooltip = function()
 		{
 			local result = this.shield.getTooltip();
-			result.push({
-				id = 8,
-				type = "text",
-				icon = "ui/icons/special.png",
-				text = "Is indestructible"
-			});
-			result.push({
-				id = 8,
-				type = "text",
-				icon = "ui/icons/special.png",
-				text = "Everyone striking this shield receives the \'Dazed\' effect"
-			});
+			for(local i = 0; i < result.len(); ++i)
+			{
+				if(result[i].type == "text" && result[i].text == "——————————————")
+				{
+					result.insert(i, {
+						id = 8,
+						type = "text",
+						icon = "ui/icons/special.png",
+						text = "Everyone striking this shield receives the \'Dazed\' effect"
+					});
+					result.insert(i, {
+						id = 8,
+						type = "text",
+						icon = "ui/icons/special.png",
+						text = "Is indestructible"
+					});
+					break;
+				}
+			}
 			return result;
 		}
 	});

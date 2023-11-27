@@ -17,10 +17,11 @@ this.el_arena_champion_helmet <- this.inherit("scripts/items/helmets/helmet", {
 		this.updateVariant();
 		this.m.ImpactSound = this.Const.Sound.ArmorHalfplateImpact;
 		this.m.InventorySound = this.Const.Sound.ArmorHalfplateImpact;
-		this.m.Value = 12000;
+		this.m.Value = 0;
 		this.m.Condition = 350;
 		this.m.ConditionMax = 350;
 		this.m.StaminaModifier = -15;
+		this.m.Vision = -2;
 		this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
 	}
 

@@ -68,7 +68,7 @@ this.el_eye_of_death_entry <- this.inherit("scripts/skills/skill", {
 		{
 			_properties.IsIgnoringArmorOnAttack = true;
 			_properties.DamageArmorMult = 0.0;
-			_properties.HitChanceMult[this.Const.BodyPart.Head] = 1.0;
+			_properties.HitChanceMult[this.Const.BodyPart.Head] = 100.0;
 			_properties.HitChanceMult[this.Const.BodyPart.Body] = 0.0;
 			_properties.DamageTotalMult *= /*0.5;*/this.Const.EL_Rarity_Entry.Factor.EL_EyeOfDeath.HitHeadMult;
 		}

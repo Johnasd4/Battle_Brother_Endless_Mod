@@ -10,6 +10,7 @@ local gt = getroottable();
         o.create = function()
         {
             create();
+			this.m.Value = 0;
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
@@ -17,12 +18,19 @@ local gt = getroottable();
         o.getTooltip = function()
         {
             local result = this.helmet.getTooltip();
-            result.push({
-                id = 6,
-                type = "text",
-                icon = "ui/icons/special.png",
-                text = "Reflects  [color=" + this.Const.UI.Color.PositiveValue + "]25%[/color] of damage taken in melee back to the attacker"
-            });
+            for(local i = 0; i < result.len(); ++i)
+			{
+				if(result[i].type == "text" && result[i].text == "——————————————")
+				{
+					result.insert(i, {
+						id = 6,
+						type = "text",
+						icon = "ui/icons/special.png",
+                        text = "Reflects  [color=" + this.Const.UI.Color.PositiveValue + "]25%[/color] of damage taken in melee back to the attacker"
+					});
+					break;
+				}
+			}
             return result;
         }
 
@@ -51,6 +59,7 @@ local gt = getroottable();
         o.create = function()
         {
             create();
+			this.m.Value = 0;
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
@@ -58,12 +67,19 @@ local gt = getroottable();
         o.getTooltip = function()
         {
             local result = this.helmet.getTooltip();
-            result.push({
-                id = 6,
-                type = "text",
-                icon = "ui/icons/health.png",
-                text = "Heals [color=" + this.Const.UI.Color.PositiveValue + "]20%[/color] hitpoints of the wearer each turn"
-            });
+            for(local i = 0; i < result.len(); ++i)
+			{
+				if(result[i].type == "text" && result[i].text == "——————————————")
+				{
+					result.insert(i, {
+						id = 6,
+						type = "text",
+						icon = "ui/icons/special.png",
+                        text = "Heals [color=" + this.Const.UI.Color.PositiveValue + "]20%[/color] hitpoints of the wearer each turn"
+					});
+					break;
+				}
+			}
             return result;
         }
 
@@ -137,6 +153,7 @@ local gt = getroottable();
         o.create = function()
         {
             create();
+			this.m.Value = 0;
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
@@ -144,12 +161,19 @@ local gt = getroottable();
         o.getTooltip = function()
         {
             local result = this.helmet.getTooltip();
-            result.push({
-                id = 6,
-                type = "text",
-                icon = "ui/icons/special.png",
-                text = "Regenerates itself by [color=" + this.Const.UI.Color.PositiveValue + "]20%[/color] points of durability each turn."
-            });
+            for(local i = 0; i < result.len(); ++i)
+			{
+				if(result[i].type == "text" && result[i].text == "——————————————")
+				{
+					result.insert(i, {
+						id = 6,
+						type = "text",
+						icon = "ui/icons/special.png",
+                        text = "Regenerates itself by [color=" + this.Const.UI.Color.PositiveValue + "]20%[/color] points of durability each turn."
+					});
+					break;
+				}
+			}
             return result;
         }
 

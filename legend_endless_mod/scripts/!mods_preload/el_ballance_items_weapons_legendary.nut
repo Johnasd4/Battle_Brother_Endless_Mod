@@ -10,6 +10,7 @@ local gt = getroottable();
         o.create = function()
         {
             create();
+			this.m.Value = 0;
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
@@ -21,23 +22,28 @@ local gt = getroottable();
         o.create = function()
         {
             create();
+			this.m.Value = 0;
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
         o.getTooltip = function()
         {
             local result = this.weapon.getTooltip();
-            result.push({
-                id = 6,
-                type = "text",
-                icon = "ui/icons/special.png",
-                text = "造成[color=" + this.Const.UI.Color.DamageValue + "] 5% [/color]目标当前生命值 + [color=" + this.Const.UI.Color.DamageValue + "]20[/color] 忽视护甲的伤害。闪电链不会击中同一个单位2次。"
-            });
+            for(local i = 0; i < result.len(); ++i)
+			{
+				if(result[i].type == "text" && result[i].text == "——————————————")
+				{
+					result.insert(i, {
+						id = 6,
+						type = "text",
+						icon = "ui/icons/special.png",
+                        text = "造成[color=" + this.Const.UI.Color.DamageValue + "] 5% [/color]目标当前生命值 + [color=" + this.Const.UI.Color.DamageValue + "]20[/color] 忽视护甲的伤害。闪电链不会击中同一个单位2次。"
+					});
+					break;
+				}
+			}
             return result;
         }
-
-
-
     });
 
 
@@ -47,12 +53,8 @@ local gt = getroottable();
         o.create = function()
         {
             create();
+			this.m.Value = 0;
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
-
     });
-
-
-
-
 });

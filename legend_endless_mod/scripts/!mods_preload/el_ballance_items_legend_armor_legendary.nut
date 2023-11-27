@@ -90,6 +90,7 @@ local gt = getroottable();
         {
             //this.logInfo("legend_armor_named_warlock_cloak create");
             create();
+			this.m.Value = 0;
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
@@ -97,66 +98,79 @@ local gt = getroottable();
         o.getTooltip = function()
         {
             local result = this.legend_named_armor.getTooltip();
-            result.push({
-                id = 9,
-                type = "text",
-                icon = "ui/icons/special.png",
-                text = "Increase max hitpoints by [color=" + this.Const.UI.Color.PositiveValue + "] +20%[/color]."
-            });
-            result.push({
-                id = 11,
-                type = "text",
-                icon = "ui/icons/bravery.png",
-                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Resolve when confident."
-            });
-            result.push({
-                id = 12,
-                type = "text",
-                icon = "ui/icons/initiative.png",
-                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Initiative when confident."
-            });
-            result.push({
-                id = 13,
-                type = "text",
-                icon = "ui/icons/melee_skill.png",
-                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Melee Skill when confident."
-            });
-            result.push({
-                id = 14,
-                type = "text",
-                icon = "ui/icons/ranged_skill.png",
-                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Ranged Skill when confident."
-            });
-            result.push({
-                id = 15,
-                type = "text",
-                icon = "ui/icons/melee_defense.png",
-                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Melee Defense when confident."
-            });
-            result.push({
-                id = 16,
-                type = "text",
-                icon = "ui/icons/ranged_defense.png",
-                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Ranged Defense when confident."
-            });
-            result.push({
-                id = 17,
-                type = "text",
-                icon = "ui/icons/fatigue.png",
-                text = "[color=" + this.Const.UI.Color.PositiveValue + "]-1[/color] Fatigue Cost when confident."
-            });
-            result.push({
-                id = 18,
-                type = "text",
-                icon = "ui/icons/damage_dealt.png",
-                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10%[/color] Damage Dealt when confident."
-            });
-            result.push({
-                id = 19,
-                type = "text",
-                icon = "ui/icons/damage_received.png",
-                text = "[color=" + this.Const.UI.Color.PositiveValue + "]-10%[/color] Damage Received when confident."
-            });
+            for(local i = 0; i < result.len(); ++i)
+			{
+				if(result[i].type == "text" && result[i].text == "——————————————")
+				{
+					result.insert(i, {
+						id = 19,
+						type = "text",
+						icon = "ui/icons/damage_received.png",
+                        text = "[color=" + this.Const.UI.Color.PositiveValue + "]-10%[/color] Damage Received when confident."
+					});
+					result.insert(i, {
+						id = 18,
+						type = "text",
+						icon = "ui/icons/damage_dealt.png",
+                        text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10%[/color] Damage Dealt when confident."
+					});
+					result.insert(i, {
+						id = 17,
+						type = "text",
+						icon = "ui/icons/fatigue.png",
+                        text = "[color=" + this.Const.UI.Color.PositiveValue + "]-1[/color] Fatigue Cost when confident."
+					});
+					result.insert(i, {
+						id = 16,
+						type = "text",
+						icon = "ui/icons/ranged_defense.png",
+                        text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Ranged Defense when confident."
+					});
+					result.insert(i, {
+						id = 15,
+						type = "text",
+						icon = "ui/icons/melee_defense.png",
+                        text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Melee Defense when confident."
+					});
+					result.insert(i, {
+						id = 14,
+						type = "text",
+						icon = "ui/icons/ranged_skill.png",
+                        text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Ranged Skill when confident."
+					});
+					result.insert(i, {
+						id = 13,
+						type = "text",
+						icon = "ui/icons/melee_skill.png",
+                        text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Melee Skill when confident."
+					});
+					result.insert(i, {
+						id = 12,
+						type = "text",
+						icon = "ui/icons/initiative.png",
+                        text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Initiative when confident."
+					});
+					result.insert(i, {
+						id = 11,
+						type = "text",
+						icon = "ui/icons/bravery.png",
+                        text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Resolve when confident."
+					});
+					result.insert(i, {
+						id = 10,
+						type = "text",
+                        icon = "ui/icons/bravery.png",
+                        text = "[color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] Resolve when confident."
+					});
+					result.insert(i, {
+						id = 9,
+						type = "text",
+						icon = "ui/icons/special.png",
+                        text = "Increase max hitpoints by [color=" + this.Const.UI.Color.PositiveValue + "] +20%[/color]."
+					});
+					break;
+				}
+			}
             return result;
         }
 
@@ -193,6 +207,7 @@ local gt = getroottable();
         {
             //this.logInfo("legend_armor_of_davkul create");
             create();
+			this.m.Value = 0;
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
@@ -200,12 +215,19 @@ local gt = getroottable();
         o.getTooltip = function()
         {
             local result = this.legend_armor.getTooltip();
-            result.push({
-                id = 6,
-                type = "text",
-                icon = "ui/icons/special.png",
-                text = "Regenerates itself by [color=" + this.Const.UI.Color.PositiveValue + "]20%[/color] points of durability each turn."
-            });
+            for(local i = 0; i < result.len(); ++i)
+			{
+				if(result[i].type == "text" && result[i].text == "——————————————")
+				{
+					result.insert(i, {
+						id = 6,
+						type = "text",
+						icon = "ui/icons/special.png",
+                        text = "Regenerates itself by [color=" + this.Const.UI.Color.PositiveValue + "]20%[/color] points of durability each turn."
+					});
+					break;
+				}
+			}
             return result;
         }
 
@@ -264,6 +286,7 @@ local gt = getroottable();
         {
             //this.logInfo("legend_emperors_armor create");
             create();
+			this.m.Value = 0;
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
@@ -271,12 +294,19 @@ local gt = getroottable();
         o.getTooltip = function()
         {
             local result = this.legend_armor.getTooltip();
-            result.push({
-                id = 6,
-                type = "text",
-                icon = "ui/icons/special.png",
-                text = "Reflects  [color=" + this.Const.UI.Color.PositiveValue + "]25%[/color] of damage taken in melee back to the attacker"
-            });
+            for(local i = 0; i < result.len(); ++i)
+			{
+				if(result[i].type == "text" && result[i].text == "——————————————")
+				{
+					result.insert(i, {
+						id = 6,
+						type = "text",
+						icon = "ui/icons/special.png",
+                        text = "Reflects  [color=" + this.Const.UI.Color.PositiveValue + "]25%[/color] of damage taken in melee back to the attacker"
+					});
+					break;
+				}
+			}
             return result;
         }
 
@@ -305,6 +335,7 @@ local gt = getroottable();
         o.create = function()
         {
             create();
+			this.m.Value = 0;
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
@@ -312,12 +343,19 @@ local gt = getroottable();
         o.getTooltip = function()
         {
             local result = this.legend_armor.getTooltip();
-            result.push({
-                id = 6,
-                type = "text",
-                icon = "ui/icons/health.png",
-                text = "Heals [color=" + this.Const.UI.Color.PositiveValue + "]20%[/color] hitpoints of the wearer each turn"
-            });
+            for(local i = 0; i < result.len(); ++i)
+			{
+				if(result[i].type == "text" && result[i].text == "——————————————")
+				{
+					result.insert(i, {
+						id = 6,
+						type = "text",
+						icon = "ui/icons/special.png",
+                        text = "Heals [color=" + this.Const.UI.Color.PositiveValue + "]20%[/color] hitpoints of the wearer each turn"
+					});
+					break;
+				}
+			}
             return result;
         }
 
@@ -353,6 +391,7 @@ local gt = getroottable();
         {
             //this.logInfo("legend_skin_armor create");
             create();
+			this.m.Value = 0;
             this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
         }
 
@@ -360,12 +399,19 @@ local gt = getroottable();
         o.getTooltip = function()
         {
             local result = this.legend_armor.getTooltip();
-            result.push({
-                id = 6,
-                type = "text",
-                icon = "ui/icons/health.png",
-                text = "Heals [color=" + this.Const.UI.Color.PositiveValue + "]10%[/color] of the hitpoints of the wearer each turn"
-            });
+            for(local i = 0; i < result.len(); ++i)
+			{
+				if(result[i].type == "text" && result[i].text == "——————————————")
+				{
+					result.insert(i, {
+						id = 6,
+						type = "text",
+						icon = "ui/icons/special.png",
+                        text = "Heals [color=" + this.Const.UI.Color.PositiveValue + "]10%[/color] of the hitpoints of the wearer each turn"
+					});
+					break;
+				}
+			}
             return result;
         }
 
