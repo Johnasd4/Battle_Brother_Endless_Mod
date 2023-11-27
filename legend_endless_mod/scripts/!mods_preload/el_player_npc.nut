@@ -45,6 +45,34 @@ local gt = getroottable();
 			return;
 		}
 
+		local isAlliedWith = o.isAlliedWith;
+		o.isAlliedWith = function( _actor ) {
+			local f = 0;
+
+			if (typeof _actor == "instance" || typeof _actor == "table")
+			{
+				f = _actor.getFaction();
+			}
+			else
+			{
+				f = _actor;
+			}
+			//EL_OVERRIDE
+			if (this.getFaction() >= this.Const.Faction.COUNT || f >= this.Const.Faction.COUNT)
+			{
+				return false;
+			}
+
+			if (("State" in this.Tactical) && this.Tactical.State != null && this.Tactical.State.isScenarioMode())
+			{
+				return f == this.getFaction() || this.Const.FactionAlliance[this.getFaction()].find(f) != null;
+			}
+			else
+			{
+				return this.World.FactionManager.isAllied(this.getFaction(), f);
+			}
+		}
+
 		o.EL_getRankLevel <- function ()
 		{
 			return this.m.EL_RankLevel;

@@ -36,14 +36,33 @@ this.el_crown_of_rule <- this.inherit("scripts/items/helmets/helmet", {
 	function getTooltip()
 	{
 		local result = this.helmet.getTooltip();
+		for(local i = 0; i < result.len(); ++i)
+		{
+			if(result[i].type == "text" && result[i].text == "——————————————")
+			{
+				result.insert(i, {
+					id = 9,
+					type = "text",
+					icon = "ui/icons/special.png",
+					text = "支配能力：" + EL_getControlAbility() + " / " + EL_getControlAbilityMax()
+				});
+				result.insert(i, {
+					id = 8,
+					type = "text",
+					icon = "ui/icons/special.png",
+					text = "灵魂能量：" + this.World.Assets.EL_getSoulEnergy() + " / " + this.World.Assets.EL_getSoulEnergyMax()
+				});
+				return result;
+			}
+		}
 		result.push({
-            id = 11,
+            id = 8,
             type = "text",
             icon = "ui/tooltips/soul_energy.png",
             text = "灵魂能量：" + this.World.Assets.EL_getSoulEnergy() + " / " + this.World.Assets.EL_getSoulEnergyMax()
 		});
 		result.push({
-			id = 66,
+			id = 9,
 			type = "text",
 			text = "支配能力：" + EL_getControlAbility() + " / " + EL_getControlAbilityMax()
 		});

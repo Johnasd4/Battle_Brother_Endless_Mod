@@ -72,7 +72,7 @@ this.el_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario
 		this.World.Assets.getStash().add(this.new("scripts/items/el_armor/el_arena_champion_armor"));
 		this.World.Assets.getStash().add(this.new("scripts/items/el_helmet/el_arena_champion_helmet"));
 		this.World.Assets.getStash().add(this.new("scripts/items/shields/legendary/gilders_embrace_shield"));
-		this.World.Assets.getStash().add(this.new("scripts/items/el_weapon/el_arena_champion_axe"));
+		this.World.Assets.getStash().add(this.new("scripts/items/el_weapon/el_goblin_tuchun_crossbow"));
 		
 		local npc_buffs = [];
 		local skill = this.new("scripts/skills/el_npc_buffs/el_charge_npc_buff");

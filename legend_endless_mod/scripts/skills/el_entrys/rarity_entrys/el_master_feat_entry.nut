@@ -144,6 +144,7 @@ this.el_master_feat_entry <- this.inherit("scripts/skills/skill", {
             //this.logInfo("before defense:"+_properties.MeleeDefense + "::"+_properties.RangedDefense);
 			_properties.MeleeDefense += bonus * this.Const.EL_Rarity_Entry.Factor.EL_MasterFeat.MeleeDefenseFactor;
 			_properties.RangedDefense += bonus * this.Const.EL_Rarity_Entry.Factor.EL_MasterFeat.RangedDefenseFactor;
+			_properties.DamageTotalMult *= (1.0 + bonus * this.Const.EL_Rarity_Entry.Factor.EL_MasterFeat.DamageMultFactor);
             //this.logInfo("after defense:"+_properties.MeleeDefense + "::"+_properties.RangedDefense);
         }
 	}

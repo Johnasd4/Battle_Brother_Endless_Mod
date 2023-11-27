@@ -41,13 +41,19 @@ this.el_arena_champion_axe <- this.inherit("scripts/items/weapons/weapon", {
 	function getTooltip()
 	{
 		local result = this.weapon.getTooltip();
-
-		result.push({
-			id = 10,
-			type = "text",
-			icon = "ui/icons/special.png",
-			text = "结算伤害后若目标生命值低于20%，则直接杀死敌人。"
-		});
+		for(local i = 0; i < result.len(); ++i)
+		{
+			if(result[i].type == "text" && result[i].text == "——————————————")
+			{
+				result.insert(i, {
+					id = 8,
+					type = "text",
+					icon = "ui/icons/special.png",
+					text = "结算伤害后若目标生命值低于20%，则直接杀死敌人!"
+				});
+				break;
+			}
+		}
 		return result;
 	}
 

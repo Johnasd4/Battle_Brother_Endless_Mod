@@ -182,7 +182,7 @@ this.el_lichking_split <- this.inherit("scripts/skills/skill", {
         {
             foreach( tar in target )
             {
-                if(tar != null && !tar.isAlliedWith(_user) && !tar.isDying() && tar.isAlive()) {
+                if(tar != null && !tar.isDying() && tar.isAlive() && !tar.isAlliedWith(_user)) {
                     foreach (t in _attack_tiles)
                     {
                         if(tar.getTile().getDistanceTo(t) > 1)

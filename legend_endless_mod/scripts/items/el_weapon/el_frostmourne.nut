@@ -64,23 +64,48 @@ this.el_frostmourne <- this.inherit("scripts/items/weapons/weapon", {
 
 	function getTooltip()
 	{
-		local result = this.weapon.getTooltip();
+		local result = this.weapon.getTooltip();		
+		for(local i = 0; i < result.len(); ++i)
+		{
+			if(result[i].type == "text" && result[i].text == "——————————————")
+			{
+				result.insert(i, {
+					id = 10,
+					type = "text",
+					icon = "ui/icons/special.png",
+					text = "灵魂能量的上限会随着灵魂能量的获取而逐渐提升，但上限的最大值由霜之哀伤的等阶决定"
+				});
+				result.insert(i, {
+					id = 9,
+					type = "text",
+					icon = "ui/icons/special.png",
+					text = "灵魂能量：" + this.World.Assets.EL_getSoulEnergy() + " / " + this.World.Assets.EL_getSoulEnergyMax()
+				});
+				result.insert(i, {
+					id = 8,
+					type = "text",
+					icon = "ui/icons/special.png",
+					text = "周围 " + EL_getAffectRange() + " 格内有敌方单位死亡时获取灵魂能量。"
+				});
+				return result;
+			}
+		}
 		result.push({
-			id = 10,
+			id = 8,
 			type = "text",
-            icon = "ui/icons/special.png",
+			icon = "ui/icons/special.png",
 			text = "周围 " + EL_getAffectRange() + " 格内有敌方单位死亡时获取灵魂能量。"
 		});
 		result.push({
-            id = 11,
-            type = "text",
-            icon = "ui/tooltips/soul_energy.png",
-            text = "灵魂能量：" + this.World.Assets.EL_getSoulEnergy() + " / " + this.World.Assets.EL_getSoulEnergyMax()
+			id = 9,
+			type = "text",
+			icon = "ui/icons/special.png",
+			text = "灵魂能量：" + this.World.Assets.EL_getSoulEnergy() + " / " + this.World.Assets.EL_getSoulEnergyMax()
 		});
 		result.push({
-			id = 66,
-            icon = "ui/icons/special.png",
+			id = 10,
 			type = "text",
+			icon = "ui/icons/special.png",
 			text = "灵魂能量的上限会随着灵魂能量的获取而逐渐提升，但上限的最大值由霜之哀伤的等阶决定"
 		});
 		return result;
