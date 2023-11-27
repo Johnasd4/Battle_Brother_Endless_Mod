@@ -1,32 +1,31 @@
 this.el_charge_slash <- this.inherit("scripts/skills/skill", {
 	m = {
+		ApplyBonusToBodyPart = -1,
 		SoundOnAttack = [
-			"sounds/combat/dlc2/lunge_attack_01.wav",
-			"sounds/combat/dlc2/lunge_attack_02.wav",
-			"sounds/combat/dlc2/lunge_attack_03.wav",
-			"sounds/combat/dlc2/lunge_attack_04.wav"
+			"sounds/combat/overhead_strike_hit_01.wav",
+			"sounds/combat/overhead_strike_hit_02.wav",
+			"sounds/combat/overhead_strike_hit_03.wav"
 		]
 	},
 	function create()
 	{
 		this.m.ID = "el_actives.charge_slash";
 		this.m.Name = "冲锋斩";
-		this.m.Description = "A swift lunge towards a target 2 tiles away, followed by a precise thrusting attack to catch them unprepared. The faster you are, the more damage you do.";
-		this.m.KilledString = "Sliced up";
-		this.m.Icon = "skills/active_135.png";
-		this.m.IconDisabled = "skills/active_135_sw.png";
-		this.m.Overlay = "active_135";
+		this.m.Description = "迅速冲向2~6格范围内的目标，然后进行一次强大的斩击。Has enough force that it always hits both head and body for additional damage.";
+		this.m.KilledString = "碾碎";
+		this.m.Icon = "skills/ptr_bestial_vigor_skill.png";
+		this.m.IconDisabled = "skills/ptr_bestial_vigor_skill_bw.png";
+		this.m.Overlay = "ptr_bestial_vigor_skill";
 		this.m.SoundOnUse = [
-			"sounds/combat/dlc2/lunge_move_01.wav",
-			"sounds/combat/dlc2/lunge_move_02.wav",
-			"sounds/combat/dlc2/lunge_move_03.wav",
-			"sounds/combat/dlc2/lunge_move_04.wav"
+			"sounds/enemies/orc_charge_01.wav",
+			"sounds/enemies/orc_charge_02.wav",
+			"sounds/enemies/orc_charge_03.wav",
+			"sounds/enemies/orc_charge_04.wav"
 		];
 		this.m.SoundOnHit = [
-			"sounds/combat/dlc2/lunge_attack_hit_01.wav",
-			"sounds/combat/dlc2/lunge_attack_hit_02.wav",
-			"sounds/combat/dlc2/lunge_attack_hit_03.wav",
-			"sounds/combat/dlc2/lunge_attack_hit_04.wav"
+			"sounds/combat/knockback_hit_01.wav",
+			"sounds/combat/knockback_hit_02.wav",
+			"sounds/combat/knockback_hit_03.wav"
 		];
 		this.m.Type = this.Const.SkillType.Active;
 		this.m.Order = this.Const.SkillOrder.OffensiveTargeted;
@@ -37,11 +36,10 @@ this.el_charge_slash <- this.inherit("scripts/skills/skill", {
 		this.m.IsAttack = true;
 		this.m.IsIgnoredAsAOO = true;
 		this.m.IsWeaponSkill = true;
-		this.m.InjuriesOnBody = this.Const.Injury.PiercingBody;
-		this.m.InjuriesOnHead = this.Const.Injury.PiercingHead;
-		this.m.HitChanceBonus = 0;
-		this.m.DirectDamageMult = 0.25;
-		this.m.ActionPointCost = 4;
+		this.m.InjuriesOnBody = this.Const.Injury.CuttingBody;
+		this.m.InjuriesOnHead = this.Const.Injury.CuttingHead;
+		this.m.DirectDamageMult = 0.4;
+		this.m.ActionPointCost = 6;
 		this.m.FatigueCost = 25;
 		this.m.MinRange = 2;
 		this.m.MaxRange = 6;
@@ -61,6 +59,13 @@ this.el_charge_slash <- this.inherit("scripts/skills/skill", {
 				text = "Moves the user next to the target, ignoring Zone of Control"
 			}
 		]);
+		
+		ret.push({
+			id = 6,
+			type = "text",
+			icon = "ui/icons/special.png",
+			text = "Hits both head and body for additional damage"
+		});
 
 		if (this.getContainer().getActor().getCurrentProperties().IsRooted)
 		{
@@ -254,16 +259,49 @@ this.el_charge_slash <- this.inherit("scripts/skills/skill", {
 	{
 		if (_skill == this)
 		{
-			local a = this.getContainer().getActor();
-			local s = this.Math.minf(2.0, 2.0 * (this.Math.max(0, a.getInitiative() + (_targetEntity != null ? this.getFatigueCost() * a.getCurrentProperties().FatigueToInitiativeRate : 0)) / 175.0));
-			_properties.DamageTotalMult *= s;
-
-			if (this.getContainer().getActor().getCurrentProperties().IsSpecializedInSwords)
-			{
-				_properties.MeleeSkill += 5;
-			}
+			_properties.DamageTooltipMinMult *= 1.5;
+			_properties.DamageTooltipMaxMult *= 1.5;
 		}
 	}
 
+	function onTargetHit( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
+	{
+		if (_skill == this)
+		{
+			this.m.ApplyBonusToBodyPart = _bodyPart == this.Const.BodyPart.Body ? this.Const.BodyPart.Head : this.Const.BodyPart.Body;
+		}
+	}
 });
+
+	// function onUse( _user, _targetTile )
+	// {
+	// 	this.spawnAttackEffect(_targetTile, this.Const.Tactical.AttackEffectBash);
+	// 	local targetEntity = _targetTile.getEntity();
+	// 	local success = this.attackEntity(_user, _targetTile.getEntity());
+
+	// 	if (!_user.isAlive() || _user.isDying())
+	// 	{
+	// 		return success;
+	// 	}
+
+	// 	if (success && this.m.ApplyBonusToBodyPart != -1 && !_targetTile.IsEmpty && targetEntity.isAlive())
+	// 	{
+	// 		local p = this.getContainer().buildPropertiesForUse(this, targetEntity);
+	// 		local hitInfo = clone this.Const.Tactical.HitInfo;
+	// 		local damageRegular = this.Math.rand(p.DamageRegularMin, p.DamageRegularMax) * p.DamageRegularMult * 0.5;
+	// 		local damageArmor = this.Math.rand(p.DamageRegularMin, p.DamageRegularMax) * p.DamageArmorMult * 0.5;
+	// 		local damageDirect = this.Math.minf(1.0, p.DamageDirectMult * (this.m.DirectDamageMult + p.DamageDirectAdd + p.DamageDirectMeleeAdd));
+	// 		hitInfo.DamageRegular = damageRegular;
+	// 		hitInfo.DamageArmor = damageArmor;
+	// 		hitInfo.DamageDirect = damageDirect;
+	// 		hitInfo.BodyPart = this.m.ApplyBonusToBodyPart;
+	// 		hitInfo.BodyDamageMult = 1.0;
+	// 		local damageDirect = this.Math.minf(1.0, p.DamageDirectMult * (this.m.DirectDamageMult + p.DamageDirectAdd));
+	// 		hitInfo.DamageDirect = damageDirect;
+	// 		targetEntity.onDamageReceived(this.getContainer().getActor(), this, hitInfo);
+	// 		this.m.ApplyBonusToBodyPart = -1;
+	// 	}
+
+	// 	return success;
+	// }
 
