@@ -115,7 +115,7 @@ gt.Const.EL_NPC <- {
             RangedDefense = 3,
         },
 
-        LevelUpDamageMult = 0.04,
+        LevelUpDamageMult = 0.02,
         LevelUpArmorMult = 0.04,
         MaxXPLevel = 100,
         PropertiesLevelUpMultAfterMaxXPLevel = 0.25,
