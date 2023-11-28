@@ -1818,6 +1818,7 @@ local gt = getroottable();
         troop.EL_IsBossUnit <- false;
         troop.EL_UnitInfo <- null;
         _party.EL_addTroop(troop);
+        _party.EL_setFaction(troop.Faction);
         if (_updateStrength)
         {
             _party.updateStrength();
