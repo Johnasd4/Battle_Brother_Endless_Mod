@@ -53,7 +53,6 @@ this.el_ranged_range_max_entry <- this.inherit("scripts/skills/el_entrys/el_entr
 
 	function EL_onItemUpdate( _item )
 	{
-		
         _item.m.RangeMax = _item.m.EL_BaseWithRankRangeMax + this.m.EL_RangeMax;
 	}
 	
