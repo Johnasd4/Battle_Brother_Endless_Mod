@@ -879,7 +879,7 @@ gt.Const.EL_NPC <- {
                 MaxDistance = 4
             },
             Stamp = {
-                DamageBase = 50,
+                DamageBase = 100,
                 DamageMultPurWorldLevel = 0.04,
                 StackPurHit = [1, 2, 5],
                 ExplodeStackNum = 5,
