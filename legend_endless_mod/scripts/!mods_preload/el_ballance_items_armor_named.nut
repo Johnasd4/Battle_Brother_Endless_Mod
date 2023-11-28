@@ -3,6 +3,38 @@ local gt = getroottable();
 ::mods_registerMod("el_ballance_items_armor_named", 1, "el_ballance_items_armor_named");
 ::mods_queue(null, "el_player_npc", function ()
 {
+    ::mods_hookExactClass("items/legend_armor/legendary/legend_lindwurm_armor", function(o){
+        o.getTooltip = function()
+        {
+            local result = this.legend_named_armor.getTooltip();
+            for(local i = 0; i < result.len(); ++i)
+			{
+				if(result[i].type == "text" && result[i].text == "——————————————")
+				{
+					result.insert(i, {
+						id = 6,
+						type = "text",
+						icon = "ui/icons/special.png",
+                        text = "Unaffected by acidic Lindwurm blood"
+					});
+					break;
+				}
+			}
+            return result;
+        }
+
+        o.onUnequip = function()
+        {
+            local c = this.getContainer();
+
+            if (c != null && c.getActor() != null && !c.getActor().isNull())
+            {
+                this.m.Container.getActor().getFlags().remove("body_immune_to_acid");
+            }
+
+            this.legend_named_armor.onUnequip();
+        }
+    });
 
 	::mods_hookExactClass("items/armor/named/legend_named_warlock_cloak", function(o){
 
