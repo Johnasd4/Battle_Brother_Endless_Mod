@@ -1243,6 +1243,32 @@ local gt = getroottable();
 
 		};
 
+		o.getPerkBackgroundDescription = function(_tree)
+		{
+			local text = "";
+			if (!this.getContainer().getActor().isTryoutDone())
+			{
+				text += "[color=" + this.Const.UI.Color.NegativeValue + "]Try out[/color] this character to reveal [color=" + this.Const.UI.Color.PositiveValue + "]more[/color] information!";
+			}
+			else
+			{
+				local perk_tree = this.getPerkTree();
+				for(local i = 0; i < perk_tree.len(); ++i) {
+					if(i != 0) {
+						text += "\n";
+					}
+					text += "第" + (i + 1) + "层：";
+					for(local j = 0; j < perk_tree[i].len(); ++j) {
+						if(j != 0) {
+							text += "，";
+						}
+						text += perk_tree[i][j].Name;
+					}
+				}
+			}
+			return text;
+		}
+
 	});
 
 	::mods_hookNewObjectOnce("states/world/asset_manager", function ( o )

@@ -576,14 +576,14 @@ gt.Const.EL_NPC <- {
                     return true;
                 }
             },
-            {
-                Scripts = "scripts/skills/el_npc_buffs/el_exploding_ammo_npc_buff",
-                function EL_ifEligible(_EL_npc) {
-                    if(!this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
-                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
-                    return true;
-                }
-            },
+            // {
+            //     Scripts = "scripts/skills/el_npc_buffs/el_exploding_ammo_npc_buff",
+            //     function EL_ifEligible(_EL_npc) {
+            //         if(!this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
+            //         if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
+            //         return true;
+            //     }
+            // },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_growth_npc_buff",
                 function EL_ifEligible(_EL_npc) {
@@ -884,7 +884,7 @@ gt.Const.EL_NPC <- {
                 StackPurHit = [1, 2, 5],
                 ExplodeStackNum = 5,
                 ExplodeStackGain = 1,
-                MaxDistance = 2
+                MaxDistance = 1
             },
             Strength = {
                 DamageTotalMult = [0.4, 0.8, 2]
