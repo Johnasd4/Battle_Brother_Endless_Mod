@@ -1260,7 +1260,7 @@ local gt = getroottable();
 					text += "第" + (i + 1) + "层：";
 					for(local j = 0; j < perk_tree[i].len(); ++j) {
 						if(j != 0) {
-							text += "，";
+							text += "，d";
 						}
 						text += perk_tree[i][j].Name;
 					}
