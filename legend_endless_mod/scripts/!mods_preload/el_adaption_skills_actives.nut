@@ -741,10 +741,194 @@ local gt = getroottable();
 
 	});
 
+    ::mods_hookExactClass("skills/actives/aimed_shot", function(o){
 
+        o.onAnySkillUsed = function( _skill, _targetEntity, _properties )
+        {
+            if (_skill == this)
+            {
+                _properties.RangedSkill += 10 + this.m.Item.getAdditionalAccuracy();
+                _properties.HitChanceAdditionalWithEachTile += this.m.AdditionalHitChance;
+                _properties.DamageRegularMult *= 1.1;
 
+                if (_properties.IsSharpshooter)
+                {
+                    _properties.DamageDirectMult += 0.05;
+                }
+            }
+        }
+	})
 
+    ::mods_hookExactClass("skills/actives/legend_cascade_skill", function(o){
 
+        o.onAnySkillUsed = function( _skill, _targetEntity, _properties )
+        {
+            if (_skill == this)
+            {
+                _properties.RangedSkill += this.m.Item.getAdditionalAccuracy();
+                _properties.HitChanceAdditionalWithEachTile += this.m.AdditionalHitChance;
+                _properties.DamageTotalMult *= 0.5;
+                _properties.DamageTooltipMaxMult *= 3.0;
+            }
+        }
+	})
 
+    ::mods_hookExactClass("skills/actives/legend_piercing_shot", function(o){
 
+        o.onAnySkillUsed = function( _skill, _targetEntity, _properties )
+        {
+            if (_skill == this)
+            {
+                _properties.RangedSkill += this.m.Item.getAdditionalAccuracy();
+			    _properties.HitChanceAdditionalWithEachTile += this.m.AdditionalHitChance;
+            }
+        }
+	})
+
+    ::mods_hookExactClass("skills/actives/legend_shoot_dart", function(o){
+
+        o.onAnySkillUsed = function( _skill, _targetEntity, _properties )
+        {
+            if (_skill == this)
+            {
+                _properties.RangedSkill += _properties.IsSpecializedInSlings ? this.m.Item.getAdditionalAccuracy() + 5 : this.m.Item.getAdditionalAccuracy();
+			    _properties.HitChanceAdditionalWithEachTile += this.m.AdditionalHitChance;
+            }
+        }
+	})
+
+    ::mods_hookExactClass("skills/actives/legend_shoot_precise_stone_skill", function(o){
+
+        o.onAnySkillUsed = function( _skill, _targetEntity, _properties )
+        {
+            if (_skill == this)
+            {
+                _properties.RangedSkill += _properties.IsSpecializedInSlings ? this.m.Item.getAdditionalAccuracy() + 5 : this.m.Item.getAdditionalAccuracy();
+                _properties.FatigueDealtPerHitMult += 2.0;
+			    _properties.HitChance[this.Const.BodyPart.Head] += 100.0;
+            }
+        }
+	})
+
+    ::mods_hookExactClass("skills/actives/legend_shoot_stone_skill", function(o){
+
+        o.onAnySkillUsed = function( _skill, _targetEntity, _properties )
+        {
+            if (_skill == this)
+            {
+                _properties.RangedSkill += _properties.IsSpecializedInSlings ? this.m.Item.getAdditionalAccuracy() + 5 : this.m.Item.getAdditionalAccuracy();
+			    _properties.FatigueDealtPerHitMult += 1.5;
+            }
+        }
+	})
+
+    ::mods_hookExactClass("skills/actives/quick_shot", function(o){
+
+        o.onAnySkillUsed = function( _skill, _targetEntity, _properties )
+        {
+            if (_skill == this)
+            {
+                _properties.RangedSkill += this.m.Item.getAdditionalAccuracy();
+                _properties.HitChanceAdditionalWithEachTile += this.m.AdditionalHitChance;
+
+                if (_properties.IsSharpshooter)
+                {
+                    _properties.DamageDirectMult += 0.05;
+                }
+            }
+        }
+	})
+
+    ::mods_hookExactClass("skills/actives/shoot_bolt", function(o){
+
+        o.onAnySkillUsed = function( _skill, _targetEntity, _properties )
+        {
+            if (_skill != this)
+            {
+                return;
+            }
+
+            if (_targetEntity == null)
+            {
+                return;
+            }
+            _properties.RangedSkill += 15 + this.m.Item.getAdditionalAccuracy();
+			_properties.HitChanceAdditionalWithEachTile += this.m.AdditionalHitChance;
+
+			if (_properties.IsSharpshooter)
+			{
+				_properties.DamageDirectMult += 0.05;
+			}
+        }
+	})
+
+    ::mods_hookExactClass("skills/actives/shoot_stake", function(o){
+
+        o.onAnySkillUsed = function( _skill, _targetEntity, _properties )
+        {
+            if (_skill != this)
+            {
+                return;
+            }
+
+            if (_targetEntity == null)
+            {
+                return;
+            }
+
+            _properties.RangedSkill += 10 + this.m.Item.getAdditionalAccuracy();
+            _properties.HitChanceAdditionalWithEachTile += this.m.AdditionalHitChance;
+
+            if (_targetEntity.getType() == this.Const.EntityType.Vampire || _targetEntity.getType() == this.Const.EntityType.LegendVampireLord)
+            {
+                _properties.DamageRegularMin += 100;
+                _properties.DamageRegularMax += 105;
+            }
+
+            if (_properties.IsSharpshooter)
+            {
+                _properties.DamageDirectMult += 0.05;
+            }
+        }
+	})
+
+    ::mods_hookExactClass("skills/actives/sling_stone_skill", function(o){
+
+        o.onAnySkillUsed = function( _skill, _targetEntity, _properties )
+        {
+            if (_skill == this)
+            {
+                _properties.RangedSkill += _properties.IsSpecializedInSlings ? this.m.Item.getAdditionalAccuracy() + 5 : this.m.Item.getAdditionalAccuracy();
+			    _properties.HitChanceAdditionalWithEachTile += this.m.AdditionalHitChance;
+            }
+        }
+	})
+
+    ::mods_hookExactClass("skills/actives/throw_axe", function(o){
+
+        o.onAnySkillUsed = function( _skill, _targetEntity, _properties )
+        {
+            if (_skill == this)
+            {
+                _properties.RangedSkill += 20 + this.m.Item.getAdditionalAccuracy();
+			    _properties.HitChanceAdditionalWithEachTile += this.m.AdditionalHitChance;
+            }
+        }
+	})
+
+    ::mods_hookExactClass("skills/actives/throw_javelin", function(o){
+
+        o.onAnySkillUsed = function( _skill, _targetEntity, _properties )
+        {
+            if (_skill == this)
+            {
+                _properties.RangedSkill += 20 + this.m.Item.getAdditionalAccuracy();
+                if (_properties.IsSpecializedInSpearThrust)
+                {
+                    this.m.AdditionalHitChance += 10;
+                }
+                _properties.HitChanceAdditionalWithEachTile += this.m.AdditionalHitChance;
+            }
+        }
+	})
 });
