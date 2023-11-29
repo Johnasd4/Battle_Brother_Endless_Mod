@@ -438,7 +438,7 @@ local gt = getroottable();
 
         o.isAlliedWithPlayer = function()
         {
-            return this.EL_getFaction() != 0 && (this.EL_getFaction() == this.Const.FactionType.Player || this.World.FactionManager.isAlliedWithPlayer(this.EL_getFaction()));
+            return (this.EL_getFaction() != 0 && (this.EL_getFaction() == this.Const.FactionType.Player || this.World.FactionManager.isAlliedWithPlayer(this.EL_getFaction()))) || this.getFaction() == 0 || this.getFaction() == this.Const.FactionType.Player || this.World.FactionManager.isAlliedWithPlayer(this.getFaction());
         }
 
 
@@ -446,7 +446,7 @@ local gt = getroottable();
             this.getFaction <- function() { return this.EL_getFaction(); };
             this.m.EL_IsTempParty = true;
         }
-  
+
         o.EL_setFaction <- function( _EL_Faction )
         {
             this.m.EL_Faction = _EL_Faction;
