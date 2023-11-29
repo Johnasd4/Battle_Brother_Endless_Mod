@@ -104,7 +104,7 @@ this.el_charge_slash <- this.inherit("scripts/skills/skill", {
 			{
 				local tile = _targetTile.getNextTile(i);
 
-				if (tile.IsEmpty && tile.getDistanceTo(myTile) <= 4 && this.Math.abs(myTile.Level - tile.Level) <= 1 && this.Math.abs(_targetTile.Level - tile.Level) <= 1)
+				if (tile.IsEmpty && tile.getDistanceTo(myTile) <= 5 && this.Math.abs(myTile.Level - tile.Level) <= 1 && this.Math.abs(_targetTile.Level - tile.Level) <= 1)
 				{
 					hasTile = true;
 					break;
@@ -145,7 +145,7 @@ this.el_charge_slash <- this.inherit("scripts/skills/skill", {
 			{
 				local tile = _targetTile.getNextTile(i);
 
-				if (tile.IsEmpty && tile.getDistanceTo(myTile) <= 4 && this.Math.abs(myTile.Level - tile.Level) <= 1 && this.Math.abs(_targetTile.Level - tile.Level) <= 1)
+				if (tile.IsEmpty && tile.getDistanceTo(myTile) <= 5 && this.Math.abs(myTile.Level - tile.Level) <= 1 && this.Math.abs(_targetTile.Level - tile.Level) <= 1)
 				{
 					destTile = tile;
 					break;
@@ -246,8 +246,30 @@ this.el_charge_slash <- this.inherit("scripts/skills/skill", {
 		this.spawnAttackEffect(_tag.TargetTile, this.Const.Tactical.AttackEffectThrust);
 		local s = this.m.SoundOnUse;
 		this.m.SoundOnUse = this.m.SoundOnAttack;
-		this.attackEntity(_entity, _tag.TargetTile.getEntity());
+		local success = this.attackEntity(_entity, _tag.TargetTile.getEntity());
 		this.m.SoundOnUse = s;
+		if(!_tag.User.isAlive() || _tag.User.isDying())
+		{
+			return;
+		}
+		if(success && this.m.ApplyBonusToBodyPart != -1 && !_tag.TargetTile.IsEmpty && _tag.TargetTile.getEntity().isAlive())
+		{
+			local p = this.getContainer().buildPropertiesForUse(this, _tag.TargetTile.getEntity());
+			local hitInfo = clone this.Const.Tactical.HitInfo;
+			local damageRegular = this.Math.rand(p.DamageRegularMin, p.DamageRegularMax) * p.DamageRegularMult * 0.5;
+			local damageArmor = this.Math.rand(p.DamageRegularMin, p.DamageRegularMax) * p.DamageArmorMult * 0.5;
+			local damageDirect = this.Math.minf(1.0, p.DamageDirectMult * (this.m.DirectDamageMult + p.DamageDirectAdd + p.DamageDirectMeleeAdd));
+			hitInfo.DamageRegular = damageRegular;
+			hitInfo.DamageArmor = damageArmor;
+			hitInfo.DamageDirect = damageDirect;
+			hitInfo.BodyPart = this.m.ApplyBonusToBodyPart;
+			hitInfo.BodyDamageMult = 1.0;
+			local damageDirect = this.Math.minf(1.0, p.DamageDirectMult * (this.m.DirectDamageMult + p.DamageDirectAdd));
+			hitInfo.DamageDirect = damageDirect;
+			_tag.TargetTile.getEntity().onDamageReceived(this.getContainer().getActor(), this, hitInfo);
+			this.m.ApplyBonusToBodyPart = -1;
+		}
+
 	}
 
 	function onRepelled( _tag )
@@ -272,36 +294,3 @@ this.el_charge_slash <- this.inherit("scripts/skills/skill", {
 		}
 	}
 });
-
-	// function onUse( _user, _targetTile )
-	// {
-	// 	this.spawnAttackEffect(_targetTile, this.Const.Tactical.AttackEffectBash);
-	// 	local targetEntity = _targetTile.getEntity();
-	// 	local success = this.attackEntity(_user, _targetTile.getEntity());
-
-	// 	if (!_user.isAlive() || _user.isDying())
-	// 	{
-	// 		return success;
-	// 	}
-
-	// 	if (success && this.m.ApplyBonusToBodyPart != -1 && !_targetTile.IsEmpty && targetEntity.isAlive())
-	// 	{
-	// 		local p = this.getContainer().buildPropertiesForUse(this, targetEntity);
-	// 		local hitInfo = clone this.Const.Tactical.HitInfo;
-	// 		local damageRegular = this.Math.rand(p.DamageRegularMin, p.DamageRegularMax) * p.DamageRegularMult * 0.5;
-	// 		local damageArmor = this.Math.rand(p.DamageRegularMin, p.DamageRegularMax) * p.DamageArmorMult * 0.5;
-	// 		local damageDirect = this.Math.minf(1.0, p.DamageDirectMult * (this.m.DirectDamageMult + p.DamageDirectAdd + p.DamageDirectMeleeAdd));
-	// 		hitInfo.DamageRegular = damageRegular;
-	// 		hitInfo.DamageArmor = damageArmor;
-	// 		hitInfo.DamageDirect = damageDirect;
-	// 		hitInfo.BodyPart = this.m.ApplyBonusToBodyPart;
-	// 		hitInfo.BodyDamageMult = 1.0;
-	// 		local damageDirect = this.Math.minf(1.0, p.DamageDirectMult * (this.m.DirectDamageMult + p.DamageDirectAdd));
-	// 		hitInfo.DamageDirect = damageDirect;
-	// 		targetEntity.onDamageReceived(this.getContainer().getActor(), this, hitInfo);
-	// 		this.m.ApplyBonusToBodyPart = -1;
-	// 	}
-
-	// 	return success;
-	// }
-
