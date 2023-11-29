@@ -130,7 +130,7 @@ local gt = getroottable();
             else
             {
                 this.World.Assets.m.EL_LastArenaDay = day;
-                this.World.Assets.m.EL_ArenaLevel = 0;
+                this.World.Assets.m.EL_ArenaLevel = this.World.Assets.m.EL_ArenaMaxLevel;
             }
             this.m.Payment.Pool = this.Math.floor(this.m.Payment.Pool * 0.7);
             this.m.Payment.Pool *= this.World.Assets.m.EL_ArenaLevel + 1;
@@ -15866,12 +15866,13 @@ local gt = getroottable();
                         _dest.m.IsShowingDefenders = true;
                         local p = this.World.State.getLocalCombatProperties(this.World.State.getPlayer().getPos());
                         p.EnemyBanners.push(_dest.getBanner());
-                        local party = this.new("scripts/entity/world/party");
-                        party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.9);
-                        p.Parties.push(party);
+
 
                         if (this.Flags.get("IsBandits") && this.Flags.get("ObjectivesDestroyed") == 0)
                         {
+                            local party = this.new("scripts/entity/world/party");
+                            party.EL_setTroopsResourse(party.EL_getTroopsResourse() * 0.9);
+                            p.Parties.push(party);
                             if (this.Flags.get("IsBanditsCoop"))
                             {
                                 party.EL_setFaction(this.Const.Faction.PlayerAnimals);
@@ -15886,9 +15887,9 @@ local gt = getroottable();
                                 p.EnemyBanners.push("banner_bandits_06");
                                 this.Const.World.Common.addUnitsToCombat(party, this.Const.World.Spawn.BanditRaiders, 90 * this.Contract.getScaledDifficultyMult(), this.World.FactionManager.getFactionOfType(this.Const.FactionType.Bandits).getID());
                             }
-                        }
-                        foreach(troop in party.getTroops()) {
-                            p.Entities.push(troop);
+                            foreach(troop in party.getTroops()) {
+                                p.Entities.push(troop);
+                            }
                         }
                         this.World.Contracts.startScriptedCombat(p, this.Contract.m.IsPlayerAttacking, true, true);
                     }

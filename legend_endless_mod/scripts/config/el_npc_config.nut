@@ -58,8 +58,8 @@ gt.Const.EL_NPC <- {
         ],
         DamageTotalMult = [
             1,
-            1.4,
-            2
+            1.2,
+            1.5
         ],
         DamageReceivedTotalDiv = [
             1,

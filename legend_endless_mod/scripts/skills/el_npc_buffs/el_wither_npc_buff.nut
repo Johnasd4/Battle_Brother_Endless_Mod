@@ -11,6 +11,9 @@ this.el_wither_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff
 	function onTurnEnd()
 	{
         local actor = this.getContainer().getActor();
+        if(actor == null || actor.isDying() || !actor.isAlive()) {
+            return;
+        }
         local targets = this.Tactical.Entities.getAllInstances();
         local damage = this.Math.floor((this.Const.EL_NPC.EL_NPCBuff.Factor.Wither.DamageBase * (1 + actor.EL_getCombatLevel() * this.Const.EL_NPC.EL_NPCBuff.Factor.Wither.DamageMultPurCombatLevel)) * this.Const.EL_NPC.EL_NPCBuff.Factor.Wither.DamageRate[this.m.EL_RankLevel]);
         if(actor.EL_isNonHumanoid()) {
