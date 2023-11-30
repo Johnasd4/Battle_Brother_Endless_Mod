@@ -1329,17 +1329,6 @@ D
 				this.m.Stacks = this.Math.floor(this.m.Stacks / 2);
 			}
 		}
-
-		o.onDamageReceived = function( _attacker, _damageHitpoints, _damageArmor )
-		{
-			if (_attacker != null && _attacker == this.getContainer().getActor() || _skill == null || !_skill.isAttack() || !_skill.isUsingHitchance())
-			{
-				return;
-			}
-
-			this.m.Stacks = this.Math.floor(this.m.Stacks / 2);
-		}
-
 	});
 
 
@@ -1594,7 +1583,7 @@ gt.Const.EL_Config.EL_modStrings <- function()
         },
 		{
             ID = "perk.ptr_unstoppable",
-            tooltip = "Once you get going, you can\'t be stopped!\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• During your turn, every successful attack provides a stacking bonus to Melee Skill and Action Points.\n• Each stack increases Melee Skill by [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color].\n• Your Action Points are increased by a total of [color=" + this.Const.UI.Color.PositiveValue + "]+1[/color] at 3 stacks, [color=" + this.Const.UI.Color.PositiveValue + "]+2[/color] at 6 stacks and [color=" + this.Const.UI.Color.PositiveValue + "]+3[/color] at 10 stacks.\n• Attacks at 2 tiles range only grant a stack after two successful hits.\n• You lose half of the stacks if you miss an attack or if you get hit.\n• Cannot have more than 10 stacks.\n• 不会受到环境和效果伤害的影响。"
+            tooltip = "Once you get going, you can\'t be stopped!\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• During your turn, every successful attack provides a stacking bonus to Melee Skill and Action Points.\n• Each stack increases Melee Skill by [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color].\n• Your Action Points are increased by a total of [color=" + this.Const.UI.Color.PositiveValue + "]+1[/color] at 3 stacks, [color=" + this.Const.UI.Color.PositiveValue + "]+2[/color] at 6 stacks and [color=" + this.Const.UI.Color.PositiveValue + "]+3[/color] at 10 stacks.\n• Attacks at 2 tiles range only grant a stack after two successful hits.\n• You lose half of the stacks if you miss an attack or if you get hit.\n• Cannot have more than 10 stacks."
         },
 
         {
