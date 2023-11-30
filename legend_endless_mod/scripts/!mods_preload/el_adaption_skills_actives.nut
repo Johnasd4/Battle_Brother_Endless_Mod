@@ -398,13 +398,40 @@ local gt = getroottable();
 	});
 
     ::mods_hookExactClass("skills/actives/sweep_skill", function(o){
+        o.onUse = function ( _user, _targetTile )
+        {
+            this.m.TilesUsed = [];
+            this.getContainer().setBusy(true);
+            local tag = {
+                Skill = this,
+                User = _user,
+                TargetTile = _targetTile
+            };
+
+            if (!_user.isHiddenToPlayer() || _targetTile.IsVisibleForPlayer)
+            {
+                this.onPerformAttack(tag);
+
+                if (!_user.isPlayerControlled() && _targetTile.getEntity().isPlayerControlled())
+                {
+                    _user.getTile().addVisibilityForFaction(this.Const.Faction.Player);
+                }
+            }
+            else
+            {
+                this.onPerformAttack(tag);
+            }
+
+            return true;
+        }
+        
         o.onPerformAttack = function( _tag )
         {
             local _targetTile = _tag.TargetTile;
             local _user = _tag.User;
             local target = _targetTile.getEntity();
 
-            if (target == null)
+            if (target == null && !target.isAlive() && target.isDying())
             {
                 return false;
             }
@@ -432,7 +459,7 @@ local gt = getroottable();
                 local nextTile = ownTile.getNextTile(nextDir);
                 local success = false;
 
-                if (nextTile.IsOccupiedByActor && nextTile.getEntity().isAttackable() && this.Math.abs(nextTile.Level - ownTile.Level) <= 1 && !_user.isAlliedWith(nextTile.getEntity()))
+                if (nextTile.IsOccupiedByActor && nextTile.getEntity().isAttackable() && this.Math.abs(nextTile.Level - ownTile.Level) <= 1 && !_user.isAlliedWith(nextTile.getEntity()) && nextTile.getEntity().isAlive() || !nextTile.getEntity().isDying())
                 {
                     success = this.attackEntity(_user, nextTile.getEntity());
                 }
@@ -457,7 +484,7 @@ local gt = getroottable();
                 local nextTile = ownTile.getNextTile(nextDir);
                 local success = false;
 
-                if (nextTile.IsOccupiedByActor && nextTile.getEntity().isAttackable() && this.Math.abs(nextTile.Level - ownTile.Level) <= 1 && !_user.isAlliedWith(nextTile.getEntity()))
+                if (nextTile.IsOccupiedByActor && nextTile.getEntity().isAttackable() && this.Math.abs(nextTile.Level - ownTile.Level) <= 1 && !_user.isAlliedWith(nextTile.getEntity()) && nextTile.getEntity().isAlive() || !nextTile.getEntity().isDying())
                 {
                     success = this.attackEntity(_user, nextTile.getEntity());
                 }
