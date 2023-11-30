@@ -7,7 +7,7 @@ this.el_core_item <- this.inherit("scripts/items/trade/trading_good_item", {
 	{
 		this.m.ID = "accessory.el_core_rank_" + this.m.EL_RankLevel;
 		this.m.Name = "Core";
-		this.m.Description = "A core, can be used to strengthen your men or sell it for crowns.";
+		this.m.Description = "魔核，，可以用来强化你的兄弟或者卖了换克朗。";
 		this.m.SlotType = this.Const.ItemSlot.None;
 		this.m.ItemType = this.Const.Items.ItemType.TradeGood | this.Const.Items.ItemType.Usable | this.Const.Items.ItemType.Misc;
 		this.m.IsDroppedAsLoot = true;
@@ -69,7 +69,7 @@ this.el_core_item <- this.inherit("scripts/items/trade/trading_good_item", {
 				id = 10,
 				type = "text",
 				icon = "ui/icons/xp_received.png",
-				text = "XP [color=" + this.Const.UI.Color.PositiveValue + "]+" +
+				text = "经验 [color=" + this.Const.UI.Color.PositiveValue + "]+" +
 					   xp_string +
 					   "[/color]"
 			});
@@ -79,7 +79,7 @@ this.el_core_item <- this.inherit("scripts/items/trade/trading_good_item", {
 				id = 10,
 				type = "text",
 				icon = "ui/icons/health.png",
-				text = "Hitpoints XP [color=" + this.Const.UI.Color.PositiveValue + "]+" +
+				text = "生命值经验 [color=" + this.Const.UI.Color.PositiveValue + "]+" +
 					   this.m.EL_PropertiesXP[this.Const.Attributes.Hitpoints] +
 					   "[/color]"
 			});
@@ -89,7 +89,7 @@ this.el_core_item <- this.inherit("scripts/items/trade/trading_good_item", {
 				id = 10,
 				type = "text",
 				icon = "ui/icons/health.png",
-				text = "Resolve XP [color=" + this.Const.UI.Color.PositiveValue + "]+" +
+				text = "决心经验 [color=" + this.Const.UI.Color.PositiveValue + "]+" +
 					   this.m.EL_PropertiesXP[this.Const.Attributes.Bravery] +
 					   "[/color]"
 			});
@@ -99,7 +99,7 @@ this.el_core_item <- this.inherit("scripts/items/trade/trading_good_item", {
 				id = 10,
 				type = "text",
 				icon = "ui/icons/fatigue.png",
-				text = "Stamina XP [color=" + this.Const.UI.Color.PositiveValue + "]+" +
+				text = "疲劳经验 [color=" + this.Const.UI.Color.PositiveValue + "]+" +
 					   this.m.EL_PropertiesXP[this.Const.Attributes.Fatigue] +
 					   "[/color]"
 			});
@@ -109,7 +109,7 @@ this.el_core_item <- this.inherit("scripts/items/trade/trading_good_item", {
 				id = 10,
 				type = "text",
 				icon = "ui/icons/initiative.png",
-				text = "Initiative XP [color=" + this.Const.UI.Color.PositiveValue + "]+" +
+				text = "主动值经验 [color=" + this.Const.UI.Color.PositiveValue + "]+" +
 					   this.m.EL_PropertiesXP[this.Const.Attributes.Initiative] +
 					   "[/color]"
 			});
@@ -119,7 +119,7 @@ this.el_core_item <- this.inherit("scripts/items/trade/trading_good_item", {
 				id = 10,
 				type = "text",
 				icon = "ui/icons/melee_skill.png",
-				text = "Melee Skill XP [color=" + this.Const.UI.Color.PositiveValue + "]+" +
+				text = "近攻经验 [color=" + this.Const.UI.Color.PositiveValue + "]+" +
 					   this.m.EL_PropertiesXP[this.Const.Attributes.MeleeSkill] +
 					   "[/color]"
 			});
@@ -129,7 +129,7 @@ this.el_core_item <- this.inherit("scripts/items/trade/trading_good_item", {
 				id = 10,
 				type = "text",
 				icon = "ui/icons/ranged_skill.png",
-				text = "Ranged Skill XP [color=" + this.Const.UI.Color.PositiveValue + "]+" +
+				text = "远攻经验 [color=" + this.Const.UI.Color.PositiveValue + "]+" +
 					   this.m.EL_PropertiesXP[this.Const.Attributes.RangedSkill] +
 					   "[/color]"
 			});
@@ -139,7 +139,7 @@ this.el_core_item <- this.inherit("scripts/items/trade/trading_good_item", {
 				id = 10,
 				type = "text",
 				icon = "ui/icons/melee_defense.png",
-				text = "Melee Defense XP [color=" + this.Const.UI.Color.PositiveValue + "]+" +
+				text = "近防经验 [color=" + this.Const.UI.Color.PositiveValue + "]+" +
 					   this.m.EL_PropertiesXP[this.Const.Attributes.MeleeDefense] +
 					   "[/color]"
 			});
@@ -149,7 +149,7 @@ this.el_core_item <- this.inherit("scripts/items/trade/trading_good_item", {
 				id = 10,
 				type = "text",
 				icon = "ui/icons/ranged_defense.png",
-				text = "Ranged Defense XP [color=" + this.Const.UI.Color.PositiveValue + "]+" +
+				text = "远防经验 [color=" + this.Const.UI.Color.PositiveValue + "]+" +
 					   this.m.EL_PropertiesXP[this.Const.Attributes.RangedDefense] +
 					   "[/color]"
 			});
@@ -157,7 +157,7 @@ this.el_core_item <- this.inherit("scripts/items/trade/trading_good_item", {
 		result.push({
 			id = 65,
 			type = "text",
-			text = "Right-click or drag onto the currently selected character in order to use. This item will be consumed in the process."
+			text = "右击或者拖拽到当前人物上使用。此物品会在使用的过程中消耗掉。"
 		});
 		return result;
 	}

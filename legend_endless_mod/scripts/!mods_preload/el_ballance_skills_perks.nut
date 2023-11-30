@@ -582,14 +582,14 @@ local gt = getroottable();
 
 		o.getDescription <- function()
 		{
-			return "把你的重量运用到每次攻击，增加 [color=" + this.Const.UI.Color.PositiveValue + "]+10%[/color] 最大生命值的最小伤害和最大伤害。";
+			local bodyHealth = this.getContainer().getActor().getHitpointsMax();
+			return "把你的重量运用到每次攻击，增加 [color=" + this.Const.UI.Color.PositiveValue + "]+" + this.Math.floor(this.Math.pow(bodyHealth, 0.5)) + "%[/color] 最大生命值的最小伤害和最大伤害。";
 		}
-
+D
 		o.onUpdate = function( _properties )
 		{
 			local bodyHealth = this.getContainer().getActor().getHitpointsMax();
-			_properties.DamageRegularMin += this.Math.floor(bodyHealth * 0.1);
-			_properties.DamageRegularMax += this.Math.floor(bodyHealth * 0.1);
+			_properties.DamageTotalMult *= 1 + this.Math.pow(bodyHealth, 0.5) * 0.01;
 		}
 
 	});
@@ -824,7 +824,9 @@ local gt = getroottable();
 
 		o.onTargetKilled <- function( _targetEntity, _skill )
 		{
-			this.m.EL_NextTurnActionPointsOffset += 3;
+			if(_skill.getDamageType().contains(this.Const.Damage.DamageType.Cutting)) {
+				this.m.EL_NextTurnActionPointsOffset += 3;
+			}
 		}
 
 		o.onTurnEnd <- function()
@@ -1151,46 +1153,66 @@ local gt = getroottable();
 	{
 		o.onAdded = function()
 		{
+			if (this.m.IsSet || !this.getContainer().getActor().isPlayerControlled())
+			{
+				return;
+			}
+
+			local actor = this.getContainer().getActor();
+
+			if (this.Math.rand(1, 100) <= 80)
+			{
+				this.m.WillSucceed = false;
+			}
+
+			this.m.IsSet = true;
 		}
 
 		o.updatePerkVisuals = function ()
 		{
-			if(this.m.IsSpent == true) {
-				foreach (perk in this.getContainer().getActor().getBackground().m.PerkTree[0])
+			foreach (perk in this.getContainer().getActor().getBackground().m.PerkTree[0])
+			{
+				if (perk.ID == "perk.ptr_promised_potential")
 				{
-					if (perk.ID == "perk.ptr_promised_potential")
+					if (this.m.WillSucceed)
 					{
 						perk.Name = "Realized Potential";
 						perk.Icon = "ui/perks/ptr_realized_potential.png";
-						perk.Tooltip = "From rags to riches! This character has truly come a long way. Who was once a dreg of society is now a full-fledged mercenary.";
+						perk.Tooltip = this.Const.Strings.PerkDescription.PTRRealizedPotential;
 						break;
 					}
+					else
+					{
+						perk.Name = "Failed Potential";
+						perk.Icon = "ui/perks/ptr_failed_potential.png";
+						perk.Tooltip = this.Const.Strings.PerkDescription.PTRFailedPotential;
+					}
 				}
-				this.m.IsVisualsUpdated = true;
 			}
+			this.m.IsVisualsUpdated = true;
 		}
 
 		o.onUpdateLevel = function()
 		{
 			local actor = this.getContainer().getActor();
-			if(!this.m.IsSpent && this.Math.rand(1, 1000) <= 2) {
+			if(actor.getLevel() >= this.Math.min(100, this.World.Assets.m.EL_WorldLevel) && !this.m.IsSpent) {
 				this.m.IsSpent = true;
-				this.m.WillSucceed = true;
-				local bg = actor.getBackground();
-				bg.m.Description += " Once a dreg of society, with your help, " + actor.getNameOnly() + " has grown into a full-fledged mercenary.";
-				bg.m.RawDescription += " Once a dreg of society, with your help, %name% has grown into a full-fledged mercenary.";
+				if(this.m.WillSucceed) {
+					local bg = actor.getBackground();
+					bg.m.Description += " Once a dreg of society, with your help, " + actor.getNameOnly() + " has grown into a full-fledged mercenary.";
+					bg.m.RawDescription += " Once a dreg of society, with your help, %name% has grown into a full-fledged mercenary.";
 
-				actor.m.PerkPoints += 5;
-				actor.m.LevelUps += 5;
+					actor.m.PerkPoints += 5;
 
-				for(local i = 0 ;i < this.Const.Attributes.COUNT; ++i) {
-					actor.m.Talents[i] = this.Math.min(4, actor.m.Talents[i] + 1);
-					actor.m.Attributes[i] = [];
+					for(local i = 0 ;i < this.Const.Attributes.COUNT; ++i) {
+						actor.m.Talents[i] = this.Math.min(4, actor.m.Talents[i] + 1);
+						actor.m.Attributes[i] = [];
+					}
+					this.Const.EL_Player.EL_PerkTree.EL_AddRandomPerkTreeToPlayer(actor, 50);
+					actor.resetPerks();
+					actor.improveMood(1.0, "Realized potential");
+					this.updatePerkVisuals();
 				}
-				this.Const.EL_Player.EL_PerkTree.EL_AddRandomPerkTreeToPlayer(actor, 50);
-				actor.resetPerks();
-				actor.improveMood(1.0, "Realized potential");
-				this.updatePerkVisuals();
 			}
 		}
 		o.onUpdate = function(_properties) {
@@ -1307,6 +1329,17 @@ local gt = getroottable();
 				this.m.Stacks = this.Math.floor(this.m.Stacks / 2);
 			}
 		}
+
+		o.onDamageReceived = function( _attacker, _damageHitpoints, _damageArmor )
+		{
+			if (_attacker != null && _attacker == this.getContainer().getActor() || _skill == null || !_skill.isAttack() || !_skill.isUsingHitchance())
+			{
+				return;
+			}
+
+			this.m.Stacks = this.Math.floor(this.m.Stacks / 2);
+		}
+
 	});
 
 
@@ -1442,6 +1475,10 @@ gt.Const.EL_Config.EL_modStrings <- function()
             ID = "perk.anticipation",
             tooltip = "By watching your opponent/\'s aim, you have more time to react.\n\nWhen being attacked with ranged weapons, gain [color=" + this.Const.UI.Color.PositiveValue + "]+5 Ranged Defense[/color] as additional Ranged Defense per tile that the attacker is away, and always at least [color=" + this.Const.UI.Color.PositiveValue + "]+10[/color] to Ranged Defense."
         },
+		{
+            ID = "perk.brawny",
+            tooltip = "The fatigue and initiative penalty from wearing armor, helmet, weapon and shield is reduced by [color=" + this.Const.UI.Color.NegativeValue + "]30%[/color]."
+        },
         {
             ID = "perk.colossus",
             tooltip = "Bring it on! Hitpoints are increased by [color=" + this.Const.UI.Color.PositiveValue + "]25%[/color], which also reduces the chance to sustain debilitating injuries when being hit."
@@ -1508,7 +1545,7 @@ gt.Const.EL_Config.EL_modStrings <- function()
         },
         {
             ID = "perk.legend_muscularity",
-            tooltip = "把你的重量运用到每次攻击，增加 [color=" + this.Const.UI.Color.PositiveValue + "]+10%[/color] 最大生命值的最小伤害和最大伤害。"
+            tooltip = "把你的重量运用到每次攻击，增加基于最大生命值的伤害（生命值越高收益越小）。"
         },
         {
             ID = "perk.legend_pacifist",
@@ -1520,7 +1557,7 @@ gt.Const.EL_Config.EL_modStrings <- function()
         },
 		{
             ID = "perk.ptr_bloodbath",
-            tooltip = "你只想再来一遍去头术！\n\n[color=" + this.Const.UI.Color.Passive + "][u]被动:[/u][/color]\n• 击杀后叠一层血浴，每层使下回合增加 [color=" + this.Const.UI.Color.PositiveValue + "]3[/color] 行动点，最多增加[color=" + this.Const.UI.Color.PositiveValue + "]9[/color]点。\n• 回合开始时减少3层效果。"
+            tooltip = "[color=" + this.Const.UI.Color.NegativeValue + "][u]Requires:[/u] Cutting Damage[/color]\n你只想再来一遍去头术！\n\n[color=" + this.Const.UI.Color.Passive + "][u]被动:[/u][/color]\n• 击杀后叠一层血浴，每层使下回合增加 [color=" + this.Const.UI.Color.PositiveValue + "]3[/color] 行动点，最多增加[color=" + this.Const.UI.Color.PositiveValue + "]9[/color]点。\n• 回合开始时减少3层效果。"
         },
 		{
             ID = "perk.ptr_cull",
@@ -1544,7 +1581,7 @@ gt.Const.EL_Config.EL_modStrings <- function()
         },
 		{
             ID = "perk.ptr_promised_potential",
-            tooltip = "队长说他要赌一把你的可能性，但你最好不要失望！\n\n[color=" + this.Const.UI.Color.OneTimeEffect + "][u]一次性效果：[/u][/color]\n每次升级都有[color=" + this.Const.UI.Color.PositiveValue + "] 2‰ [/color]的机会被替换为\'实现潜能\'，这会使你的所有属性天赋[color=" + this.Const.UI.Color.PositiveValue + "]+1[/color], 获得 [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color] 升级点数, 获得 [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color] 特技点，解锁大约 [color=" + this.Const.UI.Color.PositiveValue + "]+50[/color] 个可选特技并且返还所有小号的特技点，包括花在这个特技上的。"
+            tooltip = "队长说他要赌一把你的可能性，但你最好不要失望！\n\n[color=" + this.Const.UI.Color.OneTimeEffect + "][u]一次性效果：[/u][/color]\n达到世界等级时有[color=" + this.Const.UI.Color.PositiveValue + "] 20% [/color]的机会被替换为\'实现潜能\'，这会使你的所有属性天赋[color=" + this.Const.UI.Color.PositiveValue + "]+1[/color], 获得 [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color] 特技点，解锁大约 [color=" + this.Const.UI.Color.PositiveValue + "]+50[/color] 个可选特技并且返还所有小号的特技点，包括花在这个特技上的。"
         },
 		{
             ID = "perk.ptr_target_practice",
@@ -1556,9 +1593,10 @@ gt.Const.EL_Config.EL_modStrings <- function()
             tooltip = "Ranged attacks have a [color=" + this.Const.UI.Color.PositiveValue + "]+50[/color] reduced chance to inflict friendly fire."
         },
 		{
-            ID = "perk.brawny",
-            tooltip = "The fatigue and initiative penalty from wearing armor, helmet, weapon and shield is reduced by [color=" + this.Const.UI.Color.NegativeValue + "]30%[/color]."
+            ID = "perk.ptr_unstoppable",
+            tooltip = "Once you get going, you can\'t be stopped!\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• During your turn, every successful attack provides a stacking bonus to Melee Skill and Action Points.\n• Each stack increases Melee Skill by [color=" + this.Const.UI.Color.PositiveValue + "]+5[/color].\n• Your Action Points are increased by a total of [color=" + this.Const.UI.Color.PositiveValue + "]+1[/color] at 3 stacks, [color=" + this.Const.UI.Color.PositiveValue + "]+2[/color] at 6 stacks and [color=" + this.Const.UI.Color.PositiveValue + "]+3[/color] at 10 stacks.\n• Attacks at 2 tiles range only grant a stack after two successful hits.\n• You lose half of the stacks if you miss an attack or if you get hit.\n• Cannot have more than 10 stacks.\n• 不会受到环境和效果伤害的影响。"
         },
+
         {
             ID = "perk.ptr_bulwark",
             tooltip = "\'Not much to be afraid of behind a suit of plate!\'\n\n[color=" + this.Const.UI.Color.Passive + "][u]Passive:[/u][/color]\n• 获得基于当前盔甲总耐久度的决心。\n• This bonus is [color=" + this.Const.UI.Color.PositiveValue + "]doubled[/color] against negative morale checks except mental attacks."

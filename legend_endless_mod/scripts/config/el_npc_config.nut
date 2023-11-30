@@ -836,7 +836,7 @@ gt.Const.EL_NPC <- {
             Intimidate = {
                 BraveryOffset = [10, 20, 50],
                 MoraleCheckChance = [20, 40, 100],
-                BaseOffset = 50,
+                BaseOffset = 75,
                 RankFactor = 0,
                 CombatLevelFactor = 1.04,
                 DistanceFactor = 3
