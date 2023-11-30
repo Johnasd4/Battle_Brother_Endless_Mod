@@ -39,3 +39,5 @@ gt.Const.EL_Item <- {
 
 gt.Const.CharacterProperties.EL_DamageBodyArmorReduction <- 0;
 gt.Const.CharacterProperties.EL_DamageHeadArmorReduction <- 0;
+gt.Const.CharacterProperties.EL_DamageBodyRegularReduction <- 0;
+gt.Const.CharacterProperties.EL_DamageHeadRegularReduction <- 0;

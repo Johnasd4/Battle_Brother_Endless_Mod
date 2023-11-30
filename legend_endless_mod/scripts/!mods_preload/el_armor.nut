@@ -9,8 +9,8 @@ local gt = getroottable();
         o.m.EL_BaseWithRankStaminaModifier <- 0.0;
 		o.m.EL_DamageBodyArmorReduction <- 0;
 		o.m.EL_BaseWithRankDamageBodyArmorReduction <- 0;
-		o.m.EL_DamageRegularReduction <- 0;
-		o.m.EL_BaseWithRankDamageRegularReduction <- 0;
+		o.m.EL_DamageBodyRegularReduction <- 0;
+		o.m.EL_BaseWithRankDamageBodyRegularReduction <- 0;
 
 		local getTooltip = o.getTooltip;
 		o.getTooltip = function ()
@@ -63,13 +63,13 @@ local gt = getroottable();
 					text = "护甲耐久固定减伤: " + this.m.EL_DamageBodyArmorReduction
 				});
 			}
-			if(this.m.EL_DamageRegularReduction)
+			if(this.m.EL_DamageBodyRegularReduction)
 			{
 				result.insert(8, {
 					id = 24,
 					type = "text",
 					icon = "ui/icons/regular_damage.png",
-					text = "血量固定减伤: " + this.m.EL_DamageRegularReduction
+					text = "身体血量固定减伤: " + this.m.EL_DamageBodyRegularReduction
 				});
 			}
 			if (this.m.EL_EntryList.len() != 0)
@@ -130,7 +130,7 @@ local gt = getroottable();
 		o.onUpdateProperties = function ( _properties )
 		{
 			_properties.EL_DamageBodyArmorReduction += this.EL_getDamageBodyArmorReduction();
-			_properties.DamageRegularReduction += this.EL_getDamageRegularReduction();
+			_properties.EL_DamageBodyRegularReduction += this.EL_getDamageBodyRegularReduction();
 			onUpdateProperties(_properties);
 		}
 
@@ -161,8 +161,8 @@ local gt = getroottable();
 			_out.writeF32(this.m.EL_BaseWithRankStaminaModifier);
 			_out.writeI32(this.m.EL_DamageBodyArmorReduction);
 			_out.writeI32(this.m.EL_BaseWithRankDamageBodyArmorReduction);
-			_out.writeI32(this.m.EL_DamageRegularReduction);
-			_out.writeI32(this.m.EL_BaseWithRankDamageRegularReduction);
+			_out.writeI32(this.m.EL_DamageBodyRegularReduction);
+			_out.writeI32(this.m.EL_BaseWithRankDamageBodyRegularReduction);
 			_out.writeF32(this.m.Condition);
 		}
 
@@ -175,8 +175,8 @@ local gt = getroottable();
             this.m.EL_BaseWithRankStaminaModifier = _in.readF32();
 			this.m.EL_DamageBodyArmorReduction = _in.readI32();
 			this.m.EL_BaseWithRankDamageBodyArmorReduction = _in.readI32();
-			this.m.EL_DamageRegularReduction = _in.readI32();
-			this.m.EL_BaseWithRankDamageRegularReduction = _in.readI32();
+			this.m.EL_DamageBodyRegularReduction = _in.readI32();
+			this.m.EL_BaseWithRankDamageBodyRegularReduction = _in.readI32();
 			if(this.m.EL_Level != -1)
 			{
 				this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Armor.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
@@ -235,21 +235,21 @@ local gt = getroottable();
         {
 			this.m.EL_BaseWithRankDamageBodyArmorReduction = _EL_baseWithRankDamageBodyArmorReduction;
         }
-		o.EL_getDamageRegularReduction <- function()
+		o.EL_getDamageBodyRegularReduction <- function()
         {
-			return this.m.EL_DamageRegularReduction;
+			return this.m.EL_DamageBodyRegularReduction;
         }
-		o.EL_setDamageRegularReduction <- function( _EL_damageRegularReduction )
+		o.EL_setDamageBodyRegularReduction <- function( _EL_damageRegularReduction )
         {
-			this.m.EL_DamageRegularReduction = _EL_damageRegularReduction;
+			this.m.EL_DamageBodyRegularReduction = _EL_damageRegularReduction;
         }
-		o.EL_getBaseWithRankDamageRegularReduction <- function()
+		o.EL_getBaseWithRankDamageBodyRegularReduction <- function()
         {
-			return this.m.EL_BaseWithRankDamageRegularReduction;
+			return this.m.EL_BaseWithRankDamageBodyRegularReduction;
         }
-		o.EL_setBaseWithRankDamageRegularReduction <- function( _EL_baseWithRankDamageRegularReduction )
+		o.EL_setBaseWithRankDamageBodyRegularReduction <- function( _EL_baseWithRankDamageBodyRegularReduction )
         {
-			this.m.EL_BaseWithRankDamageRegularReduction = _EL_baseWithRankDamageRegularReduction;
+			this.m.EL_BaseWithRankDamageBodyRegularReduction = _EL_baseWithRankDamageBodyRegularReduction;
         }
 		
 		o.EL_getLevelAddtionStaminaModifier <- function()
@@ -291,19 +291,19 @@ local gt = getroottable();
 			local percent = (this.m.Condition * 1.0)/ this.m.ConditionMax;
 			if(this.m.EL_Level == -1)
 			{
-				//this.logInfo("固定减伤" + this.m.EL_DamageRegularReduction+this.m.EL_DamageBodyArmorReduction);
+				//this.logInfo("固定减伤" + this.m.EL_DamageBodyRegularReduction+this.m.EL_DamageBodyArmorReduction);
 				this.m.EL_RankLevel = this.Math.min(this.m.EL_RankLevel + _EL_rankLevel, this.EL_getRankLevelMax());
 				this.m.EL_Level = this.Math.min(this.Const.EL_Item.MaxLevel, EL_level);
 				EL_recordBaseNoRankProperties();
 				this.Const.EL_Armor.EL_updateRankLevelProperties(this);
-				//this.logInfo("计算等阶后固定减伤" + this.m.EL_DamageRegularReduction+this.m.EL_DamageBodyArmorReduction);
+				//this.logInfo("计算等阶后固定减伤" + this.m.EL_DamageBodyRegularReduction+this.m.EL_DamageBodyArmorReduction);
 				this.Const.EL_Armor.EL_assignItemEntrys(this, this.Const.EL_Armor.EL_Entry.EntryNum.NormalArmor[this.m.EL_RankLevel]);
-				//this.logInfo("计算词条后固定减伤" + this.m.EL_DamageRegularReduction+this.m.EL_DamageBodyArmorReduction);
+				//this.logInfo("计算词条后固定减伤" + this.m.EL_DamageBodyRegularReduction+this.m.EL_DamageBodyArmorReduction);
 				EL_entryListSort();
 			}
 			this.m.EL_CurrentLevel = this.m.EL_Level;
 			EL_updateLevelProperties();
-			//this.logInfo("计算等级后固定减伤" + this.m.EL_DamageRegularReduction+this.m.EL_DamageBodyArmorReduction);
+			//this.logInfo("计算等级后固定减伤" + this.m.EL_DamageBodyRegularReduction+this.m.EL_DamageBodyArmorReduction);
 			this.setCondition(this.Math.floor(this.getConditionMax() * percent));
         }
 
@@ -388,7 +388,7 @@ local gt = getroottable();
 				this.m.EL_BaseWithRankConditionMax = this.m.ConditionMax;
 			}
 			this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Armor.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
-			this.m.EL_DamageRegularReduction = this.Math.ceil(this.m.EL_BaseWithRankDamageRegularReduction * (1 + this.Const.EL_Armor.EL_LevelFactor.DamageRegularReduction * this.m.EL_CurrentLevel));
+			this.m.EL_DamageBodyRegularReduction = this.Math.ceil(this.m.EL_BaseWithRankDamageBodyRegularReduction * (1 + this.Const.EL_Armor.EL_LevelFactor.DamageBodyRegularReduction * this.m.EL_CurrentLevel));
 			this.m.EL_DamageBodyArmorReduction = this.Math.ceil(this.m.EL_BaseWithRankDamageBodyArmorReduction * (1 + this.Const.EL_Armor.EL_LevelFactor.DamageBodyArmorReduction * this.m.EL_CurrentLevel));
 			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Armor.EL_LevelFactor.Value * this.m.EL_Level));
 			this.m.StaminaModifier = this.Math.floor(this.m.EL_BaseWithRankStaminaModifier * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
@@ -413,7 +413,7 @@ local gt = getroottable();
 
         o.EL_init <- function()
 	    {
-			this.m.EL_BaseWithRankDamageRegularReduction = 0;
+			this.m.EL_BaseWithRankDamageBodyRegularReduction = 0;
 			this.m.EL_BaseWithRankDamageBodyArmorReduction = 0;
 			this.m.EL_BaseWithRankConditionMax = this.m.EL_BaseNoRankConditionMax;
 			this.m.EL_BaseWithRankValue = this.m.EL_BaseNoRankValue;
@@ -588,13 +588,13 @@ local gt = getroottable();
 					text = "护甲耐久固定减伤: " + this.EL_getDamageBodyArmorReduction()
 				});
 			}
-			if(this.EL_getDamageRegularReduction())
+			if(this.EL_getDamageBodyRegularReduction())
 			{
 				result.insert(position, {
 					id = 24,
 					type = "text",
 					icon = "ui/icons/regular_damage.png",
-					text = "血量固定减伤: " + this.EL_getDamageRegularReduction()
+					text = "身体血量固定减伤: " + this.EL_getDamageBodyRegularReduction()
 				});
 			}
 			if(getUpgrade() == null)
@@ -671,7 +671,7 @@ local gt = getroottable();
 		o.onUpdateProperties = function ( _properties )
 		{
 			_properties.EL_DamageBodyArmorReduction += this.EL_getDamageBodyArmorReduction();
-			_properties.DamageRegularReduction += this.EL_getDamageRegularReduction();
+			_properties.EL_DamageBodyRegularReduction += this.EL_getDamageBodyRegularReduction();
 			onUpdateProperties(_properties);
 		}
 
@@ -767,14 +767,14 @@ local gt = getroottable();
 			}
 			return result;
         }
-		o.EL_getDamageRegularReduction <- function()
+		o.EL_getDamageBodyRegularReduction <- function()
         {
-			local result = this.m.EL_DamageRegularReduction;
+			local result = this.m.EL_DamageBodyRegularReduction;
 			foreach(upgrade in this.m.Upgrades)
 			{
 				if(upgrade != null)
 				{
-					result += upgrade.EL_getDamageRegularReduction();
+					result += upgrade.EL_getDamageBodyRegularReduction();
 				}
 			}
 			return result;
@@ -919,7 +919,7 @@ local gt = getroottable();
 				}
 			}
 			this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Armor.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
-			this.m.EL_DamageRegularReduction = this.Math.ceil(this.m.EL_BaseWithRankDamageRegularReduction * (1 + this.Const.EL_Armor.EL_LevelFactor.DamageRegularReduction * this.m.EL_CurrentLevel));
+			this.m.EL_DamageBodyRegularReduction = this.Math.ceil(this.m.EL_BaseWithRankDamageBodyRegularReduction * (1 + this.Const.EL_Armor.EL_LevelFactor.DamageBodyRegularReduction * this.m.EL_CurrentLevel));
 			this.m.EL_DamageBodyArmorReduction = this.Math.ceil(this.m.EL_BaseWithRankDamageBodyArmorReduction * (1 + this.Const.EL_Armor.EL_LevelFactor.DamageBodyArmorReduction * this.m.EL_CurrentLevel));
 			this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Armor.EL_LevelFactor.Value * this.m.EL_Level));
 			this.m.StaminaModifier = this.Math.floor(this.m.EL_BaseWithRankStaminaModifier * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
@@ -1106,8 +1106,8 @@ local gt = getroottable();
         o.m.EL_BaseWithRankStaminaModifier <- 0.0;
 		o.m.EL_DamageBodyArmorReduction <- 0;
 		o.m.EL_BaseWithRankDamageBodyArmorReduction <- 0;
-		o.m.EL_DamageRegularReduction <- 0;
-		o.m.EL_BaseWithRankDamageRegularReduction <- 0;
+		o.m.EL_DamageBodyRegularReduction <- 0;
+		o.m.EL_BaseWithRankDamageBodyRegularReduction <- 0;
 
 		local getTooltip = o.getTooltip;
 		o.getTooltip = function ()
@@ -1164,13 +1164,13 @@ local gt = getroottable();
 					text = "护甲耐久固定减伤: " + this.m.EL_DamageBodyArmorReduction
 				});
 			}
-			if(this.m.EL_DamageRegularReduction)
+			if(this.m.EL_DamageBodyRegularReduction)
 			{
 				result.insert(position, {
 					id = 24,
 					type = "text",
 					icon = "ui/icons/regular_damage.png",
-					text = "血量固定减伤: " + this.m.EL_DamageRegularReduction
+					text = "身体血量固定减伤: " + this.m.EL_DamageBodyRegularReduction
 				});
 			}
 			if (this.m.EL_EntryList.len() != 0)
@@ -1331,8 +1331,8 @@ local gt = getroottable();
 			_out.writeF32(this.m.EL_BaseWithRankStaminaModifier);
 			_out.writeI32(this.m.EL_DamageBodyArmorReduction);
 			_out.writeI32(this.m.EL_BaseWithRankDamageBodyArmorReduction);
-			_out.writeI32(this.m.EL_DamageRegularReduction);
-			_out.writeI32(this.m.EL_BaseWithRankDamageRegularReduction);
+			_out.writeI32(this.m.EL_DamageBodyRegularReduction);
+			_out.writeI32(this.m.EL_BaseWithRankDamageBodyRegularReduction);
 			_out.writeF32(this.m.Condition);
 		}
 
@@ -1344,8 +1344,8 @@ local gt = getroottable();
             this.m.EL_BaseWithRankStaminaModifier = _in.readF32();
 			this.m.EL_DamageBodyArmorReduction = _in.readI32();
 			this.m.EL_BaseWithRankDamageBodyArmorReduction = _in.readI32();
-			this.m.EL_DamageRegularReduction = _in.readI32();
-			this.m.EL_BaseWithRankDamageRegularReduction = _in.readI32();
+			this.m.EL_DamageBodyRegularReduction = _in.readI32();
+			this.m.EL_BaseWithRankDamageBodyRegularReduction = _in.readI32();
 			if(this.m.EL_Level != -1)
 			{
 				this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Armor.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
@@ -1425,13 +1425,13 @@ local gt = getroottable();
         {
 			this.m.EL_BaseWithRankDamageBodyArmorReduction = _EL_baseWithRankDamageBodyArmorReduction;
         }
-		o.EL_getDamageRegularReduction <- function()
+		o.EL_getDamageBodyRegularReduction <- function()
         {
-			return this.m.EL_DamageRegularReduction;
+			return this.m.EL_DamageBodyRegularReduction;
         }
-		o.EL_setDamageRegularReduction <- function( _EL_damageRegularReduction )
+		o.EL_setDamageBodyRegularReduction <- function( _EL_damageRegularReduction )
         {
-			this.m.EL_DamageRegularReduction = _EL_damageRegularReduction;
+			this.m.EL_DamageBodyRegularReduction = _EL_damageRegularReduction;
         }
 
 		o.EL_getLevelAddtionStaminaModifier <- function()
@@ -1551,13 +1551,13 @@ local gt = getroottable();
 				}
 				this.m.ConditionMax = this.m.EL_BaseNoRankConditionMax;
 				this.m.StaminaModifier = this.m.EL_BaseWithRankStaminaModifier;
-				this.m.EL_DamageRegularReduction = 0;
+				this.m.EL_DamageBodyRegularReduction = 0;
 				this.m.EL_DamageBodyArmorReduction = 0;
 			}
 			else
 			{
 				this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Armor.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
-				this.m.EL_DamageRegularReduction = this.Math.ceil(this.m.EL_BaseWithRankDamageRegularReduction * (1 + this.Const.EL_Armor.EL_LevelFactor.DamageRegularReduction * this.m.EL_CurrentLevel));
+				this.m.EL_DamageBodyRegularReduction = this.Math.ceil(this.m.EL_BaseWithRankDamageBodyRegularReduction * (1 + this.Const.EL_Armor.EL_LevelFactor.DamageBodyRegularReduction * this.m.EL_CurrentLevel));
 				this.m.EL_DamageBodyArmorReduction = this.Math.ceil(this.m.EL_BaseWithRankDamageBodyArmorReduction * (1 + this.Const.EL_Armor.EL_LevelFactor.DamageBodyArmorReduction * this.m.EL_CurrentLevel));
 				this.m.Value = this.Math.ceil(this.m.EL_BaseWithRankValue * (1 + this.Const.EL_Armor.EL_LevelFactor.Value * this.m.EL_Level));
 				this.m.StaminaModifier = this.Math.floor(this.m.EL_BaseWithRankStaminaModifier * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.m.EL_Level));
@@ -1591,7 +1591,7 @@ local gt = getroottable();
 
         o.EL_init <- function()
 	    {
-			this.m.EL_BaseWithRankDamageRegularReduction = 0;
+			this.m.EL_BaseWithRankDamageBodyRegularReduction = 0;
 			this.m.EL_BaseWithRankDamageBodyArmorReduction = 0;
 			this.m.EL_BaseWithRankConditionMax = this.m.EL_BaseNoRankConditionMax;
 			this.m.EL_BaseWithRankValue = this.m.EL_BaseNoRankValue;

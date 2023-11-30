@@ -1432,6 +1432,10 @@ local gt = getroottable();
 	});
 
 	::mods_hookExactClass("skills/effects/ptr_armor_fatigue_recovery_effect", function(o){
+        o.getDescription <- function()
+        {
+            return "这个角色的盔甲降低了角色耐力，但也带来了更强的生存能力。";
+        }
 
         o.isHidden = function()
         {
@@ -1451,16 +1455,12 @@ local gt = getroottable();
 
             local body_armor = 0;
             local head_armor = 0;
-            local body_armor_max = 0;
-            local head_armor_max = 0;
             local body = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
             if(body != null) {
                 body_armor = body.getCondition();
-                body_armor_max = body.getConditionMax();
             }
             else {
                 body_armor = properties.Armor[this.Const.BodyPart.Body];
-                body_armor_max = properties.ArmorMax[this.Const.BodyPart.Body];
             }
 
             local head = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
@@ -1471,8 +1471,10 @@ local gt = getroottable();
                 head_armor = properties.Armor[this.Const.BodyPart.Head];
             }
 
-            local calculate_armor = (head_armor + body_armor) / (1.0 + actor.getLevel() * 0.04);
-            local damage_received_direct_mult = 1 - calculate_armor / (200.0 + calculate_armor);
+            local body_calculate_armor = (body_armor * 2) / (1.0 + actor.getLevel() * 0.04);
+            local head_calculate_armor = (head_armor * 2) / (1.0 + actor.getLevel() * 0.04);
+            local body_damage_received_direct_mult = 1 - body_calculate_armor / (200.0 + body_calculate_armor);
+            local head_damage_received_direct_mult = 1 - head_calculate_armor / (200.0 + head_calculate_armor);
 
             if(extra_movement_fatigue_cost > 0) {
                 tooltip.push({
@@ -1494,7 +1496,13 @@ local gt = getroottable();
                 id = 10,
                 type = "text",
                 icon = "ui/icons/fatigue.png",
-                text = "Only take [color=" + this.Const.UI.Color.NegativeValue + "]" + (this.Math.floor(damage_received_direct_mult * 100)) + "%[/color] of any damage that ignores armor"
+                text = "身体只受到 [color=" + this.Const.UI.Color.NegativeValue + "]" + (this.Math.floor(body_damage_received_direct_mult * 100)) + "%[/color]忽视盔甲的伤害"
+            });
+            tooltip.push({
+                id = 10,
+                type = "text",
+                icon = "ui/icons/fatigue.png",
+                text = "头部只受到 [color=" + this.Const.UI.Color.NegativeValue + "]" + (this.Math.floor(head_damage_received_direct_mult * 100)) + "%[/color]忽视盔甲的伤害"
             });
             return tooltip;
         }
@@ -1502,46 +1510,49 @@ local gt = getroottable();
 
         o.onBeforeDamageReceived <- function( _attacker, _skill, _hitInfo, _properties )
         {
-            if (_hitInfo.BodyPart == this.Const.BodyPart.Body && _attacker != null && _attacker.getID() != this.getContainer().getActor().getID())
+            if(_attacker != null && _attacker.getID() != this.getContainer().getActor().getID())
             {
+                local calculate_armor = 0;
                 local actor = this.getContainer().getActor();
-                local armorFat = -1 * actor.getItems().getStaminaModifier([
-                    ::Const.ItemSlot.Body,
-                    ::Const.ItemSlot.Head
-                ]);
-                local extra_movement_fatigue_cost = this.Math.floor((armorFat / (1.0 + actor.getLevel() * 0.04)) * 0.05 - 1);
-                _properties.MovementFatigueCostAdditional += extra_movement_fatigue_cost;
-
-                local body_armor = 0;
-                local head_armor = 0;
-                local body_armor_max = 0;
-                local head_armor_max = 0;
-                local body = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
-                if(body != null) {
-                    body_armor = body.getCondition();
-                    body_armor_max = body.getConditionMax();
+                if (_hitInfo.BodyPart == this.Const.BodyPart.Body)
+                {
+                    local body_armor = 0;
+                    local body = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
+                    if(body != null) {
+                        body_armor = body.getCondition();
+                    }
+                    else {
+                        body_armor = _properties.Armor[this.Const.BodyPart.Body];
+                    }
+                    calculate_armor = (body_armor * 2) / (1.0 + actor.getLevel() * 0.04);
                 }
-                else {
-                    body_armor = _properties.Armor[this.Const.BodyPart.Body];
-                    body_armor_max = _properties.ArmorMax[this.Const.BodyPart.Body];
+                else
+                {
+                    local head_armor = 0;
+                    local head = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
+                    if(head != null) {
+                        head_armor = head.getCondition();
+                    }
+                    else {
+                        head_armor = _properties.Armor[this.Const.BodyPart.Head];
+                    }
+                    calculate_armor = (head_armor * 2) / (1.0 + actor.getLevel() * 0.04);
                 }
-
-                local head = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
-                if(head != null) {
-                    head_armor = head.getCondition();
-                }
-                else {
-                    head_armor = _properties.Armor[this.Const.BodyPart.Head];
-                }
-                local calculate_armor = (head_armor + body_armor) / (1.0 + actor.getLevel() * 0.04);
                 local damage_received_direct_mult = 1 - calculate_armor / (200.0 + calculate_armor);
                 _properties.DamageReceivedDirectMult *= damage_received_direct_mult;
             }
         }
+
         o.onUpdate = function( _properties )
         {
+            local actor = this.getContainer().getActor();
+            local armorFat = -1 * actor.getItems().getStaminaModifier([
+                ::Const.ItemSlot.Body,
+                ::Const.ItemSlot.Head
+            ]);
+            local extra_movement_fatigue_cost = this.Math.floor((armorFat / (1.0 + actor.getLevel() * 0.04)) * 0.05 - 1);
+            _properties.MovementFatigueCostAdditional += extra_movement_fatigue_cost;
         }
-
 	});
 
 

@@ -718,7 +718,16 @@ local gt = getroottable();
 				//this.logInfo("attackEntity combat level decrease damage mult" + (this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.DamageFactor, this.Math.abs(_user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()))));
 			}
 			//this.logInfo("dmgMult after " + dmgMult);
+			_hitInfo.DamageRegular -= p.DamageRegularReduction;
+			_hitInfo.DamageArmor -= p.DamageArmorReduction;
+			
+			_hitInfo.DamageRegular *= p.DamageReceivedRegularMult * dmgMult;
 			_hitInfo.DamageArmor *= p.DamageReceivedArmorMult * dmgMult;
+			if(!p.IsIgnoringArmorOnAttack)
+			{
+				_hitInfo.DamageRegular -= _hitInfo.BodyPart == this.Const.BodyPart.Head ? p.EL_DamageHeadRegularReduction : p.EL_DamageBodyRegularReduction;
+				_hitInfo.DamageArmor -= _hitInfo.BodyPart == this.Const.BodyPart.Head ? p.EL_DamageHeadArmorReduction : p.EL_DamageBodyArmorReduction;
+			}
 			local armor = 0;
 			local armorDamage = 0;
 
@@ -729,19 +738,20 @@ local gt = getroottable();
 				armor = armor - armorDamage;
 				_hitInfo.DamageInflictedArmor = this.Math.max(0, armorDamage);
 			}
-			_hitInfo.DamageRegular = this.Math.maxf(0.0, _hitInfo.DamageRegular - armor * this.Const.EL_PlayerNPC.EL_ArmorDirectDamageMitigationMult);
-			_hitInfo.DamageRegular *= p.DamageReceivedRegularMult * dmgMult;
 
 			_hitInfo.DamageFatigue *= p.FatigueEffectMult;
 			this.m.Fatigue = this.Math.min(this.getFatigueMax(), this.Math.round(this.m.Fatigue + _hitInfo.DamageFatigue * p.FatigueReceivedPerHitMult * this.m.CurrentProperties.FatigueLossOnAnyAttackMult));
 			local damage = 0;
-			damage = damage + this.Math.maxf(0.0, _hitInfo.DamageRegular * _hitInfo.DamageDirect * p.DamageReceivedDirectMult);
+			damage = damage + this.Math.maxf(0.0, _hitInfo.DamageRegular * _hitInfo.DamageDirect * p.DamageReceivedDirectMult - armor);
+			if(!p.IsIgnoringArmorOnAttack)
+			{
+				damage -= this.Const.EL_PlayerNPC.EL_ArmorDirectDamageMitigationMult
+			}
 
 			if (armor <= 0 || _hitInfo.DamageDirect >= 1.0)
 			{
 				damage = damage + this.Math.max(0, _hitInfo.DamageRegular * this.Math.maxf(0.0, 1.0 - _hitInfo.DamageDirect * p.DamageReceivedDirectMult) - armorDamage);
 			}
-
 			damage = damage * _hitInfo.BodyDamageMult;
 			damage = this.Math.max(0, this.Math.max(this.Math.round(damage), this.Math.min(this.Math.round(_hitInfo.DamageMinimum), this.Math.round(_hitInfo.DamageMinimum * p.DamageReceivedTotalMult))));
 			_hitInfo.DamageInflictedHitpoints = damage;
@@ -1426,11 +1436,11 @@ local gt = getroottable();
 			hitInfo.InjuryThresholdMult = _info.Properties.ThresholdToInflictInjuryMult;
 			hitInfo.Tile = _info.TargetEntity.getTile();
 
-			//EL_OVERRIDE
-			local p = _info.TargetEntity.getCurrentProperties().getClone();
-			hitInfo.DamageRegular -= p.DamageRegularReduction;
-			hitInfo.DamageArmor -= p.DamageArmorReduction;
-			hitInfo.DamageArmor -= hitInfo.BodyPart == this.Const.BodyPart.Head ? p.EL_DamageHeadArmorReduction : p.EL_DamageBodyArmorReduction;
+			// EL_OVERRIDE
+			// local p = _info.TargetEntity.getCurrentProperties().getClone();
+			// hitInfo.DamageRegular -= p.DamageRegularReduction;
+			// hitInfo.DamageArmor -= p.DamageArmorReduction;
+			// hitInfo.DamageArmor -= hitInfo.BodyPart == this.Const.BodyPart.Head ? p.EL_DamageHeadArmorReduction : p.EL_DamageBodyArmorReduction;
 
 
 			_info.Container.onBeforeTargetHit(_info.Skill, _info.TargetEntity, hitInfo);

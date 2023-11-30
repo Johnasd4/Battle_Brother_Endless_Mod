@@ -1,7 +1,7 @@
 this.el_damage_body_reduction_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_entry", {
 	m = {
         EL_DamageBodyArmorReduction = 0.0,
-		EL_Level = 0
+		EL_Bonus = 0
     },
 	function create()
 	{
@@ -17,9 +17,8 @@ this.el_damage_body_reduction_entry <- this.inherit("scripts/skills/el_entrys/el
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]身体护甲固定减伤 + " + this.Math.ceil(this.m.EL_CurrentLevel * this.m.EL_DamageBodyArmorReduction 
-																						 * (1.0 + this.m.EL_Level * this.Const.EL_Armor.EL_LevelFactor.DamageBodyArmorReduction))
-											+ " (" + this.Math.ceil(this.m.EL_DamageBodyArmorReduction * (1.0 + this.m.EL_Level * this.Const.EL_Armor.EL_LevelFactor.DamageBodyArmorReduction)) + ")(面板)[/color]"
+				text = "[color=" + colour + "]身体护甲固定减伤 + " + this.Math.ceil(this.m.EL_CurrentLevel * this.m.EL_Bonus)
+											+ " (" + this.Math.ceil(this.m.EL_Bonus) + ")(面板)[/color]"
 			};
 		}
 		else
@@ -27,7 +26,7 @@ this.el_damage_body_reduction_entry <- this.inherit("scripts/skills/el_entrys/el
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]身体护甲固定减伤 + " + this.Math.ceil(this.m.EL_DamageBodyArmorReduction * (1.0 + this.m.EL_Level * this.Const.EL_Armor.EL_LevelFactor.DamageBodyArmorReduction)) + "(面板)[/color]"
+				text = "[color=" + colour + "]身体护甲固定减伤 + " + this.Math.ceil(this.m.EL_Bonus) + "(面板)[/color]"
 			};
 		}
 	}
@@ -48,7 +47,7 @@ this.el_damage_body_reduction_entry <- this.inherit("scripts/skills/el_entrys/el
 	{
 		local randomMin = this.Const.EL_Armor.EL_Entry.Factor.EL_DamageBodyArmorReduction.RandomMinDamageBodyArmorReduction[this.getItem().m.EL_RankLevel];
 		local randomMax = this.Const.EL_Armor.EL_Entry.Factor.EL_DamageBodyArmorReduction.RandomMaxDamageBodyArmorReduction[this.getItem().m.EL_RankLevel];
-		this.m.EL_DamageBodyArmorReduction = this.Const.EL_Armor.EL_Entry.Factor.EL_DamageBodyArmorReduction.BaseDamageBodyArmorReduction + this.Math.rand(randomMin, randomMax) * 0.1;
+		this.m.EL_DamageBodyArmorReduction = this.Const.EL_Armor.EL_Entry.Factor.EL_DamageBodyArmorReduction.BaseDamageBodyArmorReduction + this.Math.rand(randomMin, randomMax);
 	}
 
 	function EL_strengthen()
@@ -60,14 +59,14 @@ this.el_damage_body_reduction_entry <- this.inherit("scripts/skills/el_entrys/el
 	{
 		if(EL_getEntryColour() != this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Legendary])
 		{
-			this.m.EL_DamageBodyArmorReduction += this.Const.EL_Armor.EL_Entry.Factor.EL_DamageBodyArmorReduction.RandomMaxDamageBodyArmorReduction[this.Const.EL_Item.Type.Normal] / 2 * 0.1;
+			this.m.EL_DamageBodyArmorReduction += this.Const.EL_Armor.EL_Entry.Factor.EL_DamageBodyArmorReduction.RandomMaxDamageBodyArmorReduction[this.Const.EL_Item.Type.Normal] / 2;
 		}
 	}
 
 	function EL_onItemUpdate( _item )
 	{
-		this.m.EL_Level = _item.m.EL_CurrentLevel;
-        _item.m.EL_DamageBodyArmorReduction += this.Math.ceil(this.m.EL_CurrentLevel * this.m.EL_DamageBodyArmorReduction * (1.0 + this.m.EL_Level * this.Const.EL_Armor.EL_LevelFactor.DamageBodyArmorReduction));
+		this.m.EL_Bonus = this.m.EL_DamageBodyArmorReduction * 0.01 * this.Math.abs(_item.m.EL_BaseNoRankStaminaModifier) * (1.0 + _item.m.EL_CurrentLevel * this.Const.EL_Armor.EL_LevelFactor.DamageBodyArmorReduction);
+        _item.m.EL_DamageBodyArmorReduction += this.Math.ceil(this.m.EL_CurrentLevel * this.m.EL_Bonus);
 	}
 
     function onSerialize( _out )
