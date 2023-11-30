@@ -585,7 +585,7 @@ local gt = getroottable();
 			local bodyHealth = this.getContainer().getActor().getHitpointsMax();
 			return "把你的重量运用到每次攻击，增加 [color=" + this.Const.UI.Color.PositiveValue + "]+" + this.Math.floor(this.Math.pow(bodyHealth, 0.5)) + "%[/color] 最大生命值的最小伤害和最大伤害。";
 		}
-D
+
 		o.onUpdate = function( _properties )
 		{
 			local bodyHealth = this.getContainer().getActor().getHitpointsMax();
