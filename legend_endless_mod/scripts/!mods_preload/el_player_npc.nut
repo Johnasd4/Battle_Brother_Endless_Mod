@@ -725,7 +725,10 @@ local gt = getroottable();
 			_hitInfo.DamageArmor *= p.DamageReceivedArmorMult * dmgMult;
 			if(!p.IsIgnoringArmorOnAttack)
 			{
-				_hitInfo.DamageRegular -= _hitInfo.BodyPart == this.Const.BodyPart.Head ? p.EL_DamageHeadRegularReduction : p.EL_DamageBodyRegularReduction;
+				if(p.Armor[_hitInfo.BodyPart] != 0)
+				{
+					_hitInfo.DamageRegular -= _hitInfo.BodyPart == this.Const.BodyPart.Head ? p.EL_DamageHeadRegularReduction : p.EL_DamageBodyRegularReduction;
+				}
 				_hitInfo.DamageArmor -= _hitInfo.BodyPart == this.Const.BodyPart.Head ? p.EL_DamageHeadArmorReduction : p.EL_DamageBodyArmorReduction;
 			}
 			local armor = 0;
@@ -742,10 +745,10 @@ local gt = getroottable();
 			_hitInfo.DamageFatigue *= p.FatigueEffectMult;
 			this.m.Fatigue = this.Math.min(this.getFatigueMax(), this.Math.round(this.m.Fatigue + _hitInfo.DamageFatigue * p.FatigueReceivedPerHitMult * this.m.CurrentProperties.FatigueLossOnAnyAttackMult));
 			local damage = 0;
-			damage = damage + this.Math.maxf(0.0, _hitInfo.DamageRegular * _hitInfo.DamageDirect * p.DamageReceivedDirectMult - armor);
+			damage = damage + this.Math.maxf(0.0, _hitInfo.DamageRegular * _hitInfo.DamageDirect * p.DamageReceivedDirectMult);
 			if(!p.IsIgnoringArmorOnAttack)
 			{
-				damage -= this.Const.EL_PlayerNPC.EL_ArmorDirectDamageMitigationMult
+				damage -= armor * this.Const.EL_PlayerNPC.EL_ArmorDirectDamageMitigationMult
 			}
 
 			if (armor <= 0 || _hitInfo.DamageDirect >= 1.0)
