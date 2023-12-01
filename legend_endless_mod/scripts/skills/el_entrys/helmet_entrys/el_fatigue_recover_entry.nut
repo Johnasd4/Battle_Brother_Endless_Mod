@@ -16,19 +16,11 @@ this.el_fatigue_recover_entry <- this.inherit("scripts/skills/el_entrys/el_entry
 			type = "text",
 			text = "[color=" + colour + "]疲劳恢复 + " + this.m.EL_FatigueRecoverAddition + "[/color]"
 		};
+		if(this.m.EL_CurrentLevel != 1)
+		{
+			result.text += "[color=" + this.Const.EL_Item.Type.Normal + "] (暂不生效)[/color]";
+		}
 		return result;
-	}
-
-	function EL_getEntryColour()
-	{
-        for (local index = 0; index < this.Const.EL_Item.Type.Legendary; ++index)
-        {
-            if (this.m.EL_FatigueRecoverAddition <= this.Const.EL_Helmet.EL_Entry.Factor.EL_FatigueRecover.ColourRange[index])
-            {
-                return this.Const.EL_Item.Colour[index];
-            }
-        }
-		return this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Legendary];
 	}
 
 	function EL_createAddition()
