@@ -424,14 +424,14 @@ local gt = getroottable();
 
             return true;
         }
-        
+
         o.onPerformAttack = function( _tag )
         {
             local _targetTile = _tag.TargetTile;
             local _user = _tag.User;
             local target = _targetTile.getEntity();
 
-            if (target == null && !target.isAlive() && target.isDying())
+            if (target == null || !target.isAlive() || target.isDying())
             {
                 return false;
             }
@@ -442,7 +442,7 @@ local gt = getroottable();
             local dir = ownTile.getDirectionTo(_targetTile);
             ret = this.attackEntity(_user, target);
 
-            if (!_user.isAlive() || _user.isDying() || !ret)
+            if (_user == null || !_user.isAlive() || _user.isDying() || !ret)
             {
                 return ret;
             }
@@ -464,7 +464,7 @@ local gt = getroottable();
                     success = this.attackEntity(_user, nextTile.getEntity());
                 }
 
-                if (!_user.isAlive() || _user.isDying())
+                if (_user == null || !_user.isAlive() || _user.isDying())
                 {
                     return success;
                 }
@@ -489,7 +489,7 @@ local gt = getroottable();
                     success = this.attackEntity(_user, nextTile.getEntity());
                 }
 
-                if (!_user.isAlive() || _user.isDying())
+                if (_user == null || !_user.isAlive() || _user.isDying())
                 {
                     return success;
                 }
