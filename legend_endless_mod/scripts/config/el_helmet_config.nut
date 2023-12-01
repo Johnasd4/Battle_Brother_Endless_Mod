@@ -19,15 +19,14 @@ gt.Const.EL_Helmet <- {
 		ConditionMult = 1.3,
 		ConditionMultHalf = 1.14017,
 		Vision = 2,
-		DamageRegularReduction = 5,
-		DamageHeadArmorReduction = 10
-		
+		DamageHeadRegularReduction = 1,
+		DamageHeadArmorReduction = 1
 	},
 	EL_LevelFactor = {
 		Condition = 0.04,
 		Value = 0.04,
 		StaminaModifier = 0.04,
-		DamageRegularReduction = 0.04,
+		DamageHeadRegularReduction = 0.04,
 		DamageHeadArmorReduction = 0.04
 	},
 	EL_EquipmentEssence = {
@@ -104,19 +103,19 @@ gt.Const.EL_Helmet <- {
 			ifUsable = function( _item ) { return true; },
 			changeValues = function( _item, _isHalfEffect = false )
 			{
-				local bonus = _isHalfEffect ? this.Math.floor(this.Const.EL_Helmet.EL_RankFactor.DamageRegularReduction / 2) : this.Const.EL_Helmet.EL_RankFactor.DamageRegularReduction;
-				switch (_item.EL_getArmorType())
-				{
-					case this.Const.EL_Item.ArmorType.UnlayeredArmor:
-						bonus *= 2;
-						break;
-					case this.Const.EL_Item.ArmorType.BaseArmor:
-						break;
-					case this.Const.EL_Item.ArmorType.ArmorUpgrade:
-						bonus = this.Math.floor(bonus * 0.5);
-						break;
-				}
-				_item.m.EL_BaseWithRankDamageRegularReduction += bonus;
+				local bonus = _isHalfEffect ? this.Math.floor(this.Const.EL_Helmet.EL_RankFactor.DamageHeadRegularReduction / 2.0) : this.Const.EL_Helmet.EL_RankFactor.DamageHeadRegularReduction;
+				// switch (_item.EL_getArmorType())
+				// {
+				// 	case this.Const.EL_Item.ArmorType.UnlayeredArmor:
+				// 		bonus *= 2;
+				// 		break;
+				// 	case this.Const.EL_Item.ArmorType.BaseArmor:
+				// 		break;
+				// 	case this.Const.EL_Item.ArmorType.ArmorUpgrade:
+				// 		bonus = this.Math.floor(bonus * 0.5);
+				// 		break;
+				// }
+				_item.m.EL_BaseWithRankDamageHeadRegularReduction += this.Math.abs(_item.m.EL_BaseNoRankStaminaModifier * bonus);
 			},
 			weight = 1
 		},
@@ -124,19 +123,19 @@ gt.Const.EL_Helmet <- {
 			ifUsable = function( _item ) { return true; },
 			changeValues = function( _item, _isHalfEffect = false )
 			{
-				local bonus = _isHalfEffect ? this.Math.floor(this.Const.EL_Helmet.EL_RankFactor.DamageHeadArmorReduction / 2) : this.Const.EL_Helmet.EL_RankFactor.DamageHeadArmorReduction;
-				switch (_item.EL_getArmorType())
-				{
-					case this.Const.EL_Item.ArmorType.UnlayeredArmor:
-						bonus *= 2;
-						break;
-					case this.Const.EL_Item.ArmorType.BaseArmor:
-						break;
-					case this.Const.EL_Item.ArmorType.ArmorUpgrade:
-						bonus = this.Math.floor(bonus * 0.5);
-						break;
-				}
-				_item.m.EL_BaseWithRankDamageHeadArmorReduction += bonus;
+				local bonus = _isHalfEffect ? this.Math.floor(this.Const.EL_Helmet.EL_RankFactor.DamageHeadArmorReduction / 2.0) : this.Const.EL_Helmet.EL_RankFactor.DamageHeadArmorReduction;
+				// switch (_item.EL_getArmorType())
+				// {
+				// 	case this.Const.EL_Item.ArmorType.UnlayeredArmor:
+				// 		bonus *= 2;
+				// 		break;
+				// 	case this.Const.EL_Item.ArmorType.BaseArmor:
+				// 		break;
+				// 	case this.Const.EL_Item.ArmorType.ArmorUpgrade:
+				// 		bonus = this.Math.floor(bonus * 0.5);
+				// 		break;
+				// }
+				_item.m.EL_BaseWithRankDamageHeadArmorReduction += this.Math.abs(_item.m.EL_BaseNoRankStaminaModifier * bonus);
 			},
 			weight = 1
 		}
@@ -241,11 +240,19 @@ gt.Const.EL_Helmet <- {
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/helmet_entrys/el_damage_head_reduction_entry",
-					function EL_ifEligible(_item) { return true; }
+					function EL_ifEligible(_item) {
+						if(_item.m.EL_BaseNoRankStaminaModifier == 1) { return false; }
+						if(_item.EL_hasEntry(this.Const.EL_Helmet.EL_Entry.Factor.EL_DamageHeadArmorReduction.ID)) { return false; }
+						return true;
+					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/helmet_entrys/el_damage_regular_reduction_entry",
-					function EL_ifEligible(_item) { return true; }
+					function EL_ifEligible(_item) {
+						if(_item.m.EL_BaseNoRankStaminaModifier == 1) { return false; }
+						if(_item.EL_hasEntry(this.Const.EL_Helmet.EL_Entry.Factor.EL_DamageHeadRegularReduction.ID)) { return false; }
+						return true;
+					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/helmet_entrys/el_hitpoints_recover_daliy_entry",
@@ -446,52 +453,52 @@ gt.Const.EL_Helmet <- {
 			},
 			EL_DamageHeadArmorReduction = {
 				ID = "el_helmet_entry.damage_head_reduction",
-				BaseDamageHeadArmorReduction = 2,
+				BaseDamageHeadArmorReduction = 25,
 				RandomMinDamageHeadArmorReduction = [
 					1,
 					1,
-					5,
-					9,
-					20
+					6,
+					11,
+					25
 				],
 				RandomMaxDamageHeadArmorReduction = [
-					8,
-					12,
-					16,
+					10,
+					15,
 					20,
-					20
+					25,
+					25
 				],
 				ColourRange = [
-					2.4,
-					2.8,
-					3.2,
-					3.6,
-					4
+					30,
+					35,
+					40,
+					45,
+					50
 				]
 			}
-			EL_DamageRegularReduction = {
+			EL_DamageHeadRegularReduction = {
 				ID = "el_helmet_entry.damage_regular_reduction",
-				BaseDamageRegularReduction = 1,
-				RandomMinDamageRegularReduction = [
+				BaseDamageHeadRegularReduction = 25,
+				RandomMinDamageHeadRegularReduction = [
 					1,
 					1,
-					3,
-					5,
-					10
-				],
-				RandomMaxDamageRegularReduction = [
-					4,
 					6,
-					8,
+					11,
+					25
+				],
+				RandomMaxDamageHeadRegularReduction = [
 					10,
-					10
+					15,
+					20,
+					25,
+					25
 				],
 				ColourRange = [
-					1.2,
-					1.4,
-					1.6,
-					1.8,
-					2
+					30,
+					35,
+					40,
+					45,
+					50
 				]
 			},
 			EL_Hitpoints = {

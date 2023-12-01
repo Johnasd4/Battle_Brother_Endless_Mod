@@ -69,7 +69,7 @@ this.el_reflect_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_ent
 			hitInfo.DamageRegular = _hitInfo.DamageArmor * this.m.EL_ReflectPercent * 0.01;
 			hitInfo.DamageArmor = _hitInfo.DamageArmor * this.m.EL_ReflectPercent * 0.01;
 			hitInfo.DamageDirect = 0.0;
-			hitInfo.BodyPart = this.Const.BodyPart.Head;
+			hitInfo.BodyPart = this.Const.BodyPart.Body;
 			hitInfo.BodyDamageMult = 1.0;
 			hitInfo.FatalityChanceMult = 0.0;
 			_attacker.onDamageReceived(_attacker, null, hitInfo);

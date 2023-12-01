@@ -81,7 +81,7 @@ local gt = getroottable();
 			if(item.EL_canRecraftInBagOrStash())
 			{
 				local equipment_essence_need = item.EL_getRecraftEquipmentEssenceNum();
-				for(local rank = 0; rank < this.Const.EL_Item.Type.Legendary; ++rank)
+				for(local rank = 0; rank < this.Const.EL_Item.Type.Epic; ++rank)
 				{
 					if(equipment_essence_need[rank] > this.World.Assets.EL_getEquipmentEssence(rank))
 					{
@@ -123,7 +123,7 @@ local gt = getroottable();
 					return this.UIDataHelper.convertStashAndEntityToUIData(bro, null, false, this.m.InventoryFilter);
 				}
 				local equipment_essence_need = item.EL_getUpgradeLevelEquipmentEssenceNum();
-				for(local rank = 0; rank < this.Const.EL_Item.Type.Legendary; ++rank)
+				for(local rank = 0; rank < this.Const.EL_Item.Type.Epic; ++rank)
 				{
 					if(equipment_essence_need[rank] > this.World.Assets.EL_getEquipmentEssence(rank))
 					{
@@ -165,7 +165,7 @@ local gt = getroottable();
 					return this.UIDataHelper.convertStashAndEntityToUIData(bro, null, false, this.m.InventoryFilter);
 				}
 				local equipment_essence_need = item.EL_getUpgradeRankEquipmentEssenceNum();
-				for(local rank = 0; rank < this.Const.EL_Item.Type.Legendary; ++rank)
+				for(local rank = 0; rank < this.Const.EL_Item.Type.Epic; ++rank)
 				{
 					if(equipment_essence_need[rank] > this.World.Assets.EL_getEquipmentEssence(rank))
 					{

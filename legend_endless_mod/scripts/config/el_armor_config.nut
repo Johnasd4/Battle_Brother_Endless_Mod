@@ -19,14 +19,14 @@ gt.Const.EL_Armor <- {
 		ConditionMult = 1.3,
 		ConditionMultHalf = 1.14017,
 		Vision = 2,
-		DamageRegularReduction = 2,
-		DamageBodyArmorReduction = 4
+		DamageBodyRegularReduction = 1,
+		DamageBodyArmorReduction = 1
 	},
 	EL_LevelFactor = {
 		Condition = 0.04,
 		Value = 0.04,
 		StaminaModifier = 0.04,
-		DamageRegularReduction = 0.04,
+		DamageBodyRegularReduction = 0.04,
 		DamageBodyArmorReduction = 0.04
 	},
 	EL_EquipmentEssence = {
@@ -81,18 +81,18 @@ gt.Const.EL_Armor <- {
 			ifUsable = function( _item ) { return true; },
 			changeValues = function( _item, _isHalfEffect = false )
 			{
-				local bonus = _isHalfEffect ? this.Math.floor(this.Const.EL_Armor.EL_RankFactor.DamageRegularReduction / 2) : this.Const.EL_Armor.EL_RankFactor.DamageRegularReduction;
-				switch (_item.EL_getArmorType())
-				{
-					case this.Const.EL_Item.ArmorType.UnlayeredArmor:
-						bonus *= 5;
-						break;
-					case this.Const.EL_Item.ArmorType.BaseArmor:
-						break;
-					case this.Const.EL_Item.ArmorType.ArmorUpgrade:
-						break;
-				}
-				_item.m.EL_BaseWithRankDamageRegularReduction += bonus;
+				local bonus = _isHalfEffect ? this.Math.floor(this.Const.EL_Armor.EL_RankFactor.DamageBodyRegularReduction / 2.0) : this.Const.EL_Armor.EL_RankFactor.DamageBodyRegularReduction;
+				// switch (_item.EL_getArmorType())
+				// {
+				// 	case this.Const.EL_Item.ArmorType.UnlayeredArmor:
+				// 		bonus *= 5;
+				// 		break;
+				// 	case this.Const.EL_Item.ArmorType.BaseArmor:
+				// 		break;
+				// 	case this.Const.EL_Item.ArmorType.ArmorUpgrade:
+				// 		break;
+				// }
+				_item.m.EL_BaseWithRankDamageBodyRegularReduction += this.Math.abs(_item.m.EL_BaseNoRankStaminaModifier * bonus);
 			},
 			weight = 1
 		},
@@ -100,18 +100,18 @@ gt.Const.EL_Armor <- {
 			ifUsable = function( _item ) { return true; },
 			changeValues = function( _item, _isHalfEffect = false )
 			{
-				local bonus = _isHalfEffect ? this.Math.floor(this.Const.EL_Armor.EL_RankFactor.DamageBodyArmorReduction / 2) : this.Const.EL_Armor.EL_RankFactor.DamageBodyArmorReduction;
-				switch (_item.EL_getArmorType())
-				{
-					case this.Const.EL_Item.ArmorType.UnlayeredArmor:
-						bonus *= 5;
-						break;
-					case this.Const.EL_Item.ArmorType.BaseArmor:
-						break;
-					case this.Const.EL_Item.ArmorType.ArmorUpgrade:
-						break;
-				}
-				_item.m.EL_BaseWithRankDamageBodyArmorReduction += bonus;
+				local bonus = _isHalfEffect ? this.Math.floor(this.Const.EL_Armor.EL_RankFactor.DamageBodyArmorReduction / 2.0) : this.Const.EL_Armor.EL_RankFactor.DamageBodyArmorReduction;
+				// switch (_item.EL_getArmorType())
+				// {
+				// 	case this.Const.EL_Item.ArmorType.UnlayeredArmor:
+				// 		bonus *= 5;
+				// 		break;
+				// 	case this.Const.EL_Item.ArmorType.BaseArmor:
+				// 		break;
+				// 	case this.Const.EL_Item.ArmorType.ArmorUpgrade:
+				// 		break;
+				// }
+				_item.m.EL_BaseWithRankDamageBodyArmorReduction += this.Math.abs(_item.m.EL_BaseNoRankStaminaModifier * bonus);
 			},
 			weight = 1
 		}
@@ -212,11 +212,19 @@ gt.Const.EL_Armor <- {
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/armor_entrys/el_damage_body_reduction_entry",
-					function EL_ifEligible(_item) { return true; }
+					function EL_ifEligible(_item) {
+						if(_item.m.EL_BaseNoRankStaminaModifier == 1) { return false; }
+						if(_item.EL_hasEntry(this.Const.EL_Armor.EL_Entry.Factor.EL_DamageBodyArmorReduction.ID)) { return false; }
+						return true;
+					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/armor_entrys/el_damage_regular_reduction_entry",
-					function EL_ifEligible(_item) { return true; }
+					function EL_ifEligible(_item) {
+						if(_item.m.EL_BaseNoRankStaminaModifier == 1) { return false; }
+						if(_item.EL_hasEntry(this.Const.EL_Armor.EL_Entry.Factor.EL_DamageBodyRegularReduction.ID)) { return false; }
+						return true;
+					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/armor_entrys/el_fatigue_recover_entry",
@@ -396,52 +404,52 @@ gt.Const.EL_Armor <- {
 			},
 			EL_DamageBodyArmorReduction = {
 				ID = "el_armor_entry.damage_head_reduction",
-				BaseDamageBodyArmorReduction = 2,
+				BaseDamageBodyArmorReduction = 25,
 				RandomMinDamageBodyArmorReduction = [
 					1,
 					1,
-					5,
-					9,
-					20
+					6,
+					11,
+					25
 				],
 				RandomMaxDamageBodyArmorReduction = [
-					8,
-					12,
-					16,
+					10,
+					15,
 					20,
-					20
+					25,
+					25
 				],
 				ColourRange = [
-					2.4,
-					2.8,
-					3.2,
-					3.6,
-					4
+					30,
+					35,
+					40,
+					45,
+					50
 				]
 			}
-			EL_DamageRegularReduction = {
+			EL_DamageBodyRegularReduction = {
 				ID = "el_armor_entry.damage_regular_reduction",
-				BaseDamageRegularReduction = 1,
-				RandomMinDamageRegularReduction = [
+				BaseDamageBodyRegularReduction = 25,
+				RandomMinDamageBodyRegularReduction = [
 					1,
 					1,
-					3,
-					5,
-					10
-				],
-				RandomMaxDamageRegularReduction = [
-					4,
 					6,
-					8,
+					11,
+					25
+				],
+				RandomMaxDamageBodyRegularReduction = [
 					10,
-					10
+					15,
+					20,
+					25,
+					25
 				],
 				ColourRange = [
-					1.2,
-					1.4,
-					1.6,
-					1.8,
-					2
+					30,
+					35,
+					40,
+					45,
+					50
 				]
 			},
 			EL_FatigueRecover = {
