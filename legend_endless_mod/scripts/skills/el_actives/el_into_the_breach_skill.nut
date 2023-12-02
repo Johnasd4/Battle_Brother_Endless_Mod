@@ -113,7 +113,7 @@ this.el_into_the_breach_skill <- this.inherit("scripts/skills/skill", {
 		local actors = this.Tactical.Entities.getInstancesOfFaction(_user.getFaction());
 		foreach( actor in actors )
 		{
-			if (actor.getID() == _user.getID())
+			if (actor.getID() == _user.getID() && !actor.isArmedWithMeleeWeapon())
 			{
 				continue;
 			}
