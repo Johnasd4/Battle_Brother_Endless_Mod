@@ -11,7 +11,7 @@ this.el_charge_slash <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.ID = "el_actives.charge_slash";
 		this.m.Name = "冲锋斩";
-		this.m.Description = "迅速冲向2~6格范围内的目标，然后进行一次强大的斩击。Has enough force that it always hits both head and body for additional damage.";
+		this.m.Description = "迅速冲向2~6格范围内的目标，然后进行一次强大的斩击。它总是击中头部和身体造成额外的伤害。";
 		this.m.KilledString = "碾碎";
 		this.m.Icon = "skills/ptr_bestial_vigor_skill.png";
 		this.m.IconDisabled = "skills/ptr_bestial_vigor_skill_bw.png";
