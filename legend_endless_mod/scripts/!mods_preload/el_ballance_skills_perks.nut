@@ -824,7 +824,7 @@ local gt = getroottable();
 
 		o.onTargetKilled <- function( _targetEntity, _skill )
 		{
-			if(_skill.getDamageType().contains(this.Const.Damage.DamageType.Cutting)) {
+			if(_skill != null && _skill.getDamageType().contains(this.Const.Damage.DamageType.Cutting)) {
 				this.m.EL_NextTurnActionPointsOffset += 3;
 			}
 		}
