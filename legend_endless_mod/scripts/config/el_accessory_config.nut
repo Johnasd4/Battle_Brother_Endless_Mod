@@ -71,6 +71,7 @@ gt.Const.EL_Accessory <- {
 		"accessory/legend_demon_banshee_trophy_item",
 		"accessory/legend_demonalp_trophy_item",
 		"accessory/legend_hexen_leader_trophy_item",
+		"accessory/sergeant_badge_item",
 		"accessory/special/slayer_necklace_item"
 	],
 	EL_NoCoreEntityList = [
