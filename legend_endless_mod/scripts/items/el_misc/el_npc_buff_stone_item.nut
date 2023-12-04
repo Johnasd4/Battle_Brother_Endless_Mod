@@ -13,7 +13,7 @@ this.el_npc_buff_stone_item <- this.inherit("scripts/items/trade/trading_good_it
 		this.m.IsAllowedInBag = false;
 		this.m.IsUsable = true;
 		this.m.IconLarge = "";
-		this.m.Icon = "el_misc/el_npc_buff_stone.png";
+		this.m.Icon = "el_misc/el_npc_buff_stone_0.png";
 		this.m.Value = 0;
 	}
 
@@ -96,6 +96,26 @@ this.el_npc_buff_stone_item <- this.inherit("scripts/items/trade/trading_good_it
 			this.m.EL_NPCBuffs[i].onDeserialize(_in);
 		}
 	}
+
+	function getIcon()
+	{
+		if(this.m.EL_NPCBuffs.len())
+		{
+			this.m.Icon = "el_misc/el_npc_buff_stone_" + this.m.EL_NPCBuffs[0].m.EL_RankLevel + ".png";
+		}
+		
+		return this.m.Icon;
+	}
+
+	// function getIconOverlay()
+	// {
+	// 	local L = [];
+
+	// 	L.push(this.m.Icon);
+	// 	L.push("layers/layer_" + (this.m.EL_NPCBuffs[0].m.EL_RankLevel + 1) + ".png");
+
+	// 	return L;
+	// }
 
 	function EL_generateByNPCBuffs( _EL_npcBuffs )
 	{
