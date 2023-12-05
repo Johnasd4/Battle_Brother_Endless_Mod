@@ -105,11 +105,11 @@ gt.Const.EL_Accessory <- {
 						return false;
                     }
 				},
-                {
-					Scripts = "scripts/skills/el_entrys/accessory_entrys/el_bravery_entry",
-					function EL_ifEligible(_item) { return true; }
-                    function EL_ifNeedRemove(_entryLevel) { return false; }
-				},
+                // {
+				// 	Scripts = "scripts/skills/el_entrys/accessory_entrys/el_bravery_entry",
+				// 	function EL_ifEligible(_item) { return true; }
+                //     function EL_ifNeedRemove(_entryLevel) { return false; }
+				// },
 				{
 					Scripts = "scripts/skills/el_entrys/accessory_entrys/el_combat_level_entry",
 					function EL_ifEligible(_item) { return true; }
@@ -242,21 +242,21 @@ gt.Const.EL_Accessory <- {
 						return false;
                     }
 				},
-				{
-					Scripts = "scripts/skills/el_entrys/accessory_entrys/el_initiative_entry",
-					function EL_ifEligible(_item) { return true; }
-                    function EL_ifNeedRemove(_entryLevel) { return false; }
-				},
+				// {
+				// 	Scripts = "scripts/skills/el_entrys/accessory_entrys/el_initiative_entry",
+				// 	function EL_ifEligible(_item) { return true; }
+                //     function EL_ifNeedRemove(_entryLevel) { return false; }
+				// },
 				{
 					Scripts = "scripts/skills/el_entrys/accessory_entrys/el_reduce_damage_received_mult_entry",
 					function EL_ifEligible(_item) { return true; }
                     function EL_ifNeedRemove(_entryLevel) { return false; }
 				},
-				{
-					Scripts = "scripts/skills/el_entrys/accessory_entrys/el_stamina_entry",
-					function EL_ifEligible(_item) { return true; }
-                    function EL_ifNeedRemove(_entryLevel) { return false; }
-				},
+				// {
+				// 	Scripts = "scripts/skills/el_entrys/accessory_entrys/el_stamina_entry",
+				// 	function EL_ifEligible(_item) { return true; }
+                //     function EL_ifNeedRemove(_entryLevel) { return false; }
+				// },
 				{
 					Scripts = "scripts/skills/el_entrys/accessory_entrys/el_taunt_mult_entry",
 					function EL_ifEligible(_item) { return true; }

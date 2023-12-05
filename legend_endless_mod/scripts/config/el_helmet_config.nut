@@ -218,10 +218,10 @@ gt.Const.EL_Helmet <- {
 	EL_Entry = {
 		Pool = {
 			Entrys = [
-				{
-					Scripts = "scripts/skills/el_entrys/helmet_entrys/el_bravery_entry",
-					function EL_ifEligible(_item) { return true; }
-				},
+				// {
+				// 	Scripts = "scripts/skills/el_entrys/helmet_entrys/el_bravery_entry",
+				// 	function EL_ifEligible(_item) { return true; }
+				// },
 				{
 					Scripts = "scripts/skills/el_entrys/helmet_entrys/el_combat_level_entry",
 					function EL_ifEligible(_item) { return true; }
@@ -266,14 +266,14 @@ gt.Const.EL_Helmet <- {
 					Scripts = "scripts/skills/el_entrys/helmet_entrys/el_hitpoints_entry",
 					function EL_ifEligible(_item) { return true; }
 				},
-				{
-					Scripts = "scripts/skills/el_entrys/helmet_entrys/el_melee_defense_entry",
-					function EL_ifEligible(_item) { return true; }
-				},
-				{
-					Scripts = "scripts/skills/el_entrys/helmet_entrys/el_ranged_defense_entry",
-					function EL_ifEligible(_item) { return true; }
-				},
+				// {
+				// 	Scripts = "scripts/skills/el_entrys/helmet_entrys/el_melee_defense_entry",
+				// 	function EL_ifEligible(_item) { return true; }
+				// },
+				// {
+				// 	Scripts = "scripts/skills/el_entrys/helmet_entrys/el_ranged_defense_entry",
+				// 	function EL_ifEligible(_item) { return true; }
+				// },
 				{
 					Scripts = "scripts/skills/el_entrys/helmet_entrys/el_reduce_damage_received_mult_entry",
 					function EL_ifEligible(_item) { return true; }

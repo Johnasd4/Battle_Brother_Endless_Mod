@@ -245,14 +245,14 @@ gt.Const.EL_Armor <- {
 					Scripts = "scripts/skills/el_entrys/armor_entrys/el_hitpoints_entry",
 					function EL_ifEligible(_item) { return true; }
 				},
-				{
-					Scripts = "scripts/skills/el_entrys/armor_entrys/el_melee_defense_entry",
-					function EL_ifEligible(_item) { return true; }
-				},
-				{
-					Scripts = "scripts/skills/el_entrys/armor_entrys/el_ranged_defense_entry",
-					function EL_ifEligible(_item) { return true; }
-				},
+				// {
+				// 	Scripts = "scripts/skills/el_entrys/armor_entrys/el_melee_defense_entry",
+				// 	function EL_ifEligible(_item) { return true; }
+				// },
+				// {
+				// 	Scripts = "scripts/skills/el_entrys/armor_entrys/el_ranged_defense_entry",
+				// 	function EL_ifEligible(_item) { return true; }
+				// },
 				{
 					Scripts = "scripts/skills/el_entrys/armor_entrys/el_reduce_damage_received_mult_entry",
 					function EL_ifEligible(_item) { return true; }
@@ -265,10 +265,10 @@ gt.Const.EL_Armor <- {
 					Scripts = "scripts/skills/el_entrys/armor_entrys/el_reflect_entry",
 					function EL_ifEligible(_item) { return true; }
 				},
-				{
-					Scripts = "scripts/skills/el_entrys/armor_entrys/el_stamina_entry",
-					function EL_ifEligible(_item) { return true; }
-				},
+				// {
+				// 	Scripts = "scripts/skills/el_entrys/armor_entrys/el_stamina_entry",
+				// 	function EL_ifEligible(_item) { return true; }
+				// },
 				{
 					Scripts = "scripts/skills/el_entrys/armor_entrys/el_stamina_modifier_mult_entry",
 					function EL_ifEligible(_item) { return true; }
