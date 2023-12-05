@@ -33,7 +33,7 @@ local gt = getroottable();
                     }
                     if(item.EL_getArmorType() == this.Const.EL_Item.ArmorType.BaseArmor)
                     {
-                        foreach(upgrade in this.m.Upgrades)
+                        foreach(upgrade in item.m.Upgrades)
                         {
                             if(upgrade != null)
                             {
@@ -61,7 +61,7 @@ local gt = getroottable();
                         }
                         if(item.EL_getArmorType() == this.Const.EL_Item.ArmorType.BaseArmor)
                         {
-                            foreach(upgrade in this.m.Upgrades)
+                            foreach(upgrade in item.m.Upgrades)
                             {
                                 if(upgrade != null)
                                 {
