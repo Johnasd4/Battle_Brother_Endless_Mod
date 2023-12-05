@@ -41,7 +41,7 @@ this.el_bloody_knock_entry <- this.inherit("scripts/skills/skill", {
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]如果目标没有头盔" + this.Const.EL_Rarity_Entry.Factor.EL_BloodyKnock.DamageMult + "倍伤害[/color]"
+                text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]如果目标没有头盔，造成" + this.Const.EL_Rarity_Entry.Factor.EL_BloodyKnock.DamageMult + "倍伤害[/color]"
 			},
 			{
 				id = 5,

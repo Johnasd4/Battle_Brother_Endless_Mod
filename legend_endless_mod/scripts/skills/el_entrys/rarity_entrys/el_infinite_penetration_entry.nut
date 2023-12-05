@@ -81,7 +81,7 @@ this.el_infinite_penetration_entry <- this.inherit("scripts/skills/skill", {
 
 	function onBeforeTargetHit( _skill, _targetEntity, _hitInfo )
 	{
-		if (EL_isUsable() && !this.m.EL_IsPenetrateAttack)
+		if (EL_isUsable() && !this.m.EL_IsPenetrateAttack && _skill.m.IsWeaponSkill)
 		{
 			this.m.EL_IsPenetrateAttack = true;
 			local my_tile = this.getContainer().getActor().getTile();
