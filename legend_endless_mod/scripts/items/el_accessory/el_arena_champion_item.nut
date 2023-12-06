@@ -65,7 +65,7 @@ this.el_arena_champion_item <- this.inherit("scripts/items/accessory/accessory",
 			id = 10,
 			type = "text",
 			icon = "ui/icons/bravery.png",
-			text = "Morale increases once each turn."
+			text = "士气每回合提升一次。"
 		});
 		return result;
 	}

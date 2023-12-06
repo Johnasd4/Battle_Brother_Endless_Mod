@@ -1,10 +1,10 @@
-this.el_oscillation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff", {
+this.el_gravitation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buff", {
 	m = {},
 	function create()
 	{
 		this.el_npc_buff.create();
-		this.m.ID = "el_npc_buffs.oscillation";
-		this.m.Name = "震荡";
+		this.m.ID = "el_npc_buffs.gravitation";
+		this.m.Name = "引力";
 		this.m.Description = "";
         this.m.SoundOnHit = [
 			"sounds/combat/knockback_hit_01.wav",
@@ -54,11 +54,14 @@ this.el_oscillation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
 		return null;
 	}
 
-	function onTurnStart()
+	function onTurnEnd()
 	{
         local actor = this.getContainer().getActor();
+        if(actor == null || actor.isDying() || !actor.isAlive()) {
+            return;
+        }
         local main_hand = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
-        if(main_hand == null || !main_hand.isItemType(this.Const.Items.ItemType.RangedWeapon)) {
+        if(main_hand != null && main_hand.m.RangeMax != 1) {
             return;
         }
         local targets = this.Tactical.Entities.getAllInstances();
@@ -73,7 +76,7 @@ this.el_oscillation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
                         return;
                     }
                     local temp_distance = actor.getTile().getDistanceTo(t.getTile());
-                    if(temp_distance <= this.Const.EL_NPC.EL_NPCBuff.Factor.Oscillation.MaxDistance[this.m.EL_RankLevel]) {
+                    if(temp_distance <= this.Const.EL_NPC.EL_NPCBuff.Factor.Gravitation.MaxDistance[this.m.EL_RankLevel]) {
                         local i = 0;
                         for(; i < affect_targets.len(); ++i) {
                             if(temp_distance > affect_targets[i].distance) {
@@ -100,8 +103,8 @@ this.el_oscillation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
             local target_tile = affect_targets[i].target.getTile();
             local j = 0;
             local knock_to_tile = target_tile;
-            for(; j < this.Const.EL_NPC.EL_NPCBuff.Factor.Oscillation.MaxDistance[this.m.EL_RankLevel]; ++j) {
-                local temp_knock_to_tile = this.findTileToKnockBackTo(actor.getTile(), knock_to_tile);
+            for(; j < this.Const.EL_NPC.EL_NPCBuff.Factor.Gravitation.MaxMoveTime[this.m.EL_RankLevel]; ++j) {
+                local temp_knock_to_tile = this.findTileToKnockBackTo(knock_to_tile, actor.getTile());
                 if(temp_knock_to_tile != null) {
                     knock_to_tile = temp_knock_to_tile;
                 }
@@ -112,7 +115,7 @@ this.el_oscillation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
             if(knock_to_tile != target_tile) {
                 if (!actor.isHiddenToPlayer() && (target_tile.IsVisibleForPlayer || knock_to_tile.IsVisibleForPlayer))
                 {
-                    this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " 击退了 " + this.Const.UI.getColorizedEntityName(affect_targets[i].target));
+                    this.Tactical.EventLog.log(this.Const.UI.getColorizedEntityName(actor) + " 吸引了 " + this.Const.UI.getColorizedEntityName(affect_targets[i].target));
                 }
 
                 local skills = affect_targets[i].target.getSkills();

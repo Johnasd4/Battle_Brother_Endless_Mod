@@ -103,7 +103,7 @@ gt.Const.EL_NPC <- {
     },
 
     EL_LevelUp = {
-        LevelUpsOffset = 10,
+        LevelUpsOffset = 15,
         LevelUpAttributes = {
             HitpointsMult = 0.05,
             Bravery = 0.5,
@@ -133,7 +133,7 @@ gt.Const.EL_NPC <- {
         MaxTroopNumAddPurWorldLevel = 1,
         MaxTroopNum = 50,
         MaxCalculateLevel = 100,
-        MinLevelOffset = -10,
+        MinLevelOffset = -5,
         MaxLevelOffset = 0,
         BossTroopMinLeaders = 5,
         BossChance = 1,
@@ -494,6 +494,10 @@ gt.Const.EL_NPC <- {
                 local main_hand = _EL_npc.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
                 return main_hand != null && main_hand.isItemType(this.Const.Items.ItemType.RangedWeapon);
             }
+            function EL_ifAttackDistanceOne(_EL_npc) {
+                local main_hand = _EL_npc.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+                return main_hand == null || main_hand.m.RangeMax == 1;
+            }
             function EL_ifKraken(_EL_npc) {
                 return _EL_npc.getType() == this.Const.EntityType.Kraken;
             }
@@ -501,7 +505,8 @@ gt.Const.EL_NPC <- {
                 return _EL_npc.getMoraleState() == this.Const.MoraleState.Ignore;
             }
             function EL_ifNoBuff(_EL_npc) {
-                return _EL_npc.getType() == this.Const.EntityType.SkeletonPhylactery;
+                return _EL_npc.getType() == this.Const.EntityType.SkeletonPhylactery ||
+                       _EL_npc.getType() == this.Const.EntityType.SpiderEggs;
             }
 
 
@@ -576,14 +581,16 @@ gt.Const.EL_NPC <- {
                     return true;
                 }
             },
-            // {
-            //     Scripts = "scripts/skills/el_npc_buffs/el_exploding_ammo_npc_buff",
-            //     function EL_ifEligible(_EL_npc) {
-            //         if(!this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
-            //         if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
-            //         return true;
-            //     }
-            // },
+            {
+                Scripts = "scripts/skills/el_npc_buffs/el_gravitation_npc_buff",
+                function EL_ifEligible(_EL_npc) {
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return true; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifAttackDistanceOne(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
+                    return true;
+                }
+            },
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_growth_npc_buff",
                 function EL_ifEligible(_EL_npc) {
@@ -795,6 +802,7 @@ gt.Const.EL_NPC <- {
                 ]
             },
             Concentrate = {
+                DamageMultPurStack = [0.04, 0.08, 0.2],
                 MeleeSkillOffsetPurStack = [4 ,8, 20],
                 RangedSkillOffsetPurStack = [4 ,8, 20]
             },
@@ -822,12 +830,9 @@ gt.Const.EL_NPC <- {
                 DefenseOffset = [8, 16, 40],
                 DefenseOffsetSelectedMult = 5,
             },
-            ExplodingAmmo = {
-                DamageBase = 20,
-                DamageMultPurCombatLevel = 0.04,
-                DamageRate = [0.2, 0.4, 1],
-                DamageDecayRatePurTile = 0.5,
-                MaxDistance = 4
+            Gravitation = {
+                MaxDistance = [2, 4, 6],
+                MaxMoveTime = [1, 2, 3]
             },
             Growth = {
                 DamageMultPurStack = [0.02, 0.04, 0.1],
@@ -845,7 +850,7 @@ gt.Const.EL_NPC <- {
             Intimidate = {
                 BraveryOffset = [10, 20, 50],
                 MoraleCheckChance = [20, 40, 100],
-                BaseOffset = 75,
+                BaseOffset = 50,
                 RankFactor = 0,
                 CombatLevelFactor = 1.04,
                 DistanceFactor = 3
@@ -879,6 +884,8 @@ gt.Const.EL_NPC <- {
             },
             Revenge = {
                 DamageMultPurStack = [0.04, 0.08, 0.2],
+                MeleeSkillOffsetPurStack = [4 ,8, 20],
+                RangedSkillOffsetPurStack = [4 ,8, 20]
             },
             SelfDestruct = {
                 DamageBase = 200,

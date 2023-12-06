@@ -8,6 +8,7 @@ this.el_evasion_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
 		this.m.ID = "el_npc_buffs.evasion";
 		this.m.Name = "闪避";
 		this.m.Description = "";
+        this.m.EL_DefenseState = this.Math.rand(1, 2) == 1 ? this.Const.EL_NPC.EL_NPCBuff.Factor.Evasion.RangeState : this.Const.EL_NPC.EL_NPCBuff.Factor.Evasion.MeleeState;
 	}
 
 	function onTurnStart()

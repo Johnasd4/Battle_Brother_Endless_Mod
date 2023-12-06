@@ -336,7 +336,7 @@ local gt = getroottable();
         }
 	});
 
-	::mods_hookNewObject("skills/actives/legend_staff_lunge_skill", function(o){
+	::mods_hookExactClass("skills/actives/legend_staff_lunge_skill", function(o){
 
         o.onAnySkillUsed = function( _skill, _targetEntity, _properties )
         {
@@ -353,7 +353,7 @@ local gt = getroottable();
         }
 	});
 
-	::mods_hookNewObject("skills/actives/legend_unarmed_lunge_skill", function(o){
+	::mods_hookExactClass("skills/actives/legend_unarmed_lunge_skill", function(o){
 
         o.onAnySkillUsed = function( _skill, _targetEntity, _properties )
         {
@@ -371,7 +371,7 @@ local gt = getroottable();
 
 	});
 
-	::mods_hookNewObject("skills/actives/lunge_skill", function(o){
+	::mods_hookExactClass("skills/actives/lunge_skill", function(o){
 
         o.onAnySkillUsed = function( _skill, _targetEntity, _properties )
         {

@@ -3897,7 +3897,9 @@ local gt = getroottable();
                     else if (this.Flags.get("IsScoutsRetreat"))
                     {
                         this.Flags.set("IsScoutsRetreat", false);
-                        this.Contract.m.Destination.die();
+                        if(this.Contract.m.Destination != null) {
+                            this.Contract.m.Destination.die();
+                        }
                         this.Contract.m.Destination = null;
                         this.Contract.setScreen("ScoutsEscaped");
                         this.World.Contracts.showActiveContract();
@@ -5040,7 +5042,9 @@ local gt = getroottable();
                         Text = "This should help us in the coming battle.",
                         function getResult()
                         {
-                            this.Contract.m.Destination.die();
+                            if(this.Contract.m.Destination != null) {
+                                this.Contract.m.Destination.die();
+                            }
                             this.Contract.m.Destination = null;
                             this.Contract.setState("Running_ReturnAfterIntercept");
                             return 0;
@@ -5071,7 +5075,9 @@ local gt = getroottable();
                         Text = "You made the right decision.",
                         function getResult()
                         {
-                            this.Contract.m.Destination.die();
+                            if(this.Contract.m.Destination != null) {
+                                this.Contract.m.Destination.die();
+                            }
                             this.Contract.m.Destination = null;
                             this.Contract.m.Dude = null;
                             this.Contract.setState("Running_ReturnAfterIntercept");
@@ -5120,7 +5126,9 @@ local gt = getroottable();
                         Text = "You made the right decision.",
                         function getResult()
                         {
-                            this.Contract.m.Destination.die();
+                            if(this.Contract.m.Destination != null) {
+                                this.Contract.m.Destination.die();
+                            }
                             this.Contract.m.Destination = null;
                             this.Contract.m.Dude = null;
                             this.Contract.setState("Running_ReturnAfterIntercept");
@@ -9019,7 +9027,9 @@ local gt = getroottable();
                         function getResult()
                         {
                             this.Contract.setState("Return");
-                            this.Contract.m.Destination.die();
+                            if(this.Contract.m.Destination != null) {
+                                this.Contract.m.Destination.die();
+                            }
                             this.Contract.m.Destination = null;
                             return 0;
                         }
@@ -10791,7 +10801,9 @@ local gt = getroottable();
                         Text = "Let\'s get moving!",
                         function getResult()
                         {
-                            this.Contract.m.Destination.die();
+                            if(this.Contract.m.Destination != null) {
+                                this.Contract.m.Destination.die();
+                            }
                             this.Contract.m.Destination = null;
                             local playerTile = this.World.State.getPlayer().getTile();
                             local nearest_goblins = this.World.FactionManager.getFactionOfType(this.Const.FactionType.Goblins).getNearestSettlement(playerTile);
@@ -11196,7 +11208,9 @@ local gt = getroottable();
                         Text = "We have what we came for. Time to return to %townname%!",
                         function getResult()
                         {
-                            this.Contract.m.Destination.die();
+                            if(this.Contract.m.Destination != null) {
+                                this.Contract.m.Destination.die();
+                            }
                             this.Contract.m.Destination = null;
                             this.Contract.setState("Return");
                             return 0;

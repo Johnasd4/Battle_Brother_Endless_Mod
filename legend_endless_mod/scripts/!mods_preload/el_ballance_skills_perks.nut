@@ -1149,6 +1149,16 @@ local gt = getroottable();
 
 	});
 
+	::mods_hookExactClass("skills/perks/perk_ptr_fresh_and_furious", function ( o )
+	{
+		o.onAnySkillExecuted = function( _skill, _targetTile, _targetEntity, _forFree )
+		{
+			this.m.IsSpent = true;
+		}
+
+	});
+
+
 	::mods_hookExactClass("skills/perks/perk_ptr_promised_potential", function ( o )
 	{
 		o.onAdded = function()
@@ -1220,6 +1230,20 @@ local gt = getroottable();
 			{
 				this.updatePerkVisuals();
 			}
+		}
+
+	});
+
+	::mods_hookExactClass("skills/perks/perk_ptr_strength_in_numbers", function ( o )
+	{
+
+		o.getBonus = function()
+		{
+			local actor = this.getContainer().getActor();
+			if(actor == null || actor.isDying() || !actor.isAlive()) {
+				return 0;
+			}
+			return (::Tactical.Entities.getFactionActors(actor.getFaction(), actor.getTile(), 1).len() - 1) * this.m.BonusPerAdjacentAlly;
 		}
 
 	});
@@ -1356,7 +1380,7 @@ local gt = getroottable();
 					id = 10,
 					type = "text",
 					icon = "ui/icons/melee_skill.png",
-					text = "[color=" + this.Const.UI.Color.NegativeValue + "]-" + meleeSkillBonus + "[/color] Melee Skill"
+					text = "[color=" + this.Const.UI.Color.NegativeValue + "]" + meleeSkillBonus + "[/color] Melee Skill"
 				});
 			}
 
@@ -1393,7 +1417,7 @@ local gt = getroottable();
 			tooltip.push({
 				id = 6,
 				type = "hint",
-				text = "The limit weight is [color=" + this.Const.UI.Color.PositiveValue + "]" + this.Math.floor(15 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color]."
+				text = "负重临界值是 [color=" + this.Const.UI.Color.PositiveValue + "]" + this.Math.floor(15 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color]."
 			});
 			return tooltip;
 		}
