@@ -496,7 +496,7 @@ gt.Const.EL_NPC <- {
             }
             function EL_ifAttackDistanceOne(_EL_npc) {
                 local main_hand = _EL_npc.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
-                return main_hand == null || main_hand.m.RangeMax == 1;
+                return main_hand != null && main_hand.m.RangeMax == 1;
             }
             function EL_ifKraken(_EL_npc) {
                 return _EL_npc.getType() == this.Const.EntityType.Kraken;
@@ -584,8 +584,8 @@ gt.Const.EL_NPC <- {
             {
                 Scripts = "scripts/skills/el_npc_buffs/el_gravitation_npc_buff",
                 function EL_ifEligible(_EL_npc) {
-                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return true; }
-                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifAttackDistanceOne(_EL_npc)) { return false; }
+                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
+                    if(!this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifAttackDistanceOne(_EL_npc)) { return false; }
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
