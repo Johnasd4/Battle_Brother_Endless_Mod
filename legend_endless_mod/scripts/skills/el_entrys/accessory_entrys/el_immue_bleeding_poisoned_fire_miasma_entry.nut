@@ -41,7 +41,7 @@ this.el_immue_bleeding_poisoned_fire_miasma_entry <- this.inherit("scripts/skill
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
 		++_EL_totalEntry.m.EL_EntryNum;
-		if(this.m.EL_CurrentLevel)
+		if(this.m.EL_CurrentLevel == 1)
 		{
 			_EL_totalEntry.m.EL_ImmueBleedingPoisonedFireMiasma = true;
 		}

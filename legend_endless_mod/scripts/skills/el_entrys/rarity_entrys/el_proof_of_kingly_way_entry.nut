@@ -29,13 +29,13 @@ this.el_proof_of_kingly_way_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]提升战旗带来的的决心加成比例为 " + this.Const.EL_Rarity_Entry.Factor.EL_ProofOfKinglyWay.BraveryMult * 100 + "%，对范围内的敌人造成同等数值的决心降低.[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]提升战旗带来的的决心加成比例为 " + this.Const.EL_Rarity_Entry.Factor.EL_ProofOfKinglyWay.BraveryMult * 100 + "%，对战旗影响范围内的敌人造成同等数值的决心降低.[/color]"
 			},
 			{
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]每回合开始时，范围内的友军士气提升，敌军士气降低[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]每回合开始时，战旗影响范围内的友军士气提升，敌军士气降低[/color]"
 			}
         ]
 		if (!EL_isUsable())

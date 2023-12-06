@@ -41,7 +41,7 @@ this.el_human_emperors_sword <- this.inherit("scripts/items/weapons/weapon", {
 					id = 10,
 					type = "text",
 					icon = "ui/icons/special.png",
-					text = "战场上的每个友军会为你提供2%伤害2%减伤1点近攻1点近防1点远防加成。"
+					text = "战场上的每个友军会为你提供2%伤害,2%减伤,1点近攻,1点近防和1点远防加成。"
 				});
 				break;
 			}

@@ -83,8 +83,8 @@ local gt = getroottable();
 			{
 				foreach(entry in this.m.EL_EntryList)
 				{
-					if(entry.getID() == "el_weapon_entry.value_mult" || entry.getID() == "el_shield_entry.value_mult" || entry.getID() == "el_armor_entry.value_mult" ||
-					   entry.getID() == "el_helmet_entry.value_mult" || entry.getID() == "el_accessory_entry.value_mult")
+					if(entry.getID() == "el_weapon_entry.value_mult" || entry.getID() == "el_shield_entry.value_mult" || entry.getID() == "el_armor_entry.value_mult" && entry.m.EL_CurrentLevel == 1 || 
+					   entry.getID() == "el_helmet_entry.value_mult" && entry.m.EL_CurrentLevel == 1 || entry.getID() == "el_accessory_entry.value_mult" && entry.m.EL_CurrentLevel == 1)
 					{
 						//this.logInfo("SellPriceTradeMult:"+this.World.Assets.m.SellPriceTradeMult+" SellPriceNotProducedHere:"+this.Const.World.Assets.SellPriceNotProducedHere+" SellPriceNotLocalCulture:"+this.Const.World.Assets.SellPriceNotLocalCulture)
 						return this.Math.floor(this.getValue() * this.getSellPriceMult() * this.World.Assets.m.SellPriceTradeMult * this.World.State.getCurrentTown().getSellPriceMult() 

@@ -224,13 +224,13 @@ local gt = getroottable();
 
     ::mods_hookExactClass("items/armor/legendary/legend_skin_armor", function(o){
 
-        local create = o.create;
-        o.create = function()
-        {
-            create();
-			this.m.Value = 0;
-            this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
-        }
+        // local create = o.create;
+        // o.create = function()
+        // {
+        //     create();
+		// 	this.m.Value = 0;
+        //     this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
+        // }
 
 
         o.getTooltip = function()

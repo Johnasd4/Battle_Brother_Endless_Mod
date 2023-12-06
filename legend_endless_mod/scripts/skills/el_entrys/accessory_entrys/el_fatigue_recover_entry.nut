@@ -36,7 +36,7 @@ this.el_fatigue_recover_entry <- this.inherit("scripts/skills/el_entrys/el_acces
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
-		if(this.m.EL_CurrentLevel)
+		if(this.m.EL_CurrentLevel == 1)
 		{
 			++_EL_totalEntry.m.EL_EntryNum;
 			_EL_totalEntry.m.EL_FatigueRecover += this.m.EL_FatigueRecover;

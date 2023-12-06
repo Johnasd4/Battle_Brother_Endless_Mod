@@ -323,10 +323,10 @@ gt.Const.EL_Weapon <- {
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_armor_damage_mult_entry",
 					function EL_ifEligible(_item) { return true; }
 				},
-				{
-					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_bravery_entry",
-					function EL_ifEligible(_item) { return true; }
-				},
+				// {
+				// 	Scripts = "scripts/skills/el_entrys/weapon_entrys/el_bravery_entry",
+				// 	function EL_ifEligible(_item) { return true; }
+				// },
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_check_morale_entry",
 					function EL_ifEligible(_item) {
@@ -381,10 +381,10 @@ gt.Const.EL_Weapon <- {
 						return true; 
 					}
 				},
-				{
-					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_initiative_entry",
-					function EL_ifEligible(_item) { return true; }
-				},
+				// {
+				// 	Scripts = "scripts/skills/el_entrys/weapon_entrys/el_initiative_entry",
+				// 	function EL_ifEligible(_item) { return true; }
+				// },
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_melee_range_max_entry",
 					function EL_ifEligible(_item) {
@@ -392,13 +392,13 @@ gt.Const.EL_Weapon <- {
 						return true;
 					}
 				},
-				{
-					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_melee_skill_entry",
-					function EL_ifEligible(_item) {
-						if(!_item.isItemType(this.Const.Items.ItemType.MeleeWeapon)) { return false; }
-						return true;
-					}
-				},
+				// {
+				// 	Scripts = "scripts/skills/el_entrys/weapon_entrys/el_melee_skill_entry",
+				// 	function EL_ifEligible(_item) {
+				// 		if(!_item.isItemType(this.Const.Items.ItemType.MeleeWeapon)) { return false; }
+				// 		return true;
+				// 	}
+				// },
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_ranged_range_max_entry",
 					function EL_ifEligible(_item) {
@@ -406,13 +406,13 @@ gt.Const.EL_Weapon <- {
 						return true;
 					}
 				},
-				{
-					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_ranged_skill_entry",
-					function EL_ifEligible(_item) {
-						if(!_item.isItemType(this.Const.Items.ItemType.RangedWeapon)) { return false; }
-						return true;
-					}
-				},
+				// {
+				// 	Scripts = "scripts/skills/el_entrys/weapon_entrys/el_ranged_skill_entry",
+				// 	function EL_ifEligible(_item) {
+				// 		if(!_item.isItemType(this.Const.Items.ItemType.RangedWeapon)) { return false; }
+				// 		return true;
+				// 	}
+				// },
 				{
 					Scripts = "scripts/skills/el_entrys/weapon_entrys/el_save_ammo_entry",
 					function EL_ifEligible(_item) {

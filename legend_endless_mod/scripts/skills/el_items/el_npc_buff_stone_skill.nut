@@ -7,8 +7,19 @@ this.el_npc_buff_stone_skill <- this.inherit("scripts/skills/skill", {
 		this.m.Name = "魔法石";
 		this.m.Description = "通过魔法石获取力量。";
 		this.m.Type = this.Const.SkillType.Trait;
-		this.m.Icon = "el_skills/el_npc_buff_stone.png";
+		this.m.Icon = "el_skills/el_npc_buff_stone_0.png";
 		this.m.Order = this.Const.SkillOrder.First;
+	}
+
+	function onAfterUpdate( _properties )
+	{
+		local skills = this.getContainer().getActor().getSkills().m.Skills;
+		foreach(skill in skills) {
+			if(skill.EL_isNPCBuff()) {
+				this.m.Icon = "el_skills/el_npc_buff_stone_" + skill.m.EL_RankLevel + ".png";
+				break;
+			}
+		}
 	}
 
 	function getTooltip()

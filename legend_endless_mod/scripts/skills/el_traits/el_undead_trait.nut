@@ -28,7 +28,7 @@ this.el_undead_trait <- this.inherit("scripts/skills/traits/character_trait", {
 				id = 8,
 				type = "text",
 				icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.UI.Color.NegativeValue + "]- 50%[/color] 主动值, [color=" + this.Const.UI.Color.NegativeValue + "]- 2[/color] 行动点, [color=" + this.Const.UI.Color.PositiveValue + "]+ 20[/color] 决心"
+				text = "[color=" + this.Const.UI.Color.NegativeValue + "]- 50%[/color] 主动值, [color=" + this.Const.UI.Color.PositiveValue + "]+ 20[/color] 决心"//, [color=" + this.Const.UI.Color.NegativeValue + "]- 2[/color] 行动点
 			}
 		]);
 		return tooltip;
@@ -45,7 +45,7 @@ this.el_undead_trait <- this.inherit("scripts/skills/traits/character_trait", {
         _properties.IsImmuneToDaze = true;
 		_properties.MoraleCheckBraveryMult[this.Const.MoraleCheckType.MentalAttack] *= 1000.0;
 		_properties.InitiativeMult *= 0.5;
-        _properties.ActionPoints -= 2;
+        //_properties.ActionPoints -= 2;
 		_properties.Bravery += 50;
 		_properties.DailyWageMult = 0;
 	}

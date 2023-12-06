@@ -38,7 +38,7 @@ this.el_immue_grab_knock_twirl_entry <- this.inherit("scripts/skills/el_entrys/e
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
-		if(this.m.EL_CurrentLevel)
+		if(this.m.EL_CurrentLevel == 1)
 		{
 			++_EL_totalEntry.m.EL_EntryNum;
 			_EL_totalEntry.m.EL_ImmueGrabKnockTwirl = true;

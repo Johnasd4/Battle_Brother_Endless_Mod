@@ -11,7 +11,7 @@ this.el_charge_slash <- this.inherit("scripts/skills/skill", {
 	{
 		this.m.ID = "el_actives.charge_slash";
 		this.m.Name = "冲锋斩";
-		this.m.Description = "迅速冲向2~6格范围内的目标，然后进行一次强大的斩击。Has enough force that it always hits both head and body for additional damage.";
+		this.m.Description = "迅速冲向2~6格范围内的目标，然后进行一次强大的斩击。它总是击中头部和身体造成额外的伤害。";
 		this.m.KilledString = "碾碎";
 		this.m.Icon = "skills/ptr_bestial_vigor_skill.png";
 		this.m.IconDisabled = "skills/ptr_bestial_vigor_skill_bw.png";
@@ -51,14 +51,14 @@ this.el_charge_slash <- this.inherit("scripts/skills/skill", {
 	function getTooltip()
 	{
 		local ret = this.getDefaultTooltip();
-		ret.extend([
-			{
-				id = 6,
-				type = "text",
-				icon = "ui/icons/special.png",
-				text = "Moves the user next to the target, ignoring Zone of Control"
-			}
-		]);
+		// ret.extend([
+		// 	{
+		// 		id = 6,
+		// 		type = "text",
+		// 		icon = "ui/icons/special.png",
+		// 		text = "Moves the user next to the target, ignoring Zone of Control"
+		// 	}
+		// ]);
 		
 		ret.push({
 			id = 6,
@@ -82,7 +82,7 @@ this.el_charge_slash <- this.inherit("scripts/skills/skill", {
 
 	function isUsable()
 	{
-		return this.skill.isUsable() && !this.getContainer().getActor().getCurrentProperties().IsRooted;
+		return this.skill.isUsable() && !this.getContainer().getActor().getCurrentProperties().IsRooted && !this.getContainer().getActor().getTile().hasZoneOfControlOtherThan(this.getContainer().getActor().getAlliedFactions());
 	}
 
 	function onVerifyTarget( _originTile, _targetTile )
@@ -136,7 +136,9 @@ this.el_charge_slash <- this.inherit("scripts/skills/skill", {
 		local myTile = actor.getTile();
 		local destTile;
 
-		for( local i = 0; i < 6; i = i )
+		local min_distance = 0;
+
+		for( local i = 0; i < 6; ++i )
 		{
 			if (!_targetTile.hasNextTile(i))
 			{
@@ -144,15 +146,16 @@ this.el_charge_slash <- this.inherit("scripts/skills/skill", {
 			else
 			{
 				local tile = _targetTile.getNextTile(i);
-
-				if (tile.IsEmpty && tile.getDistanceTo(myTile) <= 5 && this.Math.abs(myTile.Level - tile.Level) <= 1 && this.Math.abs(_targetTile.Level - tile.Level) <= 1)
+				local distance = tile.getDistanceTo(myTile);
+				if (tile.IsEmpty && distance <= 5 && this.Math.abs(myTile.Level - tile.Level) <= 1 && this.Math.abs(_targetTile.Level - tile.Level) <= 1)
 				{
-					destTile = tile;
-					break;
+					if(min_distance > distance)
+					{
+						destTile = tile;
+						min_distance = distance;
+					}
 				}
 			}
-
-			i = ++i;
 		}
 
 		if (destTile == null)

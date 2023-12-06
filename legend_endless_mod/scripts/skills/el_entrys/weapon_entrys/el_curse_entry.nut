@@ -53,7 +53,7 @@ this.el_curse_entry <- this.inherit("scripts/skills/el_entrys/el_entry", {
 
     function onTargetHit( _skill, _targetEntity, _bodyPart, _damageInflictedHitpoints, _damageInflictedArmor )
 	{
-		if (_targetEntity == null || _targetEntity.isDying() || !_targetEntity.isAlive()) 
+		if (_targetEntity == null || _targetEntity.isDying() || !_targetEntity.isAlive() || !_skill.m.IsWeaponSkill) 
 		{
 			return;
 		}

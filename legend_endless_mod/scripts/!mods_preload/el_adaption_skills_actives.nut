@@ -397,6 +397,103 @@ local gt = getroottable();
 
 	});
 
+	::mods_hookExactClass("skills/actives/uproot_skill", function(o){
+
+        o.onUse = function( _user, _targetTile )
+        {
+            local myTile = _user.getTile();
+            local dir = myTile.getDirectionTo(_targetTile);
+            this.Tactical.spawnAttackEffect("uproot", _targetTile, 0, -50, 100, 300, 100, this.createVec(0, 90), 200, this.createVec(0, -90), true);
+
+            for( local i = 0; i < this.Const.Tactical.DustParticles.len(); i = i )
+            {
+                this.Tactical.spawnParticleEffect(false, this.Const.Tactical.DustParticles[i].Brushes, _targetTile, this.Const.Tactical.DustParticles[i].Delay, this.Const.Tactical.DustParticles[i].Quantity * 0.5, this.Const.Tactical.DustParticles[i].LifeTimeQuantity * 0.5, this.Const.Tactical.DustParticles[i].SpawnRate, this.Const.Tactical.DustParticles[i].Stages, this.createVec(0, -30));
+                i = ++i;
+                i = i;
+            }
+
+            if (_targetTile.IsOccupiedByActor && _targetTile.getEntity().isAttackable() && !(_targetTile.getEntity().getType() == this.Const.EntityType.Schrat || _targetTile.getEntity().getType() == this.Const.EntityType.SchratSmall || _targetTile.getEntity().getType() == this.Const.EntityType.LegendGreenwoodSchrat || _targetTile.getEntity().getType() == this.Const.EntityType.LegendGreenwoodSchratSmall))
+            {
+                if (_targetTile.getEntity().m.IsShakingOnHit)
+                {
+                    this.Tactical.getShaker().shake(_targetTile.getEntity(), _targetTile, 7);
+                    _user.playSound(this.Const.Sound.ActorEvent.Move, 2.0);
+                }
+                if (this.attackEntity(_user, _targetTile.getEntity()) && !_targetTile.IsEmpty)
+                {
+                    this.applyEffectToTarget(_user, _targetTile.getEntity(), _targetTile);
+                }
+            }
+
+            if (_targetTile.hasNextTile(dir))
+            {
+                local forwardTile = _targetTile.getNextTile(dir);
+                this.Time.scheduleEvent(this.TimeUnit.Virtual, 200, function ( _tag )
+                {
+                    this.Tactical.spawnAttackEffect("uproot", forwardTile, 0, -50, 100, 300, 100, this.createVec(0, 90), 200, this.createVec(0, -90), true);
+
+                    for( local i = 0; i < this.Const.Tactical.DustParticles.len(); i = i )
+                    {
+                        this.Tactical.spawnParticleEffect(false, this.Const.Tactical.DustParticles[i].Brushes, forwardTile, this.Const.Tactical.DustParticles[i].Delay, this.Const.Tactical.DustParticles[i].Quantity * 0.5, this.Const.Tactical.DustParticles[i].LifeTimeQuantity * 0.5, this.Const.Tactical.DustParticles[i].SpawnRate, this.Const.Tactical.DustParticles[i].Stages, this.createVec(0, -30));
+                        i = ++i;
+                        i = i;
+                    }
+
+                    if (forwardTile.IsOccupiedByActor && forwardTile.getEntity().m.IsShakingOnHit)
+                    {
+                        this.Tactical.getShaker().shake(forwardTile.getEntity(), forwardTile, 7);
+                        _user.playSound(this.Const.Sound.ActorEvent.Move, 2.0);
+                    }
+                }.bindenv(this), null);
+
+                if (forwardTile.IsOccupiedByActor && forwardTile.getEntity().isAttackable() && this.Math.abs(forwardTile.Level - myTile.Level) <= 1 && !(forwardTile.getEntity().getType() == this.Const.EntityType.Schrat || forwardTile.getEntity().getType() == this.Const.EntityType.SchratSmall || forwardTile.getEntity().getType() == this.Const.EntityType.LegendGreenwoodSchrat || forwardTile.getEntity().getType() == this.Const.EntityType.LegendGreenwoodSchratSmall))
+                {
+                    if (this.attackEntity(_user, forwardTile.getEntity()) && !forwardTile.IsEmpty)
+                    {
+                        this.applyEffectToTarget(_user, forwardTile.getEntity(), forwardTile);
+                    }
+                }
+
+                if (forwardTile.hasNextTile(dir))
+                {
+                    local furtherForwardTile = forwardTile.getNextTile(dir);
+                    this.Time.scheduleEvent(this.TimeUnit.Virtual, 400, function ( _tag )
+                    {
+                        this.Tactical.spawnAttackEffect("uproot", furtherForwardTile, 0, -50, 100, 300, 100, this.createVec(0, 90), 200, this.createVec(0, -90), true);
+
+                        for( local i = 0; i < this.Const.Tactical.DustParticles.len(); i = i )
+                        {
+                            this.Tactical.spawnParticleEffect(false, this.Const.Tactical.DustParticles[i].Brushes, furtherForwardTile, this.Const.Tactical.DustParticles[i].Delay, this.Const.Tactical.DustParticles[i].Quantity * 0.5, this.Const.Tactical.DustParticles[i].LifeTimeQuantity * 0.5, this.Const.Tactical.DustParticles[i].SpawnRate, this.Const.Tactical.DustParticles[i].Stages, this.createVec(0, -30));
+                            i = ++i;
+                            i = i;
+                        }
+
+                        if (furtherForwardTile.IsOccupiedByActor && furtherForwardTile.getEntity().m.IsShakingOnHit)
+                        {
+                            this.Tactical.getShaker().shake(furtherForwardTile.getEntity(), furtherForwardTile, 7);
+                            _user.playSound(this.Const.Sound.ActorEvent.Move, 2.0);
+                        }
+                    }.bindenv(this), null);
+
+                    if (furtherForwardTile.IsOccupiedByActor && furtherForwardTile.getEntity().isAttackable() && !(furtherForwardTile.getEntity().getType() == this.Const.EntityType.Schrat || furtherForwardTile.getEntity().getType() == this.Const.EntityType.SchratSmall || furtherForwardTile.getEntity().getType() == this.Const.EntityType.LegendGreenwoodSchrat || furtherForwardTile.getEntity().getType() == this.Const.EntityType.LegendGreenwoodSchratSmall))
+                    {
+                        if (this.attackEntity(_user, forwardTile.getEntity()) && !forwardTile.IsEmpty)
+                        {
+                            this.applyEffectToTarget(_user, forwardTile.getEntity(), forwardTile);
+                        }
+                    }
+
+                    // [326]  OP_CLOSE          0      6    0    0
+                }
+
+                // [327]  OP_CLOSE          0      5    0    0
+            }
+
+            return true;
+        }
+
+	});
+
     ::mods_hookExactClass("skills/actives/sweep_skill", function(o){
         o.onUse = function ( _user, _targetTile )
         {
@@ -459,7 +556,7 @@ local gt = getroottable();
                 local nextTile = ownTile.getNextTile(nextDir);
                 local success = false;
 
-                if (nextTile.IsOccupiedByActor && nextTile.getEntity().isAttackable() && this.Math.abs(nextTile.Level - ownTile.Level) <= 1 && !_user.isAlliedWith(nextTile.getEntity()) && nextTile.getEntity().isAlive() || !nextTile.getEntity().isDying())
+                if (nextTile.IsOccupiedByActor && nextTile.getEntity().isAttackable() && this.Math.abs(nextTile.Level - ownTile.Level) <= 1 && !_user.isAlliedWith(nextTile.getEntity()) && nextTile.getEntity().isAlive() && !nextTile.getEntity().isDying())
                 {
                     success = this.attackEntity(_user, nextTile.getEntity());
                 }
@@ -484,7 +581,7 @@ local gt = getroottable();
                 local nextTile = ownTile.getNextTile(nextDir);
                 local success = false;
 
-                if (nextTile.IsOccupiedByActor && nextTile.getEntity().isAttackable() && this.Math.abs(nextTile.Level - ownTile.Level) <= 1 && !_user.isAlliedWith(nextTile.getEntity()) && nextTile.getEntity().isAlive() || !nextTile.getEntity().isDying())
+                if (nextTile.IsOccupiedByActor && nextTile.getEntity().isAttackable() && this.Math.abs(nextTile.Level - ownTile.Level) <= 1 && !_user.isAlliedWith(nextTile.getEntity()) && nextTile.getEntity().isAlive() && !nextTile.getEntity().isDying())
                 {
                     success = this.attackEntity(_user, nextTile.getEntity());
                 }

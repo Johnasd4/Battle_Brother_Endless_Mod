@@ -31,6 +31,19 @@ local gt = getroottable();
                     {
                         entry.EL_onNewHour(item);
                     }
+                    if(item.EL_getArmorType() == this.Const.EL_Item.ArmorType.BaseArmor)
+                    {
+                        foreach(upgrade in item.m.Upgrades)
+                        {
+                            if(upgrade != null)
+                            {
+                                foreach(entry in upgrade.m.EL_EntryList)
+                                {
+                                    entry.EL_onNewHour(item);
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
@@ -45,6 +58,19 @@ local gt = getroottable();
                         foreach(entry in item.m.EL_EntryList)
                         {
                             entry.EL_onNewHour(item);
+                        }
+                        if(item.EL_getArmorType() == this.Const.EL_Item.ArmorType.BaseArmor)
+                        {
+                            foreach(upgrade in item.m.Upgrades)
+                            {
+                                if(upgrade != null)
+                                {
+                                    foreach(entry in upgrade.m.EL_EntryList)
+                                    {
+                                        entry.EL_onNewHour(item);
+                                    }
+                                }
+                            }
                         }
                     }
                 }

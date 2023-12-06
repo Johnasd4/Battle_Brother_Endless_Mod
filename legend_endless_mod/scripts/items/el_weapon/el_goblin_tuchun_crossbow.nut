@@ -17,7 +17,7 @@ this.el_goblin_tuchun_crossbow <- this.inherit("scripts/items/weapons/weapon", {
 		this.weapon.create();
 		this.m.ID = "el_weapon.goblin_tuchun_crossbow";
 		this.m.Name = "哥布林督军弩";
-		this.m.Description = "A large and heavy crossbow with menacing spikes in front. More like a minitature ballista, it shoots stakes with enough force to knock back a target hit. Deals +100 damage to vampires.";
+		this.m.Description = "A large and heavy crossbow with menacing spikes in front. More like a minitature ballista, it shoots stakes with enough force to knock back a target hit. 对吸血鬼造成额外100点伤害。";
 		this.m.IconLarge = "weapons/ranged/goblin_tuchun_crossbow.png";
 		this.m.Icon = "weapons/ranged/goblin_tuchun_crossbow_70x70.png";
 		this.m.WeaponType = this.Const.Items.WeaponType.Crossbow;

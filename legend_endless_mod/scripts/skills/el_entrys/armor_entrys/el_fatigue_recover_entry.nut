@@ -17,19 +17,11 @@ this.el_fatigue_recover_entry <- this.inherit("scripts/skills/el_entrys/el_acces
 			type = "text",
 			text = "[color=" + colour + "]疲劳恢复 + " + this.m.EL_FatigueRecover + "[/color]"
 		};
+		if(this.m.EL_CurrentLevel != 1)
+		{
+			result.text += "[color=" + this.Const.EL_Item.Type.Normal + "] (暂不生效)[/color]";
+		}
 		return result;
-	}
-	
-	function EL_setCurrentLevel(_EL_currentLevel)
-	{
-		if(_EL_currentLevel >= 1)
-		{
-			this.m.EL_CurrentLevel = 1.0;
-		}
-		else
-		{
-			this.m.EL_CurrentLevel = 0.0;
-		}
 	}
 
 	function EL_getEntryColour()
@@ -44,7 +36,7 @@ this.el_fatigue_recover_entry <- this.inherit("scripts/skills/el_entrys/el_acces
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
-		if(this.m.EL_CurrentLevel)
+		if(this.m.EL_CurrentLevel == 1)
 		{
 			++_EL_totalEntry.m.EL_EntryNum;
 			_EL_totalEntry.m.EL_FatigueRecover += this.m.EL_FatigueRecover;
