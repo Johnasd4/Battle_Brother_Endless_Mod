@@ -99,11 +99,10 @@ this.el_gravitation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
             }
         }
         for(local i = 0; i < affect_targets.len(); ++i) {
-            local distance = actor.getTile().getDistanceTo(affect_targets[i].target.getTile());
             local target_tile = affect_targets[i].target.getTile();
             local j = 0;
             local knock_to_tile = target_tile;
-            for(; j < this.Const.EL_NPC.EL_NPCBuff.Factor.Gravitation.MaxMoveTime[this.m.EL_RankLevel]; ++j) {
+            for(; j < this.Const.EL_NPC.EL_NPCBuff.Factor.Gravitation.MaxMoveTime[this.m.EL_RankLevel] && actor.getTile().getDistanceTo(affect_targets[i].target.getTile()) > 1; ++j) {
                 local temp_knock_to_tile = this.findTileToKnockBackTo(knock_to_tile, actor.getTile());
                 if(temp_knock_to_tile != null) {
                     knock_to_tile = temp_knock_to_tile;
