@@ -1045,6 +1045,19 @@ local gt = getroottable();
 			this.m.Condition = this.m.Condition > this.m.ConditionMax ? this.m.ConditionMax : this.m.Condition;
 		}
 
+		o.getVision <- function()
+		{
+			local result = this.m.Vision;
+			foreach(upgrade in this.m.Upgrades)
+			{
+				if(upgrade != null)
+				{
+					result += upgrade.getVision();
+				}
+			}
+			return result;
+		}
+
 		o.getCondition <- function()
 		{
 			return this.Math.floor(this.getAddedValue("getCondition", this.m.Condition));
