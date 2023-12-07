@@ -91,7 +91,9 @@ local gt = getroottable();
 					}
 				}
 
-				if(equipment_essence_need[this.Const.EL_Item.Type.Legendary] <= this.World.Assets.EL_getEquipmentEssence(this.Const.EL_Item.Type.Legendary) && item.EL_getRecraftSoulEnergy() <= this.World.Assets.EL_getSoulEnergy())
+				if (equipment_essence_need[this.Const.EL_Item.Type.Legendary] <= this.World.Assets.EL_getEquipmentEssence(this.Const.EL_Item.Type.Legendary) &&
+					equipment_essence_need[this.Const.EL_Item.Type.Epic] <= this.World.Assets.EL_getEquipmentEssence(this.Const.EL_Item.Type.Epic) && 
+					item.EL_getUpgradeRankSoulEnergy() <= this.World.Assets.EL_getSoulEnergy())
 				{
 					for(local rank = 0; rank <= this.Const.EL_Item.Type.Legendary; ++rank)
 					{
@@ -133,7 +135,9 @@ local gt = getroottable();
 					}
 				}
 
-				if(equipment_essence_need[this.Const.EL_Item.Type.Legendary] <= this.World.Assets.EL_getEquipmentEssence(this.Const.EL_Item.Type.Legendary) && item.EL_getUpgradeLevelSoulEnergy() <= this.World.Assets.EL_getSoulEnergy())
+				if (equipment_essence_need[this.Const.EL_Item.Type.Legendary] <= this.World.Assets.EL_getEquipmentEssence(this.Const.EL_Item.Type.Legendary) &&
+					equipment_essence_need[this.Const.EL_Item.Type.Epic] <= this.World.Assets.EL_getEquipmentEssence(this.Const.EL_Item.Type.Epic) && 
+					item.EL_getUpgradeRankSoulEnergy() <= this.World.Assets.EL_getSoulEnergy())
 				{
 					for(local rank = 0; rank <= this.Const.EL_Item.Type.Legendary; ++rank)
 					{
@@ -175,7 +179,9 @@ local gt = getroottable();
 					}
 				}
 
-				if(equipment_essence_need[this.Const.EL_Item.Type.Legendary] <= this.World.Assets.EL_getEquipmentEssence(this.Const.EL_Item.Type.Legendary) && item.EL_getUpgradeRankSoulEnergy() <= this.World.Assets.EL_getSoulEnergy())
+				if (equipment_essence_need[this.Const.EL_Item.Type.Legendary] <= this.World.Assets.EL_getEquipmentEssence(this.Const.EL_Item.Type.Legendary) &&
+					equipment_essence_need[this.Const.EL_Item.Type.Epic] <= this.World.Assets.EL_getEquipmentEssence(this.Const.EL_Item.Type.Epic) && 
+					item.EL_getUpgradeRankSoulEnergy() <= this.World.Assets.EL_getSoulEnergy())
 				{
 					for(local rank = 0; rank <= this.Const.EL_Item.Type.Legendary; ++rank)
 					{
