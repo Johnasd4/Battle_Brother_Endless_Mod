@@ -67,7 +67,7 @@ this.el_oscillation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
         {
             foreach( t in tar )
             {
-                if(t != null && !t.isAlliedWith(actor) && !t.isDying() && t.isAlive()) {
+                if(t != null && !t.isDying() && t.isAlive() && !t.isAlliedWith(actor)) {
                     if (t.getCurrentProperties().IsImmuneToKnockBackAndGrab || t.getCurrentProperties().IsRooted)
                     {
                         return;
