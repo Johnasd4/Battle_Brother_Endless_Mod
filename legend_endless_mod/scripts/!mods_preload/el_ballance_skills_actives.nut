@@ -331,10 +331,11 @@ local gt = getroottable();
 
         o.onAfterUpdate = function( _properties )
         {
-            if(this.m.Item != null)
+            local weapon = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
+            if(weapon != null)
             {
-                this.m.MaxRange = this.m.Item.getRangeMax() - 1 + (_properties.IsSpecializedInBows ? 1 : 0);
-                this.m.AdditionalAccuracy = this.m.Item.getAdditionalAccuracy();
+                this.m.MaxRange = weapon.getRangeMax() - 1 + (_properties.IsSpecializedInBows ? 1 : 0);
+                this.m.AdditionalAccuracy = weapon.getAdditionalAccuracy();
                 this.m.FatigueCostMult = _properties.IsSpecializedInBows ? this.Const.Combat.WeaponSpecFatigueMult : 1.0;
             }
         }
