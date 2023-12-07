@@ -19,13 +19,22 @@ this.el_lichking_trait <- this.inherit("scripts/skills/skill", {
 				id = 7,
 				type = "text",
 				icon = "ui/icons/special.png",
-				text = "免疫流血、眩晕、茫然、伤残、毒素、瘴气、恐惧和精神控制。不消耗食物。"
+				text = "免疫缴械、流血、眩晕、茫然、伤残、毒素、瘴气、恐惧和精神控制。不消耗食物。"
 			},
 			{
 				id = 8,
 				type = "text",
-				icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+25%[/color] Experience Gain, [color=" + this.Const.UI.Color.PositiveValue + "]+ 40[/color] 决心"
+				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+25%[/color] Experience Gain"
+			},
+			// {
+			// 	id = 9,
+			// 	type = "text",
+			// 	text = "[color=" + this.Const.UI.Color.PositiveValue + "]+ 3[/color] 行动点"
+			// },
+			{
+				id = 10,
+				type = "text",
+				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+ 40[/color] 决心"
 			}
 		]);
 		return tooltip;
@@ -41,6 +50,7 @@ this.el_lichking_trait <- this.inherit("scripts/skills/skill", {
         _properties.IsResistantToMiasma = true;
         _properties.IsImmuneToDaze = true;
 		_properties.IsImmuneToDisarm = true;
+    	//_properties.ActionPoints += 3;
 		_properties.Bravery += 40;
 		_properties.XPGainMult *= 1.25;
 	}
@@ -51,7 +61,7 @@ this.el_lichking_trait <- this.inherit("scripts/skills/skill", {
 		local bros = roster.getAll();
 		foreach(bro in bros)
 		{
-			if(bro != this.getContainer().getActor() && !bro.getSkills().hasSkill("el_trait.undead"))
+			if(bro != this.getContainer().getActor() && !bro.getSkills().hasSkill("el_trait.undead") && !bro.getSkills().hasSkill("background.legend_donkey"))
 			{
 				bro.getSkills().add(this.new("scripts/skills/el_effects/el_become_undead_effect"));
 			}

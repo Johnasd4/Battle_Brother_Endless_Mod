@@ -31,13 +31,19 @@ this.el_arena_champion_armor <- this.inherit("scripts/items/armor/armor", {
 	function getTooltip()
 	{
 		local result = this.armor.getTooltip();
-
-		result.push({
-			id = 10,
-			type = "text",
-			icon = "ui/icons/special.png",
-			text = "护甲存在时免疫身体穿甲伤害。"
-		});
+		for(local i = 0; i < result.len(); ++i)
+		{
+			if(result[i].type == "text" && result[i].text == "——————————————")
+			{
+				result.insert(i, {
+					id = 10,
+					type = "text",
+					icon = "ui/icons/special.png",
+					text = "护甲存在时免疫身体穿甲伤害。"
+				});
+				return result;
+			}
+		}
 		return result;
 	}
 

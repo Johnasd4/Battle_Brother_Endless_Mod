@@ -16,7 +16,7 @@ this.el_stamina_modifier_mult_entry <- this.inherit("scripts/skills/el_entrys/el
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]装备重量 - " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_StaminaModifierMult * 100) * 0.01 + "% (" + this.m.EL_StaminaModifierMult + ")%(面板)[/color]"
+				text = "[color=" + colour + "]装备重量 - " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_StaminaModifierMult * 100) * 0.01 + "% (" + this.m.EL_StaminaModifierMult + "%)(面板)[/color]"
 			};
 		}
 		else

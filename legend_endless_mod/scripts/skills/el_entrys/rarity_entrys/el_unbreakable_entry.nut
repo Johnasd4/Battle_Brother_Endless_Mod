@@ -7,7 +7,7 @@ this.el_unbreakable_entry <- this.inherit("scripts/skills/skill", {
 	},
 	function create()
 	{
-		this.m.Order = this.Const.SkillOrder.Last;
+		this.m.Order = this.Const.SkillOrder.First;
 		this.m.ID = "el_rarity_entry.unbreakable";
 		this.m.Name = "不可撼动(单手锤)";
 		this.m.Description = "身如铁塔，屹立不倒";//Like an iron tower, standing still.

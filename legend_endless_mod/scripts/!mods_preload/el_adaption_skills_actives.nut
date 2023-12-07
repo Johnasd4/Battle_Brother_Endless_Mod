@@ -889,7 +889,7 @@ local gt = getroottable();
         {
             if (_skill == this)
             {
-                _properties.RangedSkill += this.m.Item.getAdditionalAccuracy();
+                _properties.RangedSkill += this.m.getAdditionalAccuracy();
                 _properties.HitChanceAdditionalWithEachTile += this.m.AdditionalHitChance;
                 _properties.DamageTotalMult *= 0.5;
                 _properties.DamageTooltipMaxMult *= 3.0;

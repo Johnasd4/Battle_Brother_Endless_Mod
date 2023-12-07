@@ -28,7 +28,17 @@ this.el_undead_trait <- this.inherit("scripts/skills/traits/character_trait", {
 				id = 8,
 				type = "text",
 				icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.UI.Color.NegativeValue + "]- 50%[/color] 主动值, [color=" + this.Const.UI.Color.PositiveValue + "]+ 20[/color] 决心"//, [color=" + this.Const.UI.Color.NegativeValue + "]- 2[/color] 行动点
+				text = "不消耗食物，不再需要工资。"
+			},
+			{
+				id = 9,
+				type = "text",
+				text = "[color=" + this.Const.UI.Color.NegativeValue + "]- 50%[/color] 主动值"//, [color=" + this.Const.UI.Color.NegativeValue + "]- 2[/color] 行动点
+			},
+			{
+				id = 9,
+				type = "text",
+				text = "[color=" + this.Const.UI.Color.PositiveValue + "]+ 20[/color] 决心"//, [color=" + this.Const.UI.Color.NegativeValue + "]- 2[/color] 行动点
 			}
 		]);
 		return tooltip;

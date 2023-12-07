@@ -136,6 +136,10 @@ el_lichking_death_coil <- this.inherit("scripts/skills/skill", {
 		{
 			return false;
 		}
+		if (target.isAlliedWith(user) && !EL_isUndead(target))
+		{
+			return false;
+		}
 
 		return true;
 	}

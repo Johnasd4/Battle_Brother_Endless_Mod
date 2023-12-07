@@ -496,7 +496,7 @@ gt.Const.EL_NPC <- {
             }
             function EL_ifAttackDistanceOne(_EL_npc) {
                 local main_hand = _EL_npc.getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
-                return main_hand != null && main_hand.m.RangeMax == 1;
+                return main_hand == null || main_hand.m.RangeMax == 1;
             }
             function EL_ifKraken(_EL_npc) {
                 return _EL_npc.getType() == this.Const.EntityType.Kraken;

@@ -16,7 +16,7 @@ this.el_reflect_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_ent
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]反弹 " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ReflectPercent * 100) * 0.01 + "% (" + this.m.EL_ReflectPercent + ")%身体护甲受到的伤害[/color]"
+				text = "[color=" + colour + "]反弹 " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ReflectPercent * 100) * 0.01 + "% (" + this.m.EL_ReflectPercent + "%)身体护甲受到的伤害[/color]"
 			};
 		}
 		else
