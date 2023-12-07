@@ -8,9 +8,13 @@ local gt = getroottable();
 	{
 		o.onUse = function( _user, _targetTile )
 		{
-			local ret = this.attackEntity(_user, _targetTile.getEntity());
+            local target = _targetTile.getEntity();
+			local ret = this.attackEntity(_user, target);
+
+            if(target == null || target.isDying() || !target.isAlive()) {
+                return ret;
+            }
 			if(ret == true) {
-				local target = _targetTile.getEntity();
 				local difficulty = -_user.getBravery() +
 								   this.Const.EL_NPCOther.EL_Ghost.GhastlyTouch.BaseOffset +
 								   this.Const.EL_NPCOther.EL_Ghost.GhastlyTouch.RankFactor * (target.EL_getRankLevel() - _user.EL_getRankLevel()) +

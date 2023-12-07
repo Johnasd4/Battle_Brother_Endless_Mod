@@ -1118,6 +1118,20 @@ local gt = getroottable();
                 }
             }
         }
+
+        o.onPerformPaypack = function( _attackinfo )
+        {
+            if(_attackinfo.Container == null) {
+                return false;
+            }
+            _attackinfo.Container.setBusy(false);
+
+            if (_attackinfo.User.isAlive() && _attackinfo.TargetTile.getEntity().isAlive())
+            {
+                return _attackinfo.Skill.attackEntity(_attackinfo.User, _attackinfo.TargetTile.getEntity());
+            }
+        }
+
 	});
 
 

@@ -506,7 +506,9 @@ gt.Const.EL_NPC <- {
             }
             function EL_ifNoBuff(_EL_npc) {
                 return _EL_npc.getType() == this.Const.EntityType.SkeletonPhylactery ||
-                       _EL_npc.getType() == this.Const.EntityType.SpiderEggs;
+                       _EL_npc.getType() == this.Const.EntityType.SpiderEggs ||
+                       _EL_npc.getType() == this.Const.EntityType.CaravanDonkey ||
+                       _EL_npc.getType() == this.Const.EntityType.MilitaryDonkey;
             }
 
 

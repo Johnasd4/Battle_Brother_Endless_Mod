@@ -1240,12 +1240,26 @@ local gt = getroottable();
 		o.getBonus = function()
 		{
 			local actor = this.getContainer().getActor();
+
 			if(actor == null || actor.isDying() || !actor.isAlive()) {
 				return 0;
 			}
-			return (::Tactical.Entities.getFactionActors(actor.getFaction(), actor.getTile(), 1).len() - 1) * this.m.BonusPerAdjacentAlly;
-		}
+			local others = this.Tactical.Entities.getAllInstancesAsArray();
 
+			local count = 0;
+
+			foreach (o in others)
+			{
+				if(o == null || o.isDying() || !o.isAlive() || o == actor) {
+					continue;
+				}
+				if (o.isAlliedWith(actor) && actor.getTile().getDistanceTo(o.getTile()) <= 1)
+				{
+					count++;
+				}
+			}
+			return count * this.m.BonusPerAdjacentAlly;
+		}
 	});
 
 	::mods_hookExactClass("skills/perks/perk_ptr_through_the_ranks", function ( o )

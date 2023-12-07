@@ -274,6 +274,22 @@ local gt = getroottable();
             }
         }
 
+        o.onCombatFinished = function()
+        {
+            local actor = this.getContainer().getActor();
+
+            if (actor == null || actor.isDying() || !actor.isAlive())
+            {
+                return;
+            }
+
+            if (actor.getHitpoints() > 0)
+            {
+                actor.setHitpoints(actor.getHitpointsMax());
+                actor.setDirty(true);
+            }
+        }
+
     });
 
 
