@@ -15,7 +15,7 @@ this.el_gravitation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
 
 	function findTileToKnockBackTo( _userTile, _targetTile )
 	{
-		local dir = _userTile.getDirectionTo(_targetTile);
+		local dir = _targetTile.getDirectionTo(_userTile);
 
 		if (_targetTile.hasNextTile(dir))
 		{
@@ -80,7 +80,7 @@ this.el_gravitation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
                     if(temp_distance <= this.Const.EL_NPC.EL_NPCBuff.Factor.Gravitation.MaxDistance[this.m.EL_RankLevel]) {
                         local i = 0;
                         for(; i < affect_targets.len(); ++i) {
-                            if(temp_distance > affect_targets[i].distance) {
+                            if(temp_distance < affect_targets[i].distance) {
                                 affect_targets.insert(i, {
                                     target = t,
                                     distance = temp_distance
@@ -104,7 +104,7 @@ this.el_gravitation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
             local j = 0;
             local knock_to_tile = target_tile;
             for(; j < this.Const.EL_NPC.EL_NPCBuff.Factor.Gravitation.MaxMoveTime[this.m.EL_RankLevel] && actor.getTile().getDistanceTo(knock_to_tile) > 1; ++j) {
-                local temp_knock_to_tile = this.findTileToKnockBackTo(knock_to_tile, actor.getTile());
+                local temp_knock_to_tile = this.findTileToKnockBackTo(actor.getTile(), knock_to_tile);
                 if(temp_knock_to_tile != null) {
                     knock_to_tile = temp_knock_to_tile;
                 }
@@ -115,8 +115,11 @@ this.el_gravitation_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc
             if(knock_to_tile == target_tile) {
                 continue;
             }
+            if(actor.getTile().getDistanceTo(knock_to_tile) >= actor.getTile().getDistanceTo(target_tile)) {
+                continue;
+            }
             for(j = 0; j < used_tile.len(); ++j) {
-                if(used_tile[j].X == knock_to_tile.X && used_tile[j].Y == knock_to_tile.Y) {
+                if(used_tile[j] == knock_to_tile) {
                     break;
                 }
             }
