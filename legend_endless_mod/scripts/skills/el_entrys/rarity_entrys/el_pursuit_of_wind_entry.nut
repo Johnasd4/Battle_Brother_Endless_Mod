@@ -8,7 +8,7 @@ this.el_pursuit_of_wind_entry <- this.inherit("scripts/skills/skill", {
 		this.m.Order = this.Const.SkillOrder.Last;
 		this.m.ID = "el_rarity_entry.pursuit_of_wind";
 		this.m.Name = "风之追索(弓)";
-		this.m.Description = "风是你的伙伴，会带来敌人的消息，也会辅助你进行战斗"
+		this.m.Description = "风是你的伙伴，萦绕在你的战弓旁，辅助你进行战斗"
 		this.m.Icon = "el_entrys/el_pursuit_of_wind_entry.png";
 		//this.m.IconMini = "el_pursuit_of_wind_entry_mini";
 		this.m.Overlay = "el_pursuit_of_wind_entry";
@@ -38,7 +38,7 @@ this.el_pursuit_of_wind_entry <- this.inherit("scripts/skills/skill", {
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]攻击必定命中，拥有无限的射程和视野[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]攻击必定命中，拥有无限的射程[/color]"
 			},
 			{
 				id = 5,
@@ -104,7 +104,7 @@ this.el_pursuit_of_wind_entry <- this.inherit("scripts/skills/skill", {
 	{
 		if (EL_isUsable())
 		{
-			_properties.Vision = 10000;
+			//_properties.Vision = 10000;
 			_properties.DamageTotalMult *= this.Const.EL_Rarity_Entry.Factor.EL_PursuitOfWind.DamageMult;
 			local skills = this.getContainer().getActor().getSkills().m.Skills;
             foreach( skill in skills )

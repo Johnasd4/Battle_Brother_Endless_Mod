@@ -288,7 +288,7 @@ gt.Const.EL_Shield <- {
 		Factor = {
 			EL_ActionPoint = {
 				ID = "el_shield_entry.action_point",
-				ActionPoint = 1
+				ActionPoint = 2
 			},
 			EL_CombatLevel = {
 				ID = "el_shield_entry.combat_level",

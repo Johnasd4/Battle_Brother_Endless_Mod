@@ -16,7 +16,7 @@ this.el_immue_surrounded_riposte_entry <- this.inherit("scripts/skills/el_entrys
 		};
 		if(this.m.EL_CurrentLevel != 1)
 		{
-			result.text += "[color=" + this.Const.EL_Item.Type.Normal + "] (暂不生效)[/color]";
+			result.text += "[color=" + this.Const.EL_Item.Type.Normal + "] (等级不足，暂不生效)[/color]";
 		}
 		return result;
 	}

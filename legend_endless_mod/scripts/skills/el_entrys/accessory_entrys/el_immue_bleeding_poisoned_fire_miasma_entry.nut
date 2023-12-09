@@ -17,7 +17,7 @@ this.el_immue_bleeding_poisoned_fire_miasma_entry <- this.inherit("scripts/skill
 		
 		if(this.m.EL_CurrentLevel != 1)
 		{
-			result.text += "[color=" + this.Const.EL_Item.Type.Normal + "] (暂不生效)[/color]";
+			result.text += "[color=" + this.Const.EL_Item.Type.Normal + "] (等级不足，暂不生效)[/color]";
 		}
 		return result;
 	}
