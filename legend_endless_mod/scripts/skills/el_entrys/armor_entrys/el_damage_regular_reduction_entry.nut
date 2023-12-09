@@ -35,7 +35,7 @@ this.el_damage_regular_reduction_entry <- this.inherit("scripts/skills/el_entrys
 	{
         for (local index = 0; index <= this.Const.EL_Item.Type.Legendary; ++index)
         {
-            if (this.m.EL_DamageBodyRegularReduction <= this.Const.EL_Armor.EL_Entry.Factor.EL_DamageBodyRegularReduction.ColourRange[index])
+            if (this.m.EL_DamageBodyRegularReduction * 0.1 <= this.Const.EL_Armor.EL_Entry.Factor.EL_DamageBodyRegularReduction.ColourRange[index])
             {
                 return this.Const.EL_Item.Colour[index];
             }
@@ -65,7 +65,7 @@ this.el_damage_regular_reduction_entry <- this.inherit("scripts/skills/el_entrys
 
 	function EL_onItemUpdate( _item )
 	{
-		this.m.EL_Bonus = this.m.EL_DamageBodyRegularReduction * 0.1 * (1.0 + _item.m.EL_CurrentLevel * this.Const.EL_Armor.EL_LevelFactor.DamageBodyRegularReduction);
+		this.m.EL_Bonus = this.m.EL_DamageBodyRegularReduction * 0.2 * (1.0 + _item.m.EL_CurrentLevel * this.Const.EL_Armor.EL_LevelFactor.DamageBodyRegularReduction);
         _item.m.EL_DamageBodyRegularReduction += this.Math.ceil(this.m.EL_CurrentLevel * this.m.EL_Bonus);
 	}
 
