@@ -933,6 +933,10 @@ local gt = getroottable();
 					}
 					foreach(entry in upgrade.m.EL_EntryList)
 					{
+						if(entry.getID() == this.Const.EL_Armor.EL_Entry.Factor.EL_DamageBodyArmorReduction.ID || entry.getID() == this.Const.EL_Armor.EL_Entry.Factor.EL_DamageBodyRegularReduction.ID)
+						{
+							entry.EL_onItemUpdate(upgrade);
+						}
 						entry.EL_onItemUpdate(this);
 					}
 				}

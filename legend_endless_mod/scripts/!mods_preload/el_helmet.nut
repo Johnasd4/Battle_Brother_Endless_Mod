@@ -1027,6 +1027,10 @@ local gt = getroottable();
 					}
 					foreach(entry in upgrade.m.EL_EntryList)
 					{
+						if(entry.getID() == this.Const.EL_Helmet.EL_Entry.Factor.EL_DamageHeadArmorReduction.ID || entry.getID() == this.Const.EL_Helmet.EL_Entry.Factor.EL_DamageHeadRegularReduction.ID)
+						{
+							entry.EL_onItemUpdate(upgrade);
+						}
 						entry.EL_onItemUpdate(this);
 					}
 				}
