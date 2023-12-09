@@ -213,7 +213,7 @@ gt.Const.EL_Armor <- {
 				{
 					Scripts = "scripts/skills/el_entrys/armor_entrys/el_damage_body_reduction_entry",
 					function EL_ifEligible(_item) {
-						if(_item.m.EL_BaseNoRankStaminaModifier <= 1) { return false; }
+						//if(_item.m.EL_BaseNoRankStaminaModifier <= 1) { return false; }
 						//if(_item.EL_hasEntry(this.Const.EL_Armor.EL_Entry.Factor.EL_DamageBodyArmorReduction.ID)) { return false; }
 						return true;
 					}
@@ -221,7 +221,7 @@ gt.Const.EL_Armor <- {
 				{
 					Scripts = "scripts/skills/el_entrys/armor_entrys/el_damage_regular_reduction_entry",
 					function EL_ifEligible(_item) {
-						if(_item.m.EL_BaseNoRankStaminaModifier <= 1) { return false; }
+						//if(_item.m.EL_BaseNoRankStaminaModifier <= 1) { return false; }
 						//if(_item.EL_hasEntry(this.Const.EL_Armor.EL_Entry.Factor.EL_DamageBodyRegularReduction.ID)) { return false; }
 						return true;
 					}
@@ -404,7 +404,7 @@ gt.Const.EL_Armor <- {
 			},
 			EL_DamageBodyArmorReduction = {
 				ID = "el_armor_entry.damage_head_reduction",
-				BaseDamageBodyArmorReduction = 2.5,
+				BaseDamageBodyArmorReduction = 25,
 				RandomMinDamageBodyArmorReduction = [
 					1,
 					1,
@@ -429,7 +429,7 @@ gt.Const.EL_Armor <- {
 			}
 			EL_DamageBodyRegularReduction = {
 				ID = "el_armor_entry.damage_regular_reduction",
-				BaseDamageBodyRegularReduction = 2.5,
+				BaseDamageBodyRegularReduction = 25,
 				RandomMinDamageBodyRegularReduction = [
 					1,
 					1,
