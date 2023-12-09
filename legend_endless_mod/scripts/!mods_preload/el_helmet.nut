@@ -1031,7 +1031,10 @@ local gt = getroottable();
 						{
 							entry.EL_onItemUpdate(upgrade);
 						}
-						entry.EL_onItemUpdate(this);
+						else
+						{
+							entry.EL_onItemUpdate(this);
+						}
 					}
 				}
 			}
