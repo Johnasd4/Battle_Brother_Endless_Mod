@@ -124,6 +124,7 @@ local gt = getroottable();
 				{
 					return this.UIDataHelper.convertStashAndEntityToUIData(bro, null, false, this.m.InventoryFilter);
 				}
+				
 				local equipment_essence_need = item.EL_getUpgradeLevelEquipmentEssenceNum();
 				for(local rank = 0; rank < this.Const.EL_Item.Type.Epic; ++rank)
 				{
@@ -134,10 +135,9 @@ local gt = getroottable();
 						equipment_essence_need[rank] -= num * this.Const.EL_Item_Other.EquipmentEssenceRankDownFactor[rank];
 					}
 				}
-
 				if (equipment_essence_need[this.Const.EL_Item.Type.Legendary] <= this.World.Assets.EL_getEquipmentEssence(this.Const.EL_Item.Type.Legendary) &&
 					equipment_essence_need[this.Const.EL_Item.Type.Epic] <= this.World.Assets.EL_getEquipmentEssence(this.Const.EL_Item.Type.Epic) && 
-					item.EL_getUpgradeRankSoulEnergy() <= this.World.Assets.EL_getSoulEnergy())
+					item.EL_getUpgradeLevelSoulEnergy() <= this.World.Assets.EL_getSoulEnergy())
 				{
 					for(local rank = 0; rank <= this.Const.EL_Item.Type.Legendary; ++rank)
 					{
@@ -187,7 +187,7 @@ local gt = getroottable();
 					{
 						this.World.Assets.EL_addEquipmentEssence(rank, -equipment_essence_need[rank]);
 					}
-					this.World.Assets.EL_addSoulEnergy(-item.EL_getUpgradeRankSoulEnergy());
+					//this.World.Assets.EL_addSoulEnergy(-item.EL_getUpgradeRankSoulEnergy());
 					item.EL_upgradeRank();
 					item.onUnequip();
 					item.onEquip();

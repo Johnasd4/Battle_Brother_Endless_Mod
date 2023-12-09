@@ -302,7 +302,6 @@ gt.Const.EL_Helmet <- {
 					Scripts = "scripts/skills/el_entrys/helmet_entrys/el_vision_entry",
 					function EL_ifEligible(_item) {
 						if(_item.m.EL_RankLevel <= 1) { return false; }
-						if(_item.isItemType(this.Const.Items.ItemType.Legendary)) { return false; }
 						return true;
 					}
 				}

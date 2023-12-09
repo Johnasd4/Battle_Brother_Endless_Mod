@@ -88,6 +88,26 @@ this.el_taelia_present_item <- this.inherit("scripts/items/accessory/accessory",
 		return this.Math.floor(this.Const.EL_LichKing.Accessory.StashModifier[this.EL_getRankLevel()] * 
 								(1 + this.EL_getLevel() * this.Const.EL_LichKing.Accessory.StashModifierLevelFactor));
 	}
+	
+	function EL_recraft()
+	{
+		local has_rarity_entry = this.m.EL_RarityEntry != null;
+		this.accessory.EL_recraft();
+		if(!has_rarity_entry && this.m.EL_RarityEntry != null && this.m.EL_RarityEntry.getID() != "el_rarity_entry.vehemence_of_the_sky")
+		{
+			this.EL_setRarityEntry(this.new("scripts/skills/el_entrys/rarity_entrys/el_vehemence_of_the_sky_entry"));
+		}
+	}
+
+	function EL_upgradeRank()
+	{
+		local has_rarity_entry = this.m.EL_RarityEntry != null;
+		this.accessory.EL_upgradeRank();
+		if(!has_rarity_entry && this.m.EL_RarityEntry != null)
+		{
+			this.EL_setRarityEntry(this.new("scripts/skills/el_entrys/rarity_entrys/el_vehemence_of_the_sky_entry"));
+		}
+	}
 
 	function onUpdateProperties( _properties )
 	{
