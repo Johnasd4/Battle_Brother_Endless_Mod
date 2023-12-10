@@ -395,9 +395,23 @@ local gt = getroottable();
 
 	});
 
+	::mods_hookExactClass("skills/actives/legend_wooden_stake_stab", function(o){
+        o.getDescription <- function()
+        {
+            return "A quick and fast stab with the wooden shaft. Deals +" + this.Math.floor(100 * (1 + this.m.Item.EL_getCurrentLevel() * this.Const.EL_Weapon.EL_LevelFactor.RegularDamage)) + " damage to vampires";
+        }
 
-
-
-
-
+        o.onAnySkillUsed = function( _skill, _targetEntity, _properties )
+        {
+            if (_skill == this && _targetEntity != null)
+            {
+                if (_targetEntity.getType() == this.Const.EntityType.Vampire || _targetEntity.getType() == this.Const.EntityType.LegendVampireLord)
+                {
+                    local damage_bonus = this.Math.floor(100 * (1 + this.m.Item.EL_getCurrentLevel() * this.Const.EL_Weapon.EL_LevelFactor.RegularDamage));
+                    _properties.DamageRegularMin += damage_bonus;
+                    _properties.DamageRegularMax += damage_bonus + 5;
+                }
+            }
+        }
+	});
 });
