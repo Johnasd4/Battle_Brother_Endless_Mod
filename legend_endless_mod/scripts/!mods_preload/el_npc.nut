@@ -356,7 +356,7 @@ local gt = getroottable();
 
 		o.getName = function()
 		{
-			return this.m.Name + " - Lv" + this.m.EL_NPCLevel + "(" + ((this.Math.round(this.EL_getCombatLevel() * 10) * 0.1)) + ")";
+			return this.m.Name + " - Lv" + this.Math.min(this.m.EL_NPCLevel, this.Const.EL_NPC.EL_Troop.MaxCalculateLevel) + "(" + ((this.Math.round(this.EL_getCombatLevel() * 10) * 0.1)) + ")";
 		}
 
         local kill = o.kill;
