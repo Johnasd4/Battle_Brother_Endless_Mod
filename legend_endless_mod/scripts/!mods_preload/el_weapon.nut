@@ -706,7 +706,7 @@ local gt = getroottable();
 		o.EL_getUpgradeLevelEquipmentEssenceNum <- function()
 		{
 			local result = [0, 0, 0, 0, 0];
-			if(this.m.EL_Level < 50)
+			if(this.m.EL_Level < this.Const.EL_Item.MaxLevel)
 			{
 				local min_calculate_weight = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_EquipmentEssence.OneHandedMinCalculateWeight : this.Const.EL_Weapon.EL_EquipmentEssence.TwoHandedMinCalculateWeight;
 				local calculate_weight = this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier));
