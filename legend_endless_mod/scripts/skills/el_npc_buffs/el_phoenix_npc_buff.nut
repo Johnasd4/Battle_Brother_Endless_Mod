@@ -88,6 +88,9 @@ this.el_phoenix_npc_buff <- this.inherit("scripts/skills/el_npc_buffs/el_npc_buf
 
     function onDamageReceived( _attacker, _damageHitpoints, _damageArmor )
     {
+        if(this.m.EL_IsRising) {
+            return;
+        }
         local actor = this.getContainer().getActor();
         if ((this.m.EL_RiseTimesLeft > 0 && _damageHitpoints > actor.getHitpoints()) || actor.getHitpoints() <= 0)
         {

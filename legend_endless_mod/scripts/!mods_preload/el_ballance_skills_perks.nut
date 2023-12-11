@@ -358,7 +358,7 @@ local gt = getroottable();
 				{
 					id = 2,
 					type = "description",
-					text = this.getDescription()
+					text = "对该类敌人有着另类的执着。"
 				},
 				{
 					id = 10,

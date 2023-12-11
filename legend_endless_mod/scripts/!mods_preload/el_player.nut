@@ -1396,7 +1396,8 @@ local gt = getroottable();
 						id = id,
 						type = "hint",
 						text = "世界等级：" + this.World.Assets.m.EL_WorldLevel +
-							   "\n世界难度：" + (this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.has("EL_WorldDifficultyChangeEvent") ? this.World.Flags.get("EL_WorldDifficultyChangeEvent") : this.Const.EL_World.EL_WorldChangeEvent.DefaultOption] * 100) + "%"
+							   "\n世界难度：" + (this.Const.EL_World.EL_WorldChangeEvent.DifficultyMult[this.World.Flags.has("EL_WorldDifficultyChangeEvent") ? this.World.Flags.get("EL_WorldDifficultyChangeEvent") : this.Const.EL_World.EL_WorldChangeEvent.DefaultOption] * 100) + "%" +
+							   "\n竞技场等级：" + this.World.Assets.m.EL_ArenaLevel
 					});
 
 					id = ++id;
