@@ -15,7 +15,7 @@ gt.Const.EL_World <- {
         Min = 0,
         Max = 200,
         FastGrowLevel = 10,
-        BaseStableLevel = 100,
+        BaseStableLevel = 50,
         BaseStableMult = 35,
         LevelUpBaseDay = 10,
         //1.1/1.085

@@ -35,7 +35,7 @@ gt.Const.EL_Shield <- {
 		DamageShieldReduction = 0.08
 	},
 	EL_EquipmentEssence = {
-		LevelFactor = 0.04,
+		LevelFactor = 0.08,
 		RankFactor = 3,
 		UpgradeLevelFactor = 3,
 		UpgradeRankFactor = 3,

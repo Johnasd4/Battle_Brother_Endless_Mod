@@ -1465,7 +1465,7 @@ local gt = getroottable();
 				::Const.ItemSlot.Body,
 				::Const.ItemSlot.Head
 			]);
-            local extra_movement_fatigue_cost = this.Math.floor((armorFat / (1.0 + actor.getLevel() * 0.04)) * 0.05 - 1);
+            local extra_movement_fatigue_cost = this.Math.floor((armorFat / (1.0 + actor.getLevel() * 0.08)) * 0.05 - 1);
 
             local body_armor = 0;
             local head_armor = 0;
@@ -1485,8 +1485,8 @@ local gt = getroottable();
                 head_armor = properties.Armor[this.Const.BodyPart.Head];
             }
 
-            local body_calculate_armor = body_armor / (1.0 + actor.getLevel() * 0.04);
-            local head_calculate_armor = head_armor / (1.0 + actor.getLevel() * 0.04);
+            local body_calculate_armor = body_armor / (1.0 + actor.getLevel() * 0.08);
+            local head_calculate_armor = head_armor / (1.0 + actor.getLevel() * 0.08);
             local body_damage_received_direct_mult = 1 - body_calculate_armor / (200.0 + body_calculate_armor);
             local head_damage_received_direct_mult = 1 - head_calculate_armor / (200.0 + head_calculate_armor);
 
@@ -1538,7 +1538,7 @@ local gt = getroottable();
                     else {
                         body_armor = _properties.Armor[this.Const.BodyPart.Body];
                     }
-                    calculate_armor = body_armor / (1.0 + actor.getLevel() * 0.04);
+                    calculate_armor = body_armor / (1.0 + actor.getLevel() * 0.08);
                 }
                 else
                 {
@@ -1550,7 +1550,7 @@ local gt = getroottable();
                     else {
                         head_armor = _properties.Armor[this.Const.BodyPart.Head];
                     }
-                    calculate_armor = head_armor / (1.0 + actor.getLevel() * 0.04);
+                    calculate_armor = head_armor / (1.0 + actor.getLevel() * 0.08);
                 }
                 local damage_received_direct_mult = 1 - calculate_armor / (200.0 + calculate_armor);
                 _properties.DamageReceivedDirectMult *= damage_received_direct_mult;
@@ -1564,7 +1564,7 @@ local gt = getroottable();
                 ::Const.ItemSlot.Body,
                 ::Const.ItemSlot.Head
             ]);
-            local extra_movement_fatigue_cost = this.Math.floor((armorFat / (1.0 + actor.getLevel() * 0.04)) * 0.05 - 1);
+            local extra_movement_fatigue_cost = this.Math.floor((armorFat / (1.0 + actor.getLevel() * 0.08)) * 0.05 - 1);
             _properties.MovementFatigueCostAdditional += extra_movement_fatigue_cost;
         }
 	});

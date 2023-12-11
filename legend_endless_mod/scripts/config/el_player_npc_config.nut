@@ -15,7 +15,7 @@ gt.Const.EL_PlayerNPC <- {
 
     EL_ShieldDamage = {
         Base = 1,
-        MultPurCombatLevel = 0.04
+        MultPurCombatLevel = 0.08
     }
 
     EL_ExtraFatigueRecovery = {
@@ -30,8 +30,8 @@ gt.Const.EL_PlayerNPC <- {
     ]
 
     EL_CombatLevel = {
-        HitChangeFactor = 1.04,
-        DamageFactor = 1.04
+        HitChangeFactor = 1.08,
+        DamageFactor = 1.08
     }
 
     EL_Morale = {
@@ -49,18 +49,18 @@ gt.Const.EL_PlayerNPC <- {
         Death = {
             BaseOffset = 0,
             RankFactor = 0,
-            CombatLevelFactor = 1.04,
+            CombatLevelFactor = 1.08,
             DistanceFactor = 3
         },
         Move = {
             BaseOffset = 50,
             RankFactor = 0,
-            CombatLevelFactor = 1.04,
+            CombatLevelFactor = 1.08,
         },
         Fleeing = {
             BaseOffset = 25,
             RankFactor = 0,
-            CombatLevelFactor = 1.04,
+            CombatLevelFactor = 1.08,
             DistanceFactor = 3
         },
 

@@ -105,7 +105,7 @@ gt.Const.EL_NPC <- {
     EL_LevelUp = {
         LevelUpsOffset = 15,
         LevelUpAttributes = {
-            HitpointsMult = 0.05,
+            HitpointsMult = 0.08,
             Bravery = 0.5,
             Fatigue = 0.5,
             Initiative = 2,
@@ -115,8 +115,8 @@ gt.Const.EL_NPC <- {
             RangedDefense = 3,
         },
 
-        LevelUpDamageMult = 0.02,
-        LevelUpArmorMult = 0.04,
+        LevelUpDamageMult = 0.08,
+        LevelUpArmorMult = 0.08,
         MaxXPLevel = 100,
         PropertiesLevelUpMultAfterMaxXPLevel = 0.25,
         MaxPropertiesLevel = 200,
@@ -147,7 +147,7 @@ gt.Const.EL_NPC <- {
             DropBaseNum = 10,
             DropPurExtraCombatLevelNegative = 1,
             DropPurExtraCombatLevelPositive = 10,
-            NormalDropLevelMult = 0.04,
+            NormalDropLevelMult = 0.08,
             NormalDropMultPurRank = 3
         },
 
@@ -278,12 +278,12 @@ gt.Const.EL_NPC <- {
         ],
 
         DropIncreaseMultPurWorldLevel = {
-            Money = 0.04,
+            Money = 0.08,
             Food = 0.01,
-            Treasure = 0.04,
+            Treasure = 0.08,
             Ammo = 0.01,
-            ArmorParts = 0.04,
-            Medicine = 0.04
+            ArmorParts = 0.08,
+            Medicine = 0.08
         }
 
         function EL_getTroopInfo(_EL_troop) {
@@ -814,7 +814,7 @@ gt.Const.EL_NPC <- {
                 MoraleCheckTimes = [1, 1, 2],
                 BaseOffset = -50,
                 RankFactor = 0,
-                CombatLevelFactor = 1.04,
+                CombatLevelFactor = 1.08,
                 DistanceFactor = 3
             },
             Endurance = {
@@ -854,7 +854,7 @@ gt.Const.EL_NPC <- {
                 MoraleCheckChance = [20, 40, 100],
                 BaseOffset = 50,
                 RankFactor = 0,
-                CombatLevelFactor = 1.04,
+                CombatLevelFactor = 1.08,
                 DistanceFactor = 3
             },
             LifeDrain = {
@@ -925,7 +925,7 @@ gt.Const.EL_NPC <- {
                 DamageRate = [0.2, 0.4, 1]
             },
             Veteran = {
-                CombatLevelOffset = [2, 4, 10]
+                CombatLevelOffset = [1, 2, 5]
             },
             WeaponMaster = {
                 MeleeSkillOffset = [20, 40, 100],

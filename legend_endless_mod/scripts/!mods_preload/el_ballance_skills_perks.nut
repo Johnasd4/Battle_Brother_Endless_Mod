@@ -262,7 +262,7 @@ local gt = getroottable();
 				::Const.ItemSlot.Body,
 				::Const.ItemSlot.Head
 			]) * -1;
-			armorFatPen /= (1 + actor.EL_getCombatLevel() * 0.04);
+			armorFatPen /= (1 + actor.EL_getCombatLevel() * 0.08);
 			local bonus = this.m.BonusMax - this.Math.abs(armorFatPen - 35) / 2;
 			local currIni = actor.getInitiative();
 
@@ -509,8 +509,8 @@ local gt = getroottable();
 			tooltip.push({
 				id = 6,
 				type = "hint",
-				text = "Armor weight between [color=" + this.Const.UI.Color.PositiveValue + "]" + this.Math.floor(25 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color] ~ [color=" + this.Const.UI.Color.PositiveValue + "]" +
-					   this.Math.floor(35 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color] best fit."
+				text = "Armor weight between [color=" + this.Const.UI.Color.PositiveValue + "]" + this.Math.floor(25 * (1 + 0.08 * actor.EL_getCombatLevel())) + "[/color] ~ [color=" + this.Const.UI.Color.PositiveValue + "]" +
+					   this.Math.floor(35 * (1 + 0.08 * actor.EL_getCombatLevel())) + "[/color] best fit."
 			});
 			return tooltip;
 		}
@@ -518,7 +518,7 @@ local gt = getroottable();
 		o.getHitpointsDamageReduction <- function()
 		{
 			local actor = this.getContainer().getActor();
-			local fat = this.getContainer().getActor().getItems().getStaminaModifier([::Const.ItemSlot.Body, ::Const.ItemSlot.Head]) / (1 + 0.04 * actor.EL_getCombatLevel());
+			local fat = this.getContainer().getActor().getItems().getStaminaModifier([::Const.ItemSlot.Body, ::Const.ItemSlot.Head]) / (1 + 0.08 * actor.EL_getCombatLevel());
 			fat = ::Math.min(0, fat + 35);
 			return ::Math.minf(1.0, 1.0 - 0.3 + this.Math.pow(this.Math.abs(fat), 1.23) * 0.01);
 		}
@@ -526,7 +526,7 @@ local gt = getroottable();
 		o.getArmorDamageReduction <- function()
 		{
 			local actor = this.getContainer().getActor();
-			local fat = this.getContainer().getActor().getItems().getStaminaModifier([::Const.ItemSlot.Body, ::Const.ItemSlot.Head]) / (1 + 0.04 * actor.EL_getCombatLevel());
+			local fat = this.getContainer().getActor().getItems().getStaminaModifier([::Const.ItemSlot.Body, ::Const.ItemSlot.Head]) / (1 + 0.08 * actor.EL_getCombatLevel());
 			fat = ::Math.min(0, fat + 35);
 			return ::Math.minf(1.0, 1.0 - 0.15 + this.Math.pow(this.Math.abs(fat), 1.23) * 0.01);
 		}
@@ -627,7 +627,7 @@ local gt = getroottable();
 				::Const.ItemSlot.Body,
 				::Const.ItemSlot.Head
 			]);
-			armorFatPen /= (1 + 0.04 * actor.EL_getCombatLevel());
+			armorFatPen /= (1 + 0.08 * actor.EL_getCombatLevel());
 			local maxFat = actor.getFatigueMax();
 			local armorFatPenMult = 0;
 
@@ -649,7 +649,7 @@ local gt = getroottable();
 			return this.Math.floor(0.01 * _bonus * actor.getItems().getStaminaModifier([
 				::Const.ItemSlot.Body,
 				::Const.ItemSlot.Head
-			]) * -1 / (1 + 0.04 * actor.EL_getCombatLevel()));
+			]) * -1 / (1 + 0.08 * actor.EL_getCombatLevel()));
 		}
 
 
@@ -758,7 +758,7 @@ local gt = getroottable();
 			tooltip.push({
 				id = 6,
 				type = "hint",
-				text = "Armor weight below [color=" + this.Const.UI.Color.PositiveValue + "]" + this.Math.floor(15 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color] best fit."
+				text = "Armor weight below [color=" + this.Const.UI.Color.PositiveValue + "]" + this.Math.floor(15 * (1 + 0.08 * actor.EL_getCombatLevel())) + "[/color] best fit."
 			});
 			return tooltip;
 		}
@@ -780,7 +780,7 @@ local gt = getroottable();
 				fat = fat + head.getStaminaModifier();
 			}
 
-			fat /= (1 + actor.EL_getCombatLevel() * 0.04);
+			fat /= (1 + actor.EL_getCombatLevel() * 0.08);
 			fat = this.Math.min(0, fat + 15);
 			local ret = this.Math.minf(1.0, 1.0 - 0.6 + this.Math.pow(this.Math.abs(fat), 1.23) * 0.01);
 			return ret;
@@ -803,7 +803,7 @@ local gt = getroottable();
 				fat = fat + head.getStaminaModifier();
 			}
 
-			fat /= (1 + actor.EL_getCombatLevel() * 0.04);
+			fat /= (1 + actor.EL_getCombatLevel() * 0.08);
 			fat = this.Math.min(0, fat + 15);
 			local ret = this.Math.minf(1.0, 1.0 - 0.6 + this.Math.pow(this.Math.abs(fat), 1.23) * 0.01);
 			return ret;
@@ -1431,7 +1431,7 @@ local gt = getroottable();
 			tooltip.push({
 				id = 6,
 				type = "hint",
-				text = "负重临界值是 [color=" + this.Const.UI.Color.PositiveValue + "]" + this.Math.floor(15 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color]."
+				text = "负重临界值是 [color=" + this.Const.UI.Color.PositiveValue + "]" + this.Math.floor(15 * (1 + 0.08 * actor.EL_getCombatLevel())) + "[/color]."
 			});
 			return tooltip;
 		}
@@ -1442,8 +1442,8 @@ local gt = getroottable();
 			{
 				return;
 			}
-			this.m.PivotFat = this.Math.floor(15 * (1 + _properties.EL_CombatLevel * 0.04));
-			this.m.FatReductionMaxBonus = this.Math.floor(15 * (1 + _properties.EL_CombatLevel * 0.04));
+			this.m.PivotFat = this.Math.floor(15 * (1 + _properties.EL_CombatLevel * 0.08));
+			this.m.FatReductionMaxBonus = this.Math.floor(15 * (1 + _properties.EL_CombatLevel * 0.08));
 			local fat = this.getTotalArmorFat();
 
 			_properties.MeleeSkill += this.getMeleeSkillBonus(fat);

@@ -56,13 +56,13 @@ this.el_human_emperors_effect <- this.inherit("scripts/skills/skill", {
 				id = 16,
                 type = "text",
                 icon = "ui/icons/damage_dealt.png",
-                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+"+ stack * 0.02 * 100 + "%[/color] Damage Dealt"
+                text = "[color=" + this.Const.UI.Color.PositiveValue + "]+"+ stack * 0.08 * 100 + "%[/color] Damage Dealt"
 			});
 			tooltip.push({
 				id = 17,
                 type = "text",
                 icon = "ui/icons/damage_received.png",
-                text = "[color=" + this.Const.UI.Color.PositiveValue + "]-" + this.Math.round((1 / (1 + stack * 0.02) - 1) * 10000) * 0.01 + "%[/color] Damage Received"
+                text = "[color=" + this.Const.UI.Color.PositiveValue + "]-" + this.Math.round((1 / (1 + stack * 0.08) - 1) * 10000) * 0.01 + "%[/color] Damage Received"
 			});
 		}
 		return tooltip;
@@ -74,8 +74,8 @@ this.el_human_emperors_effect <- this.inherit("scripts/skills/skill", {
         _properties.MeleeSkill += this.Math.floor(stack * 1);
 		_properties.MeleeDefense += this.Math.floor(stack * 1);
 		_properties.RangedDefense += this.Math.floor(stack * 1);
-		_properties.DamageTotalMult *= 1.0 + stack * 0.02;
-		_properties.DamageReceivedTotalMult /= 1.0 + stack * 0.02;
+		_properties.DamageTotalMult *= 1.0 + stack * 0.08;
+		_properties.DamageReceivedTotalMult /= 1.0 + stack * 0.08;
 	}
 
     function EL_getAllyNum()

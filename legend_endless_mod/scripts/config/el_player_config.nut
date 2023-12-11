@@ -57,18 +57,18 @@ gt.Const.EL_Player <- {
     },
 
     EL_HealInjury = {
-        LevelMult = 0.04,
+        LevelMult = 0.08,
         PermanentMult = 20,
     }
 
     EL_Hiring = {
         EL_TryoutCostMult = 7.0,
         EL_ItemCostMult = 1.0,
-        EL_LevelMult = 0.04,
+        EL_LevelMult = 0.08,
         EL_WorldLevelOffset = 5,
     }
 
-    EL_DailyCostLevelMult = 0.04,
+    EL_DailyCostLevelMult = 0.08,
 
     EL_Champion = {
         XPMult = [
@@ -193,19 +193,16 @@ gt.Const.EL_Player <- {
             Mult = [
                 0,
                 1,
-                2,
                 0
             ],
             Offset = [
                 0,
                 -10,
-                -30,
                 30
             ],
             Range = [
                 10,
-                20,
-                30
+                40
             ],
         },
         Table = []
@@ -219,26 +216,17 @@ gt.Const.EL_Player <- {
         Factor = {
             Mult = [
                 0,
-                0.1,
-                0.2,
-                0.3,
-                0.4,
+                0.5,
                 0
             ],
             Offset = [
                 0,
-                -2,
-                -5,
-                -9,
-                -14,
+                -10,
                 10,
             ],
             Range = [
                 20,
-                30,
-                40,
-                50,
-                60
+                40
             ]
         },
         Table = []
@@ -381,22 +369,22 @@ gt.Const.EL_Player <- {
     EL_Modifiers = {
         ResourceModifiersMult = {
             Ammo = 0.01,
-            ArmorParts = 0.01,
-            Meds = 0.01,
+            ArmorParts = 0.04,
+            Meds = 0.04,
             Stash = 0.01,
-            Healing = 0.04,
-            Injury = 0.04,
-            Repair = 0.04,
-            Salvage = 0.04,
-            Crafting = 0.04,
-            Barter = 0.04,
-            ToolConsumption = 0.04,
-            MedConsumption = 0.04,
-            Hunting = 0.04,
-            Fletching = 0.04,
-            Scout = 0.04,
-            Gathering = 0.04,
-            Training = 0.04
+            Healing = 0.08,
+            Injury = 0.08,
+            Repair = 0.08,
+            Salvage = 0.08,
+            Crafting = 0.08,
+            Barter = 0.08,
+            ToolConsumption = 0.08,
+            MedConsumption = 0.08,
+            Hunting = 0.08,
+            Fletching = 0.08,
+            Scout = 0.08,
+            Gathering = 0.08,
+            Training = 0.08
         },
 
         function EL_setModifiersLevel(_EL_level, _EL_background) {

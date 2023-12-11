@@ -185,7 +185,7 @@ local gt = getroottable();
 		{
 			local myTile = this.getSettlement().getTile();
 			local dist = _to.getTile().getDistanceTo(myTile);
-			local cost = dist * this.World.getPlayerRoster().getSize() * (1 + 0.04 * this.World.Assets.m.EL_WorldLevel);
+			local cost = dist * this.World.getPlayerRoster().getSize() * (1 + 0.08 * this.World.Assets.m.EL_WorldLevel);
 			cost = this.Math.round(cost);
 			return cost;
 		}

@@ -66,7 +66,7 @@ gt.Const.EL_LichKing <- {
                 ],
                 BaseOffset = 50,
                 RankFactor = 0,
-                CombatLevelFactor = 1.04,
+                CombatLevelFactor = 1.08,
             },
             AoeRange = 1
         },

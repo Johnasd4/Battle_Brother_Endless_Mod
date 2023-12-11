@@ -30,7 +30,7 @@ gt.Const.EL_Helmet <- {
 		DamageHeadArmorReduction = 0.08
 	},
 	EL_EquipmentEssence = {
-		LevelFactor = 0.04,
+		LevelFactor = 0.08,
 		RankFactor = 3,
 		UpgradeLevelFactor = 1,
 		UpgradeRankFactor = 1,

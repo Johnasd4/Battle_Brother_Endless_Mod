@@ -2159,7 +2159,7 @@ local gt = getroottable();
 				}
 			}
 
-			local EL_combat_level_extra_chance = (user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()) * this.Math.pow(1.04, this.Math.abs(user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()));
+			local EL_combat_level_extra_chance = (user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()) * this.Math.pow(1.08, this.Math.abs(user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()));
 
 			toHit += EL_combat_level_extra_chance;
 			//this.logInfo("getHitchance combat level extra hit chance" + EL_combat_level_extra_chance);

@@ -23,7 +23,7 @@ local gt = getroottable();
                 text = "You have [color=" + this.Const.UI.Color.PositiveValue + "]" + this.Math.floor(this.World.Assets.getArmorParts()) + "[/color] tools."
             });
             local combat_level = this.getContainer().getActor().EL_getCombatLevel();
-            local max_repairs = this.Math.floor(this.World.Assets.getArmorParts() * 5 * (1 + combat_level * 0.04));
+            local max_repairs = this.Math.floor(this.World.Assets.getArmorParts() * 5 * (1 + combat_level * 0.08));
             ret.push({
                 id = 8,
                 type = "text",
@@ -45,7 +45,7 @@ local gt = getroottable();
             local maxBodyArmor = body == null ? 0 : body.getArmorMax();
             local combat_level = this.getContainer().getActor().EL_getCombatLevel();
             local cost = 0;
-            local max_cost = this.Math.min(this.Math.floor(this.m.MaxTools * (1 + combat_level * 0.04)), this.Math.floor(this.World.Assets.getArmorParts()));
+            local max_cost = this.Math.min(this.Math.floor(this.m.MaxTools * (1 + combat_level * 0.08)), this.Math.floor(this.World.Assets.getArmorParts()));
 
             for( ; cost < max_cost; ++cost )
             {
@@ -127,13 +127,13 @@ local gt = getroottable();
         o.getCostString = function()
         {
             local actor = this.getContainer().getActor();
-            return "[i]Costs " + (this.isAffordableBasedOnAPPreview() ? "[b][color=" + this.Const.UI.Color.PositiveValue + "]" + this.getActionPointCost() : "[b][color=" + this.Const.UI.Color.NegativeValue + "]" + this.getActionPointCost()) + " AP[/color][/b] and [b][color=" + this.Const.UI.Color.NegativeValue + "]" + this.Math.floor(this.m.HPCost * (1 + actor.getLevel() * 0.04)) + " HP[/color][/b] to use and builds up " + (this.isAffordableBasedOnFatiguePreview() ? "[b][color=" + this.Const.UI.Color.PositiveValue + "]" + this.getFatigueCost() : "[b][color=" + this.Const.UI.Color.NegativeValue + "]" + this.getFatigueCost()) + " Fatigue[/color][/b][/i]\n";
+            return "[i]Costs " + (this.isAffordableBasedOnAPPreview() ? "[b][color=" + this.Const.UI.Color.PositiveValue + "]" + this.getActionPointCost() : "[b][color=" + this.Const.UI.Color.NegativeValue + "]" + this.getActionPointCost()) + " AP[/color][/b] and [b][color=" + this.Const.UI.Color.NegativeValue + "]" + this.Math.floor(this.m.HPCost * (1 + actor.getLevel() * 0.08)) + " HP[/color][/b] to use and builds up " + (this.isAffordableBasedOnFatiguePreview() ? "[b][color=" + this.Const.UI.Color.PositiveValue + "]" + this.getFatigueCost() : "[b][color=" + this.Const.UI.Color.NegativeValue + "]" + this.getFatigueCost()) + " Fatigue[/color][/b][/i]\n";
         }
 
         o.isUsable <- function()
         {
             local actor = this.getContainer().getActor();
-            return this.skill.isUsable() && actor.getHitpointsMax() > this.Math.floor(this.m.HPCost * (1 + actor.getLevel() * 0.04));
+            return this.skill.isUsable() && actor.getHitpointsMax() > this.Math.floor(this.m.HPCost * (1 + actor.getLevel() * 0.08));
         }
 
         o.onUse = function( _user, _targetTile )
@@ -184,7 +184,7 @@ local gt = getroottable();
                 ballance_skill = this.new("scripts/skills/el_effects/el_summon_ballance_effect");
                 _user.getSkills().add(ballance_skill);
             }
-            ballance_skill.EL_addHitpointsOffset(this.Math.floor(this.m.HPCost * (1 + _user.getLevel() * 0.04)));
+            ballance_skill.EL_addHitpointsOffset(this.Math.floor(this.m.HPCost * (1 + _user.getLevel() * 0.08)));
             return true;
         }
 
