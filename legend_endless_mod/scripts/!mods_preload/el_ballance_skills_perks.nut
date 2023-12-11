@@ -509,8 +509,8 @@ local gt = getroottable();
 			tooltip.push({
 				id = 6,
 				type = "hint",
-				text = "Armor weight between [color=" + this.Const.UI.Color.PositiveValue + "]" + this.Math.floor(25 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color] ~ [color=" + this.Const.UI.Color.PositiveValue + "]" +
-					   this.Math.floor(35 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color] best fit."
+				text = "装备重量在[color=" + this.Const.UI.Color.PositiveValue + "]" + this.Math.floor(25 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color] ~ [color=" + this.Const.UI.Color.PositiveValue + "]" +
+					   this.Math.floor(35 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color]最合适。"
 			});
 			return tooltip;
 		}
@@ -758,7 +758,7 @@ local gt = getroottable();
 			tooltip.push({
 				id = 6,
 				type = "hint",
-				text = "Armor weight below [color=" + this.Const.UI.Color.PositiveValue + "]" + this.Math.floor(15 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color] best fit."
+				text = "装备重量低于[color=" + this.Const.UI.Color.PositiveValue + "]" + this.Math.floor(15 * (1 + 0.04 * actor.EL_getCombatLevel())) + "[/color]最合适。"
 			});
 			return tooltip;
 		}
