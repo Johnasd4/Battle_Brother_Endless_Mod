@@ -1027,7 +1027,14 @@ local gt = getroottable();
 					}
 					foreach(entry in upgrade.m.EL_EntryList)
 					{
-						entry.EL_onItemUpdate(this);
+						if(entry.getID() == this.Const.EL_Helmet.EL_Entry.Factor.EL_DamageHeadArmorReduction.ID || entry.getID() == this.Const.EL_Helmet.EL_Entry.Factor.EL_DamageHeadRegularReduction.ID)
+						{
+							entry.EL_onItemUpdate(upgrade);
+						}
+						else
+						{
+							entry.EL_onItemUpdate(this);
+						}
 					}
 				}
 			}
@@ -1043,6 +1050,19 @@ local gt = getroottable();
 				}
 			}
 			this.m.Condition = this.m.Condition > this.m.ConditionMax ? this.m.ConditionMax : this.m.Condition;
+		}
+
+		o.getVision <- function()
+		{
+			local result = this.m.Vision;
+			foreach(upgrade in this.m.Upgrades)
+			{
+				if(upgrade != null)
+				{
+					result += upgrade.getVision();
+				}
+			}
+			return result;
 		}
 
 		o.getCondition <- function()

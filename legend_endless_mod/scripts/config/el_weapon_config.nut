@@ -490,7 +490,7 @@ gt.Const.EL_Weapon <- {
 		Factor = {
 			EL_ActionPoint = {
 				ID = "el_weapon_entry.action_point",
-				ActionPoint = 1
+				ActionPoint = 2
 			},
 			EL_AdditionalAccuracy = {
 				ID = "el_weapon_entry.additional_accuracy",

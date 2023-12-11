@@ -72,13 +72,14 @@ this.el_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario
 		this.World.Assets.getStash().add(this.new("scripts/items/el_armor/el_arena_champion_armor"));
 		this.World.Assets.getStash().add(this.new("scripts/items/el_helmet/el_arena_champion_helmet"));
 		this.World.Assets.getStash().add(this.new("scripts/items/shields/legendary/gilders_embrace_shield"));
+		this.World.Assets.getStash().add(this.new("scripts/items/el_weapon/el_arena_champion_axe"));
 		this.World.Assets.getStash().add(this.new("scripts/items/el_weapon/el_goblin_tuchun_crossbow"));
 		this.World.Assets.getStash().add(this.new("scripts/items/el_weapon/el_human_emperors_sword"));
 		this.World.Assets.getStash().add(this.new("scripts/items/el_weapon/el_orc_berserker_axe"));
 		
 		local npc_buffs = [];
-		local skill = this.new("scripts/skills/el_npc_buffs/el_charge_npc_buff");
-		skill.EL_setRankLevel(1);
+		local skill = this.new("scripts/skills/el_npc_buffs/el_lightning_speed_npc_buff");
+		skill.EL_setRankLevel(2);
 		npc_buffs.push(skill);
 		local magic_stone = this.new("scripts/items/el_misc/el_npc_buff_stone_item");
         magic_stone.EL_generateByNPCBuffs(npc_buffs);

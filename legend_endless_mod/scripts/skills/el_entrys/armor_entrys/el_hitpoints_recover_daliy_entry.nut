@@ -16,7 +16,7 @@ this.el_hitpoints_recover_daliy_entry <- this.inherit("scripts/skills/el_entrys/
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]恢复 " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_HitpointsRecoverDaliy * 100) * 0.01 + "% (" + this.m.EL_HitpointsRecoverDaliy + ")% 生命值每日[/color]"
+				text = "[color=" + colour + "]恢复 " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_HitpointsRecoverDaliy * 100) * 0.01 + "% (" + this.m.EL_HitpointsRecoverDaliy + "%) 生命值每日[/color]"
 			};
 		}
 		else

@@ -24,15 +24,15 @@ this.el_lich_king_scenario_easy <- this.inherit("scripts/scenarios/world/startin
 		bro.getBackground().buildDescription();
 		bro.setTitle("巫妖王");
 		bro.setName("伯瓦尔 弗塔根");
-		bro.m.BaseProperties.ActionPoints = 12;
-		bro.m.BaseProperties.Hitpoints = 95;
-		bro.m.BaseProperties.Bravery = 60;
+		bro.m.BaseProperties.ActionPoints = 9;
+		bro.m.BaseProperties.Hitpoints = 76;
+		bro.m.BaseProperties.Bravery = 50;
 		bro.m.BaseProperties.Stamina = 200;
 		bro.m.BaseProperties.Initiative = 180;
-		bro.m.BaseProperties.MeleeSkill = 80;
-		bro.m.BaseProperties.RangedSkill = 80;
-		bro.m.BaseProperties.MeleeDefense = 20;
-		bro.m.BaseProperties.RangedDefense = 20;
+		bro.m.BaseProperties.MeleeSkill = 70;
+		bro.m.BaseProperties.RangedSkill = 70;
+		bro.m.BaseProperties.MeleeDefense = 10;
+		bro.m.BaseProperties.RangedDefense = 10;
 		local talents = bro.getTalents();
 		for (local i = 0; i < talents.len(); i++)
 		{
@@ -46,16 +46,16 @@ this.el_lich_king_scenario_easy <- this.inherit("scripts/scenarios/world/startin
 		bro.getSkills().add(this.new("scripts/skills/traits/fearless_trait"));
 		bro.getSkills().add(this.new("scripts/skills/el_traits/el_lichking_trait"));
 		local accessory = this.new("scripts/items/el_accessory/el_taelia_present_item");
-		accessory.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Fine, 0);
+		accessory.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Premium, 0);
 		bro.getItems().equip(accessory);
 		local main_hand = this.new("scripts/items/el_weapon/el_frostmourne");
-		main_hand.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Fine, 0);
+		main_hand.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Premium, 0);
 		bro.getItems().equip(main_hand);
 		local body = this.new("scripts/items/el_armor/el_ice_armor");
-		body.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Fine, 0);
+		body.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Premium, 0);
 		bro.getItems().equip(body);
 		local head = this.new("scripts/items/el_helmet/el_crown_of_rule");
-		head.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Fine, 0);
+		head.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Premium, 0);
 		bro.getItems().equip(head);
 		this.World.Assets.m.BusinessReputation = 0;
 		this.World.Assets.m.Money = 2000;

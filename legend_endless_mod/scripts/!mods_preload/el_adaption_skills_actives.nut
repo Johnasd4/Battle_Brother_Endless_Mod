@@ -889,7 +889,7 @@ local gt = getroottable();
         {
             if (_skill == this)
             {
-                _properties.RangedSkill += this.m.Item.getAdditionalAccuracy();
+                _properties.RangedSkill += this.m.AdditionalAccuracy;
                 _properties.HitChanceAdditionalWithEachTile += this.m.AdditionalHitChance;
                 _properties.DamageTotalMult *= 0.5;
                 _properties.DamageTooltipMaxMult *= 3.0;
@@ -987,6 +987,10 @@ local gt = getroottable();
 	})
 
     ::mods_hookExactClass("skills/actives/shoot_stake", function(o){
+        o.getDescription <- function()
+        {
+            return "A quick pull of the trigger to loose a heavy bolt. Must be reloaded after each shot to be able to fire again. Knocks targets back. Deals +" + this.Math.floor(100 * (1 + this.m.Item.EL_getCurrentLevel() * this.Const.EL_Weapon.EL_LevelFactor.RegularDamage)) + " damage to vampires";
+        }
 
         o.onAnySkillUsed = function( _skill, _targetEntity, _properties )
         {
@@ -1005,8 +1009,9 @@ local gt = getroottable();
 
             if (_targetEntity.getType() == this.Const.EntityType.Vampire || _targetEntity.getType() == this.Const.EntityType.LegendVampireLord)
             {
-                _properties.DamageRegularMin += 100;
-                _properties.DamageRegularMax += 105;
+                local damage_bonus = this.Math.floor(100 * (1 + this.m.Item.EL_getCurrentLevel() * this.Const.EL_Weapon.EL_LevelFactor.RegularDamage));
+                _properties.DamageRegularMin += damage_bonus;
+                _properties.DamageRegularMax += damage_bonus + 5;
             }
 
             if (_properties.IsSharpshooter)

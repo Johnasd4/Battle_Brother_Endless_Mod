@@ -306,7 +306,7 @@ gt.Const.EL_Accessory <- {
 		Factor = {
             EL_ActionPoint = {
 				ID = "el_accessory_entry.action_point",
-				ActionPoint = 1
+				ActionPoint = 2
 			},
             EL_Bravery = {
 				ID = "el_accessory_entry.bravery",

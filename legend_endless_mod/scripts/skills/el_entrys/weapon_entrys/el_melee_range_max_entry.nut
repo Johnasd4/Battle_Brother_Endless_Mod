@@ -15,21 +15,25 @@ this.el_melee_range_max_entry <- this.inherit("scripts/skills/el_entrys/el_entry
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]武器技能射程 + " + this.m.EL_RangeMax + "[/color]"
+			text = "[color=" + colour + "]武器技能攻击范围 + " + this.m.EL_RangeMax + "[/color]"
 		};
 		return result;
 	}
-
+	
 	function EL_getEntryColour()
 	{
+		if(this.m.EL_RangeMax > this.Const.EL_Weapon.EL_Entry.Factor.EL_MeleeRangeMax.RangeMax)
+		{
+			return this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Rare];
+		}
 		return this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special];
 	}
 
-	function onUpdate( _properties )
+	function EL_strengthen()
 	{
-		_properties.Vision += this.m.EL_RangeMax;
+		this.m.EL_RangeMax = this.Const.EL_Weapon.EL_Entry.EntryStrengthenMult * this.Const.EL_Weapon.EL_Entry.Factor.EL_MeleeRangeMax.RangeMax;
 	}
-
+	
 	function onAfterUpdate( _properties )
 	{
         local skills = this.getContainer().getActor().getSkills().m.Skills;

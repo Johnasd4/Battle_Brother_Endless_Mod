@@ -35,7 +35,7 @@ this.el_damage_head_reduction_entry <- this.inherit("scripts/skills/el_entrys/el
 	{
         for (local index = 0; index <= this.Const.EL_Item.Type.Legendary; ++index)
         {
-            if (this.m.EL_DamageHeadArmorReduction <= this.Const.EL_Helmet.EL_Entry.Factor.EL_DamageHeadArmorReduction.ColourRange[index])
+            if (this.m.EL_DamageHeadArmorReduction * 0.1 <= this.Const.EL_Helmet.EL_Entry.Factor.EL_DamageHeadArmorReduction.ColourRange[index])
             {
                 return this.Const.EL_Item.Colour[index];
             }
@@ -65,7 +65,7 @@ this.el_damage_head_reduction_entry <- this.inherit("scripts/skills/el_entrys/el
 
 	function EL_onItemUpdate( _item )
 	{
-		this.m.EL_Bonus = this.m.EL_DamageHeadArmorReduction * 0.01 * this.Math.abs(_item.m.EL_BaseNoRankStaminaModifier) * (1.0 + _item.m.EL_CurrentLevel * this.Const.EL_Helmet.EL_LevelFactor.DamageHeadArmorReduction);
+		this.m.EL_Bonus = this.m.EL_DamageHeadArmorReduction * 0.2 * (1.0 + _item.m.EL_CurrentLevel * this.Const.EL_Helmet.EL_LevelFactor.DamageHeadArmorReduction);
         _item.m.EL_DamageHeadArmorReduction += this.Math.ceil(this.m.EL_CurrentLevel * this.m.EL_Bonus);
 	}
 

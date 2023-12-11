@@ -19,10 +19,19 @@ this.el_action_point_entry <- this.inherit("scripts/skills/el_entrys/el_entry", 
 		};
 		return result;
 	}
-
+	
 	function EL_getEntryColour()
 	{
+		if(this.m.EL_ActionPoint > this.Const.EL_Weapon.EL_Entry.Factor.EL_ActionPoint.ActionPoint)
+		{
+			return this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Rare];
+		}
 		return this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special];
+	}
+
+	function EL_strengthen()
+	{
+		this.m.EL_ActionPoint = this.Const.EL_Weapon.EL_Entry.EntryStrengthenMult * this.Const.EL_Weapon.EL_Entry.Factor.EL_ActionPoint.ActionPoint;
 	}
 
 	function onUpdate( _properties )

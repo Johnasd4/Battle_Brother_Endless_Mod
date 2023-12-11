@@ -213,16 +213,16 @@ gt.Const.EL_Armor <- {
 				{
 					Scripts = "scripts/skills/el_entrys/armor_entrys/el_damage_body_reduction_entry",
 					function EL_ifEligible(_item) {
-						if(_item.m.EL_BaseNoRankStaminaModifier == 1) { return false; }
-						if(_item.EL_hasEntry(this.Const.EL_Armor.EL_Entry.Factor.EL_DamageBodyArmorReduction.ID)) { return false; }
+						//if(_item.m.EL_BaseNoRankStaminaModifier <= 1) { return false; }
+						//if(_item.EL_hasEntry(this.Const.EL_Armor.EL_Entry.Factor.EL_DamageBodyArmorReduction.ID)) { return false; }
 						return true;
 					}
 				},
 				{
 					Scripts = "scripts/skills/el_entrys/armor_entrys/el_damage_regular_reduction_entry",
 					function EL_ifEligible(_item) {
-						if(_item.m.EL_BaseNoRankStaminaModifier == 1) { return false; }
-						if(_item.EL_hasEntry(this.Const.EL_Armor.EL_Entry.Factor.EL_DamageBodyRegularReduction.ID)) { return false; }
+						//if(_item.m.EL_BaseNoRankStaminaModifier <= 1) { return false; }
+						//if(_item.EL_hasEntry(this.Const.EL_Armor.EL_Entry.Factor.EL_DamageBodyRegularReduction.ID)) { return false; }
 						return true;
 					}
 				},
@@ -420,11 +420,11 @@ gt.Const.EL_Armor <- {
 					25
 				],
 				ColourRange = [
-					30,
-					35,
-					40,
-					45,
-					50
+					3,
+					3.5,
+					4,
+					4.5,
+					5
 				]
 			}
 			EL_DamageBodyRegularReduction = {
@@ -445,11 +445,11 @@ gt.Const.EL_Armor <- {
 					25
 				],
 				ColourRange = [
-					30,
-					35,
-					40,
-					45,
-					50
+					3,
+					3.5,
+					4,
+					4.5,
+					5
 				]
 			},
 			EL_FatigueRecover = {

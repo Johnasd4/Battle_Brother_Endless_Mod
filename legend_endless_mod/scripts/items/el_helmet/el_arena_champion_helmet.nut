@@ -34,13 +34,19 @@ this.el_arena_champion_helmet <- this.inherit("scripts/items/helmets/helmet", {
 	function getTooltip()
 	{
 		local result = this.helmet.getTooltip();
-
-		result.push({
-			id = 10,
-			type = "text",
-			icon = "ui/icons/special.png",
-			text = "护甲存在时免疫头部穿甲伤害。"
-		});
+		for(local i = 0; i < result.len(); ++i)
+		{
+			if(result[i].type == "text" && result[i].text == "——————————————")
+			{
+				result.insert(i, {
+					id = 10,
+					type = "text",
+					icon = "ui/icons/special.png",
+					text = "护甲存在时免疫头部穿甲伤害。"
+				});
+				return result;
+			}
+		}
 		return result;
 	}
 
