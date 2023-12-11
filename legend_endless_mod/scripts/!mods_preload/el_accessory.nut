@@ -370,7 +370,7 @@ local gt = getroottable();
 			o.EL_getUpgradeLevelEquipmentEssenceNum <- function()
 			{
 				local result = [0, 0, 0, 0, 0];
-				if(this.m.EL_Level < 100)
+				if(this.m.EL_Level < 50)
 				{
 					local min_calculate_weight = this.Const.EL_Accessory.EL_EquipmentEssence.MinCalculateWeight;
 					result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Accessory.EL_EquipmentEssence.RankFactor, this.Math.min(this.m.EL_RankLevel, this.Const.EL_Item.Type.Epic)) * this.Const.EL_Accessory.EL_EquipmentEssence.UpgradeLevelFactor 
