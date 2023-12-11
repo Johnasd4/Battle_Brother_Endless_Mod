@@ -36,12 +36,12 @@ gt.Const.EL_Weapon <- {
 		AdditionalExplosionRange = 1
 	},
 	EL_LevelFactor = {
-		Condition = 0.04,
-		Value = 0.04,
-		RegularDamage = 0.04,
-		RegularDamageMax = 0.04,
+		Condition = 0.08,
+		Value = 0.08,
+		RegularDamage = 0.08,
+		RegularDamageMax = 0.08,
 		StaminaModifier = 0.04,
-		ShieldDamage = 0.04,
+		ShieldDamage = 0.08,
 	},
 	EL_EquipmentEssence = {
 		LevelFactor = 0.04,

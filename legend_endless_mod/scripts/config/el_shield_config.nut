@@ -27,12 +27,12 @@ gt.Const.EL_Shield <- {
 		DamageShieldReduction = 8
 	},
 	EL_LevelFactor = {
-		Condition = 0.04,
-		Value = 0.04,
+		Condition = 0.08,
+		Value = 0.08,
 		MeleeDefense = 0.01,
 		RangedDefense = 0.01,
 		StaminaModifier = 0.04,
-		DamageShieldReduction = 0.04
+		DamageShieldReduction = 0.08
 	},
 	EL_EquipmentEssence = {
 		LevelFactor = 0.04,

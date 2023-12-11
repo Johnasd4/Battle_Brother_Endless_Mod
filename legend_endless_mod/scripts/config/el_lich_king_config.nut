@@ -17,7 +17,7 @@ gt.Const.EL_LichKing <- {
             4,
             25
         ],
-        LevelFactor = 0.04,
+        LevelFactor = 0.08,
         BaseNum = 1
     },
     SoulEnergyState = {
@@ -205,7 +205,7 @@ gt.Const.EL_LichKing <- {
 			SkillFatigueCost = 20,
             BaseSkillDamage = 100,
             SkillDamageRankFactor = 100,
-            SkillDamageLevelFactor = 0.04,
+            SkillDamageLevelFactor = 0.08,
             TreatmentMult = 2,
             SoulEnergyCost = [
                 1,
