@@ -494,6 +494,35 @@ local gt = getroottable();
 
 	});
 
+    ::mods_hookExactClass("skills/actives/serpent_bite_skill", function(o){
+        o.onUse = function ( _user, _targetTile )
+        {
+            local tag = {
+                Skill = this,
+                User = _user,
+                TargetTile = _targetTile
+            };
+
+            if ((!_user.isHiddenToPlayer() || _targetTile.IsVisibleForPlayer) && this.Tactical.TurnSequenceBar.getActiveEntity().getID() == this.getContainer().getActor().getID())
+            {
+                this.getContainer().setBusy(true);
+                local d = _user.getTile().getDirectionTo(_targetTile) + 3;
+                d = d > 5 ? d - 6 : d;
+
+                if (_user.getTile().hasNextTile(d))
+                {
+                    this.Tactical.getShaker().shake(_user, _user.getTile().getNextTile(d), 6);
+                }
+
+                return this.attackEntity(_user, _targetTile.getEntity());
+            }
+            else
+            {
+                return this.attackEntity(_user, _targetTile.getEntity());
+            }
+        }
+    });
+
     ::mods_hookExactClass("skills/actives/sweep_skill", function(o){
         o.onUse = function ( _user, _targetTile )
         {
