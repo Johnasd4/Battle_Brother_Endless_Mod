@@ -34,11 +34,11 @@ gt.Const.EL_Player <- {
 
     EL_PlayerStatesBoard = {
         BraveryMax = 200,
-        InitiativeMax = 720,
-        MeleeSkillMax = 500,
-        RangeSkillMax = 500,
-        MeleeDefenseMax = 500,
-        RangeDefenseMax = 500,
+        InitiativeMax = 500,
+        MeleeSkillMax = 300,
+        RangeSkillMax = 300,
+        MeleeDefenseMax = 300,
+        RangeDefenseMax = 300,
         RegularDamageMax = 500,
         CrushingDamageMax = 300,
         ChanceToHitHeadMax = 100,
@@ -46,14 +46,14 @@ gt.Const.EL_Player <- {
     }
 
     EL_PlayerAddAttributesBoard = {
-        HitpointsMax = 600,
+        HitpointsMax = 400,
         BraveryMax = 200,
-        FatigueMax = 600,
-        InitiativeMax = 720,
-        MeleeSkillMax = 500,
-        RangeSkillMax = 500,
-        MeleeDefenseMax = 500,
-        RangeDefenseMax = 500
+        FatigueMax = 400,
+        InitiativeMax = 500,
+        MeleeSkillMax = 300,
+        RangeSkillMax = 300,
+        MeleeDefenseMax = 300,
+        RangeDefenseMax = 300
     },
 
     EL_HealInjury = {
