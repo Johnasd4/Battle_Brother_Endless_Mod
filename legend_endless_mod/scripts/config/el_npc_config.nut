@@ -32,7 +32,7 @@ gt.Const.EL_NPC <- {
     }
 
     EL_Champion = {
-        MaxGrowthLevel = 100,
+        MaxGrowthLevel = 50,
 
         XP = {
             Offset = [
@@ -76,13 +76,13 @@ gt.Const.EL_NPC <- {
             RangedDefense = [0, 20, 50],
         },
         AttributesGrowthPurLevel = {
-            Bravery = [0, 0.2, 0.5],
-            Fatigue = [0, 0.3, 0.75],
-            Initiative = [0, 0.2, 0.5],
-            MeleeSkill = [0, 0.2, 0.5],
-            RangedSkill = [0, 0.2, 0.5],
-            MeleeDefense = [0, 0.2, 0.5],
-            RangedDefense = [0, 0.2, 0.5],
+            Bravery = [0, 0.4, 1],
+            Fatigue = [0, 0.6, 1.5],
+            Initiative = [0, 0.4, 1],
+            MeleeSkill = [0, 0.4, 1],
+            RangedSkill = [0, 0.4, 1],
+            MeleeDefense = [0, 0.4, 1],
+            RangedDefense = [0, 0.4, 1],
         },
 
         Name = [
@@ -117,9 +117,9 @@ gt.Const.EL_NPC <- {
 
         LevelUpDamageMult = 0.08,
         LevelUpArmorMult = 0.08,
-        MaxXPLevel = 100,
-        PropertiesLevelUpMultAfterMaxXPLevel = 0.25,
-        MaxPropertiesLevel = 200,
+        MaxXPLevel = 50,
+        PropertiesLevelUpMultAfterMaxXPLevel = 0.5,
+        MaxPropertiesLevel = 100,
         XPFactor = 1.085
     },
 
@@ -128,11 +128,11 @@ gt.Const.EL_NPC <- {
         WeakUnitPopulationMult = 3,
         Rank2LeastStrength = 20,
         MinLevel = 0,
-        MaxLevel = 200,
+        MaxLevel = 100,
         BaseMaxTroopNum = 20,
         MaxTroopNumAddPurWorldLevel = 1,
         MaxTroopNum = 50,
-        MaxCalculateLevel = 100,
+        MaxCalculateLevel = 50,
         MinLevelOffset = -5,
         MaxLevelOffset = 0,
         BossTroopMinLeaders = 5,
@@ -1081,8 +1081,8 @@ gt.Const.EL_NPC <- {
             Noble = 6.0,
         }
         PaymentDifficultyPowFactor = 0.2,
-        PaymentMultPurWorldLevel = 0.04,
-        PaymentMultMaxWorldLevel = 200
+        PaymentMultPurWorldLevel = 0.08,
+        PaymentMultMaxWorldLevel = 100
     }
 };
 

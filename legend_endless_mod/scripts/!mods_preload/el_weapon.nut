@@ -114,7 +114,7 @@ local gt = getroottable();
 			}
 			for(local i = 0; i < result.len(); ++i)
 			{
-				if(result[i].id == 4 && result[i].icon == "ui/icons/regular_damage.png") 
+				if(result[i].id == 4 && result[i].icon == "ui/icons/regular_damage.png")
 				{
 					result[i] = {
 						id = 5,
@@ -518,7 +518,7 @@ local gt = getroottable();
 		{
 			return this.Const.EL_Item.MaxRankLevel.Normal;
 		}
-		
+
 		//Initialize equipment based on level and rank after generating items
         o.EL_generateByRankAndLevel <- function( _EL_rankLevel, EL_level, EL_additionalRarityChance = 0 )
         {
@@ -706,12 +706,12 @@ local gt = getroottable();
 		o.EL_getUpgradeLevelEquipmentEssenceNum <- function()
 		{
 			local result = [0, 0, 0, 0, 0];
-			if(this.m.EL_Level < 100)
+			if(this.m.EL_Level < 50)
 			{
 				local min_calculate_weight = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_EquipmentEssence.OneHandedMinCalculateWeight : this.Const.EL_Weapon.EL_EquipmentEssence.TwoHandedMinCalculateWeight;
 				local calculate_weight = this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier));
 				calculate_weight = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10.0, 2) * 10 : this.Math.pow(calculate_weight / 10.0, 0.5) * 10;
-				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Weapon.EL_EquipmentEssence.RankFactor, this.Math.min(this.m.EL_RankLevel, this.Const.EL_Item.Type.Epic)) * this.Const.EL_Weapon.EL_EquipmentEssence.UpgradeLevelFactor 
+				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Weapon.EL_EquipmentEssence.RankFactor, this.Math.min(this.m.EL_RankLevel, this.Const.EL_Item.Type.Epic)) * this.Const.EL_Weapon.EL_EquipmentEssence.UpgradeLevelFactor
 														* this.Math.abs(calculate_weight * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
 			}
 			return result;
@@ -733,9 +733,9 @@ local gt = getroottable();
 				else
 				{
 					result[rank_level] += this.Math.ceil(this.Const.EL_Weapon.EL_EquipmentEssence.UpgradeRankFactor * this.Math.abs(calculate_weight));
-					result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Weapon.EL_EquipmentEssence.RankFactor, this.Math.min(this.m.EL_RankLevel, this.Const.EL_Item.Type.Epic)) * this.Const.EL_Weapon.EL_EquipmentEssence.UpgradeLevelFactor 
+					result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Weapon.EL_EquipmentEssence.RankFactor, this.Math.min(this.m.EL_RankLevel, this.Const.EL_Item.Type.Epic)) * this.Const.EL_Weapon.EL_EquipmentEssence.UpgradeLevelFactor
 															* this.Math.abs(calculate_weight * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.m.EL_Level)) * this.Const.EL_Weapon.EL_EquipmentEssence.UpgradeRankNormalEssenceFactor);
-				
+
 				}
 			}
 			else if(this.m.EL_StrengthenEntryNum < this.m.EL_EntryList.len())
@@ -773,9 +773,9 @@ local gt = getroottable();
 				local min_calculate_weight = (this.isItemType(this.Const.Items.ItemType.OneHanded)) ? this.Const.EL_Weapon.EL_EquipmentEssence.OneHandedMinCalculateWeight : this.Const.EL_Weapon.EL_EquipmentEssence.TwoHandedMinCalculateWeight;
 				local calculate_weight = this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier));
 				calculate_weight = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10.0, 2) * 10 : this.Math.pow(calculate_weight / 10.0, 0.5) * 10;
-				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Weapon.EL_EquipmentEssence.RankFactor, rank_level) * this.Const.EL_Weapon.EL_EquipmentEssence.RecraftFactor 
+				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Weapon.EL_EquipmentEssence.RankFactor, rank_level) * this.Const.EL_Weapon.EL_EquipmentEssence.RecraftFactor
 														* this.Math.abs(calculate_weight * (1 + this.Const.EL_Weapon.EL_LevelFactor.StaminaModifier * this.World.Assets.m.EL_WorldLevel)));
-				result[rank_level] += this.Math.ceil(this.Const.EL_Weapon.EL_EquipmentEssence.SeniorEquipmentEssenceMult * this.Const.EL_Weapon.EL_EquipmentEssence.RecraftFactor 
+				result[rank_level] += this.Math.ceil(this.Const.EL_Weapon.EL_EquipmentEssence.SeniorEquipmentEssenceMult * this.Const.EL_Weapon.EL_EquipmentEssence.RecraftFactor
 											 * this.Math.abs(calculate_weight));
 			}
 			return result;
@@ -998,7 +998,7 @@ local gt = getroottable();
 					text = "Can hit up to " + (3 * (2 + this.getItem().m.EL_AdditionalExplosionRange)) + " targets"
 				});
 			}
-	    	
+
     		local ammo = this.getAmmo();
 	    	if (ammo > 0)
 	    	{
@@ -1046,7 +1046,7 @@ local gt = getroottable();
 		o.getTooltip <- function()
 		{
 			local tooltip = getTooltip();
-			tooltip.insert(11, 
+			tooltip.insert(11,
 				{
 					id = 9,
 					type = "text",
@@ -1065,7 +1065,7 @@ local gt = getroottable();
 		o.getTooltip <- function()
 		{
 			local tooltip = getTooltip();
-			tooltip.insert(11, 
+			tooltip.insert(11,
 				{
 					id = 9,
 					type = "text",
@@ -1084,7 +1084,7 @@ local gt = getroottable();
 		o.getTooltip <- function()
 		{
 			local tooltip = getTooltip();
-			tooltip.insert(11, 
+			tooltip.insert(11,
 				{
 					id = 9,
 					type = "text",
@@ -1103,7 +1103,7 @@ local gt = getroottable();
 		o.getTooltip <- function()
 		{
 			local tooltip = getTooltip();
-			tooltip.insert(11, 
+			tooltip.insert(11,
 				{
 					id = 9,
 					type = "text",
@@ -1137,7 +1137,7 @@ local gt = getroottable();
 			o.getTooltip <- function()
 			{
 				local tooltip = getTooltip();
-				tooltip.insert(12, 
+				tooltip.insert(12,
 					{
 						id = 10,
 						type = "text",

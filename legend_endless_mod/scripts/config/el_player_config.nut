@@ -8,7 +8,7 @@ if (!("EL_Player" in gt.Const))
 gt.Const.EL_Player <- {
 
     EL_PlayerLevel = {
-        Max = 100,
+        Max = 50,
         Part1 = 11,
         //Part1(level < 11), XP = 200 * level ^ 2
         Part1Factor = 200,
@@ -18,7 +18,7 @@ gt.Const.EL_Player <- {
     }
 
     EL_CombatXP = {
-        MaxWorldLevel = 100,
+        MaxWorldLevel = 50,
         MaxDiv = 8.0,
         // XP * (1 + (WorldLevel - Level - 5) * 0.2) ^ 3 (Level < WorldLevel - 5)
         BelowOffset = 5,
