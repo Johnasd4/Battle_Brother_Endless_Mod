@@ -6,7 +6,7 @@ if (!("EL_Item" in gt.Const))
 }
 
 gt.Const.EL_Item <- {
-	MaxLevel = 100,
+	MaxLevel = 50,
 	MaxRankLevel = {
 		Normal = 2,
 		Named = 3,

@@ -6,7 +6,7 @@ if (!("EL_Shop" in gt.Const))
 }
 
 gt.Const.EL_Shop <- {
-    EL_ShopLevelMax = 100,
+    EL_ShopLevelMax = 50,
     EL_ShopLevelInStoreMax = 0,
     EL_ShopLevelInStoreMin = 10,
 	//EL_EquipmentEssenceLevelFactor = 1.1,

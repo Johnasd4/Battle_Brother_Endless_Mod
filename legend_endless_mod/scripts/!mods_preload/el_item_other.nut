@@ -114,7 +114,7 @@ local gt = getroottable();
 			local item = bro.m.Items.getItemByInstanceID(_data[1]);
 			if(item.EL_canUpgradeLevelInBagOrStash())
 			{
-				local limited_level = 100;
+				local limited_level = this.Const.EL_Item.MaxLevel;
 				if(!item.isItemType(this.Const.Items.ItemType.Accessory))
 				{
 					local accessory = bro.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
@@ -158,7 +158,7 @@ local gt = getroottable();
 			local item = bro.m.Items.getItemByInstanceID(_data[1]);
 			if(item.EL_canUpgradeRankInBagOrStash() && !this.Tactical.isActive())
 			{
-				local limited_rank = 100;
+				local limited_rank = this.Const.EL_Item.MaxLevel;
 				if(!item.isItemType(this.Const.Items.ItemType.Accessory))
 				{
 					local accessory = bro.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
@@ -421,8 +421,8 @@ local gt = getroottable();
 						recraft_index_pool.push(rank);
 					}
 				}
-				local limited_level = 100;
-				local limited_rank = 100;
+				local limited_level = this.Const.EL_Item.MaxLevel;
+				local limited_rank = this.Const.EL_Item.Type.Legendary;
 				if(!_item.isItemType(this.Const.Items.ItemType.Accessory))
 				{
 					local accessory = _entity.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
