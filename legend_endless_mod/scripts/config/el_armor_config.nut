@@ -23,11 +23,11 @@ gt.Const.EL_Armor <- {
 		DamageBodyArmorReduction = 1
 	},
 	EL_LevelFactor = {
-		Condition = 0.04,
-		Value = 0.04,
+		Condition = 0.08,
+		Value = 0.08,
 		StaminaModifier = 0.04,
-		DamageBodyRegularReduction = 0.04,
-		DamageBodyArmorReduction = 0.04
+		DamageBodyRegularReduction = 0.08,
+		DamageBodyArmorReduction = 0.08
 	},
 	EL_EquipmentEssence = {
 		LevelFactor = 0.04,

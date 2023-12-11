@@ -14,7 +14,7 @@ gt.Const.EL_Accessory <- {
 		25
 	],
 	EL_LevelFactor = {
-		Value = 0.04,
+		Value = 0.08,
 		StaminaModifier = 0.04
 	},
 	EL_EquipmentEssence = {

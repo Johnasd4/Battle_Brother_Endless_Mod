@@ -23,11 +23,11 @@ gt.Const.EL_Helmet <- {
 		DamageHeadArmorReduction = 1
 	},
 	EL_LevelFactor = {
-		Condition = 0.04,
-		Value = 0.04,
+		Condition = 0.08,
+		Value = 0.08,
 		StaminaModifier = 0.04,
-		DamageHeadRegularReduction = 0.04,
-		DamageHeadArmorReduction = 0.04
+		DamageHeadRegularReduction = 0.08,
+		DamageHeadArmorReduction = 0.08
 	},
 	EL_EquipmentEssence = {
 		LevelFactor = 0.04,
