@@ -22,12 +22,12 @@ gt.Const.EL_Item_Other <- {
 			],
 			Mult = [
 				0,
-				500,
+				1000,
 				0
 			],
 			Range = [
-				20,
-				100
+				10,
+				50
 			]
 		}
 		Table = []
@@ -39,20 +39,17 @@ gt.Const.EL_Item_Other <- {
 		Factor = {
 			Offset = [
 				0,
-				-20000,
-				-50000,
+				-25000,
 				100000
 			],
 			Mult = [
 				0,
-				1000,
-				1500
+				2500
 				0
 			],
 			Range = [
-				20,
-				60
-				100
+				10,
+				50
 			]
 		}
 		Table = []
