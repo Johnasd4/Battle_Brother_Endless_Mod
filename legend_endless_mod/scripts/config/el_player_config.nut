@@ -39,7 +39,7 @@ gt.Const.EL_Player <- {
         RangeSkillMax = 300,
         MeleeDefenseMax = 300,
         RangeDefenseMax = 300,
-        RegularDamageMax = 500,
+        RegularDamageMax = 5000,
         CrushingDamageMax = 300,
         ChanceToHitHeadMax = 100,
         SightDistanceMax = 20
