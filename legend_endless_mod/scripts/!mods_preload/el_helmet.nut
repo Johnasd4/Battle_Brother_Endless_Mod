@@ -1404,6 +1404,7 @@ local gt = getroottable();
 					text = "Vision " + ::Legends.S.colorize("" + ::Legends.S.getSign(this.getVision()) + this.Math.abs(this.getVision()), this.getVision())
 				});
 			}
+	    	this.onArmorTooltip(_result);
 			if(this.m.EL_EntryList.len() != 0)
 			{
 				local tool_tip_id = 66;
@@ -1417,7 +1418,6 @@ local gt = getroottable();
 					}
 				}
 			}
-	    	this.onArmorTooltip(_result);
 	    }
 
 		// o.EL_getArmorEntryTooltip <- function ( _result )
