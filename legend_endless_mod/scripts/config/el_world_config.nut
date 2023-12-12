@@ -13,7 +13,7 @@ gt.Const.EL_World <- {
 
     EL_WorldLevel = {
         Min = 0,
-        Max = 200,
+        Max = 100,
         FastGrowLevel = 10,
         BaseStableLevel = 50,
         BaseStableMult = 18,
