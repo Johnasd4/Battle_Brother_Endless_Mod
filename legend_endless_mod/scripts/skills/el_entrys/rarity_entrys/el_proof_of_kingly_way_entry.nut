@@ -52,29 +52,32 @@ this.el_proof_of_kingly_way_entry <- this.inherit("scripts/skills/skill", {
 
 	function onTurnStart()
 	{
-        local actor = this.getContainer().getActor();
-        local targets = this.Tactical.Entities.getAllInstances();
-		local affect_distance = this.m.Container.getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand).EL_getRange();
-        foreach( tar in targets )
-        {
-            foreach( t in tar )
-            {
-                if(t != null && actor.getTile().getDistanceTo(t.getTile()) <= affect_distance && t.getMoraleState() != this.Const.MoraleState.Ignore) 
+		if(EL_isUsable())
+		{
+			local actor = this.getContainer().getActor();
+			local targets = this.Tactical.Entities.getAllInstances();
+			local affect_distance = this.m.Container.getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand).EL_getRange();
+			foreach( tar in targets )
+			{
+				foreach( t in tar )
 				{
-					if(!t.isAlliedWith(actor))
+					if(t != null && actor.getTile().getDistanceTo(t.getTile()) <= affect_distance && t.getMoraleState() != this.Const.MoraleState.Ignore) 
 					{
-						if(t.m.MoraleState > this.Const.EL_PlayerNPC.EL_RankToMoraleMin[t.m.EL_RankLevel])
+						if(!t.isAlliedWith(actor))
 						{
-							t.setMoraleState(this.Math.max(this.Const.MoraleState.Fleeing, t.getMoraleState() - 1));
+							if(t.m.MoraleState > this.Const.EL_PlayerNPC.EL_RankToMoraleMin[t.m.EL_RankLevel])
+							{
+								t.setMoraleState(this.Math.max(this.Const.MoraleState.Fleeing, t.getMoraleState() - 1));
+							}
+						}
+						else
+						{
+							t.setMoraleState(this.Math.min(this.Const.MoraleState.Confident, t.getMoraleState() + 1));
 						}
 					}
-					else
-					{
-						t.setMoraleState(this.Math.min(this.Const.MoraleState.Confident, t.getMoraleState() + 1));
-					}
-                }
-            }
-        }
+				}
+			}
+		}
 	}
 
 	function EL_isUsable()

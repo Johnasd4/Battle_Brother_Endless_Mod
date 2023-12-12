@@ -1284,6 +1284,7 @@ local gt = getroottable();
 					});
 				}
 			}
+	    	this.onArmorTooltip(_result);
 			if(this.m.EL_EntryList.len() != 0)
 			{
 				local tool_tip_id = 66;
@@ -1297,7 +1298,6 @@ local gt = getroottable();
 					}
 				}
 			}
-	    	this.onArmorTooltip(_result);
 	    }
 
 		// o.EL_getArmorEntryTooltip <- function ( _result )
@@ -1614,9 +1614,7 @@ local gt = getroottable();
 		    this.m.EL_BaseWithRankValue = this.m.Value;
 		    this.m.EL_BaseWithRankStaminaModifier = this.m.StaminaModifier;
         }
-
 		
-
 		o.EL_getUpgradeLevelEquipmentEssenceNum <- function()
 		{
 			local result = [0, 0, 0, 0, 0];
