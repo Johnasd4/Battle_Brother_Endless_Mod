@@ -52,7 +52,7 @@ this.el_damage_head_reduction_entry <- this.inherit("scripts/skills/el_entrys/el
 
 	function EL_strengthen()
 	{
-		this.m.EL_DamageHeadArmorReduction = this.Const.EL_Helmet.EL_Entry.EntryStrengthenMult * this.Const.EL_Helmet.EL_Entry.Factor.EL_DamageHeadArmorReduction.ColourRange[this.Const.EL_Item.Type.Legendary];
+		this.m.EL_DamageHeadArmorReduction = 10 * this.Const.EL_Helmet.EL_Entry.EntryStrengthenMult * this.Const.EL_Helmet.EL_Entry.Factor.EL_DamageHeadArmorReduction.ColourRange[this.Const.EL_Item.Type.Legendary];
 	}
 
 	function EL_onUpgradeRank()
