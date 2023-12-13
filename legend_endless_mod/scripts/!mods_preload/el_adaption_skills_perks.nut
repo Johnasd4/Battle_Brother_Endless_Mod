@@ -15,7 +15,7 @@ local gt = getroottable();
             if (actor.isPlayerControlled() && !actor.isSummoned())
             {
                 local bg = actor.getBackground();
-                if (bg.m.PerkTree != null)
+                if (bg != null && bg.m.PerkTree != null)
                 {
                     if (bg.hasPerk(this.Const.Perks.PerkDefs.SpecAxe))
                     {
