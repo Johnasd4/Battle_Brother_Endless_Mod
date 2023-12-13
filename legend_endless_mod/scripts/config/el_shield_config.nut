@@ -722,20 +722,20 @@ gt.Const.EL_Shield <- {
 			},
 			EL_UseSkillfatigue = {
 				ID = "el_shield_entry.use_skill_fatigue",
-				BaseUseSkillfatigue = 2,
+				BaseUseSkillfatigue = 1,
 				RandomMinUseSkillfatigue = [
-					0,
-					0,
-					1,
-					1,
-					2
-				],
-				RandomMaxUseSkillfatigue = [
-					0,
 					1,
 					1,
 					2,
-					2
+					2,
+					3
+				],
+				RandomMaxUseSkillfatigue = [
+					1,
+					2,
+					2,
+					3,
+					3
 				],
 				ColourRange = [
 					2,
