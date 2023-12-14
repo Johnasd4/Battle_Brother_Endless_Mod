@@ -184,7 +184,7 @@ local gt = getroottable();
                 ballance_skill = this.new("scripts/skills/el_effects/el_summon_ballance_effect");
                 _user.getSkills().add(ballance_skill);
             }
-            ballance_skill.EL_addHitpointsOffset(this.Math.floor(this.m.HPCost * (1 + _user.getLevel() * 0.08)));
+            ballance_skill.EL_addHitpointsOffset(-this.Math.floor(this.m.HPCost * (1 + _user.getLevel() * 0.08)));
             return true;
         }
 
