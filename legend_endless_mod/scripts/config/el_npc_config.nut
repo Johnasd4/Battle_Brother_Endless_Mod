@@ -504,18 +504,27 @@ gt.Const.EL_NPC <- {
                     return true;
                 }
             },
+            // {
+            //     Scripts = "scripts/skills/el_npc_buffs/el_charge_npc_buff",
+            //     function EL_ifEligible(_EL_npc) {
+            //         if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
+            //         if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
+            //         if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
+            //         if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
+            //         return true;
+            //     }
+            // },
             {
-                Scripts = "scripts/skills/el_npc_buffs/el_charge_npc_buff",
+                Scripts = "scripts/skills/el_npc_buffs/el_concentrate_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
-                    if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifRanged(_EL_npc)) { return false; }
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifNoBuff(_EL_npc)) { return false; }
                     return true;
                 }
             },
             {
-                Scripts = "scripts/skills/el_npc_buffs/el_concentrate_npc_buff",
+                Scripts = "scripts/skills/el_npc_buffs/el_cripple_npc_buff",
                 function EL_ifEligible(_EL_npc) {
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifGhost(_EL_npc)) { return false; }
                     if(this.Const.EL_NPC.EL_NPCBuff.EligibleFunction.EL_ifKraken(_EL_npc)) { return false; }
@@ -786,6 +795,10 @@ gt.Const.EL_NPC <- {
                 DamageMultPurStack = [0.04, 0.08, 0.2],
                 MeleeSkillOffsetPurStack = [4 ,8, 20],
                 RangedSkillOffsetPurStack = [4 ,8, 20]
+            },
+            Cripple = {
+                Chance = [50, 100, 100],
+                InjuryNum = [1, 1, 2]
             },
             Encourage = {
                 BraveryOffset = [10, 20, 50],
