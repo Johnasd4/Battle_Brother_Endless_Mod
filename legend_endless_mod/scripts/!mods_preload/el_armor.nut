@@ -126,6 +126,11 @@ local gt = getroottable();
 			return result;
 		}
 
+		o.getUpgrade <- function ( _slot = -1)
+		{
+			return this.m.Upgrade;
+		}
+
 		local onUpdateProperties = o.onUpdateProperties;
 		o.onUpdateProperties = function ( _properties )
 		{
