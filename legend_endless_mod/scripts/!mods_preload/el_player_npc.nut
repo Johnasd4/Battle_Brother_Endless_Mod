@@ -720,7 +720,7 @@ local gt = getroottable();
 			//this.logInfo("dmgMult after " + dmgMult);
 			_hitInfo.DamageRegular -= p.DamageRegularReduction;
 			_hitInfo.DamageArmor -= p.DamageArmorReduction;
-			
+
 			_hitInfo.DamageRegular *= p.DamageReceivedRegularMult * dmgMult;
 			_hitInfo.DamageArmor *= p.DamageReceivedArmorMult * dmgMult;
 			if(!p.IsIgnoringArmorOnAttack)
@@ -1800,7 +1800,7 @@ local gt = getroottable();
 				properties.DamageTotalMult *= 0.75;
 			}
 			//this.logInfo("attackEntity combat level extra hit chance" + ((_user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()) * this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.HitChangeFactor, this.Math.abs(_user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()))));
-			toHit += (_user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()) * this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.HitChangeFactor, this.Math.abs(_user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()));
+			toHit += this.Const.EL_PlayerNPC.EL_CombatLevel.HitChanceMult * (_user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()) * this.Math.pow(this.Const.EL_PlayerNPC.EL_CombatLevel.HitChangeFactor, this.Math.abs(_user.EL_getCombatLevel() - _targetEntity.EL_getCombatLevel()));
 
 			if (defense > -100 && skill > -100)
 			{
