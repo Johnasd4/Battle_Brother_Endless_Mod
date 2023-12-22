@@ -132,7 +132,7 @@ el_lichking_death_coil <- this.inherit("scripts/skills/skill", {
 		local target = _targetTile.getEntity();
 		local user = this.getContainer().getActor();
 
-		if (target == null && !target.isAttackable() && !target.isAlive() && target.isDying())
+		if (target == null || !target.isAttackable() || !target.isAlive() || target.isDying())
 		{
 			return false;
 		}
