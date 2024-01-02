@@ -100,6 +100,11 @@ local gt = getroottable();
 			}
 		}
 
+		o.isWeaponType <- function( _t, _any = true, _only = false )
+		{
+			return false;
+		}
+
 		o.EL_canUpgradeLevelInBagOrStash <- function()
 		{
 			if(!this.Const.EL_LichKing.IsLichKingSuit(this))
