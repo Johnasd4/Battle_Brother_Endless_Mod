@@ -20,63 +20,56 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
             }
         }
 
-        if(!this.World.Flags.has("EL_WorldArenaNorthHuman"))
-        {
-            this.World.Flags.set("EL_WorldArenaNorthHuman", 0);
-        }
-        if(!this.World.Flags.has("EL_WorldArenaOrc"))
-        {
-            this.World.Flags.set("EL_WorldArenaOrc", 0);
-        }
-        if(!this.World.Flags.has("EL_WorldArenaGoblin"))
-        {
-            this.World.Flags.set("EL_WorldArenaGoblin", 0);
-        }
-        if(!this.World.Flags.has("EL_WorldArenaUndead"))
-        {
-            this.World.Flags.set("EL_WorldArenaUndead", 0);
-        }
-        if(!this.World.Flags.has("EL_WorldArenaBarbarion"))
-        {
-            this.World.Flags.set("EL_WorldArenaBarbarion", 0);
-        }
-        if(!this.World.Flags.has("EL_WorldArenaVampire"))
-        {
-            this.World.Flags.set("EL_WorldArenaVampire", 0);
-        }
+        fight_screen.Options.push({
+            Text = "我准备好了！",
+            function getResult( _event )
+            {
 
-        local EL_WorldArenaMinLevel = 0;
-        local EL_WorldArenaMaxLevel = 0;
-
-        local north_human_level = this.World.Flags.get("EL_WorldArenaNorthHuman");
-        min_level = min_level < north_human_level ? min_level : north_human_level;
-
-
-        local enemy_options = [];
-
-        if(north_human_level <= min_level + 2) {
-            enemy_options.push({
-                Text = "北方人战队 + " + north_human_level,
-                function getResult( _event )
+                if(!this.World.Flags.has("EL_WorldArenaNorthHuman"))
                 {
-                    this.World.Flags.set("EL_WorldArenaTeam", "EL_WorldArenaNorthHuman");
-                    _event.registerToShowAfterCombat("win_screen", "lose_screen");
-                    _event.el_generateNorthHumanCombat();
-                    return 0;
+                    this.World.Flags.set("EL_WorldArenaNorthHuman", 0);
                 }
-            });
-        }
+                if(!this.World.Flags.has("EL_WorldArenaOrc"))
+                {
+                    this.World.Flags.set("EL_WorldArenaOrc", 0);
+                }
+                if(!this.World.Flags.has("EL_WorldArenaGoblin"))
+                {
+                    this.World.Flags.set("EL_WorldArenaGoblin", 0);
+                }
+                if(!this.World.Flags.has("EL_WorldArenaUndead"))
+                {
+                    this.World.Flags.set("EL_WorldArenaUndead", 0);
+                }
+                if(!this.World.Flags.has("EL_WorldArenaBarbarion"))
+                {
+                    this.World.Flags.set("EL_WorldArenaBarbarion", 0);
+                }
+                if(!this.World.Flags.has("EL_WorldArenaVampire"))
+                {
+                    this.World.Flags.set("EL_WorldArenaVampire", 0);
+                }
 
-        //Other teams
+                local EL_WorldArenaMinLevel = 0;
+                local EL_WorldArenaMaxLevel = 0;
 
-        for(local i = 0; i < 3; ++i) {
-            local r = this.Math.rand(0, enemy_options.len() - 1);
-            fight_screen.Options.push(enemy_options[r]);
-            enemy_options.remove(r);
-            if(enemy_options.len() == 0) {
-                break;
+                local north_human_level = this.World.Flags.get("EL_WorldArenaNorthHuman");
+                min_level = min_level < north_human_level ? min_level : north_human_level;
+
+                local fight_function = [];
+
+                if(north_human_level == min_level) {
+                    fight_function.push(_event.el_generateNorthHumanCombat);
+                }
+
+                this.World.Flags.set("EL_WorldArenaTeam", "EL_WorldArenaNorthHuman");
+                _event.registerToShowAfterCombat("win_screen", "lose_screen");
+                local r = this.Math.rand(0, fight_function.len() - 1);
+                fight_function[r]();
+                //_event.el_generateNorthHumanCombat();
+                return 0;
             }
-        }
+        });
 
         fight_screen.Options.push({
             Text = "我没准备好，下次再来。",
