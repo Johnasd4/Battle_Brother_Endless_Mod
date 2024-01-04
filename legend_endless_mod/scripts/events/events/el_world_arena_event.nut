@@ -26,10 +26,15 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
             {
                 _event.registerToShowAfterCombat("win_screen", "lose_screen");
 
+                local min_level = 0;
+
                 if(!this.World.Flags.has("EL_WorldArenaNorthHuman"))
                 {
                     this.World.Flags.set("EL_WorldArenaNorthHuman", 0);
                 }
+                local north_human_level = this.World.Flags.get("EL_WorldArenaNorthHuman");
+                min_level = min_level < north_human_level ? min_level : north_human_level;
+
                 if(!this.World.Flags.has("EL_WorldArenaOrc"))
                 {
                     this.World.Flags.set("EL_WorldArenaOrc", 0);
@@ -50,11 +55,6 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
                 {
                     this.World.Flags.set("EL_WorldArenaVampire", 0);
                 }
-
-                local min_level = 0;
-
-                local north_human_level = this.World.Flags.get("EL_WorldArenaNorthHuman");
-                min_level = min_level < north_human_level ? min_level : north_human_level;
 
                 local fight_enemy = [];
 
