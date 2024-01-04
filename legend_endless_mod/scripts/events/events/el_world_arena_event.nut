@@ -24,6 +24,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
             Text = "我准备好了！",
             function getResult( _event )
             {
+                _event.registerToShowAfterCombat("win_screen", "lose_screen");
 
                 if(!this.World.Flags.has("EL_WorldArenaNorthHuman"))
                 {
@@ -55,16 +56,56 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
                 local north_human_level = this.World.Flags.get("EL_WorldArenaNorthHuman");
                 min_level = min_level < north_human_level ? min_level : north_human_level;
 
-                local fight_function = [];
+                local fight_enemy = [];
 
                 if(north_human_level == min_level) {
-                    fight_function.push(_event.el_generateNorthHumanCombat);
+                    fight_enemy.push({
+                        level = north_human_level,
+                        team = "EL_WorldArenaNorthHuman",
+                        func = _event.el_generateNorthHumanCombat
+                    });
+                }
+                local r = this.Math.rand(0, fight_function.len() - 1);
+                this.World.Flags.set("EL_WorldArenaTeam", fight_enemy[r].team);
+
+                local p = this.Const.Tactical.CombatInfo.getClone();
+                p.LocationTemplate = clone this.Const.Tactical.LocationTemplate;
+                p.TerrainTemplate = "tactical.arena";
+                p.LocationTemplate.Template[0] = "tactical.arena_floor";
+                p.CombatID = "Legend Tournament";
+                p.Music = this.Const.Music.ArenaTracks;
+                p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Arena;
+                p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Arena;
+                p.IsUsingSetPlayers = false;
+                p.IsFleeingProhibited = true;
+                p.IsLootingProhibited = true;
+                p.IsWithoutAmbience = true;
+                p.IsFogOfWarVisible = false;
+                p.IsArenaMode = true;
+                p.IsAutoAssigningBases = false;
+                p.Players = [];
+                p.Entities = [];
+
+                local party = this.new("scripts/entity/world/party");
+                local level = fight_enemy[r].level;
+                party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Arena).getID());
+                party.EL_tempPartyInit();
+                party.EL_setTroopsResourse(0);
+                party.EL_setHaveRandomLeader(false);
+                party.EL_setHaveStrongestLeader(false);
+                party.EL_setIsEliteParty(true);
+                party.EL_setIsBossParty(false);
+                p.Parties.push(party);
+
+                fight_function[r].func(party);
+
+                _event.el_strengthenUnitByLevel(party, level);
+
+                foreach(troop in party.getTroops()) {
+                    p.Entities.push(troop);
                 }
 
-                this.World.Flags.set("EL_WorldArenaTeam", "EL_WorldArenaNorthHuman");
-                _event.registerToShowAfterCombat("win_screen", "lose_screen");
-                local r = this.Math.rand(0, fight_function.len() - 1);
-                fight_function[r](_event);
+                this.World.State.startScriptedCombat(p, false, false, false);
                 //_event.el_generateNorthHumanCombat();
                 return 0;
             }
@@ -180,66 +221,31 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
         }
     }
 
-    function el_generateNorthHumanCombat(_event) {
-        local p = this.Const.Tactical.CombatInfo.getClone();
-        p.LocationTemplate = clone this.Const.Tactical.LocationTemplate;
-        p.TerrainTemplate = "tactical.arena";
-        p.LocationTemplate.Template[0] = "tactical.arena_floor";
-        p.CombatID = "Legend Tournament";
-        p.Music = this.Const.Music.ArenaTracks;
-        p.PlayerDeploymentType = this.Const.Tactical.DeploymentType.Arena;
-        p.EnemyDeploymentType = this.Const.Tactical.DeploymentType.Arena;
-        p.IsUsingSetPlayers = false;
-        p.IsFleeingProhibited = true;
-        p.IsLootingProhibited = true;
-        p.IsWithoutAmbience = true;
-        p.IsFogOfWarVisible = false;
-        p.IsArenaMode = true;
-        p.IsAutoAssigningBases = false;
-        p.Players = [];
-        p.Entities = [];
-
-        local party = this.new("scripts/entity/world/party");
-        local level = this.World.Flags.get("EL_WorldArenaNorthHuman");
-        party.EL_setFaction(this.World.FactionManager.getFactionOfType(this.Const.FactionType.Arena).getID());
-        party.EL_tempPartyInit();
-        party.EL_setTroopsResourse(0);
-        party.EL_setHaveRandomLeader(false);
-        party.EL_setHaveStrongestLeader(false);
-        party.EL_setIsEliteParty(true);
-        party.EL_setIsBossParty(false);
-        p.Parties.push(party);
+    function el_generateNorthHumanCombat(_party) {
 
         //generate units
         for( local i = 0; i < 4; i = i )
         {
-            this.Const.World.Common.addTroop(party, {
+            this.Const.World.Common.addTroop(_party, {
                 Type = this.Const.World.Spawn.Troops.Swordmaster
             }, false, 0, i < 1 ? 2 : 0);
             i = ++i;
         }
         for( local i = 0; i < 4; i = i )
         {
-            this.Const.World.Common.addTroop(party, {
+            this.Const.World.Common.addTroop(_party, {
                 Type = this.Const.World.Spawn.Troops.MasterArcher
             }, false, 0, i < 1 ? 2 : 0);
             i = ++i;
         }
         for( local i = 0; i < 12; i = i )
         {
-            this.Const.World.Common.addTroop(party, {
+            this.Const.World.Common.addTroop(_party, {
                 Type = this.Const.World.Spawn.Troops.HedgeKnight
             }, false, 0, i < 3 ? 2 : 0);
             i = ++i;
         }
 
-        _event.el_strengthenUnitByLevel(party, level);
-
-        foreach(troop in party.getTroops()) {
-            p.Entities.push(troop);
-        }
-
-        this.World.State.startScriptedCombat(p, false, false, false);
     }
 
 	function onDetermineStartScreen()
