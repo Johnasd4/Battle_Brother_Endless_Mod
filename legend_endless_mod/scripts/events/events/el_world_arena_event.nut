@@ -143,6 +143,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
                         });
                     }
                 }
+                local xp_level = this.Math.max(1, this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.LevelXP.len() - 1));
                 local core_xp = this.Math.floor(0.25 * (this.Const.LevelXP[xp_level] - this.Const.LevelXP[xp_level - 1]) * this.World.Assets.EL_getHalfWorldDifficultFactor());
                 for(local i = 0; i < level * 3 + 3; ++i)
                 {
