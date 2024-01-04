@@ -65,7 +65,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
                         func = _event.el_generateNorthHumanParty
                     });
                 }
-                local r = this.Math.rand(0, fight_function.len() - 1);
+                local r = this.Math.rand(0, fight_enemy.len() - 1);
                 this.World.Flags.set("EL_WorldArenaTeam", fight_enemy[r].team);
 
                 local p = this.Const.Tactical.CombatInfo.getClone();
@@ -97,7 +97,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
                 party.EL_setIsBossParty(false);
                 p.Parties.push(party);
 
-                fight_function[r].func(party);
+                fight_enemy[r].func(party);
 
                 _event.el_strengthenUnitByLevel(party, level);
 
