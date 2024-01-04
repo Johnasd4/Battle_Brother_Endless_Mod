@@ -145,7 +145,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
                         this.World.Assets.getStash().add(reward_item);
                         this.List.push({
                             id = 16,
-                            text = "你获得了传奇装备 人皇剑"
+                            text = "你获得了 人皇剑"
                         });
                     }
                 }
