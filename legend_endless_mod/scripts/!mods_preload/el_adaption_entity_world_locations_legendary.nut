@@ -41,13 +41,18 @@ local gt = getroottable();
             this.m.IsDestructible = false;
             this.m.VisibilityMult = 0.8;
             this.m.Resources = 0;
-            this.m.OnEnter = "event.location.legend_tournament_enter";
+            this.m.OnEnter = "event.location.el_world_arena";
         }
 
         o.onSpawned = function()
         {
             this.m.Name = "世界竞技场";
             this.location.onSpawned();
+        }
+
+        o.onEnter = function()
+        {
+            this.World.Events.fire(this.m.OnEnter);
         }
 
 	});
