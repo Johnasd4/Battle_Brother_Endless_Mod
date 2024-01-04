@@ -1076,7 +1076,7 @@ local gt = getroottable();
                                 this.World.Assets.getStash().add(reward_item);
                             }
                             if(this.World.Assets.m.EL_ArenaLevel > this.World.Assets.m.EL_ArenaMaxLevel) {
-                                this.World.Assets.EL_addEquipmentEssence(4, 3);
+                                this.World.Assets.EL_addEquipmentEssence(4, 3 * (this.World.Assets.m.EL_ArenaLevel - 4));
                             }
                             break;
                     }
