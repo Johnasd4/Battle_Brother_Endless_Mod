@@ -164,7 +164,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
                         text = "你获得了 传奇精华 * " + (level * 3)
                     });
                 }
-                local reward_money = this.Math.floor(100000 * (level + 1) * this.World.Assets.EL_getHalfWorldDifficultFactor() * (1 + 0.08 * this.World.Assets.EL_WorldLevel));
+                local reward_money = this.Math.floor(100000 * (level + 1) * this.World.Assets.EL_getHalfWorldDifficultFactor() * (1 + 0.08 * this.World.Assets.m.EL_WorldLevel));
                 this.World.Assets.addMoney(reward_money);
                 this.List.push({
                     id = 16,
