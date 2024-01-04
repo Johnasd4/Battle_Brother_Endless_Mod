@@ -62,7 +62,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
                     fight_enemy.push({
                         level = north_human_level,
                         team = "EL_WorldArenaNorthHuman",
-                        func = _event.el_generateNorthHumanCombat
+                        func = _event.el_generateNorthHumanParty
                     });
                 }
                 local r = this.Math.rand(0, fight_function.len() - 1);
@@ -106,7 +106,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
                 }
 
                 this.World.State.startScriptedCombat(p, false, false, false);
-                //_event.el_generateNorthHumanCombat();
+                //_event.el_generateNorthHumanParty();
                 return 0;
             }
         });
@@ -205,8 +205,6 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
 		this.m.Score = 9999;
 	}
 
-
-
 	function onPrepare()
 	{
 	}
@@ -221,31 +219,27 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
         }
     }
 
-    function el_generateNorthHumanCombat(_party) {
+    function el_generateNorthHumanParty(_party) {
 
         //generate units
-        for( local i = 0; i < 4; i = i )
+        for( local i = 0; i < 4; ++i )
         {
             this.Const.World.Common.addTroop(_party, {
                 Type = this.Const.World.Spawn.Troops.Swordmaster
             }, false, 0, i < 1 ? 2 : 0);
-            i = ++i;
         }
-        for( local i = 0; i < 4; i = i )
+        for( local i = 0; i < 4; ++i )
         {
             this.Const.World.Common.addTroop(_party, {
                 Type = this.Const.World.Spawn.Troops.MasterArcher
             }, false, 0, i < 1 ? 2 : 0);
-            i = ++i;
         }
-        for( local i = 0; i < 12; i = i )
+        for( local i = 0; i < 12; ++i )
         {
             this.Const.World.Common.addTroop(_party, {
                 Type = this.Const.World.Spawn.Troops.HedgeKnight
             }, false, 0, i < 3 ? 2 : 0);
-            i = ++i;
         }
-
     }
 
 	function onDetermineStartScreen()
