@@ -206,7 +206,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
         party.EL_setTroopsResourse(0);
         party.EL_setHaveRandomLeader(false);
         party.EL_setHaveStrongestLeader(false);
-        party.EL_setIsELiteParty(true);
+        party.EL_setIsEliteParty(true);
         party.EL_setIsBossParty(false);
         p.Parties.push(party);
 
