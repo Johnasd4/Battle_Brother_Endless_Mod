@@ -64,7 +64,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
                 this.World.Flags.set("EL_WorldArenaTeam", "EL_WorldArenaNorthHuman");
                 _event.registerToShowAfterCombat("win_screen", "lose_screen");
                 local r = this.Math.rand(0, fight_function.len() - 1);
-                fight_function[r]();
+                fight_function[r](_event);
                 //_event.el_generateNorthHumanCombat();
                 return 0;
             }
@@ -180,7 +180,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
         }
     }
 
-    function el_generateNorthHumanCombat() {
+    function el_generateNorthHumanCombat(_event) {
         local p = this.Const.Tactical.CombatInfo.getClone();
         p.LocationTemplate = clone this.Const.Tactical.LocationTemplate;
         p.TerrainTemplate = "tactical.arena";
@@ -233,7 +233,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
             i = ++i;
         }
 
-        this.el_strengthenUnitByLevel(party, level);
+        _event.el_strengthenUnitByLevel(party, level);
 
         foreach(troop in party.getTroops()) {
             p.Entities.push(troop);
