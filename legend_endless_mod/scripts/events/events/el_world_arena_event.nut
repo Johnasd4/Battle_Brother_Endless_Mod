@@ -125,7 +125,13 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
             Image = "",
             List = [],
             Characters = [],
-            Options = [],
+            Options = [{
+                Text = "胜利万岁！",
+                function getResult( _event )
+                {
+                    return 0;
+                }
+            }],
             function start( _event )
             {
                 local team = this.World.Flags.get("EL_WorldArenaTeam");
@@ -179,7 +185,13 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
             Image = "",
             List = [],
             Characters = [],
-            Options = [],
+            Options = [{
+                Text = "好。。。",
+                function getResult( _event )
+                {
+                    return 0;
+                }
+            }],
             function start( _event )
             {
             }
