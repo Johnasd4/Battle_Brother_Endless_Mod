@@ -10,7 +10,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
 
         local fight_screen = {
             ID = "fight_screen",
-            Text = "[img]gfx/ui/events/legend_tournament.png[/img]欢迎来到世界竞技场，在这里你会挑战来自世界各地甚至世界之外的的各种强者，要么胜利要么死亡！",
+            Text = "[img]gfx/ui/events/legend_tournament.png[/img]欢迎来到世界竞技场，在这里你会挑战来自世界各地甚至世界之外的的各种强者，请选择你的对手，要么胜利要么死亡！",
             Image = "",
             List = [],
             Characters = [],
@@ -39,22 +39,36 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
                 {
                     this.World.Flags.set("EL_WorldArenaOrc", 0);
                 }
+                local orc_level = this.World.Flags.get("EL_WorldArenaOrc");
+                min_level = min_level < orc_level ? min_level : orc_level;
+
                 if(!this.World.Flags.has("EL_WorldArenaGoblin"))
                 {
                     this.World.Flags.set("EL_WorldArenaGoblin", 0);
                 }
-                if(!this.World.Flags.has("EL_WorldArenaUndead"))
+                local goblin_level = this.World.Flags.get("EL_WorldArenaGoblin");
+                min_level = min_level < goblin_level ? min_level : goblin_level;
+
+                if(!this.World.Flags.has("EL_WorldArenaZombie"))
                 {
-                    this.World.Flags.set("EL_WorldArenaUndead", 0);
+                    this.World.Flags.set("EL_WorldArenaZombie", 0);
                 }
+                local zombie_level = this.World.Flags.get("EL_WorldArenaZombie");
+                min_level = min_level < zombie_level ? min_level : zombie_level;
+
                 if(!this.World.Flags.has("EL_WorldArenaBarbarion"))
                 {
                     this.World.Flags.set("EL_WorldArenaBarbarion", 0);
                 }
+                local barbarion_level = this.World.Flags.get("EL_WorldArenaBarbarion");
+                min_level = min_level < barbarion_level ? min_level : barbarion_level;
+
                 if(!this.World.Flags.has("EL_WorldArenaVampire"))
                 {
                     this.World.Flags.set("EL_WorldArenaVampire", 0);
                 }
+                local vampire_level = this.World.Flags.get("EL_WorldArenaVampire");
+                min_level = min_level < vampire_level ? min_level : vampire_level;
 
                 local fight_enemy = [];
 
@@ -63,6 +77,41 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
                         level = north_human_level,
                         team = "EL_WorldArenaNorthHuman",
                         func = _event.el_generateNorthHumanParty
+                    });
+                }
+                if(orc_level == min_level) {
+                    fight_enemy.push({
+                        level = orc_level,
+                        team = "EL_WorldArenaOrc",
+                        func = _event.el_generateOrcParty
+                    });
+                }
+                if(goblin_level == min_level) {
+                    fight_enemy.push({
+                        level = goblin_level,
+                        team = "EL_WorldArenaGoblin",
+                        func = _event.el_generateGoblinParty
+                    });
+                }
+                if(zombie_level == min_level) {
+                    fight_enemy.push({
+                        level = zombie_level,
+                        team = "EL_WorldArenaZombie",
+                        func = _event.el_generateZombieParty
+                    });
+                }
+                if(barbarion_level == min_level) {
+                    fight_enemy.push({
+                        level = barbarion_level,
+                        team = "EL_WorldArenaBarbarion",
+                        func = _event.el_generateBarbarionParty
+                    });
+                }
+                if(vampire_level == min_level) {
+                    fight_enemy.push({
+                        level = vampire_level,
+                        team = "EL_WorldArenaVampire",
+                        func = _event.el_generateVampireParty
                     });
                 }
                 local r = this.Math.rand(0, fight_enemy.len() - 1);
@@ -145,9 +194,52 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
                         this.World.Assets.getStash().add(reward_item);
                         this.List.push({
                             id = 16,
-
-                            text = "你获得了 人皇剑"
-
+                            text = "你获得了 " + reward_item.getName()
+                        });
+                    }
+                    if(team == "EL_WorldArenaOrc") {
+                        local reward_item = this.new("scripts/items/el_weapon/el_orc_berserker_axe");
+                        this.World.Assets.getStash().makeEmptySlots(1);
+                        this.World.Assets.getStash().add(reward_item);
+                        this.List.push({
+                            id = 16,
+                            text = "你获得了 " + reward_item.getName()
+                        });
+                    }
+                    if(team == "EL_WorldArenaGoblin") {
+                        local reward_item = this.new("scripts/items/el_weapon/el_goblin_tuchun_crossbow");
+                        this.World.Assets.getStash().makeEmptySlots(1);
+                        this.World.Assets.getStash().add(reward_item);
+                        this.List.push({
+                            id = 16,
+                            text = "你获得了 " + reward_item.getName()
+                        });
+                    }
+                    if(team == "EL_WorldArenaZombie") {
+                        local reward_item = this.new("scripts/items/el_weapon/el_undead_dagger");
+                        this.World.Assets.getStash().makeEmptySlots(1);
+                        this.World.Assets.getStash().add(reward_item);
+                        this.List.push({
+                            id = 16,
+                            text = "你获得了 " + reward_item.getName()
+                        });
+                    }
+                    if(team == "EL_WorldArenaBarbarion") {
+                        local reward_item = this.new("scripts/items/el_weapon/el_barbarians_chosen_mace");
+                        this.World.Assets.getStash().makeEmptySlots(1);
+                        this.World.Assets.getStash().add(reward_item);
+                        this.List.push({
+                            id = 16,
+                            text = "你获得了 " + reward_item.getName()
+                        });
+                    }
+                    if(team == "EL_WorldArenaVampire") {
+                        local reward_item = this.new("scripts/items/el_weapon/el_vampire_cleaver");
+                        this.World.Assets.getStash().makeEmptySlots(1);
+                        this.World.Assets.getStash().add(reward_item);
+                        this.List.push({
+                            id = 16,
+                            text = "你获得了 " + reward_item.getName()
                         });
                     }
                 }
@@ -235,27 +327,161 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
     }
 
     function el_generateNorthHumanParty(_party) {
-
-        //generate units
-        for( local i = 0; i < 4; ++i )
+        for( local i = 0; i < 5; ++i )
         {
             this.Const.World.Common.addTroop(_party, {
                 Type = this.Const.World.Spawn.Troops.Swordmaster
             }, false, 0, i < 1 ? 2 : 0);
         }
-        for( local i = 0; i < 4; ++i )
+        for( local i = 0; i < 5; ++i )
         {
             this.Const.World.Common.addTroop(_party, {
                 Type = this.Const.World.Spawn.Troops.MasterArcher
             }, false, 0, i < 1 ? 2 : 0);
         }
-        for( local i = 0; i < 12; ++i )
+        for( local i = 0; i < 15; ++i )
         {
             this.Const.World.Common.addTroop(_party, {
                 Type = this.Const.World.Spawn.Troops.HedgeKnight
             }, false, 0, i < 3 ? 2 : 0);
         }
     }
+
+    function el_generateOrcParty(_party) {
+        for( local i = 0; i < 5; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.LegendOrcBehemoth
+            }, false, 0, i < 5 ? 2 : 0);
+        }
+        for( local i = 0; i < 20; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.LegendOrcElite
+            }, false, 0, i < 0 ? 2 : 0);
+        }
+    }
+
+    function el_generateGoblinParty(_party) {
+        for( local i = 0; i < 3; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.GoblinShaman
+            }, false, 0, i < 1 ? 2 : 0);
+        }
+        for( local i = 0; i < 3; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.GoblinLeader
+            }, false, 0, i < 1 ? 2 : 0);
+        }
+        for( local i = 0; i < 5; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.GoblinAmbusher
+            }, false, 0, i < 1 ? 2 : 0);
+        }
+        for( local i = 0; i < 5; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.GoblinSkirmisher
+            }, false, 0, i < 1 ? 2 : 0);
+        }
+        for( local i = 0; i < 5; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.GoblinWolfrider
+            }, false, 0, i < 1 ? 2 : 0);
+        }
+    }
+
+    function el_generateZombieParty(_party) {
+        for( local i = 0; i < 3; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.ZombieBoss
+            }, false, 0, i < 1 ? 2 : 0);
+        }
+        for( local i = 0; i < 3; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.Ghost
+            }, false, 0, i < 1 ? 2 : 0);
+        }
+        for( local i = 0; i < 3; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.Necromancer
+            }, false, 0, i < 1 ? 2 : 0);
+        }
+        for( local i = 0; i < 3; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.LegendBanshee
+            }, false, 0, i < 1 ? 2 : 0);
+        }
+        for( local i = 0; i < 6; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.LegendDemonHound
+            }, false, 0, i < 0 ? 2 : 0);
+        }
+        for( local i = 0; i < 6; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.ZombieBodyguard
+            }, false, 0, i < 0 ? 2 : 0);
+        }
+        for( local i = 0; i < 6; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.ZombieKnight
+            }, false, 0, i < 1 ? 2 : 0);
+        }
+    }
+
+    function el_generateBarbarionParty(_party) {
+        for( local i = 0; i < 4; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.BarbarianDrummer
+            }, false, 0, i < 1 ? 2 : 0);
+        }
+        for( local i = 0; i < 4; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.BarbarianBeastmaster
+            }, false, 0, i < 0 ? 2 : 0);
+        }
+        for( local i = 0; i < 4; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.BarbarianUnholdFrost
+            }, false, 0, i < 1 ? 2 : 0);
+        }
+        for( local i = 0; i < 4; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.BarbarianChosen
+            }, false, 0, i < 3 ? 2 : 0);
+        }
+        for( local i = 0; i < 8; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.BarbarianChampion
+            }, false, 0, i < 0 ? 2 : 0);
+        }
+    }
+
+    function el_generateVampireParty(_party) {
+        for( local i = 0; i < 25; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.LegendVampireLord
+            }, false, 0, i < 5 ? 2 : 0);
+        }
+    }
+
 
 	function onDetermineStartScreen()
 	{
