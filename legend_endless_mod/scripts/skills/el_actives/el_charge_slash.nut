@@ -136,7 +136,7 @@ this.el_charge_slash <- this.inherit("scripts/skills/skill", {
 		local myTile = actor.getTile();
 		local destTile;
 
-		local min_distance = 0;
+		// local min_distance = 0;
 
 		for( local i = 0; i < 6; ++i )
 		{
@@ -149,11 +149,12 @@ this.el_charge_slash <- this.inherit("scripts/skills/skill", {
 				local distance = tile.getDistanceTo(myTile);
 				if (tile.IsEmpty && distance <= 5 && this.Math.abs(myTile.Level - tile.Level) <= 1 && this.Math.abs(_targetTile.Level - tile.Level) <= 1)
 				{
-					if(min_distance > distance)
-					{
+					// if(min_distance < distance)
+					// {
 						destTile = tile;
-						min_distance = distance;
-					}
+						break;
+					// 	min_distance = distance;
+					// }
 				}
 			}
 		}
