@@ -4,7 +4,7 @@ this.el_barbarians_chosen_mace <- this.inherit("scripts/items/weapons/weapon", {
 	{
 		this.weapon.create();
 		this.m.ID = "el_weapon.barbarians_chosen_mace";
-		this.m.Name = "神选者战棍";
+		this.m.Name = "野蛮人神赐之棍";
 		this.m.Description = "一个装有头盖骨的大棍子。无论敌人穿什么样的盔甲，受到这种武器的打击会让其神志不清，陷入茫然。野蛮人的神灵赐福了这把武器，使他拥有了难以想象的强大杀伤力。";
 		this.m.IconLarge = "weapons/melee/barbarians_chosen_mace.png";
 		this.m.Icon = "weapons/melee/barbarians_chosen_mace_70x70.png";
