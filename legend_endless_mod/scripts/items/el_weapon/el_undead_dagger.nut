@@ -4,8 +4,8 @@ this.el_undead_dagger <- this.inherit("scripts/items/weapons/weapon", {
 	{
 		this.weapon.create();
 		this.m.ID = "el_weapon.undead_dagger";
-		this.m.Name = "亡灵匕";
-		this.m.Description = "一把充斥死亡与不详的短刃。蕴含着强大的诅咒，被他杀死的敌人将。";
+		this.m.Name = "不详之刃";
+		this.m.Description = "一把充斥着死亡与不详的短刃。蕴含着强大的诅咒，被他杀死的敌人将会爆炸，杀伤周围的敌人。";
 		this.m.IconLarge = "weapons/melee/undead_dagger.png";
 		this.m.Icon = "weapons/melee/undead_dagger_70x70.png";
 		this.m.WeaponType = this.Const.Items.WeaponType.Dagger;
@@ -45,7 +45,7 @@ this.el_undead_dagger <- this.inherit("scripts/items/weapons/weapon", {
 					id = 8,
 					type = "text",
 					icon = "ui/icons/special.png",
-					text = "若你使用匕首攻击致使目标死亡使使其爆炸，对周围敌人造成基于死亡目标等级与等阶的爆炸伤害，伤害与“自爆”buff一致。"
+					text = "若你使用匕首攻击致使目标死亡时使其爆炸，对周围敌人造成基于死亡目标等级与等阶的爆炸伤害，伤害与“自爆”buff一致。"
 				});
 				break;
 			}
