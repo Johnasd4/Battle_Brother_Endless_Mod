@@ -83,10 +83,13 @@ gt.Const.EL_Item_Other <- {
 		"el_armor/el_arena_champion_armor",
 		"el_armor/el_ice_armor",
 		"el_weapon/el_arena_champion_axe",
+		"el_weapon/el_barbarians_chosen_mace",
 		"el_weapon/el_frostmourne",
 		"el_weapon/el_human_emperors_sword",
 		"el_weapon/el_orc_berserker_axe",
 		"el_weapon/el_goblin_tuchun_crossbow"
+		"el_weapon/el_undead_dagger",
+		"el_weapon/el_vampire_cleaver",
 	],	
 	EL_SpecialNamedItem = [
 		"legend_armor/chain/legend_armor_hauberk_full_named",

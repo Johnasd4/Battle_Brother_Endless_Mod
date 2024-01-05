@@ -10,7 +10,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
 
         local fight_screen = {
             ID = "fight_screen",
-            Text = "[img]gfx/ui/events/legend_tournament.png[/img]欢迎来到世界竞技场，在这里你会挑战来自世界各地甚至世界之外的的各种强者，请选择你的对手，要么胜利要么死亡！",
+            Text = "[img]gfx/ui/events/legend_tournament.png[/img]欢迎来到世界竞技场，在这里你会挑战来自世界各地甚至世界之外的的各种强者，要么胜利要么死亡！",
             Image = "",
             List = [],
             Characters = [],
@@ -145,7 +145,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
                         this.World.Assets.getStash().add(reward_item);
                         this.List.push({
                             id = 16,
-                            text = "你获得了传奇装备 人皇剑"
+                            text = "你获得了 传奇装备 人皇剑"
                         });
                     }
                 }
