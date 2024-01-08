@@ -379,11 +379,7 @@ local gt = getroottable();
 
 		o.EL_updateLevelProperties <- function()
         {
-			if(this.m.EL_BaseWithRankConditionMax == 0) {
-				this.m.EL_BaseWithRankConditionMax = this.m.ConditionMax;
-			}
 			this.m.ConditionMax = this.Math.ceil(this.m.EL_BaseWithRankConditionMax * (1 + this.Const.EL_Shield.EL_LevelFactor.Condition * this.m.EL_CurrentLevel));
-			this.m.Condition = this.m.Condition > this.m.ConditionMax ? this.m.ConditionMax : this.m.Condition;
 			this.m.MeleeDefense = this.Math.ceil(this.m.EL_BaseWithRankMeleeDefense * (1 + this.Const.EL_Shield.EL_LevelFactor.MeleeDefense * this.m.EL_CurrentLevel));
 			this.m.RangedDefense = this.Math.ceil(this.m.EL_BaseWithRankRangedDefense * (1 + this.Const.EL_Shield.EL_LevelFactor.RangedDefense * this.m.EL_CurrentLevel));
 			this.m.EL_DamageShieldReduction = this.Math.ceil(this.m.EL_BaseWithRankDamageShieldReduction * (1 + this.Const.EL_Shield.EL_LevelFactor.DamageShieldReduction * this.m.EL_CurrentLevel));
