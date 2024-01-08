@@ -372,7 +372,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
         for( local i = 0; i < 3; ++i )
         {
             this.Const.World.Common.addTroop(_party, {
-                Type = this.Const.World.Spawn.Troops.GoblinLeader
+                Type = this.Const.World.Spawn.Troops.GoblinOverseer
             }, false, 0, i < 1 ? 2 : 0);
         }
         for( local i = 0; i < 5; ++i )
