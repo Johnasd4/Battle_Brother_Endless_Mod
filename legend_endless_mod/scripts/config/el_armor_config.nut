@@ -294,10 +294,10 @@ gt.Const.EL_Armor <- {
 			],
 			DecorativeArmor = [
 				0,
-				0.01,
 				0.02,
-				0.03,
 				0.04,
+				0.06,
+				0.08,
 			]
 		},
 		EntryStrengthenMult = 2.0,

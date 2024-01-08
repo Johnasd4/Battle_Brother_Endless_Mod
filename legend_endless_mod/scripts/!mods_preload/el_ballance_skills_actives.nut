@@ -122,7 +122,9 @@ local gt = getroottable();
                 hitInfo.BodyPart = this.Const.BodyPart.Body;
                 hitInfo.BodyDamageMult = 1.0;
                 hitInfo.FatalityChanceMult = 0.0;
-                _data.Target.onDamageReceived(_data.User, _data.Skill, hitInfo);
+                local target = _data.Target;
+                this.logInfo("target is null?" + target == null + " target is alive?" + target.isAlive() + " target is dying?" + target.isDying());
+                target.onDamageReceived(_data.User, _data.Skill, hitInfo);
             }, _data);
         }
 
@@ -146,7 +148,7 @@ local gt = getroottable();
                     this.Sound.play(this.m.SoundOnLightning[this.Math.rand(0, this.m.SoundOnLightning.len() - 1)], this.Const.Sound.Volume.Skill * 2.0, _user.getPos());
                 }
 
-                if (!targetTile.IsEmpty && targetTile.getEntity().isAlive())
+                if (!targetTile.IsEmpty && targetTile.getEntity().isAlive() && !targetTile.getEntity().isDying())
                 {
                     target = targetTile.getEntity();
                     selectedTargets.push(target.getID());
