@@ -299,17 +299,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
 
 	function onUpdateScore()
 	{
-		if (this.World.getTime().Days < this.Const.EL_World.EL_WorldChangeEvent.DifficultyCooldown)
-		{
-			this.m.Score = 0;
-			return;
-		}
-		if(this.Time.getVirtualTimeF() < this.m.CooldownUntil)
-		{
-			this.m.Score = 0;
-			return;
-		}
-		this.m.Score = 9999;
+		this.m.Score = 0;
 	}
 
 	function onPrepare()
