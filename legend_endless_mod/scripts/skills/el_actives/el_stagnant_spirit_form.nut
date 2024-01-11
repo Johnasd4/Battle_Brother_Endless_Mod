@@ -93,7 +93,7 @@ this.el_stagnant_spirit_form <- this.inherit("scripts/skills/skill", {
             {
                 foreach( t in tar )
                 {
-                    if(t != null && !t.isAlliedWith(actor))
+                    if(t != null && t.isAlliedWith(actor))
                     {
                         break;
                     }
