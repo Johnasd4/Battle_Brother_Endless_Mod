@@ -71,6 +71,7 @@ gt.Const.EL_Item_Other <- {
 		"legend_armor/legendary/legend_armor_of_davkul",
 		"legend_armor/legendary/legend_emperors_armor",
 		"legend_armor/legendary/legend_ijirok_armor",
+		"weapons/legend_staff_vala"
 		"weapons/legendary/legend_mage_swordstaff",
 		"weapons/legendary/lightbringer_sword",
 		"weapons/legendary/obsidian_dagger",
@@ -89,7 +90,7 @@ gt.Const.EL_Item_Other <- {
 		"el_weapon/el_orc_berserker_axe",
 		"el_weapon/el_goblin_tuchun_crossbow"
 		"el_weapon/el_undead_dagger",
-		"el_weapon/el_vampire_cleaver",
+		"el_weapon/el_vampire_cleaver"
 	],	
 	EL_SpecialNamedItem = [
 		"legend_armor/chain/legend_armor_hauberk_full_named",

@@ -109,7 +109,7 @@ local gt = getroottable();
                 }
             }, _data);
 
-            if (_data.Target == null)
+            if (_data.Target == null || _data.Target.isAlive() || _data.Target.isDying())
             {
                 return;
             }
@@ -122,9 +122,7 @@ local gt = getroottable();
                 hitInfo.BodyPart = this.Const.BodyPart.Body;
                 hitInfo.BodyDamageMult = 1.0;
                 hitInfo.FatalityChanceMult = 0.0;
-                local target = _data.Target;
-                this.logInfo("target is null?" + target == null + " target is alive?" + target.isAlive() + " target is dying?" + target.isDying());
-                target.onDamageReceived(_data.User, _data.Skill, hitInfo);
+                _data.Target.onDamageReceived(_data.User, _data.Skill, hitInfo);
             }, _data);
         }
 

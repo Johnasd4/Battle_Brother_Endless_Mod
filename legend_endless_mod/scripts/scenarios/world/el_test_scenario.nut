@@ -79,6 +79,7 @@ this.el_test_scenario <- this.inherit("scripts/scenarios/world/starting_scenario
 		this.World.Assets.getStash().add(this.new("scripts/items/el_weapon/el_barbarians_chosen_mace"));
 		this.World.Assets.getStash().add(this.new("scripts/items/el_weapon/el_undead_dagger"));
 		this.World.Assets.getStash().add(this.new("scripts/items/el_weapon/el_vampire_cleaver"));
+		this.World.Assets.getStash().add(this.new("scripts/items/weapons/legend_staff_vala"));
 		
 		local npc_buffs = [];
 		local skill = this.new("scripts/skills/el_npc_buffs/el_lightning_speed_npc_buff");
