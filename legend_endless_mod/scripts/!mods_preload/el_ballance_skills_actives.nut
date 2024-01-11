@@ -109,7 +109,7 @@ local gt = getroottable();
                 }
             }, _data);
 
-            if (_data.Target == null || _data.Target.isAlive() || _data.Target.isDying())
+            if (_data.Target == null || !_data.Target.isAlive() || _data.Target.isDying())
             {
                 return;
             }
