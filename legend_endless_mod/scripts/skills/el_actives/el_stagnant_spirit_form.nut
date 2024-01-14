@@ -80,7 +80,7 @@ this.el_stagnant_spirit_form <- this.inherit("scripts/skills/skill", {
         }
         if(_skill.m.IsActive && !_skill.m.IsWeaponSkill && _skill.m.IsTargeted && _skill.m.IsAttack && _skill.m.IsRanged && _skill.m.IsIgnoredAsAOO)
         {
-            local r = this.Math.rand(0, this.Const.EL_Rarity_Entry.Factor.EL_RadianceOfMagic.StagnantSpirit.NegativeEffectList.len());
+            local r = this.Math.rand(0, this.Const.EL_Rarity_Entry.Factor.EL_RadianceOfMagic.StagnantSpirit.NegativeEffectList.len() - 1);
             local random_debuff = this.new(this.Const.EL_Rarity_Entry.Factor.EL_RadianceOfMagic.StagnantSpirit.NegativeEffectList[r]);
             _targetEntity.getSkills().add(random_debuff);
         }
