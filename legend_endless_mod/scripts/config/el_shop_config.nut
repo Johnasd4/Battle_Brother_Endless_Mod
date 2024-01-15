@@ -18,20 +18,17 @@ gt.Const.EL_Shop <- {
 		Factor = {
 			Offset = [
 				0,
-				-6000,
-				-15000,
-				30000
+				0,
+				50000
 			],
 			Mult = [
 				0,
-				300,
-				450,
+				1000,
 				0
 			],
 			Range = [
-				20,
-				60,
-				100
+				0,
+				50
 			]
 		}
 		Table = []
@@ -43,20 +40,17 @@ gt.Const.EL_Shop <- {
 		Factor = {
 			Offset = [
 				0,
-				-2000,
 				-5000,
-				10000
+				20000
 			],
 			Mult = [
 				0,
-				100,
-				150,
+				500,
 				0
 			],
 			Range = [
 				20,
-				60,
-				100
+				50
 			]
 		}
 		Table = []
@@ -159,9 +153,9 @@ gt.Const.EL_Shop <- {
 		],
 		PriceEachOne = [
 			1,
-			50,
 			200,
-			1000,
+			500,
+			1200,
 			100000
 		]
 	},
@@ -185,7 +179,7 @@ gt.Const.EL_Shop <- {
         Table = []
 
         function EL_getChance(_EL_Index) {
-            return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_Shop.EL_PremiumCoreChance);
+            return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_Shop.EL_PremiumEquipmentEssenceChance);
         }
     },
     EL_FineEquipmentEssenceChance = {
@@ -208,7 +202,7 @@ gt.Const.EL_Shop <- {
         Table = []
 
         function EL_getChance(_EL_Index) {
-            return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_Shop.EL_FineCoreChance);
+            return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_Shop.EL_FineEquipmentEssenceChance);
         }
     },
     EL_EpicEquipmentEssenceChance = {
@@ -231,7 +225,7 @@ gt.Const.EL_Shop <- {
         Table = []
 
         function EL_getChance(_EL_Index) {
-            return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_Shop.EL_EpicCoreChance);
+            return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_Shop.EL_EpicEquipmentEssenceChance);
         }
     },
     EL_LegendaryEquipmentEssenceChance = {
@@ -254,7 +248,7 @@ gt.Const.EL_Shop <- {
         Table = []
 
         function EL_getChance(_EL_Index) {
-            return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_Shop.EL_EpicCoreChance);
+            return this.Const.EL_Config.EL_chanceTableReadAXB(_EL_Index, this.Const.EL_Shop.EL_LegendaryEquipmentEssenceChance);
         }
     }
 };

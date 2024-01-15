@@ -68,14 +68,14 @@ this.el_vampire_cleaver <- this.inherit("scripts/items/weapons/weapon", {
 		local actor = this.m.Container.getActor();
         local vampire_hitpoints_number = this.Math.round(_hitInfo.DamageInflictedHitpoints);
         local vampire_condition_number = this.Math.round(_hitInfo.DamageInflictedArmor);
-		this.logInfo("vampire_hitpoints_number:" + vampire_hitpoints_number + " vampire_condition_number:" + vampire_condition_number);
+		//this.logInfo("vampire_hitpoints_number:" + vampire_hitpoints_number + " vampire_condition_number:" + vampire_condition_number);
 		actor.setHitpoints(this.Math.min(actor.getHitpointsMax(), actor.getHitpoints() + vampire_hitpoints_number));
 		if(_hitInfo.BodyPart == this.Const.BodyPart.Head)
 		{
 			local helmet = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
 			if(helmet != null) 
 			{
-				helmet.setArmor(this.Math.min(body.getArmorMax(), body.getArmor() + vampire_condition_number));
+				helmet.setArmor(this.Math.min(helmet.getArmorMax(), helmet.getArmor() + vampire_condition_number));
 				helmet.updateAppearance();
 			}
 		}

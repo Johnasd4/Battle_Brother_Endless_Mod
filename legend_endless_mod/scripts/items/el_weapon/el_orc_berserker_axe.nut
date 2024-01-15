@@ -32,6 +32,25 @@ this.el_orc_berserker_axe <- this.inherit("scripts/items/weapons/weapon", {
 		this.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Legendary, 0);
 	}
 
+	function getTooltip()
+	{
+		local result = this.weapon.getTooltip();
+        for(local i = 0; i < result.len(); ++i)
+		{
+			if(result[i].type == "text" && result[i].text == "——————————————")
+			{
+				result.insert(i, {
+					id = 10,
+					type = "text",
+					icon = "ui/icons/special.png",
+					text = "装备后获得技能“冲锋斩”。"
+				});
+				break;
+			}
+		}
+		return result;
+	}
+
 	function onEquip()
 	{
 		this.weapon.onEquip();

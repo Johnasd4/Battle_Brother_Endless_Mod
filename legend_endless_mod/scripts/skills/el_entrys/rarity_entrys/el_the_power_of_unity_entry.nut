@@ -100,12 +100,12 @@ this.el_the_power_of_unity_entry <- this.inherit("scripts/skills/skill", {
 				{   
 					if (_targetEntity == null || !_targetEntity.isAlive() || _targetEntity.isDying())
 					{
-						continue;
+						break;
 					}
 					local skill = this.Const.EL_Rarity_Entry.EL_getAttackSkill(actor);
 					if(skill == null)
 					{
-						continue
+						continue;
 					}
 					if(target_tile.getDistanceTo(actor.getTile()) <= skill.m.MaxRange)
 					{

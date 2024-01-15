@@ -69,6 +69,9 @@ gt.Const.EL_Rarity_Entry <- {
 				Scripts = "scripts/skills/el_entrys/rarity_entrys/el_pursuit_of_wind_entry"
 			},
 			{
+				Scripts = "scripts/skills/el_entrys/rarity_entrys/el_radiance_of_magic_entry"
+			},
+			{
 				Scripts = "scripts/skills/el_entrys/rarity_entrys/el_strong_and_heavy_vehemence_entry"
 			},
 			{
@@ -233,6 +236,27 @@ gt.Const.EL_Rarity_Entry <- {
 		EL_PursuitOfWind = {
 			DamageMult = 0.7
 		},
+		EL_RadianceOfMagic = {
+			InfuseMagic = {
+				DamageMult = 1.5,
+				RangeMaxMult = 1.5,
+				ActionPointCostMult = 0.67,
+				FatigueCostMult = 0.67,
+				MultipleChance = 40,
+			},
+			StagnantSpirit = {
+				MultipleChance = 40,
+				NegativeEffectList = [
+					"scripts/skills/effects/withered_effect",
+					"scripts/skills/effects/insect_swarm_effect",
+					"scripts/skills/effects/debilitated_effect",
+					"scripts/skills/effects/rooted_effect",
+					"scripts/skills/effects/stunned_effect",
+					"scripts/skills/effects/dazed_effect",
+					"scripts/skills/effects/legend_dazed_effect"
+				]
+			}
+		}
 		EL_StrongAndHeavyVehemence = {
 			FatigueDamageMult = 2,
 			ReplaceSkillList = [

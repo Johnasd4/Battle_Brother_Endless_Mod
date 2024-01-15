@@ -109,7 +109,7 @@ local gt = getroottable();
                 }
             }, _data);
 
-            if (_data.Target == null)
+            if (_data.Target == null || !_data.Target.isAlive() || _data.Target.isDying())
             {
                 return;
             }
@@ -146,7 +146,7 @@ local gt = getroottable();
                     this.Sound.play(this.m.SoundOnLightning[this.Math.rand(0, this.m.SoundOnLightning.len() - 1)], this.Const.Sound.Volume.Skill * 2.0, _user.getPos());
                 }
 
-                if (!targetTile.IsEmpty && targetTile.getEntity().isAlive())
+                if (!targetTile.IsEmpty && targetTile.getEntity().isAlive() && !targetTile.getEntity().isDying())
                 {
                     target = targetTile.getEntity();
                     selectedTargets.push(target.getID());
