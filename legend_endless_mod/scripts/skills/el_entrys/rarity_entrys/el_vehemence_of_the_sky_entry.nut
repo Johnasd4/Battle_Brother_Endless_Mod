@@ -89,7 +89,7 @@ this.el_vehemence_of_the_sky_entry <- this.inherit("scripts/skills/skill", {
 				this.getContainer().getActor().setMoraleState(this.Const.MoraleState.Confident);
 			}
 			local item = this.m.Container.getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Mainhand);
-			if(item.m.EL_EntryList[item.m.EL_EntryList.len() - 1].getID() != "el_rarity_entry.vehemence_of_the_sky_subsidiary")
+			if(item.m.EL_EntryList.len() == 0 || item.m.EL_EntryList[item.m.EL_EntryList.len() - 1].getID() != "el_rarity_entry.vehemence_of_the_sky_subsidiary")
 			{
 				item.EL_addEntryToList(this.new("scripts/skills/el_entrys/rarity_entrys/el_vehemence_of_the_sky_subsidiary_entry"));
 			}
