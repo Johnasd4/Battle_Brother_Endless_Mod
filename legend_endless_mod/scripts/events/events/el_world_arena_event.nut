@@ -614,27 +614,39 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
                 Type = this.Const.World.Spawn.Troops.Executioner
             }, false, 0, i < 1 ? 2 : 1);
         }
-        for( local i = 0; i < 4; ++i )
+        for( local i = 0; i < 6; ++i )
         {
             this.Const.World.Common.addTroop(_party, {
-                Type = this.Const.World.Spawn.Troops.Assassin
+                Type = this.Const.World.Spawn.Troops.Gunner
             }, false, 0, i < 1 ? 2 : 1);
         }
 
-        for( local i = 0; i < 4; ++i )
+        for( local i = 0; i < 6; ++i )
         {
             this.Const.World.Common.addTroop(_party, {
-                Type = this.Const.World.Spawn.Troops.Assassin
+                Type = this.Const.World.Spawn.Troops.Officer
             }, false, 0, i < 1 ? 2 : 1);
         }
     }
 
     function el_generateMummyParty(_party) {
-        for( local i = 0; i < 25; ++i )
+        for( local i = 0; i < 5; ++i )
         {
             this.Const.World.Common.addTroop(_party, {
-                Type = this.Const.World.Spawn.Troops.LegendVampireLord
-            }, false, 0, i < 5 ? 2 : 1);
+                Type = this.Const.World.Spawn.Troops.LegendMummyPriest
+            }, false, 0, i < 1 ? 2 : 1);
+        }
+        for( local i = 0; i < 3; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.LegendMummyQueen
+            }, false, 0, i < 3 ? 2 : 1);
+        }
+        for( local i = 0; i < 15; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.LegendMummyHeavy
+            }, false, 0, i < 1 ? 2 : 1);
         }
     }
 
@@ -642,14 +654,38 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
         for( local i = 0; i < 3; ++i )
         {
             this.Const.World.Common.addTroop(_party, {
-                Type = this.Const.World.Spawn.Troops.SkeletonBoss
+                Type = this.Const.World.Spawn.Troops.LegendHexeLeader
             }, false, 0, i < 3 ? 2 : 1);
         }
         for( local i = 0; i < 3; ++i )
         {
             this.Const.World.Common.addTroop(_party, {
-                Type = this.Const.World.Spawn.Troops.SkeletonBoss
-            }, false, 0, i < 3 ? 2 : 1);
+                Type = this.Const.World.Spawn.Troops.LegendRockUnhold
+            }, false, 0, i < 0 ? 2 : 1);
+        }
+        for( local i = 0; i < 3; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.LegendStollwurm
+            }, false, 0, i < 0 ? 2 : 1);
+        }
+        for( local i = 0; i < 6; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.LegendRedbackSpider
+            }, false, 0, i < 1 ? 2 : 1);
+        }
+        for( local i = 0; i < 6; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.LegendWhiteDirewolf
+            }, false, 0, i < 1 ? 2 : 1);
+        }
+        for( local i = 0; i < 3; ++i )
+        {
+            this.Const.World.Common.addTroop(_party, {
+                Type = this.Const.World.Spawn.Troops.LegendGreenwoodSchrat
+            }, false, 0, i < 0 ? 2 : 1);
         }
     }
 
