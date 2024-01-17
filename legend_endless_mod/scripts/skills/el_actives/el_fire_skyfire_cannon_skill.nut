@@ -140,7 +140,7 @@ this.el_fire_skyfire_cannon_skill <- this.inherit("scripts/skills/skill", {
 
 			local target = t.getEntity();
 			local success = this.attackEntity(user, target, false);
-            if(target == this.m.MainTarget && success)
+            if(success && target == this.m.MainTarget && !target.isDying() && target.isAlive())
             {
                 local properties = this.getContainer().buildPropertiesForUse(_tag.Skill, target);
                 properties.DamageTotalMult *= 0.5;

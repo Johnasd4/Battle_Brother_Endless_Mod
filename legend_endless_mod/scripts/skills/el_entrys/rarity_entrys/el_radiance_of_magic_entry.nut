@@ -29,13 +29,13 @@ this.el_radiance_of_magic_entry <- this.inherit("scripts/skills/skill", {
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]获得“飞弹”、“闪电链”、“火焰弹”技能。/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]获得“飞弹”、“闪电链”、“火焰弹”技能。[/color]"
 			},
 			{
 				id = 3,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]拥有“注魔姿态”和“滞灵姿态”两种形态。"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]拥有“注魔姿态”和“滞灵姿态”两种形态。[/color]"
 			}
         ];
 		if (!EL_isUsable())
