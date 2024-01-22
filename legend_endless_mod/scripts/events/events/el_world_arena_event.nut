@@ -300,7 +300,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
                     }
                     //TODO(Johnasd4): change the reward item.
                     if(team == "EL_WorldArenaSkeleton") {
-                        local reward_item = this.new("scripts/items/el_weapon/el_vampire_cleaver");
+                        local reward_item = this.new("scripts/items/el_weapon/el_bone_spear");
                         this.World.Assets.getStash().makeEmptySlots(1);
                         this.World.Assets.getStash().add(reward_item);
                         this.List.push({
@@ -309,7 +309,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
                         });
                     }
                     if(team == "EL_WorldArenaSouthHuman") {
-                        local reward_item = this.new("scripts/items/el_weapon/el_vampire_cleaver");
+                        local reward_item = this.new("scripts/items/el_weapon/el_skyfire_cannon");
                         this.World.Assets.getStash().makeEmptySlots(1);
                         this.World.Assets.getStash().add(reward_item);
                         this.List.push({
@@ -318,7 +318,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
                         });
                     }
                     if(team == "EL_WorldArenaMummy") {
-                        local reward_item = this.new("scripts/items/el_weapon/el_vampire_cleaver");
+                        local reward_item = this.new("scripts/items/el_weapon/el_mummy_curse_cleaver");
                         this.World.Assets.getStash().makeEmptySlots(1);
                         this.World.Assets.getStash().add(reward_item);
                         this.List.push({
@@ -327,7 +327,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
                         });
                     }
                     if(team == "EL_WorldArenaWitch") {
-                        local reward_item = this.new("scripts/items/el_weapon/el_vampire_cleaver");
+                        local reward_item = this.new("scripts/items/el_weapon/el_hexe_staff");
                         this.World.Assets.getStash().makeEmptySlots(1);
                         this.World.Assets.getStash().add(reward_item);
                         this.List.push({

@@ -91,7 +91,7 @@ local gt = getroottable();
 				result.push({
 					id = 26,
 					type = "text",
-					text = "额外爆炸范围（竖向）: [color=" + this.Const.UI.Color.PositiveValue + "]" + this.m.EL_AdditionalExplosionRange + "[/color]"
+					text = "额外爆炸范围: [color=" + this.Const.UI.Color.PositiveValue + "]" + this.m.EL_AdditionalExplosionRange + "[/color]"
 				});
 			}
 			if (this.m.EL_EntryList.len() != 0)

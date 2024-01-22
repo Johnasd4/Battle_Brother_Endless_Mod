@@ -2,7 +2,7 @@ this.el_undead_dagger_effect <- this.inherit("scripts/skills/skill", {
 	m = {},
 	function create()
 	{
-		this.m.ID = "el_effect.goblin_tuchun_crossbow";
+		this.m.ID = "el_effect.undead_dagger";
 		this.m.Type = this.Const.SkillType.StatusEffect;
 		this.m.IsActive = false;
 		this.m.IsHidden = true;
