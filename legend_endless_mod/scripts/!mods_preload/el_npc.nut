@@ -677,6 +677,7 @@ local gt = getroottable();
             local elite_team_chance = this.Const.EL_NPC.EL_EliteTeam.EliteTeamChance.EL_getChance(world_level);
             local random_leader_chance = 0;
             local strongest_leader_chance = 0;
+            local follower_exist = this.World.Retinue.hasFollower("follower.bounty_hunter");
             if(elite_team_chance * 10 >= this.Math.rand(1, 1000)) {
                 this.m.EL_IsEliteParty = true;
             }
@@ -687,6 +688,10 @@ local gt = getroottable();
             else {
                 random_leader_chance = this.Const.EL_NPC.EL_NormalTeam.RandomLeaderChance.EL_getChance(world_level);
                 strongest_leader_chance = this.Const.EL_NPC.EL_NormalTeam.StrongestLeaderChance.EL_getChance(world_level);
+            }
+            if(follower_exist) {
+                random_leader_chance = random_leader_chance * 2 + 200;
+                strongest_leader_chance = strongest_leader_chance * 2 + 200;
             }
             if(random_leader_chance * 10 >= this.Math.rand(1, 1000)) {
                 this.m.EL_HaveRandomLeader = true;
@@ -1302,7 +1307,8 @@ local gt = getroottable();
             {
                 return false;
             }
-            local delay = 1.0 * this.World.getTime().SecondsPerDay * this.Const.EL_NPC.EL_Contract.DelayTime.Settlement[this.getSettlements()[0].getSize() - 1] / this.World.Assets.EL_getHalfWorldDifficultFactor();
+            local follower_factor = this.World.Retinue.hasFollower("follower.agent") ? 2.0 : 1.0;
+            local delay = 1.0 * this.World.getTime().SecondsPerDay * this.Const.EL_NPC.EL_Contract.DelayTime.Settlement[this.getSettlements()[0].getSize() - 1] / this.World.Assets.EL_getHalfWorldDifficultFactor() / follower_factor;
             local max_contract_num = this.Const.EL_NPC.EL_Contract.MaxNum.Settlement[this.getSettlements()[0].getSize() - 1];
             return this.m.Contracts.len() < max_contract_num && (this.m.LastContractTime == 0 || this.World.getTime().Days <= 1 || this.Time.getVirtualTimeF() > this.m.LastContractTime + this.Math.floor(delay));
         }
@@ -1312,7 +1318,8 @@ local gt = getroottable();
 	{
         o.isReadyForContract = function()
         {
-            local delay = 1.0 * this.World.getTime().SecondsPerDay * this.Const.EL_NPC.EL_Contract.DelayTime.City / this.World.Assets.EL_getHalfWorldDifficultFactor();
+            local follower_factor = this.World.Retinue.hasFollower("follower.agent") ? 2.0 : 1.0;
+            local delay = 1.0 * this.World.getTime().SecondsPerDay * this.Const.EL_NPC.EL_Contract.DelayTime.City / this.World.Assets.EL_getHalfWorldDifficultFactor() / follower_factor;
             local max_contract_num = this.Const.EL_NPC.EL_Contract.MaxNum.City;
             return this.m.Contracts.len() <= max_contract_num && (this.m.LastContractTime == 0 || this.Time.getVirtualTimeF() > this.m.LastContractTime + this.Math.floor(delay));
         }
@@ -1322,7 +1329,8 @@ local gt = getroottable();
 	{
         o.isReadyForContract = function()
         {
-            local delay = 1.0 * this.World.getTime().SecondsPerDay * this.Const.EL_NPC.EL_Contract.DelayTime.Noble / this.World.Assets.EL_getHalfWorldDifficultFactor();
+            local follower_factor = this.World.Retinue.hasFollower("follower.agent") ? 2.0 : 1.0;
+            local delay = 1.0 * this.World.getTime().SecondsPerDay * this.Const.EL_NPC.EL_Contract.DelayTime.Noble / this.World.Assets.EL_getHalfWorldDifficultFactor() / follower_factor;
             local max_contract_num = this.Const.EL_NPC.EL_Contract.MaxNum.Noble;
             return (this.m.Contracts.len() < max_contract_num) && (this.m.LastContractTime == 0 || this.Time.getVirtualTimeF() > this.m.LastContractTime + this.Math.floor(delay));
         }
