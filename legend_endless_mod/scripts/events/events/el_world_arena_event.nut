@@ -33,7 +33,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
                     this.World.Flags.set("EL_WorldArenaNorthHuman", 0);
                 }
                 local north_human_level = this.World.Flags.get("EL_WorldArenaNorthHuman");
-                min_level = min_level < north_human_level ? min_level : north_human_level;
+                min_level = north_human_level;
 
                 if(!this.World.Flags.has("EL_WorldArenaOrc"))
                 {
