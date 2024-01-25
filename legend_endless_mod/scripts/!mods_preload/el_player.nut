@@ -392,15 +392,17 @@ local gt = getroottable();
 			local world_level = this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_CombatXP.MaxWorldLevel ? this.World.Assets.m.EL_WorldLevel : this.Const.EL_Player.EL_CombatXP.MaxWorldLevel;
 
 			//multiply xp if player level is lower then the world level
-			if(this.m.Level < world_level - this.Const.EL_Player.EL_CombatXP.BelowOffset){
-				local mult_factor = this.Math.pow(1 + (world_level - this.m.Level - this.Const.EL_Player.EL_CombatXP.BelowOffset) * this.Const.EL_Player.EL_CombatXP.BelowMult, 3);
+			local below_offset = this.Const.EL_Player.EL_CombatXP.BelowOffset - this.World.Retinue.hasFollower("follower.drill_sergeant") ? this.Const.EL_Player.EL_CombatXP.BelowOffset : 0;
+			local over_offset = this.Const.EL_Player.EL_CombatXP.OverOffset + this.World.Retinue.hasFollower("follower.drill_sergeant") ? this.Const.EL_Player.EL_CombatXP.BelowOffset : 0;
+			if(this.m.Level < world_level - below_offset){
+				local mult_factor = this.Math.pow(1 + (world_level - this.m.Level - below_offset) * this.Const.EL_Player.EL_CombatXP.BelowMult, 3);
 				if(mult_factor > this.Const.EL_Player.EL_CombatXP.BelowMultMax) {
 					mult_factor = this.Const.EL_Player.EL_CombatXP.BelowMultMax;
 				}
 				_xp *= mult_factor;
 			}
-			else if (this.m.Level > world_level + this.Const.EL_Player.EL_CombatXP.OverOffset){
-				local mult_factor = 1.0 / (this.Math.pow(1 + (this.m.Level - world_level - this.Const.EL_Player.EL_CombatXP.OverOffset) * this.Const.EL_Player.EL_CombatXP.OverMult, 3));
+			else if (this.m.Level > world_level + over_offset){
+				local mult_factor = 1.0 / (this.Math.pow(1 + (this.m.Level - world_level - over_offset) * this.Const.EL_Player.EL_CombatXP.OverMult, 3));
 				if(mult_factor < this.Const.EL_Player.EL_CombatXP.OverMultMin) {
 					mult_factor = this.Const.EL_Player.EL_CombatXP.OverMultMin;
 				}
@@ -591,6 +593,30 @@ local gt = getroottable();
 			onDeserialize( _in );
 			this.calculateStashModifier();
 		}
+
+		local calculateStashModifier = o.calculateStashModifier;
+		o.calculateStashModifier = function ( resize = true )
+		{
+			if (this.World.State.m.AppropriateTimeToRecalc == 1)
+			{
+				local s = this.Const.LegendMod.MaxResources[this.World.Assets.getEconomicDifficulty()].Stash;
+				s = s + this.World.Assets.getOrigin().getStashModifier();
+				s = s + this.World.Retinue.getInventoryUpgrades() * 27;
+
+				foreach( bro in this.World.getPlayerRoster().getAll() )
+				{
+					s = s + bro.getStashModifier();
+				}
+				s = s + this.World.Retinue.hasFollower("follower.quartermaster")? this.Math.floor(100 * (1 + 1.01 * this.World.Assets.m.EL_WorldLevel)) : 0;
+				if (resize && s != this.Stash.getCapacity())
+				{
+					this.Stash.resize(s);
+				}
+
+				return s;
+			}
+		}
+
 	});
 
 	::mods_hookExactClass("skills/backgrounds/character_background", function ( o )

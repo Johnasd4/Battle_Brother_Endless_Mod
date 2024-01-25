@@ -1352,6 +1352,7 @@ local gt = getroottable();
             this.m.DifficultyMult = this.Math.rand(this.Const.EL_NPC.EL_Contract.DifficultyLevel[level].Min, this.Const.EL_NPC.EL_Contract.DifficultyLevel[level].Max) * 0.01;
             this.m.PaymentMult = this.Math.rand(90, 110) * 0.01;
             this.m.PaymentMult *= (1 + this.Const.EL_NPC.EL_Contract.PaymentMultPurWorldLevel * this.Math.min(this.Const.EL_NPC.EL_Contract.PaymentMultMaxWorldLevel, this.World.Assets.m.EL_WorldLevel)) * this.World.Assets.EL_getHalfWorldDifficultFactor();
+            this.m.PaymentMult *= this.World.Retinue.hasFollower("follower.negotiator") ? 1.5 : 1.0;
             this.m.Flags = this.new("scripts/tools/tag_collection");
             this.m.TempFlags = this.new("scripts/tools/tag_collection");
             this.createStates();
