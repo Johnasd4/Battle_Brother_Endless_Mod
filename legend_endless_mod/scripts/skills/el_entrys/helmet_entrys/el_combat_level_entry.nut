@@ -16,7 +16,7 @@ this.el_combat_level_entry <- this.inherit("scripts/skills/el_entrys/el_accessor
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]战斗等级 + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_CombatLevel * 100) * 0.01 + " (" + this.m.EL_CombatLevel + ")[/color]"
+				text = "[color=" + colour + "]战斗等级 + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_CombatLevel * 100) * this.m.EL_StrengthLevel * 0.01 + " (" + this.m.EL_CombatLevel * this.m.EL_StrengthLevel + ")[/color]"
 			};
 		}
 		else
@@ -24,7 +24,7 @@ this.el_combat_level_entry <- this.inherit("scripts/skills/el_entrys/el_accessor
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]战斗等级 + " + this.m.EL_CombatLevel + "[/color]"
+				text = "[color=" + colour + "]战斗等级 + " + this.m.EL_CombatLevel * this.m.EL_StrengthLevel + "[/color]"
 			};
 		}
 	}
@@ -63,22 +63,24 @@ this.el_combat_level_entry <- this.inherit("scripts/skills/el_entrys/el_accessor
 
 	function onUpdate( _properties )
 	{
-		_properties.EL_CombatLevel += this.m.EL_CurrentLevel * this.m.EL_CombatLevel;
+		_properties.EL_CombatLevel += this.m.EL_CurrentLevel * this.m.EL_CombatLevel * this.m.EL_StrengthLevel;
 	}
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
 		++_EL_totalEntry.m.EL_EntryNum;
-		_EL_totalEntry.m.EL_CombatLevel += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_CombatLevel * 100) * 0.01;
+		_EL_totalEntry.m.EL_CombatLevel += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_CombatLevel * 100) * this.m.EL_StrengthLevel * 0.01;
 	}
 
     function onSerialize( _out )
 	{
 		_out.writeF32(this.m.EL_CombatLevel);
+		_out.writeI32(this.m.EL_StrengthLevel);
 	}
 
 	function onDeserialize( _in )
 	{
 		this.m.EL_CombatLevel = _in.readF32();
+		this.m.EL_StrengthLevel = _in.readI32();
 	}
 });

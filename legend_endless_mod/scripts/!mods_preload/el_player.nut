@@ -603,11 +603,11 @@ local gt = getroottable();
 				s = s + this.World.Assets.getOrigin().getStashModifier();
 				s = s + this.World.Retinue.getInventoryUpgrades() * 27;
 
-				foreach( bro in this.World.getPlayerRoster().getAll() )
+				foreach( bro in this.World.getPlayerRoster().getAll())
 				{
 					s = s + bro.getStashModifier();
 				}
-				s = s + this.World.Retinue.hasFollower("follower.quartermaster")? this.Math.floor(100 * (1 + 1.01 * this.World.Assets.m.EL_WorldLevel)) : 0;
+				s = s + (this.World.Retinue.hasFollower("follower.quartermaster") ? this.Math.floor(100 * (1 + 1.01 * this.World.Assets.m.EL_WorldLevel)) : 0);
 				if (resize && s != this.Stash.getCapacity())
 				{
 					this.Stash.resize(s);
@@ -1544,6 +1544,77 @@ local gt = getroottable();
 			return result;
 		}
 
+	});
+	
+	::mods_hookExactClass("skills/injury", function(o){
+		o.getHealingTime = function()
+		{
+			local time = this.getTime();
+			local mint = this.Math.max(1, (this.m.IsTreated ? this.m.HealingTimeMin * 0.5 : this.m.HealingTimeMin) - this.Math.ceil((time - this.m.TimeApplied) / this.World.getTime().SecondsPerDay));
+			local maxt = this.Math.max(1, (this.m.IsTreated ? this.m.HealingTimeMax * 0.5 : this.m.HealingTimeMax) - this.Math.floor((time - this.m.TimeApplied) / this.World.getTime().SecondsPerDay));
+
+			if (("State" in this.World) && this.World.State != null && this.World.Retinue.hasFollower("follower.surgeon"))
+			{
+				mint = this.Math.max(1, this.Math.ceil(mint / 2));
+				maxt = this.Math.max(1, this.Math.ceil(maxt / 2));
+			}
+
+			if (this.getContainer().getActor().getSkills().hasSkill("effects.nachzehrer_potion"))
+			{
+				mint = this.Math.max(1, mint - 1);
+				maxt = this.Math.max(1, maxt - 1);
+			}
+
+			return {
+				Min = mint,
+				Max = maxt
+			};
+		}
+
+		o.onNewDay = function()
+		{
+			if (!(this.getContainer().getActor().getSkills().hasSkill("trait.oath_of_sacrifice") && this.m.IsTreatable) && (this.World.Assets.getMedicine() >= this.Const.World.Assets.MedicinePerInjuryDay || !this.m.IsHealingMentioned))
+			{
+				if (this.m.IsHealingMentioned)
+				{
+					this.World.Assets.addMedicine(-this.Const.World.Assets.MedicinePerInjuryDay);
+				}
+
+				local time = this.getTime();
+				local daysPassed = this.Math.ceil((time - this.m.TimeApplied) / this.World.getTime().SecondsPerDay);
+				local minTime = this.m.HealingTimeMin * (this.m.IsTreated ? 0.5 : 1.0 - 0.5 * this.getTreatedPercentage());
+				local maxTime = this.m.HealingTimeMax * (this.m.IsTreated ? 0.5 : 1.0 - 0.5 * this.getTreatedPercentage());
+
+				if (this.World.Retinue.hasFollower("follower.surgeon"))
+				{
+					minTime = this.Math.max(1, this.Math.ceil(mint / 2));
+					maxTime = this.Math.max(1, this.Math.ceil(maxt / 2));
+				}
+
+				if (this.getContainer().getActor().getSkills().hasSkill("effects.nachzehrer_potion"))
+				{
+					minTime = this.Math.max(1, minTime - 1);
+					maxTime = this.Math.max(1, maxTime - 1);
+				}
+
+				if (daysPassed < minTime)
+				{
+					return;
+				}
+
+				local chance = daysPassed / (maxTime * 1.0) * 100.0;
+
+				if (this.Math.rand(1, 100) <= chance)
+				{
+					this.removeSelf();
+					return;
+				}
+			}
+			else
+			{
+				this.m.TimeApplied = this.Math.minf(this.Time.getVirtualTimeF(), this.m.TimeApplied + this.World.getTime().SecondsPerDay);
+			}
+		}
 	});
 
 

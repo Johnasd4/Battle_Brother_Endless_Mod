@@ -63,7 +63,21 @@ local gt = getroottable();
 
 	::mods_hookNewObject("entity/tactical/tactical_entity_manager", function(o)
     {
-
+        o.EL_EquipmentEssenceNum = [0,0,0,0,0];
+        
+        o.EL_getEquipmentEssenceNum <- function ()
+        {
+            return this.m.EL_EquipmentEssenceNum;
+        }
+        
+        o.EL_addEquipmentEssenceNum <- function ( _array )
+        {
+            for(local i = 0; i <= this.Const.EL_Item.Type.Legendary; ++i)
+            {
+                this.m.EL_EquipmentEssenceNum[i] += _array[i];
+            }
+        }
+        
 		o.setupEntity = function (_e, _t)
 		{
             _e.setWorldTroop(_t);

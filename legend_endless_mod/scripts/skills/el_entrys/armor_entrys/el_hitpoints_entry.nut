@@ -81,10 +81,12 @@ this.el_hitpoints_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_e
     function onSerialize( _out )
 	{
 		_out.writeI32(this.m.EL_Hitpoints);
+		_out.writeI32(this.m.EL_StrengthLevel);
 	}
 
 	function onDeserialize( _in )
 	{
 		this.m.EL_Hitpoints = _in.readI32();
+		this.m.EL_StrengthLevel = _in.readI32();
 	}
 });

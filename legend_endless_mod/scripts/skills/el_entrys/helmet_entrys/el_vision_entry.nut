@@ -15,7 +15,7 @@ this.el_vision_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_entr
 		local result = {
 			id = _id,
 			type = "text",
-			text = "[color=" + colour + "]视野 + " + this.m.EL_Vision + "[/color]"
+			text = "[color=" + colour + "]视野 + " + this.m.EL_Vision * this.m.EL_StrengthLevel + "[/color]"
 		};
 		if(this.m.EL_CurrentLevel != 1)
 		{
@@ -40,13 +40,13 @@ this.el_vision_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_entr
 
 	function onUpdate( _properties )
 	{
-		_properties.Vision += this.m.EL_Vision;
+		_properties.Vision += this.m.EL_Vision * this.m.EL_StrengthLevel;
 	}
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
 		++_EL_totalEntry.m.EL_EntryNum;
-		_EL_totalEntry.m.EL_Vision += this.m.EL_Vision;
+		_EL_totalEntry.m.EL_Vision += this.m.EL_Vision * this.m.EL_StrengthLevel;
 	}
 
 	function onUpdate( _properties )
@@ -69,10 +69,12 @@ this.el_vision_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_entr
     function onSerialize( _out )
 	{
 		_out.writeI32(this.m.EL_Vision);
+		_out.writeI32(this.m.EL_StrengthLevel);
 	}
 
 	function onDeserialize( _in )
 	{
 		this.m.EL_Vision = _in.readI32();
+		this.m.EL_StrengthLevel = _in.readI32();
 	}
 });

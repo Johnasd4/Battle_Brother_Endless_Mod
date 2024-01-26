@@ -16,7 +16,7 @@ this.el_reflect_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_ent
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]反弹 " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ReflectPercent * 100) * 0.01 + "% (" + this.m.EL_ReflectPercent + "%)头部护甲受到的伤害[/color]"
+				text = "[color=" + colour + "]反弹 " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ReflectPercent * 100) * this.m.EL_StrengthLevel * 0.01 + "% (" + this.m.EL_ReflectPercent * this.m.EL_StrengthLevel + "%)头部护甲受到的伤害[/color]"
 			};
 		}
 		else
@@ -24,7 +24,7 @@ this.el_reflect_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_ent
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]反弹 " + this.m.EL_ReflectPercent + "%头部护甲受到的伤害[/color]"
+				text = "[color=" + colour + "]反弹 " + this.m.EL_ReflectPercent * this.m.EL_StrengthLevel + "%头部护甲受到的伤害[/color]"
 			};
 		}
 	}
@@ -66,8 +66,8 @@ this.el_reflect_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_ent
 		if (_attacker != null && _attacker.isAlive() && _attacker.getHitpoints() > 0 && _attacker.getID() != this.getContainer().getActor().getID() && _hitInfo.BodyPart == this.Const.BodyPart.Head && _skill.isAttack())
 		{
 			local hitInfo = clone this.Const.Tactical.HitInfo;
-			hitInfo.DamageRegular = _hitInfo.DamageArmor * this.m.EL_ReflectPercent * 0.01;
-			hitInfo.DamageArmor = _hitInfo.DamageArmor * this.m.EL_ReflectPercent * 0.01;
+			hitInfo.DamageRegular = _hitInfo.DamageArmor * this.m.EL_ReflectPercent * this.m.EL_StrengthLevel * 0.01;
+			hitInfo.DamageArmor = _hitInfo.DamageArmor * this.m.EL_ReflectPercent * this.m.EL_StrengthLevel * 0.01;
 			hitInfo.DamageDirect = 0.0;
 			hitInfo.BodyPart = this.Const.BodyPart.Head;
 			hitInfo.BodyDamageMult = 1.0;
@@ -79,16 +79,18 @@ this.el_reflect_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_ent
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
 		++_EL_totalEntry.m.EL_EntryNum;
-		_EL_totalEntry.m.EL_HelmetReflectPercent += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ReflectPercent * 100) * 0.01;
+		_EL_totalEntry.m.EL_HelmetReflectPercent += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ReflectPercent * 100) * this.m.EL_StrengthLevel * 0.01;
 	}
     
     function onSerialize( _out )
 	{
 		_out.writeF32(this.m.EL_ReflectPercent);
+		_out.writeI32(this.m.EL_StrengthLevel);
 	}
 
 	function onDeserialize( _in )
 	{
 		this.m.EL_ReflectPercent = _in.readF32();
+		this.m.EL_StrengthLevel = _in.readI32();
 	}
 });

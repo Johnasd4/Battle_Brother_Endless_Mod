@@ -714,25 +714,19 @@ gt.Const.EL_Armor <- {
 	},
 	function EL_assignItemEntrys( _item, _entryNum ) {
 		local blocked_num = _item.EL_getBlockedSlotNum();
-		for(local index = 0; index <= blocked_num; ++index)
+		local index_pool = [];
+		for(local i = 0; i < this.Const.EL_Armor.EL_Entry.Pool.Entrys.len(); ++i) {
+				if(this.Const.EL_Armor.EL_Entry.Pool.Entrys[i].EL_ifEligible(_item)) {
+				index_pool.push(i);
+			}
+		}
+		while(_item.m.EL_EntryList.len() < _entryNum && index_pool.len() != 0)
 		{
-			local index_pool = [];
-			for(local i = 0; i < this.Const.EL_Armor.EL_Entry.Pool.Entrys.len(); ++i) {
-					if(this.Const.EL_Armor.EL_Entry.Pool.Entrys[i].EL_ifEligible(_item)) {
-					index_pool.push(i);
-				}
-			}
-			while(_item.m.EL_EntryList.len() < _entryNum && index_pool.len() != 0)
-			{
-				local r = this.Math.rand(0, index_pool.len() - 1);
-				local entry = this.new(this.Const.EL_Armor.EL_Entry.Pool.Entrys[index_pool[r]].Scripts);
-				index_pool.remove(r);
-				if(!_item.EL_hasEntry(entry.getID()) || _item.EL_getArmorType() == this.Const.EL_Item.ArmorType.UnlayeredArmor)
-				{
-					_item.EL_addEntryToList(entry);
-				}
-			}
-			_entryNum += this.Const.EL_Armor.EL_Entry.EntryNum.NormalArmor[_item.m.EL_RankLevel];
+			local r = this.Math.rand(0, index_pool.len() - 1);
+			local entry = this.new(this.Const.EL_Armor.EL_Entry.Pool.Entrys[index_pool[r]].Scripts);
+			entry.EL_setStrengthLevel(blocked_num)
+			index_pool.remove(r);
+			_item.EL_addEntryToList(entry);
 		}
 	}
 };

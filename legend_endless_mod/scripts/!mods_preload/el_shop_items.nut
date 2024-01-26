@@ -280,6 +280,8 @@ local gt = getroottable();
             local mineralRarityMult = this.getSettlement().getModifiers().MineralRarityMult;
             local buildingRarityMult = this.getSettlement().getModifiers().BuildingRarityMult;
             local isTrader = this.World.Retinue.hasFollower("follower.trader");
+            
+            local follower_exist = this.World.Retinue.hasFollower("follower.bounty_hunter");
             local EL_worldLevel = this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.EL_Shop.EL_ShopLevelMax);
             //this.logInfo("当前世界等级" + EL_worldLevel);
             local EL_coreMaxNum = this.Const.EL_Shop.EL_Core.EL_ShopMaxNum * (1 + EL_worldLevel * this.Const.EL_Shop.EL_ItemNumberLevelFactor);
@@ -400,9 +402,13 @@ local gt = getroottable();
                         EL_maxNum = (!isTrader && item.isItemType(this.Const.Items.ItemType.TradeGood)) ? EL_maxNumitems : EL_maxNum;
                         EL_maxNum = EL_isCore ? EL_coreMaxNum : EL_maxNum;
                         EL_maxNum = (num > EL_maxNum) ? EL_maxNum : num;
-                        if(isFood)
+                        if(isFood && follower_exist)
                         {
                             EL_maxNum = this.Math.round(EL_maxNum * this.Const.EL_Shop.EL_FoodNumMult);
+                        }
+                        else if(item.isItemType(this.Const.Items.ItemType.TradeGood) && isTrader)
+                        {
+                            EL_maxNum *= 2;
                         }
                         
                         //this.logInfo("生成运算中EL_maxNum" + EL_maxNum);

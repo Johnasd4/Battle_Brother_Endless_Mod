@@ -16,7 +16,7 @@ this.el_condition_recover_daliy_entry <- this.inherit("scripts/skills/el_entrys/
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]恢复 " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ConditionRecoverDaliy * 100) * 0.01 + "% (" + this.m.EL_ConditionRecoverDaliy + "%) 耐久每日[/color]"
+				text = "[color=" + colour + "]恢复 " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ConditionRecoverDaliy * 100) * this.m.EL_StrengthLevel * 0.01 + "% (" + this.m.EL_ConditionRecoverDaliy * this.m.EL_StrengthLevel + "%) 耐久每日[/color]"
 			};
 		}
 		else
@@ -24,7 +24,7 @@ this.el_condition_recover_daliy_entry <- this.inherit("scripts/skills/el_entrys/
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]恢复 " + this.m.EL_ConditionRecoverDaliy + "% 耐久每日[/color]"
+				text = "[color=" + colour + "]恢复 " + this.m.EL_ConditionRecoverDaliy * this.m.EL_StrengthLevel + "% 耐久每日[/color]"
 			};
 		}
 	}
@@ -65,7 +65,7 @@ this.el_condition_recover_daliy_entry <- this.inherit("scripts/skills/el_entrys/
 	{
 		if(_item != null)
 		{
-			local condition_recover = this.Math.ceil(_item.getConditionMax() * this.m.EL_CurrentLevel * this.m.EL_ConditionRecoverDaliy * 0.01 / 24);
+			local condition_recover = this.Math.ceil(_item.getConditionMax() * this.m.EL_CurrentLevel * this.m.EL_ConditionRecoverDaliy * this.m.EL_StrengthLevel * 0.01 / 24);
 			_item.setCondition(this.Math.min(_item.getConditionMax(), _item.getCondition() + condition_recover));
 			//this.logInfo("_item entry-daliy recover conditon:" + condition_recover);
 		}
@@ -74,16 +74,18 @@ this.el_condition_recover_daliy_entry <- this.inherit("scripts/skills/el_entrys/
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
 		++_EL_totalEntry.m.EL_EntryNum;
-		_EL_totalEntry.m.EL_ArmorConditionRecoverDaliy += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ConditionRecoverDaliy * 100) * 0.01;
+		_EL_totalEntry.m.EL_ArmorConditionRecoverDaliy += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ConditionRecoverDaliy * 100) * this.m.EL_StrengthLevel * 0.01;
 	}
-    
+
     function onSerialize( _out )
 	{
 		_out.writeF32(this.m.EL_ConditionRecoverDaliy);
+		_out.writeI32(this.m.EL_StrengthLevel);
 	}
 
 	function onDeserialize( _in )
 	{
 		this.m.EL_ConditionRecoverDaliy = _in.readF32();
+		this.m.EL_StrengthLevel = _in.readI32();
 	}
 });
