@@ -344,7 +344,8 @@ local gt = getroottable();
             create();
             this.m.Effects = [
                 "Makes you pay 20% less up front for hiring new men, and 50% less for tryouts",
-                "让每个定居点可以招募的新兵额外增加5人"
+                "让每个定居点可以招募的新兵额外增加5人",
+                "精英和英雄出现概率提升 100%"
             ];
 		}
 

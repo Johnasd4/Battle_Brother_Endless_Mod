@@ -535,8 +535,9 @@ local gt = getroottable();
 		o.setStartValuesEx = function( _backgrounds, _addTraits = true, _gender = -1, _addEquipment = true, _EL_rankLevel = -1 )
 		{
 			if(_EL_rankLevel == -1) {
-				local rank_1_chance = this.Const.EL_Player.EL_Rank1Chance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor();
-				local rank_2_chance = this.Const.EL_Player.EL_Rank2Chance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor();
+				local follower_chance_mult = this.World.Retinue.hasFollower("follower.recruiter") ? 2 : 1;
+				local rank_1_chance = this.Const.EL_Player.EL_Rank1Chance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor() * follower_chance_mult;
+				local rank_2_chance = this.Const.EL_Player.EL_Rank2Chance.EL_getChance(this.World.Assets.m.EL_WorldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor() * follower_chance_mult;
 				local temp_rank = 0;
 				if(rank_2_chance * 10 >= this.Math.rand(1, 1000)) {
 					temp_rank = 2;
@@ -1545,7 +1546,7 @@ local gt = getroottable();
 		}
 
 	});
-	
+
 	::mods_hookExactClass("skills/injury", function(o){
 		o.getHealingTime = function()
 		{
