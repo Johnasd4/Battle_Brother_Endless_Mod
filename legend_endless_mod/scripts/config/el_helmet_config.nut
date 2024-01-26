@@ -736,7 +736,7 @@ gt.Const.EL_Helmet <- {
 		}
 	},
 	function EL_assignItemEntrys( _item, _entryNum ) {
-		local blocked_num = _item.EL_getBlockedSlotNum();
+		local blocked_num = _item.EL_getBlockedSlotNum() + 1;
 		local index_pool = [];
 		for(local i = 0; i < this.Const.EL_Helmet.EL_Entry.Pool.Entrys.len(); ++i) {
 				if(this.Const.EL_Helmet.EL_Entry.Pool.Entrys[i].EL_ifEligible(_item)) {
