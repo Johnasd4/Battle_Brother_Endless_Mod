@@ -59,35 +59,6 @@ local gt = getroottable();
 		}
 	});
 
-	::mods_hookExactClass("retinue/followers/blacksmith_follower", function( o )
-	{
-		local create = o.create;
-		o.create = function()
-		{
-            create();
-            this.m.Effects = [
-                "Repairs all armor, helmets, weapons and shields worn by your men even if they\'re broken or lost because your man died",
-                "Increases repair speed by 100%"
-            ];
-		}
-
-		local onUpdate = o.onUpdate;
-		o.onUpdate = function()
-		{
-            this.follower.onUpdate();
-
-            if ("RepairSpeedMult" in this.World.Assets.m)
-            {
-                this.World.Assets.m.RepairSpeedMult *= 2.0;
-            }
-
-            if ("IsBlacksmithed" in this.World.Assets.m)
-            {
-                this.World.Assets.m.IsBlacksmithed = true;
-            }
-		}
-	});
-
 	::mods_hookExactClass("retinue/followers/bounty_hunter_follower", function( o )
 	{
 		local create = o.create;

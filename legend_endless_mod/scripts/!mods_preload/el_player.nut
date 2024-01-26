@@ -392,8 +392,8 @@ local gt = getroottable();
 			local world_level = this.World.Assets.m.EL_WorldLevel < this.Const.EL_Player.EL_CombatXP.MaxWorldLevel ? this.World.Assets.m.EL_WorldLevel : this.Const.EL_Player.EL_CombatXP.MaxWorldLevel;
 
 			//multiply xp if player level is lower then the world level
-			local below_offset = this.Const.EL_Player.EL_CombatXP.BelowOffset - this.World.Retinue.hasFollower("follower.drill_sergeant") ? this.Const.EL_Player.EL_CombatXP.BelowOffset : 0;
-			local over_offset = this.Const.EL_Player.EL_CombatXP.OverOffset + this.World.Retinue.hasFollower("follower.drill_sergeant") ? this.Const.EL_Player.EL_CombatXP.BelowOffset : 0;
+			local below_offset = this.Const.EL_Player.EL_CombatXP.BelowOffset - (this.World.Retinue.hasFollower("follower.drill_sergeant") ? this.Const.EL_Player.EL_CombatXP.BelowOffset : 0);
+			local over_offset = this.Const.EL_Player.EL_CombatXP.OverOffset + (this.World.Retinue.hasFollower("follower.drill_sergeant") ? this.Const.EL_Player.EL_CombatXP.BelowOffset : 0);
 			if(this.m.Level < world_level - below_offset){
 				local mult_factor = this.Math.pow(1 + (world_level - this.m.Level - below_offset) * this.Const.EL_Player.EL_CombatXP.BelowMult, 3);
 				if(mult_factor > this.Const.EL_Player.EL_CombatXP.BelowMultMax) {

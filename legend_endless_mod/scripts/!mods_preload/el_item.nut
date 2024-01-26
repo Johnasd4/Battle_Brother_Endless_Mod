@@ -378,7 +378,7 @@ local gt = getroottable();
 	{
 		o.getBestBeforeTime = function()
 		{
-			return this.m.BestBefore * (("State" in this.World) && this.World.State != null && this.World.Retinue.hasFollower("follower.bounty_hunter") ? 2 : 1);
+			return this.m.BestBefore * (("State" in this.World) && this.World.State != null && this.World.Retinue.hasFollower("follower.cook") ? 2 : 1);
 		}
 	});
 
@@ -386,7 +386,7 @@ local gt = getroottable();
 	{
 		o.getBestBeforeTime = function()
 		{
-			return this.m.BestBefore * (("State" in this.World) && this.World.State != null && this.World.Retinue.hasFollower("follower.bounty_hunter") ? 2 : 1);
+			return this.m.BestBefore * (("State" in this.World) && this.World.State != null && this.World.Retinue.hasFollower("follower.cook") ? 2 : 1);
 		}
 	});
 
