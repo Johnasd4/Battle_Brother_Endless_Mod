@@ -333,6 +333,7 @@ local gt = getroottable();
             {
                 this.World.Assets.m.ArmorPartsMaxAdditional = this.Math.floor(100 * (1 + 1.01 * this.World.Assets.m.EL_WorldLevel));
             }
+            this.World.State.getPlayer().calculateStashModifier();
 		}
 	});
 
