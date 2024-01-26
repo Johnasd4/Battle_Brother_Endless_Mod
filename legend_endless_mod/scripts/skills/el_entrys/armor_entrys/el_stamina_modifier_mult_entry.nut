@@ -16,7 +16,8 @@ this.el_stamina_modifier_mult_entry <- this.inherit("scripts/skills/el_entrys/el
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]装备重量 - " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_StaminaModifierMult * 100) * 0.01 + "% (" + this.m.EL_StaminaModifierMult + "%)(面板)[/color]"
+				text = "[color=" + colour + "]装备重量 - " + (1.0 - this.Math.round(this.Math.pow(1.0 - this.m.EL_CurrentLevel * this.m.EL_StaminaModifierMult * 0.01, this.m.EL_StrengthLevel) * 100) * 0.01) * 100 + 
+					   "% (" + (1.0 - this.Math.round(this.Math.pow(1.0 - this.m.EL_StaminaModifierMult * 0.01, this.m.EL_StrengthLevel) * 100) * 0.01) * 100 + "%)(面板)[/color]"
 			};
 		}
 		else
@@ -24,7 +25,7 @@ this.el_stamina_modifier_mult_entry <- this.inherit("scripts/skills/el_entrys/el
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]装备重量 - " + this.m.EL_StaminaModifierMult + "%(面板)[/color]"
+				text = "[color=" + colour + "]装备重量 - " + (1.0 - this.Math.round(this.Math.pow(1.0 - this.m.EL_StaminaModifierMult * 0.01, this.m.EL_StrengthLevel) * 100) * 0.01) * 100 + "%(面板)[/color]"
 			};
 		}
 	}
@@ -63,16 +64,18 @@ this.el_stamina_modifier_mult_entry <- this.inherit("scripts/skills/el_entrys/el
 
 	function EL_onItemUpdate( _item )
 	{
-        _item.m.StaminaModifier = this.Math.floor(_item.m.StaminaModifier * (1.0 - this.m.EL_CurrentLevel * this.m.EL_StaminaModifierMult * 0.01));
+        _item.m.StaminaModifier = this.Math.floor(_item.m.StaminaModifier * (this.Math.round(this.Math.pow(1.0 - this.m.EL_CurrentLevel * this.m.EL_StaminaModifierMult * 0.01, this.m.EL_StrengthLevel) * 100) * 0.01));
 	}
     
     function onSerialize( _out )
 	{
 		_out.writeF32(this.m.EL_StaminaModifierMult);
+		_out.writeI32(this.m.EL_StrengthLevel);
 	}
 
 	function onDeserialize( _in )
 	{
 		this.m.EL_StaminaModifierMult = _in.readF32();
+		this.m.EL_StrengthLevel = _in.readI32();
 	}
 });

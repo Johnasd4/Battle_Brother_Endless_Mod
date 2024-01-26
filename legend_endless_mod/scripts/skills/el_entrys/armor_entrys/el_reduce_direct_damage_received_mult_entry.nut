@@ -6,6 +6,7 @@ this.el_reduce_direct_damage_received_mult_entry <- this.inherit("scripts/skills
 	{
 		this.el_entry.create();
 		this.m.ID = this.Const.EL_Armor.EL_Entry.Factor.EL_ReduceDirectDamageReceivedMult.ID;
+		this.m.EL_StrengthLevel = 6;
 	}
 
 	function getTooltip( _id )
@@ -16,7 +17,8 @@ this.el_reduce_direct_damage_received_mult_entry <- this.inherit("scripts/skills
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]减少身体受到的忽视护甲伤害" + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ReduceDirectDamageReceivedMult * 100) * 0.01 + "% (" + this.m.EL_ReduceDirectDamageReceivedMult + "%)[/color]"
+				text = "[color=" + colour + "]减少头部受到的忽视护甲伤害" + (1.0 - this.Math.round(this.Math.pow(1.0 - this.m.EL_CurrentLevel * this.m.EL_ReduceDirectDamageReceivedMult * 0.01, this.m.EL_StrengthLevel) * 100) * 0.01) * 100 +
+					   "% (" + (1.0 - this.Math.round(this.Math.pow(1.0 - this.m.EL_ReduceDirectDamageReceivedMult * 0.01, this.m.EL_StrengthLevel) * 100) * 0.01) * 100 + "%)[/color]"
 			};
 		}
 		else
@@ -24,7 +26,7 @@ this.el_reduce_direct_damage_received_mult_entry <- this.inherit("scripts/skills
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]减少身体受到的忽视护甲伤害" + this.m.EL_ReduceDirectDamageReceivedMult + "%[/color]"
+				text = "[color=" + colour + "]减少头部受到的忽视护甲伤害" + (1.0 - this.Math.round(this.Math.pow(1.0 - this.m.EL_ReduceDirectDamageReceivedMult * 0.01, this.m.EL_StrengthLevel) * 100) * 0.01) * 100 + "%[/color]"
 			};
 		}
 	}
@@ -65,23 +67,25 @@ this.el_reduce_direct_damage_received_mult_entry <- this.inherit("scripts/skills
 	{
 		if (_attacker != null && _attacker.isAlive() && _attacker.getHitpoints() > 0 && _attacker.getID() != this.getContainer().getActor().getID() && _hitInfo.BodyPart == this.Const.BodyPart.Body)
 		{
-			_properties.DamageReceivedDirectMult *= 1.0 - this.m.EL_CurrentLevel * this.m.EL_ReduceDirectDamageReceivedMult * 0.01;
+			_properties.DamageReceivedDirectMult *= (1.0 - this.Math.round(this.Math.pow(1.0 - this.m.EL_CurrentLevel * this.m.EL_ReduceDirectDamageReceivedMult * 0.01, this.m.EL_StrengthLevel) * 100) * 0.01);
 		}
 	}
 
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
 		++_EL_totalEntry.m.EL_EntryNum;
-		_EL_totalEntry.m.EL_ArmorDamageDirectReceivedMult *= 1.0 - this.m.EL_CurrentLevel * this.m.EL_ReduceDirectDamageReceivedMult * 0.01;
+		_EL_totalEntry.m.EL_ArmorDamageDirectReceivedMult *= (1.0 - this.Math.round(this.Math.pow(1.0 - this.m.EL_CurrentLevel * this.m.EL_ReduceDirectDamageReceivedMult * 0.01, this.m.EL_StrengthLevel) * 100) * 0.01);
 	}
 
     function onSerialize( _out )
 	{
 		_out.writeF32(this.m.EL_ReduceDirectDamageReceivedMult);
+		_out.writeI32(this.m.EL_StrengthLevel);
 	}
 
 	function onDeserialize( _in )
 	{
 		this.m.EL_ReduceDirectDamageReceivedMult = _in.readF32();
+		this.m.EL_StrengthLevel = _in.readI32();
 	}
 });

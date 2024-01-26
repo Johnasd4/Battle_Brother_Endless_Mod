@@ -897,7 +897,7 @@ local gt = getroottable();
 
 				if (this.Tactical.Entities.getArmorParts() > 0 && this.World.Assets.m.IsRecoveringArmor)
 				{
-					local amount = this.Math.min(60, this.Math.max(1, this.Tactical.Entities.getArmorParts() * this.Const.World.Assets.ArmorPartsPerArmor * 0.15));
+					local amount = this.Math.min(60 * 0.01 * this.World.Assets.m.EL_WorldLevel, this.Math.max(1, this.Tactical.Entities.getArmorParts() * this.Const.World.Assets.ArmorPartsPerArmor * 0.15));
 					amount = this.Math.rand(amount / 2, amount);
 
 					if (amount > 0)
@@ -905,6 +905,17 @@ local gt = getroottable();
 						local parts = this.new("scripts/items/supplies/armor_parts_item");
 						parts.setAmount(amount);
 						loot.push(parts);
+					}
+
+					amount = this.Tactical.Entities.EL_getEquipmentEssenceNum();
+					for(local i = 0; i <= this.Const.EL_Item.Type.Legendary; ++i)
+					{
+						if(amount[i] > 0)
+						{
+                			local essence = this.new("scripts/items/el_supplies/el_equipment_essence_rank_" + i + "_item");
+                			essence.EL_setAmount(amount[i]);
+							loot.push(essence);
+						}
 					}
 				}
 			}

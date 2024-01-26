@@ -373,4 +373,35 @@ local gt = getroottable();
 			}
 		});
 	}
+
+	::mods_hookExactClass("items/supplies/food_item", function ( o )
+	{
+		o.getBestBeforeTime = function()
+		{
+			return this.m.BestBefore * (("State" in this.World) && this.World.State != null && this.World.Retinue.hasFollower("follower.bounty_hunter") ? 2 : 1);
+		}
+	});
+
+	::mods_hookExactClass("items/supplies/legend_usable_food", function ( o )
+	{
+		o.getBestBeforeTime = function()
+		{
+			return this.m.BestBefore * (("State" in this.World) && this.World.State != null && this.World.Retinue.hasFollower("follower.bounty_hunter") ? 2 : 1);
+		}
+	});
+
+	::mods_hookClass("crafting/blueprint", function(o) {
+		
+		while(!("craft" in o)) o = o[o.SuperName];
+		local craft = o.craft;
+		o.craft = function()
+		{
+			craft();
+			local has_alchemist = this.World.Retinue.hasFollower("follower.alchemist");
+			while(has_alchemist && this.Math.rand(1, 100) <= 25)
+			{
+				this.onCraft(this.World.Assets.getStash());
+			}
+		}
+	});
 });

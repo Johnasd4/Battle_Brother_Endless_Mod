@@ -16,7 +16,7 @@ this.el_condition_recover_rate_entry <- this.inherit("scripts/skills/el_entrys/e
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]恢复 " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ConditionRecoverRate * 100) * 0.01 + "% (" + this.m.EL_ConditionRecoverRate + "%) 耐久每回合[/color]"
+				text = "[color=" + colour + "]恢复 " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ConditionRecoverRate * this.m.EL_StrengthLevel * 100) * 0.01 + "% (" + this.m.EL_ConditionRecoverRate * this.m.EL_StrengthLevel + "%) 耐久每回合[/color]"
 			};
 		}
 		else
@@ -24,7 +24,7 @@ this.el_condition_recover_rate_entry <- this.inherit("scripts/skills/el_entrys/e
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]恢复 " + this.m.EL_ConditionRecoverRate + "% 耐久每回合[/color]"
+				text = "[color=" + colour + "]恢复 " + this.m.EL_ConditionRecoverRate * this.m.EL_StrengthLevel + "% 耐久每回合[/color]"
 			};
 		}
 	}
@@ -66,7 +66,7 @@ this.el_condition_recover_rate_entry <- this.inherit("scripts/skills/el_entrys/e
         local body = this.getContainer().getActor().getItems().getItemAtSlot(this.Const.ItemSlot.Body);		
 		if(body != null)
 		{
-			local condition_recover = this.Math.round(body.getConditionMax() * this.m.EL_CurrentLevel * this.m.EL_ConditionRecoverRate * 0.01);
+			local condition_recover = this.Math.round(body.getConditionMax() * this.m.EL_CurrentLevel * this.m.EL_ConditionRecoverRate * this.m.EL_StrengthLevel * 0.01);
 			body.setCondition(this.Math.min(body.getConditionMax(), body.getCondition() + condition_recover));
 		}
 	}
@@ -74,16 +74,18 @@ this.el_condition_recover_rate_entry <- this.inherit("scripts/skills/el_entrys/e
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
 		++_EL_totalEntry.m.EL_EntryNum;
-		_EL_totalEntry.m.EL_ArmorConditionRecoverRate += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ConditionRecoverRate * 100) * 0.01;
+		_EL_totalEntry.m.EL_ArmorConditionRecoverRate += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ConditionRecoverRate * 100) * this.m.EL_StrengthLevel * 0.01;
 	}
-    
+
     function onSerialize( _out )
 	{
 		_out.writeF32(this.m.EL_ConditionRecoverRate);
+		_out.writeI32(this.m.EL_StrengthLevel);
 	}
 
 	function onDeserialize( _in )
 	{
 		this.m.EL_ConditionRecoverRate = _in.readF32();
+		this.m.EL_StrengthLevel = _in.readI32();
 	}
 });

@@ -64,12 +64,6 @@ this.el_landslide_cashing_entry <- this.inherit("scripts/skills/skill", {
 		}
 		if (EL_isUsable())
 		{
-            local hit_info = clone this.Const.Tactical.HitInfo;
-            hit_info.DamageRegular = _damageInflictedArmor * this.Const.EL_Rarity_Entry.Factor.EL_LandslideCashing.HealthDamageMult;
-            hit_info.DamageDirect = 1.0;
-            hit_info.BodyPart = _bodyPart;
-            _targetEntity.onDamageReceived(this.getContainer().getActor(), this, hit_info);
-
             local injury_num = this.Const.EL_Rarity_Entry.Factor.EL_LandslideCashing.InjuryNum;
             local body = _targetEntity.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
             local head = _targetEntity.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
@@ -85,6 +79,11 @@ this.el_landslide_cashing_entry <- this.inherit("scripts/skills/skill", {
 				this.Const.Injury.BluntBody,
 				this.Const.Injury.BluntHead
 			]);
+            local hit_info = clone this.Const.Tactical.HitInfo;
+            hit_info.DamageRegular = _damageInflictedArmor * this.Const.EL_Rarity_Entry.Factor.EL_LandslideCashing.HealthDamageMult;
+            hit_info.DamageDirect = 1.0;
+            hit_info.BodyPart = _bodyPart;
+            _targetEntity.onDamageReceived(this.getContainer().getActor(), this, hit_info);
 		}
 	}
 

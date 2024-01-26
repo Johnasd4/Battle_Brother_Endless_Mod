@@ -16,7 +16,7 @@ this.el_hitpoints_recover_daliy_entry <- this.inherit("scripts/skills/el_entrys/
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]恢复 " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_HitpointsRecoverDaliy * 100) * 0.01 + "% (" + this.m.EL_HitpointsRecoverDaliy + "%) 生命值每日[/color]"
+				text = "[color=" + colour + "]恢复 " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_HitpointsRecoverDaliy * 100) * this.m.EL_StrengthLevel * 0.01 + "% (" + this.m.EL_HitpointsRecoverDaliy * this.m.EL_StrengthLevel + "%) 生命值每日[/color]"
 			};
 		}
 		else
@@ -24,7 +24,7 @@ this.el_hitpoints_recover_daliy_entry <- this.inherit("scripts/skills/el_entrys/
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]恢复 " + this.m.EL_HitpointsRecoverDaliy + "% 生命值每日[/color]"
+				text = "[color=" + colour + "]恢复 " + this.m.EL_HitpointsRecoverDaliy * this.m.EL_StrengthLevel + "% 生命值每日[/color]"
 			};
 		}
 	}
@@ -70,7 +70,7 @@ this.el_hitpoints_recover_daliy_entry <- this.inherit("scripts/skills/el_entrys/
 		local actor = this.getContainer().getActor();
 		if(actor != null)
 		{
-        	local recover_hitpoint = this.Math.ceil(actor.getHitpointsMax() * this.m.EL_CurrentLevel * this.m.EL_HitpointsRecoverDaliy * 0.01 / 24);
+        	local recover_hitpoint = this.Math.ceil(actor.getHitpointsMax() * this.m.EL_CurrentLevel * this.m.EL_HitpointsRecoverDaliy * 0.01 * this.m.EL_StrengthLevel / 24);
 			actor.setHitpoints(this.Math.min(actor.getHitpointsMax(), actor.getHitpoints() + recover_hitpoint));
 		}
 	}
@@ -78,16 +78,18 @@ this.el_hitpoints_recover_daliy_entry <- this.inherit("scripts/skills/el_entrys/
 	function EL_refreshTotalEntry( _EL_totalEntry )
 	{
 		++_EL_totalEntry.m.EL_EntryNum;
-		_EL_totalEntry.m.EL_HitpointsRecoverDaliy += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_HitpointsRecoverDaliy * 100) * 0.01;
+		_EL_totalEntry.m.EL_HitpointsRecoverDaliy += this.Math.round(this.m.EL_CurrentLevel * this.m.EL_HitpointsRecoverDaliy * 100) * this.m.EL_StrengthLevel * 0.01;
 	}
     
     function onSerialize( _out )
 	{
 		_out.writeF32(this.m.EL_HitpointsRecoverDaliy);
+		_out.writeI32(this.m.EL_StrengthLevel);
 	}
 
 	function onDeserialize( _in )
 	{
 		this.m.EL_HitpointsRecoverDaliy = _in.readF32();
+		this.m.EL_StrengthLevel = _in.readI32();
 	}
 });

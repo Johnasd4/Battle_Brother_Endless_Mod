@@ -75,10 +75,12 @@ this.el_stamina_entry <- this.inherit("scripts/skills/el_entrys/el_accessory_ent
     function onSerialize( _out )
 	{
 		_out.writeI32(this.m.EL_Stamina);
+		_out.writeI32(this.m.EL_StrengthLevel);
 	}
 
 	function onDeserialize( _in )
 	{
 		this.m.EL_Stamina = _in.readI32();
+		this.m.EL_StrengthLevel = _in.readI32();
 	}
 });

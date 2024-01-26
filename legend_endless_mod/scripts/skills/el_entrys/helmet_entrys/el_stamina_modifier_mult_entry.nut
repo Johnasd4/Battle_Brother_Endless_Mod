@@ -69,10 +69,12 @@ this.el_stamina_modifier_mult_entry <- this.inherit("scripts/skills/el_entrys/el
     function onSerialize( _out )
 	{
 		_out.writeF32(this.m.EL_StaminaModifierMult);
+		_out.writeI32(this.m.EL_StrengthLevel);
 	}
 
 	function onDeserialize( _in )
 	{
 		this.m.EL_StaminaModifierMult = _in.readF32();
+		this.m.EL_StrengthLevel = _in.readI32();
 	}
 });

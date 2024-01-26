@@ -488,6 +488,15 @@ local gt = getroottable();
 						break;
 					}
 				}
+				else
+				{
+					tooltip.push({
+						id = 4,
+						type = "hint",
+						icon = "ui/tooltips/warning.png",
+						text = "须先升级饰品才可对其进行升级"
+					});
+				}
 				if(_item.EL_canUpgradeRankInBagOrStash() && (_item.EL_getRankLevel() < limited_rank || upgrade_rank_string == " 将它的词条强化"))
 				{
 					switch(upgrade_rank_index_pool.len())
@@ -550,6 +559,15 @@ local gt = getroottable();
 						});
 						break;
 					}
+				}
+				else
+				{
+					tooltip.push({
+						id = 4,
+						type = "hint",
+						icon = "ui/tooltips/warning.png",
+						text = "须先升阶饰品才可对其进行升阶"
+					});
 				}
 				if(_item.EL_canRecraftInBagOrStash())
 				{

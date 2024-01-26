@@ -78,10 +78,12 @@ this.el_reduce_direct_damage_received_mult_entry <- this.inherit("scripts/skills
     function onSerialize( _out )
 	{
 		_out.writeF32(this.m.EL_ReduceDirectDamageReceivedMult);
+		_out.writeI32(this.m.EL_StrengthLevel);
 	}
 
 	function onDeserialize( _in )
 	{
 		this.m.EL_ReduceDirectDamageReceivedMult = _in.readF32();
+		this.m.EL_StrengthLevel = _in.readI32();
 	}
 });

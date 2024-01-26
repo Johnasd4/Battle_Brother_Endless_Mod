@@ -16,7 +16,7 @@ this.el_condition_mult_entry <- this.inherit("scripts/skills/el_entrys/el_access
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]耐久 + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ConditionMult * 100) * 0.01 + "% (" + this.m.EL_ConditionMult + "%)(面板)[/color]"
+				text = "[color=" + colour + "]耐久 + " + this.Math.round(this.m.EL_CurrentLevel * this.m.EL_ConditionMult * 100) * this.m.EL_StrengthLevel * 0.01 + "% (" + this.m.EL_ConditionMult + "%)(面板)[/color]"
 			};
 		}
 		else
@@ -24,7 +24,7 @@ this.el_condition_mult_entry <- this.inherit("scripts/skills/el_entrys/el_access
 			return {
 				id = _id,
 				type = "text",
-				text = "[color=" + colour + "]耐久 + " + this.m.EL_ConditionMult + "%(面板)[/color]"
+				text = "[color=" + colour + "]耐久 + " + this.m.EL_ConditionMult * this.m.EL_StrengthLevel + "%(面板)[/color]"
 			};
 		}
 	}
@@ -63,16 +63,18 @@ this.el_condition_mult_entry <- this.inherit("scripts/skills/el_entrys/el_access
 
 	function EL_onItemUpdate( _item )
 	{
-        _item.m.ConditionMax = this.Math.ceil(_item.m.ConditionMax * (1.0 + this.m.EL_CurrentLevel * this.m.EL_ConditionMult * 0.01));
+        _item.m.ConditionMax = this.Math.ceil(_item.m.ConditionMax * (1.0 + this.m.EL_CurrentLevel * this.m.EL_ConditionMult * this.m.EL_StrengthLevel * 0.01));
 	}
 
     function onSerialize( _out )
 	{
 		_out.writeF32(this.m.EL_ConditionMult);
+		_out.writeI32(this.m.EL_StrengthLevel);
 	}
 
 	function onDeserialize( _in )
 	{
 		this.m.EL_ConditionMult = _in.readF32();
+		this.m.EL_StrengthLevel = _in.readI32();
 	}
 });

@@ -125,6 +125,19 @@ local gt = getroottable();
 			}
 			return result;
 		}
+		
+		local onDamageReceived = o.onDamageReceived;
+		o.onDamageReceived = function( _damage, _fatalityType, _attacker )
+		{
+			onDamageReceived(_damage, _fatalityType, _attacker);
+			if (this.m.Condition == 0 && !this.m.IsIndestructible)
+			{
+				if (_attacker != null && _attacker.isPlayerControlled() && !this.getContainer().getActor().isAlliedWithPlayer())
+				{
+					this.Tactical.Entities.EL_addEquipmentEssenceNum(this.EL_getDisassembleEquipmentEssenceNum());
+				}
+			}
+		}
 
 		local onUpdateProperties = o.onUpdateProperties;
 		o.onUpdateProperties = function ( _properties )
@@ -659,6 +672,19 @@ local gt = getroottable();
 				return _base;
 			}
 			return getAddedValue(_function, _base, _all);
+		}
+		
+		local onDamageReceived = o.onDamageReceived;
+		o.onDamageReceived = function( _damage, _fatalityType, _attacker )
+		{
+			onDamageReceived(_damage, _fatalityType, _attacker);
+			if (this.m.Condition == 0 && !this.m.IsIndestructible)
+			{
+				if (_attacker != null && _attacker.isPlayerControlled() && !this.getContainer().getActor().isAlliedWithPlayer())
+				{
+					this.Tactical.Entities.EL_addEquipmentEssenceNum(this.EL_getDisassembleEquipmentEssenceNum());
+				}
+			}
 		}
 
 		local onUpdateProperties = o.onUpdateProperties;
