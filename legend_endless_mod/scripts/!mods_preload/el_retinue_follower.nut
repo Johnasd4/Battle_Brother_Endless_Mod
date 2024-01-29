@@ -85,7 +85,7 @@ local gt = getroottable();
             }
             if (this.Tactical.State.getStrategicProperties() == null || !this.Tactical.State.getStrategicProperties().IsArenaMode)
             {
-                this.World.Assets.addMoney(this.Math.floor(base_reward * (1 + 0.08 * _champion.El_getLevel()) * this.World.Assets.EL_getHalfWorldDifficultFactor()));
+                this.World.Assets.addMoney(this.Math.floor(base_reward * (1 + 0.08 * _champion.EL_getLevel()) * this.World.Assets.EL_getHalfWorldDifficultFactor()));
             }
         }
 
