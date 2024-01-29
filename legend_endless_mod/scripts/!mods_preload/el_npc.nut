@@ -63,7 +63,7 @@ local gt = getroottable();
 
 	::mods_hookNewObject("entity/tactical/tactical_entity_manager", function(o)
     {
-        o.EL_EquipmentEssenceNum = [0,0,0,0,0];
+        o.m.EL_EquipmentEssenceNum <- [0,0,0,0,0];
         
         o.EL_getEquipmentEssenceNum <- function ()
         {
