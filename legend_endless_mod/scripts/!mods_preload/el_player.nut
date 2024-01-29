@@ -609,6 +609,9 @@ local gt = getroottable();
 					s = s + bro.getStashModifier();
 				}
 				s = s + (this.World.Retinue.hasFollower("follower.quartermaster") ? this.Math.floor(100 * (1 + 1.01 * this.World.Assets.m.EL_WorldLevel)) : 0);
+				if(this.World.Flags.has("EL_ExtraStash")) {
+					s = s + this.World.Flags.get("EL_ExtraStash");
+				}
 				if (resize && s != this.Stash.getCapacity())
 				{
 					this.Stash.resize(s);

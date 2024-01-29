@@ -111,4 +111,14 @@ local gt = getroottable();
 
     });
 
+    ::mods_hookExactClass("ambitions/ambitions/cart_ambition", function(o)
+    {
+
+        o.onUpdateScore = function()
+        {
+            return 0;
+        }
+
+    });
+
 });
