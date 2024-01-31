@@ -24,6 +24,33 @@ local gt = getroottable();
 
 		o.m.EL_DropParty <- null;
 
+		o.getSellPriceMult = function ()
+		{
+			return this.World.Retinue.hasFollower("follower.trader") ? 1.1 * this.m.SellPriceMult : this.m.SellPriceMult;
+		}
+
+		o.addBusinessReputation = function ( _f )
+		{
+			local follow_mult = this.World.Retinue.hasFollower("follower.minstrel") ? 1.5 : 1.0;
+			this.m.BusinessReputation += this.Math.ceil(_f * this.m.BusinessReputationRate * follow_mult);
+			this.m.BusinessReputationMax = this.Math.max(this.m.BusinessReputation, this.m.BusinessReputationMax);
+
+			if (this.m.BusinessReputation >= 1000)
+			{
+				this.updateAchievement("MakingAName", 1, 1);
+			}
+
+			if (this.m.BusinessReputation >= 3000)
+			{
+				this.updateAchievement("ManOfRenown", 1, 1);
+			}
+
+			if (this.m.BusinessReputation >= 8000)
+			{
+				this.updateAchievement("StuffOfLegends", 1, 1);
+			}
+		}
+
 		local onSerialize = o.onSerialize;
 		o.onSerialize = function ( _out )
 		{
@@ -204,7 +231,7 @@ local gt = getroottable();
 		{
 			if(this.m.EL_CurrentUpdateDay < this.World.getTime().Days) {
 				this.EL_UpdateWorldStrengthAndLevel();
-			}
+			}		
 			update(_worldState);
 		}
 

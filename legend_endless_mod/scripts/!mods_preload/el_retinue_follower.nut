@@ -187,10 +187,10 @@ local gt = getroottable();
 		local onUpdate = o.onUpdate;
 		o.onUpdate = function()
 		{
-            if ("VisionRadiusMult" in this.World.Assets.m)
-            {
-                this.World.Assets.m.VisionRadiusMult *= 2.0;
-            }
+            // if ("VisionRadiusMult" in this.World.Assets.m)
+            // {
+            //     this.World.Assets.m.VisionRadiusMult *= 2.0;
+            // }
 
             if ("IsShowingExtendedFootprints" in this.World.Assets.m)
             {
@@ -214,10 +214,10 @@ local gt = getroottable();
 		local onUpdate = o.onUpdate;
 		o.onUpdate = function()
 		{
-            if ("BusinessReputationRate" in this.World.Assets.m)
-            {
-                this.World.Assets.m.BusinessReputationRate *= 1.5;
-            }
+            // if ("BusinessReputationRate" in this.World.Assets.m)
+            // {
+            //     this.World.Assets.m.BusinessReputationRate *= 1.5;
+            // }
 
             if ("IsNonFlavorRumorsOnly" in this.World.Assets.m)
             {
@@ -255,10 +255,10 @@ local gt = getroottable();
 		local onUpdate = o.onUpdate;
         o.onUpdate = function()
         {
-            if ("DailyWageMult" in this.World.Assets.m)
-            {
-                this.World.Assets.m.DailyWageMult *= 0.50;
-            }
+            // if ("DailyWageMult" in this.World.Assets.m)
+            // {
+            //     this.World.Assets.m.DailyWageMult *= 0.50;
+            // }
         }
 	});
 
@@ -310,25 +310,25 @@ local gt = getroottable();
 		local onUpdate = o.onUpdate;
         o.onUpdate = function()
         {
-            if ("RosterSizeAdditionalMin" in this.World.Assets.m)
-            {
-                this.World.Assets.m.RosterSizeAdditionalMin += 5;
-            }
+            // if ("RosterSizeAdditionalMin" in this.World.Assets.m)
+            // {
+            //     this.World.Assets.m.RosterSizeAdditionalMin += 5;
+            // }
 
-            if ("RosterSizeAdditionalMax" in this.World.Assets.m)
-            {
-                this.World.Assets.m.RosterSizeAdditionalMax += 5;
-            }
+            // if ("RosterSizeAdditionalMax" in this.World.Assets.m)
+            // {
+            //     this.World.Assets.m.RosterSizeAdditionalMax += 5;
+            // }
 
-            if ("HiringCostMult" in this.World.Assets.m)
-            {
-                this.World.Assets.m.HiringCostMult *= 0.8;
-            }
+            // if ("HiringCostMult" in this.World.Assets.m)
+            // {
+            //     this.World.Assets.m.HiringCostMult *= 0.8;
+            // }
 
-            if ("TryoutPriceMult" in this.World.Assets.m)
-            {
-                this.World.Assets.m.TryoutPriceMult *= 0.5;
-            }
+            // if ("TryoutPriceMult" in this.World.Assets.m)
+            // {
+            //     this.World.Assets.m.TryoutPriceMult *= 0.5;
+            // }
         }
 	});
 
@@ -405,12 +405,12 @@ local gt = getroottable();
             ];
 		}
 
-        o.onUpdate <- function()
-        {
-            if ("SellPriceMult" in this.World.Assets.m)
-            {
-                this.World.Assets.m.SellPriceMult *= 1.1;
-            }
-        }
+        // o.onUpdate <- function()
+        // {
+        //     if ("SellPriceMult" in this.World.Assets.m)
+        //     {
+        //         this.World.Assets.m.SellPriceMult *= 1.1;
+        //     }
+        // }
 	});
 });
