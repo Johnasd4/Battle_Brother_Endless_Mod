@@ -237,20 +237,6 @@ local gt = getroottable();
                 "合同收入提高 50%"
             ];
 		}
-
-		local onUpdate = o.onUpdate;
-		o.onUpdate = function()
-		{
-            if ("BusinessReputationRate" in this.World.Assets.m)
-            {
-                this.World.Assets.m.BusinessReputationRate *= 1.5;
-            }
-
-            if ("IsNonFlavorRumorsOnly" in this.World.Assets.m)
-            {
-                this.World.Assets.m.IsNonFlavorRumorsOnly = true;
-            }
-		}
 	});
 
 	::mods_hookExactClass("retinue/followers/paymaster_follower", function( o )
