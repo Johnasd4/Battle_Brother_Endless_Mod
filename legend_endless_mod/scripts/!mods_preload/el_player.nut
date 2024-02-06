@@ -24,6 +24,74 @@ local gt = getroottable();
 			onDeserialize( _in );
 			this.Const.EL_Player.EL_Modifiers.EL_setModifiersLevel(this.m.Level, this.m.Background);
 		}
+
+		o.getDailyCost = function ()
+		{
+			if (!("State" in this.World))
+			{
+				return 0;
+			}
+			local follow_mult = this.World.Retinue.hasFollower("follower.paymaster") ? 0.5 : 1.0;
+			local wageMult = this.m.CurrentProperties.DailyWageMult * (this.World.State != null ? this.World.Assets.m.DailyWageMult * follow_mult : 1.0) - (this.World.State != null ? this.World.State.getPlayer().getWageModifier() : 0.0);
+			return this.Math.max(0, this.m.CurrentProperties.DailyWage * wageMult);
+		}
+	});
+
+	::mods_hookExactClass("ui/screens/world/modules/world_town_screen/town_hire_dialog_module", function( o )
+	{
+		o.onHireRosterEntry = function ( _entityID )
+		{
+			local entry = this.findEntityWithinRoster(_entityID);
+
+			if (entry != null)
+			{
+				local roster = this.World.getPlayerRoster();
+				local entities = roster.getAll();
+				local currentMoney = this.World.Assets.getMoney();
+				local currentFood = this.World.Assets.getFood();
+				local currentBrothers = entities.len();
+				local brothersMax = this.World.Assets.getBrothersMax();
+				local hiring_cost_follower_mult = this.World.Retinue.hasFollower("follower.recruiter") ? 0.8 : 1.0;
+				local hiringCost = this.Math.ceil(entry.getHiringCost() * this.World.Assets.m.HiringCostMult * hiring_cost_follower_mult);
+
+				if (currentMoney < hiringCost)
+				{
+					return {
+						Result = this.Const.UI.Error.NotEnoughMoney,
+						Assets = null
+					};
+				}
+
+				if (currentBrothers + 1 > brothersMax)
+				{
+					return {
+						Result = this.Const.UI.Error.NotEnoughRosterSpace,
+						Assets = null
+					};
+				}
+
+				this.World.getPlayerRoster().add(entry);
+				this.World.getRoster(this.m.RosterID).remove(entry);
+				entry.onHired();
+				this.World.Assets.addMoney(-hiringCost);
+				this.World.Statistics.getFlags().increment("BrosHired");
+
+				if (this.World.getRoster(this.m.RosterID).getSize() == 0)
+				{
+					this.m.Parent.getMainDialogModule().reload();
+				}
+
+				return {
+					Result = 0,
+					Assets = this.m.Parent.queryAssetsInformation()
+				};
+			}
+
+			return {
+				Result = this.Const.UI.Error.RosterEntryNotFound,
+				Assets = null
+			};
+		}
 	});
 
 	::mods_hookNewObject("entity/tactical/player", function( o )
@@ -560,8 +628,14 @@ local gt = getroottable();
 
 		o.getTryoutCost = function ()
 		{
-			return this.m.CurrentProperties.DailyWage * this.Const.EL_Player.EL_Hiring.EL_TryoutCostMult;
+			local follower_mult = this.World.Retinue.hasFollower("follower.recruiter") ? 0.5 : 1;
+			return this.m.CurrentProperties.DailyWage * this.Const.EL_Player.EL_Hiring.EL_TryoutCostMult * this.World.Assets.m.TryoutPriceMult * follower_mult;
 		};
+
+		function getTryoutCost()
+		{
+			return this.Math.ceil(this.Math.max(10, this.Math.min(this.m.HiringCost - 25, 25 + this.m.HiringCost * this.Const.Tryouts.CostMult) * this.World.Assets.m.TryoutPriceMult));
+		}
 		o.getXPForNextLevel = function ()
 		{
 			if (this.m.Level >= this.Const.LevelXP.len() - 10 && ("State" in this.World) && this.World.State != null && this.World.Assets.getOrigin().getID() == "scenario.manhunters" && this.getBackground().getID() == "background.slave")
@@ -595,6 +669,17 @@ local gt = getroottable();
 			this.calculateStashModifier();
 		}
 
+		o.getVisionRadius = function ()
+		{
+			if (this.World.Assets.isCamping())
+			{
+				local tent = this.World.Camp.getBuildingByID(this.Const.World.CampBuildings.Scout);
+				return tent.getVisionRadius();
+			}
+			local follower_mult = (this.World.Retinue.hasFollower("follower.lookout")) ? 2.0 : 1.0;
+			return this.m.VisionRadius * this.World.Assets.m.VisionRadiusMult * follower_mult * this.World.getGlobalVisibilityMult() * this.Const.World.TerrainTypeVisionRadiusMult[this.getTile().Type] * (this.World.Assets.isCamping() ? 0.75 : 1.0);
+		}
+
 		local calculateStashModifier = o.calculateStashModifier;
 		o.calculateStashModifier = function ( resize = true )
 		{
@@ -609,9 +694,6 @@ local gt = getroottable();
 					s = s + bro.getStashModifier();
 				}
 				s = s + (this.World.Retinue.hasFollower("follower.quartermaster") ? this.Math.floor(100 * (1 + 1.01 * this.World.Assets.m.EL_WorldLevel)) : 0);
-				if(this.World.Flags.has("EL_ExtraStash")) {
-					s = s + this.World.Flags.get("EL_ExtraStash");
-				}
 				if (resize && s != this.Stash.getCapacity())
 				{
 					this.Stash.resize(s);
@@ -1545,9 +1627,9 @@ local gt = getroottable();
 			local result = convertEntityHireInformationToUIData(_entity);
 			local background = _entity.getBackground();
 			result.Name = _entity.getNameOnly();
+			result.InitialMoneyCost = this.Math.ceil(_entity.getHiringCost() * this.World.Assets.m.HiringCostMult * (this.World.Retinue.hasFollower("follower.recruiter") ? 0.8 : 1.0));
 			return result;
 		}
-
 	});
 
 	::mods_hookExactClass("skills/injury", function(o){
