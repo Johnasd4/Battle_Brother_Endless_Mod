@@ -9027,9 +9027,6 @@ local gt = getroottable();
                         function getResult()
                         {
                             this.Contract.setState("Return");
-                            if(this.Contract.m.Destination != null) {
-                                this.Contract.m.Destination.die();
-                            }
                             this.Contract.m.Destination = null;
                             return 0;
                         }
