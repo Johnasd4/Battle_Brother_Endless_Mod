@@ -507,7 +507,7 @@ local gt = getroottable();
                                 {
                                     if (!isMineral || p * mineralRarityMult >= i.R)
                                     {
-                                        if (!isBuilding || p * buildingRarityMult >= r)
+                                        if (!isBuilding || p * buildingRarityMult >= i.R)
                                         {
                                             local items = [
                                                 item

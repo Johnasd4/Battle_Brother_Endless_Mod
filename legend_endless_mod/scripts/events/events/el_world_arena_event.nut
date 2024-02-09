@@ -98,6 +98,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
                 local witch_level = this.World.Flags.get("EL_WorldArenaWitch");
                 min_level = min_level < witch_level ? min_level : witch_level;
 
+                this.World.Flags.set("EL_WorldArenaMinLevel", min_level);
                 local fight_enemy = [];
 
                 if(north_human_level == min_level) {
