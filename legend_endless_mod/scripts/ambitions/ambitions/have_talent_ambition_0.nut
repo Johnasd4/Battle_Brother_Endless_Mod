@@ -7,7 +7,7 @@ this.have_talent_ambition_0 <- this.inherit("scripts/ambitions/ambition", {
 	{
 		this.ambition.create();
 		this.m.ID = "ambition.have_talent_0";
-		this.m.Duration = 21.0 * this.World.getTime().SecondsPerDay;
+		this.m.Duration = 99999.0 * this.World.getTime().SecondsPerDay;
 		this.m.ButtonText = "We need real talent to bolster our ranks further.\nWe\'ll recruit the most talented we can find and mold him into a god of war!";
 		this.m.UIText = "拥有 " + this.m.EL_ManNeed + " 个天赋总星数大于 " + this.m.EL_TalentNeed + " 的人。";
 		this.m.TooltipText = "拥有 " + this.m.EL_ManNeed + " 个天赋总星数大于 " + this.m.EL_TalentNeed + " 的人。 Travel the land and seek the best of the best. Consider buying the \'Pre signed contracts\' equipment for your retinue.";
