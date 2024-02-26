@@ -19,8 +19,7 @@ this.el_cart_ambition_0 <- this.inherit("scripts/ambitions/ambition", {
 
 	function onUpdateScore()
 	{
-        this.m.Score = 0;
-		//this.m.Score = 2 + this.Math.rand(0, 5);
+		this.m.Score = 2 + this.Math.rand(0, 5);
 	}
 
 	function onCheckSuccess()
