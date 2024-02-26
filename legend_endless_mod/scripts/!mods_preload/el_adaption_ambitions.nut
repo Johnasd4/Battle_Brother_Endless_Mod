@@ -214,6 +214,15 @@ local gt = getroottable();
         }
     });
 
+    ::mods_hookExactClass("ambitions/ambitions/have_talent_ambition", function(o)
+    {
+        o.onUpdateScore = function ()
+        {
+            return;
+        }
+
+    });
+
     ::mods_hookExactClass("ambitions/ambitions/hammer_mastery_ambition", function(o)
     {
         o.onPrepareVariables = function( _vars )
@@ -235,7 +244,7 @@ local gt = getroottable();
                     not_candidates.push(bro);
                 }
             }
-            
+
             if (candidates.len() == 0)
             {
                 candidates = not_candidates;
