@@ -1,7 +1,7 @@
 local gt = getroottable();
 
 ::mods_registerMod("el_adaption_ambitions", 1, "el_adaption_ambitions");
-::mods_queue(null, "el_ambitions", function ()
+::mods_queue(null, "el_ambitions_ambitions", function ()
 {
     ::mods_hookExactClass("ambitions/ambitions/allied_civilians_ambition", function(o)
     {
@@ -214,15 +214,6 @@ local gt = getroottable();
         }
     });
 
-    ::mods_hookExactClass("ambitions/ambitions/have_talent_ambition", function(o)
-    {
-        o.onUpdateScore = function ()
-        {
-            return;
-        }
-
-    });
-
     ::mods_hookExactClass("ambitions/ambitions/hammer_mastery_ambition", function(o)
     {
         o.onPrepareVariables = function( _vars )
@@ -261,6 +252,9 @@ local gt = getroottable();
         }
 
     });
+
+
+
 
     ::mods_hookExactClass("ambitions/ambitions/visit_settlements_ambition", function(o)
     {

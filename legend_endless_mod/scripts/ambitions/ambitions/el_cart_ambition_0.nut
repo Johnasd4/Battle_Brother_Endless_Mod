@@ -17,6 +17,11 @@ this.el_cart_ambition_0 <- this.inherit("scripts/ambitions/ambition", {
 		this.m.SuccessButtonText = "Get moving!";
 	}
 
+	function getUIText()
+	{
+		return this.m.UIText + " (" + this.World.Assets.getMoney() + "/" + this.m.EL_MoneyNeed + ")";
+	}
+
 	function onUpdateScore()
 	{
 		this.m.Score = 2 + this.Math.rand(0, 5);

@@ -1,12 +1,12 @@
-this.have_talent_ambition_0 <- this.inherit("scripts/ambitions/ambition", {
+this.el_have_talent_ambition_3 <- this.inherit("scripts/ambitions/ambition", {
 	m = {
-        EL_ManNeed = 1,
-        EL_TalentNeed = 16
+        EL_ManNeed = 3,
+        EL_TalentNeed = 24
     },
 	function create()
 	{
 		this.ambition.create();
-		this.m.ID = "ambition.have_talent_0";
+		this.m.ID = "ambition.el_have_talent_3";
 		this.m.Duration = 99999.0 * this.World.getTime().SecondsPerDay;
 		this.m.ButtonText = "We need real talent to bolster our ranks further.\nWe\'ll recruit the most talented we can find and mold him into a god of war!";
 		this.m.UIText = "拥有 " + this.m.EL_ManNeed + " 个天赋总星数大于 " + this.m.EL_TalentNeed + " 的人。";
@@ -15,13 +15,39 @@ this.have_talent_ambition_0 <- this.inherit("scripts/ambitions/ambition", {
 		this.m.SuccessButtonText = "Unless, of course, a stray arrow catches him next battle.";
 	}
 
+	function getUIText()
+	{
+		local roster = this.World.getPlayerRoster().getAll();
+        local bro_num = 0;
+
+		foreach( bro in roster )
+		{
+			local n = 0;
+			foreach( t in bro.getTalents() )
+			{
+				n += t;
+			}
+
+			if (n >= this.m.EL_TalentNeed)
+			{
+				++bro_num;
+			}
+		}
+
+		return this.m.UIText + " (" + bro_num + "/" + this.m.EL_ManNeed + ")";
+	}
+
 	function onUpdateScore()
 	{
-        local roster = this.World.getPlayerRoster().getAll();
+		local roster = this.World.getPlayerRoster().getAll();
         if(roster.len() < this.m.EL_ManNeed)
         {
             return;
         }
+		if (!this.World.Ambitions.getAmbition("ambition.el_have_talent_2").isDone())
+		{
+			return;
+		}
 		this.m.Score = 1 + this.Math.rand(0, 5);
 	}
 

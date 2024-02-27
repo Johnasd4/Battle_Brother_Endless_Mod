@@ -1,6 +1,6 @@
 local gt = getroottable();
 
-::mods_registerMod("el_ambitions", 1, "el_ambitions");
+::mods_registerMod("el_ambitions_ambitions", 1, "el_ambitions_ambitions");
 ::mods_queue(null, "el_world", function ()
 {
 	::mods_hookNewObjectOnce("states/world/asset_manager", function ( o )
@@ -117,6 +117,68 @@ local gt = getroottable();
         o.onUpdateScore = function()
         {
             return 0;
+        }
+
+    });
+    ::mods_hookExactClass("ambitions/ambitions/have_y_crowns_ambition", function(o)
+    {
+        o.onUpdateScore = function ()
+        {
+            return;
+        }
+
+    });
+
+    ::mods_hookExactClass("ambitions/ambitions/have_y_renown_ambition", function(o)
+    {
+        o.onUpdateScore = function ()
+        {
+            return;
+        }
+
+    });
+
+    ::mods_hookExactClass("ambitions/ambitions/have_z_crowns_ambition", function(o)
+    {
+        o.onUpdateScore = function ()
+        {
+            return;
+        }
+
+    });
+
+    ::mods_hookExactClass("ambitions/ambitions/have_z_renown_ambition", function(o)
+    {
+        o.onUpdateScore = function ()
+        {
+            return;
+        }
+
+    });
+
+    ::mods_hookExactClass("ambitions/ambitions/have_talent_ambition", function(o)
+    {
+        o.onUpdateScore = function ()
+        {
+            return;
+        }
+
+    });
+
+    ::mods_hookExactClass("ambitions/ambitions/trade_ambition", function(o)
+    {
+        o.onUpdateScore = function ()
+        {
+            return;
+        }
+
+    });
+
+    ::mods_hookExactClass("ambitions/ambitions/win_x_arena_fights_ambition", function(o)
+    {
+        o.onUpdateScore = function ()
+        {
+            return;
         }
 
     });
