@@ -1,11 +1,11 @@
-this.el_win_arena_fights_ambition_0 <- this.inherit("scripts/ambitions/ambition", {
+this.el_win_arena_fights_ambition_1 <- this.inherit("scripts/ambitions/ambition", {
 	m = {
-		EL_ArenaLevelNeed = 1
+		EL_ArenaLevelNeed = 2
 	},
 	function create()
 	{
 		this.ambition.create();
-		this.m.ID = "ambition.el_win_arena_fights_0";
+		this.m.ID = "ambition.el_win_arena_fights_1";
 		this.m.Duration = 99999.0 * this.World.getTime().SecondsPerDay;
 		this.m.ButtonText = "Let us seek fame and fortune fighting before crowds that chant our names.\nWe\'ll draw blood in the arenas of the south!";
 		this.m.UIText = "Win arena fights";
@@ -22,6 +22,10 @@ this.el_win_arena_fights_ambition_0 <- this.inherit("scripts/ambitions/ambition"
 
 	function onUpdateScore()
 	{
+		if (!this.World.Ambitions.getAmbition("ambition.el_win_arena_fights_0").isDone())
+		{
+			return;
+		}
 		this.m.Score = 1 + this.Math.rand(0, 5);
 	}
 

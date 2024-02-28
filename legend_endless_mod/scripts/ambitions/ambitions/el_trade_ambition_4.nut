@@ -1,13 +1,13 @@
-this.el_trade_ambition_0 <- this.inherit("scripts/ambitions/ambition", {
+this.el_trade_ambition_4 <- this.inherit("scripts/ambitions/ambition", {
 	m = {
 		AmountToBuy = 0,
 		AmountToSell = 0
-        EL_AmountNeed = 20
+        EL_AmountNeed = 1000
 	},
 	function create()
 	{
 		this.ambition.create();
-		this.m.ID = "ambition.el_trade_0";
+		this.m.ID = "ambition.el_trade_4";
 		this.m.Duration = 99999.0 * this.World.getTime().SecondsPerDay;
 		this.m.ButtonText = "There\'s lots of crowns to be made with trading between towns.\nLet\'s earn us a fortune!";
 		this.m.UIText = "Buy and sell trading goods";
@@ -28,6 +28,10 @@ this.el_trade_ambition_0 <- this.inherit("scripts/ambitions/ambition", {
 
 	function onUpdateScore()
 	{
+		if (!this.World.Ambitions.getAmbition("ambition.el_trade_3").isDone())
+		{
+			return;
+		}
 		this.m.AmountToBuy = this.World.Statistics.getFlags().getAsInt("TradeGoodsBought") + this.m.EL_AmountNeed;
 		this.m.AmountToSell = this.World.Statistics.getFlags().getAsInt("TradeGoodsSold") + this.m.EL_AmountNeed;
 		this.m.Score = 1 + this.Math.rand(0, 5);
@@ -41,6 +45,19 @@ this.el_trade_ambition_0 <- this.inherit("scripts/ambitions/ambition", {
 		}
 
 		return false;
+	}
+
+	function onReward()
+	{
+		//TODO(Johnasd4):Change the item to the real reward
+		// local item = this.new("scripts/items/tools/player_banner");
+		// item.EL_generateByRankAndLevel(4, 0);
+		// stash.add(item);
+		// this.m.SuccessList.push({
+		// 	id = 10,
+		// 	icon = "ui/items/" + item.getIcon(),
+		// 	text = "You gain " + item.getName()
+		// });
 	}
 
 	function onSerialize( _out )
