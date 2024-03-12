@@ -85,6 +85,16 @@ local gt = getroottable();
 
 	});
 
+    ::mods_hookExactClass("ambitions/ambitions/armor_ambition", function(o)
+    {
+
+        o.onUpdateScore = function()
+        {
+            return 0;
+        }
+
+    });
+
     ::mods_hookExactClass("ambitions/ambitions/battle_standard_ambition", function(o)
     {
 
@@ -108,7 +118,6 @@ local gt = getroottable();
                 text = "You gain " + this.Const.Strings.getArticle(item.getName()) + item.getName()
             });
         }
-
     });
 
     ::mods_hookExactClass("ambitions/ambitions/cart_ambition", function(o)

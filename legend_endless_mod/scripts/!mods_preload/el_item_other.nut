@@ -114,7 +114,7 @@ local gt = getroottable();
 			local item = bro.m.Items.getItemByInstanceID(_data[1]);
 			if(item.EL_canUpgradeLevelInBagOrStash())
 			{
-				local limited_level = this.Const.EL_Item.MaxLevel;
+				local limited_level = EL_getLevelMax();
 				if(!item.isItemType(this.Const.Items.ItemType.Accessory))
 				{
 					local accessory = bro.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
@@ -126,6 +126,7 @@ local gt = getroottable();
 				}
 				
 				local equipment_essence_need = item.EL_getUpgradeLevelEquipmentEssenceNum();
+				local gray_equipment_essence_consume = equipment_essence_need[this.Const.EL_Item.Type.Normal];
 				for(local rank = 0; rank < this.Const.EL_Item.Type.Epic; ++rank)
 				{
 					if(equipment_essence_need[rank] > this.World.Assets.EL_getEquipmentEssence(rank))
@@ -144,6 +145,7 @@ local gt = getroottable();
 						this.World.Assets.EL_addEquipmentEssence(rank, -equipment_essence_need[rank]);
 					}
 					this.World.Assets.EL_addSoulEnergy(-item.EL_getUpgradeLevelSoulEnergy());
+					this.World.Statistics.getFlags().increment("UpgradeGreyEssenceConsume", gray_equipment_essence_consume);
 					item.EL_upgradeLevel();
 					item.onUnequip();
 					item.onEquip();
@@ -158,7 +160,7 @@ local gt = getroottable();
 			local item = bro.m.Items.getItemByInstanceID(_data[1]);
 			if(item.EL_canUpgradeRankInBagOrStash() && !this.Tactical.isActive())
 			{
-				local limited_rank = this.Const.EL_Item.MaxLevel;
+				local limited_rank = EL_getLevelMax();
 				if(!item.isItemType(this.Const.Items.ItemType.Accessory))
 				{
 					local accessory = bro.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
@@ -421,7 +423,7 @@ local gt = getroottable();
 						recraft_index_pool.push(rank);
 					}
 				}
-				local limited_level = this.Const.EL_Item.MaxLevel;
+				local limited_level = EL_getLevelMax();
 				local limited_rank = this.Const.EL_Item.Type.Legendary;
 				if(!_item.isItemType(this.Const.Items.ItemType.Accessory))
 				{
@@ -918,6 +920,7 @@ local gt = getroottable();
 			}
 
 			local equipment_essence_need = item.EL_getUpgradeLevelEquipmentEssenceNum();
+			local gray_equipment_essence_consume = equipment_essence_need[this.Const.EL_Item.Type.Normal];
 			for(local rank = 0; rank < this.Const.EL_Item.Type.Epic; ++rank)
 			{
 				if(equipment_essence_need[rank] > this.World.Assets.EL_getEquipmentEssence(rank))
@@ -935,6 +938,7 @@ local gt = getroottable();
 				{
 					this.World.Assets.EL_addEquipmentEssence(rank, -equipment_essence_need[rank]);
 				}
+				this.World.Statistics.getFlags().increment("UpgradeGreyEssenceConsume", gray_equipment_essence_consume);
 				item.EL_upgradeLevel();
 			}
 
@@ -1040,6 +1044,7 @@ local gt = getroottable();
 			{
 				this.World.Assets.EL_addEquipmentEssence(rank, equipment_essence_need[rank]);
 			}
+			this.World.Statistics.getFlags().increment("DisassembleGreyEssenceGain", equipment_essence_need[this.Const.EL_Item.Type.Normal]);
 			item.EL_disassemble(_itemIndex);
 
 			local result = {

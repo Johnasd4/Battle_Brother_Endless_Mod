@@ -311,7 +311,7 @@ local gt = getroottable();
 			{
 				//this.logInfo("固定减伤" + this.m.EL_DamageBodyRegularReduction+this.m.EL_DamageBodyArmorReduction);
 				this.m.EL_RankLevel = this.Math.min(this.m.EL_RankLevel + _EL_rankLevel, this.EL_getRankLevelMax());
-				this.m.EL_Level = this.Math.min(this.Const.EL_Item.MaxLevel, EL_level);
+				this.m.EL_Level = this.Math.min(EL_getLevelMax(), EL_level);
 				EL_recordBaseNoRankProperties();
 				this.Const.EL_Armor.EL_updateRankLevelProperties(this);
 				//this.logInfo("计算等阶后固定减伤" + this.m.EL_DamageBodyRegularReduction+this.m.EL_DamageBodyArmorReduction);
@@ -343,7 +343,7 @@ local gt = getroottable();
 
         o.EL_upgradeLevel <- function()
         {
-			if(this.m.EL_Level < this.Const.EL_Item.MaxLevel)
+			if(this.m.EL_Level < EL_getLevelMax())
 			{
 				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
 				this.m.IsBought = false;
@@ -451,7 +451,7 @@ local gt = getroottable();
 		o.EL_getUpgradeLevelEquipmentEssenceNum <- function()
 		{
 			local result = [0, 0, 0, 0, 0];
-			if(this.m.EL_Level < this.Const.EL_Item.MaxLevel)
+			if(this.m.EL_Level < EL_getLevelMax())
 			{
 				local min_calculate_weight = this.Const.EL_Armor.EL_EquipmentEssence.MinCalculateWeight;
 				local calculate_weight = this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier));
@@ -495,7 +495,8 @@ local gt = getroottable();
 			local min_calculate_weight = this.Const.EL_Armor.EL_EquipmentEssence.MinCalculateWeight;
 			local calculate_weight = this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier));
 			calculate_weight = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10.0, 2) * 10 : this.Math.pow(calculate_weight / 10.0, 0.5) * 10;
-			result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Armor.EL_EquipmentEssence.RankFactor, this.Math.min(this.m.EL_RankLevel, this.Const.EL_Item.Type.Epic)) * this.Const.EL_Armor.EL_EquipmentEssence.DisassembleFactor
+			local extra_mult = this.World.Flags.get("EL_HasUpgradeItemAmbitionRule") ? 0.2 : 0.0;
+			result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Armor.EL_EquipmentEssence.RankFactor, this.Math.min(this.m.EL_RankLevel, this.Const.EL_Item.Type.Epic)) * (this.Const.EL_Armor.EL_EquipmentEssence.DisassembleFactor + extra_mult)
 													* this.Math.abs(calculate_weight * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
 			if(this.m.EL_RankLevel == this.Const.EL_Item.Type.Legendary)
 			{
@@ -841,7 +842,7 @@ local gt = getroottable();
 			if(this.m.EL_Level == -1)
 			{
 				this.m.EL_RankLevel = this.Math.min(this.m.EL_RankLevel + _EL_rankLevel, this.EL_getRankLevelMax());
-				this.m.EL_Level = this.Math.min(this.Const.EL_Item.MaxLevel, EL_level);
+				this.m.EL_Level = this.Math.min(EL_getLevelMax(), EL_level);
 				EL_recordBaseNoRankProperties();
 				this.Const.EL_Armor.EL_updateRankLevelProperties(this);
 				this.Const.EL_Armor.EL_assignItemEntrys(this, this.Const.EL_Armor.EL_Entry.EntryNum.NormalArmor[this.m.EL_RankLevel]);
@@ -1496,7 +1497,7 @@ local gt = getroottable();
 			if(this.m.EL_Level == -1)
 			{
 				this.m.EL_RankLevel = this.Math.min(this.m.EL_RankLevel + _EL_rankLevel, this.EL_getRankLevelMax());
-				this.m.EL_Level = this.Math.min(this.Const.EL_Item.MaxLevel, EL_level);
+				this.m.EL_Level = this.Math.min(EL_getLevelMax(), EL_level);
 				EL_recordBaseNoRankProperties();
 				this.Const.EL_Armor.EL_updateRankLevelProperties(this);
 				this.Const.EL_Armor.EL_assignItemEntrys(this, this.Const.EL_Armor.EL_Entry.EntryNum.NormalArmor[this.m.EL_RankLevel]);
@@ -1523,7 +1524,7 @@ local gt = getroottable();
 
         o.EL_upgradeLevel <- function()
         {
-			if(this.m.EL_Level < this.Const.EL_Item.MaxLevel)
+			if(this.m.EL_Level < EL_getLevelMax())
 			{
 				this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
 				this.m.IsBought = false;
@@ -1649,7 +1650,7 @@ local gt = getroottable();
 		o.EL_getUpgradeLevelEquipmentEssenceNum <- function()
 		{
 			local result = [0, 0, 0, 0, 0];
-			if(this.m.EL_Level < this.Const.EL_Item.MaxLevel)
+			if(this.m.EL_Level < EL_getLevelMax())
 			{
 				local min_calculate_weight = this.Const.EL_Armor.EL_EquipmentEssence.MinCalculateWeight;
 				local calculate_weight = this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier));
@@ -1693,7 +1694,8 @@ local gt = getroottable();
 			local min_calculate_weight = this.Const.EL_Armor.EL_EquipmentEssence.MinCalculateWeight;
 			local calculate_weight = this.Math.abs(this.Math.min(min_calculate_weight, this.m.EL_BaseNoRankStaminaModifier));
 			calculate_weight = calculate_weight > 10 ? this.Math.pow(calculate_weight / 10.0, 2) * 10 : this.Math.pow(calculate_weight / 10.0, 0.5) * 10;
-			result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Armor.EL_EquipmentEssence.RankFactor, this.Math.min(this.m.EL_RankLevel, this.Const.EL_Item.Type.Epic)) * this.Const.EL_Armor.EL_EquipmentEssence.DisassembleFactor
+			local extra_mult = this.World.Flags.get("EL_HasUpgradeItemAmbitionRule") ? 0.2 : 0.0;
+			result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Armor.EL_EquipmentEssence.RankFactor, this.Math.min(this.m.EL_RankLevel, this.Const.EL_Item.Type.Epic)) * (this.Const.EL_Armor.EL_EquipmentEssence.DisassembleFactor + extra_mult)
 													* this.Math.abs(calculate_weight * (1 + this.Const.EL_Armor.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
 			if(this.m.EL_RankLevel == this.Const.EL_Item.Type.Legendary)
 			{

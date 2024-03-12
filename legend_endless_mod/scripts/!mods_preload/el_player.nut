@@ -35,6 +35,16 @@ local gt = getroottable();
 			local wageMult = this.m.CurrentProperties.DailyWageMult * (this.World.State != null ? this.World.Assets.m.DailyWageMult * follow_mult : 1.0) - (this.World.State != null ? this.World.State.getPlayer().getWageModifier() : 0.0);
 			return this.Math.max(0, this.m.CurrentProperties.DailyWage * wageMult);
 		}
+
+		local onCombatStart = o.onCombatStart;
+		o.onCombatStart = function ()
+		{
+			if(this.World.Flags.get("EL_HasWinArenaFightsAmbitionRule"))
+			{
+				this.setMoraleState(this.Const.MoraleState.Confident);
+			}
+			onCombatStart();
+		}
 	});
 
 	::mods_hookExactClass("ui/screens/world/modules/world_town_screen/town_hire_dialog_module", function( o )
@@ -337,8 +347,15 @@ local gt = getroottable();
 			{
 				for( local i = 0; i < this.Const.Attributes.COUNT; ++i )
 				{
-					this.m.Attributes[i].insert(0, this.Math.rand(this.Const.EL_Player.EL_LevelUpAttributes[i].Min[this.m.Talents[i]],
+					if(this.World.Flags.get("EL_HasTalentAmbitionRule"))
+					{
+						this.m.Attributes[i].insert(0, this.Const.EL_Player.EL_LevelUpAttributes[i].Max[this.m.Talents[i]]);
+					}
+					else
+					{
+						this.m.Attributes[i].insert(0, this.Math.rand(this.Const.EL_Player.EL_LevelUpAttributes[i].Min[this.m.Talents[i]],
 																  this.Const.EL_Player.EL_LevelUpAttributes[i].Max[this.m.Talents[i]]));
+					}
 
 					// this.logInfo("1 this.m.Attributes[" + i + "][0] = " + this.m.Attributes[i][0]);
 					// this.logInfo("1 this.m.Attributes[" + i + "][0] min = " + this.Const.EL_Player.EL_LevelUpAttributes[i].Min[this.m.Talents[i]]);
@@ -1440,6 +1457,22 @@ local gt = getroottable();
 			}
 		}
 
+		local onTurnStart = o.onTurnStart;
+		o.onTurnStart = function()
+		{
+			if(this.World.Flags.get("EL_HasCartAmbitionRule"))
+			{
+				local items = this.getItems().getAllItems();
+				foreach(item in items)
+				{
+					if(item != null && item.isItemType(this.Const.Items.ItemType.Ammo))
+					{
+						item.m.Ammo = this.Math.min(item.m.Ammo + 1, item.m.AmmoMax);
+					}
+				}
+			}
+			onTurnStart();
+		}
 	});
 
 

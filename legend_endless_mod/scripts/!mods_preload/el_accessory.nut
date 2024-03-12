@@ -194,7 +194,7 @@ local gt = getroottable();
 				if(this.m.EL_Level == -1)
 				{
 					this.m.EL_RankLevel = this.Math.min(this.m.EL_RankLevel + _EL_rankLevel, this.EL_getRankLevelMax());
-					this.m.EL_Level = this.Math.min(this.Const.EL_Item.MaxLevel, EL_level);
+					this.m.EL_Level = this.Math.min(EL_getLevelMax(), EL_level);
 					EL_recordBaseNoRankProperties();
 					this.Const.EL_Accessory.EL_assignItemRarityEntry(this, EL_additionalRarityChance);
 					this.Const.EL_Accessory.EL_updateRankLevelProperties(this);
@@ -225,7 +225,7 @@ local gt = getroottable();
 
 			o.EL_upgradeLevel <- function()
 			{
-				if(this.m.EL_Level < this.Const.EL_Item.MaxLevel)
+				if(this.m.EL_Level < EL_getLevelMax())
 				{
 					this.Sound.play("sounds/ambience/buildings/blacksmith_hammering_0" + this.Math.rand(0, 6) + ".wav", 1.0);
 					this.m.IsBought = false;
@@ -370,7 +370,7 @@ local gt = getroottable();
 			o.EL_getUpgradeLevelEquipmentEssenceNum <- function()
 			{
 				local result = [0, 0, 0, 0, 0];
-				if(this.m.EL_Level < this.Const.EL_Item.MaxLevel)
+				if(this.m.EL_Level < EL_getLevelMax())
 				{
 					local min_calculate_weight = this.Const.EL_Accessory.EL_EquipmentEssence.MinCalculateWeight;
 					result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Accessory.EL_EquipmentEssence.RankFactor, this.Math.min(this.m.EL_RankLevel, this.Const.EL_Item.Type.Epic)) * this.Const.EL_Accessory.EL_EquipmentEssence.UpgradeLevelFactor 
@@ -411,8 +411,10 @@ local gt = getroottable();
 			o.EL_getDisassembleEquipmentEssenceNum <- function()
 			{
 				local result = [0, 0, 0, 0, 0];
+				local extra_mult = this.World.Flags.get("EL_HasUpgradeItemAmbitionRule") ? 0.2 : 0.0;
 				local min_calculate_weight = this.Const.EL_Accessory.EL_EquipmentEssence.MinCalculateWeight;
-				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Accessory.EL_EquipmentEssence.RankFactor, this.Math.min(this.m.EL_RankLevel, this.Const.EL_Item.Type.Epic)) * this.Const.EL_Accessory.EL_EquipmentEssence.DisassembleFactor
+				result[this.Const.EL_Item.Type.Normal] += this.Math.floor(this.Math.pow(this.Const.EL_Accessory.EL_EquipmentEssence.RankFactor, this.Math.min(this.m.EL_RankLevel, this.Const.EL_Item.Type.Epic)) 
+														* (this.Const.EL_Accessory.EL_EquipmentEssence.DisassembleFactor + extra_mult)
 														* this.Math.abs(min_calculate_weight * (1 + this.Const.EL_Accessory.EL_LevelFactor.StaminaModifier * this.m.EL_Level)));
 				if(this.m.EL_RankLevel == this.Const.EL_Item.Type.Legendary)
 				{

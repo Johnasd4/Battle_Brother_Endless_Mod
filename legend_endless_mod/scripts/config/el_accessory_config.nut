@@ -59,7 +59,17 @@ gt.Const.EL_Accessory <- {
 		"accessory/sergeant_badge_item",
 		"accessory/undead_trophy_item",
 		"el_accessory/el_arena_champion_item",
+		"el_accessory/el_cart_ambition_item",
 		"el_accessory/el_core_item",
+		"el_accessory/el_taelia_present_item",
+		"el_accessory/el_taelia_present_item",
+		"el_accessory/el_taelia_present_item",
+		"el_accessory/el_taelia_present_item",
+		"el_accessory/el_taelia_present_item",
+		"el_accessory/el_taelia_present_item",
+		"el_accessory/el_taelia_present_item",
+		"el_accessory/el_have_crowns_ambition_item",
+		"el_accessory/el_have_renown_ambition_item",
 		"el_accessory/el_taelia_present_item"
 	],
 	EL_NormalAccessoryList = [
