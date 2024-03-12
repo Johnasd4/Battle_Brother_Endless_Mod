@@ -171,7 +171,22 @@ local gt = getroottable();
         {
             return;
         }
+    });
 
+    ::mods_hookExactClass("ambitions/ambitions/named_item_ambition", function(o)
+    {
+        o.onUpdateScore = function ()
+        {
+            return;
+        }
+    });
+
+    ::mods_hookExactClass("ambitions/ambitions/named_item_set_ambition", function(o)
+    {
+        o.onUpdateScore = function ()
+        {
+            return;
+        }
     });
 
     ::mods_hookExactClass("ambitions/ambitions/trade_ambition", function(o)
