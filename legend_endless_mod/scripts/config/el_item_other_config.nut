@@ -78,6 +78,16 @@ gt.Const.EL_Item_Other <- {
 		"shields/legendary/gilders_embrace_shield"
 		"tools/player_banner",
 		"el_accessory/el_arena_champion_item",
+		"el_accessory/el_cart_ambition_item",
+		"el_accessory/el_taelia_present_item",
+		"el_accessory/el_taelia_present_item",
+		"el_accessory/el_taelia_present_item",
+		"el_accessory/el_taelia_present_item",
+		"el_accessory/el_taelia_present_item",
+		"el_accessory/el_taelia_present_item",
+		"el_accessory/el_taelia_present_item",
+		"el_accessory/el_have_crowns_ambition_item",
+		"el_accessory/el_have_renown_ambition_item",
 		"el_accessory/el_taelia_present_item",
 		"el_helmet/el_crown_of_rule",
 		"el_helmet/el_arena_champion_helmet",
@@ -156,15 +166,16 @@ gt.Const.EL_Item_Other <- {
 		{
 			if(_item.EL_getLevel() == -1)
 			{
-				local EL_worldLevel = this.Math.min(this.World.Assets.m.EL_WorldLevel, this.Const.EL_Item.MaxLevel);
+				local EL_worldLevel = this.Math.min(this.World.Assets.m.EL_WorldLevel, EL_getLevelMax());
 				local level = this.Math.rand(this.Math.max(0 ,EL_worldLevel - this.Const.EL_Item_Other.MinLevelInEventAndCraft), EL_worldLevel - this.Const.EL_Item_Other.MaxLevelInEventAndCraft);
 				local random = this.Math.rand(1, 100000);
+				local extra_mult = this.World.Flags.get("EL_HasNamedItemAmbitionRule") ? 1.5 : 1.0;
 
-				if(random <= this.Const.EL_Shop.EL_ItemRankUpTwiceChance.EL_getChance(EL_worldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor())
+				if(random <= this.Const.EL_Shop.EL_ItemRankUpTwiceChance.EL_getChance(EL_worldLevel) * this.World.Assets.EL_getHalfWorldDifficultFactor() * extra_mult)
 				{
 					_item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Fine, level);
 				}
-				else if(random <= (this.Const.EL_Shop.EL_ItemRankUpTwiceChance.EL_getChance(EL_worldLevel) + this.Const.EL_Shop.EL_ItemRankUpOnceChance.EL_getChance(EL_worldLevel)) * this.World.Assets.EL_getHalfWorldDifficultFactor())
+				else if(random <= (this.Const.EL_Shop.EL_ItemRankUpTwiceChance.EL_getChance(EL_worldLevel) + this.Const.EL_Shop.EL_ItemRankUpOnceChance.EL_getChance(EL_worldLevel)) * this.World.Assets.EL_getHalfWorldDifficultFactor() * extra_mult)
 				{
 					_item.EL_generateByRankAndLevel(this.Const.EL_Item.Type.Premium, level);
 				}
