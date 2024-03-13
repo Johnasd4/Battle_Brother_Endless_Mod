@@ -10,7 +10,7 @@ this.el_upgrade_item_ambition_0 <- this.inherit("scripts/ambitions/ambition", {
 		this.m.ButtonText = "战场局势多变，提升你的装备能大大增强战队的实力。";
 		this.m.UIText = "强化你的装备, 消耗精华";
 		this.m.TooltipText = "通过强化装备共计消耗" + this.m.EL_AmountNeed + "精华。";
-		this.m.SuccessText = "[img]gfx/ui/events/event_55.png[/img]The thought bore down on you from the start, and it is one that escapes many a mercenary captain. A thought so simple that perhaps its very simplicity camouflages it from a sword wielding leader\'s ego. If the %companyname% is to be traveling from city to city looking for sellsword work, it may as already have one foot in another vocation altogether: that of upgrade_item. You picked up on it quick, realizing that goods carry a different sort of currency than which appears at face, a value hidden from the eye, and hidden in the ripples of time and location themselves. Now you spend evenings struggling to tabulate the crowns. For once, it\'s a good problem to have.";
+		this.m.SuccessText = "[img]gfx/ui/events/event_82.png[/img]你成功取得了阶段性成果，战队的装备更强大了，每个兄弟脸上都洋溢着自信，他们确信在你的领导下将战无不胜！";
 		this.m.SuccessButtonText = "That\'s the bottom line.";
 	}
 

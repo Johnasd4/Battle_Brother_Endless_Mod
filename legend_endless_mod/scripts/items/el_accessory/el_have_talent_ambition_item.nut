@@ -83,7 +83,7 @@ this.el_have_talent_ambition_item <- this.inherit("scripts/items/accessory/acces
 		_properties.MeleeSkill += this.EL_getBonus();
 		_properties.RangedSkill += this.EL_getBonus();
 		_properties.MeleeDefense += this.EL_getBonus();
-		_properties.RangedeDefense += this.EL_getBonus();
+		_properties.RangedDefense += this.EL_getBonus();
 	}
 
 	function onAddedToStash( _stashID )

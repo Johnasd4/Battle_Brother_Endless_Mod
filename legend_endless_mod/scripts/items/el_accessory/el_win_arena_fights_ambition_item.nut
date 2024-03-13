@@ -79,7 +79,7 @@ this.el_win_arena_fights_ambition_item <- this.inherit("scripts/items/accessory/
 		_properties.MeleeSkill += this.EL_getBonus();
 		_properties.RangedSkill += this.EL_getBonus();
 		_properties.MeleeDefense += this.EL_getBonus();
-		_properties.RangedeDefense += this.EL_getBonus();
+		_properties.RangedDefense += this.EL_getBonus();
 	}
 
 	function onAddedToStash( _stashID )
@@ -100,8 +100,7 @@ this.el_win_arena_fights_ambition_item <- this.inherit("scripts/items/accessory/
 
 	function EL_getBonus()
 	{
-		local actor = this.getContainer().getActor();
-        local win_account = actor != null ? actor.getFlags().getAsInt("ArenaFightsWon") : 0;
+        local win_account = this.World.Statistics.getFlags().getAsInt("ArenaFightsWon");
         local need_factor = 1;
         local need_account = need_factor;
         local bonus = 0;

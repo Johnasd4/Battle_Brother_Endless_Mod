@@ -10,7 +10,7 @@ this.el_disassemble_item_ambition_1 <- this.inherit("scripts/ambitions/ambition"
 		this.m.ButtonText = "强化装备需要大量的精华，仅靠战场掉落的蚊子腿太少了，让我们去武器店或盔甲店将不用的装备分解，获取更多精华！。";
 		this.m.UIText = "分解你的装备, 获取精华";
 		this.m.TooltipText = "依靠分解装备共计获取" + this.m.EL_AmountNeed + "精华。";
-		this.m.SuccessText = "[img]gfx/ui/events/event_55.png[/img]The thought bore down on you from the start, and it is one that escapes many a mercenary captain. A thought so simple that perhaps its very simplicity camouflages it from a sword wielding leader\'s ego. If the %companyname% is to be traveling from city to city looking for sellsword work, it may as already have one foot in another vocation altogether: that of disassemble_item. You picked up on it quick, realizing that goods carry a different sort of currency than which appears at face, a value hidden from the eye, and hidden in the ripples of time and location themselves. Now you spend evenings struggling to tabulate the crowns. For once, it\'s a good problem to have.";
+		this.m.SuccessText = "[img]gfx/ui/events/event_13.png[/img]一件又一件的装备伴随着捶打化作粉末，但他们的残留物被你们精心保管了起来。一开始很多人不解你的判断，这些粉尘能有什么用？但你知道，他们才是保证你们不被时代所抛弃的关键。";
 		this.m.SuccessButtonText = "That\'s the bottom line.";
 	}
 

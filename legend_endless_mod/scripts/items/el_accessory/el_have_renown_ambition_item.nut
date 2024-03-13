@@ -57,7 +57,7 @@ this.el_have_renown_ambition_item <- this.inherit("scripts/items/accessory/acces
 			id = 10,
 			type = "text",
 			icon = "ui/icons/asset_business_reputation.png",
-			text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Legendary] + "]每10天触发一次随机入队事件（最低）。[/color]"
+			text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Legendary] + "]每10天触发一次随机入队事件（最低为精英）。[/color]"
 		});
 		result.push({
 			id = 10,

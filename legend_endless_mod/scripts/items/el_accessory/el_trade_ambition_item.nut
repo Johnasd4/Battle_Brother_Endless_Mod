@@ -4,7 +4,7 @@ this.el_trade_ambition_item <- this.inherit("scripts/items/accessory/accessory",
 	{
 		this.accessory.create();
 		this.m.ID = "el_accessory.trade_ambition";
-		this.m.Name = "规则碎片：奇珍";
+		this.m.Name = "规则碎片：交易";
 		this.m.Description = "";
 		this.m.SlotType = this.Const.ItemSlot.Accessory;
 		this.m.IsDroppedAsLoot = false;
