@@ -62,7 +62,6 @@ this.el_armor_ambition_0 <- this.inherit("scripts/ambitions/ambition", {
 				}
 			}
 		}
-
 		return ret;
 	}
 
