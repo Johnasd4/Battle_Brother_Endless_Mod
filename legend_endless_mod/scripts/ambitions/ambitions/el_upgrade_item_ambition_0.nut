@@ -27,7 +27,7 @@ this.el_upgrade_item_ambition_0 <- this.inherit("scripts/ambitions/ambition", {
 
 	function onCheckSuccess()
 	{
-		if (this.World.Statistics.getFlags().getAsInt("UpgradeGreyEssenceConsume") >= this.m.AmountNeed)
+		if (this.World.Statistics.getFlags().getAsInt("UpgradeGreyEssenceConsume") >= this.m.EL_AmountNeed)
 		{
 			return true;
 		}

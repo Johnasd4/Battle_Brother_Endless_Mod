@@ -114,7 +114,11 @@ local gt = getroottable();
 			local item = bro.m.Items.getItemByInstanceID(_data[1]);
 			if(item.EL_canUpgradeLevelInBagOrStash())
 			{
-				local limited_level = EL_getLevelMax();
+				local limited_level = this.Const.EL_Item.MaxLevel;
+				if(this.World.Flags.get("EL_HasUpgradeItemAmbitionRule"))
+				{
+					limited_level += 10;
+				}
 				if(!item.isItemType(this.Const.Items.ItemType.Accessory))
 				{
 					local accessory = bro.getItems().getItemAtSlot(this.Const.ItemSlot.Accessory);
@@ -423,7 +427,11 @@ local gt = getroottable();
 						recraft_index_pool.push(rank);
 					}
 				}
-				local limited_level = EL_getLevelMax();
+				local limited_level = this.Const.EL_Item.MaxLevel;
+				if(this.World.Flags.get("EL_HasUpgradeItemAmbitionRule"))
+				{
+					limited_level += 10;
+				}
 				local limited_rank = this.Const.EL_Item.Type.Legendary;
 				if(!_item.isItemType(this.Const.Items.ItemType.Accessory))
 				{
