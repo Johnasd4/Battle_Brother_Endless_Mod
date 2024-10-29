@@ -17,7 +17,6 @@ local gt = getroottable();
 
 
 	::mods_hookExactClass("entity/tactical/actor", function(o){
-
 		o.m.EL_RankLevel <- 0;
 
 		local onSerialize = o.onSerialize;
@@ -1018,6 +1017,7 @@ local gt = getroottable();
 				// 	this.Tactical.getShaker().shake(this, _attacker.getTile(), this.m.IsShakingOnHit ? 2 : 3, this.Const.Combat.ShakeEffectHitpointsHitColor, this.Const.Combat.ShakeEffectHitpointsHitHighlight, this.Const.Combat.ShakeEffectHitpointsHitFactor, this.Const.Combat.ShakeEffectHitpointsSaturation, layers, recoverMult);
 				// }
 			}
+			
 
 			return damage;
 		}
@@ -1372,6 +1372,11 @@ local gt = getroottable();
 		o.EL_reset <- function() {}
 
 		o.EL_isRaritySkill <- function()
+		{
+			return false;
+		}
+
+		o.EL_isPursuitSkill <- function()
 		{
 			return false;
 		}
@@ -1967,7 +1972,6 @@ local gt = getroottable();
 
 					this.onScheduledTargetHit(info);
 				}
-
 				return true;
 			}
 			else
@@ -2065,7 +2069,7 @@ local gt = getroottable();
 						}
 					}
 				}
-
+				
 				return false;
 			}
 		}

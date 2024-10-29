@@ -389,40 +389,6 @@ local gt = getroottable();
 			return this.m.Name + " - Lv" + this.Math.min(this.m.EL_NPCLevel, this.Const.EL_NPC.EL_Troop.MaxCalculateLevel) + "(" + ((this.Math.round(this.EL_getCombatLevel() * 10) * 0.1)) + ")";
 		}
 
-        local onMovementStart = o.onMovementStart;
-        o.onMovementStart = function ( _tile, _numTiles )
-        {
-            this.logInfo("111111111");
-            this.World.Assets.m.EL_IsUnitMoving = true;
-            if(this.World.Assets.EL_IsInDeadActorList(this))
-            {
-                return;
-            }
-            onMovementStart(_tile, _numTiles);
-        }
-
-        local onMovementFinish = o.onMovementFinish;
-        o.onMovementFinish = function ( _tile )
-        {
-            this.logInfo("222222222");
-            this.World.Assets.m.EL_IsUnitMoving = false;
-            onMovementFinish(_tile);
-        }
-
-        local onTurnEnd = o.onTurnEnd;
-        o.onTurnEnd = function ()
-        {
-            this.logInfo("333333333");
-            onTurnEnd();
-            for(local i = 0; i < this.World.Assets.m.EL_WaitToEnterDeadList.len(); ++i)
-            {
-                //this.logInfo("add into waitdeadlist ");
-                this.World.Assets.m.EL_WaitToEnterDeadList[i].actor.kill(this.World.Assets.m.EL_WaitToEnterDeadList[i].killer, this.World.Assets.m.EL_WaitToEnterDeadList[i].skill, this.World.Assets.m.EL_WaitToEnterDeadList[i].fatalityType, this.World.Assets.m.EL_WaitToEnterDeadList[i].silent)
-            }
-            this.World.Assets.m.EL_WaitToEnterDeadList.clear();
-			this.World.Assets.EL_ClearDeadActorList();
-        }
-
         local kill = o.kill;
         o.kill = function( _killer = null, _skill = null, _fatalityType = this.Const.FatalityType.None, _silent = false )
         {
@@ -437,22 +403,8 @@ local gt = getroottable();
                 this.logInfo("EL_CurrentAttackedActor die");
 			    this.World.Assets.m.EL_CurrentAttackedActorIsAlive = false;
             }
-            if(this.World.Assets.m.EL_IsUnitMoving)
-            {
-                this.World.Assets.EL_addToWaitToEnterDeadList(this, _killer, _skill, _fatalityType, _silent);
-                return;
-            }
             this.World.Assets.EL_removeByPursuitList(this);
             
-            if(this.getSkills().getSkillByID("el_racial.check_thief").isInTurn())
-            {
-                this.logInfo("die inThisTurn");
-                this.World.Assets.EL_addToWaitToEnterDeadList(this, _killer, _skill, _fatalityType, _silent);
-                this.setActionPoints(0);
-                this.setFatigue(actor.getFatigueMax());
-                return;
-            }
-            this.logInfo("add into deadlist ");
             if(_killer != null && (_killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals)) {
 				this.World.Statistics.getFlags().set("EL_IfPlayerPartyKilled", true);
             }
@@ -471,6 +423,7 @@ local gt = getroottable();
                 }
                 local items = this.getItems();
                 local accessory = items == null ? null : items.getItemAtSlot(this.Const.ItemSlot.Accessory);
+                this.logInfo("address 1");
                 if(accessory != null && accessory.getID() == "el_accessory.core") {
                     local core = this.new("scripts/items/el_misc/el_core_rank_" + accessory.EL_getRankLevel() + "_item");
                     core.EL_generateCoreXPByActorXP(this.Math.floor(this.getXP()));
@@ -527,6 +480,7 @@ local gt = getroottable();
                 }
             }
 
+                this.logInfo("address 2");
             if (!this.Tactical.State.isScenarioMode() && _killer != null && _killer.isPlayerControlled() && _skill != null && _skill.getID() == "actives.deathblow")
             {
                 this.updateAchievement("Assassin", 1, 1);
@@ -562,8 +516,10 @@ local gt = getroottable();
 
             if (_killer != null && !_killer.isHiddenToPlayer() && !this.isHiddenToPlayer())
             {
+                this.logInfo("address 3");
                 if (isReallyDead)
                 {
+                this.logInfo("address 3.5");
                     if (_killer.getID() != this.getID())
                     {
                         this.Tactical.EventLog.logEx(this.Const.UI.getColorizedEntityName(_killer) + " has killed " + this.Const.UI.getColorizedEntityName(this));
@@ -591,6 +547,8 @@ local gt = getroottable();
                 {
                     foreach( a in i )
                     {
+                        
+                this.logInfo("address 5");
                         if (a.getID() != this.getID() && a.isPlacedOnMap())
                         {
                             a.onOtherActorDeath(_killer, this, _skill);
@@ -648,6 +606,7 @@ local gt = getroottable();
 
                 if (this.Tactical.State.getStrategicProperties() != null && this.Tactical.State.getStrategicProperties().IsArenaMode)
                 {
+                this.logInfo("address 6");
                     if (_killer == null || _killer.getID() == this.getID())
                     {
                         this.Sound.play(this.Const.Sound.ArenaFlee[this.Math.rand(0, this.Const.Sound.ArenaFlee.len() - 1)], this.Const.Sound.Volume.Tactical * this.Const.Sound.Volume.Arena);
@@ -705,6 +664,7 @@ local gt = getroottable();
                     {
                         if (bro.isAlive() && !bro.isDying() && bro.getCurrentProperties().IsAffectedByDyingAllies)
                         {
+                this.logInfo("address 7");
                             if (this.World.Assets.getOrigin().getID() != "scenario.manhunters" || this.getBackground().getID() != "background.slave" || bro.getBackground().getID() == "background.slave")
                             {
                                 bro.worsenMood(this.Const.MoodChange.BrotherDied, this.getName() + " died in battle");
@@ -724,6 +684,7 @@ local gt = getroottable();
                 }
             }
 
+                this.logInfo("address 8");
             if (!this.Tactical.State.isScenarioMode() && _killer != null && _killer.getFaction() == this.Const.Faction.PlayerAnimals && _skill != null && _skill.getID() == "actives.wardog_bite")
             {
                 this.updateAchievement("WhoLetTheDogsOut", 1, 1);
@@ -732,20 +693,13 @@ local gt = getroottable();
             this.onAfterDeath(myTile);
             if(isReallyDead)
             {
-                //this.die();
-                if (this.isPlayerControlled())
-                {
-                    this.World.Assets.EL_addToDeadActorList(this);
-                }
-                this.removeFromMap();
+                this.die();
             }
             else
             {
                 this.removeFromMap();
             }
-
         }
-
 	});
 
 	::mods_hookClass("entity/world/world_entity", function(o) {
@@ -1674,6 +1628,7 @@ local gt = getroottable();
                         }
                         else
                         {
+                this.logInfo("address 9");
                             this.logInfo("Script Error: item id:" + item.getID());
                         }
                     }
