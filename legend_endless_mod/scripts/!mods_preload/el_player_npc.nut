@@ -17,7 +17,6 @@ local gt = getroottable();
 
 
 	::mods_hookExactClass("entity/tactical/actor", function(o){
-
 		o.m.EL_RankLevel <- 0;
 
 		local onSerialize = o.onSerialize;
@@ -1018,6 +1017,7 @@ local gt = getroottable();
 				// 	this.Tactical.getShaker().shake(this, _attacker.getTile(), this.m.IsShakingOnHit ? 2 : 3, this.Const.Combat.ShakeEffectHitpointsHitColor, this.Const.Combat.ShakeEffectHitpointsHitHighlight, this.Const.Combat.ShakeEffectHitpointsHitFactor, this.Const.Combat.ShakeEffectHitpointsSaturation, layers, recoverMult);
 				// }
 			}
+			
 
 			return damage;
 		}
@@ -1376,6 +1376,11 @@ local gt = getroottable();
 			return false;
 		}
 
+		o.EL_isPursuitSkill <- function()
+		{
+			return false;
+		}
+
         o.EL_onOtherSkillUesd <- function ( _skill, _targetEntity ) {}
 
 		o.onScheduledTargetHit = function( _info )
@@ -1715,10 +1720,6 @@ local gt = getroottable();
 				return false;
 			}
 			
-			this.World.Assets.m.EL_CurrentAttackActor = _user;
-			this.World.Assets.m.EL_CurrentAttackedActor = _targetEntity;
-			this.World.Assets.m.EL_CurrentAttackActorIsAlive = true;
-			this.World.Assets.m.EL_CurrentAttackedActorIsAlive = true;
 
 			local properties = this.m.Container.buildPropertiesForUse(this, _targetEntity);
 			local userTile = _user.getTile();
@@ -1971,7 +1972,6 @@ local gt = getroottable();
 
 					this.onScheduledTargetHit(info);
 				}
-
 				return true;
 			}
 			else
@@ -2069,7 +2069,7 @@ local gt = getroottable();
 						}
 					}
 				}
-
+				
 				return false;
 			}
 		}

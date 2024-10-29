@@ -210,7 +210,6 @@ local gt = getroottable();
         o.m.EL_EquipmentEssenceDrop <- [0, 0, 0, 0, 0];
         o.m.EL_IsNonHumanoid <- false;
 
-
 		local onSerialize = o.onSerialize;
 		o.onSerialize = function ( _out )
 		{
@@ -275,6 +274,7 @@ local gt = getroottable();
 			this.getSkills().add(this.new("scripts/skills/el_entrys/el_total_entry"));
             this.getSkills().add(this.new("scripts/skills/el_effects/el_lichking_halo_effect"));
             this.getSkills().add(this.new("scripts/skills/el_effects/el_pursuit_effect"));
+            this.getSkills().add(this.new("scripts/skills/el_racials/el_check_racial"));
 			local flags = this.getFlags();
 			if (flags.has("undead") && !flags.has("ghost") && !flags.has("ghoul") && !flags.has("vampire"))
 			{
@@ -297,6 +297,7 @@ local gt = getroottable();
 			this.m.Skills.add(this.new("scripts/skills/el_entrys/el_total_entry"));
             this.getSkills().add(this.new("scripts/skills/el_effects/el_lichking_halo_effect"));
             this.getSkills().add(this.new("scripts/skills/el_effects/el_pursuit_effect"));
+            this.getSkills().add(this.new("scripts/skills/el_racials/el_check_racial"));
 			return;
 		}
 
@@ -391,15 +392,19 @@ local gt = getroottable();
         local kill = o.kill;
         o.kill = function( _killer = null, _skill = null, _fatalityType = this.Const.FatalityType.None, _silent = false )
         {
+            this.logInfo("function kill start");
             if(this.World.Assets.m.EL_CurrentAttackActor == this)
             {
+                this.logInfo("EL_CurrentAttackActor die");
 			    this.World.Assets.m.EL_CurrentAttackActorIsAlive = false;
             }
-            else if (this.World.Assets.m.EL_CurrentAttackActorIsAlive == this)
+            else if (this.World.Assets.m.EL_CurrentAttackedActor == this)
             {
+                this.logInfo("EL_CurrentAttackedActor die");
 			    this.World.Assets.m.EL_CurrentAttackedActorIsAlive = false;
             }
             this.World.Assets.EL_removeByPursuitList(this);
+            
             if(_killer != null && (_killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals)) {
 				this.World.Statistics.getFlags().set("EL_IfPlayerPartyKilled", true);
             }
@@ -418,6 +423,7 @@ local gt = getroottable();
                 }
                 local items = this.getItems();
                 local accessory = items == null ? null : items.getItemAtSlot(this.Const.ItemSlot.Accessory);
+                this.logInfo("address 1");
                 if(accessory != null && accessory.getID() == "el_accessory.core") {
                     local core = this.new("scripts/items/el_misc/el_core_rank_" + accessory.EL_getRankLevel() + "_item");
                     core.EL_generateCoreXPByActorXP(this.Math.floor(this.getXP()));
@@ -474,6 +480,7 @@ local gt = getroottable();
                 }
             }
 
+                this.logInfo("address 2");
             if (!this.Tactical.State.isScenarioMode() && _killer != null && _killer.isPlayerControlled() && _skill != null && _skill.getID() == "actives.deathblow")
             {
                 this.updateAchievement("Assassin", 1, 1);
@@ -509,8 +516,10 @@ local gt = getroottable();
 
             if (_killer != null && !_killer.isHiddenToPlayer() && !this.isHiddenToPlayer())
             {
+                this.logInfo("address 3");
                 if (isReallyDead)
                 {
+                this.logInfo("address 3.5");
                     if (_killer.getID() != this.getID())
                     {
                         this.Tactical.EventLog.logEx(this.Const.UI.getColorizedEntityName(_killer) + " has killed " + this.Const.UI.getColorizedEntityName(this));
@@ -538,6 +547,8 @@ local gt = getroottable();
                 {
                     foreach( a in i )
                     {
+                        
+                this.logInfo("address 5");
                         if (a.getID() != this.getID() && a.isPlacedOnMap())
                         {
                             a.onOtherActorDeath(_killer, this, _skill);
@@ -595,6 +606,7 @@ local gt = getroottable();
 
                 if (this.Tactical.State.getStrategicProperties() != null && this.Tactical.State.getStrategicProperties().IsArenaMode)
                 {
+                this.logInfo("address 6");
                     if (_killer == null || _killer.getID() == this.getID())
                     {
                         this.Sound.play(this.Const.Sound.ArenaFlee[this.Math.rand(0, this.Const.Sound.ArenaFlee.len() - 1)], this.Const.Sound.Volume.Tactical * this.Const.Sound.Volume.Arena);
@@ -652,6 +664,7 @@ local gt = getroottable();
                     {
                         if (bro.isAlive() && !bro.isDying() && bro.getCurrentProperties().IsAffectedByDyingAllies)
                         {
+                this.logInfo("address 7");
                             if (this.World.Assets.getOrigin().getID() != "scenario.manhunters" || this.getBackground().getID() != "background.slave" || bro.getBackground().getID() == "background.slave")
                             {
                                 bro.worsenMood(this.Const.MoodChange.BrotherDied, this.getName() + " died in battle");
@@ -671,24 +684,22 @@ local gt = getroottable();
                 }
             }
 
+                this.logInfo("address 8");
             if (!this.Tactical.State.isScenarioMode() && _killer != null && _killer.getFaction() == this.Const.Faction.PlayerAnimals && _skill != null && _skill.getID() == "actives.wardog_bite")
             {
                 this.updateAchievement("WhoLetTheDogsOut", 1, 1);
             }
 
             this.onAfterDeath(myTile);
-
             if(isReallyDead)
             {
-                this.die()
+                this.die();
             }
             else
             {
                 this.removeFromMap();
             }
-
         }
-
 	});
 
 	::mods_hookClass("entity/world/world_entity", function(o) {
@@ -1617,6 +1628,7 @@ local gt = getroottable();
                         }
                         else
                         {
+                this.logInfo("address 9");
                             this.logInfo("Script Error: item id:" + item.getID());
                         }
                     }

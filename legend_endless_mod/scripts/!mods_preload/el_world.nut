@@ -23,7 +23,6 @@ local gt = getroottable();
 		o.m.EL_ArenaMaxLevel <- 0;
 
 		o.m.EL_PursuitList <- [];
-		o.m.EL_IsInitPursuitList <- false;
 
 		o.m.EL_DropParty <- null;
 
@@ -138,7 +137,6 @@ local gt = getroottable();
 			this.m.EL_EquipmentEssence[_rank] = _num;
 		}
 
-
 		o.EL_addSoulEnergy <- function( _num, _isKill = true )
 		{
 			local soul_energy_max = 100;
@@ -224,7 +222,6 @@ local gt = getroottable();
 				}
 			}
 		}
-
 		o.EL_UpdateWorldMinDifficulty <- function() {
 			local min_index = this.Const.EL_World.EL_WorldChangeEvent.DifficultyMinOption[this.World.Assets.getCombatDifficulty()] + this.Math.floor(this.World.Flags.get("EL_LegendaryItemMaxNum") / 3);
 			if(min_index >= this.Const.EL_World.EL_WorldChangeEvent.OptionNum) {
@@ -583,6 +580,13 @@ local gt = getroottable();
 				this.setPause(true);
 			}
 		}
+
+		local getLocalCombatProperties = o.getLocalCombatProperties;
+		o.getLocalCombatProperties = function ( _pos, _ignoreNoEnemies = false )
+		{
+            this.World.Assets.m.EL_PursuitList.clear();
+			return getLocalCombatProperties(_pos, _ignoreNoEnemies);
+		}
 	});
 
 
@@ -591,8 +595,7 @@ local gt = getroottable();
 		local onBattleEnded = o.onBattleEnded;
 		o.onBattleEnded = function ()
 		{
-            this.World.Assets.m.EL_PursuitList = [];
-			this.World.Assets.m.EL_IsInitPursuitList = false;
+            this.World.Assets.m.EL_PursuitList.clear();
 			onBattleEnded();
 		}
 
