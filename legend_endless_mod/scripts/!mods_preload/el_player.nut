@@ -552,6 +552,7 @@ local gt = getroottable();
 				return;
 			}
 
+			_xp *= this.Const.EL_GlobalFactor.EL_PlayerAttributes.XPGainMult;
 			_xp *= this.Const.EL_Player.EL_Champion.XPMult[this.m.EL_RankLevel];
 
 			if (_scale)

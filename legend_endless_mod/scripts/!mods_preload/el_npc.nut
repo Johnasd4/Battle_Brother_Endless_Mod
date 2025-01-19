@@ -332,6 +332,7 @@ local gt = getroottable();
             this.m.XP *= this.Const.EL_NPC.EL_Champion.XP.Mult[this.m.EL_RankLevel];
 
             this.m.XP *= this.Math.pow(this.Const.EL_NPC.EL_LevelUp.XPFactor, this.Math.min(level_ups, this.Const.EL_World.EL_WorldLevel.BaseStableLevel));
+            this.m.XP *= this.Const.EL_GlobalFactor.EL_NPCAttributes.XPMult;
             this.m.XP = this.Math.floor(this.m.XP * this.World.Assets.EL_getHalfWorldDifficultFactor());
             this.getSkills().add(this.new("scripts/skills/el_racials/el_npc_ballance_racial"));
         }
@@ -404,7 +405,7 @@ local gt = getroottable();
 			    this.World.Assets.m.EL_CurrentAttackedActorIsAlive = false;
             }
             this.World.Assets.EL_removeByPursuitList(this);
-            
+
             if(_killer != null && (_killer.getFaction() == this.Const.Faction.Player || _killer.getFaction() == this.Const.Faction.PlayerAnimals)) {
 				this.World.Statistics.getFlags().set("EL_IfPlayerPartyKilled", true);
             }
@@ -547,7 +548,7 @@ local gt = getroottable();
                 {
                     foreach( a in i )
                     {
-                        
+
                 this.logInfo("address 5");
                         if (a.getID() != this.getID() && a.isPlacedOnMap())
                         {

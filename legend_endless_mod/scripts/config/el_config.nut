@@ -7,6 +7,8 @@ if (!("EL_Config" in gt.Const))
 
 gt.Const.EL_Config <- {
 
+    EL_Version = 30000,
+
     EL_Attributes = {
         Hitpoints = 0,
         Bravery = 1,

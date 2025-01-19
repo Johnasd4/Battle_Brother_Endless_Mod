@@ -6,6 +6,8 @@ local gt = getroottable();
 
 	::mods_hookNewObjectOnce("states/world/asset_manager", function ( o )
 	{
+		o.m.EL_PreVersion <- 0;
+
 		o.m.EL_BaseWorldLevel <- this.Const.EL_World.EL_WorldLevel.Min;
 		o.m.EL_WorldLevel <- this.Const.EL_World.EL_WorldLevel.Min;
 		o.m.EL_WorldLevelOffset <- 0;
@@ -26,10 +28,14 @@ local gt = getroottable();
 
 		o.m.EL_DropParty <- null;
 
+		o.m.EL_GlobalFactor <- null;
+
 		o.m.EL_CurrentAttackActor <- null;
 		o.m.EL_CurrentAttackedActor <- null;
 		o.m.EL_CurrentAttackActorIsAlive <- false;
 		o.m.EL_CurrentAttackedActorIsAlive <- false;
+
+
 
 
 		o.getSellPriceMult = function ()
@@ -69,6 +75,7 @@ local gt = getroottable();
 		local onSerialize = o.onSerialize;
 		o.onSerialize = function ( _out )
 		{
+			_out.writeI32(gt.Const.EL_Config.EL_Version);
 			onSerialize(_out);
 			_out.writeI32(this.m.EL_BaseWorldLevel);
 			_out.writeI32(this.m.EL_WorldLevel);
@@ -87,11 +94,13 @@ local gt = getroottable();
 			for(local i = 0; i < this.m.EL_EquipmentEssence.len(); ++i) {
                 _out.writeI32(this.m.EL_EquipmentEssence[i]);
             }
+			this.Const.EL_GlobalFactor.onSerialize(_out);
 		}
 
 		local onDeserialize = o.onDeserialize;
 		o.onDeserialize = function ( _in )
 		{
+			this.m.EL_PreVersion = _in.readI32();
 			onDeserialize(_in);
 			this.m.EL_BaseWorldLevel = _in.readI32();
 			this.m.EL_WorldLevel = _in.readI32();
@@ -110,6 +119,7 @@ local gt = getroottable();
                 this.m.EL_EquipmentEssence[i] = _in.readI32();
             }
 			this.m.Money = this.Math.floor(this.m.Money);
+			this.Const.EL_GlobalFactor.onDeserialize(_in);
 		}
 
 		o.EL_getWorldDifficultFactor <- function()

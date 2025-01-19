@@ -13,6 +13,35 @@ this.el_npc_ballance_racial <- this.inherit("scripts/skills/skill", {
 		this.m.IsHidden = true;
 	}
 
+	function onUpdateGlobalFactor( _properties )
+	{
+		local base_properties = this.getContainer().getActor().getBaseProperties();
+		_properties.Hitpoints += this.Math.floor(this.Const.EL_GlobalFactor.EL_NPCAttributes.HitpointsMult * base_properties.Hitpoints);
+        _properties.Bravery += this.Const.EL_GlobalFactor.EL_NPCAttributes.Bravery;
+        _properties.Stamina += this.Const.EL_GlobalFactor.EL_NPCAttributes.Fatigue;
+        _properties.Initiative += this.Const.EL_GlobalFactor.EL_NPCAttributes.Initiative;
+        _properties.MeleeSkill += this.Const.EL_GlobalFactor.EL_NPCAttributes.MeleeSkill;
+        _properties.RangedSkill += this.Const.EL_GlobalFactor.EL_NPCAttributes.RangedSkill;
+		_properties.MeleeDefense += this.Const.EL_GlobalFactor.EL_NPCAttributes.MeleeDefense;
+		_properties.RangedDefense += this.Const.EL_GlobalFactor.EL_NPCAttributes.RangedDefense;
+		_properties.InitiativeForTurnOrderAdditional += this.Const.EL_GlobalFactor.EL_NPCAttributes.InitiativeForTurnOrderAdditional;
+		_properties.Vision += this.Const.EL_GlobalFactor.EL_NPCAttributes.Vision;
+		_properties.MovementAPCostAdditional += this.Const.EL_GlobalFactor.EL_NPCAttributes.MovementAPCostAdditional;
+		_properties.MovementFatigueCostAdditional += this.Const.EL_GlobalFactor.EL_NPCAttributes.MovementFatigueCostAdditional;
+		_properties.DamageReceivedArmorMult *= this.Const.EL_GlobalFactor.EL_NPCAttributes.DamageReceivedArmorMult;
+		_properties.DamageReceivedDirectMult *= this.Const.EL_GlobalFactor.EL_NPCAttributes.DamageReceivedDirectMult;
+		_properties.DamageReceivedRangedMult *= this.Const.EL_GlobalFactor.EL_NPCAttributes.DamageReceivedRangedMult;
+		_properties.DamageReceivedMeleeMult *= this.Const.EL_GlobalFactor.EL_NPCAttributes.DamageReceivedMeleeMult;
+		_properties.DamageReceivedTotalMult *= this.Const.EL_GlobalFactor.EL_NPCAttributes.DamageReceivedTotalMult;
+		_properties.MeleeDamageMult *= this.Const.EL_GlobalFactor.EL_NPCAttributes.MeleeDamageMult;
+		_properties.RangedDamageMult *= this.Const.EL_GlobalFactor.EL_NPCAttributes.RangedDamageMult;
+		_properties.DamageArmorMult *= this.Const.EL_GlobalFactor.EL_NPCAttributes.DamageArmorMult;
+		_properties.DamageDirectMult *= this.Const.EL_GlobalFactor.EL_NPCAttributes.DamageDirectMult;
+		_properties.DamageTotalMult *= this.Const.EL_GlobalFactor.EL_NPCAttributes.DamageTotalMult;
+		_properties.BodyArmorMult *= this.Const.EL_GlobalFactor.EL_NPCAttributes.BodyArmorMult;
+		_properties.HeadArmorMult *= this.Const.EL_GlobalFactor.EL_NPCAttributes.HeadArmorMult;
+	}
+
 	function onUpdate( _properties )
 	{
         local actor = this.getContainer().getActor();
@@ -66,6 +95,9 @@ this.el_npc_ballance_racial <- this.inherit("scripts/skills/skill", {
             _properties.DamageReceivedTotalMult /= (this.Const.EL_NPC.EL_DifficultBallance.DamageReceivedTotalDiv) * difficulty_mult;
             _properties.DamageTotalMult *= (this.Const.EL_NPC.EL_DifficultBallance.DamageTotalMult) * half_difficulty_mult;
         }
+
+		this.onUpdateGlobalFactor(_properties);
+
 	}
 
 
