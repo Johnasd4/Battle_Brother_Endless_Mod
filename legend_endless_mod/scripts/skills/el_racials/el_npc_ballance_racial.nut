@@ -38,8 +38,8 @@ this.el_npc_ballance_racial <- this.inherit("scripts/skills/skill", {
 		_properties.DamageArmorMult *= this.Const.EL_GlobalFactor.EL_NPCAttributes.DamageArmorMult;
 		_properties.DamageDirectMult *= this.Const.EL_GlobalFactor.EL_NPCAttributes.DamageDirectMult;
 		_properties.DamageTotalMult *= this.Const.EL_GlobalFactor.EL_NPCAttributes.DamageTotalMult;
-		_properties.BodyArmorMult *= this.Const.EL_GlobalFactor.EL_NPCAttributes.BodyArmorMult;
-		_properties.HeadArmorMult *= this.Const.EL_GlobalFactor.EL_NPCAttributes.HeadArmorMult;
+		_properties.ArmorMult[0] *= this.Const.EL_GlobalFactor.EL_NPCAttributes.BodyArmorMult;
+		_properties.ArmorMult[1] *= this.Const.EL_GlobalFactor.EL_NPCAttributes.HeadArmorMult;
 	}
 
 	function onUpdate( _properties )

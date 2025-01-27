@@ -38,8 +38,8 @@ this.el_player_ballance_racial <- this.inherit("scripts/skills/skill", {
 		_properties.DamageArmorMult *= this.Const.EL_GlobalFactor.EL_PlayerAttributes.DamageArmorMult;
 		_properties.DamageDirectMult *= this.Const.EL_GlobalFactor.EL_PlayerAttributes.DamageDirectMult;
 		_properties.DamageTotalMult *= this.Const.EL_GlobalFactor.EL_PlayerAttributes.DamageTotalMult;
-		_properties.BodyArmorMult *= this.Const.EL_GlobalFactor.EL_PlayerAttributes.BodyArmorMult;
-		_properties.HeadArmorMult *= this.Const.EL_GlobalFactor.EL_PlayerAttributes.HeadArmorMult;
+		_properties.ArmorMult[0] *= this.Const.EL_GlobalFactor.EL_PlayerAttributes.BodyArmorMult;
+		_properties.ArmorMult[1] *= this.Const.EL_GlobalFactor.EL_PlayerAttributes.HeadArmorMult;
 	}
 
 	function onUpdate( _properties )

@@ -253,13 +253,20 @@ local gt = getroottable();
 				local ranged_skill = this.getCurrentProperties().getRangedSkill();
 				local melee_defense = this.getCurrentProperties().getMeleeDefense();
 				local ranged_defense = this.getCurrentProperties().getRangedDefense();
+				local damage_total_mult = this.Math.round(this.getCurrentProperties().DamageTotalMult * 10000) * 0.01;
+				local damage_received_total_mult = this.Math.round(this.getCurrentProperties().DamageReceivedTotalMult * 10000) * 0.01;
 				tooltip.push({
 					id = 99,
 					type = "text",
 					icon = this.Const.EL_NPC.EL_Champion.Icon[this.m.EL_RankLevel],
-					text = "Atk: " + melee_skill + " " + ranged_skill + " Def: " + melee_defense + " " + ranged_defense
+					text = " 攻: " + melee_skill + " " + ranged_skill + " 防: " + melee_defense + " " + ranged_defense
 				});
-
+				tooltip.push({
+					id = 99,
+					type = "text",
+					icon = this.Const.EL_NPC.EL_Champion.Icon[this.m.EL_RankLevel],
+					text = "伤害: " + damage_total_mult + "% 承伤: " + damage_received_total_mult + "%"
+				});
 				local raicial_skills = this.getSkills().query(this.Const.SkillType.Racial, false, true);
 				foreach( skill in raicial_skills )
 				{
@@ -1017,7 +1024,7 @@ local gt = getroottable();
 				// 	this.Tactical.getShaker().shake(this, _attacker.getTile(), this.m.IsShakingOnHit ? 2 : 3, this.Const.Combat.ShakeEffectHitpointsHitColor, this.Const.Combat.ShakeEffectHitpointsHitHighlight, this.Const.Combat.ShakeEffectHitpointsHitFactor, this.Const.Combat.ShakeEffectHitpointsSaturation, layers, recoverMult);
 				// }
 			}
-			
+
 
 			return damage;
 		}
@@ -1719,7 +1726,7 @@ local gt = getroottable();
 			{
 				return false;
 			}
-			
+
 
 			local properties = this.m.Container.buildPropertiesForUse(this, _targetEntity);
 			local userTile = _user.getTile();
@@ -2069,7 +2076,7 @@ local gt = getroottable();
 						}
 					}
 				}
-				
+
 				return false;
 			}
 		}

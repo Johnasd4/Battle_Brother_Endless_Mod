@@ -5,7 +5,7 @@ this.el_world_arena_event <- this.inherit("scripts/events/event", {
         this.logInfo("Creating tournament event");
         this.m.ID = "event.location.el_world_arena";
         this.m.Title = "世界竞技场";
-        this.m.Cooldown = 100;
+        this.m.Cooldown = 0;
         this.m.IsSpecial = true;
 
         local fight_screen = {

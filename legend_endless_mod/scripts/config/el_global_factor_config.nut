@@ -121,7 +121,6 @@ gt.Const.EL_GlobalFactor <- {
 	function onDeserialize( _in )
 	{
         //EL_PlayerAttributes
-        this.World.Assets.m.EL_GlobalFactor = clone gt.Const.EL_GlobalFactor;
 		this.World.Assets.m.EL_GlobalFactor.EL_PlayerAttributes.HitpointsMult *= _in.readF32();
 		this.World.Assets.m.EL_GlobalFactor.EL_PlayerAttributes.Bravery += _in.readI32();
 		this.World.Assets.m.EL_GlobalFactor.EL_PlayerAttributes.Fatigue += _in.readI32();
@@ -148,7 +147,6 @@ gt.Const.EL_GlobalFactor <- {
         this.World.Assets.m.EL_GlobalFactor.EL_PlayerAttributes.BodyArmorMult *= _in.readF32();
         this.World.Assets.m.EL_GlobalFactor.EL_PlayerAttributes.HeadArmorMult *= _in.readF32();
         //EL_NPCAttributes
-        this.World.Assets.m.EL_GlobalFactor = clone gt.Const.EL_GlobalFactor;
 		this.World.Assets.m.EL_GlobalFactor.EL_NPCAttributes.HitpointsMult *= _in.readF32();
 		this.World.Assets.m.EL_GlobalFactor.EL_NPCAttributes.Bravery += _in.readI32();
 		this.World.Assets.m.EL_GlobalFactor.EL_NPCAttributes.Fatigue += _in.readI32();
