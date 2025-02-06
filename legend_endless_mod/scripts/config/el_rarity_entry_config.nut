@@ -315,6 +315,10 @@ gt.Const.EL_Rarity_Entry <- {
 			DamageMultPurEffect = 0.15,
 			DebuffNum = 2
 		},
+		EL_Unbreakable = {
+			DamageReceivedCiv = 3.33,
+			DamageRecover = 0.5
+		}, 
 		EL_VehemenceOfTheSky = {
 			ConvertArmorIntoDamagePercent = 0.2,
 			ShieldDamageMult = 0.4

@@ -1,10 +1,8 @@
 this.el_unbreakable_entry <- this.inherit("scripts/skills/skill", {
 	m = {
-		EL_Attacker = null,
-		EL_AttackSkill = null,
-		EL_MaxTotalDamage = 0.0,
-		EL_IsReceiveDamage = false,
-		EL_MaxDamageHitInfo = {}
+		EL_PreviousTurnHitpoint = 0,
+		EL_PreviousTurnBodyConditon = 0,
+		EL_PreviousTurnHeadConditon = 0
 	},
 	function create()
 	{
@@ -16,7 +14,6 @@ this.el_unbreakable_entry <- this.inherit("scripts/skills/skill", {
 		//this.m.IconMini = "el_master_feat_entry_mini";
 		this.m.Overlay = "el_unbreakable_entry";
 		this.m.Type = this.Const.SkillType.StatusEffect;
-		this.m.EL_MaxDamageHitInfo = clone this.Const.Tactical.HitInfo;
 	}
 
 	function getTooltip()
@@ -42,9 +39,24 @@ this.el_unbreakable_entry <- this.inherit("scripts/skills/skill", {
 				id = 4,
                 type = "text",
                 icon = "ui/icons/special.png",
-				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]每回合仅受一次伤害，取本回合所受所有伤害的最大值[/color]"
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]血量、头盔、盔甲每损失3.3%，提升自身1%减伤率[/color]"
+			},
+			{
+				id = 5,
+                type = "text",
+                icon = "ui/icons/special.png",
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]回合开始时，恢复上回合受到伤害的50%[/color]"
 			}
         ]
+		if (EL_getDamageReceivedMult(this.getContainer().getActor().getCurrentProperties()) != 1)
+		{
+            result.push({
+				id = 8,
+                type = "text",
+                icon = "ui/icons/special.png",
+				text = "[color=" + this.Const.EL_Item.Colour[this.Const.EL_Item.Type.Special] + "]当前效果: 仅受到 " + EL_getDamageReceivedMult(this.getContainer().getActor().getCurrentProperties()) * 100 + "%的伤害[/color]"
+			});
+        }
 		if (!EL_isUsable())
 		{
             result.push({
@@ -57,41 +69,14 @@ this.el_unbreakable_entry <- this.inherit("scripts/skills/skill", {
 		return result;
 	}
 
-    function onBeforeDamageReceived( _attacker, _skill, _hitInfo, _properties )
-    {
-		if (EL_isUsable())
-        {
-			local armor = 0;
-			local armorDamage = 0;
-			if (_hitInfo.DamageDirect < 1.0)
-			{
-				armor = _properties.Armor[_hitInfo.BodyPart] * _properties.ArmorMult[_hitInfo.BodyPart];
-				armorDamage = this.Math.min(armor, _hitInfo.DamageArmor);
-			}
-			local damage = this.Math.maxf(0.0, _hitInfo.DamageRegular * _hitInfo.DamageDirect * _properties.DamageReceivedDirectMult - armor * this.Const.Combat.ArmorDirectDamageMitigationMult);
-			if (armor <= 0 || _hitInfo.DamageDirect >= 1.0)
-			{
-				damage = damage + this.Math.max(0, _hitInfo.DamageRegular * this.Math.maxf(0.0, 1.0 - _hitInfo.DamageDirect * _properties.DamageReceivedDirectMult) - armorDamage);
-			}
-			damage = damage * _hitInfo.BodyDamageMult;
-			damage = this.Math.max(0, this.Math.max(this.Math.round(damage), this.Math.min(this.Math.round(_hitInfo.DamageMinimum), this.Math.round(_hitInfo.DamageMinimum * _properties.DamageReceivedTotalMult))));
-		
-			if(!this.m.EL_IsReceiveDamage)
-			{
-				if(damage + armorDamage > this.m.EL_MaxTotalDamage)
-				{
-					this.m.EL_MaxDamageHitInfo = clone _hitInfo;
-					//this.logInfo("copy_hitInfo.s DamageArmor:" + this.m.EL_MaxDamageHitInfo.DamageArmor);
-					//this.logInfo("copy_hitInfo.s DamageRegular:" + this.m.EL_MaxDamageHitInfo.DamageRegular);
-					this.m.EL_Attacker = _attacker;
-					this.m.EL_AttackSkill = _skill;
-					//this.logInfo("this.m.EL_Attacker" + this.m.EL_Attacker.getName());
-					this.m.EL_MaxTotalDamage = damage + armorDamage;
-				}
-				this.logInfo("this.m.EL_MaxTotalDamage:"+this.m.EL_MaxTotalDamage);
-            	_properties.DamageReceivedTotalMult = 0;
-			}
-        }
+	function onCombatStarted()
+	{
+		local user = this.getContainer().getActor();	
+		local armor = user.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
+		local head = user.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
+		this.m.EL_PreviousTurnHitpoint = user.getHitpoints();
+		this.m.EL_PreviousTurnBodyConditon = armor == null ? 0 : armor.getCondition();
+		this.m.EL_PreviousTurnHeadConditon = head == null ? 0 : head.getCondition();
 	}
 
 	function onTurnStart()
@@ -99,24 +84,40 @@ this.el_unbreakable_entry <- this.inherit("scripts/skills/skill", {
 		if (EL_isUsable())
 		{
 			this.m.Container.add(this.new("scripts/skills/effects/indomitable_effect"));
-			this.m.EL_IsReceiveDamage = true;
-			if(this.m.EL_Attacker != null)
+			local user = this.getContainer().getActor();	
+			user.setHitpoints(this.Math.min(user.getHitpointsMax(), user.getHitpoints() + this.Math.floor((this.m.EL_PreviousTurnHitpoint - user.getHitpoints()) * this.Const.EL_Rarity_Entry.Factor.EL_Unbreakable.DamageRecover)));
+			local armor = user.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
+			local head = user.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
+			if(armor != null)
 			{
-				//this.logInfo("HitInfo.s DamageArmor:" + this.m.EL_MaxDamageHitInfo.DamageArmor);
-				//this.logInfo("HitInfo.s DamageRegular:" + this.m.EL_MaxDamageHitInfo.DamageRegular);
-                this.getContainer().getActor().onDamageReceived(this.m.EL_Attacker, this.m.EL_AttackSkill, this.m.EL_MaxDamageHitInfo);
+				armor.setCondition(this.Math.min(armor.getConditionMax(), armor.getCondition() + this.Math.floor((this.m.EL_PreviousTurnBodyConditon - armor.getCondition()) * this.Const.EL_Rarity_Entry.Factor.EL_Unbreakable.DamageRecover)));
 			}
-			this.m.EL_IsReceiveDamage = false;
-			this.m.EL_Attacker = null;
-			this.m.EL_AttackSkill = null;
-			this.m.EL_MaxTotalDamage = 0.0;
-			this.m.EL_MaxDamageHitInfo = clone this.Const.Tactical.HitInfo;
+			if(head != null)
+			{
+				head.setCondition(this.Math.min(head.getConditionMax(), head.getCondition() + this.Math.floor((this.m.EL_PreviousTurnheadConditon - head.getCondition()) * this.Const.EL_Rarity_Entry.Factor.EL_Unbreakable.DamageRecover)));
+			}
+			this.m.EL_PreviousTurnHitpoint = user.getHitpoints();
+			this.m.EL_PreviousTurnBodyConditon = armor == null ? 0 : armor.getCondition();
+			this.m.EL_PreviousTurnHeadConditon = head == null ? 0 : head.getCondition();
 		}
 	}
 
-	function onCombatStarted()
+	function EL_getDamageReceivedMult( _properties )
 	{
-		this.m.EL_Attacker = null;
+		local actor = this.getContainer().getActor();
+        local armor = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Body);
+        local head = actor.getItems().getItemAtSlot(this.Const.ItemSlot.Head);
+		local stack_hitpoints = this.Math.floor((100 - actor.getHitpoints() / actor.getHitpointsMax() * 100) / this.Const.EL_Rarity_Entry.Factor.EL_Unbreakable.DamageReceivedCiv) / 100;
+		local stack_body = (armor == null) ? 0 : this.Math.floor((100 - _properties.Armor[this.Const.BodyPart.Body] * _properties.ArmorMult[this.Const.BodyPart.Body] / 
+																	    _properties.ArmorMax[this.Const.BodyPart.Body] * _properties.ArmorMult[this.Const.BodyPart.Body] * 100) / this.Const.EL_Rarity_Entry.Factor.EL_Unbreakable.DamageReceivedCiv) / 100;
+		local stack_head = (head == null) ? 0 : this.Math.floor((100 - _properties.Armor[this.Const.BodyPart.Head] * _properties.ArmorMult[this.Const.BodyPart.Head] / 
+																	   _properties.ArmorMax[this.Const.BodyPart.Head] * _properties.ArmorMult[this.Const.BodyPart.Head] * 100) / this.Const.EL_Rarity_Entry.Factor.EL_Unbreakable.DamageReceivedCiv) / 100;								
+		return (1 - stack_hitpoints - stack_body - stack_head);
+	}
+
+	function onUpdate( _properties )
+	{
+		_properties.DamageReceivedTotalMult *= EL_getDamageReceivedMult(_properties);
 	}
 	
 	function isHidden()
