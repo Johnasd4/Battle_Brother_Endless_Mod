@@ -28,7 +28,7 @@ local gt = getroottable();
 
 		o.m.EL_DropParty <- null;
 
-		o.m.EL_GlobalFactor <- clone this.Const.EL_GlobalFactor;
+		o.m.EL_GlobalFactor <- this.Const.EL_GlobalFactor.getClone();
 
 		o.m.EL_CurrentAttackActor <- null;
 		o.m.EL_CurrentAttackedActor <- null;

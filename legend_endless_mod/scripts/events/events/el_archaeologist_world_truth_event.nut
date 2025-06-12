@@ -38,6 +38,8 @@ this.el_archaeologist_world_truth_event <- this.inherit("scripts/events/event", 
             local text = "真相" + (i + 1) + "：";
             local good_index = -1;
             local bad_index = -1;
+            local option_good_factor = 0;
+            local option_bad_factor = 0;
             if (good_factor > 0)
             {
                 while(true) {
@@ -47,7 +49,8 @@ this.el_archaeologist_world_truth_event <- this.inherit("scripts/events/event", 
                         break;
                     }
                 }
-                text = text + options[good_index].GetTooltip(good_factor * options[good_index].Base);
+                option_good_factor = good_factor * options[good_index].Base;
+                text = text + options[good_index].GetTooltip(option_good_factor);
             }
             if (bad_factor < 0)
             {
@@ -61,14 +64,15 @@ this.el_archaeologist_world_truth_event <- this.inherit("scripts/events/event", 
                 if(good_index >= 0) {
                     text = text + "，"
                 }
-                text = text + options[bad_index].GetTooltip(bad_factor * options[bad_index].Base);
+                option_bad_factor = bad_factor * options[bad_index].Base;
+                text = text + options[bad_index].GetTooltip(option_bad_factor);
             }
             this.m.EL_Option.push({
                 GoodIndex = good_index,
-                GoodFactor = good_factor * options[this.Math.max(0, good_index)].Base,
+                GoodFactor = option_good_factor,
                 GoodFunction = options[this.Math.max(0, good_index)].ChangeWorldFactor,
                 BadIndex = bad_index,
-                BadFactor = bad_factor * options[this.Math.max(0, bad_index)].Base,
+                BadFactor = option_bad_factor,
                 BadFunction = options[this.Math.max(0, bad_index)].ChangeWorldFactor,
                 Text = text
             });
@@ -78,10 +82,10 @@ this.el_archaeologist_world_truth_event <- this.inherit("scripts/events/event", 
             function getResult( _event )
             {
                 local options = this.Const.EL_Archaeologist.WorldFactorChangeOption;
-                if(_event.m.EL_Option[0].GoodIndex > 0) {
+                if(_event.m.EL_Option[0].GoodIndex >= 0) {
                     _event.m.EL_Option[0].GoodFunction(_event.m.EL_Option[0].GoodFactor);
                 }
-                if(_event.m.EL_Option[0].BadIndex > 0) {
+                if(_event.m.EL_Option[0].BadIndex >= 0) {
                     _event.m.EL_Option[0].BadFunction(_event.m.EL_Option[0].BadFactor);
                 }
                 return 0;
@@ -92,10 +96,10 @@ this.el_archaeologist_world_truth_event <- this.inherit("scripts/events/event", 
             function getResult( _event )
             {
                 local options = this.Const.EL_Archaeologist.WorldFactorChangeOption;
-                if(_event.m.EL_Option[1].GoodIndex > 0) {
+                if(_event.m.EL_Option[1].GoodIndex >= 0) {
                     _event.m.EL_Option[1].GoodFunction(_event.m.EL_Option[1].GoodFactor);
                 }
-                if(_event.m.EL_Option[1].BadIndex > 0) {
+                if(_event.m.EL_Option[1].BadIndex >= 0) {
                     _event.m.EL_Option[1].BadFunction(_event.m.EL_Option[1].BadFactor);
                 }
                 return 0;
@@ -106,10 +110,10 @@ this.el_archaeologist_world_truth_event <- this.inherit("scripts/events/event", 
             function getResult( _event )
             {
                 local options = this.Const.EL_Archaeologist.WorldFactorChangeOption;
-                if(_event.m.EL_Option[2].GoodIndex > 0) {
+                if(_event.m.EL_Option[2].GoodIndex >= 0) {
                     _event.m.EL_Option[2].GoodFunction(_event.m.EL_Option[2].GoodFactor);
                 }
-                if(_event.m.EL_Option[2].BadIndex > 0) {
+                if(_event.m.EL_Option[2].BadIndex >= 0) {
                     _event.m.EL_Option[2].BadFunction(_event.m.EL_Option[2].BadFactor);
                 }
                 return 0;
@@ -120,10 +124,10 @@ this.el_archaeologist_world_truth_event <- this.inherit("scripts/events/event", 
             function getResult( _event )
             {
                 local options = this.Const.EL_Archaeologist.WorldFactorChangeOption;
-                if(_event.m.EL_Option[3].GoodIndex > 0) {
+                if(_event.m.EL_Option[3].GoodIndex >= 0) {
                     _event.m.EL_Option[3].GoodFunction(_event.m.EL_Option[3].GoodFactor);
                 }
-                if(_event.m.EL_Option[3].BadIndex > 0) {
+                if(_event.m.EL_Option[3].BadIndex >= 0) {
                     _event.m.EL_Option[3].BadFunction(_event.m.EL_Option[3].BadFactor);
                 }
                 return 0;
