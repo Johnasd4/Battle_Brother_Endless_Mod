@@ -1,4 +1,4 @@
-# ZEngine
+# Battle Brother Endless Mod（无尽mod）
 See [LICENSE](./LICENSE) for license information.
 
 制作者：椿湫，虚空的寂影
@@ -9,6 +9,6 @@ QQ群号：893723827
 Creator: 椿湫 (Chun Qiu), 虚空的寂影 (Void's Solitude)
 Contact: 1152325286@qq.com
 Welcome to join the testing group and be the first to access the latest versions of the Endless Mod.
-QQ Group Number: 893723827
+QQ Group Number: 476385845
 
 Github:https://github.com/Johnasd4/Battle_Brother_Endless_Mod
